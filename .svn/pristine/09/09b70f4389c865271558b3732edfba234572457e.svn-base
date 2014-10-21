@@ -1,0 +1,1705 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="Keywords" content="" />
+    <meta name="Description" content="" />
+    <title>139邮箱</title>
+    <link rel="stylesheet" href="../css/common/global.css" type="text/css"/>
+	<link rel="stylesheet" href="../css/common/frame.css" type="text/css"/>
+    <link rel="stylesheet" href="../css/skin/skin_claritPurple.css" type="text/css" id="cssfile" /> 
+	 <!-- <link rel="stylesheet" href="../css/common/txz.css" type="text/css"/> -->
+	 <!-- <link rel="stylesheet" type="text/css" href="https://www.cmpassport.com/css/txz.css" media="all" /> -->
+
+    <script src="../js/jquery.js"></script>
+    <style type="text/css">
+    <!--
+    .logoinfo .infoSelon .skinul{width: 557px;padding-bottom: 0;margin-bottom: 0;
+-webkit-border-radius: 3px;
+-moz-border-radius: 3px;
+border-radius: 3px;
+-webkit-border-top-left-radius: 0px;
+-moz-border-top-left-radius: 0px;
+border-left-top-radius: 0px;}
+.logoinfo .infoSelon .skinul li{float:left;margin:12px 6px 0 14px;_display:inline;width:89px;height:54px;}
+.logoinfo .infoSelon .skinul li a{float:left;position:relative;padding-left: 0;}
+.logoinfo .infoSelon .skinul li a:hover{text-decoration:none;}
+.logoinfo .infoSelon .skinul li span{position:absolute;height:18px;width:100%;text-align:center;bottom:0;left:0;display:block;color:#999;background-color:#000;line-height:18px;
+filter:alpha(opacity=70);
+-moz-opacity:0.7;
+-webkit-opacity:0.7;
+opacity:0.7;}
+.skinul li a:hover span{color:#FFF;}
+.skinul li a.on span{color:#FFF;}
+.skinul .skinPopBtn{text-align:right;border-top: 1px solid ;padding: 5px 10px 5px 0;margin-top: 8px;}
+.skinul .skinPopBtn a span {margin-right: 0;}
+.btnSure span{color:#fff;}
+
+   
+    -->
+    </style>
+
+</head>
+<body class="bodycolor">
+	<div class="headerTopMenu clearfix">
+		<a href="#" class="mailLogo_new"></a>
+		<ul class="newMenu">
+			<li class="on"><a href="#" class="clearfix newMenu_home"><i class="i_homeNew"></i>首页</a></li>
+			<li><a href="#">邮件</a></li>
+			<li><a href="#">通讯录</a></li>
+			<li><a href="#">日历</a></li>
+			<li><a href="#">彩云网盘</a></li>
+			<li><a href="#">云邮局</a></li>
+		</ul>
+		<span class="newMenuMore_no">|</span>
+		<div class="newMenuMore focus">
+			<span class="newMenuMore_line"><a href="#" class="i-newMenuMore"></a></span>
+			<div class="boxIframe hide" style="right:0; top:30px; width:274px;">
+				<div class="boxIframeMain">
+					<div class="boxIframeText">
+						<div class="norTips clearfix">
+							<label>登录后默认进入的页签：</label>
+							<div id="view28_endTime" class="dropDown" style="width:90px;">
+								<a name="view28_endTimePop" href="javascript:void(0);" class="dropDownA">
+									<i name="view28_endTimePop" class="i_triangle_d"></i>
+								</a>
+								<div id="view28_endTime_input" class="dropDownText">邮件</div>
+							</div>
+						</div>
+					</div>
+					<div class="boxIframeBtn">
+						<span class="bibText"></span>
+						<span class="bibBtn">
+							<a href="javascript:void(0)" class="btnSure mr_5">
+								<span>确 定</span>
+							</a>
+							<a href="javascript:void(0)" class="btnNormal">
+								<span>取 消</span>
+							</a>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<ul class="newLogoInfo">
+			<li class="newLogoInfo_li">
+				<a href="#" class="newLogoInfo_a">互联网通行证</a>
+				<div id="umcpassportplugin" style="position: absolute; right:0; top: 30px; z-index: 70;" class="">
+					<div class="mailNormal passportTip hide" style="width:338px;">
+						<ul>
+							<li><a href="javascript:void(0)" class="txr" cmd="toaccount">进入通行证</a><em class="tipName">互联网通行证：<em class="c_009900">168030888</em></em></li>
+							<li><a href="javascript:void(0)" class="txr" cmd="modphone">换号</a><span>手机号码：13641718874</span></li>
+							<li><a href="javascript:void(0)" class="txr" cmd="bindemail">修改</a><span title="通过此邮箱可登录通行证或者找回密码">邮箱地址：example@sina.com</span></li>
+							<li><a href="javascript:void(0)" class="txr" cmd="toaccount">更多</a><span>帐号管理：<a href="javascript:void(0)" cmd="modpwd">修改密码</a><em class="gray">|</em><a href="javascript:void(0)" cmd="setanswer">设置密保</a></span></li>
+						</ul>
+						<div class="feibarDiv clearfix" id="txz_footer">
+							<a href="javascript:void(0)" class="openMoreUp" cmd="openMore"></a>
+							<div class="resume  ">
+								<a href="javascript:void(0)" cmd="tosso" arg="2" style="margin: 0 16px 0 14px;" title="飞信"><i class="feibar"></i><em>飞信</em></a>
+								<a href="javascript:void(0)" cmd="tosso" arg="3" style="margin-right:16px;" title="139邮箱"><i class="mailbar"></i><em>139邮箱</em></a>
+								<a href="javascript:void(0)" cmd="tosso" arg="5" style="margin-right:15px;" title="彩云"><i class="caibar"></i><em>彩云</em></a>
+								<a href="javascript:void(0)" cmd="tosso" arg="6" style="margin-right:5px;" title="彩云通讯录"><i class="txbar"></i><em>彩云通讯录</em></a>
+								<a href="javascript:void(0)" cmd="tosso" arg="4" style="margin:0 6px 0 4px;" title="移动微博"><i class="weibar"></i><em>移动微博</em></a>
+							</div>
+							<div class="resume" id="openMoreBox">
+								<a href="javascript:void(0)" cmd="tosso" arg="13" style="margin: 0 20px 0 14px;" title="和笔记"><i class="notebar"></i><em>和笔记</em></a>
+							</div>
+						</div>
+					</div>
+					<div style="display:none;">
+						<object id="QuickLaunch" classid="CLSID:AEB5EDB7-9AD1-41B2-9326-651CA5D23D12"></object>
+					</div>
+					<form id="umcpassportplugin_form" action="about:_blank" target="_blank" method="get"></form>
+				</div>
+			</li>
+			<li class="newLogoInfo_li noMar">|</li>
+			<li class="newLogoInfo_li on">
+				<a href="#" class="i-setup newLogoInfo_a"></a>
+				<div style="top:36px; right:0; z-index: 9001; position: absolute; width:70px;" class="menuPop shadow hide" bindautohide="1">
+					<ul>
+						<li index="1"><a href="javascript:;"><span class="text">设置</span></a></li>
+						<li class="line"></li>
+						<li index="2"><a href="javascript:;"><span class="text">帮助中心</span></a></li>
+						<li index="3"><a href="javascript:;"><span class="text">官方博客</span></a></li>
+						<li index="4"><a href="javascript:;"><span class="text">官方微博</span></a></li>
+						<li index="5"><a href="javascript:;"><span class="text">意见反馈</span></a></li>
+						<li index="6"><a href="javascript:;"><span class="text">更新日志</span></a></li>
+					</ul>
+				</div>
+			</li>
+            <li class="newLogoInfo_li noMar">|</li>
+
+            <li class="newLogoInfo_li on">
+                <a href="#" class="i_musicIco newLogoInfo_a"></a>
+                <div class="musicPop shadow hide" bindautohide="1">
+                    <dl class="music_playBox">
+                        <dt>外婆的澎湖湾外婆的澎湖湾外婆的澎湖湾外婆的澎湖湾</dt>
+                        <dd class="volBar">
+                            <a href="javascript:;" class="i-volIco i-volIcoMute"><!-- 去掉i-volIco为正常状态 --></a>&nbsp;
+                            <span class="volUnits">
+                                <a href="javascript:;" class="i-volUnit volUnit1 volOn"></a><a href="javascript:;" class="i-volUnit volUnit2"></a><a href="javascript:;" class="i-volUnit volUnit3"></a><a href="javascript:;" class="i-volUnit volUnit4"></a><a href="javascript:;" class="i-volUnit volUnit5"></a>
+                            </span>
+                            <!-- <script>
+                                //演示用JS by chengminqing
+                                var nowVol;
+                               
+                                var units = document.getElementsByClassName("i-volUnit");
+                                for(i=0;i<units.length;i++){
+                                    units[i].setAttribute("index",i);
+                                    units[i].onclick = function() {
+                                        // body...
+                                        var _index = this.getAttribute("index");
+                                        for(b=0;b<units.length;b++){
+                                            units[b].classList.remove("volOn");
+                                        }
+                                        for(b=0;b<=_index;b++){
+                                            units[b].classList.add("volOn");
+                                        }
+                                        nowVol = _index;
+                                    }
+                                }
+                                document.getElementsByClassName("i-volIco")[0].onclick=function(){
+
+                                        for(b=0;b<units.length;b++){
+                                            units[b].classList.remove("volOn");
+                                        }
+
+                                }
+                            </script> -->
+                        </dd>
+                        <dd class="m_progressBar">
+                            <b style="width:50%"></b>
+                        </dd>
+
+                        <dd class="m_toolBar ta_c">
+                            <a href="javascript:;" class="i-preSong" onclick="this.classList.toggle('noMore')"></a><a href="javascript:;" class="i-playSong" onclick="this.classList.toggle('pause')"></a><a href="javascript:;" class="i-nxtSong" onclick="this.classList.toggle('noMore');"></a>
+                        </dd>
+                    </dl>
+                    <dl class="music_listBox">
+                        <dt class="clearfix">
+                            <span class="fl">播放列表</span>
+                            <a href="javascript:;" class="fr">清空列表</a>
+                        </dt>
+                        <dd class="list">
+                            <ul class="list_ul">
+                                <li class="cur">someone like you</li>
+                                <li class="odd">someone like you2<span class="controller"><a href="javascript:;" class="i-playSongS pause mr_10"></a><a href="javascript:;" class="i-delSongS mr_10"></a></span></li>
+                                <li>someone like you</li>
+                                <li class="odd">someone like you2</li>
+                                <li>someone like you</li>
+                                <li class="odd">someone like you2</li>
+                                <li>someone like you</li>
+                                <li class="odd">someone like you2</li> 
+                                <li>someone like you</li>
+                                <li class="odd">someone like you2</li>
+                                <li>someone like you</li>
+                                <li class="odd">someone like you2</li>                                
+                            </ul>
+                        </dd>
+                    </dl>
+                </div>
+            </li>
+
+
+			<!-- <li class="newLogoInfo_li noMar">|</li>
+			<li class="newLogoInfo_li on">
+				<a href="#" class="newLogoInfo_a">13801317263 <i class="i-user"></i></a>
+				<div style="top:30px; right:0; z-index: 9001; position: absolute; width:74px;" class="menuPop shadow hide" bindautohide="1">
+					<ul>
+						<li index="1"><a href="javascript:;"><span class="text">个人资料</span></a></li>
+						<li index="2"><a href="javascript:;"><span class="text">帐户设置</span></a></li>
+						<li class="line"></li>
+						<li index="3"><a href="javascript:;"><span class="text">退 出</span></a></li>
+					</ul>
+				</div>
+			</li> -->
+		</ul>
+	</div>
+    <div class="bodyBg">
+        <div class="header">
+            <div class="headerInner clearfix">
+                <!-- <div class="logo">
+                    <a href="#" class="mailLogo" title="139邮箱"></a>
+                </div> -->
+				<div class="personalInformation">
+					<ul class="personalInformation_ul">
+						<!-- <li class="personalInformation_li selected"> -->
+						<li class="personalInformation_li">
+							<a href="#" class="personalInformation_a"><i class="i-users"></i>13801317263@139.com<i class="triangle t_blackDown"></i></a>
+							<div style="top:20px; left:0; z-index: 9001; position: absolute; width:180px;" class="menuPop shadow hide" bindautohide="1">
+								<ul class="personalSettings">
+									<li index="1"><a href="javascript:;"><span class="text">默认发信账号：</span></a></li>
+									<li index="2"><a href="javascript:;"><span class="text">liyh.sz@139.com</span></a></li>
+									<li index="3" class="selecteds"><a href="javascript:;" class="clearfix"><span class="text">1357098281513570982815@139.com</span><i class="i_icok"></i></a></li>
+									<li index="4"><a href="javascript:;"><span class="text">220661911@139.com</span></a></li>
+									<li class="line"></li>
+									<li index="5"><a href="javascript:;"><span class="text">个人资料</span></a></li>
+									<li index="6"><a href="javascript:;"><span class="text">账户设置</span></a></li>
+									<li class="line"></li>
+									<li index="7"><a href="javascript:;"><span class="text">退 出</span></a></li>
+								</ul>
+							</div><!-- 个人设置弹出框 -->
+						</li>
+						<li class="personalInformation_span">|</li>
+						<li class="personalInformation_li"><a href="#" class="personalInformation_a">换肤</a></li>
+						<li class="personalInformation_span">|</li>
+						<li class="personalInformation_li"><a href="#" class="personalInformation_a">退出</a></li>
+						<li class="personalInformation_li"><a href="http://happy.mail.10086.cn/jsp/web/cn/football" target="_blank" style="display:inline-block; position:relative; top:-4px; width:150px; height:26px;"><img src="../images/201312/foot2014.gif" alt="" title="" /></a></li><!-- 2014世界杯专题图片 -->
+					</ul>
+				</div>
+                <div class="logoinfo">
+                    <!-- <div class="infoSel">
+                        <a href="javascript:void(0)" class="infoA"><span>15013484410@139.com</span> <i class="i_sj"></i></a>
+                        <div class="menuPop infoName" style="left:0px;top:19px;z-index:10001;">
+                            <p class="clearfix"><a href="#" class="fr">管理</a>选择默认账号</p>
+                            <ul>
+                                <li item="13911111115@rd139.com" class="sel"><a href="#"><i class="i_b_right"></i><span class="text">139111111151391111111511@rd139.com</span></a></li>
+                                <li item="zhumy@rd139.com"><a href="#"><i class="i_b_right"></i><span class="text">zhumy@rd139.com</span></a></li>
+                            </ul>
+                            <div class="bingIng">
+                                <dl class="mt_5 hide"><dt>正在绑定手机号码13812345678</dt><dd class="gray mt_5">使用“邮箱帐号@139.com”发邮件，保护手机号码隐私。</dd></dl>
+                                <dl class="mb_5">
+                                <dt class="gray mt_5 mb_5">使用“邮箱帐号@139.com”发邮件，保护手机号码隐私。</dt>
+                                <dd class="ta_c"><a href="javascript:void(0)" class="btnNormal c_000"><span style="margin:0;">申请邮箱帐号</span></a></dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="infoSel">
+                        <a href="javascript:void(0)" class="nora"><i class="i-phoneNotice"></i></a></div>
+                        <div class="infoSel">
+                        <a href="javascript:void(0)" class="nora"><span class="mr_0">设置</span></a></div>
+                        <span class="linespan">|</span>
+						<div class="infoSel">
+							<a href="javascript:void(0)" class="infoA"><span>换肤</span><i class="i_sj"></i></a>
+						</div>
+						<span class="linespan">|</span>
+						<div class="infoSel">
+							<a href="javascript:void(0)" class="infoA"><span>帮助</span><i class="i_sj"></i></a>
+							<div class="menuPop infoName downMenu" style="width:80px;">
+								<ul>
+									<li><a href="javascript:;">帮助中心</a></li>
+									<li class="line"></li>
+									<li><a href="javascript:;">自助查询</a></li>
+									<li><a href="javascript:;">官方博客</a></li>
+									<li><a href="javascript:;">官方微薄</a></li>
+									<li><a href="javascript:;">意见反馈</a></li>
+									<li><a href="javascript:;">更新日志</a></li>
+								</ul>   
+							</div>
+						</div>
+						<span class="linespan">|</span>
+						<div class="infoSel">
+							<a href="javascript:void(0)" class="infoA"><span>互联网通行证</span><i class="i_sj"></i></a>
+						</div>
+						<span class="linespan">|</span>
+						<div class="infoSel">
+							<div class="infoSel">
+							<a href="javascript:void(0)" class="infoA"><span>退出</span></a>
+						</div>
+                    </div>
+                    <span class="linespan">|</span>
+                    <span class="linespan" style="display:none">|</span> -->
+                    <div class="infoSel infoSelon">
+                        <div class="infoName skinul" style="left:250px;top:70px;z-index:10001;">
+                            <ul id="skin" class="clearfix">
+                                <li id="skin_spring" slass="">
+                                    <a href="javascript:;">
+                                        <img src="../images/skin/skin/spring.jpg" alt="" width="89" height="54">
+                                        <span>春季</span>
+                                    </a>
+                                </li>
+                                <li id="skin_summer" slass="">
+                                    <a href="javascript:;">
+                                        <img src="../images/skin/skin/summer.jpg" alt="" width="89" height="54">                               
+                                        <span>夏季</span>
+                                    </a>
+                                </li>
+                                <li id="skin_autumn" slass="">
+                                    <a href="javascript:;">
+                                        <img src="../images/skin/skin/autumn.jpg" alt="" width="89" height="54">
+                                        <span>秋季</span>
+                                    </a>
+                                </li>
+                                <li id="skin_winter" slass="">
+                                    <a href="javascript:;">
+                                        <img src="../images/skin/skin/winter.jpg" alt="" width="89" height="54">
+                                        <span>冬季</span>
+                                    </a>
+                                </li>                        
+								<li id="skin_child" slass="">
+                                    <a href="javascript:;">
+                                        <img src="../images/skin/skin/child.jpg" alt="" width="89" height="54">
+                                        <span>儿童</span>
+                                    </a>
+                                </li>
+								<li id="skin_woman" slass="">
+                                    <a href="javascript:;">
+                                        <img src="../images/skin/skin/woman.jpg" alt="" width="89" height="54">
+                                        <span>女性</span>
+                                    </a>
+                                </li>
+                                <li id="skin_night" slass="">
+                                    <a href="javascript:;">
+                                        <img src="../images/skin/skin/night.jpg" alt="" width="89" height="54">
+                                        <span>晚安问候</span>
+                                    </a>
+                                </li> 
+                                <li id="skin_morning" slass="">
+                                    <a href="javascript:;">
+                                        <img src="../images/skin/skin/morning.jpg" alt="" width="89" height="54">
+                                        <span>早安天鹅</span>
+                                    </a>
+                                </li> 
+                                <li id="skin_dew" slass="">
+                                    <a href="javascript:;">
+                                        <img src="../images/skin/skin/dew.jpg" alt="" width="89" height="54">
+                                        <span>绿叶露珠</span>
+                                    </a>
+                                </li>  
+                                <li id="skin_cherry" slass="">
+                                    <a href="javascript:;">
+                                        <img src="../images/skin/skin/cherry.jpg" alt="" width="89" height="54">
+                                        <span>轻舞樱花</span>
+                                    </a>
+                                </li>  
+                                <li id="skin_warm" slass="">
+                                    <a href="javascript:;">
+                                        <img src="../images/skin/skin/warm.jpg" alt="" width="89" height="54">
+                                        <span>温馨暖阳</span>
+                                    </a>
+                                </li>  
+                                <li id="skin_lithe" slass="">
+                                    <a href="javascript:;">
+                                        <img src="../images/skin/skin/lithe.jpg" alt="" width="89" height="54">
+                                        <span>蓝色轻盈</span>
+                                    </a>
+                                </li>  
+                                <li id="skin_newyear" slass="">
+                                    <a href="javascript:;">
+                                        <img src="../images/skin/skin/newyear.jpg" alt="" width="89" height="54">
+                                        <span>新年</span>
+                                    </a>
+                                </li>  
+                                <li id="skin_mcloud" slass="">
+                                    <a href="javascript:;">
+                                        <img src="../images/skin/skin/mcloud.jpg" alt="" width="89" height="54">
+                                        <span>云端</span>
+                                    </a>
+                                </li>
+                                <li id="skin_sunset">
+                                    <a href="javascript:;">
+                                        <img src="../images/skin/skin/sunset.jpg" alt="" width="89" height="54">
+                                        <span>日落</span>
+                                    </a>
+                                </li>  
+                                <li id="skin_rose" >
+                                    <a href="javascript:;">
+                                        <img src="../images/skin/skin/rose.jpg" alt="" width="89" height="54">
+                                        <span>红玫瑰</span>
+                                    </a>
+                                </li>  
+								<li id="skin_flowers" slass="selected">
+                                    <a href="javascript:;">
+                                        <img src="../images/skin/skin/flowers.jpg" alt="" width="89" height="54">
+                                        <span>春季花海</span>
+                                    </a>
+                                </li>       
+                                <li id="skin_brocade">
+                                    <a href="javascript:;">
+                                        <img src="../images/skin/skin/brocade.jpg" alt="" width="89" height="54">
+                                        <span>繁花似锦</span>
+                                    </a>
+                                </li>                            
+								<li id="skin_paint" slass="selected">
+                                    <a href="javascript:;">
+                                        <img src="../images/skin/skin/paint.jpg" alt="" width="89" height="54">
+                                        <span>国画</span>
+                                    </a>
+                                </li>                                                              
+                                <li id="skin_sunflower" >
+                                    <a href="javascript:;">
+                                        <img src="../images/skin/skin/sunflower.jpg" alt="" width="89" height="54">
+                                        <span>向日葵</span>
+                                    </a>
+                                </li>
+                                
+                                <li id="skin_mstar">
+                                    <a href="javascript:;">
+                                        <img src="../images/skin/skin/mstar.jpg" alt="" width="89" height="54">
+                                        <span>移动星空</span>
+                                    </a>
+                                </li>
+                                <li id="skin_lightblue">
+                                    <a href="javascript:;">
+                                        <img src="../images/skin/skin/red.jpg" alt="" width="89" height="54">
+                                        <span>默认皮肤</span>
+                                    </a>
+                                </li>
+								 <li id="skin_lightblue">
+                                    <a href="javascript:;">
+                                        <img src="../images/skin/skin/lightblue.jpg" alt="" width="89" height="54">
+                                        <span>简蓝</span>
+                                    </a>
+                                </li>
+                                <li id="skin_pink">
+                                    <a href="javascript:;">
+                                        <img src="../images/skin/skin/pink.jpg" alt="" width="89" height="54">
+                                        <span>粉红牡丹</span>
+                                    </a>
+                                </li>
+                                <li id="skin_golf">
+                                    <a href="javascript:;">
+                                        <img src="../images/skin/skin/golf.jpg" alt="" width="89" height="54">
+                                        <span>高尔夫</span>
+                                    </a>
+                                </li>
+                                <li id="skin_light">
+                                    <a href="javascript:;">
+                                        <img src="../images/skin/skin/light.jpg" alt="" width="89" height="54">
+                                        <span>流光溢彩</span>
+                                    </a>
+                                </li>
+                                <li id="skin_star">
+                                    <a href="javascript:;">
+                                        <img src="../images/skin/skin/star.jpg" alt="" width="89" height="54">
+                                        <span>星际迷航</span>
+                                    </a>
+                                </li>
+                                <li id="skin_cat">
+                                    <a href="javascript:;">
+                                        <img src="../images/skin/skin/cat.jpg" alt="" width="89" height="54">
+                                        <span>招财进宝</span>
+                                    </a>
+                                </li>
+								<li id="skin_bluesky">
+                                    <a href="javascript:;">
+                                        <img src="../images/skin/skin/bluesky.jpg" alt="" width="89" height="54">
+                                        <span>蓝天自造</span>
+                                    </a>
+                                </li>
+								<li id="skin_claritRed">
+                                    <a href="javascript:;">
+                                        <img src="../images/skin/skin/claritRed.jpg" alt="" width="89" height="54">
+                                        <span>粉红</span>
+                                    </a>
+                                </li>
+								<li id="skin_claritGreen">
+                                    <a href="javascript:;">
+                                        <img src="../images/skin/skin/claritGreen.jpg" alt="" width="89" height="54">
+                                        <span>浅绿</span>
+                                    </a>
+                                </li>
+								<li id="skin_claritBrown">
+                                    <a href="javascript:;">
+                                        <img src="../images/skin/skin/claritBrown.jpg" alt="" width="89" height="54">
+                                        <span>暖棕</span>
+                                    </a>
+                                </li>
+								<li id="skin_claritBamboo">
+                                    <a href="javascript:;">
+                                        <img src="../images/skin/skin/claritBamboo.jpg" alt="" width="89" height="54">
+                                        <span>草绿</span>
+                                    </a>
+                                </li>
+								<li id="skin_claritPurple">
+                                    <a href="javascript:;">
+                                        <img src="../images/skin/skin/claritPurple.jpg" alt="" width="89" height="54">
+                                        <span>淡紫</span>
+                                    </a>
+                                </li>
+								<!-- <li id="skin_purple">
+                                    <a href="javascript:;">
+                                        <img src="../images/skin/skin/purple.jpg" alt="" width="89" height="54">
+                                        <span>默认皮肤</span>
+                                    </a>
+                                </li> -->
+                                 <!--<li id="skin_world">
+                                    <a href="javascript:;">
+                                        <img src="../images/skin/skin/world.jpg" alt="" width="89" height="54">
+                                        <span>世界</span>
+                                    </a>
+                                </li> -->
+                            </ul>
+                            <div class="skinPopBtn">
+                                <a class="btnSure mr_5" href="javascript:void(0)">
+                                    <span>保存</span>
+                                </a>
+                                <a class="btnNormal" href="javascript:void(0)">
+                                    <span>取消</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="">                   
+                    <div class="searchWrap" id="searchContainer">
+                        <div class="searchContent searchContentOn">
+                            <!--点击时背景变成白色加上 searchContentOn -->
+                            <input type="text" value="" placeholder="搜索关键词" class="searchInput" id="tb_mailSearch"  autocomplete="off" style="color: gray;">
+                            <span class="searchLeft ">
+                                <!-- loading 的时候加上 searchLoading --> </span>
+                            <span id="searchIcon" class="searchRight ">
+                                <!-- 输入时图标变成回车加上 searchEnter --> </span>
+                                <a href="javascript:;" class="write-voice"><i class="i_voice"></i></a>
+                                 <a href="javascript:;" class="searchBtn i-index-sbtn"></a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="mainTop" id="divTab">
+            <ul role="tablist">
+                <li class="current2" role="tab" aria-selected="true" tabindex="0">
+                     <i class="error-loading"></i><span>首页</span> <a href="javascript:;" class="i_close" title="关闭"></a>
+                </li>
+                <li role="tab" aria-selected="false" tabindex="0"><i class="error-tab"></i><span>日历</span> <a href="javascript:;" class="i_close" title="关闭"></a>
+                </li>
+                <li role="tab" aria-selected="false" tabindex="0">
+                    <i class="error-loading"></i>
+                    
+                    <span>日历</span> <a href="javascript:;" class="i_close" title="关闭"></a>
+                    <i class="i_newsL"></i><!--NEW-->
+                </li>
+                <li role="tab" aria-selected="false" tabindex="0">
+                    <i class="write-loading"></i><span>精品订阅</span> <a href="javascript:;" class="i_close" title="关闭"></a>
+                </li>
+                <li role="tab" aria-selected="false" tabindex="0" class="on">
+                    <i class="write-loading"></i>
+                     <span>写信</span>
+                     <a href="javascript:;" class="i_close" title="关闭"></a>
+                </li>               
+                <li role="tab" aria-selected="false" tabindex="0">
+                    <i class="error-loading"></i>
+                    <span>热烈庆祝中华人民共和国成立</span> <a href="javascript:;" class="i_close" title="关闭"></a>
+                </li>
+                 <li role="tab" aria-selected="false" tabindex="0">
+                    <span>bbbbbbbbbbbbbbbbbbbbbb</span> <a href="javascript:;" class="i_close" title="关闭"></a>
+                </li>
+                <li class="noAll" tabindex="0"><a href="javascript:;" class="closeAll" title="关闭全部"></a></li>
+            </ul>
+        </div>
+        <div class="sub">
+    <div class="readWrite">
+        <a hidefocus="" href="javascript:;" id="btn_compose" bh="left_compose" class="writeBtn"><i class="i_write"></i><span>写信</span></a> 
+        <a hidefocus="" href="javascript:;" class="redBtn" id="btn_receive"><i class="i_read"></i><span>收信</span></a> 
+        <!-- <a hidefocus="" href="javascript:$App.show('sms');" class="commBtn" id="btn_sms" bh="left_sms"><i class="i_sendSms"></i><span>短信</span></a>
+        <a hidefocus="" href="javascript:$App.show('diskDev')" class="commBtn" bh="left_disk"><i class="i_netDisk"></i><span>网盘</span></a> -->
+    </div>
+    <div class="smsNetTip" id="smsNetTip" style="display:none">
+    </div>
+    <div class="skintopBg hide"></div>
+    
+    <div class="subList sweb" id="sb_h" style="height: 793px;"><!--满足条件显示滚动条-->
+       
+        <textarea id="template_folderMain" style="display:none">        &lt;!--item start--&gt;
+        &lt;li fid="1"&gt;
+            &lt;a hidefocus  style="" title="$inbox.title" href="javascript:;" fid="1"  bh="left_inbox"&gt;
+                &lt;span&gt;收件箱$inbox.count&lt;/span&gt; 
+            &lt;/a&gt;
+        &lt;/li&gt;
+        
+        &lt;li id="li_remind" style="$task.style"&gt;&lt;a bh="left_remind" hidefocus href="javascript:appView.searchTaskmail()" title="$task.title"&gt;待办任务$task.count&lt;/a&gt;&lt;/li&gt;
+        &lt;!--&lt;li id="li_star" style="$star.style"&gt;&lt;a  bh="left_star" hidefocus href="javascript:appView.searchMail({flags:{starFlag:1}})" title="$star.title"&gt;星标邮件$star.count &lt;i class="i_star_y"&gt;&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;--&gt;
+        &lt;li id="li_vip"&gt;&lt;a href="javascript:appView.searchVip()"&gt;&lt;span&gt;VIP邮件&lt;/span&gt;&lt;i class="user_vip"&gt;&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;
+        &lt;li fid="8"  style="$bill.style"&gt;&lt;a  bh="left_bill" hidefocus title="$bill.title" href="javascript:void(0)" fid="8"&gt;$bill.lock账单中心$bill.count&lt;/a&gt;&lt;/li&gt;
+        &lt;li fid="9"  style="$subscribe.style"&gt;&lt;a  bh="left_subscribe" hidefocus title="$subscribe.title" href="javascript:void(0)" fid="9"&gt;$subscribe.lock我的订阅$subscribe.count&lt;/a&gt;&lt;/li&gt;
+        &lt;li fid="3"  style="$sent.style"&gt;&lt;a  bh="left_sent" hidefocus title="$sent.title" href="javascript:void(0)" fid="3"&gt;已发送$sent.count&lt;/a&gt;&lt;/li&gt;
+        &lt;li fid="2"  style="$draft.style"&gt;&lt;a  bh="left_draft" hidefocus title="$draft.title" href="javascript:void(0)" fid="2"&gt;草稿箱$draft.count&lt;/a&gt;&lt;/li&gt;
+        &lt;li class="bottomLi"&gt;&lt;/li&gt;
+        &lt;!--item end--&gt;
+        </textarea>
+        
+        <textarea id="template_otherFolders" style="display:none">      &lt;!--item start--&gt;
+            &lt;li&gt;&lt;a bh="left_groupMail" hidefocus id="btn_groupMail" href="javascript:"&gt;群邮件&lt;/a&gt;&lt;/li&gt;
+            &lt;li fid="4"  style="$deleted.style"&gt;&lt;a  bh="left_deleted" hidefocus title="$deleted.title" href="javascript:void(0)" fid="4"&gt;已删除$deleted.count&lt;i class="i_del" id="btn_clear"&gt;&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li fid="5"  style="$junk.style"&gt;&lt;a  bh="left_trash" hidefocus title="$junk.title" href="javascript:void(0)" fid="5"&gt;垃圾邮件$junk.count&lt;i class="i_del" id="btn_clearJunk"&gt;&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li fid="6"  style="$virus.style"&gt;&lt;a bh="left_virus" hidefocus title="$virus.title" href="javascript:void(0)" fid="6"&gt;病毒文件夹$virus.count&lt;/a&gt;&lt;/li&gt;
+            &lt;li fid="10"  style="$archive.style"&gt;&lt;a hidefocus title="$archive.title" href="javascript:void(0)" fid="10"&gt;归档邮件$archive.count&lt;/a&gt;&lt;/li&gt;
+            &lt;li fid="11"  style="$advertise.style"&gt;&lt;a bh="left_ad" hidefocus title="$advertise.title" href="javascript:void(0)" fid="11"&gt;广告文件夹$advertise.count&lt;/a&gt;&lt;/li&gt;
+            &lt;li fid="12"  style="$business.style"&gt;&lt;a bh="left_business" hidefocus title="$business.title" href="javascript:void(0)" fid="12"&gt;商讯生活$business.count&lt;/a&gt;&lt;/li&gt;
+        &lt;!--item end--&gt;
+        </textarea>
+        
+      <ul class="big" id="folder_main">         
+        <li fid="1">
+            <a hidefocus="" style="" title="收件箱中共有2481封邮件，其中未读邮件0封" href="javascript:;" fid="1" bh="left_inbox">
+                <span>收件箱</span> 
+            </a>
+        </li>
+        
+        <li id="li_remind" style="display:none;"><a bh="left_remind" hidefocus="" href="javascript:appView.searchTaskmail()" title="您共有0封任务邮件">待办任务</a></li>
+        <!--<li id="li_star" style=""><a  bh="left_star" hidefocus href="javascript:appView.searchMail({flags:{starFlag:1}})" title="您共有1封星标邮件，其中未读邮件0封">星标邮件<i class="i_star_y"></i></a></li>-->
+        <li id="li_vip"><a href="javascript:appView.searchVip()"><span>VIP邮件</span><i class="user_vip"></i></a></li>
+        <li fid="8" style=""><a bh="left_bill" hidefocus="" title="账单中心中共有0封邮件，其中未读邮件0封" href="javascript:void(0)" fid="8">账单中心</a></li>
+        <li fid="8" style=""><a bh="left_bill" hidefocus="" title="账单中心中共有0封邮件，其中未读邮件0封" href="javascript:void(0)" fid="8">云邮局<var class="fw_b">(2670)</var> <i class="i_m_rss"></i></a></li>		
+        <li fid="9" style=""><a bh="left_subscribe" hidefocus="" title="我的订阅中共有274封邮件，其中未读邮件0封" href="javascript:void(0)" fid="9">我的订阅</a></li>
+        <li fid="9" style=""><a bh="left_subscribe" hidefocus="" title="群邮件" href="javascript:void(0)" fid="9">群邮件</a></li>
+        <li fid="3" style=""><a bh="left_sent" hidefocus="" title="已发送中共有210封邮件，其中未读邮件0封" href="javascript:void(0)" fid="3">已发送</a></li>
+        <li fid="2" style=""><a bh="left_draft" hidefocus="" title="草稿箱中共有174封邮件，其中未读邮件0封" href="javascript:void(0)" fid="2">草稿箱</a></li>
+        <li class="bottomLi"></li>
+        
+        </ul>
+        
+    <div style="position: relative; overflow-y: auto; height: 630px;" id="sidebar" class="sweb">
+        <ul class="big">
+        
+        <li>
+            <a hidefocus="" href="javascript:;" id="folder_other" bh="left_other" title="其它文件夹中共有9封邮件，其中未读邮件0封"><i class="triangle t_blackRight" name="i_unfoldOther" bh="left_other"></i>其他文件夹<span></span></a>
+            <ul id="list_folder_other" class="small" style="display:none;">     
+            <li><a bh="left_groupMail" hidefocus="" id="btn_groupMail" href="javascript:">群邮件</a></li>
+            <li fid="4" style=""><a bh="left_deleted" hidefocus="" title="已删除中共有0封邮件，其中未读邮件0封" href="javascript:void(0)" fid="4">已删除<i class="i_del" id="btn_clear" style="display: none;"></i></a></li>
+            <li fid="5" style="display:none"><a bh="left_trash" hidefocus="" title="垃圾邮件中共有0封邮件，其中未读邮件0封" href="javascript:void(0)" fid="5">垃圾邮件<i class="i_del" id="btn_clearJunk"></i></a></li>
+            <li fid="6" style="display:none"><a bh="left_virus" hidefocus="" title="" href="javascript:void(0)" fid="6">病毒文件夹</a></li>
+            <li fid="10" style="display:none"><a hidefocus="" title="" href="javascript:void(0)" fid="10">归档邮件</a></li>
+            <li fid="11" style=""><a bh="left_ad" hidefocus="" title="广告文件夹中共有9封邮件，其中未读邮件0封" href="javascript:void(0)" fid="11">广告文件夹</a></li>
+            <li fid="12" style="display:none"><a bh="left_business" hidefocus="" title="" href="javascript:void(0)" fid="12">商讯生活</a></li>
+        
+        </ul>
+        </li>
+          
+        <li id="customfolder_list"><a bh="left_foldermanager" hidefocus="" id="folder_inbox" href="javascript:;" title="我的文件夹中共有12封邮件，其中新邮件0封"><i name="i_unfold" class="triangle t_blackRight" bh="left_unfoldInbox"></i><span>我的文件夹</span><i class="i_add" id="btn_addfolder" bh="left_createFolder" title="添加文件夹"></i><i class="i_set" id="btn_setCustom" bh="left_inboxSetting" onclick="return false" title="我的文件夹个性化设置"></i></a><div id="folder_custom" style="display:none"><ul class="small" style="display:block;"><li fid="19"><a hidefocus="" href="javascript:void(0)" title="你不能看的中共有12封邮件，其中未读邮件0封"><i class="i_lock mr_5"></i> 你不能看的</a></li></ul></div></li>
+          
+        <li id="tag_list"><a bh="left_tag" hidefocus="" id="fd_tagStat" href="javascript:" title="标签中共有10封邮件，其中新邮件0封"><i name="i_unfold" class="triangle t_blackRight" bh="left_unfoldTag"></i><span>我的标签</span><i class="i_add" title="添加标签" id="btn_addtag" bh="left_createTag"></i><i title="标签个性化设置" class="i_set" id="btn_setTag" onclick="return false"></i></a><ul class="small" style="display:none;" id="folder_tag"><li id="li_star" style=""><a bh="left_star" hidefocus="" href="javascript:appView.searchMail({flags:{starFlag:1}})" title="您共有1封星标邮件，其中未读邮件0封"><i class="i_star_y"></i>星标邮件<span></span></a></li><li fid="17"><a href="javascript:" title="重要任务中共有3封邮件，其中未读邮件0封"><span class="tagMin tagJJ" style="border-color:#FF0000"><span class="tagBody" style="border-color:#FF0000;background-color:#FF0000;"><i class="i_jj"></i></span></span><span class="tagText">重要任务 </span></a></li><li fid="20"><a href="javascript:" title="紧急任务中共有1封邮件，其中未读邮件0封"><span class="tagMin tagJJ" style="border-color:#FF0000"><span class="tagBody" style="border-color:#FF0000;background-color:#FF0000;"><i class="i_jj"></i></span></span><span class="tagText">紧急任务 </span></a></li><li fid="21"><a href="javascript:" title="1111中共有3封邮件，其中未读邮件0封"><span class="tagMin" style="border-color:#66CCCC"><span class="tagBody" style="border-color:#66CCCC;background-color:#66CCCC;"></span></span><span class="tagText">1111 </span></a></li><li fid="23"><a href="javascript:" title="2中共有2封邮件，其中未读邮件0封"><span class="tagMin" style="border-color:#FF9900"><span class="tagBody" style="border-color:#FF9900;background-color:#FF9900;"></span></span><span class="tagText">2 </span></a></li></ul></li>
+        
+        <li id="pop_list"><a bh="left_pop" hidefocus="" id="fd_popStat" href="javascript:void(0)"><i name="i_unfold" class="triangle t_blackDown" bh="left_unfoldPop"></i><span>代收邮箱<var class="fw_b">(2)</var></span><i id="btn_addpop" title="添加代收邮箱" name="addpop" class="i_add" bh="left_createPop"></i><i class="i_set" title="代收文件夹个性化设置" onclick="return false" id="btn_setPop" bh="left_popSetting"></i></a><ul class="small" style="display: block;" id="folder_pop"><li fid="16"><a href="javascript:" title="163邮箱中共有3封邮件，其中未读邮件0封"><span class="otheMail">163邮箱</span><span class="otheMailNum"></span></a></li><li fid="18"><a href="javascript:" title="qq邮箱中共有3660封邮件，其中未读邮件2封"><span class="otheMail">qq邮箱</span><span class="otheMailNum"><var class="fw_b">(2)</var></span></a></li><li fid="15"><a href="javascript:" title="gmail邮箱中共有188封邮件，其中未读邮件0封"><span class="otheMail">gmail邮箱</span><span class="otheMailNum"></span></a></li></ul></li>
+
+        </ul>
+
+        <!-- add by yuanhb start -->
+        <div id="myapp">
+            <ul class="big">
+                <li class="bottomLi"></li>
+                <li>
+                    <a href="javascript:void(0)" hidefocus="" id="listAppsSwitch" bh="left_listapps"><i id="listAppsSwitchIcon" class="triangle t_blackDown" bh="left_listapps"></i><span>特色应用</span><i id="setapp" class="i_set" title="添加我的应用"><!-- 设置 --></i></a>
+                    <ul id="myappList" class="small" style="display: block;">
+						<li class="bottomLi_first clearfix"><a href="javascript:$App.jumpTo('mms')" bh="left_mms" id="mms_link" hidefocus="true" title="">短信</a><span>|</span><a href="javascript:$App.jumpTo('mms')" bh="left_mms" id="mms_link" hidefocus="true" title="">彩信</a></li>
+						<li><a href="javascript:$App.jumpTo('mms')" bh="left_mms" id="mms_link" hidefocus="true" title="">发彩信</a></li>
+						<li><a href="javascript:$App.jumpTo('mms')" bh="left_mms" id="mms_link" hidefocus="true" title="">发贺卡</a></li>
+						<li><a href="javascript:$App.jumpTo('mms')" bh="left_mms" id="mms_link" hidefocus="true" title="">和笔记<i class="i_redDot"></i></a></li>
+						<li><a href="javascript:$App.jumpTo('mms')" bh="left_mms" id="mms_link" hidefocus="true" title="">附件夹</a></li>
+						<li><a href="javascript:$App.jumpTo('mms')" bh="left_mms" id="mms_link" hidefocus="true" title="">文件快递</a></li>
+						<!-- <li><a href="javascript:$App.jumpTo('mms')" bh="left_mms" id="mms_link" hidefocus="true" title="在邮箱就能发彩信，可添加动画及音乐，支持长达10000字。">发彩信</a></li>
+						<li><a href="javascript:$App.jumpTo('greetingcard')" bh="left_grettingcard" id="greetingcard_link" hidefocus="true" title="精美的FLASH贺卡，为您的朋友送去最真诚的祝福！">贺卡</a></li>
+						<li><a href="javascript:$App.jumpTo('postcard')" bh="left_postcard" id="postcard_link" hidefocus="true" title="免费精致的明信片，方便您给亲朋好友送去温馨祝福！">明信片</a></li>
+						<li><a href="javascript:$App.jumpTo('quicklyShare')" bh="left_quicklyShare" id="quicklyShare" hidefocus="true" title="可上传G级超大文件，快递到任意邮箱、中国移动手机。">文件快递</a></li>
+						<li><a href="javascript:$App.jumpTo('fax')" bh="left_fax" id="fax_link" hidefocus="true" title="不需要传真机，就能向全国任意传真机发送接收传真，节省纸张更环保。">收发传真</a></li>
+						<li><a href="http://ssointerface.mail.10086.cn:8080/ssointerface/GetUserByKeyEncrypt?url=http%3A%2F%2F3g.weicai.com%2F139mail%2Findex.php%3Fsid%3D&amp;comeFrom=weibo&amp;sid=MTM4MjQwMzc1MzAwMTI3ODA0MzAwNQAA000006" target="_blank" bh="left_buylottery" id="tc_link" hidefocus="true" title="广东移动体彩，300万用户的选择！支持话费买彩票，2元最高可中1000万！">购买体彩</a></li>
+						<li><a href="http://ssointerface.mail.10086.cn:8080/ssointerface/GetUserByKeyEncrypt?url=http%3A%2F%2F10086.gd-fc.net%2Fwaiwei%2F139GetLogin.jsp%3Fsid%3D&amp;comeFrom=weibo&amp;sid=MTM4MjQwMzc1MzAwMTI3ODA0MzAwNQAA000006" target="_blank" bh="left_fucai" id="fc_link" hidefocus="true" title="支持双色球、36选7、好彩1、26选5、3D手机投注，安全高效、操作简便、24小时服务！">手机福彩</a></li>
+						<li><a href="javascript:$App.show('note')" bh="left_note" id="note_link" hidefocus="true" title="中国移动彩云平台首款云应用，记录瞬间想法，跨平台同步！">彩云笔记</a></li>
+						<li><a href="https://caiyun.feixin.10086.cn" target="_blank" bh="left_colorcloud" id="colorcloud_link" hidefocus="true" title="中国移动旗下的个人云服务，提供安全便捷、跨平台跨终端的文件备份存储功能。">彩云</a></li>
+						<li><a href="javascript:$App.show('myrings')" bh="left_music" id="music_link" hidefocus="true" title="咪咕音乐为您提供美妙的音乐。">咪咕音乐</a></li> -->
+					</ul>
+                </li>
+            </ul>
+        </div>
+        <!-- add by yuanhb end -->
+       
+          <div class="myappmore">
+                <a href="javascript:;" hidefocus="true" id="appmorelink" style="display: none;"><span>更多</span><i class="i_xiax"></i><i class="i_xias" style="display:none"></i></a>
+          </div>
+
+      </div>    <!-- sidebar -->
+    </div>
+    <div class="skinBottomBg"></div>
+  </div>
+    <div class="main">
+        
+        <div class="mainIframeBg clearfix"  style="height: 900px;">
+            <div style="">
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <div class="menuPop shadow  hide" style="top: 148px; left:794px; z-index: 9001; position: absolute;" id="view_0.924013446085155" bindautohide="1">
+                    <ul>
+                        <li index="0">
+                            <a href="javascript:;">
+                                <span class="text">已读</span>
+                            </a>
+                        </li>
+                        <li index="1">
+                            <a href="javascript:;">
+                                <span class="text">未读</span>
+                            </a>
+                        </li>
+                        <li class="line"></li>
+                        <li index="3">
+                            <a href="javascript:;">
+                                <span class="text">星标</span>
+                            </a>
+                        </li>
+                        <li index="4">
+                            <a href="javascript:;">
+                                <span class="text">取消星标</span>
+                            </a>
+                        </li>
+                        <li class="line"></li>
+                        <li index="6">
+                            <a href="javascript:;">
+                                <span class="text">重要</span>
+                            </a>
+                        </li>
+                        <li index="7">
+                            <a href="javascript:;">
+                                <span class="text">取消重要</span>
+                            </a>
+                        </li>
+                        <li class="line"></li>
+                        <li index="9">
+                            <a href="javascript:;">
+                                <span class="text">置顶</span>
+                            </a>
+                        </li>
+                        <li index="10">
+                            <a href="javascript:;">
+                                <span class="text">取消置顶</span>
+                            </a>
+                        </li>
+                        <li class="line"></li>
+                        <li submenu="1" index="12">
+                            <a href="javascript:;">
+                                <span class="text">我的标签</span>
+                                <i class="i_triangle_h"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <br />
+                <div class="tips delmailTips smilepop" style="top:50px;left:40px;">
+                    <a class="delmailTipsClose" href="#">
+                        <i class="i_u_close"></i>
+                    </a>
+
+                    <div class="tips-text">
+                        <div class="tab smilepopTab">
+                            <div class="tabTitle">
+                                <ul>
+                                    <li>
+                                        <a href="#">
+                                            <span>豆豆</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span>飞信</span>
+                                        </a>
+                                    </li>
+                                    <li class="on">
+                                        <a href="#">
+                                            <span>YOYO</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span>信封脸</span>
+                                        </a>
+                                    </li>
+                                    <li >
+                                        <a href="#">
+                                            <span>生活</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="tabMain">
+                                <div class="tabContent hide">
+                                    <div class="smilelist clearfix">
+                                        <div class="smilelistView">
+                                            <img class="PreviewImage" src="http://rm.mail.10086ts.cn/m2012/images/face/doudou/18.gif" width="64" height="64"></div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab abon">
+                                            <!-- 鼠标移上去加 abon -->
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="ThumbItem" href="javascript:;" style="height:20px;width:20px;background-position: -0px -0px;background-image: url(http://rm.mail.10086ts.cn/m2012/images/face/doudou/thumb.png);background-repeat: no-repeat;margin:5px;border:0;" data-url="/m2012/images/face/doudou/0.gif" title="假笑"></a>
+                                        </div>
+
+                                    </div>
+                                    <div class="pagediv clearfix hide">
+                                        <div class="pageDrop fr page-top mr_10">
+                                            <!--
+                                                       page-top  翻页向上
+                                                       page-bot  翻页向下
+                                                   -->
+                                            <span class="pagenum">
+                                                100/300
+                                                <i class="i_triangle_d"></i>
+                                            </span>
+                                            <a href="#">上一页</a>
+                                            <a href="#">下一页</a>
+
+                                            <div class="pageli hide">
+                                                <a href="#">第1页</a>
+                                                <a href="#">第2页</a>
+                                                <a href="#">第31页</a>
+                                                <a href="#">第4页</a>
+                                                <a href="#">第5页</a>
+                                                <a href="#">第5页</a>
+                                                <a href="#">第5页</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tabContent hide">222</div>
+                                <div class="tabContent hide">333</div>
+                                <div class="tabContent hide">444</div>
+                                <div class="tabContent lifeface show">
+                                    <div class="smilelist clearfix">
+                                        <div class="smilelistView" style="left:10px; top:100px;">
+                                            <img class="PreviewImage" src="../images/face/life/0.gif" width="64" height="64"></div>
+                                        <div class="ab">
+                                            <a class="a0" href="javascript:;" title="鄙视"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="a1" href="javascript:;" title="踹地板"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="a2" href="javascript:;" title="得意"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="a3" href="javascript:;" title="发呆"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="a4" href="javascript:;" title="奋斗"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="a5" href="javascript:;" title="睡觉"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="a6" href="javascript:;" title="委屈"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="a7" href="javascript:;" title="无聊"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="a8" href="javascript:;" title="想家"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="a9" href="javascript:;" title="许愿"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="a10" href="javascript:;" title="中彩票"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="a11" href="javascript:;" title="抓狂"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="a12" href="javascript:;" title="逛街"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="a13" href="javascript:;" title="开心"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="a14" href="javascript:;" title="可爱"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="a15" href="javascript:;" title="恋爱"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="a16" href="javascript:;" title="伤心"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="a17" href="javascript:;" title="郁闷"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="a18" href="javascript:;" title="被K"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="a19" href="javascript:;" title="迟到了"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="a20" href="javascript:;" title="加班"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="a21" href="javascript:;" title="盼发工资"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="a22" href="javascript:;" title="求美女"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="a23" href="javascript:;" title="失恋了"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="a24" href="javascript:;" title="遇见帅哥"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="a25" href="javascript:;" title="月光了"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="a26" href="javascript:;" title="健身"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="a27" href="javascript:;" title="开车兜风"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="a28" href="javascript:;" title="旅游"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="a29" href="javascript:;" title="约会"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="a30" href="javascript:;" title="爱护森林"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="a31" href="javascript:;" title="春节"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="a32" href="javascript:;" title="低碳生活"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="a33" href="javascript:;" title="光棍节"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="a34" href="javascript:;" title="国庆"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="a35" href="javascript:;" title="节约用水"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="a36" href="javascript:;" title="绿色出行"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="a37" href="javascript:;" title="七夕"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="a38" href="javascript:;" title="圣诞节"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="a39" href="javascript:;" title="万圣节"></a>
+                                        </div>
+                                        <div class="ab">
+                                            <a class="a40" href="javascript:;" title="中秋"></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="boxIframe" style="margin:50px 0 0 150px;">
+                    <div class="boxIframeTitle">
+                        <h2>
+                            <span>邮件清理</span>
+                        </h2>
+                        <a class="i_t_close" href="###"></a>
+                    </div>
+                    <div class="boxIframeMain">
+                        <div class="boxIframeText">
+                            <div class="norTips">
+                                <span class="norTipsIco">
+                                    <i class="i_ok"></i>
+                                </span>
+                                <dl class="norTipsContent">
+                                    <dt class="norTipsTitle">邮件清理成功</dt>
+                                    <dd class="norTipsLine">**封邮件已成功归档到我的文件夹“归档[2010.08]”</dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="boxIframeBtn">
+                            <span class="bibText"></span>
+                            <span class="bibBtn">
+                                <a href="javascript:void(0)" class="btnSure mr_5">
+                                    <span>确 定</span>
+                                </a>
+                                <a href="javascript:void(0)" class="btnNormal">
+                                    <span>取 消</span>
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+         
+
+                <div class="dRound adminMyApp" style="left:1200px;top:400px;">
+                    <h2>我的应用</h2>
+
+                    <div class="dRoundBody adminMyAppList">
+                        <ul>
+                            <li class="current">
+                                <i class="i_apps i_apps_mess"></i>
+                                <span class="appListName ml_5">发短信</span>
+                                <a class="appListBtn" href="javascript:void(0)" hidefocus="true" rel="1" key="169">
+                                    <span class="appStatus">取消</span>
+                                </a>
+                                <span class="appListHave">已添加</span>
+                                <div class="singleApp" style="left:208px;top:23px;">
+                                    <span class="rightDiv"></span>
+                                    <div class="dRound">
+                                        <div class="dRoundBody">
+                                            <div class="top">
+                                                <h3>发短信</h3>
+                                                <p class="info">在邮箱就能发短信，打字更快更方便。长短信支持一次显示350字。</p>
+                                            </div>
+                                            <div class="bot">
+                                                <a class="sl-rc">
+                                                    <span class="sl-rc-cnt appListBtn" rel="1" key="169">
+                                                        <span class="appStatus">取消</span>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="i_apps i_apps_cmess"></i>
+                                <span class="appListName ml_5">发彩信</span>
+                                <a class="appListBtn" href="javascript:void(0)" hidefocus="true" rel="0" key="170">
+                                    <span class="appStatus">添加</span>
+                                </a>
+                                <span class="appListHave"></span>
+                                <div class="singleApp hide" style="left:208px;top:51px;">
+                                    <span class="rightDiv"></span>
+                                    <div class="dRound">
+                                        <div class="dRoundBody">
+                                            <div class="top">
+                                                <h3>发彩信</h3>
+                                                <p class="info">在邮箱就能发彩信，可添加动画及音乐，支持长达10000字。</p>
+                                            </div>
+                                            <div class="bot">
+                                                <a class="sl-rc">
+                                                    <span class="sl-rc-cnt appListBtn" rel="0" key="170">
+                                                        立即
+                                                        <span class="appStatus">添加</span>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="i_apps i_apps_mxp"></i>
+                                <span class="appListName ml_5">明信片</span>
+                                <a class="appListBtn" href="javascript:void(0)" hidefocus="true" rel="0" key="171">
+                                    <span class="appStatus">添加</span>
+                                </a>
+                                <span class="appListHave"></span>
+                                <div class="singleApp hide" style="left:208px;top:79px;">
+                                    <span class="rightDiv"></span>
+                                    <div class="dRound">
+                                        <div class="dRoundBody">
+                                            <div class="top">
+                                                <h3>明信片</h3>
+                                                <p class="info">免费精致的明信片，方便您给亲朋好友送去温馨祝福！</p>
+                                            </div>
+                                            <div class="bot">
+                                                <a class="sl-rc">
+                                                    <span class="sl-rc-cnt appListBtn" rel="0" key="171">
+                                                        立即
+                                                        <span class="appStatus">添加</span>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="i_apps i_apps_hk"></i>
+                                <span class="appListName ml_5">贺卡</span>
+                                <a class="appListBtn" href="javascript:void(0)" hidefocus="true" rel="0" key="172">
+                                    <span class="appStatus">添加</span>
+                                </a>
+                                <span class="appListHave"></span>
+                                <div class="singleApp hide" style="left:208px;top:107px;">
+                                    <span class="rightDiv"></span>
+                                    <div class="dRound">
+                                        <div class="dRoundBody">
+                                            <div class="top">
+                                                <h3>贺卡</h3>
+                                                <p class="info">精美的FLASH贺卡，为您的朋友送去最真诚的祝福！</p>
+                                            </div>
+                                            <div class="bot">
+                                                <a class="sl-rc">
+                                                    <span class="sl-rc-cnt appListBtn" rel="0" key="172">
+                                                        立即
+                                                        <span class="appStatus">添加</span>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="i_apps i_apps_file"></i>
+                                <span class="appListName ml_5">文件快递</span>
+                                <a class="appListBtn" href="javascript:void(0)" hidefocus="true" rel="0" key="173">
+                                    <span class="appStatus">添加</span>
+                                </a>
+                                <span class="appListHave"></span>
+                                <div class="singleApp hide" style="left:208px;top:135px;">
+                                    <span class="rightDiv"></span>
+                                    <div class="dRound">
+                                        <div class="dRoundBody">
+                                            <div class="top">
+                                                <h3>文件快递</h3>
+                                                <p class="info">可上传G级超大文件，快递到任意邮箱、中国移动手机...</p>
+                                            </div>
+                                            <div class="bot">
+                                                <a class="sl-rc">
+                                                    <span class="sl-rc-cnt appListBtn" rel="0" key="173">
+                                                        立即
+                                                        <span class="appStatus">添加</span>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="i_apps i_apps_cz"></i>
+                                <span class="appListName ml_5">收发传真</span>
+                                <a class="appListBtn" href="javascript:void(0)" hidefocus="true" rel="0" key="174">
+                                    <span class="appStatus">添加</span>
+                                </a>
+                                <span class="appListHave"></span>
+                                <div class="singleApp hide" style="left:208px;top:163px;">
+                                    <span class="rightDiv"></span>
+                                    <div class="dRound">
+                                        <div class="dRoundBody">
+                                            <div class="top">
+                                                <h3>收发传真</h3>
+                                                <p class="info">不需要传真机，就能向全国任意传真机发送接收传真，节省纸张更环保。</p>
+                                            </div>
+                                            <div class="bot">
+                                                <a class="sl-rc">
+                                                    <span class="sl-rc-cnt appListBtn" rel="0" key="174">
+                                                        立即
+                                                        <span class="appStatus">添加</span>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                             <li>
+                                <i class="i_apps i_apps_yyt"></i>
+                                <span class="appListName ml_5">邮箱营业厅</span>
+                                <a class="appListBtn" href="javascript:void(0)" hidefocus="true" rel="0" key="174">
+                                    <span class="appStatus">添加</span>
+                                </a>
+                                <span class="appListHave"></span>
+                                <div class="singleApp hide" style="left:208px;top:163px;">
+                                    <span class="rightDiv"></span>
+                                    <div class="dRound">
+                                        <div class="dRoundBody">
+                                            <div class="top">
+                                                <h3>收发传真</h3>
+                                                <p class="info">不需要传真机，就能向全国任意传真机发送接收传真，节省纸张更环保。</p>
+                                            </div>
+                                            <div class="bot">
+                                                <a class="sl-rc">
+                                                    <span class="sl-rc-cnt appListBtn" rel="0" key="174">
+                                                        立即
+                                                        <span class="appStatus">添加</span>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="i_apps i_apps_mdisk"></i>
+                                <span class="appListName ml_5">手机网盘</span>
+                                <a class="appListBtn" href="javascript:void(0)" hidefocus="true" rel="0" key="175">
+                                    <span class="appStatus">添加</span>
+                                </a>
+                                <span class="appListHave"></span>
+                                <div class="singleApp hide" style="left:208px;top:191px;">
+                                    <span class="rightDiv"></span>
+                                    <div class="dRound">
+                                        <div class="dRoundBody">
+                                            <div class="top">
+                                                <h3>手机网盘</h3>
+                                                <p class="info">存储您的音乐、照片以及各种文档，并支持分享给您的好友。</p>
+                                            </div>
+                                            <div class="bot">
+                                                <a class="sl-rc">
+                                                    <span class="sl-rc-cnt appListBtn" rel="0" key="175">
+                                                        立即
+                                                        <span class="appStatus">添加</span>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="">
+                                <i class="i_apps i_apps_mdisk"></i>
+                                <span class="appListName ml_5">视频邮件</span>
+                                <a class="appListBtn" href="javascript:void(0)" hidefocus="true" rel="0" key="176">
+                                    <span class="appStatus">添加</span>
+                                </a>
+                                <span class="appListHave"></span>
+                                <div class="singleApp hide" style="left:208px;top:219px;">
+                                    <span class="rightDiv"></span>
+                                    <div class="dRound">
+                                        <div class="dRoundBody">
+                                            <div class="top">
+                                                <h3>视频邮件</h3>
+                                                <p class="info">同步录制语音视频，让邮件听得清，看得见，让沟通更精彩。</p>
+                                            </div>
+                                            <div class="bot">
+                                                <a class="sl-rc">
+                                                    <span class="sl-rc-cnt appListBtn" rel="0" key="176">
+                                                        立即
+                                                        <span class="appStatus">添加</span>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <a href="javascript:void(0)" class="adminMyAppBtn">
+                        <i class="i_set">
+                            <!-- 设置 --> </i>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="skin">
+    <div class="skinTop"></div>
+    <div class="skinTopLeft"></div>
+    <div class="skinTopRight"></div>
+	<div class="skinBody"><img src="../images/skin/claritPurple/skinBody.jpg" alt="" title="" /></div>
+	<div class="skinMenu" style="height:10000px;"></div>
+</div>
+<div class="dRound skinPop hide" style="left:490px;top:70px; ">
+    <div class="dRoundBody skinPopBody clearfix">
+        <ul id="skin">
+            <li id="skin_lightblue" slass="selected">
+                <a href="javascript:;">
+                    <img src="images/ad/skin.jpg" alt="" width="89" height="54">
+                    <span>默认</span>
+                </a>
+            </li>
+            <li id="skin_pink">
+                <a href="javascript:;">
+                    <img src="images/ad/skin.jpg" alt="" width="89" height="54">
+                    <span>粉红牡丹</span>
+                </a>
+            </li>
+            <li id="skin_golf">
+                <a href="javascript:;">
+                    <img src="images/ad/skin.jpg" alt="" width="89" height="54">
+                    <span>高尔夫</span>
+                </a>
+            </li>
+            <li id="skin_light">
+                <a href="javascript:;">
+                    <img src="images/ad/skin.jpg" alt="" width="89" height="54">
+                    <span>流光溢彩</span>
+                </a>
+            </li>
+            <li id="skin_star">
+                <a href="javascript:;">
+                    <img src="images/ad/skin.jpg" alt="" width="89" height="54">
+                    <span>星际迷航</span>
+                </a>
+            </li>
+            <li id="skin_cat">
+                <a href="javascript:;">
+                    <img src="images/ad/skin.jpg" alt="" width="89" height="54">
+                    <span>招财进宝</span>
+                </a>
+            </li>
+
+        </ul>
+    </div>
+    <div class="skinPopBtn">
+        <a class="btnSure" href="javascript:void(0)">
+            <span>保存</span>
+        </a>
+        <a class="btnNormal" href="javascript:void(0)">
+            <span>取消</span>
+        </a>
+    </div>
+</div>
+<div id="tabsMenuList" class="tab-menu shadow hide" style="position:absolute;left:678px;top:106px;background:white;z-index:999">
+	<ul class="tab-top">
+		<li id="closeAllTabs" onclick="appView.closeAllTab()" class=""><a href="javascript:;" class="tab-top-a"> <i class="i-tab i-tab-c"></i><span class="title">关闭所有标签</span></a></li>
+	</ul>
+	<ul class="tab-top" id="fixedTabsUl">
+		<li><a href="javascript:;" class="tab-top-a"><span class="title">上线测试</span><i class="tabClose"></i></a></li>
+		<li><a href="javascript:;" class="tab-top-a"><span class="title">外链永久有效</span><i class="tabClose"></i></a></li>
+		<li><a href="javascript:;" class="tab-top-a"><span class="title">您共享了一个日...</span><i class="tabClose"></i></a></li>
+	</ul>
+	<div id="otherTabsMenu" class="sweb tab-ullist" style="">
+		<ul class="tab-list">
+		<li  class=""><span class="tab-text" title="换皮肤">换皮肤</span><span class="i-tab i-tab-x" name="close" title="关闭"></span></li>
+		<li  class="sel"><span class="tab-text" title="很抱歉，您的邮件被退回了。">很抱歉，您的邮件被退回了。</span><span class="i-tab i-tab-x" name="close" title="关闭"></span></li>
+		</ul>
+	</div>
+</div>
+
+<style>
+.newGroupTips{width:332px; height:64px; background-color:#ffffe1; border:#e1e1c9 solid 1px; position:absolute; top:262px; left:74px; z-index:999;}
+.newGroupTips .inner{padding:15px 0 0 15px;color:#666; line-height:18px;}
+.newGroupTips strong{font-size:14px;}
+.newGroupTips .icon-light{background:url(../images/201312/groupGuide.png) no-repeat -64px 0; width:36px; height:36px; float:left;}
+.newGroupTips .arrow-left-tips{ width:5px; height:7px; position:absolute;left:-5px; top:9px; font-size:0;background:url(../images/201312/groupGuide.png) no-repeat 0 -15px;}
+</style>
+<div class="newGroupTips">
+  <div class="inner">
+    	<i class="icon-light mr_10"></i>
+    <p><strong>群邮件全新升级</strong><br>项目沟通、会议邀请、发布通知…以后就用它了。</p>
+    </div>
+    <a href="javascript:" class="i_u_close"></a>
+    <i class="arrow-left-tips"></i>
+</div>
+
+
+<!--新版引导-->
+<div id="J_layout_mask" class="layer_mask hide" style="overflow: hidden; z-index: 5009;"></div>
+<style>
+.newGuideWrap{}
+.newGuideWrap .guideLayer{position:fixed;_position:absolute;z-index:5010;display:none;}
+.newGuideWrap .guide_01{display:block;width:813px;height:241px;left:50%;top:50%;margin:-120px 0 0 -406px;background:url(../images/201312/guide_01.png) no-repeat;}
+.newGuideWrap .guide_02{width:611px;height:246px;left:0;top:0;background:url(../images/201312/guide_02.png) no-repeat;}
+.newGuideWrap .guide_03{width:813px;height:241px;left:0;bottom:0;background:url(../images/201312/guide_03.png) no-repeat;}
+.newGuideWrap .closeGl{width:28px;height:28px;cursor:pointer;position:absolute;top:5px;right:5px;background:url(../images/201312/guide_close.png) no-repeat;}
+.newGuideWrap .guideTxtArea{position:absolute;top:105px;left:360px;color:white;}
+.newGuideWrap .btnG,.newGuideWrap .btnG span,.newGuideWrap .btnTb,.newGuideWrap .btnTb span{height:28px;line-height:28px;overflow:hidden;width:80px;text-align:center;font-size:14px;padding:0;}
+.newGuideWrap .btnTb,.newGuideWrap .btnTb span{border:0;}
+</style>
+<ol class="newGuideWrap hide">
+    <li class="guideLayer guide_01" id="J_guideBox_01">
+        <div class="guideTxtArea">
+            <p class="fz_18">了解新版首页框架变化，使用起来更顺畅</p>
+            <p class="mt_20"><a hidefocus="1" class="btnG" href="javascript:void(0)" id="bottomSend" onclick="funIndex('01')"><span>开始了解</span></a><a hidefocus="1" class="btnTb ml_20" href="javascript:void(0)" id="topCancelSend"  onclick="funClose('01')"><span>跳 过</span></a></p>
+        </div>
+        <a href="javascript:;" id="J_guide_01" class="closeGl" style="top:10px;right:132px;" onclick="funClose('01')"></a>
+    </li>
+    <li class="guideLayer guide_02" id="J_guideBox_02">
+        <div class="guideTxtArea" style="top:160px;left:195px;">
+            <p class="fz_18">核心功能全新组合　一目了然</p>
+            <p class="mt_20 ta_c"><a hidefocus="1" class="btnG" href="javascript:void(0)" id="bottomSend" onclick="funIndex('02')"><span>下一个</span></a></p>
+        </div>
+        <a href="javascript:;" id="J_guide_02" class="closeGl" style="top:77px;right:134px;" onclick="funClose('02')"></a>
+    </li>
+    <li class="guideLayer guide_03" id="J_guideBox_03">
+        <div class="guideTxtArea" style="top:115px;left:413px;width:335px;">
+            <p class="fz_18">特色应用 :  短信  彩信   发贺卡   附件夹…</p>
+            <p class="mt_20 ta_c"><a hidefocus="1" class="btnG" href="javascript:void(0)" id="bottomSend" onclick="funClose('03')"><span>我知道了</span></a></p>
+        </div>
+        <a href="javascript:;" id="J_guide_03" class="closeGl" style="top:25px;right:6px;" onclick="funClose('03')"></a>
+    </li>
+</ol>
+ <!--[if IE 6]>
+  <script src="../js/DD_belatedPNG.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    DD_belatedPNG.fix('.guideLayer,.closeGl');
+  </script>
+  <![endif]-->
+<script>
+var J_guide_01=document.getElementById('J_guide_01'),J_guide_02=document.getElementById('J_guide_02'),J_guide_03=document.getElementById('J_guide_03'),J_layout_mask=document.getElementById('J_layout_mask');
+//序列
+function funIndex(x){
+    document.getElementById('J_guideBox_' + x ).style.display = 'none';
+    x=parseInt(x);
+    x=x+1;
+    document.getElementById('J_guideBox_0' + x ).style.display = 'block';
+}
+//关闭层
+function funClose(x){
+    document.getElementById('J_guideBox_' + x ).style.display = 'none';
+    J_layout_mask.style.display = 'none';
+}
+</script>
+<script type="text/javascript">
+        //<![CDATA[
+        $(function(){
+            var $li =$("#skin li");
+            $li.click(function(){  
+                 $("#cssfile").attr("href","../css/skin/"+ this.id +".css");                 
+            });
+           
+        });
+        
+        //]]> 
+</script>
+<script language="JavaScript" type="text/javascript">
+<!--
+	/*透明皮肤*/
+	function windowResize(){
+		var window_width=document.body.clientWidth;
+		var window_hieght=document.body.clientHeight
+		$(".skinBody img").width(window_width);
+		$(".skinBody img").height(window_hieght);
+	}
+	windowResize();
+	$(window).resize(function() {
+	   windowResize();
+	});
+	$("#skin_claritRed a").click(function(){
+		$(".skinBody img").attr("src","../images/skin/claritRed/skinBody.jpg");
+	});
+	$("#skin_claritGreen a").click(function(){
+		$(".skinBody img").attr("src","../images/skin/claritGreen/skinBody.jpg");
+	});
+	$("#skin_claritBrown a").click(function(){
+		$(".skinBody img").attr("src","../images/skin/claritBrown/skinBody.jpg");
+	});
+	$("#skin_claritBamboo a").click(function(){
+		$(".skinBody img").attr("src","../images/skin/claritBamboo/skinBody.jpg");
+	});
+	$("#skin_claritPurple a").click(function(){
+		$(".skinBody img").attr("src","../images/skin/claritPurple/skinBody.jpg");
+	});
+//-->
+</script>
+</body>
+</html>

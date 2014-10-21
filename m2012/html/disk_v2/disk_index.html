@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="Keywords" content="" />
+    <meta name="Description" content="" />
+    <title>彩云网盘-139邮箱</title>
+    <style type="text/css">
+        body {
+         position:relative;
+         overflow:hidden;
+        }
+    </style>
+
+    <script type="text/javascript">
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+    </script>
+    <script type="text/javascript">
+        top.loadScript('libs.pack.js', document);
+        top.loadScript('m139.core.pack.js', document);
+        top.loadScript("m2012.ui.common.pack.js", document);
+    </script>
+    <script type="text/javascript">
+        //加载css样式
+        (function () {
+            var styles = [];
+            styles.push("common/global.css");
+            styles.push("module/FileExtract/extract.css");
+            styles.push("module/networkDisk/networkDisk.css");
+            top.loadCSS(styles, document);
+            top.$App.setModuleSkinCSS(document);
+        })();
+
+    </script>
+</head>
+<body>
+    <div class="outArticle" id="outArticle">
+    </div>
+    <iframe id="downloadFrame" src="" style="display: none;"></iframe>
+
+    <script type="text/javascript">
+        top.loadScript("/m2012/js/packs/disk/disk_index.html.pack.js", document);
+    </script>
+</body>
+</html>

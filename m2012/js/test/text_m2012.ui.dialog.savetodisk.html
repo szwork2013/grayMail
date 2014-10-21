@@ -1,0 +1,32 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="Keywords" content="" />
+<meta name="Description" content="" />
+<title>139邮箱</title>
+<link rel="stylesheet" href="../../css/common/global.css" type="text/css" />
+<link rel="stylesheet" href="../../css/module/inbox.css" type="text/css" />
+<link rel="stylesheet" href="../../css/skin/skin_lightblue.css" type="text/css" />
+
+    <script src="../libs.pack.js"></script>
+    <script src="../m139.core.pack.js"></script>
+    <script src="../m2012.ui.common.pack.js"></script>
+
+    <script src="../ui/treeview/m2012.ui.treeview.mainview.js"></script>
+    <script src="../ui/treeview/m2012.ui.treeview.nodeview.js"></script>
+    <script src="../ui/dialog/m2012.ui.dialog.savetodisk.js"></script>
+</head>
+<body class="bodycolor" style="height:700px;">
+    <script>
+        $(function(){
+            var view = new M2012.UI.Dialog.SaveToDisk({
+                fileName: "我的附件.png",
+                downloadUrl:"http://xxx"
+            });
+            view.render();
+        });
+        
+    </script>
+</body>
+</html>

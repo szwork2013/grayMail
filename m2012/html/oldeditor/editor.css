@@ -1,0 +1,444 @@
+﻿@charset "utf-8";
+
+html,body
+{
+	margin:0; 
+	height: 100%; 
+	overflow: hidden;
+	padding:0;
+}
+.editor
+{
+	_height:98%;
+	*height:98%;
+	overflow:hidden;
+	}
+/*编辑器菜单*/
+.editorSelect, .colorSelect, .colorSelect a,.colorSelect a:visited {
+	border:1px solid #B1B1B1;
+	font-family:Tahoma,Arial,Helvetica,sans-serif,宋体;
+	font-size:12px;
+}
+.editorSelect{position:absolute;z-index:999;padding:2px;background-color:white;}
+.editorSelect a{display:block;width:100px;padding:3px 10px;text-decoration:none;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;}
+.editorSelect a{text-decoration:none;color:#525252;}
+.editorSelect a:hover{background-color:#FAF3A2;}
+/*调色板*/
+.colorSelect{position:absolute;z-index:999;width:141px;height:90px;background-color:white;}
+.colorSelect a{float:left;margin:5px 0 0 5px;width:10px;height:10px;overflow:hidden;}
+/*插入表格*/
+.editor_insertTableMenu {
+	position: absolute;
+	border-top: 1px solid #C5C5C5;
+	border-left: 1px solid #C5C5C5;
+	border-right: 1px solid #9F9F9F;
+	border-bottom: 1px solid #9F9F9F;
+	background-color: #F0F0EE;
+	color: #222222;
+	font-size: 12px;
+	text-align: left;
+	padding: 2px;
+	z-index: 999;
+}
+.editor_insertTable {
+	margin:0;
+	padding:0;
+	border-collapse:separate;
+}
+.editor_insertTable td {
+	border:0;
+	margin:0;
+	padding:0;
+}
+.editor_insertTableItem {
+	border:1px solid #DDDDDD;
+	background-color:#FFFFFF;
+	cursor:pointer;
+	overflow:hidden;
+	margin:1px;
+	padding:0;
+	width:12px;
+	height:12px;
+}
+.editor_insertTableTip
+{	font-size:12px;
+	text-align:center;
+	height:20px;
+	border:0;
+	margin:0;
+	padding:0;
+	width:180px;
+}
+
+
+.editor {
+	min-width:200px;
+}
+.editor, .editor ul {
+	border:1px solid #b5b5b5;
+	border-radius:2px;
+	-webkit-border-radius:2px;
+	-moz-border-radius:2px;
+}
+.editor ul,.editor li,.editor a,.editor span,.editor i{ float:left; height:20px}
+.editor i, .editor a{
+	background:url(editor_ico.png) repeat-x
+}
+.editor i {
+	background-repeat:no-repeat;
+	width:20px;
+	cursor:pointer;
+}
+.editor ul, .editor li {
+	margin:0;
+	padding:0;
+}
+
+.editor ul {
+	margin:0 3px 0 0;
+	border-color:#ccc
+}
+.editor li {
+	font-size:12px;
+	border-right:1px solid #d3d3d3;
+	list-style:none;
+}
+.editor li.end {
+	border:none
+}
+.editor a{
+	color:#333;
+	outline:none;
+	text-decoration:none;
+}
+.editor .on{
+	background-position: 0 -40px
+}
+.editor a:hover{
+	background-position:0 -20px
+}
+.editor .on .drop,.editor a:hover .drop{
+	border:none;
+	margin-left:1px
+}
+.editor .opt-area {
+	border-bottom:1px solid #b5b5b5;
+	padding:2px 4px;
+}
+.editor .opt-area span {
+	line-height:22px;
+	overflow:hidden;
+	cursor:pointer;
+}
+.editor .opt-area .fontSize,.editor .opt-area .fontFamily,.editor .opt-area .ch span{ padding:0 4px}
+.editor .opt-area a span{ padding:0 2px 0 0} 
+.editor .opt-area div {
+	padding:2px 0;
+	clear:both;
+}
+.editor .opt-area div:after, .editor ul:after,.editor a:after{
+	clear:both;
+	display:block;
+	content:'\20'
+}
+.editor .ch {
+	float:right;
+	margin:0
+}
+.editor .ch .drop {
+	border:none;
+	margin-left:1px
+}
+.editor .drop {
+	background-position:0 -60px;
+	width:11px;
+	border-left:1px solid #f0f0f0
+}
+.editor .up {
+	background-position:-10px -60px
+}
+.editor .format {
+	background-position:0 -80px
+}
+.editor .bold {
+	background-position:0 -100px
+}
+.editor .italic {
+	background-position:0 -120px
+}
+.editor .underline {
+	background-position:0 -140px
+}
+.editor .color {
+	background-position:0 -160px
+}
+.editor .bgcolor {
+	background-position:0 -180px
+}
+.editor .link {
+	background-position:0 -200px
+}
+.editor .table {
+	background-position:0 -220px
+}
+.editor .image {
+	background-position:0 -240px
+}
+.editor .creenshot {
+	background-position:0 -260px
+}
+.editor .smile {
+	background-position:0 -280px
+}
+.editor .signature {
+	background-position:0 -300px
+}
+.editor .undo {
+	background-position:0 -320px
+}
+.editor .redo {
+	background-position:0 -340px
+}
+.editor .square {
+	background-position:0 -360px
+}
+.editor .decimal {
+	background-position:0 -380px
+}
+.editor .indent {
+	background-position:0 -400px
+}
+.editor .unindent {
+	background-position:0 -420px
+}
+.editor .left {
+	background-position:0 -440px
+}
+.editor .center {
+	background-position:0 -460px
+}
+.editor .right {
+	background-position:0 -480px
+}
+textarea{
+	border:none 0;
+	width:100%;
+	height:200px;
+	overflow:auto
+}
+/*hack*/
+.editor ul,.editor li a,.editor .opt-area div {
+	*zoom:1
+}
+
+/*插入表格*/
+.editor_insertTableMenu {
+	position: absolute;
+	border-top: 1px solid #C5C5C5;
+	border-left: 1px solid #C5C5C5;
+	border-right: 1px solid #9F9F9F;
+	border-bottom: 1px solid #9F9F9F;
+	background-color: #F0F0EE;
+	color: #222222;
+	font-size: 12px;
+	text-align: left;
+	padding: 2px;
+	z-index: 999;
+	width:188px;
+}
+.editor_insertTable {
+	margin:0;
+	padding:0;
+	border-collapse:separate;
+}
+.editor_insertTable td {
+	border:0;
+	margin:0;
+	padding:0;
+}
+.editor_insertTableItem {
+	border:1px solid #DDDDDD;
+	background-color:#FFFFFF;
+	cursor:pointer;
+	overflow:hidden;
+	margin:1px;
+	padding:0;
+	width:12px;
+	height:12px;
+}
+.editor_insertTableTip
+{	font-size:12px;
+	text-align:center;
+	height:20px;
+	border:0;
+	margin:0;
+	padding:0;
+	width:180px;
+}
+
+
+.editor {
+	min-width:200px;
+}
+.editor, .editor ul {
+	border:1px solid #b5b5b5;
+	border-radius:2px;
+	-webkit-border-radius:2px;
+	-moz-border-radius:2px;
+}
+.editor ul,.editor li,.editor a,.editor span,.editor i{ float:left; height:20px}
+.editor i {
+	background-repeat:no-repeat;
+	width:20px;
+	cursor:pointer;
+}
+.editor ul, .editor li {
+	margin:0;
+	padding:0;
+}
+
+.editor ul {
+	margin:0 3px 0 0;
+	border-color:#ccc
+}
+.editor li {
+	font-size:12px;
+	border-right:1px solid #d3d3d3;
+	list-style:none;
+}
+.editor li.end {
+	border:none
+}
+.editor a{
+	color:#333;
+	outline:none;
+	text-decoration:none;
+}
+.editor .on{
+	background-position: 0 -40px
+}
+.editor a:hover{
+	background-position:0 -20px
+}
+.editor .on .drop,.editor a:hover .drop{
+	border:none;
+	margin-left:1px
+}
+.editor .opt-area {
+	border-bottom:1px solid #b5b5b5;
+	padding:2px 4px;
+}
+.editor .opt-area span {
+	line-height:22px;
+	overflow:hidden;
+	cursor:pointer;
+	font-family:宋体;
+}
+.editor .opt-area .fontSize,.editor .opt-area .fontFamily,.editor .opt-area .ch span{ padding:0 4px}
+.editor .opt-area a span{ padding:0 2px 0 0} 
+.editor .opt-area div {
+	padding:2px 0;
+	clear:both;
+}
+.editor .opt-area div:after, .editor ul:after,.editor a:after{
+	clear:both;
+	display:block;
+	content:'\20'
+}
+.editor .ch {
+	float:right;
+	margin:0
+}
+.editor .ch .drop {
+	border:none;
+	margin-left:1px
+}
+.editor .drop {
+	background-position:0 -60px;
+	width:11px;
+	border-left:1px solid #f0f0f0
+}
+.editor .up {
+	background-position:-10px -60px
+}
+.editor .opt-area .fontSize{ width:42px}
+.editor .opt-area .fontFamily{ width:62px;}
+.editor .format {
+	background-position:0 -80px
+}
+.editor .bold {
+	background-position:0 -100px
+}
+.editor .italic {
+	background-position:0 -120px
+}
+.editor .underline {
+	background-position:0 -140px
+}
+.editor .color {
+	background-position:0 -160px
+}
+.editor .bgcolor {
+	background-position:0 -180px
+}
+.editor .link {
+	background-position:0 -200px
+}
+.editor .table {
+	background-position:0 -220px
+}
+.editor .image {
+	background-position:0 -240px
+}
+.editor .creenshot {
+	background-position:0 -260px
+}
+.editor .smile {
+	background-position:0 -280px
+}
+.editor .signature {
+	background-position:0 -300px
+}
+.editor .undo {
+	background-position:0 -320px
+}
+.editor .redo {
+	background-position:0 -340px
+}
+.editor .square {
+	background-position:0 -360px
+}
+.editor .decimal {
+	background-position:0 -380px
+}
+.editor .indent {
+	background-position:0 -400px
+}
+.editor .unindent {
+	background-position:0 -420px
+}
+.editor .left {
+	background-position:0 -440px
+}
+.editor .center {
+	background-position:0 -460px
+}
+.editor .right {
+	background-position:0 -480px
+}
+/*hack*/
+.editor ul,.editor li a,.editor .opt-area div {
+	*zoom:1
+}
+
+/*========================= 表情 =========================*/
+fieldset, img{border:0}
+.expression{width:300px;float:left;padding:6px;border:1px solid #777674;background:#FFFEF2}
+.expression #expTip{width:100%;margin:0px;padding:0px;margin:0 auto}
+.expression .expTipBox {width:299px; float:left;line-height:23px;background:#FFFEF2;border-bottom:1px solid #DFDCD7}
+.expression .expTipBox ul{margin:0px;padding:0px}
+.expression .expTipBox li{float:left;padding:0 10px 0 10px;display:block;cursor:pointer}
+.expression .expTipBox li.expTipOn{background:#FFB605;color:#000;font-weight:bold;border:1px solid #DFDCD7;border-bottom:none}
+.expression .expTipContent{clear:both;margin-top:0px;padding:8px;text-align:left;border:1px solid #DFDCD7;border-top:none}
+.expression .expPAge{float:right;padding:5px 15px 0 0;color:#000}
+.expression .expPAge a{margin-left:7px;color:#0037F7}

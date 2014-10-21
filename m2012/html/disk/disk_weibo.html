@@ -1,0 +1,261 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <title>139邮箱彩云|文件分享到新浪微博</title>
+    <script language="javascript">
+	    var domain = "10086.cn";
+	    if(document.domain.indexOf("rd") > -1){
+		    domain="10086rd.cn";
+	    } else if(document.domain.indexOf("ts") > -1){
+		    domain="10086ts.cn";
+	    }
+	    var filePath=('	<script type="text/javascript" src="http://mail.#resourcePath#/js/redirect.js"></'+'script>').replace(/\#resourcePath\#/g, domain);
+		document.write(filePath);  
+    </script>
+    <script type="text/javascript" language="javascript">
+        //设域
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1].replace(/:\d+/, "");
+	    var urlConfigs = {
+		    setUrlVariable: function(environment){		    
+			    if(urlConfigs[environment] && urlConfigs[environment].length == urlConfigs["vars"].length){
+				    for(var i=0; i<urlConfigs["vars"].length; i++){
+					    window[urlConfigs["vars"][i]] = urlConfigs[environment][i];
+				    }
+			    } else{
+				    if(!urlConfigs[environment]){
+					    window[urlConfigs["vars"][i]] = "http://images.rd139cm.com:8088/m/coremail";
+				    } else {
+						alert("env:" + urlConfigs[environment].length + "|vars:" + urlConfigs["vars"].length);
+					}
+			    }
+		    },
+		    "vars": ["resourcePath" /*获得资源路径*/],
+		    "disk.mail.10086rd.cn": ["http://images.rd139cm.com:8088/m/coremail"] ,
+		    "disk.mail.10086ts.cn": ["http://images.mail.10086ts.cn:2080/m/coremail"], 
+		    "disk.mail.10086.cn": ["http://images.139cm.com/m/coremail"]
+	    };
+	    //设置变量
+    	
+	    urlConfigs.setUrlVariable(window.location.host);
+
+        var netDiskResourcePath = window["resourcePath"].replace("coremail", "newnetdisk4");
+        var htmlCode="";
+
+        htmlCode += getLinkTag(window["resourcePath"] + "/css/netdisk.css");
+        htmlCode += getJsTag(resourcePath + "/js/jquery.js");
+		htmlCode += getJsTag(resourcePath + "/js/utils.js");
+		htmlCode += getJsTag(netDiskResourcePath + "/js/m2011.disk.diskconf.js");
+        htmlCode += getJsTag(netDiskResourcePath + "/js/m2011.disk.diskcommon.js");
+        document.write(htmlCode);
+        
+        function getLinkTag(path){
+            var text = "";
+            if(path) {
+				text = "href='"+ path +"'";
+			}
+            return "<link rel='stylesheet' type='text/css' "+text+" />";
+        }
+        function getJsTag(path,charset){
+            var html = "<script charset='utf-8' src='"+ path +"' type='text/javascript'></"+"script>";
+            if (charset) {
+				html = html.replace("utf-8", charset);
+			}
+            return html;
+        }
+    </script>
+    <script type="text/javascript" language="javascript">
+        
+        //初始化
+        $(function(){
+           SendWeiboPage.init();
+        });
+        var SendWeiboPage = {
+            maxWordCount: 100,//允许最大字符数
+            sendStatus: 0,//0 正常状态 1正在发送  2不能发送
+            isReload: false,//是否刷新页面
+            sid: "",//用户ID
+            Keys: {
+                Delete: 46,
+                Backspace: 8
+            },
+            /*提示消息*/
+            Messages: {
+                Message_1: "发送内容不能为空",
+                Message_2: "发送内容过长"
+            },
+            init: function() {
+                var fileId = Utils.queryString("fileid");
+				var getUrl = SendWeiboPage.getPostUrl('filedetail');
+				//根据fileid获取文件信息
+				$.postXml({
+					url: getUrl, //获取文件信息的地址
+					data: XmlUtility.parseJson2Xml({
+						fileid: fileId,
+						dirType: 1
+					}),
+					success: function(result) {
+						if(result.code == "S_OK") {
+							var fileName = result['var'].srcfilename;
+							var tipsMess = "分享了文件“"+ fileName +"”，欢迎大家下载分享！";
+							var strongMess = "<strong>您将发布："+ fileName +"</strong>（共1个文件，"+ DiskTool.getFileSizeText(result['var'].filesize) +"）";
+							$('#txtContent').html(tipsMess);
+							$('#pFileInfo').html(strongMess);
+							SendWeiboPage.getFileIcon(result['var']);
+						}
+					}
+				});
+                SendWeiboPage.showWordCount();
+				$('#wsend').click(function() {
+					if(SendWeiboPage.sendValidate()) {//验证通过
+						var sendUrl = SendWeiboPage.getPostUrl('weiboupdate');
+						$.postXml({
+							url: sendUrl, //获取文件信息的地址
+							data: XmlUtility.parseJson2Xml({
+								fileid: fileId,
+								content: $("#txtContent").val(),
+								accessToken: Utils.queryString('accessToken')
+							}),
+							success: function(result) {
+								if(result.code == "S_OK") {
+									location.href = result.url;
+								}
+							}
+						});
+					}
+				});
+            },
+			/*获取文件图片*/
+			getFileIcon: function(fileObj) {
+				//判断要发送的是否是图片
+				var fileExt = DiskTool.getFileExtName(fileObj.srcfilename); 
+				if(DiskTool.Toolbar.getExtTypeBySend(fileExt) == "pic") {//是图片刚获取缩略图
+					var getUrlImg = SendWeiboPage.getPostUrl('getthumbnailimage');
+					$.postXml({
+						url: getUrlImg, //获取文件信息的地址
+						data: XmlUtility.parseJson2Xml({
+							fileids: fileObj.fileid,
+							width: 50,
+							height: 50
+						}),
+						success: function(result) {
+							$("#dticon").hide();
+							$("#dtpic").find("img").attr("src", result['var'][fileObj.file_ref_id]);
+						}
+					});
+				} else { 
+                    var imageCss = DiskTool.getFileImageClass(fileExt);  
+                    $("#iFileIcon").addClass(imageCss);
+				}
+			},
+            /*显示剩余字数*/
+            showWordCount:function(){
+                var content = $("#txtContent");
+                var curCount = content.val().length;
+                
+                if(SendWeiboPage.maxWordCount - curCount <= 0){
+                    $(".fz_old").html("<span style='color:red;font-size:22px;'>"+(SendWeiboPage.maxWordCount - curCount)+"</span>");
+                }else{
+                    $(".fz_old").text(SendWeiboPage.maxWordCount - curCount);
+                }
+                if(curCount >= SendWeiboPage.maxWordCount) {
+                    content.val(content.val().substring(0, SendWeiboPage.maxWordCount));
+                }
+                
+                setTimeout(function() {
+                    SendWeiboPage.showWordCount();
+                }, 100);
+            },
+            /*显示提示消息*/
+            alert: function(msg, sid, isreload){
+                $(".wtPopWrap").show();
+                $("#spText").text(msg);
+                
+                //来自后台操作
+                if(sid){
+                    SendWeiboPage.sid=sid;
+                    addDiskBehavior(7041, 14, 20,0,0,sid);
+                }
+                SendWeiboPage.isReload = isreload;
+            },
+            /*关闭提示消息*/
+            closeAlert: function() {
+                $(".wtPopWrap").hide();
+                $("#spText").text("");
+                if(SendWeiboPage.isReload){
+                    location.href = "disk_weibo.html?sid="+ SendWeiboPage.sid;
+                }
+            },
+            /*发送*/
+            sendValidate:function(){
+                //只有正常状态才允许执行发送操作
+                if(SendWeiboPage.sendStatus != 0)
+                    return false;
+                    
+                var curCount = $("#txtContent").val().length;
+                if(curCount == 0){
+	                SendWeiboPage.alert(SendWeiboPage.Messages.Message_1);
+                    return false;
+                }
+                
+                if(SendWeiboPage.maxWordCount < curCount) {
+	                SendWeiboPage.alert(SendWeiboPage.Messages.Message_2);
+                    return false;
+                }
+                SendWeiboPage.sendStatus = 1;
+                return true;
+            },
+			/*组合URL*/
+			getPostUrl: function(commName) {
+				var pUrl = DiskTool.resolveUrl(commName);
+				pUrl += "&sid=" + Utils.queryString("sid") + "&rnd="+ Math.random();
+				return pUrl;
+			}
+        };
+    </script>
+</head>
+<body class="meagerPubBg">
+<form id="form2" runat="server">
+<div class="meagerBar">
+	<div class="meagerBg">
+        <h1 class="meagerPubTitle">发布到新浪微薄！</h1>
+        <div>
+            <p id="pFileInfo"></p>
+            <dl class="meagerForm">
+                <dt id="dticon"><i class="pmt_12" id="iFileIcon"></i></dt>
+                <dt id="dtpic" style="display:none;"><img src="" alt="" width="56" height="56" /></dt>
+                <dd><textarea name="" id="txtContent" class="meagerForm_textra" ></textarea>
+                <p class="meagerFontCou">
+                <span style="float:right;margin-top:-5px;">还可以输入<strong class="fz_old">100</strong>字</span>
+                <input name="checkbox" id="chkIsForward" runat="server" type="checkbox" value="" style="display:none"/>
+                </p>
+                </dd>
+            </dl> 
+            <p class="meagerBtnBar">
+            <input type="button" id="wsend" class="meagerPubBtn" value="发 布" />
+            </p>   
+        </div>
+    </div>
+</div>
+
+<!-- 系统提示层-->
+<div class="wtPopWrap" style="display:none">
+	<div class="wtPop_title">
+    	<h2>提示</h2>
+        <a href="javascript:SendWeiboPage.closeAlert();" class="close"></a>
+    </div>
+    <div class="wtPop_Main">
+        <dl>
+            <dt class="wtPop_Main_infoIco"></dt>
+            <dd><span id="spText"></span></dd>
+        </dl>
+        <p style="text-align:right"><a href="javascript:SendWeiboPage.closeAlert();" class="wtBtn">确 定</a></p>  
+    </div>  
+</div>
+
+</form>
+
+</body>
+
+</html>

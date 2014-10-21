@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>邮件归档</title>
+<script type="text/javascript">
+    //设域
+    document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+    //获得资源路径
+    var rmResourcePath = window.top.rmResourcePath;
+    var htmlCode = "";
+    htmlCode += getLinkTag("");
+/*	
+    htmlCode += getLinkTag(rmResourcePath + "/css/min_global_all.css");
+	htmlCode += getLinkTag(rmResourcePath + "/css/global.css");
+	htmlCode += getLinkTag(rmResourcePath + "/css/global-2.css");
+*/
+
+
+    htmlCode += getLinkTag(rmResourcePath + "/css/inbox.css");
+    htmlCode += getJsTag(rmResourcePath + "/js/utils_controls.js");
+	htmlCode += getJsTag(rmResourcePath + "/js/utils.js");
+    document.write(htmlCode);
+    
+    function getJsTag(path, charset){
+        var html = "<script charset='gb2312' src='" + path + "' type='text/javascript'></" + "script>";
+        if (charset) 
+            html = html.replace("gb2312", charset);
+        return html;
+    }
+    
+    function getLinkTag(path){
+        var text = "";
+        if (path) 
+            text = "href='" + path + "'";
+        return "<link rel='stylesheet' type='text/css' " + text + " />";
+    }
+</script>
+<script type="text/javascript">
+    Utils.setDomain();
+    Utils.loadSkinCss();
+</script>
+
+<script type="text/javascript" src="jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="underscore.min.js"></script>
+<script type="text/javascript" src="backbone.min.js"></script>
+<script type="text/javascript" src="m139.core.js"></script>
+<script type="text/javascript" src="m139.text.js"></script>
+<script type="text/javascript" src="m139.date.js"></script>
+<script type="text/javascript" src="m139.dom.js"></script>
+<script type="text/javascript" src="m139.json.js"></script>
+<script type="text/javascript" src="m139.timing.js"></script>
+<script type="text/javascript" src="m139.text.js"></script>
+<script type="text/javascript" src="httprouter.js"></script>
+<script type="text/javascript" src="m139.logger.js"></script>
+<script type="text/javascript" src="m139.httpclient.js"></script>
+<script type="text/javascript" src="m139.exchangehttpclient.js"></script>
+<script type="text/javascript" src="m139.richmail.richmailhttpclient.js"></script>
+<script type="text/javascript" src="cleanmail_model.js"></script>
+<script type="text/javascript" src="cleanmail_view.js"></script>
+
+
+<style type="text/css">
+ul,li,dl,dt,dd,fieldset,input{margin:0;padding:0;}
+input,label{font-size:100%;}
+input{vertical-align:middle;color:#333;font-family:"lucida Grande",Verdana;}
+a{color:#014282;text-decoration:none;}
+a:hover{text-decoration:underline;}
+a:focus{outline:none;}
+ul{list-style:none outside none;}
+fieldset{border:none;}
+i{display:inline-block;}
+.show{display:block!important;}
+.clearfix:after{visibility:hidden;display:block;font-size:0;content:" ";clear:both;height:0;}
+.clearfix{zoom:1;}
+.mb_5{margin-bottom:5px;}
+.gray{color:#999;}
+.red{color:#c00;}
+.p_relative{position:relative;}
+.i_triangle_d{background:url(http://localhost/style/common/../../images/global/global.png) no-repeat;display:inline-block;overflow:hidden;vertical-align:middle;}
+.i_triangle_d{width:7px;height:4px;background-position:-375px -22px;}
+.btnSure,.btnNormal{display:inline-block;cursor:pointer;color:#333;height:22px;padding-left:12px;overflow:hidden;background:url(http://localhost/style/common/../../images/global/button.png) 0 -227px no-repeat;vertical-align:middle;line-height:0;}
+.btnSure span,.btnNormal span{display:inline-block;line-height:23px;height:100%;padding-right:12px;background:url(http://localhost/style/common/../../images/global/button.png) right -227px no-repeat;
+overflow:visible;text-align:center;vertical-align:top;white-space:nowrap;
+}
+.btnSure:hover,.btnNormal:hover{text-decoration:none;}
+.btnSure:hover{background-position:0 -253px;}
+.btnSure:hover span{background-position:right -253px;}
+.btnNormal{background-position:0 -279px;}
+.btnNormal span{background-position:right -279px}
+.btnNormal:hover{background-position:0 -305px;}
+.btnNormal:hover span{background-position:right -305px;}
+.menuPop{position:absolute;z-index:1;border:1px solid #999;background-color:#FFF;padding:5px 0;width:150px;
+-webkit-border-radius:0 0 3px 3px;-moz-border-radius:0 0 3px 3px;border-radius:0 0 3px 3px;}
+.menuPop li{float:none;_zoom:1;position:relative;}
+.menuPop li a{height:24px;line-height:24px;display:block;color:#000;padding: 0 15px;vertical-align:top;vertical-align:baseline;}
+.menuPop li a:hover{background-color:#5d99ce;color:#FFF;text-decoration:none;}
+.menuPop li span.text{white-space: nowrap;text-overflow: ellipsis;overflow:hidden;width:100%;display:inline-block;*cursor:pointer;height:24px;line-height:24px;}
+.boxIframeMain:after,.boxIframeText:after{content:".";clear:both;display:block;height:0;visibility:hidden;}
+.boxIframeMain,.boxIframeText{zoom:1;}
+.boxIframeMain{border:1px solid #a2b0c6;border-top:1px solid #2c4f7e;background-color:#fff;
+webkit-border-radius:0 0 2px 2px;-moz-border-radius:0 0 2px 2px;border-radius:0 0 2px 2px;}
+.boxIframeBtn{border-top:1px solid #a2b0c6;background-color:#f4f5f9;height:32px;padding:0 6px;}
+.boxIframeBtn .bibText{float:left;line-height:32px;}
+.boxIframeBtn .bibBtn{float:right;padding-top:5px;}
+.shadow{-moz-box-shadow:2px 2px 1px rgba(0,0,0,.1);-webkit-box-shadow:2px 2px 1px rgba(0,0,0,.1);box-shadow:2px 2px 1px rgba(0,0,0,.1);}
+.form:after{content:".";clear:both;display:block;height:0;visibility:hidden;}
+.form{width:100%;padding:15px 0;}
+.formLine:after{content:".";clear:both;display:block;height:0;visibility:hidden;}
+.formLine{zoom:1;margin-bottom:5px;}
+.dropDown{border: 1px solid #B4B4B4;height:25px;cursor:pointer;}
+.dropDown .dropDownA{height:12px;width:25px;text-align:center;overflow:hidden;float:right;margin-top:2px;border-left:1px solid #b4b4b4;padding-top:8px;}
+.dropDown .dropDownA i{vertical-align:top;}
+.dropDown .dropDownText{overflow: hidden; text-overflow: ellipsis;white-space: nowrap;padding-left:5px;line-height:25px;}
+.mailClear{padding-top:10px;padding-bottom:10px;}
+.mailClear .formLine{padding-left:30px;}
+.mailClear .dropDownText{width:91px;}
+.mailClear .label2{float:left;height:25px;line-height:25px;display:inline-block;margin-right:10px;}
+.mailClear .label2 input{margin-right:10px;}
+.mailClear .dropDown{float:left;width:125px;}
+.boxIframeMain{border-color:#a2b0c6;border-top-color:#2c4f7e;background-color:#fff;}
+.boxIframeBtn{border-top-color:1px solid #a2b0c6;background-color:#f4f5f9;}
+.boxIframeMain{text-align:left;font-size:12px;font-family:'lucida Grande', Verdana;color:rgb(51, 51, 51);}
+</style>
+
+</head>
+<body>
+
+<script type="text/template" id="cleanmail_template">
+<div class="boxIframe" >
+  <div class="boxIframeMain">
+    <fieldset class="boxIframeText">
+      <dl class="form mailClear p_relative">
+        <dt class="formLine" style="padding-bottom:5px">清理邮件，为您的邮箱提速：</dt>
+        <dd class="formLine">
+          <div class="mb_5 clearfix">
+            <label class="label2" for="cleanbytime"><input type="radio" name="cleantype" id="cleanbytime" value="0" rel="6" checked="checked" />按时间清理</label>
+            <div class="dropDown p_relative">
+              <div id="cleanbytime_div">
+                <div class="dropDownA" href="javascript:void(0)" id="cleanbytime_ico"><i class="i_triangle_d"></i></div>
+                <div class="dropDownText" id="cleanbytime_select">半年前的邮件</div>
+                <div class="menuPop shadow" id="cleanbytime_menu" style="display:none;width:125px;left:-1px;top:24px;">
+                    <ul>
+                        <li><a  href="javascript:;"><span class="text" rel="6">半年前的邮件</span></a></li>
+                        <li><a  href="javascript:;"><span class="text" rel="12">一年前的邮件</span></a></li>
+                        <li><a  href="javascript:;"><span class="text" rel="24">两年前的邮件</span></a></li>
+                        <li><a  href="javascript:;"><span class="text" rel="36">三年前的邮件</span></a></li>
+                    </ul>
+                </div>    
+              </div>
+            </div>
+          </div>
+        </dd>
+        <dd class="formLine">
+          <div class="mb_5 clearfix">
+            <label class="label2" for="cleanbynumber"><input type="radio" name="cleantype" id="cleanbynumber" value="1" rel="15000" />按封数清理</label>
+            <div class="dropDown p_relative" >
+              <div id="cleanbynumber_div" class="gray">
+                <div class="dropDownA" href="javascript:void(0)" id="cleanbynumber_ico"><i class="i_triangle_d"></i></div>
+                <div class="dropDownText" id="cleanbynumber_select">较旧的15000封</div>
+                <div class="menuPop shadow" id="cleanbynumber_menu" style="display:none;width:125px;left:-1px;top:24px;">
+                    <ul>
+                      <li><a  href="javascript:;"><span class="text" rel="15000">较旧的15000封</span></a></li>
+                      <li><a  href="javascript:;"><span class="text" rel="10000">较旧的10000封</span></a></li>
+                      <li><a  href="javascript:;"><span class="text" rel="8000">较旧的8000封</span></a></li>
+                      <li><a  href="javascript:;"><span class="text" rel="5000">较旧的5000封</span></a></li>
+                    </ul>
+                </div>
+              </div>
+            
+            </div>
+          </div>
+        </dd>
+        <dd class="formLine" style="display:">符合条件的邮件将会<span class="red">彻底删除，该操作不可恢复</span></dd>
+      </dl>
+    </fieldset>
+    <div class="boxIframeBtn"> <span class="bibText"> </span> <span class="bibBtn"> <a href="javascript:void(0)" class="btnSure" id="saveBtn" ><span>确 定</span></a>&nbsp;<a href="javascript:top.FF.close()" class="btnNormal"><span>取 消</span></a> </span> </div>
+  </div>
+</div>
+</script>
+
+<script type="text/template" id="loading_template">
+
+<div class="mialflIng shadow" id="cleanMailWaitDiv"> 
+邮件正在清理中： 
+<img src="images/global/mailflloading.gif"  />
+</div>
+<% var path = top.rmResourcePath %>
+<div class="mialfl-ing shadow">
+	<img src="<%=path%>/images/global/mailflloading.gif" />
+</div>
+</script>
+
+<div id="showContent"></div>
+
+</body>
+</html>
+

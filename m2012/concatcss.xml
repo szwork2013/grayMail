@@ -1,0 +1,290 @@
+﻿<project default="m2012_concat_css">
+  <target name="m2012_concat_css" >
+    
+    <property name="path.concatExec" location="./build/lib/concat.js" />
+    <property name="base" location="./" />
+    <echo>开始合并css文件</echo>
+    <exec executable="node">
+      <arg value="${path.concatExec}" />
+      <arg value="--input=${base}/css/common/frame.css,${base}/css/module/picture.css,${base}/css/module/bill/bill.css" />
+      <arg value="--output=${base}/css/packs/index.html.pack.css" />
+    </exec>
+    
+    <exec executable="node">
+      <arg value="${path.concatExec}" />
+      <arg value="--input=${base}/css/packs/index.html.pack.css,${base}/css/skin/skin_red.css" />
+      <arg value="--output=${base}/css/packs/skin_red_index.html.pack.css" />
+    </exec>
+    
+    <exec executable="node">
+      <arg value="${path.concatExec}" />
+      <arg value="--input=${base}/css/packs/index.html.pack.css,${base}/css/skin/skin_star.css" />
+      <arg value="--output=${base}/css/packs/skin_star_index.html.pack.css" />
+    </exec>
+
+    <exec executable="node">
+      <arg value="${path.concatExec}" />
+      <arg value="--input=${base}/css/packs/index.html.pack.css,${base}/css/skin/skin_pink.css" />
+      <arg value="--output=${base}/css/packs/skin_pink_index.html.pack.css" />
+    </exec>
+
+    <exec executable="node">
+      <arg value="${path.concatExec}" />
+      <arg value="--input=${base}/css/packs/index.html.pack.css,${base}/css/skin/skin_light.css" />
+      <arg value="--output=${base}/css/packs/skin_light_index.html.pack.css" />
+    </exec>
+
+    <exec executable="node">
+      <arg value="${path.concatExec}" />
+      <arg value="--input=${base}/css/packs/index.html.pack.css,${base}/css/skin/skin_golf.css" />
+      <arg value="--output=${base}/css/packs/skin_golf_index.html.pack.css" />
+    </exec>
+
+    <exec executable="node">
+      <arg value="${path.concatExec}" />
+      <arg value="--input=${base}/css/packs/index.html.pack.css,${base}/css/skin/skin_cat.css" />
+      <arg value="--output=${base}/css/packs/skin_cat_index.html.pack.css" />
+    </exec>
+	
+	<exec executable="node">
+      <arg value="${path.concatExec}" />
+      <arg value="--input=${base}/css/packs/index.html.pack.css,${base}/css/skin/skin_brocade.css" />
+      <arg value="--output=${base}/css/packs/skin_brocade_index.html.pack.css" />
+    </exec>
+
+	<exec executable="node">
+      <arg value="${path.concatExec}" />
+      <arg value="--input=${base}/css/packs/index.html.pack.css,${base}/css/skin/skin_flowers.css" />
+      <arg value="--output=${base}/css/packs/skin_flowers_index.html.pack.css" />
+    </exec>
+	<exec executable="node">
+      <arg value="${path.concatExec}" />
+      <arg value="--input=${base}/css/packs/index.html.pack.css,${base}/css/skin/skin_mstar.css" />
+      <arg value="--output=${base}/css/packs/skin_mstar_index.html.pack.css" />
+    </exec>
+		<exec executable="node">
+      <arg value="${path.concatExec}" />
+      <arg value="--input=${base}/css/packs/index.html.pack.css,${base}/css/skin/skin_paint.css" />
+      <arg value="--output=${base}/css/packs/skin_paint_index.html.pack.css" />
+    </exec>
+		<exec executable="node">
+      <arg value="${path.concatExec}" />
+      <arg value="--input=${base}/css/packs/index.html.pack.css,${base}/css/skin/skin_rose.css" />
+      <arg value="--output=${base}/css/packs/skin_rose_index.html.pack.css" />
+    </exec>
+		<exec executable="node">
+      <arg value="${path.concatExec}" />
+      <arg value="--input=${base}/css/packs/index.html.pack.css,${base}/css/skin/skin_sunflower.css" />
+      <arg value="--output=${base}/css/packs/skin_sunflower_index.html.pack.css" />
+    </exec>
+		<exec executable="node">
+      <arg value="${path.concatExec}" />
+      <arg value="--input=${base}/css/packs/index.html.pack.css,${base}/css/skin/skin_sunset.css" />
+      <arg value="--output=${base}/css/packs/skin_sunset_index.html.pack.css" />
+    </exec>
+		<exec executable="node">
+      <arg value="${path.concatExec}" />
+      <arg value="--input=${base}/css/packs/index.html.pack.css,${base}/css/skin/skin_newyear.css" />
+      <arg value="--output=${base}/css/packs/skin_newyear_index.html.pack.css" />
+    </exec>
+	
+	<exec executable="node">
+      <arg value="${path.concatExec}" />
+      <arg value="--input=${base}/css/packs/index.html.pack.css,${base}/css/skin/skin_dew.css" />
+      <arg value="--output=${base}/css/packs/skin_dew_index.html.pack.css" />
+    </exec>
+	
+	<exec executable="node">
+      <arg value="${path.concatExec}" />
+      <arg value="--input=${base}/css/packs/index.html.pack.css,${base}/css/skin/skin_cherry.css" />
+      <arg value="--output=${base}/css/packs/skin_cherry_index.html.pack.css" />
+    </exec>
+	
+	<exec executable="node">
+      <arg value="${path.concatExec}" />
+      <arg value="--input=${base}/css/packs/index.html.pack.css,${base}/css/skin/skin_warm.css" />
+      <arg value="--output=${base}/css/packs/skin_warm_index.html.pack.css" />
+    </exec>
+	
+	<exec executable="node">
+      <arg value="${path.concatExec}" />
+      <arg value="--input=${base}/css/packs/index.html.pack.css,${base}/css/skin/skin_lithe.css" />
+      <arg value="--output=${base}/css/packs/skin_lithe_index.html.pack.css" />
+    </exec>
+	
+	<exec executable="node">
+      <arg value="${path.concatExec}" />
+      <arg value="--input=${base}/css/packs/index.html.pack.css,${base}/css/skin/skin_night.css" />
+      <arg value="--output=${base}/css/packs/skin_night_index.html.pack.css" />
+    </exec>
+
+	<exec executable="node">
+      <arg value="${path.concatExec}" />
+      <arg value="--input=${base}/css/packs/index.html.pack.css,${base}/css/skin/skin_morning.css" />
+      <arg value="--output=${base}/css/packs/skin_morning_index.html.pack.css" />
+    </exec>	
+	
+	<exec executable="node">
+      <arg value="${path.concatExec}" />
+      <arg value="--input=${base}/css/packs/index.html.pack.css,${base}/css/skin/skin_spring.css" />
+      <arg value="--output=${base}/css/packs/skin_spring_index.html.pack.css" />
+    </exec>	
+	
+	<exec executable="node">
+      <arg value="${path.concatExec}" />
+      <arg value="--input=${base}/css/packs/index.html.pack.css,${base}/css/skin/skin_summer.css" />
+      <arg value="--output=${base}/css/packs/skin_summer_index.html.pack.css" />
+    </exec>		
+
+	<exec executable="node">
+      <arg value="${path.concatExec}" />
+      <arg value="--input=${base}/css/packs/index.html.pack.css,${base}/css/skin/skin_autumn.css" />
+      <arg value="--output=${base}/css/packs/skin_autumn_index.html.pack.css" />
+    </exec>	
+
+	<exec executable="node">
+      <arg value="${path.concatExec}" />
+      <arg value="--input=${base}/css/packs/index.html.pack.css,${base}/css/skin/skin_winter.css" />
+      <arg value="--output=${base}/css/packs/skin_winter_index.html.pack.css" />
+    </exec>	
+
+	<exec executable="node">
+      <arg value="${path.concatExec}" />
+      <arg value="--input=${base}/css/packs/index.html.pack.css,${base}/css/skin/skin_child.css" />
+      <arg value="--output=${base}/css/packs/skin_child_index.html.pack.css" />
+    </exec>	
+
+	<exec executable="node">
+      <arg value="${path.concatExec}" />
+      <arg value="--input=${base}/css/packs/index.html.pack.css,${base}/css/skin/skin_woman.css" />
+      <arg value="--output=${base}/css/packs/skin_woman_index.html.pack.css" />
+    </exec>		
+	
+	<exec executable="node">
+      <arg value="${path.concatExec}" />
+      <arg value="--input=${base}/css/packs/index.html.pack.css,${base}/css/skin/skin_lightblue.css" />
+      <arg value="--output=${base}/css/packs/skin_lightblue_index.html.pack.css" />
+    </exec>
+
+    <exec executable="node">
+      <arg value="${path.concatExec}" />
+      <arg value="--input=${base}/css/packs/index.html.pack.css,${base}/css/skin/skin_bluesky.css" />
+      <arg value="--output=${base}/css/packs/skin_bluesky_index.html.pack.css" />
+    </exec>
+
+    <exec executable="node">
+      <arg value="${path.concatExec}" />
+      <arg value="--input=${base}/css/packs/index.html.pack.css,${base}/css/skin/skin_claritBamboo.css" />
+      <arg value="--output=${base}/css/packs/skin_claritBamboo_index.html.pack.css" />
+    </exec>
+
+    <exec executable="node">
+      <arg value="${path.concatExec}" />
+      <arg value="--input=${base}/css/packs/index.html.pack.css,${base}/css/skin/skin_claritBrown.css" />
+      <arg value="--output=${base}/css/packs/skin_claritBrown_index.html.pack.css" />
+    </exec>
+
+    <exec executable="node">
+      <arg value="${path.concatExec}" />
+      <arg value="--input=${base}/css/packs/index.html.pack.css,${base}/css/skin/skin_claritGreen.css" />
+      <arg value="--output=${base}/css/packs/skin_claritGreen_index.html.pack.css" />
+    </exec>
+
+    <exec executable="node">
+      <arg value="${path.concatExec}" />
+      <arg value="--input=${base}/css/packs/index.html.pack.css,${base}/css/skin/skin_claritFlower.css" />
+      <arg value="--output=${base}/css/packs/skin_claritFlower_index.html.pack.css" />
+    </exec>
+
+    <exec executable="node">
+      <arg value="${path.concatExec}" />
+      <arg value="--input=${base}/css/packs/index.html.pack.css,${base}/css/skin/skin_claritForest.css" />
+      <arg value="--output=${base}/css/packs/skin_claritForest_index.html.pack.css" />
+    </exec>
+
+    <exec executable="node">
+      <arg value="${path.concatExec}" />
+      <arg value="--input=${base}/css/packs/index.html.pack.css,${base}/css/skin/skin_claritGrass.css" />
+      <arg value="--output=${base}/css/packs/skin_claritGrass_index.html.pack.css" />
+    </exec>
+
+    <exec executable="node">
+      <arg value="${path.concatExec}" />
+      <arg value="--input=${base}/css/packs/index.html.pack.css,${base}/css/skin/skin_claritLeaf.css" />
+      <arg value="--output=${base}/css/packs/skin_claritLeaf_index.html.pack.css" />
+    </exec>
+
+    <exec executable="node">
+      <arg value="${path.concatExec}" />
+      <arg value="--input=${base}/css/packs/index.html.pack.css,${base}/css/skin/skin_claritSky.css" />
+      <arg value="--output=${base}/css/packs/skin_claritSky_index.html.pack.css" />
+    </exec>
+
+    <exec executable="node">
+      <arg value="${path.concatExec}" />
+      <arg value="--input=${base}/css/packs/index.html.pack.css,${base}/css/skin/skin_claritSunset.css" />
+      <arg value="--output=${base}/css/packs/skin_claritSunset_index.html.pack.css" />
+    </exec>
+
+    <exec executable="node">
+      <arg value="${path.concatExec}" />
+      <arg value="--input=${base}/css/packs/index.html.pack.css,${base}/css/skin/skin_claritTifany.css" />
+      <arg value="--output=${base}/css/packs/skin_claritTifany_index.html.pack.css" />
+    </exec>
+
+    <exec executable="node">
+      <arg value="${path.concatExec}" />
+      <arg value="--input=${base}/css/packs/index.html.pack.css,${base}/css/skin/skin_claritUniverse.css" />
+      <arg value="--output=${base}/css/packs/skin_claritUniverse_index.html.pack.css" />
+    </exec>
+
+    <exec executable="node">
+      <arg value="${path.concatExec}" />
+      <arg value="--input=${base}/css/packs/index.html.pack.css,${base}/css/skin/skin_claritWave.css" />
+      <arg value="--output=${base}/css/packs/skin_claritWave_index.html.pack.css" />
+    </exec>
+
+    <exec executable="node">
+      <arg value="${path.concatExec}" />
+      <arg value="--input=${base}/css/packs/index.html.pack.css,${base}/css/skin/skin_claritGreeng.css" />
+      <arg value="--output=${base}/css/packs/skin_claritGreeng_index.html.pack.css" />
+    </exec>
+
+    <exec executable="node">
+      <arg value="${path.concatExec}" />
+      <arg value="--input=${base}/css/packs/index.html.pack.css,${base}/css/skin/skin_claritRoad.css" />
+      <arg value="--output=${base}/css/packs/skin_claritRoad_index.html.pack.css" />
+    </exec>
+
+    <exec executable="node">
+      <arg value="${path.concatExec}" />
+      <arg value="--input=${base}/css/packs/index.html.pack.css,${base}/css/skin/skin_claritOnRoad.css" />
+      <arg value="--output=${base}/css/packs/skin_claritOnRoad_index.html.pack.css" />
+    </exec>
+
+    <exec executable="node">
+      <arg value="${path.concatExec}" />
+      <arg value="--input=${base}/css/packs/index.html.pack.css,${base}/css/skin/skin_claritPurple.css" />
+      <arg value="--output=${base}/css/packs/skin_claritPurple_index.html.pack.css" />
+    </exec>
+    
+    <exec executable="node">
+      <arg value="${path.concatExec}" />
+      <arg value="--input=${base}/css/packs/index.html.pack.css,${base}/css/skin/skin_claritRed.css" />
+      <arg value="--output=${base}/css/packs/skin_claritRed_index.html.pack.css" />
+    </exec>
+
+    <exec executable="node">
+      <arg value="${path.concatExec}" />
+      <arg value="--input=${base}/css/common/frame.css,${base}/css/module/calendar.css,${base}/css/module/schedule.css" />
+      <arg value="--output=${base}/css/packs/calendar.pack.css" />
+    </exec>
+
+    <exec executable="node">
+      <arg value="${path.concatExec}" />
+      <arg value="--input=${base}/css/module/write.css,${base}/css/module/qiuckre.css" />
+      <arg value="--output=${base}/css/packs/conversationcompose.pack.css" />
+    </exec>
+
+	</target>
+</project>

@@ -1,0 +1,936 @@
+﻿M139.namespace("M2012.Mailbox.View", {
+    MailMenu: Backbone.View.extend({
+        el: "",
+        template: "",
+        events: {
+            //"click .mtitle":"subjectClick"
+        },
+        initialize: function (options) {
+            //alert("hello");
+            var self = this;
+            this.el = options.el;
+            this.model = options.model;
+            this.readmail = options.readmail;
+
+            /*
+            this.model.on("change:mid", function (val) { //监听分栏读信改变mid
+                self.readmail = {
+                    mid: self.model.get("mid"),
+                    mail: self.model.get("mailListData")
+                };
+            }); */
+
+            this.model.on("mailSelectedChange", function (args) { //邮件选择数量改变
+                self.setButtonVisible(args.count);
+            });
+
+        },
+
+        BH2: function (key) {
+            if ($App.getCurrentTab().group == "mailbox") {
+                if (key) {
+                    key = key.replace("toolbar_", "mailbox_");
+                }
+            }
+            BH(key);
+        },
+
+        getElement: function () {
+            if (!this._element) {
+                if (typeof this.el == "string") {
+                    this._element = $(this.el)[0];
+                } else if (M139.Dom.isJQueryObj(this.el)) {
+                    this._element = this.el[0];
+                } else {
+                    this._element = this.el;
+                }
+            }
+            // return this._element;    
+            // 会话模式下，在当前会话下彻底删除一封
+            return $(this.el);
+        },
+
+        setButtonVisible: function (selectedCount) {
+
+            if ($App.getLayout() == 'left' || $App.getLayout() == 'top') {
+                var btns = $(this.el).find("#btn_reply,#btn_replyAll"); //2个以上按附件转发
+                if (selectedCount <= 1) {
+                    btns.show();
+                } else {
+                    //console.log(41);
+                    //console.log(this.readmail);
+                    /*if (!this.readmail) { //选中了多封邮件，并且没有分栏读信
+                        btns.hide();
+                    } */
+                    btns.hide();
+                }
+
+                //显示更多菜单
+                if (selectedCount > 0) {
+                    var moreMemuBtn = $('.toolBarArray #btn_more');
+                    moreMemuBtn.hide();
+                }
+
+            }
+
+            // 待办任务列表下隐藏“举报”、“移动到”、“标记为置顶/取消置顶”
+            if (this.model.isTaskMode()) {
+                this.$el.find('li:contains("移动到")').remove();
+                this.$el.find('li:contains("举报")').remove();
+            }
+            //邮件备份列表
+            var fid = this.model.get("fid");
+            if(fid == 7){
+                $(this.el).find("li").remove();//ul.toolBarUl
+                this.showReturnBtn(fid, {});
+                this.showResumeDelBtn();
+            }
+        },
+
+        /** 返回按钮 */
+        showReturnBtn:function(fid,rm){
+            var self = this;
+            if(rm){
+                var btn = document.createElement('li'); // $('<li class="mr_10"></li>');
+                btn.className = "";
+                $(self.el).append(btn);
+                M2012.UI.MenuButton.create({
+                    text: '返回',
+                    container: btn,
+                    onClick: function () {
+                        //邮件备份返回到已删除
+                        if (fid == 7) {
+                            $App.showMailbox(4);
+                        }
+                        else{
+                            $App.close();
+                            $App.isReadSessionMail() && BH('cMail_toolbar_goback');
+                        }
+                    }
+                });
+                $(btn).find('a:eq(0)').removeClass('ml_6');
+            }   
+        },
+
+        /** 回复按钮 */
+        showReplyBtn:function(fid,rm){
+            var self = this;
+            if (rm) {
+
+                /*if(rm && rm.isSessionMail){ //会话邮件不显示回复和全部回复
+                    return; 
+                }*/
+
+                var btn = document.createElement('li'); //$('<li id="btn_reply"></li>');
+                btn.id = 'btn_reply';
+                //判断是否有附件
+                var attachNum = 0;
+                if (rm.mail && rm.mail.attachmentNum) {
+                    attachNum = rm.mail.attachmentNum;
+                }
+                var memuItems = [];
+                if (attachNum > 0 && !$App.isReadSessionMail()) {// 会话邮件列表不展示（为规避勾选邮件没有附件的情况）
+                    var menuItems = [
+                        { text: "不带原邮件的附件", args: { value: false, bh: 'toolbar_replynoattach' } },
+                        { text: "带上原邮件的附件", args: { value: true, bh: 'toolbar_replywithattach' } }
+                    ];
+                }
+                M2012.UI.MenuButton.create({
+                    text: "回复",
+                    container: btn,
+                    rightSibling: true,
+                    menuItems: menuItems,
+                    onItemClick: function (item) {
+                        self.doCommand("reply", { "attach": item.args.value });
+                        BH(item.args.bh);
+                    },
+                    onClick: function () {
+                        BH($App.isReadSessionMail() ? 'cMail_toolbar_reply':'toolbar_reply');
+                        self.doCommand("reply", { "attach": false });                        
+                    }
+                });
+                $(self.el).append(btn);
+                //回复全部
+                btn = document.createElement('li'); //$('<li id="btn_replyAll" class="mr_10 ml-1"></li>');
+                btn.id = "btn_replyAll";
+                btn.className = "";
+                M2012.UI.MenuButton.create({
+                    text: "全部回复",
+                    container: btn,
+                    leftSibling: true,
+                    rightSibling: false,
+                    menuItems: menuItems,
+                    onItemClick: function (item) {
+                        self.doCommand("reply", { "all": true, "attach": item.args.value });
+                        item.args.value ? BH('toolbar_replyallwithattach') : BH('toolbar_replyallnoattach');
+                    },
+                    onClick: function () {
+                        BH($App.isReadSessionMail() ? 'cMail_toolbar_replyAll' : 'toolbar_replyall');
+                        self.doCommand("reply", { "all": true, "attach": false });
+                    }
+                });
+                $(self.el).append(btn);
+            }
+
+         },
+
+        /** 再次编辑 */
+        showSendAgainBtn:function(fid,rm){
+			var self = this;
+            if(rm && rm.isSessionMail){ //会话邮件不显示
+                return;
+            }
+            if (rm && rm.mail && rm.mail.fid == 3) {
+                var btn = document.createElement('li'); //$('<li class="mr_10"></li>');
+                btn.className = "";                
+                M2012.UI.MenuButton.create({
+                    text: '再次编辑',
+                    container: btn,
+                    onClick: function () {
+                        $App.editMessage(rm.mid);
+                    }
+                });
+                $(self.el).append(btn);
+            }
+        },
+        
+        /** 转发 */
+        showForwardBtn: function (fid, rm, flags) {
+			var self = this;
+            //会话邮件不显示
+            /*if(rm && rm.isSessionMail){ 
+                return;
+            }*/
+			var btn = document.createElement('li'); //$('<li id="btn_forward" class="mr_10 ml-1"></li>');
+			btn.id = 'btn_forward';
+			var menuItems = [
+                    { text: "转发", args: { value: false, bh: ($App.isReadSessionMail() ? 'cMail_toolbar_forward' : 'toolbar_forward') } },
+                    { text: "作为附件转发", args: { value: true, bh: ($App.isReadSessionMail() ? 'cMail_toolbar_forward_as_attach' : 'toolbar_forwardasattach') } }
+                ];
+		//	var isTest = !!(top.location.href.indexOf("10086ts") != -1);//测试线才出现
+		//	var isTest = true; //打开
+			var isTest = top.$User.isGrayUser(); //灰度打开，全网关闭
+			if(flags && flags == true && isTest){
+				menuItems.push({ text: "转发给飞信好友", args: { value: "fetion"}});
+			}
+            M2012.UI.MenuButton.create({
+                text: "转发",
+                container: btn,
+                leftSibling: false,
+                rightSibling: false,
+                menuItems: menuItems,
+                onItemClick: function (item) {
+                    BH('cMail_toolbar_forwardMenu_click')
+					if(item.args.value == "fetion"){
+					//	M2012.ReadMail.Fetion.View.create().$el && M2012.ReadMail.Fetion.View.create().$el.show();
+						M2012.ReadMail.Fetion.View.create();
+						return;
+					}
+                    self.doCommand("forward", { "attach": item.args.value });
+                    BH(item.args.bh);
+                },
+                onClick: function () {
+                    BH($App.isReadSessionMail() ? 'cMail_toolbar_forward' : 'toolbar_forward');
+                    self.doCommand("forward", { "attach": false });
+                }
+            });
+            $(self.el).append(btn);
+        },
+
+        /** 全部标记为已读 */
+        showMarkAllReadBtn: function (fid, rm) {
+			
+			if($App.isTagFolder(fid)){ return } //标签文件夹暂接口不支持
+			if(rm && rm.isSessionMail){ return } //会话模式不显示
+            var searchFolder =$App.getMailboxView().model.get("searchOptions") ;
+            if(fid === 2 || (searchFolder && searchFolder.fid === 2)) { return }//判斷是不是草稿箱
+			var self = this;
+            var btn = document.createElement('li'); //$('<li class="mr_10"></li>');
+            btn.className = '';
+			M2012.UI.MenuButton.create({
+				text: '全部标为已读',
+				container: btn,
+				onClick: function() {
+					self.doCommand("markAll", { "fid": fid });
+                    $App.isReadSessionMail() && BH('cMail_toolbar_allReaded');
+				}
+			});
+			$(self.el).append(btn);
+        },
+
+        /**标记按钮 */
+        showMarkBtn: function (fid, rm) {//cMail_toolbar_allReaded
+            //构造标签二级菜单
+            var self = this;
+            var itemsTag = self.model.getTagMenuItems();
+            var btn = document.createElement('li'); //$('<li class=""></li>');
+            var flagBtn = M2012.UI.MenuButton.create({
+                text: "标记为",
+                container: btn,
+                //leftSibling:true,
+                rightSibling: true,
+                menuItems: self.model.getMarkMenuItems(true,fid),
+                onItemClick: function (item) {
+                    // debugger;
+                    if (item.command) {
+                        self.doCommand(item.command, item.args);
+                        if (item.args.bh) {
+                            self.BH2(item.args.bh);
+                        }
+                    }
+                }
+            });
+            //todo 强制修复样式问题
+            try{
+                flagBtn.$el.find("span")[0].className = "pr_20 p_relative";
+            } catch (e) { }
+            $(self.el).append(btn);
+        },
+
+        /**移动按钮 */
+        showMoveBtn: function (fid, rm) {
+            var searchFolder =$App.getMailboxView().model.get("searchOptions") ;
+            if(fid === 2 || (searchFolder && searchFolder.fid === 2)) { return }//判斷是不是草稿箱
+            var self = this;
+            var folderMain = self.model.getFolderMenuItems("system", {fid:fid});
+            var folderCustom = self.model.getFolderMenuItems("custom", { fid: fid });
+            var folderPop = self.model.getFolderMenuItems("pop", { fid: fid });
+
+            if (folderCustom.length >= 0) {
+                folderMain.push({ isLine: true });
+                folderMain = folderMain.concat(folderCustom);
+            }
+
+            /*if (folderPop.length >0) {
+                folderMain.push({ isLine: true });
+                folderMain = folderMain.concat(folderPop);
+            }*/
+
+
+            /*
+            folderMain.push({ text: "我的文件夹", items: folderCustom });
+            var popFolders = $App.getFolders("pop");
+            if (popFolders && popFolders.length > 0) { //有代收文件夹时才显示
+                folderMain.push({ text: "代收文件夹", items: folderPop });
+            }*/
+
+            var btn = document.createElement('li'); //$('<li class="mr_10 ml-1"></li>');
+            btn.className = "ml-1";
+            M2012.UI.MenuButton.create({
+                text: "移动到",
+                container: btn,
+                leftSibling: true,
+                rightSibling: false,
+                menuItems: folderMain,
+                onItemClick: function (item) {
+                    self.doCommand(item.command, item.args);
+                    self.BH2('toolbar_move');
+                    if (item.args.bh) {
+                        self.BH2(item.args.bh);
+                    }
+                }
+            });
+            $(self.el).append(btn);
+        },
+
+        /** 网盘备份按钮 */
+        showSaveBtn: function (fid, rm) {
+            if ($App.isSessionMode() || fid!=1) { //如果是会话模式就不显示
+                return;
+            }
+            var self = this;
+            var btn = document.createElement('li'); //$('<li class="mr_10"></li>');
+            btn.className = '';
+            M2012.UI.MenuButton.create({
+                text: '备份',
+                container: btn,
+                onClick: function () {
+                    self.doCommand("backupMail", { "fid": fid });
+                    BH('toolbar_backupMailSingle');
+                }
+            });
+            $(self.el).append(btn);
+        },
+
+        /** 删除按钮 */
+        showDeleteBtn: function (fid, rm) {
+            var self = this;
+            var onlyRealDelete = false; //只显示彻底删除
+            var onlyRmRealDelete = false; //读信彻底删除
+
+            if (rm && rm.mail && rm.mail.fid == 4) { //已删除文件夹
+                onlyRmRealDelete = true;
+            }
+            if (fid == 4 || onlyRmRealDelete) { //已删除下只显示彻底删除
+                onlyRealDelete = true;
+            }
+
+            //普通删除
+			if(!onlyRealDelete){
+				var args = { command: "move" , fid: 4  , resumeDel: false};
+				// if(rm && rm.mid){ args.mids = [rm.mid]}
+                // if(rm && rm.mail && rm.mail.mailSession){ args.sessionIds = [rm.mail.mailSession] }    
+                var btn = document.createElement('li');//$('<li></li>');
+				$(self.el).append(btn);
+
+				M2012.UI.MenuButton.create({
+					text: '删除',
+					container: btn,
+					rightSibling: true,
+					onClick: function () {
+						$App.trigger("mailCommand", args);
+						$App.isReadSessionMail() ? BH('cMail_toolbar_del') : self.BH2('toolbar_delete');
+					}
+				});                
+			}
+
+            if ($App.getCurrentTab().name.indexOf('readmail_') == -1) {
+                $(btn).find('a:eq(0)').removeClass('ml_6');
+            }
+
+			
+			//彻底删除
+			var _args = { command: "delete", fid: fid};
+			// if(rm && rm.mid){ _args.mids = [rm.mid]}
+            // if(rm && rm.mail && rm.mail.mailSession){ _args.sessionIds = [rm.mail.mailSession] }
+            var _btn = document.createElement('li');//onlyRealDelete ? $('<li class="mr_10"></li>') : $('<li class="mr_10 ml-1"></li>');
+            if (onlyRealDelete) {
+                _btn.className = '';
+            } else {
+                _btn.className = 'ml-1';
+            }
+			M2012.UI.MenuButton.create({
+				text: '彻底删除',
+				container: _btn,
+				leftSibling:onlyRealDelete ? false : true,
+				onClick: function () {
+					$App.trigger("mailCommand", _args);
+					$App.isReadSessionMail() ? BH('cMail_toolbar_delclearly') : self.BH2('toolbar_realdelete');
+				}
+			});            
+			$(self.el).append(_btn);
+        },
+         /**
+         * @2014-9-18 add by [xumei] 
+         * 添加恢复到已删除按钮
+         */
+        showResumeDelBtn: function(){
+            var self = this;
+            var btn = document.createElement('li');
+            var args = { command: "move" , fid: 4 , resumeDel: true};
+            M2012.UI.MenuButton.create({
+                text: '恢复到“已删除”',
+                container: btn,
+                rightSibling: false,
+                onClick: function () {
+                    $App.trigger("mailCommand", args);
+                    BH('toolbar_resume_del');
+                }
+            });
+            $(self.el).append(btn);
+        },
+
+        /** 添加提醒按钮 */
+        /*showRemindBtn: function (fid, rm) {
+            var self = this;
+			var btn = $('<li id="btn_addcalendar" class="ml_10"></li>');
+            $(this.el).append(btn);
+            M2012.UI.MenuButton.create({
+                text: "添加提醒",
+                container: btn,
+                leftSibling: false,
+                rightSibling: false,
+                onClick: function () {
+                       if(top.SiteConfig.calendarRemind){//日程重构已经开启
+                    	
+                    	top.$PUtils.renderSchdedule({
+                    	
+		                       title:rm.mail.subject,
+		                       content:rm.mail.summary
+                    	
+                    	});
+                    	
+                    }else{
+                    
+	                    var gotourl = '/m2012/html/calendar/calendar_mailcalendar.html?comefrom=100&sid=' + $App.getSid();
+	                    var thisdialog = $Msg.open({
+	                        dialogTitle:"添加提醒",
+	                        url:gotourl,
+	                        width:580,
+	                        height:430
+	                    });
+	                    //关闭窗口
+	                    $App.on('closeaddcalendar',function(){
+	                        thisdialog.close();
+	                    })
+                    }
+                }
+            });
+        },*/
+
+        /** 举报按钮 */
+        showComplaintBtn: function (fid, rm) {
+            var self = this;
+            
+            /*if($App.isSessionMode()){ //会话邮件不显示
+                return;
+            }*/
+            var searchFolder =$App.getMailboxView().model.get("searchOptions") ;
+            if (fid === 2 || fid === 3 || fid === 4 || (searchFolder && searchFolder.fid === 2) || (searchFolder && searchFolder.fid === 3) || (searchFolder && searchFolder.fid === 4) || this.model.isSubscribeMode()) {
+                return;
+            };
+
+            top.mailboxComplaintView.model.set({fid:fid});
+            if(top.mailboxComplaintView.model.isNotRubbishMailBtn()){
+                var text = "这不是垃圾邮件";
+                var command = "unSpam";
+                createSpamBtn();
+            }else if(top.mailboxComplaintView.model.isShowComplaintBtn()){
+                var text = "举报"
+                var command = "spam";
+                createSpamBtn();
+            }
+            
+            function createSpamBtn(){
+                var btn = document.createElement('li');//$('<li class="mr_10"></li>');
+                btn.className = '';
+                M2012.UI.MenuButton.create({
+                    text: text,
+                    container: btn,
+                    leftSibling: false,
+                    rightSibling: false,
+                    onClick: function () {
+                        self.doCommand(command, {});
+                        if ($App.isReadSessionMail()) {
+                            BH('cMail_toolbar_spam')
+                        } else if (command == 'spam') { 
+                            self.BH2('toolbar_spam'); 
+                        } else { 
+                            BH('toolbar_unspam'); 
+                        }
+                    }
+                });
+                $(self.el).append(btn);
+            }
+        },
+        showViewBtn: function (fid) {
+            var self = this;
+            var btn = document.createElement('li'); //$('<li id="btn_extra" class="mr_10 ml-1"></li>');
+            btn.id = 'btn_view';
+            menuItems =  [{
+                    text: "全部邮件",
+                    command: "viewMail",
+                    flags: "all"
+                }, { isLine: true }, {
+                    html: '<i class="tag-new" style="background-color:red;"><em class="i_jj"></em></i>重要邮件',
+                    command: "viewMail",
+                    flags: "important"
+                }, {
+                    html: '<i class="i_star_y"></i>星标邮件',
+                    command: "viewMail",
+                     flags:{starFlag:1} 
+                }, { isLine: true }, {
+                    html: '<i class="i_m_n"></i>未读邮件',
+                    command: "viewMail",
+                      flags:{read:1} 
+                }, {
+                    html: '<i class="i_m_o"></i>已读邮件',
+                    command: "viewMail",
+                     flags: { read: 0 } 
+                }, {
+                    html: '<i class="i_m_yhf"></i>已回复邮件',
+                    command: "viewMail",
+                    flags: { replied: 1 } 
+                }, {
+                    html: '<i class="i_m_o2h"></i>已转发邮件',
+                    command: "viewMail",
+                    flags: { forwarded: 1 } 
+                }];
+            M2012.UI.MenuButton.create({
+                text: "查看",
+                container: btn,
+                leftSibling: true,
+                rightSibling: false,
+                menuItems:menuItems,
+                onItemClick: function (item) {
+                    item.fid = self.model.get("fid"); 
+                    item.command && self.doCommand(item.command,item);
+                   
+                }
+            });
+            var searchFolder =$App.getMailboxView().model.get("searchOptions") ;
+            if(fid === 2 || (searchFolder && searchFolder.fid === 2)){
+               menuItems.splice(5,2); 
+            }
+            $(self.el).append(btn);
+        },	
+
+        /** 
+        * 会话邮件全部展开/收起
+        * 规则：只要有一封邮件是收起状态就显示“全部展开”，否则显示“全部收起”
+        * 数量大于50不显示全部展开
+        * 数量小于10不显示加载提示和”停止展开“按钮
+        */
+        showConversationToggleBtn:function(fid, rm){
+            var self = this;
+            var total = rm.total;
+            if(rm && rm.isSessionMail && total && total < 51){
+                var btn = document.createElement('li');
+                var text = "全部展开";
+                var command = "covtoggle";
+                $(btn).attr("name","cov-toggle");
+                
+                M2012.UI.MenuButton.create({
+                    text: text,
+                    container: btn,
+                    leftSibling: false,
+                    rightSibling: false,
+                    onClick: function (e) {
+                        var _span = $(btn).find("span");
+                        var flag = _span.attr("data-flag");
+
+                        //flag为空 未点击； flag = 1 正在展开；flag = 2 已完成展开
+
+                        if(flag == '1'){ //正在展开时点击
+                            if( text == '全部展开'){return} //10封以内啥都不做
+                            rm.mail.doAction = 'stopConversation';
+                            rm.mail.callBack = function(){
+                                _span.text('全部展开');
+                                _span.removeAttr("data-flag");
+                            };
+                            self.doCommand(command, rm.mail);
+                            return;
+                        }
+
+                        var text = _span.text();                   
+                        if( text === '全部展开'){
+                            rm.mail.doAction = 'showConversation';
+                            if(!flag){ 
+                                //_span.text('停止展开');
+                                total > 10 && _span.text('停止展开');
+                                _span.attr("data-flag",1); //标记在展开
+                            }
+
+                            rm.mail.callBack = function(){
+                                _span.text('全部收起');
+                                _span.attr("data-flag", 2); //标记展开完成
+                            };
+                            BH('cov_showall');
+                        }else{
+                            rm.mail.doAction = 'hideConversation';
+                            rm.mail.callBack = function(){
+                                _span.text('全部展开');
+                            };
+                            BH('cov_hideall');
+                        }
+                        
+                        self.doCommand(command, rm.mail);
+                    }
+                });
+                $(self.el).append(btn);
+            }            
+        },
+        /**
+         * "更多操作"按钮
+         */
+        showExtraBtn : function(fid, rm) {
+			var self = this;
+			var btn = document.createElement('li'); //$('<li id="btn_extra" class="mr_10 ml-1"></li>');
+			btn.id = 'btn_extra';
+			btn.className = "mr_10 ml-1";
+			var menuItems = [{
+			    text: rm ? "导出邮件" : "导出选中邮件",
+			    command: "exportMail",
+			    args: {
+			        bh: 'toolbar_export'
+			    }
+			}, {
+			    text: "导入eml文件",
+			    command: "importMail",
+			    args: {
+			        bh: 'toolbar_import'
+			    }
+			}];
+			if (!$App.isSessionMode()) { //1. 不是会话模式， 
+                var a001 = this.model.isClusterColumn;
+			    var isColum = !this.model.isClusterColumn ? true : !this.model.isClusterColumn() //2. 兼容订阅邮件聚合邮件未上全网
+				var isServer = false;
+			    if ($App.getCurrentTab().title == '服务邮件') {  //服务邮件不显示
+			        isServer = true;
+			        isColum = true;
+			    }
+			    sBh = isServer ? 'toolbar_backupMailListforServer':'toolbar_backupMailList';
+			    if (isColum) { 
+			        menuItems.push({
+			            text: "备份至彩云网盘",
+			            command: "backupMail",
+			            args: {
+			                bh: sBh
+			            }
+			        })
+			    }
+			    
+			}
+
+            /*menuItems.push({
+                    text: "保存到和笔记",
+                    command: "savetoNote",
+                    args: {
+                        bh: 'toolbar_savetonote'
+                    }
+                });*/
+
+			M2012.UI.MenuButton.create({
+				text : "更多",
+				container : btn,
+				leftSibling : true,
+				rightSibling : false,
+				menuItems: menuItems,
+				onItemClick : function(item) {
+					item.command && self.doCommand(item.command);
+					item.args && item.args.bh && BH(item.args.bh);
+				}
+			});
+			$(self.el).append(btn);
+        },
+        /**
+         * @2014-7-3 add by wn 
+         * 添加账单按钮
+         */
+        showBillCategoryBtn : function(){
+            var self = this;
+            var btn = document.createElement('li'); 
+            btn.className = "mr_10 ml-1";
+            btn.id = "mybillitem" ;
+            var menuItems = [{
+                    text: "全部账单",
+                    billtype : false
+                }, {
+                    text: "移动账单",
+                    billtype : "10"
+                }, {
+                    text: "生活账单",
+                    billtype : "11"
+                }, {
+                    text: "金融账单",
+                    billtype:"12"
+                }, {
+                    text: "其他账单",
+                    billtype:"13"
+                }];
+            var menu_btn = M2012.UI.MenuButton.create({
+                text : "账单分类",
+                container : btn,
+                leftSibling : true,
+                rightSibling : false,
+                menuItems: menuItems,
+                onItemClick : function(item) {
+                    var billtype = item["billtype"] ;
+                    if (billtype) {
+                        var options = {
+                            billType: billtype,
+                            title: '账单中心',
+                            fid: 1,
+                            flags: { billFlag: 1 }
+                        };
+                        $App.searchMail(options);
+                        self.model.set("bill_type", billtype);
+                    } else {
+                        var myBillId = self.model.get('specialFolderId').myBill;
+                        $App.showMailbox(myBillId);
+                        self.model.set("bill_type", "0");
+                    }                 
+                }
+            });            
+            $(self.el).append(btn);
+        },
+
+        showTaskBtn: function() {
+            var self = this;
+            var btn = document.createElement('li');
+            btn.className = "mr_10";
+            $(self.el).prepend(btn);
+            M2012.UI.MenuButton.create({
+                text: '标记完成',
+                container: btn,
+                onClick: function () {
+                    BH('task_batch_markcomplete');
+                    var remindView = $App.getView('remind');
+                    var superSelectO = $App.getMailboxView().model.getSelectedRow();
+                    // $App.getMailboxView().model.superSelectAll('all', function(data) {
+                        var taskMidArr =  superSelectO && superSelectO.mids || [];
+                        if (taskMidArr.length === 0) {
+                            $Msg.alert("请选择邮件。");
+                            return false;
+                        }
+                        remindView && remindView.model.batchDelRemind({
+                            midArr: taskMidArr,
+                            success: function() {
+                                setTask(taskMidArr);
+                            }
+                        })
+                    // });
+
+                    function setTask(taskMidArr){
+                        remindView.model.setTask({
+                            requestData : {
+                                value: 2, 
+                                time: 0,
+                                ids: taskMidArr
+                            },
+                            success : function(){
+
+                                // 清空跨页选择
+                                $App.getMailboxView().model.clearSuperSelect();
+                                $App.getMailboxView().model.set("pageIndex", 1); //重置为第1页
+
+                                // 清空model中的数据，防止下次被使用
+                                remindView.model.set({taskDate:0});
+                                $App.trigger("showMailbox", { comefrom: "commandCallback" });
+                                $App.trigger("refreshSplitView");//刷新分栏
+                                $App.trigger("reloadFolder", { reload: true });
+                                // $App.clearTabCache("readmail_" + self.model.get('mid'));
+                                remindView.showTips('markfinishsucc');
+                            },
+                            error : function(){
+                                self.showFailTips();
+                            }
+                        });
+                    }
+                }
+            });
+
+            $(btn).find('a:eq(0)')
+                  .addClass('btnSetG').removeClass('btnTb ml_6')
+                  .prepend('<i class="i_t_right" style="vertical-align:baseline;*vertical-align:4px;margin-right:3px;"></i>');
+            $(btn).find('span:eq(0)').removeClass('p_relative');
+        },
+
+
+        render: function () {
+            this.$el.hide();
+            var self = this;
+            var fid = this.model.get("fid");
+            var rm = self.readmail;
+            var layout = $App.getLayout() || 'list';
+            var current_bill_tab = this.model.get("billTab");
+            top.mailboxComplaintView.model.set({dataSource:rm && rm.mail});
+
+            // 代办任务列表显示标记完成按钮
+            if (this.model.isTaskMode()) {
+                this.showTaskBtn();
+            }
+
+            if ($App.getCurrentTab().name.indexOf("mailsub") >= 0 && $App.getCurrentTab().name != "mailsub_0") {
+                this.showReturnBtn(fid, {});
+            }
+
+            if(layout == 'list' && !rm){ //列表模式
+                this.showDeleteBtn(fid, rm);
+                this.showForwardBtn(fid, rm);
+                /**
+                 * @2014-07-03 modify by wn
+                 * 隐藏举报按钮
+                 */
+                if( !this.model.isBillMode() && ( current_bill_tab !== 1 ) ){  
+                    this.showComplaintBtn(fid, rm);
+                }
+				this.showMarkAllReadBtn(fid, rm);
+				this.showMarkBtn(fid, rm);
+				this.showMoveBtn(fid, rm);
+				this.showViewBtn(fid); 
+				this.showExtraBtn(fid, rm);
+                /**
+                 * @2014-07-03 add by wn
+                 * 账单分类菜单
+                 */   
+                if( this.model.isBillMode() ){
+                    this.showBillCategoryBtn();
+                }
+            }
+
+            if(layout == 'list' && rm ){ //读信
+                top.mailboxComplaintView.model.set({mid:rm.mid});
+                if(rm.mail && rm.mail.fid){
+                    fid = rm.mail.fid;
+                }
+                this.showReturnBtn(fid, rm);
+                this.showSendAgainBtn(fid, rm);
+                this.showReplyBtn(fid, rm);
+                this.showForwardBtn(fid, rm, true);
+                this.showDeleteBtn(fid, rm);
+                /**
+                 * @2014-07-03 modify by wn
+                 * 隐藏举报按钮
+                 */
+                if( !this.model.isBillMode() && ( current_bill_tab !== 1 ) ){
+                    this.showComplaintBtn(fid, rm);
+                }
+                this.showMarkBtn(fid, rm);
+                this.showMoveBtn(fid, rm);
+                // 取消会话邮件的“全部展开/收起”按钮
+                // this.showConversationToggleBtn(fid, rm);
+                // 【需求调整】读信页屏蔽备份按钮
+                // this.showSaveBtn(fid, rm);
+                /**
+                 * @2014-07-03 add by wn
+                 * 账单分类菜单
+                 */                
+                if( this.model.isBillMode() ){
+                    this.showBillCategoryBtn();
+                }                  
+            }
+
+            if(layout == 'left'){ //左右分栏
+				this.showDeleteBtn(fid, rm);
+				this.showMarkAllReadBtn(fid, rm);
+				this.showMarkBtn(fid, rm);
+                this.showMoveBtn(fid, rm);
+				this.showComplaintBtn(fid, rm);
+				this.showForwardBtn(fid, rm);
+				this.showReplyBtn(fid, rm);
+				this.showViewBtn(fid);
+                this.showExtraBtn(fid, rm);
+            }
+			
+            if(layout == 'top'){ //上下分栏
+				this.showReplyBtn(fid, rm);
+				this.showForwardBtn(fid, rm);
+				this.showMarkAllReadBtn(fid, rm);
+				this.showMarkBtn(fid, rm);
+                this.showMoveBtn(fid, rm);
+				this.showDeleteBtn(fid, rm);
+				this.showComplaintBtn(fid, rm);
+				this.showViewBtn(fid);
+                this.showExtraBtn(fid, rm);
+            }
+
+            this.setButtonVisible(0);
+            this.$el.show();
+        },
+        doCommand: function (command, args) {
+            if (!args) { args = {}; }
+            args.command = command;
+
+            if ($App.isSessionCommand(command)) {
+                args.mailtype = 'sessionmail';//判断会话邮件的条件
+            }
+
+            /*if (this.readmail && this.readmail.mid) { //分栏读信模式，并且阅读邮件，以当前阅读的邮件为准
+                args.mids = [];
+                args.mids.push(this.readmail.mid);
+                if (args.mailtype == 'sessionmail') {
+                    args.sessionIds = [];
+                    args.sessionIds.push(this.readmail.mail.mailSession);
+                }
+            }*/
+            $App.trigger("mailCommand", args);
+
+            // 会话邮件读信卡片内，联系人弹层在回复/转发时无法触发绑定在全局的click隐藏事件
+            // 暂时放在这里处理
+            $('#conversationDialog').remove();
+
+        }
+
+    })
+});

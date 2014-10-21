@@ -1,0 +1,1 @@
+ant -k -f jsmin.xml -l build.log

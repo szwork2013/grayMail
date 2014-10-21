@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="Keywords" content="" />
+    <meta name="Description" content="" />
+    <title>懒人贺卡</title>
+    <script type="text/javascript">
+        //设域
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+        function loadScript(path, _doc, charset) {
+            if (path.indexOf(".js") > -1) {
+                var base = "/m2012/js";
+                var jsVersion = "20130106";
+                if (path.indexOf("pack.js") > -1) {
+                    base += "/packs";
+                }
+                path = base + "/" + path;
+                if (path.indexOf("?") == -1) {
+                    path += "?v=" + jsVersion;
+                }
+            }
+            (_doc || document).write("<script charset=\"" + (charset || "") + "\" type=\"text/javascript\" src=\"" + path + "\"></" + "script>");
+        }
+    </script>
+    <script type="text/javascript">
+        loadScript('libs.pack.js', document);
+        loadScript('m139.core.pack.js', document);
+    </script>
+	<link rel="stylesheet" type="text/css" href="css/style.css" media="all" />
+</head>
+<body>
+        <div class="sleeper">
+            <!-- <div class="sleeperTop"></div> -->
+            <a href="javascript:" class="colse" title="关闭" id="close"></a>
+            <!-- <img class="horse" src="images/horse.png"> -->
+            <div class="logo">
+                <a>
+                    <img src="images/newCard.jpg" style="border: none;"></a>
+                <p>元宵节到了! 赶紧为您的<span id="friendNum">4</span>个好友送去祝福！</p>
+            </div>
+            <div class="userAddr">
+                <div style="position:relative;*zoom:1;">
+                <table cellspacing="0" cellpadding="0" id="receiver">
+                </table>
+                    </div>
+                <a href="javascript:" class="more" id="btn_more" title="更多"></a>
+            </div>
+            <div class="seeMore"></div>
+            <div class="sleeperCard">
+                <div class="spCardShow">
+                    <div id="cardFlash"></div>
+                    <a href="javascript:" class="aChang" id="changeCard">换一张</a>
+                </div>
+                <div class="cardWord">
+                    <h2>祝福语：</h2>
+                    <textarea id="blessing" style="margin: 0px; outline: 0; resize: none; width: 195px; margin-top: 5px; height: 110px; border: none; padding: 10px; background: #faecea; line-height: 20px;">  
+
+                    </textarea>
+                </div>
+            </div>
+            <div style="margin-top: 15px;">
+                <a href="javascript:;" class="btnBig" id="sendCard">立即发送</a>
+            </div>
+            <!-- <div class="sleeperBtm"></div> -->
+        </div>
+
+
+
+
+            <div class="sleeper" id="sendComplete" style="display: none">
+                <div class="sleeperTop"></div>
+                <a href="#" class="colse" title="关闭"></a>
+                <div class="sendTips">
+                    <div>
+                        <p class="p1"><i class="tips"></i><span>贺卡发送完成</span></p>
+                        <p class="p2">恭喜您获得一次抽奖机会！</p>
+                        <p class="p3">（抽奖机会不累计，离开此页面视为自动放弃本次抽奖）</p>
+                    </div>
+
+                    <p class="p4">
+                        <a href="javascript:;" class="btnSml">马上抽奖</a><a class="sendMore" href="#">继续发贺卡</a>
+                    </p>
+                </div>
+                <p class="p5">
+                    马年第一炮新春福利打响！凡于活动期间每使用邮件、发贺卡，或创建日历，即可获得
+一次抽奖机会，每天最多可获得30次抽奖机会，丰厚好礼马上“邮”！<a href="#" class="sendMore" style="font-size: 12px; margin-left: 0;">活动详情&gt;&gt;</a>
+                </p>
+                <div class="sleeperBtm"></div>
+            </div>
+
+            <script type="text/javascript">
+                loadScript('lazycard.html.pack.js', document);
+            </script>
+</body>
+</html>

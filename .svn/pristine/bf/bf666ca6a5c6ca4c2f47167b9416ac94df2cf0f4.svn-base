@@ -1,0 +1,163 @@
+#user  nobody;
+worker_processes  1;
+
+#error_log  logs/error.log;
+#error_log  logs/error.log  notice;
+#error_log  logs/error.log  info;
+
+#pid        logs/nginx.pid;
+
+
+events {
+    worker_connections  1024;
+}
+
+
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    #log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+    #                  '$status $body_bytes_sent "$http_referer" '
+    #                  '"$http_user_agent" "$http_x_forwarded_for"';
+
+    #access_log  logs/access.log  main;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    keepalive_timeout  65;
+
+
+    #gzip  on;
+    #gzip_types   text/html text/css text/javascript application/x-javascript;
+
+    #ÖÐ¼ä¼þ
+    upstream mwsvr {
+        server 192.168.9.107:37069;
+    }
+
+    #rm appsvr
+    upstream appsvr{
+        server 192.168.9.107:80;
+    }
+
+    #rm webapp
+    upstream webapp{
+        server 192.168.9.93:80;
+    }
+
+    # addr api server
+    upstream addrsvr{
+        server 192.168.9.26:8021;
+    }
+
+    upstream g2{
+        server 192.168.9.105;
+    }
+
+    upstream setting{
+       server 192.168.9.107:37071;
+    }
+
+    upstream bmail{
+       server 192.168.9.107:37069;
+    }
+
+    upstream rebuild{
+       server 192.168.9.91;
+    }
+
+    server {
+        listen       80;
+        server_name  localhost;
+        #charset koi8-r;
+
+        access_log  logs/host.access.log;
+
+        #location /html {
+            #root /usr/local/nginx/;
+            #index  index.html index.htm;
+        #}
+
+        location /m2012 {
+            #root /usr/local/nginx/html;
+            root ../;
+            index  index.html index.htm;
+        }
+
+
+		location / {
+
+			if ($request_uri !~ func=) {
+				rewrite /(.*)$ /appsvr/$1 break;
+			}
+
+            if ($request_uri ~ func=) {
+				proxy_pass http://appsvr;
+			}
+
+        }
+
+        location /RmWeb{
+
+			if ($request_uri ~ func=) {
+				proxy_pass http://webapp;
+			}
+
+			
+            
+			#proxy_set_header X-Real-IP $remote_addr;
+			proxy_set_header X-Forwarded-For $remote_addr;
+            client_max_body_size 50m;
+        }
+
+        #location ~* ^.+\.(jpg|jpeg|gif|png)$ {
+            #access_log   off;
+            #gzip         off;
+            #expires      30d;
+        #}
+
+        location /static {
+            rewrite ^(.*)$ /html/$1 break;
+        }
+
+		location /sm/ {
+			#proxy_pass http://192.168.9.107:37072/smsmw/;
+                     proxy_pass  http://192.168.9.91/;  
+		}
+
+        location /mw/ {
+            proxy_pass http://mwsvr/;
+        }
+
+        location /addrsvr {
+            proxy_pass http://addrsvr/;
+        }
+         
+        location /g2 {
+            proxy_set_header X-Real-IP $remote_addr; 
+            #rewrite /g2/(.*)$ /$1 break;
+            proxy_pass http://g2/;
+            proxy_set_header  Host g2.mail.10086rd.cn;   #add host to support virtual host,default is $host;
+        }
+
+        location /setting {
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_pass http://setting/setting/;
+            proxy_set_header  Host rmg1.mail.10086rd.cn;   #add host to support virtual host,default is $host;
+        }
+        
+        location /bmail {
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_pass http://bmail/bmail/;
+        }
+
+        location /rebuild {
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $remote_addr;
+            proxy_pass http://rebuild/;
+        }
+    }
+
+}

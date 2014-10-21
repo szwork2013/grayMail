@@ -1,0 +1,187 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <title>忘记密码</title>
+
+    <script type="text/javascript">
+        //设域
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+        //获得资源路径
+        var resourcePath = window.top.resourcePath;
+        var supermanResourcePath = resourcePath.replace("coremail", "superman");
+        var htmlCode = "";
+        htmlCode += getLinkTag("");
+        htmlCode += getLinkTag(resourcePath + "/css/supersms.css");
+
+
+        top.loadScript("jquery.js", document);
+        top.loadScript("/m2012/js/packs/m2011.utilscontrols.pack.js", document);
+        top.loadScript("/m2012/js/matrixvm/page/m2011.page.password.js", document);
+
+        document.write(htmlCode);
+        function getJsTag(path, charset) {
+            var html = "<script src='" + path + "' type='text/javascript'></" + "script>";
+            if (charset) html = html.replace("gb2312", charset);
+            return html;
+        }
+        function getLinkTag(path) {
+            var text = "";
+            if (path) text = "href='" + path + "'";
+            return "<link rel='stylesheet' type='text/css' " + text + " />";
+        }
+    </script>
+
+    <link rel="stylesheet" type="text/css" />
+
+    <script type="text/javascript">
+        Utils.loadSkinCss(null, document, "supersms");
+    </script>
+
+    <style type="text/css">
+        .tabPwdInput input
+        {
+            height: 20px;
+            width: 166px;
+            border: 1px #c3c3c3 solid;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="header">
+            <ul class="nav-hd">
+              <li><a href="../sms_send.html">发短信</a></li>
+                <li class="current"><a id='recordSetting'>短信记录</a>
+					<a  id='recordSms'>
+						<i class="i-lock" id="lock" style="display: none;"></i>
+					</a>
+				</li>
+                <li><a href="javascript:;" onclick="top.Links.show('mms');return false;">发彩信</a></li>
+                <li><a href="javascript:;" onclick="top.Links.show('greetingcard');return false;">发贺卡</a></li>
+            </ul>
+            <a href="javascript:void(0)" class="m-l" id="aOpenCalendar" behavior="日程提醒" ext="5"
+                title="如您设置了约会、生日或备忘提醒，系统会在您指定的时间点，通过短信或邮件提醒您。" style="display: none">日程提醒</a>
+            <p style="display: none">
+                <a id="aFileUpload" behavior="短信超人-文件快递" href="javascript:void(0)">快速把文件发送到手机&gt;&gt;</a></p>
+        </div>
+        <div class="wrapper">
+            <div class="find-pwd">
+                <ul class="crumb">
+                    <li>验证手机号码</li>
+                    <li class="s">&gt;&gt;</li>
+                    <li class="current">设置新密码</li>
+                    <li class="s">&gt;&gt;</li>
+                    <li>完成</li>
+                </ul>
+                <div class="pwd-pannel-2" style="display: block">
+                    <fieldset>
+                        <legend><span>请重新设置密码。新密码设置成功后，请使用新密码登陆。</span></legend>
+                        <div class="hd">
+                            <span class="rc5"></span><span class="rc4"></span><span class="rc3"></span><span
+                                class="rc2"></span><span class="rc1"></span>
+                        </div>
+                        <div class="bd" id="formAreas">
+                            <input name="txtNewPwd" type="password" id="txtNewPwd" tabindex="1" maxlength="16" />
+                            <input name="txtReNewPwd" type="password" id="txtReNewPwd" tabindex="2" maxlength="16" />
+                        </div>
+                        <div class="ft">
+                            <span class="rc1"></span><span class="rc2"></span><span class="rc3"></span><span
+                                class="rc4"></span><span class="rc5"></span>
+                        </div>
+                    </fieldset>
+                    <button tabindex="3" id="btnNext">
+                        确定</button>
+                    <button tabindex="4" id="btnBack" style="margin-left: 20px;">
+                        返回</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Footer End-->
+    <input type="hidden" id="hdErrorNewPswInfo" value="" />
+    <input type="hidden" id="hdErrorReNewPswInfo" value="" />
+
+    <script language="javascript" type="text/javascript" src='GetPsw_Default2.js'></script>
+
+</body>
+
+<script language="javascript" type="text/javascript">
+    $(function() {
+        var PostXML = { Default2_Xml: "\<object>\ <string name=\"txtNewPwd\">{0}</string>\<string name=\"txtReNewPwd\">{1}</string>\</object>" };
+        var opts = {
+            "label1": "新密码：", //第一个密码框标签
+            "txtPaswordID": "txtNewPwd", //第一个密码框ID
+            "repeatlabel": "确认新密码：", //第一个密码框标签
+            "txtrepeatPaswordID": "txtReNewPwd", //第一个密码框ID            
+            "pwdTdLeft": 100,
+            "width": 550
+        };
+
+        var obs = { "container": document.getElementById("formAreas") };
+
+        Password.bindUI(obs, opts);
+
+        var sid = "";
+        if (top.window == window) {
+            sid = top.$("iframe[id='sms']")[0].contentWindow.top.UserData.ssoSid; //;window.parent.top.UserData.ssoSid;
+        }
+        else {
+            sid = top.UserData.ssoSid;
+        }
+
+        var getUrl = "/mw2/sms/sms?func=sms:setPassWord&sid=" + sid + "&rnd=" + Math.random();
+
+        $("#lock").show();
+        $("#btnNext").click(function() {
+            var checkvalue = CheckFrom();
+            if (checkvalue == true) {
+                $.ajax({
+                    type: "post",
+                    contentType: "application/xml;charset:utf-8",
+                    url: getUrl,
+                    data: String.format(PostXML["Default2_Xml"], $("#txtNewPwd").val(), $("#txtReNewPwd").val()),
+                    dataType: "json",
+                    error: function(err) { top.FloatingFrame.alert(err.statusText); },
+                    success: function(result) {
+                        if (result.code == "S_OK") {
+                            window.location.href = String.format("http://" + location.host + "/m2012/html/sms/GetPassWord/Default3.html?sid={0}&rnd={1}", window.top.UserData.ssoSid, Math.random());
+                        } else {
+                            top.FloatingFrame.alert(result.summary);
+                        }
+                    }
+                });
+            } else {
+                return false;
+            }
+        });
+        $("#btnBack").click(function() {
+            window.location = String.format("Default1.html?rnd={0}", Math.random());
+        });
+    });
+    String.format = function() {
+        if (arguments.length == 0) return "";
+        if (arguments.length == 1) return arguments[0];
+        var newArgs = [];
+        for (var i = 1; i < arguments.length; i++) {
+            newArgs.push(arguments[i]);
+        }
+        return String.prototype.format.apply(arguments[0], newArgs);
+    };
+	
+	 function buildUrl(filename){
+	
+		return String.format("http://" + location.host + "/m2012/html/sms/sms_setting.html?isShow=1&path={0}?rnd={1}", filename, Math.random());
+	};
+	$("#recordSetting").bind('click',function(){
+	
+		window.location = buildUrl('sms_Record.html');
+	});
+	
+	$("#recordSms").bind('click',function(){
+	
+		
+	});
+</script>
+
+</html>

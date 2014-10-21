@@ -1,0 +1,236 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <title>图片预览</title>
+
+    <script type="text/javascript">
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1].replace(/:\d+/, "");
+        window.isRichmail = false;
+        var errorPath = "";
+        var ssoSid = "";
+        var aid = "";
+        var pid = "";
+        
+        function htmlEncode($){
+		    if(typeof $=="undefined"){
+		      return "";
+		    }
+		    $=$.replace(/&/g,"&amp;");
+		    $=$.replace(/</g,"&lt;");
+		    $=$.replace(/>/g,"&gt;");
+		    $=$.replace(/\"/g,"&quot;");
+		    $=$.replace(/ /g,"&nbsp;");
+		    $=$.replace(/&amp;#([^\;]+);/ig,"&#$1;");
+		    return $;
+		};
+		
+		function isAllowHost(_aUrl){
+			//var _allowHostList	= [ "*.139cm.com", "*.rd139cm.com", "*.139.com", "*.rd139.com" ];原139域名
+			var _allowHostList = ["*.10086.cn", "*.10086rd.cn", "*.10086ts.cn", "*.139cm.com", "*.rd139cm.com", "*.139.com", "*.rd139.com"];
+			var _urlHost = _aUrl.split( "://" ).pop().split( "/" )[0];
+			if(!_urlHost) {
+				return false;
+			}
+		
+			var _urlHostItems = _urlHost.split(".");
+			var _urlHostItemsLen = _urlHostItems.length;
+			for(var i = _allowHostList.length - 1; i >= 0; i--) {
+				var _allowHostItem = _allowHostList[i].split(".");
+				var _allowHostItemLen = _allowHostItem.length;
+				var _pos = 1;
+		
+				for(; _pos <= _urlHostItemsLen && _pos <= _allowHostItemLen; _pos++) {
+					if(_allowHostItem[_allowHostItemLen - _pos] != "*" && _allowHostItem[_allowHostItemLen - _pos] != _urlHostItems[_urlHostItemsLen - _pos])
+						break;
+				}
+				if(_pos - 1 == _allowHostItemLen && (_allowHostItem[0] == "*" || _allowHostItemLen == _urlHostItemsLen ))
+					return true;
+			}
+			return false;
+		};
+        
+        (function() {
+            //获取资源服务器地址
+            var resourcePath = queryString("res");
+            var userSite = queryString("ucd");
+
+            ssoSid = queryString("sid");
+            aid = queryString("aid");
+            pid = queryString("pid");
+            if (!resourcePath || !userSite) {
+                alert("请求的参数不正确！");
+                return;
+            }
+            resourcePath = htmlEncode(decodeURIComponent(resourcePath)); // update by tkh XSS漏洞
+            errorPath = decodeURIComponent(userSite) + "/error/systemtip1.html";
+            if(!isAllowHost(errorPath)){
+            	errorPath = 'http://g2.mail.10086.cn' + "/error/systemtip1.html"; // update by tkh XSS漏洞
+            }
+            
+            var diskResource = getDiskResource(resourcePath);
+            //加载脚本
+            var scripts = [{ path: resourcePath + "/js/jquery.js" },
+                           { path: diskResource + "/js/m2011.disk.json.js" },
+                           { path: resourcePath + "/js/m2011.utilscontrols.pack.js", charset: "GB2312" },
+                           { path: diskResource + "/js/m2011.disk.diskconf.js" },
+                           { path: diskResource + "/js/m2011.disk.diskcommon.js" },
+                           { path: diskResource + "/js/m2011.disk.swfobject.js"}];
+            loadJsTag(scripts);
+        })();
+        //加载脚本
+        function loadJsTag(scripts) {
+            var html = "<script charset='utf-8' src='{0}' type='text/javascript'></" + "script>";
+            var sourcePath = null;
+            var script = null;
+            for (var i = 0, len = scripts.length; i < len; i++) {
+                script = scripts[i];
+                sourcePath = html.replace("{0}", script.path);
+                if (script.charset) {
+                    sourcePath = sourcePath.replace("utf-8", script.charset);
+                }
+                document.write(sourcePath);
+            }
+        }
+        //获取资源服务器路径
+        function getDiskResource(res) {
+            res = res ? res : "";
+            var replaces = "coremail";
+            if (res.indexOf("/richmail") > -1) {
+                replaces = "richmail";
+                window.isRichmail = true;
+            }
+            return res.replace(replaces, "newnetdisk4");
+        }
+        //获取传递的参数
+        function queryString(param, url) {
+            url = url ? url : location.search;
+            var regx = new RegExp("[?&]" + param + "=([^&]*)", "i");
+            var svalue = url.match(regx);
+            return svalue ? unescape(svalue[1]) : null;
+        }
+        //关闭页面
+        function closeFlash() {
+            window.close();
+        }
+    </script>
+
+    <style type="text/css">
+        html, body
+        {
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+        }
+    </style>
+</head>
+<body style="margin: 0px; padding: 0px; text-align: center;">
+    <div class="editor" id="swfcontent" style="height: 100%; width: 100%;">
+    </div>
+
+    <script type="text/javascript">
+        var albumSlide = {
+            urls: {
+                getDiskAlbumListUrl: function() {
+                    return DiskTool.resolveUrl("pptinit", true);
+                },
+                getPhotoListUrl: function() {
+                    return DiskTool.resolveUrl("pptplay");
+                }
+            },
+            action: {
+                pageLoad: function() {
+                    window.UserData = null;
+                    try {
+                        window.UserData = eval("(" + Utils.getCookie("UserData") + ")");
+                    } catch (ex) { window.UserData = null; }
+                    if (!window.UserData) {
+                        window.location.href = errorPath;
+                        return;
+                    }
+                    $(function() {
+                        var userNumber = window.UserData.userNumber;
+                        var album = albumSlide.action.getAlbumJson();
+                        album = JSON.stringify(album);
+                        albumSlide.action.initFlash(ssoSid, aid, album, pid, userNumber);
+                    });
+                },
+                //初始化falsh对象
+                initFlash: function(sid, aid, album, pid, userNumber) {
+                    var fVar = [];
+                    fVar.push("sid={0}".format(sid));
+                    fVar.push("aid={0}".format(aid));
+                    fVar.push("uNo={0}".format(userNumber));
+                    fVar.push("album={0}".format(encodeURIComponent(album)));
+                    fVar.push("albumUrl={0}".format(encodeURIComponent("")));
+                    fVar.push("photoUrl={0}".format(encodeURIComponent(albumSlide.urls.getPhotoListUrl())));
+                    fVar = fVar.join("&");
+                    try {
+                        var so = new SWFObject("slideralbum.swf", "SliderAlbum", "100%", "100%", 9, "#869ca7");
+                        so.addParam("quality", "high");
+                        so.addParam("swLiveConnect", "true");
+                        so.addParam("menu", "false");
+                        so.addParam("allowScriptAccess", "sameDomain");
+                        so.addParam("allowFullScreen", "true");
+                        if ($.browser.msie) {
+                            so.addParam("wmode", "opaque");
+                        }
+                        so.addParam("flashvars", fVar);
+                        so.addVariable("movie", "slideralbum.swf");
+                        so.addParam("movie", "slideralbum.swf");
+                        so.addVariable("flashVars", fVar);
+                        so.write("swfcontent");
+                    } catch (ex) {
+                        window.location.href = errorPath;
+                    }
+                },
+                //获取相册信息的json数据
+                getAlbumJson: function() {
+                    var albumData = null;
+                    albumSlide.server.getDiskAlbumList(function() {
+                        var list = this.albumList;
+                        if (list && list.length > 0) {
+                            albumData = $.map(list, function(n) {
+                                return {
+                                    ID: n.albumId,
+                                    userid: n.userNumber,
+                                    albumname: n.albumName,
+                                    cover: n.coverImgUrl,
+                                    lastmodify: n.modifyTime,
+                                    num: n.totalCount
+                                };
+                            });
+                        }
+                    });
+                    return { data: { albums: albumData} };
+                }
+            },
+            server: {
+                //获取相册列表
+                getDiskAlbumList: function(callback) {
+                    $.postXml({
+                        url: albumSlide.urls.getDiskAlbumListUrl(),
+                        async: false,
+                        data: XmlUtility.parseJson2Xml({
+                            userNumber: window.UserData.userNumber,
+                            w: "110",
+                            h: "110"
+                        }),
+                        success: function(result) {
+                            if (result.code == DiskConf.isOk) {
+                                if (callback) { callback.call(result["var"]); }
+                            }
+                            else { alert(result.summary); }
+                        },
+                        error: function(error) {
+                            DiskTool.handleError(error);
+                        }
+                    });
+                }
+            }
+        };
+        albumSlide.action.pageLoad();
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+﻿<project default="m2011.utilscontrols.pack">
+    <target name="m2011.utilscontrols.pack">
+        <!-- 创建临时文件夹 -->
+        <concat destfile="./packs/m2011.utilscontrols.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+            <fileset dir="./matrixvm/utilscontrols" includes="**/m2011.utilscontrol.controlsMessage.js" />
+            <fileset dir="./matrixvm/utilscontrols" includes="**/m2011.utilscontrol.utils.js" />
+            <fileset dir="./matrixvm/utilscontrols" includes="**/m2011.utilscontrol.Repeater.js" />
+            <fileset dir="./matrixvm/utilscontrols" includes="**/m2011.utilscontrol.mailTool.js" />
+            <fileset dir="./matrixvm/utilscontrols" includes="**/m2011.utilscontrol.AutoCompleteMenu.js" />
+            <fileset dir="./matrixvm/utilscontrols" includes="**/m2011.utilscontrol.balloon.js" />
+            <fileset dir="./matrixvm/utilscontrols" includes="**/m2011.utilscontrol.dragmanager.js" />
+            <fileset dir="./matrixvm/utilscontrols" includes="**/m2011.utilscontrol.editorManager.js" />
+            <fileset dir="./matrixvm/utilscontrols" includes="**/m2011.utilscontrol.FormatTextarea.js" />
+            <fileset dir="./matrixvm/utilscontrols" includes="**/m2011.utilscontrol.imgEditorMenu.js" />
+            <fileset dir="./matrixvm/utilscontrols" includes="**/m2011.utilscontrol.jquery.xml.js" />
+            <fileset dir="./matrixvm/utilscontrols" includes="**/m2011.utilscontrol.PageTurnner.js" />
+            <fileset dir="./matrixvm/utilscontrols" includes="**/m2011.utilscontrol.popmenu.js" />
+            <fileset dir="./matrixvm/utilscontrols" includes="**/m2011.utilscontrol.screenshot.js" />
+            <fileset dir="./matrixvm/utilscontrols" includes="**/m2011.utilscontrol.SelectList.js" />
+            <fileset dir="./matrixvm/utilscontrols" includes="**/m2011.utilscontrol.DualAddrList.js" />
+            <fileset dir="./matrixvm/utilscontrols" includes="**/m2011.utilscontrol.tips.js" />
+            <fileset dir="./matrixvm/utilscontrols" includes="**/m2011.utilscontrol.UI.SelectList.js" />
+        </concat>
+    </target>
+</project>

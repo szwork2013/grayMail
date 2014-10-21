@@ -1,0 +1,63 @@
+﻿﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="Keywords" content="" />
+<meta name="Description" content="" />
+<title>139邮箱</title>
+<link rel="stylesheet" href="../../css/common/global.css" type="text/css" />
+<link rel="stylesheet" href="../../css/module/write.css" type="text/css" />
+
+    <script src="../packs/libs.pack.js"></script>
+    <script src="../packs/m139.core.pack.js"></script>
+    <script src="../packs/m2012.ui.common.pack.js"></script>
+
+    <script src="../ui/editor/m2012.ui.htmleditor.model.editor.js" type="text/javascript"></script>
+    <script src="../ui/editor/m2012.ui.htmleditor.view.menu.js" type="text/javascript"></script>
+    <script src="../ui/editor/m2012.ui.htmleditor.view.editor.js" type="text/javascript"></script>
+    
+</head>
+<body class="bodycolor">
+    <br /><br /><br /><br />
+    <div id="htmlEdiorContainer" style="height:500px;width:100%"></div>
+    <script>
+
+        var editorView = M2012.UI.HTMLEditor.create({
+            contaier:document.getElementById("htmlEdiorContainer"),
+            blankUrl: "html/editor_blank.htm",
+            //maxLength: 100,
+            //maxLengthErrorTip: "超出最大输入数",
+            //placeHolder: "默认文本默认文本默认文本默认文本",
+            uploadForm:{
+                getUploadUrl:function(callback){
+                    //requestComposeId(function(){})
+                    setTimeout(function(){
+                        //写信页获得上传地址后返回
+                        callback("http://app.mail.10086rd.cn/RmWeb/mail?func=attach:upload&sid=MTM1MDg2NzQyNjAwMDM0MTI3MzY4NgAA000001&composeId=2b125084f9b8237-0000c");
+                    },0);
+                },
+                filedName:"uploadInput",
+                getResponseUrl:function(responseText){
+                    return responseText;
+                }
+            }
+        });
+
+        editorView.on("buttonclick",function(e){
+            if(e.command == "ScreenShot"){
+                alert("截屏");
+            };
+        });
+
+        editorView.on("focus", function () {
+            //alert("focus");
+        });
+        editorView.on("blur", function () {
+            //alert("blur");
+        });
+
+
+        editorView.editor.setHtmlContent("hello world");
+    </script>
+</body>
+</html>

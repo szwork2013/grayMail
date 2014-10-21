@@ -1,0 +1,142 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="Keywords" content="" />
+<meta name="Description" content="" />
+<title>139邮箱</title>
+<link rel="stylesheet" href="../../../css/common/global.css" type="text/css" />
+<link rel="stylesheet" href="../../../css/common/frame.css" type="text/css" />
+<link rel="stylesheet" href="../../../css/skin/skin_lightblue.css" type="text/css" />
+<link rel="stylesheet" href="../../../css/module/inbox.css" type="text/css" />
+</head>
+<body style="padding:30px;">
+	<p>hello</p><p>hello</p><p>hello</p><p>hello</p><p>hello</p><p>hello</p><p>hello</p><p>hello</p><p>hello</p><p>hello</p><p>hello</p><p>hello</p><p>hello</p><p>hello</p><p>hello</p>
+<input id="btn_popup" type="button" onclick="createPopup()" value="点击创建弹出tips风格的popup"/>
+<input id="btn_popup2" type="button" onclick="createPopup2()" value="点击创建邮件列表设置popup"/>
+<input id="btn_popup3" type="button" onclick="createPopup3()" value="点击创建百度tips"/>
+    <br />
+    <input id="btn_popup4" type="button" onclick="createPopup4()" value="精简popup"/>
+    <input id="Button1" type="button" onclick="createPopup4()" value="精简popup"/>
+    <input id="Button2" type="button" onclick="createPopup4()" value="精简popup"/>
+    <input id="Button3" type="button" onclick="createPopup4()" value="精简popup"/>
+</body>
+
+<script type="text/javascript" src="../../lib/jquery-1.8.3.js"></script>
+<script src="../../lib/underscore.js"  ></script>
+<script src="../../lib/backbone.js" ></script>
+<script type="text/javascript" src="../../core/m139.core.js"></script>
+
+        <script src="../../core/m139.core.js" type="text/javascript"></script>
+    <script src="../../core/m139.browser.js" type="text/javascript"></script>
+    <script src="../../core/m139.json.js" type="text/javascript"></script>
+    <script src="../../core/m139.text.js" type="text/javascript"></script>
+    <script src="../../core/m139.date.js" type="text/javascript"></script>
+    <script src="../../core/m139.dom.js" type="text/javascript"></script>
+    <script src="../../core/m139.event.js" type="text/javascript"></script>
+    <script src="../../core/m139.httpclient.js" type="text/javascript"></script>
+    <script src="../../core/m139.exchangehttpclient.js" type="text/javascript"></script>
+    <script src="../../core/m139.logger.js" type="text/javascript"></script>
+    <script src="../../core/m139.view.viewbase.js" type="text/javascript"></script>
+
+<script src="m139.ui.popup.js"></script>
+
+<script>
+	function createPopup(){
+		var popup=M139.UI.Popup.create({
+			target:document.getElementById("btn_popup"),
+			icon:"i_ok",width:300,
+			buttons:[{text:"确定",cssClass:"btnRed",click:function(){alert("ok");popup.close();}},
+				{text:"取消",click:function(){alert("cancel");popup.close();}}
+			],
+			content:"hello"
+			}
+			);
+		
+
+		popup.render();
+
+	}
+	
+	function createPopup2(){
+		var html = [ '<div class="viewSet"><dl class="clearfix">',
+     '<dt>列表视图：</dt>',
+     '<dd> <a href="#" title="单窗口" class="viewa"></a> <a href="#" title="上面视图" class="viewa2"> <span class="top1"></span> </a> <a href="#" title="左右视图" class="viewa3"> <span class="left1"></span> </a> </dd>',
+   '</dl>',
+   '<ul class="pb_5">',
+     '<li class="line"></li>',
+     '<li>',
+       '<dl class="clearfix">',
+         '<dt>列表显示：</dt>',
+         '<dd><input type="checkbox" id="a1" class="mr_5"><label for="a1">正文摘要</label></dd>',
+         '<dd><input type="checkbox" id="a3" class="mr_5"><label for="a3">邮件大小</label></dd>',
+       '</dl>',
+     '</li>',
+     '<li class="line"></li>',
+     '<li>',
+       '<dl class="clearfix">',
+         '<dt>列表显示：</dt>',
+         '<dd><input type="checkbox" id="a2" class="mr_5"><label for="a2">会话模式</label></dd>',
+       '</dl>',
+     '</li>',
+   '</ul>',
+   '</div>'].join("");
+		var popup=M139.UI.Popup.create({
+			name:"maillist_set",
+			target:document.getElementById("btn_popup2"),
+			buttons:[{text:"确定",cssClass:"btnRed",click:function(){alert("ok");popup.close();}},
+				{text:"取消",click:function(){alert("cancel");popup.close();}}
+			],
+			content:html
+			}
+			);
+			popup.render();
+	}
+	
+	function createPopup3(){
+		var popup=M139.UI.Popup.create({
+			name:"baidu",width:800,height:400,
+
+			target:document.getElementById("btn_popup3"),
+			content:"<iframe src='http://www.baidu.com' style='width:800px;height:400px'/>"
+			}
+			);
+		
+
+		popup.render();
+
+	}
+
+	function createPopup4() {
+	    var popup1 = M139.UI.Popup.create({
+	        name: "hello", icon: "i_ok_min",containerClass:"nothing",
+            noClose: true, autoHide: true,
+            direction:"up",
+            target: document.getElementById("Button1"),
+	        content: "<p>您好，世界</p>"
+	    });
+	    var popup2 = M139.UI.Popup.create({
+	        name: "hello", icon: "i_ok_min", containerClass: "nothing",
+	        noClose: true, autoHide: true,
+	        direction: "up",
+	        target: document.getElementById("Button2"),
+	        content: "<p>您好，世界</p>"
+	    });
+	    var popup3 = M139.UI.Popup.create({
+	        name: "hello", icon: "i_ok_min", containerClass: "nothing",
+	        noClose: true, autoHide: true,
+	        direction: "up",
+	        target: document.getElementById("Button3"),
+	        content: "<p>您好，世界</p>"
+	    });
+
+
+	    popup1.render();
+	    popup2.render();
+	    popup3.render();
+
+
+	}
+
+</script>
+</html>

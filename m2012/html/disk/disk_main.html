@@ -1,0 +1,369 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="page-mydisk" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>彩云</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+    <script type="text/javascript">
+        //设域
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1].replace(/:\d+/, "");
+        //****版本号的控制**********
+        var versionConf = {
+            htmlVersion: { "default": "20121018" },
+            jsVersion: { "default": "20121018" },
+            cssVersion: { "default": "20121018" }
+        }
+        /**
+        *		公共页面初始化函数
+        *		docCur: 当前页面document对象
+        *		diskWindowTop: 当前页面的parent对象
+        *		diskResJs: 要加载的JS/css数组[{dirName:xxx, fileName:xxx},{},{}]
+        *		isLoadCss: 是否是加载CSS文件
+        *		dCssaAble: 是否加载netDisk.css，默认为true
+        */
+        function CommonInit(docCur, diskWindowTop, diskResJs, isLoadCss, dCssaAble) {
+            var doc = docCur || document;
+            var diskTop = diskWindowTop || window;
+            //获得资源路径
+            var resourcePath = getResource();
+            var diskResourcePath = resourcePath[1] + "/";   //资源
+            var htmlCode = "";
+            if (dCssaAble == undefined || dCssaAble == true) {
+                htmlCode += getLinkTag(resourcePath[0], "/css/", "netdisk");
+            }
+            htmlCode += getLinkTag("");   //保留皮肤的css
+
+            top.loadScript("jquery.js", doc);
+            top.loadScript("m2011.utilscontrols.pack.js", doc); //暂时注释
+            top.loadScript("/m2012/js/service/disk/m2011.disk.diskconf.js", doc);
+            top.loadScript("/m2012/js/service/disk/m2011.disk.diskcommon.js", doc);
+            if (docCur == window.document) {
+                top.loadScript("/m2012/js/service/disk/m2011.disk.diskmain.js", doc);
+            }
+            if (diskResJs && diskResJs.length > 0) {
+                for (var i = 0; i < diskResJs.length; i++) {
+                    if (isLoadCss) {
+                        htmlCode += getLinkTag(diskResourcePath, diskResJs[i].dirName, diskResJs[i].fileName)
+                    } else {
+                        top.loadScript("/m2012/js/service/disk/" + diskResJs[i].fileName, doc);
+                    }
+                }
+            }
+            doc.write(htmlCode);
+        }
+        function getResource() {
+            var resourcePath = [];
+            if (top.isRichmail) {//rm环境,返回rm资源服务器路径
+                var path = window.top.rmResourcePath;
+                resourcePath.push(path);
+                resourcePath.push(path.replace("richmail", "newnetdisk4") + "/");
+            } else {
+                var path = window.top.resourcePath;
+                resourcePath.push(path);
+                resourcePath.push(path.replace("coremail", "newnetdisk4") + "/");
+            }
+            return resourcePath;
+        }
+        /**
+        *		组合js路径标签代码
+        *		path: 域名实际路径
+        *		dir: 对应文件夹
+        *		fileName: 文件名称
+        *		charset: 指定编码，不指定则默认utf-8
+        */
+        function getJsTag(path, dir, fileName, charset) {
+            var v = versionConf.jsVersion["default"];
+            if (versionConf.jsVersion[fileName]) {
+                v = versionConf.jsVersion[fileName];
+            }
+            var html = "<script charset='utf-8' src='" + path + "" + dir + "" + fileName + ".js?v=" + v + "' type='text/javascript'></" + "script>";
+            if (charset) {
+                html = html.replace("utf-8", charset);
+            }
+            return html;
+        }
+        /**
+        *		组合css路径标签代码
+        *		path: 文件的实际路径
+        *		dir: 对应文件夹
+        *		fileName: 文件名称
+        */
+        function getLinkTag(path, dir, fileName) {
+            if (path) {
+                var v = versionConf.cssVersion["default"];
+                if (versionConf.cssVersion[fileName]) {
+                    v = versionConf.cssVersion[fileName];
+                }
+                var text = "href='" + path + "" + dir + "" + fileName + ".css?v=" + v + "'";
+            }
+            return "<link rel='stylesheet' type='text/css' " + text + " />";
+        }
+        window.SID = queryString("sid");
+        /**
+        *		获取URL传递的参数值
+        *		param: 参数名称
+        *		url: 要获取参数的URL，默认为window.location
+        */
+        function queryString(param, url) {
+            if (!url) {
+                url = location.search;
+            }
+            var svalue = url.match(new RegExp("[?&]" + param + "=([^&]*)", "i"));
+            return svalue ? unescape(svalue[1]) : null;
+        }
+        window.SID = queryString("sid");
+        //加载CSS和JS,CommonInit(当前document,彩云最顶层window)
+        CommonInit(document, window);
+        function scrollTop() {
+            scroll(0, 0);
+        }
+    </script>
+
+    <script type="text/javascript">
+        //加载彩云主信息对象DiskMainData
+        (function() {
+            var serverUrl = top.M139.HttpRouter.getNoProxyUrl(DiskTool.resolveUrl("init", true));
+            var htmlUrl = "<script charset='utf-8' src='" + serverUrl + "' type='text/javascript'></" + "script>";
+            var DiskMainData;
+            document.write(htmlUrl);
+        })();	
+    </script>
+
+    <script type="text/javascript">
+        //加载皮肤
+        Utils.loadSkinCss(null, document, "netdisk");
+        var searchKey_value = queryString("keyword");
+        //启动
+        $(function() {
+            //初始化彩云菜单信息
+            Event.initial();
+            $(document).click(function(e) {
+                if (e.target.tagName.toUpperCase() != "A")
+                    $("#popMenu").hide();
+            });
+            resizeAct();
+            //行为
+            var webid = parseInt(queryString("id"));
+            if (isNaN(webid) || webid != 2) {
+                webid = 1; //默认为1
+            }
+            //DiskTool.addDiskBehavior(7011, 11, 20, webid);
+            DiskTool.addDiskBehavior({
+                actionId: 7011,
+                thingId: webid,
+                moduleId: 11,
+                actionType: 20
+            });
+            if (SID && SID != "") {
+                DiskMainload();
+                //播放器延迟加载
+                setTimeout(DiskTool.loadPlayer, 3000);
+            }
+            loadToolAd();
+        });
+
+        //初始化页面
+        function DiskMainload() {
+            if (DiskMainData) {
+                //if(DiskMainData) {
+                //绑定事件
+                $("#liMainMyDisk").click(function() {
+                    DiskTool.SwichPageMode('disk');
+                });
+                var goid = parseInt(queryString("goid"));
+                if (isNaN(goid)) {
+                } else if (goid == 9001) {
+                    goAttach(); //转去附件管理
+                } else if (goid == 9000) {
+                    goDisk(); //转去我的彩云
+                } else if (goid == 11) {
+                    DiskTool.openUpload(2, 0);
+                    $("#mainFrame")[0].src = DiskTool.getRelativeUrl("disk_music.html");
+                } else if (goid == 12) {
+                    $("#mainFrame")[0].src = DiskTool.getRelativeUrl("disk_friend-share.html");
+                } else if (goid == 13) {
+                    /*转到共享页面*/
+                    setTimeout("openshare()", 3000);
+                } else if (goid == 14) {
+                    /*转到上传页面*/
+                    setTimeout("DiskTool.openUpload(0,0)", 2000);
+                }
+            } else {
+                var errorUrl = top.ucDomain + "/Error/systemTip4.html";
+                location.href = errorUrl;
+            }
+        }
+        function openshare() {
+            var urlshare = top.SiteConfig.disk + "/html/disk_dialogsharefile.html?file=" + encodeURI(Utils.queryString("fileid", decodeURI(window.location.href)));
+            DiskTool.FF.open("好友共享", urlshare, 565, 440, true);
+        }
+
+        DiskTool.wResize(window, resizeAct);
+        function resizeAct() {
+            var win = $(window);
+            $("#mainFrame").height(DiskTool.getWinSize()[1] - 35);
+        }
+        /**
+        *跳转到我的暂存柜
+        */
+        function goDisk() {
+        	if(top.SiteConfig.isQuicklyShare){
+        		top.$App.close('diskDev');
+        		top.$App.show('quicklyShare');
+        	}else{
+        		DiskTool.addDiskBehavior({
+	                actionId: 19800,
+	                thingId: 0,
+	                moduleId: 11,
+	                actionType: 20
+	            });
+	            var path = top.ucDomain;
+	            if (top.SiteConfig.largeAttachRebuildUrl) {
+	                path = top.SiteConfig.largeAttachRebuildUrl;
+	            }
+	            location.href = "http://" + top.location.host + "/m2012/html/largeattach/largeattach_filelist.html?sid=" + top.$App.getSid();
+        	}
+        }
+        /**
+        *跳转到我的附件
+        */
+        function goAttach() {
+            var url = "http://" + top.location.host + "/m2012/html/mailattach/mailattach_attachlist.html?sid=" + top.$App.getSid() + "&keyword=" + searchKey_value;
+            location.href = url;
+        }
+
+        /**
+        *加载广告介绍
+        */
+        function loadToolAd() {
+            var module = "<p><i class='i-cos'></i>{0}</p>";
+            try {
+                //判断是否是RM
+                if (top.isRichmail) {
+                    var isrm = 1;
+                } else {
+                    var isrm = 0;
+                }
+                //广告代码
+                var adLength = top.AdLink[1280].length;
+                if (adLength > 0) {
+                    //取置顶广告
+                    var topFixIndex = -1;
+                    var topFixText = "";
+                    for (i = 0; i < adLength; i++) {
+                        if (top.AdLink[1280][i].text.indexOf('TopFix') > -1) {
+                            topFixIndex = i;
+                            topFixText = top.AdLink[1280][i].text.replace("TopFix", "");
+                            break;
+                        }
+                    }
+
+                    var adRandon = Math.floor(Math.random() * 100) % adLength;
+                    if (adRandon == topFixIndex) adRandon = 0;
+                    var adText = topFixText + module.format(top.AdLink[1280][adRandon].text);
+                    $("#pAD").append(adText);
+                    //附加事件
+                    $("#aOpenControlDownload").click(function() {
+                        if (!window.ucDomain) window.ucDomain = "http://" + location.host;
+                        Utils.openControlDownload();
+                        return false;
+                    });
+                }
+                //虚拟盘推广广告
+                if (top.AdLink[1281]) {
+                    $("#adVdTool").html(top.AdLink[1281][0].text);
+                    $("#aVirtualDiskDownload").attr({
+                        target: "_blank",
+                        href: DiskTool.getDownLoadVdUrl(isrm)
+                    });
+                }
+                $("#aVirtualDiskDownload").click(function() {
+                    //获取资源服务器路径
+                    var diskResourcePath = getResource()[1] + "/";   //资源
+                    var path = top.SiteConfig.disk;
+                    window.open(path+"/wp.html?jsres=" + escape(diskResourcePath) + "&res=" + getResource()[0] + "&isrm=" + isrm, "virtualDiskHome");
+                });
+            } catch (e) { }
+        }
+    </script>
+
+</head>
+<body>
+    <div id="dvOrderTips" class="tips_show">
+        彩云容量即将超过上限：<span>1G</span>，<a id="aOrderLinkShow" href="javascript:void(0)" style="color: Blue">升级邮箱</a>扩充容量
+    </div>
+    <div id="container">
+        <div id="header">
+            <ul class="nav-hd">
+                <li class="current"><a href="javascript:;" id="liMainMyDisk">彩云网盘</a></li>
+                <li><a onclick="goDisk();">我的暂存柜</a></li>
+                <li><a onclick="goAttach();">我的附件</a></li>
+            </ul>
+            <p id="adVdTool">
+                <a href="" style="display: none">意见反馈</a></p>
+        </div>
+        <div id="disk" style="display: none">
+            <iframe id="mainFrame2" frameborder="0" width="100%" name="mainFrame2" scrolling="no">
+            </iframe>
+        </div>
+        <div id="wrapper">
+            <div id="content">
+                <iframe id="mainFrame" frameborder="0" width="100%" name="mainFrame" scrolling="no">
+                </iframe>
+            </div>
+        </div>
+        <div id="aside">
+            <div class="aside-bd">
+                <div class="hd" style="positon: relative;">
+                    <p class="search">
+                        <input type="text" onblur="if(this.value=='')this.value='查找彩云文件...';" defaultval="查找彩云文件..."
+                            onfocus="if(this.value=='查找彩云文件...')this.value='';" value="查找彩云文件..." class="input-default"
+                            id="txtKeyword" style="width: 120px;" />
+                    </p>
+                    <input id="btnSearch" type="button" style="width: 60px; position: absolute; text-align: left;
+                        top: 11px; left: 136px; font-family: arial; padding: 0 0 2px 3px; height: 25px;
+                        *padding: 1px 0 1px 3px;" value="搜索 |" />
+                    <a class="to-advanced-search"></a>
+                    <div id="popMenu" class="popMenu" style="display: none">
+                        <a href="javascript:void(0)" id="apopMenu"><span style="display: block">高级搜索</span></a>
+                    </div>
+                </div>
+                <div class="adc-bd">
+                    <div class="my-info" style="position: relative;">
+                        <h2 style="position: relative;">
+                            <span>彩云容量：</span><a href="javascript:void(0)" style="color: Blue; display: none;">扩大容量</a>
+                            <div class="progress">
+                                <div class="pg-bg" style="width: 30%">
+                                </div>
+                            </div>
+                            <p>
+                                0M/0G</p>
+                        </h2>
+                        <ul class="all-file" id="dirlst">
+                        </ul>
+                    </div>
+                    <div class="nd-tip">
+                        <h2>
+                            <i class="i-fshare"></i>共享管理</h2>
+                        <ul class="all-file" id="sharelst">
+                            <li id="li3_0"><i class="i-listAdd"></i><a><span></span></a>
+                                <ul>
+                                    <li>谁共享给我：</li>
+                                </ul>
+                            </li>
+                            <li id="li4_0"><i class="i-listAdd"></i><a><span></span></a>
+                                <ul>
+                                    <li>我给谁共享：</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="nd-tip" id="pAD">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

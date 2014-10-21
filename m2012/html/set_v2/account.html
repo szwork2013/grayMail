@@ -1,0 +1,566 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="Keywords" content="" />
+    <meta name="Description" content="" />
+    <title>139邮箱</title>
+    <style>
+        .mySLinfo {
+            border: none !important;
+            box-shadow: 0 0 0 0 #fff !important;
+            -webkit-box-shadow: 0 0 0 0 #fff !important;
+            float: none ;
+            padding: 0 !important;
+        }
+        .mySLinfo div {
+            width: 52px !important;
+            height: 52px !important;
+        }
+        .mySLinfo div img {
+            width: 52px !important;
+            height: 52px !important;
+        }
+.floatDiv input{width:50px;font-size:35px;cursor:pointer;}
+.floatDiv
+{
+	position:absolute;
+	top:0px;
+	left:0px;
+	
+	height:48px;
+	left:-115px\0;	
+	*left:-115px;
+	z-index:1;
+	padding:0px;
+    opacity:0;
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    #filter:alpha(opacity=0);
+}
+    </style>
+    <script type="text/javascript">
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];//设域
+    </script>
+<script src="../../flash/swfobject.js"></script>
+<script src="../../js/richmail/settings/md5.js"></script>
+<script>
+try {
+top.loadCSS(["common/global.css", "module/write.css", "module/set.css"], document);
+top.loadScript('libs.pack.js', document);
+top.loadScript('m139.core.pack.js', document);
+top.loadScript("m2012.ui.common.pack.js", document);
+} catch (ex) {}
+</script>
+</head>
+<body class="setbody">
+
+<div class="setWrap">
+	<div class="setArea" id="accountSet">
+		<h2>帐户设置</h2>
+		<div class="setArea-content">
+				<ul class="form setForm">
+					<li class="formLine" style="height: 26px; overflow: hidden">
+						<label class="label">默认发信帐号：</label>
+						<div class="element">
+                            <div id="accountDiv" style="width: 224px;"></div>
+						</div>
+					</li>
+					<li class="formLine">
+						<label class="label">发件人姓名：</label>
+						<div class="element">
+							<input id="txtSenderName" type="text" class="iText" value="" maxlength="12" /><span class="gray ml_10">(让收件人知道我是谁)</span>
+						</div>
+					</li>
+						<!--有手机邮箱、没有邮箱帐号-->
+					    <li class="formLine">
+							<label class="label">帐号管理：</label>
+							<div class="element">
+									<table class="cellectiontab namesettab" id="noAliasAccount">
+										<tbody>
+	                                    <tr>
+											<th class="td1">帐号</th>
+	                                        <th class="td2">类型</th>
+										</tr>
+									</tbody>
+	                                </table>
+						            <!--有手机邮箱、邮箱帐号-->
+									<table class="cellectiontab namesettab" id="hasAllAccount" style="display:none;">
+										<tbody>
+	                                    <tr>
+											<th class="td1">帐号</th>
+	                                        <th class="td2">类型</th>
+										</tr>
+									</tbody>
+	                                </table>
+                                    
+						            <!--没有手机邮箱、有邮箱帐号-->
+									<table class="cellectiontab namesettab" id="noMobileAccount" style="display: none;">
+										<tbody>
+	                                    <tr>
+											<th class="td1">帐号</th>
+	                                        <th class="td2">类型</th>
+										</tr>
+										<tr id="bindMobile">
+											<td colspan="3" class="pl_5">
+	                                        <p class="mb_5"><a href="javascript:void(0)"><span>绑定手机号码</span></a><span class="c_999">（享受免费、无限量邮件到达通知短信）</span></p>
+	                                        </td>
+										</tr>	
+										<tr>
+											<td colspan="3" style="display: none">
+	                                            <div class="tips tipsnameagin-tips" id="inputMobile" style="display: none">
+													<a hidefocus="1" class="i_u_close" href="javascript:void(0)"></a>
+													<div class="tips-text">
+													    <div class="content-text">
+															<!--设置邮箱帐号-->
+															<div class="">
+																<ul class="form ta_l" style="margin-left:80px;">
+																	<li class="formLine border-none">
+																	<label class="label">邮箱密码：</label>
+																	<div class="element">
+																	    <input id="accountPassword" type="password" class="iText gray" name="" value="" maxlength="30">
+																	</div>
+																    </li>
+																    <li class="formLine border-none">
+																	<label class="label">手机号码：</label>
+																	<div class="element">
+																	    <input id="mobile" type="text" class="iText gray" value="支持移动、联通、电信手机" maxlength="11">
+																	    <p class="mt_5"><a id="obtainCheckCode" href="javascript:void(0)" class="btnNormal"><span>免费获取短信验证码</span></a>&nbsp;&nbsp;<a id="noCheckCode" href="http://help.mail.10086.cn/statichtml/1/Content/1376.html" target="_blank">收不到验证码？</a></p>
+																	</div>
+																    </li>
+																    <li class="formLine border-none">
+																	<label class="label">短信验证码：</label>
+																	<div class="element">
+																	    <input id="checkCode" type="text" class="iText gray" name="" value="">
+																	</div>
+																    </li>
+																</ul>                                                           
+															</div>
+													    </div>
+													    <div class="tips-btn">
+														<a href="javascript:void(0)" class="btnNormal" id="confirmBindMobile"><span>确 定</span></a>&nbsp;&nbsp;<a href="javascript:void(0)" class="btnNormal" id="cancelBindMobile"><span>取 消</span></a>
+													    </div>
+													</div>
+													<div class="tipsTop diamond" style="left:45px;right:auto;"></div>
+												</div>
+												<!-- 绑定移动手机号码需等待 -->
+												<div class="tips tipsnameagin-tips" id="waitBind" style="display: none">
+													<a class="i_u_close" href="javascript:void(0)"></a>
+													<div class="tips-text">
+													    <div class="content-text">
+														<div class="accountAdminTips ta_l clearAll">
+															<span class="norTipsIco fl"><i class="i_warn_min"></i></span>
+															<dl class="fr">
+															<dt class="fw_b">正在为您绑定手机号码<span id="waitBindTip">158****3125</span></dt>
+															<dd class="gray">绑定成功后您将收到短信通知，请注意查收</dd>
+														    </dl>
+														</div>
+													    </div>
+													    <div class="tips-btn">
+														<a href="javascript:void(0)" class="btnNormal" style="display: none"><span>刷 新</span></a>&nbsp;&nbsp;
+													    </div>
+													</div>
+													<div class="tipsTop diamond" style="left:45px;right:auto;"></div>
+												</div>
+												<!---绑定其它手机号码直接提示成功 -->
+												<div class="tips tipsnameagin-tips" id="sucBind" style="display: none">
+													<a class="i_u_close" href="javascript:void(0)"></a>
+													<div class="tips-text">
+													    <div class="content-text">
+															<!--帐号申请成功-->
+															<div class="accountAdminTips ta_l clearfix">
+																<span class="norTipsIco fl"><i class="i_ok_min"></i></span>
+																<dl class="fr">
+																<dt class="fw_b">手机帐号申请成功！</dt>
+																<dd class="gray">您今后也可以使用<span id="sucBindTip">158****3125</span>登录邮箱。</dd>
+															    </dl>
+															</div>
+													    </div>
+													    <div class="tips-btn">
+															<a href="javascript:void(0)" class="btnNormal "><span>确 定</span></a>&nbsp;&nbsp;
+															<!-- <a href="javascript:void(0)" class="btnNormal "><span>取 消</span></a>-->
+													    </div>
+													</div>
+													<div class="tipsTop diamond" style="left:45px;right:auto;"></div>
+												</div>                                
+	            							</td>
+										</tr>	
+									</tbody>
+	                                </table>
+                                    
+                                    <div class="pt_10" id="applyAlias">
+                                        <a href="javascript:void(0);" class="btnNormal"><span>添加别名帐号</span></a> <span class="ml_5 gray">(保护我的手机隐私)</span>
+                                    </div>
+                                    <div class="creattabbody creattabbody2 formadd" id="inputAlias" style="display:none;">
+                                        <a href="javascript:void(0)" class="i_u_close addCancel"></a>
+                                        <ul class="form">
+                                            <li class="formLine">
+                                                <label class="label">名称帐号：</label>
+
+                                                <div class="element">
+                                                    <div><input id="aliasAccount" type="text" maxlength="15" class="iText" value="例:bieming"> @139.com</div>
+                                                    <div class="pt_5"><span class="gray">以字母开头，<span id="stringNum">5-20</span>个字符。</span>设置后不可修改删除</div>
+                                                    <div class="red"></div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <div class="creattabbody-btn">
+                                            <a href="javascript:void(0)" class="btnNormal " id="confirmApplyAlias"><span>确 定</span></a> <a
+                                                href="javascript:void(0)" class="btnNormal addCancel" id="cancelApplyAlias"><span>取 消</span></a>
+                                        </div>
+                                    </div>				
+	                        </div>
+						</li>
+                        
+                        <li class="formLine" id="logoutLi">
+						    <label class="label">注销帐号：</label>
+						    <div class="element"><a id="logoutMailbox" target="_blank" href="javascript:void(0)"><span>注销我的帐号</span></a><span class="gray ml_10">(您在使用<span id="mailType">免费</span>邮箱)</span></div>
+					    </li>
+				</ul>
+		</div>
+	</div>
+	<div class="setArea" id="accountSafe">
+		<h2>帐户安全</h2>
+		<div class="setArea-content">
+				<ul class="form setForm">
+					<li class="formLine">
+						<label class="label">邮箱密码：</label>
+						<div class="element">
+							<div class="mb_5">********</div>
+							<div class=""><a id="changePassword" href="javascript:void(0);" class="btnNormal"><span>修改密码</span></a><a href="javascript:void(0);" id="modPassword" class="ml_10">密码修改记录查询</a></div>
+						</div>
+					</li>
+					<li class="formLine" style="display: none" id="bindPhoneArea">
+						<label class="label">邮箱换号：</label>
+						<div class="element">
+							<div class="mb_5">更换手机号码后，可继续使用邮箱</div>
+							<div class=""><a id="changeMobile" href="javascript:;" class="btnNormal "><span>更换绑定&gt;&gt;</span></a></div>
+						</div>
+					</li>
+					<li class="formLine hide" id="passwordQuestionArea">
+						<label class="label">密保问答：</label>
+						<div class="element">
+							<div class="mb_5" id="passwordQuestionState"></div>
+							<div class=""><a id="passwordQuestion" href="javascript:void(0)" class="btnNormal "><span>设 置</span></a></div>
+						</div>
+					</li>
+					<li class="formLine hide" id="passwordEmailArea">
+						<label class="label">密保邮箱：</label>
+						<div class="element">
+							<div class="mb_5" id="passwordEmailState"></div>
+							<div class=""><a id="passwordEmail" href="javascript:void(0)" class="btnNormal "><span>设 置</span></a></div>
+						</div>
+					</li>
+					<li class="formLine" id="accountAdminContainer" style="display: none;">
+						<label class="label">帐号隐私：</label>
+						<div class="element">
+							<div class="mb_5">通过"可能认识的人"将我添加为联系人时</div>
+							<div id="addMe">
+								<label><input type="radio" name="radioPrivate" value="1" class="mr_5" checked />同意</label><br />
+								<label><input type="radio" name="radioPrivate" value="0" class="mr_5" />需要确认</label><br />
+								<label><input type="radio" name="radioPrivate" value="2" class="mr_5" />忽略</label>
+							</div>
+						</div>
+					</li>
+					<!-- 账号管理 -->
+					<!-- <div id="accountAdminContainer"> -->
+					<!-- </div> -->
+				</ul>		
+		</div>
+	</div>
+	<div class="setArea" id="secSafe">
+		<h2 id="areaSafeLock">安全锁</h2>
+		<div class="setArea-content">			
+				<ul class="form" id="folderPassword">				
+					<li class="formLine">
+						<label class="label">安全锁：</label>
+
+						<div class="element"><a href="javascript:void(0)" bh="set_account_lock_set" class="btnNormal verMiddle" id="setSafeLock" name="setSafeLock"><span>设置安全锁</span></a><span class="gray ml_10">(给文件夹加锁让邮件更安全)</span></div>
+
+
+					</li>
+                    
+                    <li class="formLine" id="setLock" style="display:none">
+						<label class="label">安全锁：</label>
+						<div class="element">
+							<div class="mb_5">加锁范围</div>
+							<div class="safelockTab">
+                                <div id="safelockTab"></div>
+								<a href="javascript:void(0)" class="btnNormal" bh="set_account_lock_editarea" id="editLockArea"><span>修改加锁范围</span></a> <a href="javascript:void(0)" bh="set_account_lock_editpassword" class="btnNormal" id="editPassword"><span>修改密码</span></a> <a href="javascript:void(0)" bh="set_account_unlock" class="btnNormal" id="unLock"><span>解锁</span></a>
+							</div>
+						</div>
+					</li>
+				</ul>
+				
+		</div>
+	</div>
+	<div class="setArea">
+        <h2>手机登录设置</h2>
+
+        <div class="setArea-content">
+            <ul class="form">
+                <li class="formLine">
+                    <label class="label">&nbsp;</label>
+                    <div class="element">   
+                        <p class="pb_10">通过移动GPRS、3G、4G网络访问139邮箱手机版本时:</p>                       
+                        <div>
+                            <label for="zj"><input id="zj" type="radio" name="configId" value="1"  class="mr_5">免密码直接登录<i class="i_tuij ml_5"></i></label>
+                            <p class="gray mb_10"><input type="radio"  class="mr_5 v-hidden">直接进入您手机号码对应的139邮箱，无需输入密码</p>
+                            <label for="mima"><input id="mima" type="radio" name="configId" value="2" class="mr_5">输入密码登录</label>    
+                            <p class="gray"><input type="radio" name="configId"  class="mr_5 v-hidden">每次必须验证用户名和密码后，才能登录139邮箱</p>         
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+	<div class="setArea" id="areaSign">
+		<h2>邮件签名</h2>
+		<div class="setArea-content">			
+				<ul class="form">				
+					<li class="formLine">
+						<label class="label">邮件签名：</label>
+						<div class="element">
+							<div id="dropDown" class="dropDown-Signature">
+							</div>	
+							<a href="javascript:void(0)" class="btnNormal " bh="set_sign_add" id="btnAddSign"><span>新建签名</span></a>
+							<span class="gray ml_5">(在发出邮件的底部添加签名，让收件人更了解我)</span>
+                            <div class="mailSignView" id="mailSignView">
+								<div class="norTips">
+									<span class="norTipsIco" id="norTipsIco"><img width="52" height="52" alt="" _src="/m2012/images/ad/face.jpg"></span>
+									<div class="norTipsContent" id="norTipsContent">
+									</div>
+								</div>
+								<div class="mailSignViewFoot">
+									<a href="javascript:;" hidefocus=true class="mr_5" bh="set_sign_del" id="btnIfDel">删除</a>
+									<a href="javascript:;" hidefocus=true id="btnEditSign" bh="set_sign_edit" index="">编辑</a>
+								</div>
+								
+							</div>
+					    </div>
+				    </li>
+				</ul>			
+		</div>
+	</div>
+    <div class="setArea" id="userInfo">
+		<h2>个人资料</h2>
+		<div class="setArea-content">					
+				<ul id="info_account" class="form">			
+					<li class="formLine">
+						<label class="label">&nbsp;</label>
+						<div id="info_image" class="element" style="position:relative;">
+							<div style="width:50px;height:50px;overflow:hidden;position: relative;" class="remark">
+								<img id="userImage" width="48" height="48" alt="" _src="/m2012/images/ad/face.jpg"/> 
+								<a href="javascript:;" class="editPhoto" style="width:48px;">上传头像</a>
+							</div>
+						</div>
+					</li>
+					<li class="formLine">
+						<label class="label">姓名：</label>
+						<div class="element">
+							<input id="info_userName" type="text" rel="userName"  class="iText fl mr_5" value="" maxlength="12" />
+							<div id="privacy_userName" class="seeSetdiv fl" rel="AddrFirstName" style="display:none"></div>
+						</div>
+					</li>
+					<li class="formLine">
+						<label class="label">邮箱：</label>
+						<div class="element">
+							<input id="info_email" type="text" rel="email"  class="iText mr_5 fl" value="" maxlength="50" />
+							<div id="privacy_email" class="seeSetdiv fl" rel="FamilyEmail" style="display:none"></div>
+						</div>
+					</li>
+					<li class="formLine">
+						<label class="label">手机：</label>
+						<div class="element">
+							<input id="info_mobile" type="text" rel="mobile"  class="iText mr_5 fl" value="" maxlength="11" />
+							<div id="privacy_mobile" class="seeSetdiv fl" rel="MobilePhone" style="display:none"></div>
+						</div>
+					</li>
+					<li class="formLine">
+						<label class="label">生日：</label>
+						<div class="element">
+                            <div id="info_birthday"></div>
+                            <div id="privacy_birthday" class="seeSetdiv fl" rel="BirDay" style="display:none"></div>
+						</div>						
+					</li>
+					<li class="formLine">
+						<label class="label">&nbsp;</label>
+						<div class="element" style="width:310px; float:left;">
+							<a id="more_account" href="javascript:top.$App.show('baseData')">更多个人资料</a>
+							<span style="float:right;"><a id="more_privacy" href="javascript:top.$App.show('setPrivate');" style="display:none">更多隐私设置</a></span>
+						</div>
+					</li>
+					<li class="formLine">
+						<label class="label">&nbsp;</label>
+						<div class="element">
+							<a id="info_more" href="javascript:;" style="display:none">更多信息<span class="f_st">&gt;&gt;</span></a>
+						</div>
+					</li>	
+				</ul>
+		</div>
+	</div>
+    <div class="setArea hide" id="ssoLogin">
+        <h2>授权登录</h2>
+        <div class="setArea-content">
+            <table class="systemwjj sequantab">
+                <tbody>
+                    <tr>
+                        <th class="td1">第三方授权登录站点</th>
+                        <th class="">操作</th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>   
+<div class="setBtn fixed-bottom">
+
+<a id="btnSubmit" href="javascript:void(0)" class="btnSetG"><span>保 存</span></a> <a id="btnCancel" href="javascript:void(0)" class="btnSet ml_5"><span>取 消</span></a>
+</div>
+
+<textarea id="setUserTdTemplate" style="display:none">
+    <!--item start--><td width="33%">$name</td><!--item end-->	
+</textarea>
+
+<textarea id="setPopTdTemplate" style="display:none">
+    <!--item start--><td width="33%">$name <span class="gray safelockTab-name">$mail</span></td><!--item end-->	
+</textarea>
+
+<textarea id="setUserTemplate" style="display:none">
+    <table id="userTable">
+	    <tr>
+		    <th colspan="3">全部文件夹</th>										
+	    </tr>
+        <!--item start--> 
+	    <tr class="userTr">
+		    <td></td>
+        </tr>
+        <!--item end-->						
+    </table>
+</textarea>
+
+<textarea id="setPopTemplate" style="display:none">
+	<table id="popTable">
+		<tr>
+			<th colspan="3">代收邮箱</th>										
+		</tr>
+        <!--item start--> 
+        <tr class="popTr">
+            <td width="33%"></td>
+        </tr>	
+        <!--item end-->
+	</table>
+</textarea>
+
+<textarea id="vcardHtml" style="display:none;">
+<!--item start--> 
+    <div class="norTips editcardPop">
+	    <span class="norTipsIco" id="faceImgSpan">
+			<img width="52" height="52" id="faceImg" alt="" src="$src">
+            <a href="javascript:;" class="editPhoto">上传头像</a>
+            <form id="frmUpload" name="frmUpload" method="post" enctype="multipart/form-data" action="" target="ifmReturnInfo" style="height:30px;width:52px;">
+               <input type="file" id="upLoagFaceImg" name="upLoagFaceImg" size="0" class="filePhoto" />
+               <input id="funcid" name="funcid" type="hidden" />
+            </form>
+        </span>
+        <iframe id="ifmReturnInfo" name="ifmReturnInfo" scrolling="no" height="0" width="0" frameborder="0" src=""></iframe>
+	    <div class="norTipsContent">
+		    <div class="norTipsLine"><input type="" class="iText" id="vcardTitle" value="$title" /></div>
+		    <div class="norTipsLine" id="vcardSubject">
+		    $subject
+		    </div>
+		    <div class="norTipsLine">
+			    <ul class="form">
+				    <li class="formLine">
+					    <label class="label">职务：</label>
+					    <div class="element"><input type="" class="iText" id="vcardJob" value="$job" /></div>
+				    </li>
+				    <li class="formLine">
+					    <label class="label">公司：</label>
+					    <div class="element"><input type="" class="iText" id="vcardCompany" value="$company" /></div>
+				    </li>
+				    <li class="formLine">
+					    <label class="label">地址：</label>
+					    <div class="element"><input type="" class="iText" id="vcardAddr" value="$addr" /></div>
+				    </li>
+				    <li class="formLine">
+					    <label class="label">邮箱：</label>
+					    <div class="element"><input type="" class="iText" id="vcardMail" value="$mail" /></div>
+				    </li>
+				    <li class="formLine">
+					    <label class="label">手机：</label>
+					    <div class="element"><input type="" class="iText" id="vcardMobile" value="$mobile" /></div>
+				    </li>
+				    <li class="formLine">
+					    <label class="label">电话：</label>
+					    <div class="element"><input type="" class="iText" id="vcardPhone" value="$phone" /></div>
+				    </li>
+				    <li class="formLine">
+					    <label class="label">传真：</label>
+					    <div class="element"><input type="" class="iText" id="vcardFax" value="$fax" /></div>
+				    </li>
+				    <li class="formLine">
+					    <label class="label">邮编：</label>
+					    <div class="element"><input type="" class="iText" id="vcardZipCode" value="$zipcode" /></div>
+				    </li>
+			    </ul>
+		    </div>
+					
+	    </div>
+    </div>
+    <div class="editcardPop-foot">
+	    <label class="mr_10" for="defaultSign"><input id="defaultSign" checked type="checkbox" class="mr_5" value="" />设为默认邮件签名</label>
+	    <label for="addDate"><input type="checkbox" id="addDate" class="mr_5" value="" />添加写信日期<span style="display:none;" id="showNewDate" class="gray">(*年*月*日 星期*)</span></label>
+    </div>
+<!--item end--> 
+</textarea>
+
+<script>
+try {
+    top.loadScript("account.html.pack.js", document);
+} catch (ex) {}
+</script>
+<script>
+    $("#modPassword").bind("click", function () {
+        BH({ key: 'set_pop_passmod' });
+        top.$App.show('selfSearch', {type:'3'})
+       // location.href = "/m2012/html/set/selfsearch.html?sid=" + top.sid + "&type=3";
+    })
+</script>
+<script>
+$(function(){
+	var anchor = $T.Url.queryString("anchor");
+	if($("#"+anchor)[0]){
+		var _scrollTop = $("#"+anchor).offset().top;
+		$(window).scrollTop(_scrollTop);
+	}
+    //最新的ff浏览器，设置hidefocus=true，仍然有虚线框，添加此样式可以解决
+	top.$ && top.$(".tabTitle ul li a").css("outline","none");
+
+    //气泡显示  add By QZJ
+	var bubble = $T.Url.queryString("bubble");
+	if (bubble) {
+	    var showMessage = !top.trueName ? '设置发件人姓名' : '修改发件人姓名';
+	    var position = $("#txtSenderName").focus().offset();
+	    var bubbleHTML = ['<div id="bubbleWrap" class="tips write-tips EmptyTips" style="padding:5px 20px 5px 5px ;top:',
+                         position.top - 30,
+	                     'px;left:',
+                         position.left,
+                         'px">',
+                         '<div class="tips-text EmptyTipsContent">',
+                         showMessage,
+                         '</div>',
+                         '<div class="tipsBottom diamond"></div>',
+                         '<a style="position:absolute; cursor:pointer; text-decoration:none; font-size:10px;color:#000; right:5px; top:0px; ">x</a>',
+                      '</div>'].join('');	    
+	    $('body').append(bubbleHTML);
+	    $('#bubbleWrap a').click(function () {
+	        $('#bubbleWrap').remove();
+	    });
+	}
+});
+$(window).unload(function () {
+	$("object").remove();//页面卸载或跳转前先移除掉flash，防止ie8报错  
+ });
+</script>
+</body>
+</html>

@@ -1,0 +1,331 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>content</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<script type="text/javascript">
+document.domain=window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+function filltag(d,c,f) { var b,a,e=[];while(d.length) { a=d.shift();switch(true) { case Object.prototype.toString.apply(a)==="[object Array]": b="<script "+(a[1].length>0?'charset="'+a[1]+'" ':"")+"src='"+(a[2]?a[2]:c)+"/js/"+a[0]+"' type='text/javascript'><\/script>";break;case a.indexOf(".js")> -1: b="<script "+(f?'charset="'+f+'" ':"")+"src='"+c+"/js/"+a+"' type='text/javascript'><\/script>";break;case a.indexOf(".css")> -1: b="<link rel='stylesheet' type='text/css' href='"+c+"/css/"+a+"' />";break;case a.length==0: b="<link rel='stylesheet' type='text/css' />" } e.push(b) } document.write(e.join("")) }
+var R=top.resourcePath,addrsrc=R.replace('coremail','addr'),g='GB2312';
+filltag(['addr.css?v=20140516',''],R);
+try {
+top.loadScript("libs.pack.js", document);
+top.loadScript('m139.core.pack.js', document);
+top.loadScript("m2012.ui.common.pack.js", document);
+top.loadScript("m2011.utilscontrols.pack.js", document);
+top.loadScript("../../js/packs/addr/addr_zh_hans.pack.js", document);
+} catch (ex) {}
+</script>
+<style type="text/css">
+body { padding: 0; margin: 0; background: none }
+.wrap { padding: 15px 20px; }
+.wrap dt { font-weight: 700; width: 70px; float:left; text-align: right; padding-right:1em; padding-top: 3px; }
+.wrap dd { margin:18px 0; }
+.wrap .inp {  border: 1px #c0c0c0 solid; height: 18px; width:210px }
+.wrap .group { border: 1px #c0c0c0 solid; height: 100px; width: 210px; margin-bottom: 8px; overflow: auto; }
+.wrap .group li { padding: 3px 7px; }
+.wrap .group li span { color: #999; }
+.wrap i.plus { background-position: -340px -86px; width: 12px; height: 12px; }
+.bottomBar { padding: 10px 30px 10px 0; overflow: hidden; zoom: 1; text-align: right; }
+a.but { display: inline-block; float: none; }
+input.def { color: gray }
+</style>
+</head>
+<body>
+<div class="wrap">
+	<dl>
+	    <dd></dd>
+		<dt>姓名</dt>
+		<dd>
+			<input id="txtName" maxlength="12" type="text" class="inp" />
+			</dd>
+		<dt>常用邮箱</dt>
+		<dd>
+			<input maxlength="90" id="txtEmail" type="text" class="inp" disabled="disabled" />
+			</dd>
+		<dt>常用手机</dt>
+		<dd>
+			<input maxlength="20" id="txtMobile" type="text" class="inp" disabled="disabled" />
+			</dd>
+		<dt>选择分组</dt>
+		<dd id="chkGroup" style="margin-left:80px"></dd>
+	</dl>
+</div>
+<p class="bottomBar">
+	<a class="btn btnGreen mr_10" href="javascript:void(0)" id="btnOk"><em>确&nbsp;定</em></a> &nbsp;
+	<a class="btn" href="javascript:void(0)" id="btnCancel"><em>取&nbsp;消</em></a>
+</p>
+
+<script type="text/javascript">
+if (window.ADDR_I18N) {
+    var PageMsg = ADDR_I18N[ADDR_I18N.LocalName].whoaddme;
+}
+function queryString(a){
+	var b=location.search,
+	c=b.match(new RegExp("[?&]" + a + "=([^&]*)","i"));
+	return c ? unescape(c[1]) : null;
+}
+var chkGroup, relation, secondUIN, dealStatus;
+ function GroupCheckbox(parent, context){
+    if (!parent) return;
+    context = context || document;
+    parent.style.visibility="hidden";
+    parent.innerHTML = '<ul class="group"></ul><a href="javascript:;" bh="addr_remind_addGroup"><i class="plus"></i>新建分组</a>';
+    var container = parent.firstChild;
+
+    var lbl = context.createElement("LABEL");
+    var ele = context.createElement("INPUT");
+    ele.type = "checkbox";
+    lbl.appendChild(ele);
+    lbl.appendChild(context.createTextNode(" "));
+    ele = context.createElement("LI");
+    ele.appendChild(lbl);
+    lbl = null;
+
+    var row2 = context.createElement("LI");
+    row2.innerHTML = "<span>默认保存到 &quot;未分组&quot;</span>";
+    container.appendChild(row2);
+
+    var groups = top.Contacts.data.groups;
+    for (var i = groups.length - 1, k=groups[i]; i >= 0; k=groups[--i]){
+        var gid = "Chk_" + k.GroupId;
+        row2 = ele.cloneNode(true); //li
+        lbl = row2.firstChild; //label
+        lbl['for'] = gid;
+        lbl.replaceChild(context.createTextNode(k.GroupName), lbl.lastChild);
+
+        lbl = lbl.firstChild; //input
+        lbl.id = gid;
+        lbl.value = k.GroupId;
+
+        container.appendChild(row2);
+    }
+    ele = null; row2 = null; lbl = null;
+    parent.style.visibility = "visible";
+
+    //加下方的新建组
+    var btnAdd = parent.lastChild;
+    btnAdd.onclick = function(){
+        var Contacts = top.Contacts;
+        var frameworkMessage = top.frameworkMessage;
+        var FF = top.FF;
+        var txtGName = context.createElement('INPUT');
+        var btnOk = context.createElement('A');
+        var btnCanel = context.createElement('A');
+        var tip = frameworkMessage.addGroupTitle;
+    
+        btnAdd.style.display = "none"; 
+        txtGName.value = tip;
+        txtGName.maxLength=16;
+        txtGName.className = "text gp def";
+        
+        btnOk.href = "javascript:void(0)";
+        btnCanel.href = "javascript:void(0)";
+        btnCanel.style.marginLeft = ".5em";
+        btnOk.innerHTML = "添加";
+        btnCanel.innerHTML = "取消";
+    
+        txtGName.onfocus = function(){
+            if(this.value==tip){
+                this.value = "";
+                this.className = "text gp";
+            } else {
+                this.select();
+            }
+        };
+        txtGName.onblur = function(){
+            if (this.value.length==0){
+               this.value = tip;
+               this.className = "text def gp";
+            }
+        };
+    
+        btnOk.onclick = function(){
+            var gpName = txtGName.value;
+            if (gpName.length>0 && gpName != tip) {
+                var _this = this;
+                Contacts.addGroup(gpName,function(result){
+                    if(result.success){
+                        var p = _this.parentNode;
+                        var lst = p.getElementsByTagName('UL')[0];
+                        var li = context.createElement('LI');
+                        li.innerHTML = "<label for='Chk_" + result.groupId + "'><input id='Chk_" + result.groupId + "' value='" + result.groupId + "' type='checkbox' checked='checked' />" + htmlEncode(gpName) + "</label>";
+                        lst.appendChild(li);
+                        lst.scrollTop=lst.scrollHeight;
+                        btnCanel.onclick();
+                        if(top.$Addr){                        
+                            var master = top.$Addr;  
+                            master.trigger(master.EVENTS.LOAD_MODULE, {
+                                key: 'events:group',
+								actionKey: '140',
+                                groupId: result.groupId
+                            });                        
+                        }
+                    }else{
+                        FF.alert(result.msg);
+                    }
+                });
+            }
+
+            top.BH('addr_remind_confirm');
+        };
+        
+        btnCanel.onclick = function(){
+            parent.removeChild(txtGName);
+            parent.removeChild(btnOk);
+            parent.removeChild(btnCanel);
+            btnAdd.style.display = "inline";
+        };
+    
+        parent.appendChild(txtGName);
+        parent.appendChild(btnOk);
+        parent.appendChild(btnCanel);
+    }
+
+    this.container = container;
+    this.check = function(checkedGroup){
+        var chks = this.container.getElementsByTagName("INPUT");
+        if (checkedGroup) {
+            each(chks, function(i){
+                i.checked = contain(i.value)
+            });
+        } else {
+            var buff = [];
+            each(chks, function(i){
+                i.checked && buff.push(i.value);
+            })
+            return buff;
+        }
+        function each(arr, callback){
+            for (var j=0, m=arr.length; j<m; j++){
+                callback(arr[j]);
+            }
+        }
+        function contain(v){
+            for (var j=0, m=chks.length; j<m; j++){
+                if (chks[j]==v) return true;
+            }
+            return false;
+        }
+    }
+
+    function htmlEncode(str){
+        return str.replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;").replace(/>/g, "&gt;")
+        .replace(/\"/g, "&quot;").replace(/\'/g, "&#39;")
+        .replace(/ /g, "&nbsp;");       
+    }
+}
+$(function(){
+	var mobile = queryString("un"), name = queryString("name");
+	mobile = mobile.split('|');
+	var email = mobile[1];
+	name = mobile[2];
+	mobile = mobile[0];
+	relation = queryString("relation");
+    secondUIN = queryString("seconduin");
+    dealStatus = queryString("dealstatus");
+
+	$("#txtName").val(name);
+	$("#txtEmail").val(email);
+	$("#txtMobile").val(mobile);
+//  var _mobile = top.Utils.getEmail(email)[0];
+//	if (top.Utils.isChinaMobileNumber(_mobile)){
+//	    $("#txtMobile").val(getmobile(_mobile));
+//	}
+	$("#btnCancel").click(function(){
+        top.BH('addr_remind_cancel');
+        top.FF.close();
+    });
+    
+	$("#btnOk").click(sendRequest);
+	chkGroup = new GroupCheckbox($('#chkGroup')[0], document);
+	
+	$("#txtMobile").change(function(e){//手机号支持分隔符“-”,输入手机号 自动填充移动手机邮箱时过滤掉手机号分隔符10.9
+        var mobile = e.target.value.replace(/\D/g, "");
+		$(this).val(mobile);
+	})
+});
+
+
+
+function getmobile(m){
+	var x = top.Contacts.getContactsByMobile(m).length;
+	return (!x && top.NumberTool.isChinaMobileNumber(m)) ? m : '';
+}
+
+function sendRequest(){
+	var info=new top.ContactsInfo();
+	info.name = $("#txtName").val();
+	info.email = $("#txtEmail").val();
+	info.mobile = $("#txtMobile").val();
+	var groupId=chkGroup.check().join(",");
+	info.groupId=groupId;
+
+    var addr_tmp = top.document.getElementById('addr');
+	var addr = addr_tmp.contentWindow.document.getElementById(queryString("frame"));
+
+	info.name = $.trim(info.name);
+	if (info.name == ""){
+		top.FF.alert("请输入联系人姓名");
+		return;
+	}
+	if ((new top.String(info.name)).getByteCount()>100){
+		top.FF.alert("输入的联系人姓名太长了");
+		return;
+	}
+
+	info.mobile = $.trim(info.mobile);
+	if (info.mobile != "" && !top.Validate.test("mobile",info.mobile)){
+		top.FF.alert("输入的手机号码格式不正确");
+		return;
+	}
+
+	info.email = $.trim(info.email);
+	if (info.email != "" && !top.Validate.test("email",info.email)){
+		top.FF.alert("输入的电子邮箱格式不正确");
+		return;
+	}
+
+	if (top.Contacts.isExistEmail(info.email) || top.Contacts.isExistMobile(info.mobile)) {	    
+        if(relation.trim() == "0"){
+            info.SecondUIN = secondUIN;
+            info.DealStatus = 2;
+            addr.contentWindow.DealManager.addTwo(relation, info, '1', true);
+        }else{
+            addr.contentWindow.DealManager.forget(relation, info);
+    	    //sendRequest(addr.contentWindow.DealManager.forget);
+    		//top.FF.alert("该邮箱\\手机号已存在，无法添加。", function(){
+    		//	top.FF.close();
+    		//});
+        }
+		return;
+	}
+
+    //调用二度关系添加接口
+    if(relation.trim() == "0"){
+        info.SecondUIN = secondUIN;
+        info.DealStatus = dealStatus;
+        addr.contentWindow.DealManager.addTwo(relation, info, '1');
+    }else{
+    	addr.contentWindow.DealManager.add(relation, info);
+    }
+
+	//var sameMobile = top.Contacts.getContactsByMobile(info.mobile);
+	//if (sameMobile.length > 0){
+	//	top.FF.confirm(PageMsg['warn_hasSameMobile'], function(){
+	//		add();
+	//	},function(){ $("#txtMobile").focus().select(); });
+	//} else {
+	//	add();
+	//}
+
+	//function add(){
+	//	var addr = top.document.getElementById(queryString("frame"));
+	//	addr.contentWindow.DealManager.add(relation, info);
+	//}
+}
+</script>
+</body>
+</html>

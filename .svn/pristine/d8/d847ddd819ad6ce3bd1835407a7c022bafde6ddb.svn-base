@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="page-ablum-img" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <title>相册照片</title>
+
+    <script type="text/javascript">
+        //设域
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1].replace(/:\d+/, "");
+        //加载CSS和JS,CommonInit(当前document,彩云最顶层window)
+        var scripts = [{ dirName: "js/", fileName:"m2011.disk.listpager.js" },
+            { dirName: "js/", fileName:"m2011.disk.photo.js" },
+            { dirName: "js/", fileName:"m2011.disk.flash.js"}];
+        window.parent.CommonInit(document, window.parent, scripts);
+    </script>
+
+</head>
+<body>
+    <div id="container">
+        <div class="folderPath">
+            您的位置：<a href="disk_default.html">彩云网盘</a>><a href="disk_myalbum.html">我的相册</a><span id="spMapPath"></span>&nbsp;
+            <label id="lblAlbumCount"></label>
+        </div>
+        <div class="rcd-hd">
+            <div class="page">
+                <a href="#" style="display: none"></a><a href="#">上一页</a> <a href="#">下一页</a> <a
+                    href="#" style="display: none"></a>
+                <select keyname="pagerSelect">
+                </select>
+            </div>
+            <div id="sendFileMenu" class="drop-menu sent-locker" style="display: none;">
+                <ul>
+                    <li><a id="aEmail" href="#">发送到邮箱</a></li>
+                    <li><a id="aWap" href="#">发送到手机(wap)</a></li>
+                    <li><a id="aMMS" href="#">发送到手机(彩信)</a></li>
+                </ul>
+            </div>
+            <div id="sendMove" class="drop-menu sent-locker" style="display: none;">
+                <ul id="ulDownList">
+                    <li><a href="#"></a></li>
+                </ul>
+            </div>
+            <button class="include-i" id="aUpload">
+                上传照片<i class="i-upload"></i></button>
+            <button class="include-i" id="aDown">
+                下载<i class="i-download"></i></button>
+            <button id="aDel">
+                删除</button>&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="include-i" id="aSendFile">
+                发送<i class="i-list"></i></button>
+            <button id="aShare">
+                共享</button>
+            <!--<button id="aSendWeibo" type="button">
+                发布到微博</button>-->&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="include-i" type="button" id="aMove">
+                移动到</button>
+        </div>
+        <table cellpadding="0" class="tbl-list">
+            <tr class="tfoot">
+                <th class="t-check">
+                    <label id="lblSelectAllFile" for="cbSelectAllFile">
+                        全选</label>
+                    <input style="position: absolute; left: -999px; top: -999px;" type="checkbox" id="cbSelectAllFile"
+                        name="cbSelectAllFile" />
+                </th>
+                <th class="align-r">
+                    <a href="" id="slide">放映幻灯片</a>
+                </th>
+            </tr>
+        </table>
+        <div class="tbl-list-return">
+            <p>
+                <a href="disk_myalbum.html" title="返回上级">返回上级</a></p>
+        </div>
+        <div class="tbl-list-null" style="display: none">
+            <p>
+                该文件夹为空</p>
+        </div>
+        <div class="album-list after">
+            <ul id="tbl-fileList">
+            </ul>
+        </div>
+        <table cellpadding="0" class="tbl-list">
+            <tr class="tfoot">
+                <th class="t-check">
+                    <label id="lblSelectAllFile2" for="cbSelectAllFile">
+                        全选</label>
+                </th>
+                <th class="align-r">
+                    <a href="#" id="slide1">放映幻灯片</a>
+                </th>
+            </tr>
+        </table>
+        <div class="rcd-hd">
+            <div class="page">
+                <a href="#" style="display: none">首页</a> <a href="#">上一页</a> <a href="#">下一页</a>
+                <a href="#" style="display: none">末页</a>
+                <select>
+                </select>
+            </div>
+            <div id="sendFileMenu2" class="drop-menu sent-locker" style="display: none;">
+                <ul>
+                    <li><a id="aEmail2" href="#">发送到邮箱</a></li>
+                    <li><a id="aWap2" href="#">发送到手机(wap)</a></li>
+                    <li><a id="aMMS2" href="#">发送到手机(彩信)</a></li>
+                </ul>
+            </div>
+            <div id="sendMove2" class="drop-menu sent-locker" style="display: none;">
+                <ul id="ulDownList2">
+                    <li><a href="#"></a></li>
+                </ul>
+            </div>
+            <button class="include-i" id="aUpload1">
+                上传照片<i class="i-upload"></i></button>
+            <button class="include-i" id="aDown1">
+                下载<i class="i-download"></i></button>
+            <button id="aDel1">
+                删除</button>&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="include-i" id="aSendFile2">
+                发送<i class="i-list"></i></button>
+            <button id="aShare1">
+                共享</button>
+            <!--<button id="aSendWeibo2" type="button">
+                发布到微博</button>-->&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="include-i" id="aMove2">
+                移动到</button>
+            <input id="hidrow" type="hidden" />
+            <input id="path" type="hidden" />
+        </div>
+        <iframe id="iframecgi" width="0" height="0"></iframe>
+    </div>
+</body>
+</html>

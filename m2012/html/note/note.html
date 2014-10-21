@@ -1,0 +1,133 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="Keywords" content=""/>
+    <meta name="Description" content=""/>
+    <title>记事本-139邮箱</title>
+
+    <script type="text/javascript">
+        //设域
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+        function loadScript(path, _doc, charset) {
+            if (path.indexOf(".js") > -1) {
+                var base = "/m2012/js";
+                var jsVersion = "20130106";
+                if (path.indexOf("pack.js") > -1) {
+                    base += "/packs";
+                }
+                path = base + "/" + path;
+                if (path.indexOf("?") == -1) {
+                    path += "?v=" + jsVersion;
+                }
+            }
+            (_doc || document).write("<script charset=\"" + (charset || "") + "\" type=\"text/javascript\" src=\"" + path + "\"></" + "script>");
+        }
+        function loadCSS(path, _doc) {
+            if (typeof path == "string") path = [path];
+            var jsVersion = "20130106";
+            for (var i = 0; i < path.length; i++) {
+                var item = path[i];
+
+                item = "/m2012/css/" + item + "?v=" + jsVersion;
+                (_doc || document).write('<link rel="stylesheet" href="' + item + '" type="text/css" />');
+            }
+            jsVersion = null;
+        }</script>
+<script>loadScript('libs.pack.js', document); loadScript('m139.core.pack.js', document); loadScript('m2012.ui.common.pack.js', document)</script>
+<script>loadCSS(["common/global.css", "common/frame.css", "module/not/not.css"], document)</script>
+    <style type="text/css">
+        .notli p {
+            line-height: 20px;
+            height: 40px;
+            overflow-y: hidden;
+        }
+        .notli p span {
+            line-height: 20px;
+        }
+    </style>
+
+
+</head>
+<body>
+    <div class="bodyBg Loading_Hidden">
+        <div class=" clearfix">
+             <div class="outArticle">
+               <div class="outArticleMain notright">
+                    <div class="toolBar">
+                        <ul class="toolBarUl">
+                            <li class="mr_10"><a id="btn_save" href="javascript:top.addBehaviorExt({actionId:103855})" class="btn btnGreenBd"><span>保存</span></a></li>
+                            <li class="mr_10"><a id="btn_delete" href="javascript:top.addBehaviorExt({actionId:103857})" demobak="删除" class="btnTb"><span>删除</span></a></li>
+                            <li class="mr_10"><a id="btn_send" href="javascript:top.addBehaviorExt({actionId:103858})" demobak="邮件发送" class="btnTb"><span>邮件分享</span></a></li>
+                            <li class="mr_10"><a id="btn_update" href="javascript:;" demobak="同步" class="btnTb"><span>同步</span></a></li>
+                        </ul>    
+                        <div class="readmialTool clearfix">
+                            <a class="i_cDo" href="javascript:;" title="添加提醒" id="btn_remind"></a>
+                            <span>|</span>
+                            <a class="i_print" href="javascript:;" id="btn_print" title="打印笔记"></a>
+							<span>&nbsp;&nbsp;</span>
+							<a id="btn_evernote" href="javascript:;" class="evernote-btn" bh="evernote_entry"><i class="i-evernoteIco mr_5"></i>存印象笔记</a>
+                        </div>        
+                    </div>
+                    <div class="notbody">
+                        <div class="notitlebody "><!-- 展开时加上 notitlebody-on -->
+                            <div class="nottitle"><!-- 获取焦点时加上 nottitle-on  -->
+                                <a id="toggleTime" title="展开" class="pushon" href="javascript:void(0)"><i class="i_2trid"></i></a>
+                                <input type="text" maxlength="60" style="font-size:14px;" placeholder1="点击输入标题"  id="tb_title">
+                            </div>
+                            <div style="display:none" id="note_time" class="titletime">
+                                <div style="line-height:33px;" class="fl">
+                                    <span id="sp_createTime" class="mr_10">创建时间:</span>
+                                    <span id="sp_updateTime" title="修改时间:2014年05月21日 15:40:41">修改时间:</span> 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="editorWrap">
+                            <div id="mnote_htmlEdiorContainer"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="inAside notleft">
+                <div class="toolBar_btnG">
+                    <a href="javascript:;" id="btn_create" class="btnG" hidefocus="1"><span><b>+</b>新建笔记</span></a>
+                </div>
+                <div class="toolBar toolBar_bg">
+                    <div class="clearfix">
+                        <div style="z-index:999;" class="p_relative fr">
+                            <a id="btn_order" href="javascript:void(0)" class="aHoversel"><span><em>排序</em><i class="i_triangle_d"></i></span></a>
+                        </div>      
+                        <div class="searchnew">
+                            <input id="tb_search" type="text" maxlength="30" class="iText gray" placeholder1="搜索'和笔记'" value="搜索'和笔记'" id="tb_search">
+                            <a title="搜索" id="btn_search" class="fileSearchBtn" demobak="搜索" href="javascript:;"><i class="i_g-search"></i></a>    
+                            
+                        </div>
+                    </div>
+                    <div id="tip_search" class="clearfix toolBar_all" style="display:none">
+                        <span class="fl">搜索结果</span>
+                        <a href="javascript:;" class="fr">所有笔记</a>
+                    </div>
+                </div>
+                <div id="div_notelist" style="height: 500px;" class="notlist" > 
+                </div>                
+                <textarea style="display:none" id="template_notelist">
+                    <!--item start-->
+                    <div noteId="$noteId" class="notli">
+                        <!--input type="checkbox" class="notliCheck" value="" /-->
+                        <div class="notlititle">@getTitle()</div>
+                        <p><span class="time">@getTime(orderSet)</span>
+                            @getSummary()</p>
+                    </div>
+                    <!--item end-->
+                </textarea>  
+            </div>
+        </div>
+    </div>
+    <div id="oderSet" style="top: 78px; left: 183px; display:none; z-index: 9001; position: absolute; width:90px;" class="menuPop shadow menuPops" bindautohide="1"><ul></ul></div>
+    <div class="tips delmailTips" style="z-index: 1001; display:none; width: 200px; top: 44px; left: 270px;"> <a name="popup_close" class="delmailTipsClose" href="javascript:"><i class="i_u_close"></i></a><div class="tips-text"><div  class="norTips"> <span class="norTipsIco"><i class="iueding_warn"></i></span><div class="norTipsContent">删除后，笔记不可恢复</div></div><div class="delmailTipsBtn" name="buttons"><a class="btnRed" href="javascript:void(0)"><span>删除</span></a><a class="btnNormal" href="javascript:void(0)"><span>取消</span></a></div></div><div style="left: 96.5px;" name="popup_arrow" class="diamond tipsTop"></div></div>
+</div>
+    <script type="text/javascript">
+        loadScript('mnote.html.pack.js', document);
+    </script>
+</body>
+</html>

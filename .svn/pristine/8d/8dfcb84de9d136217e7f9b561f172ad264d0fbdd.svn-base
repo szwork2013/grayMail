@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<project name="build_pack" default="packFile">
+    <target name="packFile">
+        <concat destfile="./packs/importmail.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+			<fileset dir="./" includes="**/m2012.mailbox.model.import.js" />
+			<fileset dir="./" includes="**/m2012.mailbox.view.import.js" />
+        </concat>
+    </target>
+</project>

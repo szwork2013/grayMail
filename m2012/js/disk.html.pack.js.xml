@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<project name="build_pack" default="packFile">
+  <property name="slnPath" value="service/disk_v2"/>
+  <target name="packFile">
+    <concat destfile="./packs/disk.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+    <!-- todo -->
+      <fileset dir="./ui/upload" includes="**/md5.min.js"/>
+      <fileset dir="./ui/upload" includes="**/upload.facade.js"/>
+      <fileset dir="./ui/upload" includes="**/upload.html5.js"/>
+      <fileset dir="./ui/upload" includes="**/upload.flash.js"/>
+      <fileset dir="./ui/upload" includes="**/upload.common.js"/>
+      <fileset dir="./ui/upload" includes="**/swfobject.js"/>
+      <fileset dir="./ui/upload" includes="**/upload.activex.js"/>
+      <fileset dir="./plugin" includes="**/m139.plugin.screencontrol.js"/>
+      <fileset dir="${slnPath}" includes="**/m2012.disk.model.js"/>
+      <fileset dir="${slnPath}" includes="**/m2012.disk.view.statusbar.js"/>
+      <fileset dir="${slnPath}" includes="**/m2012.disk.view.command.js"/>
+      <fileset dir="${slnPath}" includes="**/m2012.disk.view.leftbar.js"/>
+      <fileset dir="${slnPath}" includes="**/m2012.disk.view.toolbar.js"/>
+      <fileset dir="${slnPath}" includes="**/m2012.disk.view.filelist.js"/>
+      <fileset dir="${slnPath}" includes="**/m2012.disk.view.filethumbnail.js"/>
+      <fileset dir="${slnPath}" includes="**/m2012.disk.view.filethumbnailimageview.js"/>
+      <fileset dir="${slnPath}" includes="**/m2012.disk.view.rename.js"/>
+      <fileset dir="${slnPath}" includes="**/m2012.disk.view.createdir.js"/>
+      <fileset dir="${slnPath}" includes="**/m2012.disk.view.music.js"/>
+      <fileset dir="${slnPath}" includes="**/m2012.disk.view.main.js"/>
+
+      <fileset dir="${slnPath}" includes="**/m2012.disk.view.drag.js"/>
+
+      <fileset dir="${slnPath}" includes="**/m2012.disk.model.contextmenu.js"/>
+      <fileset dir="${slnPath}" includes="**/m2012.disk.view.contextmenu.js"/>
+
+      <fileset dir="${slnPath}" includes="**/m2012.disk.application.js"/>
+      <fileset dir="./" includes="**/m2012.fileexpress.upload.model.js"/>
+      <fileset dir="${slnPath}" includes="**/m2012.disk.view.upload.js"/>
+    </concat>
+  </target>
+</project>

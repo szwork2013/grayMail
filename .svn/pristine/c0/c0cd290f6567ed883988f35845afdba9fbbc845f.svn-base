@@ -1,0 +1,545 @@
+/***************************************************************************************************************************
+*和笔记  右边编辑区域渲染
+*
+*注意事项：
+*1：新建
+*   1.需要判断编辑组件是否重置，因为之前渲染的Html欢迎页是不可编辑的。
+*2: 删除     
+*3: 保存
+*4: 修改
+*5: 自动保存
+*   this.model.set("autoSave", false);   //自动保存监听停止
+*   this.model.set("autoSave", true);    //自动保存监听开始
+*     self.autoSaveStart();              //自动保存监听开始
+*     self.autoSaveStop();               //自动保存监听停止
+*
+*   自动保存的情况
+*  1:新建笔记，在空白笔记中有输入           
+*   -当输入时，即标题和文本有变化则自动保存监听计时开始
+*   -当输入时，即标题和文本有变化，但在之后的3分钟内又还原成原来标题和文本，自动保存监听停止。
+*   -当输入时，标题和文本已经有变化，自动保存监听开始，点击其他记事开始切换时，自动保存监听停止。
+*   -当输入时，自动监听开始时，保存之后，自动保存监听停止。
+*   2:修改
+*   3:删除
+*   -点击删除之后，自动保存监听停止。在和笔记中优先影响自动保存监听。
+*   4:保存
+*   -点击保存之后，自动保存监听停止。在和笔记中优先影响自动保存监听。
+*   5:邮件分享
+*   -点击邮件分享之后，自动保存监听停止。
+*6: 邮件分享
+*   -标题或内容为空也可以进行邮件分享。 
+*7: 时间面板展开以及编辑组件等
+*   1)由于每一个注册的新用户的即使列表中都会默认有一个欢迎引导页面记事，这条记事是Html格式，不可编辑，不可保存，可删除。
+*   而现在的和笔记暂时只支持纯文本，不支持Html以及文件附件保存。
+*   因此，在对内容格式为html的记事，默认为引导欢迎记事，直接渲染iframe，隐藏编辑组件。
+*
+*
+****************************************************************************************************************************
+*/
+
+M139.namespace("M2012.Note.View.EditView", Backbone.View.extend({
+    el: "body",
+    template: {
+        repeat: _.template(['<dl class="form mailClear p_relative">',
+            '<dt class="formLine"> 在印象笔记中，发现了相同的笔记。请选择保存方式：</dt>',
+            '<dd class="formLine pl_20 mt_10 mb_20"><input type="radio" id="rdo_01" name="radio" checked value="">',
+            '<label for="rdo_01">覆盖（原有对应的笔记将被覆盖）</label></dd>',
+            '<dd class="formLine pl_20"><input type="radio" id="rdo_02" name="radio" value="">',
+            '<label for="rdo_02">新建（原有对应的笔记保留，创建一个新的笔记）</label></dd></dl>',
+            '<div class="boxIframeBtn"><span class="bibText"><a href="https://app.yinxiang.com/Login.action;" class="ml_15" target="_blank">进入印象笔记</a></span>',
+            '<span class="bibBtn"> <a href="javascript:this.colorCloudNoteview.editView.updateEvernote();" class="btnSure"><span>确 定</span></a></span></div>'].join(''))
+    },
+    events: {
+        "click #btn_create": "createNote",
+        "click #btn_delete": "deleteNote",
+        "click #btn_save": "saveNote",
+        "click #btn_send": "sendNote",
+        "click #btn_print": "printNote",
+        "click #btn_remind": "remindNote",
+        "click #btn_update": "reloadeNote",
+		"click #btn_evernote": "saveEvernote"
+    },
+    initialize: function(options) {
+        var self = this;
+        self.model = options.model;
+        self.initEvents();
+        self.editorView = M2012.UI.HTMLEditor.create({
+            contaier: $("#mnote_htmlEdiorContainer"),
+            blankUrl: "editor_blank.htm?sid=" + top.sid,
+            showButton: [ 
+                "FontFamily",
+                "FontSize",
+                "Bold",
+                "Italic",
+                "UnderLine",
+                "FontColor",
+                "RemoveFormat",
+                "FormatPrinter",
+                "AlignCenter", 
+                "Undo",
+                "Redo",
+                "SelectAll",
+                "Preview"],
+            showMoreButton:true
+        });
+        /**
+        *绑定标题与内容输入框，进行自动保存设置
+        * 
+        *对比标题以及内容，若没有改动则不会进行自动保存，有改动则会计时1分钟进行保存一次。
+        */
+        self.editorView.editor.on("keyup", function() {
+            var contentBuffer = self.model.get("contentBuffer");       
+            var titleBuffer   = self.model.get("titleBuffer");
+            var title         = $("#tb_title").val();
+            var content       = self.editorView.editor.getHtmlContent();
+            if((contentBuffer == content) && (titleBuffer == title)) {
+                self.autoSaveStop(); //重置时间
+                self.model.set("autoSave", false);
+                return;
+            } else {
+                self.autoSaveStart();//触发自动保存
+                self.model.set("autoSave", true);
+                return;
+            }
+        });
+        self.editorView.editor.on("focus", function () {
+            $('#oderSet').hide();
+        });
+        
+        $('#mnote_htmlEdiorContainer .eidt-body').height($(document.body).height() - 165);
+    },
+    initEvents:function(){
+        var self = this;
+        self.model.on("change:noteId", function(data) {
+            self.render();
+        });
+        self.model.on("clearNote", function () {
+            self.model.set('noteId', null)
+            self.editorView.editor.setHtmlContent('');
+            $('#tb_title').val('');
+        });
+        self.model.on("autoSave", function(msg) { //自动保存监听
+            if(msg) {
+                self.autoSaveStart();
+            } else {
+                self.autoSaveStop();
+            }
+        });
+		self.model.on("evernoteSave", function(){
+            switch(self.model.get('evernoteSave')){
+                case 'OAUTH_BINDING':
+				case 'TOKEN_EXPIRED':
+                    self.renderBindOauthDialog();
+                    break;
+                case 'NOTE_REPEAT':
+                    self.renderSelectRepeatDialog();
+                    break;
+                case 'S_OK':
+                    M139.UI.TipMessage.show('操作成功，笔记内容已保存到印象笔记', {delay: 2000});
+                    top.addBehaviorExt({ actionId: 106906, thingId: 4});
+                    break;
+                default:
+                    break;
+            }
+        });
+
+        //绑定标题与内容输入框，进行自动保存设置 
+        //对比标题以及内容，若没有改动则不会进行自动保存，有改动则会计时1分钟进行保存一次。
+        //标题区域
+        $("#tb_title").bind({
+            keyup: function() {
+                var contentBuffer = self.model.get("contentBuffer");       
+                var titleBuffer   = self.model.get("titleBuffer");
+                var title         = $("#tb_title").val();
+                var content       = self.editorView.editor.getHtmlContent();
+                if((contentBuffer == content) && (titleBuffer == title)) {
+                    self.autoSaveStop(); //重置时间
+                    self.model.set("autoSave", false);
+                    return;
+                } else {
+                    self.autoSaveStart();//触发自动保存
+                    self.model.set("autoSave", true);
+                    return;
+                }
+            }
+        });
+        //绑定时间栏展开/收起事件
+
+        $("#toggleTime").click(function(e) { 
+            BH('note_title_more');
+            var self = $(this);
+            var changePart   = $("#note_time");
+            var changeAnchor = self.find("i");
+            var isExtend     = (changeAnchor.attr("class")).indexOf("i_2tridd") > -1;
+            if(isExtend) {
+                M139.Text.Cookie.set({
+                    name: "mnoteUserState",
+                    value: 0
+                }); //设置展开状态
+                changePart.hide();
+                changeAnchor.attr({
+                    "class": "i_2trid",
+                    "title": "展开"
+                });
+            } else {
+                M139.Text.Cookie.set({
+                    name: "mnoteUserState",
+                    value: 1
+                });
+                changePart.show();
+                changeAnchor.attr({
+                    "class": "i_2tridd",
+                    "title": "收起"
+                });
+            }
+        });
+        //初始化时间栏展开收起
+        var toggleExpand = M139.Text.Cookie.get("mnoteUserState"); //0为收起，1为展开  
+        if(toggleExpand && toggleExpand == 1) {
+            $("#note_time").show();
+            $("#toggleTime").find("i").attr({
+                "class": "i_2tridd",
+                "title": "收起"
+            });
+        };
+
+        $('#div_notelist,#btn_create, #btn_send').click(function(){
+            var isCreating = self.model.get('isCreating');
+
+            var isEditing = self.model.get('isEditing');
+            if(!isCreating && !isEditing){
+                return;
+            }
+            self.saveNote();
+            self.model.set({isCreating:false,isEditing:false});
+            self.model.trigger("reloadListData", {
+                reload: true
+            });
+        });
+
+        $(document).click(function () {
+            $('#oderSet').hide();
+        });
+    },
+    reloadeNote:function(){
+        BH('note_update');
+        M139.UI.TipMessage.show("数据正在同步中...");
+        this.model.set('showFirstNote',0) 
+        this.model.trigger("reloadListData", {
+            reload: true
+        });
+    },
+    createNote:function(){
+        BH('note_create');
+        var self = this;
+        if (top.noteCreating) {
+            return;
+        }
+        top.noteCreating = true;
+        self.model.set('createEmpty',1);
+        data = {
+            attachmentDirId: "",
+            content: "",
+            title: "无标题笔记"
+        }
+        self.model._createNote({
+            data:data,
+            callback:function(noteInfo){ 
+                self.model.set("autoSave", false);     
+                 //自动保存关闭  --- 重置计时器                  
+                self.autoSaveStop();   
+                self.model.set({
+                    noteId:noteInfo.noteId,
+                    noteInfo:noteInfo
+                });
+            }
+        });
+    },
+    saveNote: function() {
+        BH('note_save');
+        var self = this;
+
+        //防止用户一路狂点
+        var cancelSave = self.model.get('cancelSave');
+        if (cancelSave) {
+            console.log('点得太快啦，歇一会儿吧！');
+            return;
+        }
+        self.model.set('cancelSave', 1);
+        setTimeout(function () {
+            self.model.set('cancelSave', 0);
+        }, 500);
+
+
+        self.model.set("autoSave", false);    //保存完之后，重置自动保存
+        var option = {
+            data:{
+                title: $.trim($("#tb_title").val()) || "无标题笔记",
+                content: self.editorView.editor.getHtmlContent(),
+                attachmentDirId:''
+            },
+            reviewEditArea: reviewEditArea
+        }        
+        function reviewEditArea(){
+            var currentId = self.model.get("noteId");
+            $("#tb_title").blur();
+            $(".notli[noteId='" + currentId + "']").addClass("on").attr("locked", "true");
+        }
+        //option.data = self.model.validateEdit(option.data); //验证输入信息
+        self.autoSaveStop();
+        self.model._saveNote(option);
+    },
+    //自动保存开启
+    autoSaveStart: function() { 
+        var self = this;
+        var intervalId = this.model.get("isEditing");
+        if(!intervalId) {
+            var autoId = setInterval(function() {
+                if(self.model.get("autoSave")) {
+                    self.model.set("currentOperation", "自动保存");
+                    self.saveNote();
+                }
+            }, 1 * 60 * 1000);
+            self.model.set("isEditing", autoId);
+        }
+    },
+    //自动保存停止
+    autoSaveStop: function() { 
+        var intervalId = this.model.get("isEditing");
+        if(intervalId) {
+            clearInterval(intervalId);
+        }
+        this.model.set("isEditing", false);
+    },
+    deleteNote: function() {
+        BH('note_delete')
+        var self = this;
+        self.autoSaveStop(); //关闭自动保存
+        var currentNoteId = self.model.get("noteId");
+
+        if(!currentNoteId) {
+            $Msg.alert("请选择您要删除的笔记");
+            return;
+        }
+        //删除确定   单实例
+        var deleteConfirm  =  self.model.get("delteVar");
+        if(!deleteConfirm){
+                deleteConfirm = M139.UI.Popup.create({
+                target: $("#btn_delete").parent().parent()[0],
+                icon: "iueding_warn",
+                width: "200",
+                buttons: [{
+                    text: "删除",
+                    cssClass: "btnRed",
+                    click: function() {
+                        self.model.set("currentOperation", "删除");
+                        self.model._deleteNote(); //重新取一次noteId
+                        deleteConfirm.close();
+                    }
+                }, {
+                    text: "取消",
+                    click: function() {
+                        deleteConfirm.close();
+                    }
+                }],
+                content: "删除后，笔记不可恢复"
+            });
+            self.model.set("delteVar",deleteConfirm);
+        }
+       
+        deleteConfirm.render();
+    },
+    //邮件分享
+    sendNote: function() {
+        BH('note_mail');
+        this.model.set("autoSave", false);          //自动保存计时停止
+        var title = $("#tb_title").val(),
+            content = this.editorView.editor.getHtmlContent();
+        if (!title && !content) {
+            this.model.showMsg('请选择笔记！');
+            return;
+        }
+        var data = {};
+        data.subject = (title).replace(/\\/ig, ""); //邮件分享的content可以为空
+        data.content = (content).replace(/\\/ig, "\\");
+        this.model.sendNoteByMail(data);
+    },
+    //笔记打印
+    printNote: function () {
+        BH('note_print');
+        var noteId = this.model.get('noteId');
+        if (!noteId) {
+            top.$Msg.alert('请选择要打印的笔记!')
+            return;
+        }
+        window.open("/m2012/html/note/printnote.html?noteId=" + noteId);
+    },
+    //笔记添加提醒
+    remindNote: function () {
+        top.addBehaviorExt({ actionId: 104926, thingId: 0 });        
+        var content = $("#tb_title").val();
+        var currentNoteId = this.model.get("noteId");
+        if (!currentNoteId) {
+            top.$Msg.alert('请选择要添加的笔记！');
+            return;
+        }
+        top.$Evocation.create({ content: content, type: "remind", title: "添加提醒" })
+    },
+	/*
+    * 点击保存印象笔记
+    * */
+     saveEvernote: function(){
+        var self = this;
+		top.addBehaviorExt({ actionId: 106905, thingId: 11 });
+         var option = {
+             data:{
+                 title: $.trim($("#tb_title").val()) || "无标题笔记",
+                 content: self.editorView.editor.getHtmlContent(),
+                 attachmentDirId:''
+             },
+             reviewEditArea: reviewEditArea,
+             isMustCallback:true
+         };
+
+        /**
+         *重新渲染记事列表页,即每次修改或新建成功之后会聚焦或高亮到该条记事
+         */
+        function reviewEditArea(){
+            //self.renderData();
+            var currentId = self.model.get("noteId");
+            $("#tb_title").blur();
+            $(".notli[noteId='" + currentId + "']").addClass("on").attr("locked", "true");
+            self.model.createbyMnoteId();
+            self.model.set('isEvernoteBinding', 0);
+        }
+        this.model.set('isEvernoteBinding',1)
+        this.model.saveEvernote(option);
+    },
+    updateEvernote: function(){
+        var isCheck = $('#rdo_01').attr('checked') == 'checked' ? 1 : 0;
+        top.addBehaviorExt({ actionId: 106906, thingId: (isCheck == 0 ? 2 : 3)});
+        this.model.updateEvernote(isCheck);
+        this.dialog.close();
+    },
+    render: function() {
+        var noteInfo = this.model.get('noteInfo');          //当前记事内容对象
+        if(!noteInfo){
+            return;
+        }
+        var noteId = this.model.get('noteId');
+        if(noteId != noteInfo.noteId){
+            return;
+        }
+        this._renderData(noteInfo);
+    },
+    _renderData: function(noteInfo) {
+        var content = noteInfo.content || '',               //右边编辑渲染内容
+            title = noteInfo.title;                         //右边编辑渲染标题
+        this.model.set("currentOperation", "记事读取");     //记录当前操作事件
+        this.model.set("contentBuffer", content);           //缓存，以用作对比编辑  主要用于判断是否自动保存
+        this.model.set("titleBuffer", title);        //同上
+        if(noteInfo.noteType == "HTML")  //欢迎页
+            content = this.welcomeHTML();
+        this.editorView.editor.setHtmlContent(content);     //渲染正文
+        //渲染标题及时间
+        $("#tb_title").val(title);               
+        $("#sp_createTime").html("创建时间:" + $Date.format("yyyy年MM月dd日 hh:mm:ss", new Date(Number(noteInfo.createTime))));
+        $("#sp_updateTime").html("修改时间:" + $Date.format("yyyy年MM月dd日 hh:mm:ss", new Date(Number(noteInfo.updateTime)))).attr("title", "修改时间:" + $Date.format("yyyy年MM月dd日 hh:mm:ss", new Date(Number(noteInfo.updateTime))));
+    },
+    welcomeHTML:function(){
+        return ['<!DOCTYPE HTML>',
+         '<html>',
+         '<head>',
+            '<script type="text/javascript">',
+         'document.domain = window.location.host.match(/[^.]+\.[^.]+$/)[0];',
+         'var contentHTML = window.parent.colorCloudNoteview.model.get("contentBuffer");',
+         'document.write(contentHTML);',
+         '</script>',
+            '<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">',
+            '<meta charset="UTF-8">',
+            '<title>欢迎使用139邮箱版和笔记 -- 中国移动</title>',
+            '<meta name="description" content="和笔记">',
+            '<meta name="author" content="Huawei">',
+            '<meta name="keywords" content="和笔记,笔记,中国移动,彩云,mcloud,mobile note,note,notes,mobilenote,mnote">',
+            '<meta name="viewport" content="width=device-width, initial-scale=1.0">',
+            '<style>body,h1,h2,h3,h4,h5,h6,p,dl,dt,dd,ul,li,img{margin:0;padding:0;border:0;outline:0;font-family:"Microsoft YaHei", SimSun, "Segoe UI", Verdana, Arial, Sans-Serif;font-size:100%;color:#3E3E3E;word-break:break-all;}a{color:#3E3E3E;}.header,.use,.main,.download,.contact{border-bottom:1px dashed #737373; width:100%; margin-bottom:5px;padding-bottom: 5px;} .contact{border-bottom:0 none; }.header h1{ color:#fff; font-size:16px; background:#E9482B;padding:8px 20px;float: left;margin-bottom: 10px;text-align:center;} .header p{ padding-left:20px; font-size:12px;margin:10px 0 5px;line-height:1.5;clear:both;} h2{ font-size:15px; color:#C83920; line-height:22px; padding-left:20px;} .use ul,.main ul{ margin:5px auto 5px 20px; padding-left:20px; } .use ul,.main li{ font-size:12px;line-height:24px;} .main h3{ font-size:14px; padding-left:20px;} .download .client{margin-left:40px;}.download a{ display:inline-block; font-size:12px; margin:5px 20px 5px 0px; } .contact dl{ margin:0 0 0 40px;} .contact dt,.contact dd{font-size:11px; display:inline; } .contact dd{ margin-right:5px; } dd.noblank{ margin-right:0; } .contact p{font-size:11px; line-height:20px;padding-left:40px;}.red{color: #C83920;} </style>',
+         '</head>',
+         '<body>',
+         '<div style="padding:10px">',
+            '<div class="header">',
+                '<h1> <b>欢迎使用139邮箱版和笔记！</b>',
+                '</h1>',
+                '<p>',
+                    '和笔记是中国移动推出的一款云笔记产品，为用户提供文字、图片、音频、视频、地理位置等多种形式的记录，使用即享有16G免费存储空间。',
+                '</p>',
+            '</div>',
+            '<div class="use">',
+                '<h2> <b>在139邮箱中，您可以这样使用和笔记：</b>',
+                '</h2>',
+                '<ul>',
+                    '<li>提取邮件中的重要事项，或者摘取“精品订阅”中您喜欢的内容，随时保存到和笔记；</li>',
+                    '<li>看邮件时产生了想法和灵感，随手记录到邮箱版和笔记；</li>',
+                    '<li>通过邮件，将笔记方便的分享给朋友。</li>',
+                '</ul>',
+            '</div>',
+            '<div class="main">',
+                '<h2>下载客户端</h2>',
+                '<ul>',
+                    '<li>',
+                        '<a href="http://mnote.weibo.10086.cn/MobileNote.apk">android客户端</a>',
+                    '</li>',
+                    '<li>',
+                        '<a href="http://mnote.weibo.10086.cn/MobileNote.exe">windows客户端</a>',
+                    '</li>',
+                    '<li>',
+                        '<a href="https://itunes.apple.com/us/app/cai-yun-bi-ji/id577725854?ls=1&amp;mt=8">iphone/ipad客户端</a>',
+                    '</li>',
+                '</ul>',
+            '</div>',
+            '<div class="main">',
+                '<h2>',
+                    '<b>和笔记客户端的特色功能：</b>',
+                '</h2>',
+                '<ul>',
+                    '<li>',
+                        '<span class="red">4种记录终端</span>',
+                        '你可以下载Android\Windows\iPhone三种客户端或登录网页版记录笔记；',
+                    '</li>',
+                    '<li>',
+                        '<span class="red">多种形式记录</span>',
+                        '您可以使用手机\电脑创建文字、图片、语音、视频、地理位置的笔记；',
+                    '</li>',
+                    '<li>',
+                        '<span class="red">跨平台、多终端同步</span>',
+                        '任何时间任何地点使用手机\电脑记录工作、生活、学习，帮您实现一端记录，多终端查看；',
+                    '</li>',
+                    '<li>',
+                        '<span class="red">业界唯一免费短信提醒</span>',
+                        '您可以对笔记设置传统的铃声提醒、震动提醒，还可以设置免费的短信提醒；',
+                    '</li>',
+                '</ul>',
+            '</div>',
+
+            '</div>',
+         '</body>',
+         '</html>'].join("");
+    },
+	/*弹出绑定印象笔记弹层*/
+    renderBindOauthDialog: function(){
+        var self = this;
+        top.$App.showOauthDialog({func:self.model.bindOuth});
+    },
+    renderSelectRepeatDialog: function(){
+        var self = this;
+        self.dialog = $Msg.showHTML(self.template.repeat,{
+            width: "385px",
+            dialogTitle: "保存到印象笔记",
+            onClose: function() {
+                self.dialog = null;
+            }
+        });
+    }
+
+
+}) //end of extend
+); //end of namespace

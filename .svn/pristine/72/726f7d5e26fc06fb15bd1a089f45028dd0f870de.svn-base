@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>Video.js Test Suite</title>
+  <!-- Video.js CSS -->
+  <link rel="stylesheet" href="css/video-js.css" type="text/css">
+  <script src="js/video.js"></script>
+</head>
+<body>
+
+    <video id="example_video_1" class="video-js vjs-default-skin"
+      controls preload="auto" width="640" height="264"
+      poster="oceans-clip.png">
+        <!-- flash可以播mp4 -->
+        <!--
+         先写死也行，在js里加载也行
+         <source src="video/oceans-clip.mp4" type='video/mp4' />
+         <source src="video/oceans-clip.webm" type='video/webm' />
+         <source src="video/oceans-clip.ogv" type='video/ogg' />
+        -->
+    </video>
+
+    <script>
+        //videojs api文档
+        //https://github.com/videojs/video.js/blob/master/docs/index.md
+        videojs.options.flash.swf = "swf/video-js.swf";
+
+        videojs("example_video_1", {
+            //height
+            //width
+            //"poster": "oceans-clip.png", 播放前背景图
+            "controls": true,
+            "autoplay": false,
+            "preload": "auto",
+            techOrder: ["flash","html5"] //使用顺序，如果浏览器支持flash，首选flash播放器
+        }, function () {
+            this.src([
+              { type: "video/mp4", src: "video/oceans-clip.mp4" },
+              { type: "video/webm", src: "video/oceans-clip.webm" },
+              { type: "video/ogg", src: "video/oceans-clip.ogv" }
+            ]);
+            //立即播放
+            //this.play();
+        });
+    </script>
+
+</body>
+</html>

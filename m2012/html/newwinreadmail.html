@@ -1,0 +1,59 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>139邮箱</title>
+<script type="text/javascript">
+document.domain=window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+var m2012ResourceDomain = "http://" + location.host;
+if(document.domain == "10086.cn"){
+    m2012ResourceDomain = /appmail3/.test(location.host) ? "http://image0.139cm.com" : "http://images.139cm.com";
+}
+
+if(!window.opener){
+	var getsearch = location.search.replace('t=newwin','');
+	location.href = '/m2012/html/index.html' + getsearch + '&id=15';
+}
+
+</script>
+<script type="text/javascript">window.opener.top.loadCSS(["common/global.css","common/frame.css","skin/skin_lightblue.css"],document)</script>
+<script type="text/javascript">
+    var newwin = true;
+    var style = ['<style type="text/css">',
+                    'body,html,.bodycolor,.skin,.skinTop,.skinTopLeft,.skinTopRight{background:none}',
+                    '.sub,.header,.mainTop,.fxclickdiv{display:none}',
+                    '.main{left:0px;top:0px}',
+                 '</style>'].join("");
+    document.write(style);
+
+</script>
+
+<style type="text/css">
+#contentText{height:auto; width:100%; overflow:auto}
+#headAttach{display:none}
+.readMail{margin:0}
+.newwlogo{width: 110px;background-position: -390px -80px; margin-top: 5px;}
+</style>
+
+
+<body class="bodycolor newwindowsread">
+    <a class="newwlogo" title="139邮箱"></a>
+    <div>
+       <div class="main" style="top:35px">
+            <div class="mainIframeBg" id="div_main">
+                <div style="" addclass="1" class="inboxflOff">
+                    <div class="inboxfl" style="overflow: auto; position: relative; ">
+                        <div id="leftbox" class="inboxflDiv">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script type="text/javascript">
+window.opener.top.loadScript('libs.pack.js',document);
+window.opener.top.loadScript('/m2012/js/richmail/readmail/m2012.readmail.newwin.js',document);
+</script>  
+</body>
+</html>

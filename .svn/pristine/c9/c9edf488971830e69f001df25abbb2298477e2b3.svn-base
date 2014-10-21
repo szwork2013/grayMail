@@ -1,0 +1,112 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="pg-window" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <title>dialog</title>
+
+    <script type="text/javascript">
+        //设域
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1].replace(/:\d+/, "");
+        var diskWindow = top.$("iframe#diskDev")[0].contentWindow;
+        diskWindow.CommonInit(document, diskWindow, [{ "dirName": "js/", fileName:"m2011.disk.upload.js"}]);
+        UploadType = "common";
+    </script>
+
+    <script type="text/javascript">
+        try {
+            //加载皮肤
+            Utils.loadSkinCss(null, document, "netdisk");
+            $().ready(UploadPageInit);
+        } catch (ex) { }
+    </script>
+
+</head>
+<body>
+    <div class="dialog" id="commonUploadProgress" style="display: none">
+        <div class="bd">
+            <h3>
+                文件上传中...
+            </h3>
+            <i class="i-dialog-loading"></i>
+        </div>
+        <div class="bd">
+            <table cellpadding="0" class="tbl-dialog-form dl-form-upload">
+                <tr>
+                    <th>
+                    </th>
+                    <td>
+                        <a class="btnNormal" id="aUploadCancelBtn" href="javascript:;" onclick="location.href=location.href">
+                            取消</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="dialog" style="padding-bottom: 0px;" id="commonUpload">
+        <div class="bd">
+            <p id="pMessage" style="z-index: 99; position: absolute; display: none; top: 42px;
+                left: 346px" class="dialog-error-tip error-space">
+            </p>
+            <table cellpadding="0" class="tbl-dialog-form dl-form-upload">
+                <tr>
+                    <th>
+                        上传位置：
+                    </th>
+                    <td style="display: none">
+                        <select id="stPosition">
+                        </select>
+                    </td>
+                    <td class="uploadTree">
+                        <div id="file-tree" style="width:255px">
+                        </div>
+                        <ul class="file-tree" id="file-tree2">
+                        </ul>
+                    </td>
+                </tr>
+                <form id="formUpload" method="POST" target="uploadiframe" enctype="multipart/form-data">
+                <tr>
+                    <th>
+                        选择文件：
+                    </th>
+                    <td>
+                        <input onkeydown="return false" oncontextmenu="return false" class="mr_file" type="file"
+                            id="file" name="file" />
+                        <a class="btnNormal mr_btn" href="">选择文件</a> <a href="javascript:;" class="btnNormal"
+                            id="aUploadBtn">开始上传</a>
+                        <br />
+                        <br />
+                        <p id="pTips" class="dialog-input-tip">
+                            单文件最大50M</p>
+                    </td>
+                </tr>
+                </form>
+                <iframe id="uploadiframe" name="uploadiframe" style="display: none"></iframe>
+            </table>
+            <div id="divPreview" class="up-img up-img-2" style="margin: 0 0 0 0">
+                <ul class="after">
+                    <li class="hover" id=""><a href="#">
+                        <img id="img" width="98px" alt="" style="display: none;" />
+                        <p id="imgPreview" style="width: 94px; height: 94px; margin-left: 3px; margin-top: 4px;">
+                        </p>
+                        <i class="i-delIMG" style="display: none;" id="iDel"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="dl-tip" style="margin-top: 0px;">
+        <h4>
+            需要上传更稳定更快速吗？</h4>
+        <p id="pinstall">
+            安装139邮箱小工具上传更稳定，速度更快，并支持选择多个文件和断点续传。<a href="#" id="ainstall" target="_blank">立即安装</a></p>
+        <p>
+            上传时可以最小化本窗口，进行其它操作。</p>
+        <p>
+            请遵守国家相关法律，严禁上传包括反动、暴力、色情、违法及侵权内容的文件。</p>
+    </div>
+    <div class="ft addon-upload-ft">
+        <ul class="dbtn-list">
+            <li><a class="btnNormal" id="aUploadCloseBtn" href="javascript:;">关 闭</a></li>
+        </ul>
+    </div>
+</body>
+</html>

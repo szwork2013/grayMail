@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>可能认识的人</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<script type="text/javascript">
+document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+function filltag(d,c,f){var b,a,e=[];while(d.length){a=d.shift();switch(true){case Object.prototype.toString.apply(a)==="[object Array]":b="<script "+(a[1].length>0?'charset="'+a[1]+'" ':"")+"src='"+(a[2]?a[2]:c)+"/js/"+a[0]+"' type='text/javascript'><\/script>";break;case a.indexOf(".js")>-1:b="<script "+(f?'charset="'+f+'" ':"")+"src='"+c+"/js/"+a+"' type='text/javascript'><\/script>";break;case a.indexOf(".css")>-1:b="<link rel='stylesheet' type='text/css' href='"+c+"/css/"+a+"' />";break;case a.length==0:b="<link rel='stylesheet' type='text/css' />"}e.push(b)}document.write(e.join(""))}
+var R = top.$App.getResourcePath(), addrsrc = R.replace('coremail', 'addr'),g='GB2312';
+filltag(['global2012.css', 'addr2012.css', ''], R);
+
+
+try {
+top.loadScript("libs.pack.js", document);
+top.loadScript('m139.core.pack.js', document);
+top.loadScript("m2012.ui.common.pack.js", document);
+top.loadScript("m2011.utilscontrols.pack.js", document);
+top.loadScript("../../js/packs/addr/addr_zh_hans.pack.js", document);
+top.loadScript("../../js/packs/addr/addr_onykeyaddsuc.html.pack.js", document);
+} catch (ex) {}
+</script>
+<script type="text/javascript">
+Utils.loadSkinCss(null, document, "addr");
+document.write('<link href=\"' + R +'/css/min_global_all.css?v=20120210\"  charset=\"utf-8\" rel=\"Stylesheet\" type=\"text/css\"/> ');
+</script>
+</head>
+<body>
+<div class="winTipC" id="Wrap" style="padding:0;">	
+	<div class="wTipCont" style="padding:15px;">
+		<ul>
+			<li class="wTc" >
+				<b class="wcDot"></b>
+				<span class="wcDot1">
+					<p class="bbp" style="font-size:14px;" ><strong id="addSuccUsersName" style="font-weight:bold;"></strong>  已添加到通讯录“未分组”中。</p>
+                    <p class="bbp" style="font-size:14px;">为以上联系人<a href="javascript:void(0);" id="chooseGroup" style="font-size:14px;">选择分组</a></p>
+				</span>
+			</li>
+			<li class="wTcBut">
+				<a href="javascript:;" class="but YesButton" id="closeButn">确&nbsp;定</a>
+			</li>
+		</ul>
+	</div>
+</div>
+<script type="text/javascript">
+$(function(){
+	 var addr = top.document.getElementById(Pt.param("frame"));
+	//界面初始化
+	var usersInfo = addr.contentWindow.DealManager.oneKeyAddSucInfo;
+	var usersName = [];
+	for(var i=0;i<usersInfo.length;i++){
+		usersName.push(usersInfo[i].UserName);
+	}
+	usersName = usersName.join("，");
+	$("#addSuccUsersName").text(usersName);
+	
+	//iframe高度自适应
+	var pIframe = parent.document.getElementById("onekeyaddsucframe")
+	 $(pIframe).height($("#Wrap").height());
+	 
+	 
+	$("#chooseGroup").click(function(){
+		top.FF.close();
+		addr.contentWindow.DealManager.addSuccUsersInGroup();
+	});
+	
+	//关闭保存成功窗口，要将保存成功数据的变量清空
+	$("#closeButn").click(function(){
+		addr.contentWindow.DealManager.oneKeyAddSucInfo = "";
+		addr.contentWindow.DealManager.openNextAskPage();
+
+    });
+		
+});
+</script>
+</body>
+</html>

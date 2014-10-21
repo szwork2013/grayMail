@@ -1,0 +1,70 @@
+@charset "utf-8";
+/*================================================
+Version:2.0 Date:2013/12/01
+Compatible Kernel:Blink、Webkit、Trident、Gecko、Presto
+Author:139邮箱前端设计组
+================================================*/
+/*================================================ Reset ================================================*/
+html,body,h1,h2,h3,h4,h5,h6,p,br,form,input,button,textarea,select,fieldset,legend,blockquote,ul,ol,li,dl,dt,dd,pre,table,caption,tr,td,th{margin:0;padding:0;}
+body{font:12px/1.5 'Microsoft YaHei',SimSun,Arial; color:#666;}
+h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}
+a{color:#333;text-decoration:none;}
+textarea,select,input,button{vertical-align:middle;font-size:100%;}
+address,cite,code,em,var,abbr,acronym,i,dfn{font-style:normal;}
+textarea{resize:none;}
+i{display:inline-block;}/*用于修饰性小图标*/
+table{border-collapse:collapse;border-spacing:0;}
+ul,ol{list-style:none outside none;}
+img,fieldset{border:none; vertical-align:middle;}
+sup,sub{vertical-align:baseline;}
+/*================================================ 原子类 ================================================*/
+/* 符动 */
+.fl{float:left;display:inline;}
+.fr{float:right;display:inline;}
+/* 清除符动 */
+.clearfix:after{visibility:hidden;display:block;font-size:0;content:" ";clear:both;height:0;}
+.clearfix{zoom:1;}
+.clearAll{overflow:hidden;_zoom:1;}
+/* 显示隐藏 */
+.dShow{display:block!important;}
+.dHide{display:none!important;}
+.vShow{visibility:visible!important;}
+.vHide{visibility:hidden!important;}
+.eveHide{position:absolute;top:-1000em;}/* 视觉隐藏，读屏软件可读 */
+/* 对齐方式 */
+.ta_c{text-align:center;}
+.ta_r{text-align:right;}
+.ta_l{text-align:left;}
+.ta_j{text-align:justify;text-justify:inter-ideograph;}
+/* 文字大小 */
+.fz_12{font-size:12px;}
+.fz_14{font-size:14px;}
+.fz_16{font-size:16px;}
+.fz_18{font-size:18px;}
+/* 定位 */
+.p_relative{position:relative;}
+.p_static{position:static;}
+
+/*================================================ 布局类 ================================================*/
+
+.errorWindow_one{border:1px solid #a2b0c6; width:540px;
+	-moz-border-radius: 3px 3px 0 0;      /* Gecko browsers */
+    -webkit-border-radius: 3px 3px 0 0;   /* Webkit browsers */
+    border-radius: 3px 3px 0 0;            /* W3C syntax */
+}
+.errorWindow_one .title{height:29px; background-color:#4c75b2; line-height:29px; padding:0 18px; color:#fff; font-size:14px; display:block;}
+.errorWindow_one_con{background:url(../images/img_01.png) no-repeat 27px 24px; padding:20px 10px 28px 164px;}
+.errorWindow_one_con h2{font-size:20px; color:#f36100; line-height:24px;}
+.errorWindow_one_con span{display:block; line-height:22px; margin-top:14px; font-size:12px;}
+.errorWindow_one_con li{line-height:22px; font-size:12px;}
+.errorWindow_one_con p{margin-top:20px; font-size:12px;}
+.errorWindow_one_con p a{color:#0090ec; text-decoration:underline; margin:0 4px;}
+
+.errorWindow_two{width:300px; background-color:#f2f7fd;}
+.errorWindow_two .title{height:40px; line-height:40px; background-color:#4c75b2; padding:0 10px; color:#fff; font-size:14px; display:block;}
+.errorWindow_two_con{padding:25px 15px 50px;}
+.errorWindow_two_con h2{font-size:16px; color:#f36100; line-height:24px;}
+.errorWindow_two_con span{display:block; line-height:20px; margin-top:6px;}
+.errorWindow_two_con li{line-height:20px;}
+.errorWindow_two_con p{margin-top:12px;}
+.errorWindow_two_con p a{color:#0090ec; text-decoration:underline; margin:0 4px;}

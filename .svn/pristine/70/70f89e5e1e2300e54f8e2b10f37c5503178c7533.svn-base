@@ -1,0 +1,213 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>139邮箱</title>
+
+
+<script type="text/javascript">
+    document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+
+    if (!top.m139LoadScript) {
+        top.m139LoadScript = top.loadScript;
+    }
+
+    top.m139LoadScript('libs.pack.js', document);
+    top.m139LoadScript('m139.core.pack.js', document)
+    
+    </script>
+<script>
+
+    top.loadCSS(["common/global.css", "module/welcome.css"], document)
+
+</script>
+</head>
+<body>
+<div class="welTop">
+  <div class="leftText" id="lefttext"></div>
+  <div class="welWeather">
+  </div>
+</div>
+<div class="welCenterBg">
+  <div class="welCenter" id="userInfoBar" >
+
+    <div class="welInfo" style="display:none">
+        <a href="javascript:top.$App.show('account')" class="wel-face" bh="welcome_headimg"><img id="userImg"  src="/m2012/images/ad/face.jpg" width="52" height="52" /></a>
+        <ul class="welInfoList">
+            <li>
+                <span class="name" id="hello"></span>
+			</li>
+			<li>
+                <span id='personalInfo' style='position:relative'>个人信息<i class="i_triangle_d"></i></span>
+                <span id="levelAndIntegral" style="display:none">
+                </span>
+                <span id="pay139"><span class="welLine">|</span><a href="javascript:top.$App.show('pay139')">话费充值</a></span>
+            </li>
+            <li>
+                <i class="i_mail"></i>
+                <span id="unreadBox"></span>
+                <span id="otherUnRead"></span>
+                <span id="shequ" style="display:none">
+                </span>
+                <span id="fetionWrap" style="display:none;">
+                </span>
+            </li>
+            <li class="lineov" id='customFloder' >
+            </li>
+            <li class="lineov" id='popFloder' >
+            </li>
+            <li id="otherInfo" style="overflow:hidden;"><a id="folderMoreLink" href="javascript:top.$App.show('tags');" bh="welcome_morefolder" style="display:none">更多...</a></li>
+        </ul>
+    </div>
+
+  </div>
+
+</div>
+<div class="welRight">
+  <div class="lingqu2"  id="adv1">
+  </div>
+  <div class="wrText" id="adv2">
+ </div>
+</div>
+<div style="height:12px;width:100%;clear:both;"></div>
+<div class="welCenterBg">
+  <div class="welCenter">
+    <div id="AdTab" class="tab welcomeTab">
+      <div class="tabTitle">
+        <ul  id="tabTitle">
+          <li class="on" bh="welcometab_mailrecommend"><a href="javascript:;"><span>邮箱推荐</span></a></li>
+          <li id="subscriptionTab" bh="welcometab_subscribe" ><a href="javascript:;"><span>精品订阅</span></a></li>
+		  <li id="wirelessCityTab" bh="welcometab_shop" style="display:none;"><a href="javascript:;"><span>无线城市</span></a></li>
+          <li id="appShopTab" bh="welcometab_shop"><a href="javascript:;"><span>应用商场</span></a></li>
+          <li id="rebateTab" bh="welcometab_fanli"><a href="javascript:;"><span>139返利</span></a></li>
+          <li bh="welcometab_business"><a href="javascript:;"><span>精品业务</span></a></li>
+		  <li id="laboratoryTab" style="display:none;"><a href="javascript:;"><span>实验室</span></a></li>
+		  <li id="userCenterTab"class="last" style="display:none;"><a href="javascript:;"><span>用户中心</span></a></li>
+        </ul>
+		<div class="titleSet" style="display:none;"><a id="tabSetBtn" class="i_setn"></a></div>
+      </div>
+      <div id="tab-main" class="tabMain">
+
+        <div class="tabContent show" id="mail_recom">
+        </div>
+
+        <div id="subscription" class="tabContent">
+          <h2>精品订阅</h2>
+        </div>
+
+        <div id="wirelessCity" class="tabContent">
+			<h2>无线城市</h2>
+
+			<div class="nolineNews">
+
+			</div>
+			<div class="nolineApp-right">
+				<div class="nolineApp">
+
+				</div>
+			</div>
+        </div>
+
+        <div id="appShop" class="tabContent">
+          <h2>应用商场</h2>
+          <iframe id="appShopIframe" scrolling="auto" frameborder="no" width="100%" height="180"></iframe>
+        </div>
+
+        <div id="rebate" class="tabContent fanLi139">
+          <h2>139返利</h2>
+        </div>
+
+        <div class="tabContent">
+          <h2>精品业务</h2>
+          <ul class="appimglist" id="appimglist">
+          </ul>
+        </div>
+
+        <div id="laboratory" class="tabContent lab">
+		</div>
+
+		<div id="userCenter" class="tabContent">
+			<h2>用户中心</h2>
+			<iframe id="userCenterIframe" scrolling="no" frameborder="no" width="100%" height="184"></iframe>
+		</div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<div class="welRight">
+  <div class="textKuang">
+    <div class="title">活动区</div>
+    <div class="textKuangBody" id="actionCenter" >
+    </div>
+    <a href="javascript:;" bh="welcome_activity" id="gotoAction" class="more">参与积分兑换赢好礼&gt;&gt;</a> </div>
+</div>
+<div style="height:12px;width:100%;clear:both;"></div>
+<ul class="footer">
+<!-- <li><a href="http://help.mail.10086.cn/statichtml/1/Category/39/List_1.html" target="_blank" bh="welcomeb_log" class="gray">2012年10月23日更新</a> | <a bh="welcomeb_shortcut" href="http://mail.10086.cn/139mail.url">桌面快捷方式</a> | <a href="javascript:top.$App.jumpTo('invite')" bh="welcomeb_invitation">邀请好友</a> | <a bh="welcomeb_open" target="_blank" href="http://open.mail.10086.cn/">开放平台</a> | <a bh="welcomeb_mobile" target="_blank" href="http://mail.10086.cn/mailmobile/index-j.html">手机邮箱</a> | <a bh="welcomeb_search" href="javascript:top.Links.show('loginSearch');">自助查询</a> | <a bh="welcomeb_lab"  id="expCenter" href="javascript:top.$App.show('uecLab');">体验中心</a>
+     | <a bh="welcomeb_cmail" target="_blank" href="http://www.139cm.com/">企业邮箱</a> | <a bh="welcomeb_weibo" target="_blank" href="http://blog.sina.com.cn/richinfo139">邮箱博客</a> | 客服:10086</li> -->
+  <li id="bottomlink" ></li>
+  <li>标准版2.0 - <a href='javascript:;' id='btn_old' class="bluea" bh="welcomeb_oldversion" target="_top">标准版</a> - <a href="javascript:;" id="btn_base"  class="bluea" bh="welcomeb_baseversion" target="_top">基础版</a> <a target="_blank" href="http://www.miibeian.gov.cn/" class="gray">京ICP备05002571号</a> &copy; <a target="_blank" href="http://www.10086.cn/" class="gray">中国移动通信版权所有</a></li>
+</ul>
+
+
+<!-- 天气浮层 -->
+<div class="tipsBox" id="TemperatureTips" style="position: absolute; right: 92px; top: 35px; z-index: 9999; display:none;"></div><!-- 切换城市弹出层 -->
+<div class="weathertips" id="cityBtnTip" style="right:15px;top:36px;display:none;">
+	<div class="tips-text">
+		选择地点：
+		<div class="seloption">
+			<select id="province">
+				<option value="0">---省份---</option>
+			</select>
+			<select id="city">
+				<option value="0">---城市---</option>
+			</select>
+		</div>
+		<p><a id="queryWeather" href="javascript:;">查看天气</a> <a id="setWeather" href="javascript:;">设为默认</a></p><!--  链接可以击点时 加上 cur  -->
+		<a class="i_close" href="javascript:;"><!-- 等级3 --></a>
+	</div>
+	<div class="tips-top diamond"></div>
+</div>
+
+
+<script>
+
+    top.m139LoadScript("welcome.html.pack.js", document);
+    $(function () {
+
+
+        var search = window.location.search.substring(1);
+        
+      
+
+    $("#btn_old").attr("href", "http://" + top.window.location.host + "/main.htm?func=global:execTemp&sid=" + top.$App.getSid());
+
+
+    var simpleStyleIndex="6";
+    function getBaseUrl(style) {
+        //跳转url
+        var url = "",
+        //分区id
+		    partId = "",
+        //跳转基础版域名
+		    loginDomain = "",
+        //域
+		    dm = document.domain;
+        //rm只有基础版，不用判断
+
+        loginDomain = top.domainList.global.mail || ''; //SiteConfig['loginDomain']||"";
+        if (loginDomain) {
+            url = loginDomain + '/login/switchto.aspx?sid=' + top.$App.getSid() + '&v=3';
+        }
+        return url;
+    }
+
+
+    $("#btn_base").attr("href",getBaseUrl(simpleStyleIndex));
+
+
+});
+</script>
+</body>
+</html>

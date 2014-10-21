@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>139邮箱网盘设置</title>
+<script>
+document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+
+top.loadScript('libs.pack.js', document);
+top.loadScript('m139.core.pack.js', document);
+top.loadScript("m2012.ui.common.pack.js", document);
+top.loadCSS(["common/global.css", "module/set.css"], document);
+</script>
+</head>
+
+<body>
+<br />
+<div class="setWrap">
+	<div id="accountSet" class="setArea setForm">
+		<!--<div class="btnTop">
+			<a class="btnSet" role="button" href="javascript:void(0)"><span class="p_relative">彩云网盘设置</span></a>
+		</div>-->
+		<h2 class="">附件保存</h2>
+		<div class="setArea-content">
+			<ul class="form setForm">
+				<li class="formLine">
+					<label class="label">超大附件发送后：</label>
+					<div class="element">
+						<div id="largeAttachAutoSaveFlag"></div>
+						<span class="gray">（保存至彩云网盘“全部文件”目录）</span>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<script> top.loadScript("m2012.settings_v2.disk.pack.js", document); </script>
+<script>
+
+	window.diskSetView = new M2012.Settings.Disk.View();
+	diskSetView.render();
+
+</script>
+</body>
+</html>

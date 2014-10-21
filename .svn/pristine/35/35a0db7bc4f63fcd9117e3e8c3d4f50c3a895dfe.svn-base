@@ -1,0 +1,146 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="Keywords" content="">
+    <meta name="Description" content="">
+    <title>通讯录首页-139邮箱</title>
+<script type="text/javascript">
+document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+
+try {
+top.loadCSS(["common/global.css", "module/addr/addrnew.css"], document);
+top.loadScript('libs.pack.js', document);
+top.loadScript('m139.core.pack.js', document);
+top.loadScript("m2012.ui.common.pack.js", document);
+top.loadScript('/m2012/js/lib/addr_master.html.pack.js', document);
+} catch (ex) {}
+</script> 
+</head>
+<body>
+<div class="addr-list-body">    
+    <div class="addr-btngroup clearfix">
+            <div class="addr-btn">
+                <a class="btnTb" href="javascript:"><span class="p_relative">发邮件</span></a>
+                <a class="btnTb" href="javascript:"><span class="r pr_25 two">发贺卡<span><i class="i_triangle_d"></i></span></span></a>
+                <a class="btnTb" href="javascript:"><span class="r pr_25 two">复制到组<span><i class="i_triangle_d"></i></span></span></a>
+                <a class="btnTb" href="javascript:"><span class="p_relative">删除</span></a>
+                <a class="btnTb" href="javascript:"><span class="p_relative">同步</span></a>
+                <li id="domainlist">
+                    <a class="btnTb" id="domainlist111111" href="javascript:"><span class="p_relative">更多</span><i class="i_triangle_d"></i></span></span></a>
+                </li>
+                <!--<a class="btnTb" id="domainlist" href="javascript:void(0);"><span class="r pr_25 two">更多<span><i class="i_triangle_d"></i></span></span></a>-->
+            </div>            
+            <div class="toolBarPaging">
+                <a rel="selector" href="javascript:;" class="pagenum">
+                    <span class="pagenumtext">1/66</span>
+                </a>
+                <a rel="prev" title="上一页" href="javascript:;" class="up up-gray"></a>
+                <a rel="next" title="下一页" href="javascript:;" class="down "></a>
+            </div>
+            <div class="addr-search">
+                <input type="text" /><a title="搜索" href="javascript:;"></a>
+            </div>
+        </div> 
+        <div class=""><strong>搜索“蔡”的结果</strong></div>      
+        <div class="addr-letter clearfix">
+            <a href="javascript:void(0)" class="on">All</a>
+            <a href="javascript:void(0)">A</a>
+            <a href="javascript:void(0)">B</a>
+            <a href="javascript:void(0)">C</a>
+            <a href="javascript:void(0)">D</a>
+            <a href="javascript:void(0)">E</a>
+            <a href="javascript:void(0)">F</a>
+            <a href="javascript:void(0)">G</a>
+            <a href="javascript:void(0)">H</a>
+            <a href="javascript:void(0)">I</a>
+            <a href="javascript:void(0)">J</a>
+            <a href="javascript:void(0)">K</a>
+            <a href="javascript:void(0)">L</a>
+            <a href="javascript:void(0)">M</a>
+            <a href="javascript:void(0)">N</a>
+            <a href="javascript:void(0)">O</a>
+            <a href="javascript:void(0)">P</a>
+            <a href="javascript:void(0)">Q</a>
+            <a href="javascript:void(0)">R</a>
+            <a href="javascript:void(0)">S</a>
+            <a href="javascript:void(0)">T</a>
+            <a href="javascript:void(0)">U</a>
+            <a href="javascript:void(0)">V</a>
+            <a href="javascript:void(0)">W</a>
+            <a href="javascript:void(0)">X</a>
+            <a href="javascript:void(0)">Y</a>
+            <a href="javascript:void(0)">Z</a>
+        </div>
+        <div class="addr-yellow-tips">您识别以下联系人吗？建议您立即修改姓名、完善资料</div>
+        <div class="addr-table">
+             <!--[if lt ie 8]>
+                        <div style='+zoom:1;'>
+                            <![endif]-->
+            <table class="addr-table-header">
+                <tr>
+                    <td class="td1">
+                        <input type="checkbox" />
+                    </td>
+                    <td class="td2"><span class="hide">姓名</span> <span>已选择：<strong class="c_ff6600"> 2 </strong>个联系人 <a href="javascript:void(0)" class="c_ff6600">取消选择</a></span></td>
+                    <td class="td3">邮件地址 <a href="javascript:void(0)" class="i-d-up"></a></td>
+                    <td class="td4">手机 <a href="javascript:void(0)" class="i-d-down"></a></td>
+                    <td class="td5">分组</td>
+                    <td class="td6"></td>
+
+                </tr>
+            </table>
+            <!--[if lt ie 8]></div><![endif]-->
+            <div class="addr-list">
+                 <!--[if lt ie 8]>
+                        <div style='+zoom:1;'>
+                            <![endif]-->
+                <table>
+                    <tr>
+                        <td class="td1">
+                            <input type="checkbox" />
+                        </td>
+                        <td class="td2">白小刚</td>
+                        <td class="td3">baixiaogang@139.com</td>
+                        <td class="td4"></td>
+                        <td class="td5"></td>
+                        <td class="td6"><span class=""><a href="javascript:void(0)">发邮件</a> | <a href="javascript:void(0)">发短信</a> | <a href="javascript:void(0)">编辑</a> | <a href="javascript:void(0)">删除</a></span></td>
+                    </tr>
+                     <tr class="on">
+                        <td class="td1">
+                            <input type="checkbox" />
+                        </td>
+                        <td class="td2">白雪天</td>
+                        <td class="td3">baixuetian@richinfo.com</td>
+                        <td class="td4">13648742167</td>
+                        <td class="td5"><span class="addr-s-t">大学同学</span><span class="addr-s-t">彩讯-用记体验室</span></td>
+                        <td class="td6"><span class=""><a href="javascript:void(0)">发邮件</a> | <a href="javascript:void(0)">发短信</a> | <a href="javascript:void(0)">编辑</a> | <a href="javascript:void(0)">删除</a></span></td>
+                    </tr>
+                    <tr>
+                        <td class="td1">
+                            <input type="checkbox" />
+                        </td>
+                        <td class="td2">白小刚</td>
+                        <td class="td3">baixiaogang@139.com</td>
+                        <td class="td4"></td>
+                        <td class="td5"></td>
+                        <td class="td6"><span class=""><a href="javascript:void(0)">发邮件</a> | <a href="javascript:void(0)">发短信</a> | <a href="javascript:void(0)">编辑</a> | <a href="javascript:void(0)">删除</a></span></td>
+                    </tr>
+                    <tr class="hover">
+                        <td class="td1">
+                            <input type="checkbox" />
+                        </td>
+                        <td class="td2">白雪天</td>
+                        <td class="td3">baixuetian@richinfo.com</td>
+                        <td class="td4">13648742167</td>
+                        <td class="td5"><span class="addr-s-t">大学同学</span><span class="addr-s-t">彩讯-用记体验室</span></td>
+                        <td class="td6"><span class=""><a href="javascript:void(0)">发邮件</a> | <a href="javascript:void(0)">发短信</a> | <a href="javascript:void(0)">编辑</a> | <a href="javascript:void(0)">删除</a></span></td>
+                    </tr>
+                </table>
+                <!--[if lt ie 8]></div><![endif]-->
+            </div>
+        </div>
+   </div> 
+
+</body>
+</html>

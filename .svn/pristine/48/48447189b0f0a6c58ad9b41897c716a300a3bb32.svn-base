@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<project name="build_pack" default="packFile">
+<target name="packFile">
+<concat destfile="./packs/create_sort.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+	<fileset dir="./ui" includes="**/m2012.ui.widget.contacts.model.js"/>
+	<fileset dir="./ui" includes="**/m2012.ui.widget.contacts.view.js"/>
+	<fileset dir="./ui" includes="**/m2012.ui.dialog.addressbook.js"/>
+	<fileset dir="./ui/editor" includes="**/m2012.ui.htmleditor.model.editor.js"/>
+	<fileset dir="./ui/editor" includes="**/m2012.ui.htmleditor.view.menu.js"/>
+	<fileset dir="./ui/editor" includes="**/m2012.ui.htmleditor.view.editor.js"/>
+	<fileset dir="./richmail/settings" includes="**/m2012.settings.classify.model.js"/>
+	<fileset dir="./richmail/settings" includes="**/m2012.settings.classify.view.normal.js"/>
+</concat>
+</target>
+</project>

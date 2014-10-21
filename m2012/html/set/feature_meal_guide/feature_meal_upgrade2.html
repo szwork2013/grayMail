@@ -1,0 +1,205 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" " http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns=" http://www.w3.org/1999/xhtml">
+<head>
+<title>139邮箱</title>
+<meta charset="utf-8">
+<script type="text/javascript">document.write('<script src="feature_meal_config.js?' + Math.random() + '"><\/script>')</script>
+<script type="text/javascript">
+document.domain=window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1].replace(/:\d+/,"");
+filltag(['module/set/feature_meal_upgrade.css', ['jquery-1.7.1.min.js','',rmResourcePath], ['utils_controls.js','GB2312',rmResourcePath]], resourcePath);
+</script>
+<!--[if IE 6]><script>document.write('<script src="' + resourcePath + '/js/libs/DD_belatedPNG.js"><\/script>')</script><![endif]-->
+<script type="text/javascript">
+var sid = encodeURIComponent(Utils.htmlEncode(Utils.queryString("sid")));
+if(sid.indexOf('.') > -1){
+	alert('非法url');
+	location.href="http://mail.10086.cn" ;
+}
+function err(msg){
+    $(".tc_dialog").text(msg);
+    $(".tips").fadeIn();
+}
+
+function hideErr(){
+    $(".tips").fadeOut("fast", function(){
+        $(".tc_dialog").text("");
+    });
+}
+
+function resend() {
+    hideErr();
+
+    proxyready("smsCode", "", function(rs){
+        if (rs.code == "S_OK") {
+            var btnReSend = $(".secondBtn_un, .secondBtn");
+            btnReSend.unbind("click");
+            resendTick();
+            alert("短信验证码已经发送到您的手机，请注意查收");
+            return;
+        }
+
+        if (rs.code == "FA_SEND") {
+            err("短信验证码发送失败，请您稍候再试");
+        } else if (rs.code == "FA_LIMIT") {
+            err("短信验证码输入错误次数过多已失效，请重新获取！");
+        } else if (rs.code == "S_FALSE") {
+            err("离开太久啦，请重新登录");
+        } else {
+            err("对不起，系统繁忙，请重试");
+        }
+    });
+
+    report("102340");
+    return true;
+}
+
+function resendTick() {
+    var btnReSend = $(".secondBtn_un, .secondBtn");
+    btnReSend.removeClass("secondBtn").addClass("secondBtn_un");
+
+    var count = 59;
+
+    var timer = setInterval(function () {
+        btnReSend.text(count + "秒后可重新获取短信验证码");
+        count--;
+        if (count == 0) {
+            clearInterval(timer);
+            btnReSend.removeClass("secondBtn_un").addClass("secondBtn");
+            btnReSend.text("重新获取短信验证码");
+            btnReSend.click(resend);
+        }
+    }, 1000);
+}
+
+function next(){
+    top.location.href = ("feature_meal_upgrade3.html?sid=" + encodeURIComponent(Utils.htmlEncode(Utils.queryString("sid"))) + "&toName=" + escape(getServiceName()));
+}
+
+$(function(){
+    function doUpgrade(){
+        var code = $("#txtVerify").val();
+        if (code == "") {
+            err("请输入短信验证码");
+            return;
+        }
+        
+        if (!/\d{6}/.test(code)) {
+            err("短信验证码输入错误，请重新输入！");
+            return;
+        }
+
+        var data = '<object><string name="verifycode">' + code + '</string></object>';
+        proxyready("upgrade", data, function(rs){
+            if (rs.code == "S_OK") {
+                setTimeout(function(){ next() }, 16);
+                return;
+            }
+
+            switch(rs.code) {
+                case "FA_ENTER":
+                    err("短信验证码输入错误，请重新输入！");
+                    break;
+                case "FA_EXPIRE":
+                    err("短信验证码已失效，请重新获取！");
+                    break;
+                case "FA_LIMIT":
+                    err("短信验证码输入错误次数过多已失效，请重新获取！");
+                    break;
+                case "FA_FAIL":
+                    err("变更失败");
+                    break;
+                case "S_FALSE":
+                    err("离开太久啦，请重新登录！");
+                    break;
+                default:
+                    err("对不起，系统繁忙，请重试");
+            }
+
+            $("#btnSubmit").removeClass("blueBtn_unable").addClass("blueBtn").text("立即变更").click(doUpgrade);
+        });
+
+        report("102346");
+        $("#btnSubmit").removeClass("blueBtn").addClass("blueBtn_unable").text("正在变更...").unbind("click").blur();
+    }
+
+    var url, serviceName;
+
+    serviceName = Utils.queryString("toName");
+	serviceName = Utils.htmlEncode(serviceName);
+    currentName = Utils.queryString("currentName");
+	currentName = Utils.htmlEncode(currentName);
+
+    $(".txtTarget").text(serviceName);
+    $(".txtCurrent").text(currentName);
+    $(".tips").hide();
+
+    resendTick();
+
+    $("#btnSubmit").click(doUpgrade);
+
+    $("#txtVerify").focus(function(){
+        hideErr();
+    });
+
+    window.getServiceName = function(){
+        return serviceName;
+    }
+})
+</script>
+</head>
+
+<body class="setbody">
+<div id="header">
+ <div class="wrapper m_clearfix">
+   <h1 class="logo"><a href="http://mail.10086.cn">139邮箱</a></h1>
+   <p class="top_right"><a href="http://mail.10086.cn">邮箱首页</a>&nbsp; | &nbsp;<a href="http://help.mail.10086.cn/statichtml/0/index.html">帮助中心</a></p>
+ 
+ </div>
+</div><!--header--> 
+
+<div id="main">
+ <div class="wrapper">
+    <div class="verifyBox">
+      <div class="verifyBox_head">
+       <h2>变更为<span class="txtTarget"></span>邮箱</h2>
+       <h3>升级邮箱，做与众不同的自己！高性能、个性化、专业级的个人邮箱</h3>
+       <em class="note_ico"></em>
+      </div>
+      
+      <div class="marginBox p_relative">
+      <table class="phone_verify" width="550">
+        <tr>
+          <td width="120" class="left_line">短信验证码：</td>
+          <td width="190"><input id="txtVerify" type="text" class="verify_txt" maxlength="6" />
+          <div class="tips" style="left:342px; top:15px;">
+            <div class="tips-text">
+              <p class="tc_dialog"></p>
+            </div>
+            <div class="tipsBottom diamond"></div>
+</div></td>
+          <td width="170"><a href="javascript:void(0)" class="secondBtn_un">60秒后可重新获取短信验证码</a></td>
+        </tr>
+        
+        <tr>
+          <td>&nbsp;</td>
+          <td colspan="2"><p class="phone_tips">点击“立即变更”表示您同意将139邮箱由<span class="txtCurrent"></span>变更为<span class="txtTarget"></span>。</p></td>
+        </tr>
+        
+        <tr>
+          <td>&nbsp;</td>
+          <td colspan="2"><a id="btnSubmit" href="javascript:void(0)" class="blueBtn">立即变更</a></td>
+        </tr>
+      </table>
+      </div>
+    </div><!--verifyBox-->
+ </div>
+</div><!--main-->
+
+<div class="wrapper">
+  <div id="footer" class="m_clearfix">
+    <p class="fl"><a href="http://help.mail.10086.cn/statichtml/1/Content/1013.html">版权声明</a> | <a href="http://www.10086.cn/service/advise/index.htm">客服受理</a> | <a href="http://www.10086.cn/aboutus/index_4450.htm">关于移动</a> | <a href="http://open.mail.10086.cn/">开放平台</a></p>
+    <p class="fr footer_ico"><a target="icp" href="http://www.miibeian.gov.cn/">京ICP备05002571号</a> <span style="color:#999999; padding:0 5px; float:none;">|</span> <a style="color:#999999;" href="http://www.10086.cn/" target="_blank"  title="中国移动通信">中国移动通信版权所有</a></p>
+  </div>
+</div><!--footer-->
+</body>
+</html>

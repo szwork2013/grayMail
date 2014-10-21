@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="0">
+
+    <title>播放器</title>
+    <link rel="stylesheet" href="/m2012/css/common/global.css" type="text/css"/>
+    <link rel="stylesheet" href="/m2012/css/module/videoPlay.css" type="text/css"/>
+
+<script type="text/javascript">
+
+	document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+
+	// todo 换肤
+
+</script>
+<style>
+html, body{
+	overflow:hidden;
+}
+body{
+	transition: background-color .6s ease-in;
+}
+
+.headerTopMenu {
+	background-color: #1a75ca;
+	height: 36px;
+	position: relative;
+	z-index: 5000;
+	min-width: 730px;
+}
+.headerTopMenu .mailLogo_new {
+	float: left;
+	margin: 6px 18px 0 14px;
+	_display: inline;
+}
+.headerTopMenu a, .headerTopMenu a {
+	color: #fff;
+}
+video{
+	display: block;
+	width:100%;
+	height:100%;
+}
+:fullscreen{
+	width:100%;
+}
+#videoBox{
+	position: relative;
+}
+object{
+	display:block;
+}
+</style>
+</head>
+
+<body>
+	<div class="headerTopMenu clearfix" id="top">
+        <a href="javascript:void(0);" class="mailLogo_new" bh="top_logo"></a>
+	</div>
+	<div class="g_videoWrap relative">
+	<div class="hd">
+		<h2 class="videoTitle">加载中...</h2>
+		<div class="videoDownSend">
+			<!--<a id="btnDownload" href="javascript:;" class="btnTb"><span>下载</span></a>
+			<a id="btnSendVideo" href="javascript:;" class="btnTb"><span>发送</span></a>-->
+		</div>
+	</div>
+	<div id="videoBox" class="vbox">
+		<div class="bd">
+			<div id="play_cover" style="width:100%;height:100%;"></div>
+			<video id="elv" style="display:none;"></video>
+			<a id="playCenterBtn" href="javascript:;" class="playBtn png24lib" style="display: none;"></a>
+			<div class="loading" style="display: none;"></div>
+			<div class="error" style="display: none;">
+				<p class="text"><span id="errText">网络异常</span>，<a id="retry" href="javascript:;">再试一次</a></p>
+			</div>
+		</div>
+		<div id="toolBar" class="ft">
+			<div class="videoProgressBar" style="z-index: 9999;">
+				<div class="videoProgress1" style="width:0%;">
+					<a href="javascript:;" class="png24lib dot playCur"></a>
+				</div>
+				<div class="videoProgress2" style="width:0%;"></div>
+			</div>
+			<div class="clearfix videoController">
+				<div class="play-pause fl"><a href="javascript:;" class="png24lib playing"></a></div>
+				<div class="time fl"><span class="played">00:00:00</span>/<span class="duration">0:00:00</span></div>
+
+				<div class="rightCol fr clearfix">
+					<div class="volBar fl">
+						<div class="videoVol" style="width:50%">
+							<a href="javascript:;" id="volCur" class="png24lib dot"></a>
+						</div>
+					</div>
+					<div class="lightBar fl">
+						<a href="javascript:;" class="png24lib lightOnBtn"></a>
+					</div>
+					<div class="fullScreenBar fl" title="全屏">
+						<a href="javascript:;" class="png24lib fullScreenBtn"></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+
+    var m2012ResourceDomain = "http://" + location.host;
+
+    if (document.domain == "10086.cn") {
+        m2012ResourceDomain = /appmail3/.test(location.host) ? "http://image0.139cm.com" : "http://images.139cm.com";
+    }
+
+        //文件版本
+        function getResVersion(name) {
+            if (window.Config_FileVersion) {
+                var fileName = name.match(/[^\/\\]*$/)[0];
+                return Config_FileVersion[fileName] || Config_FileVersion["defaults"];
+            } else {
+                var date = new Date();
+                var v = [date.getFullYear(),
+                (date.getMonth() > 9 ? "" : "0") + (date.getMonth() + 1),
+                (date.getDate() > 9 ? "" : "0") + date.getDate()].join("");
+
+                return v;
+            }
+        }
+
+        function loadScript(path, _doc, charset) {
+            if (path.indexOf(".js") > -1) {
+                var base = "/m2012";
+                if (path.indexOf("pack.js") > -1) {
+                    base += "/js/packs";
+                }
+                if (path.indexOf("config") > -1) {
+                    base += "/conf";
+                }
+                if (path == "jquery.js") {
+                    var resDomain = top.getDomain("resource") || "";
+                    base = resDomain + "/m2012/js"; //TODO，不知道为何proxy.htm需要加载jq
+                }
+                path = base + "/" + path;
+                if (path.indexOf("?") == -1) {
+                    path += "?v=" + getResVersion(path);
+                }
+            }
+            (_doc || document).write("<script charset=\"" + (charset || "") + "\" type=\"text/javascript\" src=\"" + path + "\"></" + "script>");
+        }
+
+        (function () {
+            var match = location.href.match(/sid=([^&]+)/);
+            if (match) {
+                window.sid = match[1];
+            } else {
+                window.sid = "none";
+            }
+        })();
+    </script>
+
+<script>
+	top.loadScript('libs.pack.js', document);
+	top.loadScript('m139.core.pack.js', document);
+</script>
+
+<script src="/m2012/flash/swfobject2.js"></script>
+<script src="/m2012/js/plugin/player.js"></script>
+
+<script type="text/javascript">
+
+var urlParams = M139.Text.Url.getQueryObj();
+
+if(urlParams.embed) {
+	$(".videoTitle, .headerTopMenu").hide();
+	$(".g_videoWrap").css("margin-top", "50px");
+} else {
+	$(".videoTitle").html(decodeURIComponent(urlParams.name));
+}
+
+var player = new AVPlayer(document.getElementById("elv"), {
+	settings: {
+		autoplay: true,
+		loop: false,
+		preload: "meta"
+	},
+	ui: {
+		wrapperClass: '.g_videoWrap',
+		playPauseClass: '.play-pause',
+		scrubberClass: '.videoProgressBar',
+		progressClass: '.videoProgress1',
+		loadedClass: '.videoProgress2',
+		timeClass: '.time',
+		durationClass: '.duration',
+		playedClass: '.played',
+		playCurClass: '.playCur',
+		errorMessageClass: '.error',
+		playingClass: '.playing',
+		pauseClass: '.paused',
+		loadingClass: '.loading',
+		errorClass: '.error'
+	},
+	callbacks: {
+		onTrackEnded: function() {
+		},
+		onFlashError: function() {
+		},
+		onLoadError: function(errMsg) {
+			console.log("UI:: loadError");
+
+			if(errMsg == "没有可播放的内容") {
+				$("#errText").parent().html(errMsg);
+			} else {
+				$("#errText").html(errMsg);
+			}
+			this.element.style.display = "none";
+			this.wrapper.find(this.ui.loadingClass).hide();
+			this.wrapper.find(this.ui.errorClass).show();
+		},
+		// onLoading ?
+		onLoad: function() {
+			console.log("UI:: load");
+
+			this.element.style.display = "none";
+
+			this.wrapper.find(this.ui.loadingClass).show();
+		},
+		onInit: function() {
+			this.wrapper.find(this.ui.loadingClass).show();
+		},
+		onLoadStarted: function() {
+			console.log("UI:: loadStarted");
+			var m = Math.floor(this.duration / 60),
+				s = Math.floor(this.duration % 60);
+
+			$("#play_cover").hide();
+			$(this.element).show();
+
+			this.wrapper.find(this.ui.errorClass+", "+this.ui.loadingClass).hide();
+			this.wrapper.find(this.ui.durationClass)
+				.html((m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s);
+		},
+		onLoadProgress: function(percent) {
+			//console.log(percent);
+			this.wrapper.find(this.ui.loadedClass).css("width", 100 * percent + '%');
+		},
+		onPlay: function() {
+			var playingClass = this.ui.playingClass;
+			var pauseClass = this.ui.pauseClass;
+			this.wrapper.find(playingClass).removeClass(pauseClass.substr(1)).attr("title", "暂停");
+			$("#playCenterBtn").hide();	// todo player需要一个error状态位，以确定是否执行
+		},
+		onPause: function() {
+			var playingClass = this.ui.playingClass;
+			var pauseClass = this.ui.pauseClass;
+			this.wrapper.find(playingClass).addClass(pauseClass.substr(1)).attr("title", "播放");
+			$("#playCenterBtn").show();
+		},
+		// 待优化...HTML5的播放时间是可以直接读取的，这里再计算显示，多余
+		onUpdatePlayhead: function(percent, currentTime) {
+			var p = this.duration * percent || currentTime,
+				m = Math.floor(p / 60),
+				s = Math.floor(p % 60);
+			this.wrapper.find(this.ui.progressClass).css("width", (100 * percent) + '%');
+			this.wrapper.find(this.ui.playedClass).html((m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s);
+		}
+	}
+});
+
+
+var videoBox = document.getElementById("videoBox");
+var isFullscreen = false;
+
+function noop(){}
+
+$("#playCenterBtn").click(function(e){
+	e.stopPropagation();
+	player.play();
+});
+
+//if(!player.usePlugin){
+	$(videoBox).find("div.bd").click(function(e){
+		e.stopPropagation();
+		player.playPause();
+	});
+//}
+
+/*
+function downloadVideo(callback){
+
+	function getData(){
+		return {
+			fileIds : urlParams.id,
+			dirType : "file",
+			isFriendShare : 0
+		};
+	}
+
+	if(typeof callback !== "function") callback = function(){};
+
+	M139.RichMail.API.call("disk:download", getData(), callback);
+}
+
+// 下载同时播放会出现网络错误，暂时去掉（Flash播放可解决）
+downloadVideo(function(result){
+	var data = {};
+	if(result){
+		data = result.responseData;
+	}
+	if(data){
+		$("#btnDownload").attr("href", data["var"].url);
+		//$("#btnDownload").attr("href", player.element.src);
+	}
+});
+
+$("#btnDownload").click(function(e){
+	player.pause();
+	//setTimeout(function(){
+	//	player.play();
+	//}, 2000);
+});
+
+$("#btnDownload").click(function(){
+	downloadVideo(function(result){
+		var data = {};
+		if(result){
+			data = result.responseData;
+		}
+		window.open(data["var"].url, "_blank");
+	});
+});
+*/
+
+$(".playing").click(function(){
+	$(this).toggleClass('paused');
+});
+
+$(".lightOnBtn").click(function(){
+	$(this).toggleClass('lightOffBtn');
+	$(document.body).toggleClass('lightOff');
+});
+
+
+
+var slide_timer = null;
+var barShown = true;
+var animating = false;
+var startPonit = {x: 0, y: 0};
+var mousePoint = null;
+
+function delaySlideDown(){
+	if(slide_timer || animating){
+		return ;
+	}
+	slide_timer = setTimeout(function(){
+		if(screen.height - mousePoint.y > 64) {
+			toolBar.animate({bottom: "-48px"});
+			barShown = false;
+		}
+		slide_timer = null;
+	}, 3000);
+}
+
+function autoHideToolBar(e){
+
+	var bottomDistance = screen.height - e.clientY;
+
+	mousePoint = {x: e.clientX, y: e.clientY};
+
+	if(animating){
+		return ;
+	}
+
+	// 向下移到一定距离，或者在工具栏附近任意移动都可呼出工具栏
+	// 在240px外任意移动 或 距低80px以外 && 向上移 无响应
+	// bug: 针对非全屏不太适合
+	if(bottomDistance > 240 || bottomDistance > 80 && e.clientY - startPonit.y <= 0){
+		return ;
+	}
+
+	startPonit = mousePoint;
+
+	if(barShown == false) {
+		animating = true;
+		toolBar.stop(true).animate({bottom:"0px"}, function(){
+			animating = false;
+			barShown = true;
+			startPonit = mousePoint;
+			delaySlideDown();
+		});
+	} else {
+		delaySlideDown();
+	}
+}
+
+
+function requestFullscreen(element){
+	// fuck 大小写的区分
+	var fullscreen = element.webkitRequestFullScreen || 
+		element.mozRequestFullScreen || 
+		element.msRequestFullscreen || 
+		element.requestFullscreen || noop;
+	fullscreen.call(element);
+
+	isFullscreen = true;
+
+	$(".fullScreenBtn").addClass('normalScreenBtn').attr("title", "退出全屏");
+	$(document.body).addClass('fullScreen').on("mousemove", autoHideToolBar);
+	delaySlideDown();
+}
+
+
+function cancelFullscreen(){
+	var cancelfullscreen = document.webkitCancelFullScreen || 
+		document.mozCancelFullScreen || 
+		document.cancelFullScreen ||
+		document.msExitFullscreen || 
+		document.exitFullscreen || noop;
+	cancelfullscreen.call(document);
+
+	isFullscreen = false;
+
+	$(".fullScreenBtn").removeClass('normalScreenBtn').attr("title", "全屏");
+	$(document.body).removeClass('fullScreen').off("mousemove", autoHideToolBar);
+}
+
+
+$(".fullScreenBtn").click(function(){
+	//if($(document.body).hasClass('fullScreen')){
+	if(isFullscreen){
+		//player.element.fullscreen(false);
+		cancelFullscreen();
+		
+	} else {
+		//player.element.fullscreen(true);
+		requestFullscreen(videoBox);
+		//requestFullscreen(document.body);
+	}
+	// todo bug ? IE11下iframe内元素全屏后无法获取到正确的值，即使延时也是错的/yun
+	// IE11 output "player.scrubberWidth resized to 14px"
+	setTimeout(function(){
+		var width = parseInt(player.wrapper.find(player.ui.scrubberClass).css("width"));
+		if(width < 500){
+			player.scrubberWidth = screen.width;
+		} else {
+			player.scrubberWidth = width;
+		}
+		//console.log("player.scrubberWidth resized to " + player.wrapper.find(player.ui.scrubberClass).css("width"));
+	}, 50);
+	leftDistance = leftPos(volBar[0]);
+});
+
+//var mediaType = urlParams.mediaType ? ("." + urlParams.mediaType) : ".mp4";
+var mediaType = urlParams.mediaType ? (".flv") : ".mp4";
+if(/\.flv$/i.test(urlParams.presentURL)){
+	mediaType = ".flv";
+}
+//setTimeout(function(){
+	
+	player.load(urlParams.presentURL, mediaType);
+	//player.play();
+	// todo load方法需要一个回调，以确保setVolume、getCurrentTime等方法可用
+	player.lastVolume = 0.5;	// not good...
+	//player.setVolume(0.5);
+	//$('.videoVol').width("50%");
+//}, 200);
+
+$("#retry").click(function(){
+	player.load(urlParams.presentURL, mediaType);
+	player.play();
+});
+
+
+function leftPos(elem) {
+	var curleft = 0;
+	if (elem.offsetParent) {
+		do {
+			curleft += elem.offsetLeft;
+		} while (elem = elem.offsetParent);
+	}
+	return curleft;
+}
+
+/* 音量调节 */
+var volBar = $('.volBar');
+var volCur = $('#volCur');
+var vWidth = volBar.width();
+var leftDistance = leftPos(volBar[0]);
+var muted = false;	// 是否静音
+var toolBar = $("#toolBar");
+
+function dragHandler(e){
+	//lasttimestamp = e.timeStamp;
+	var currentVol;
+	var relativeLeft = e.clientX - leftDistance;
+	//console.log(relativeLeft);
+	if(relativeLeft < 0 || relativeLeft > vWidth){
+		return false;
+	}
+	currentVol = relativeLeft / vWidth;
+	player.setVolume(currentVol);
+
+	if(muted && currentVol > 0){
+		volCur.removeClass("mute");
+	}
+
+	muted = currentVol <= 0;
+
+	if(muted){
+		volCur.addClass("mute");
+	}
+
+	$('.videoVol').width(relativeLeft).attr("title", parseInt(100 * currentVol));
+	return false;
+};
+
+$(window).resize(function(){
+	leftDistance = leftPos(volBar[0]);
+});
+
+// fuck , IE8 window不支持keyup
+$(document).on("keyup", function(e){
+	//console.log(e.keyCode);
+	switch(e.keyCode)
+	{
+	case 27: cancelFullscreen(); break;	// esc
+	case 122: requestFullscreen(videoBox); break;	// F11
+	case 32: player.playPause(); break;	// Space
+	}
+	player.scrubberWidth = parseInt(player.wrapper.find(player.ui.scrubberClass).css("width"));
+	leftDistance = leftPos(volBar[0]);
+});
+
+
+volBar.on("mousedown", function(e){
+	dragHandler(e);
+});
+
+volCur.on("mousedown", function(e){
+	e.preventDefault();
+	
+	$(document).on("mousemove", dragHandler).one("mouseup", function(e){
+		$(this).off("mousemove", dragHandler);
+	});
+});
+
+</script>
+</body>
+</html>

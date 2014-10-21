@@ -1,0 +1,27 @@
+@charset "utf-8";
+body{background:#fff;}
+.fl{float:left; display:inline;}
+.skin{padding:20px 24px;}
+.skin h2{padding-bottom: 5px; font-size:14px; text-indent:10px;border-bottom: 1px solid #dfdfe2;}
+.skinList{margin-top: 10px;}
+.skinList li{float:left; margin-right:10px;}
+.skinList a{display:inline-block;padding:10px; border:1px solid #fff; margin: 1px; text-align:center; position: relative;}
+.skinList a.on{ background: #f4f5f9; border:1px solid #a2b0c6;}
+.skinList a:hover.on{ background: #f4f5f9; border:1px solid #a2b0c6;}
+.skinList a img{
+	-webkit-animation:fadeOut .2s linear;
+	animation:fadeOut .2s linear;
+}
+.check{width:12px; height:12px; display:inline-block;position: absolute; right: 0; bottom: 0; background: url(../../images/skin/skin/check.png) no-repeat;}
+.skinList a span{color:#666; padding-top: 5px;}
+.skinList a.on span{font-weight: bold;}
+.skinList a:hover{text-decoration: none; border:1px solid #d8dee7;}
+
+.skinList a .vip,.skinList a .vip5,.skinList a .vip20{width:37px;height:37px; display: inline-block; background: url(../../images/skin/skin/vip5.png) no-repeat; position: absolute; left:10px; top: 10px; z-index:1;}
+.skinList a .vip20{background: url(../../images/skin/skin/vip20.png) no-repeat;}
+.skinList a .vip{background: url(../../images/skin/skin/vip.png) no-repeat;}
+
+.skinList a .skinNew{width:23px;height:23px; display: inline-block; background: url(../../images/skin/skin/skinNew.png) no-repeat; position: absolute; left:11px; top: 11px; z-index:1;}
+
+
+

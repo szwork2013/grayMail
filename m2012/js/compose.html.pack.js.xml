@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<project name="build_pack" default="packFile">
+    <target name="packFile">
+        <concat destfile="./packs/compose.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+            <fileset dir="./contacts" includes="**/m2012.contacts.contactsinfo.js"/>
+            <fileset dir="./contacts" includes="**/m2012.contacts.model.js"/>
+            <fileset dir="./ui/editor" includes="**/m2012.ui.htmleditor.model.editor.js"/>
+            <fileset dir="./ui/editor" includes="**/m2012.ui.htmleditor.view.menu.js"/>
+            <fileset dir="./ui/editor" includes="**/m2012.ui.htmleditor.view.editor.js"/>
+            <fileset dir="./ui/widget" includes="**/m2012.ui.widget.contacts.model.js"/>
+            <fileset dir="./ui/widget" includes="**/m2012.ui.widget.contacts.view.js"/>
+            <fileset dir="./ui/dialog" includes="**/m2012.ui.dialog.addressbook.js"/>
+            <fileset dir="./ui/suggest" includes="**/m2012.ui.suggest.inputsuggest.js"/>
+            <fileset dir="./ui/suggest" includes="**/m2012.ui.suggest.addrsuggest.js"/>
+            <fileset dir="./ui/suggest" includes="**/m2012.ui.suggest.inputassociate.js"/>
+            <fileset dir="./ui/suggest" includes="**/m2012.ui.suggest.inputcorrect.js"/>
+            <fileset dir="./ui/richinput" includes="**/m2012.ui.richinput.view.js"/>
+            <fileset dir="./ui/richinput" includes="**/m2012.ui.richinput.itemview.js"/>
+            <fileset dir="./ui/richinput" includes="**/m2012.ui.richinput.textboxview.js"/>
+            <fileset dir="./ui/richinput" includes="**/m2012.ui.richinput.documentview.js"/>
+            <fileset dir="./ui/richinput" includes="**/m2012.ui.richinput.plugin.js"/>
+            <fileset dir="./ui/selectfile" includes="**/m2012.ui.largeattach.model.js"/>
+            <fileset dir="./ui/menu" includes="**/m2012.ui.uploadpic.menu.js"/>
+            <fileset dir="./plugin" includes="**/m139.plugin.screencontrol.js"/>
+            <fileset dir="./richmail/compose" includes="**/composeMessages.js"/>
+            <fileset dir="./richmail/compose" includes="**/upload_module.js"/>
+            <fileset dir="./richmail/compose" includes="**/upload_tool.js"/>
+            <fileset dir="./richmail/compose" includes="**/upload_module_common.js"/>
+            <fileset dir="./richmail/compose" includes="**/attachFrame.js"/>
+            <fileset dir="./richmail/compose" includes="**/swfobject.js"/>
+            <fileset dir="./richmail/compose" includes="**/upload_module_flash.js"/>
+            <fileset dir="./richmail/compose" includes="**/upload_module_multiThread.js"/>
+            <fileset dir="./richmail/compose" includes="**/upload_module_screenshot.js"/>
+            <fileset dir="./richmail/compose" includes="**/upload_module_ajax.js"/>
+            <fileset dir="./richmail/compose" includes="**/uploadForm.js"/>
+            <fileset dir="./richmail/compose" includes="**/largeAttach.js"/>
+            <fileset dir="./richmail/compose" includes="**/upload_large_attach.js"/>
+            <fileset dir="./richmail/compose" includes="**/compose_upload_2010.js"/>
+            <fileset dir="./richmail/compose" includes="**/compose_render_2010.js"/>
+            <fileset dir="./richmail/compose" includes="**/m2012.compose.model.js"/>
+            <fileset dir="./richmail/compose" includes="**/m2012.compose.view.main.js"/>
+            <fileset dir="./richmail/compose" includes="**/m2012.compose.view.subject.js"/>
+            <fileset dir="./richmail/compose" includes="**/m2012.compose.view.littles.js"/>
+            <fileset dir="./richmail/compose" includes="**/m2012.compose.view.addrinput.js"/>
+            <fileset dir="./richmail/compose" includes="**/m2012.compose.view.upload.js"/>
+            <fileset dir="./richmail/compose" includes="**/m2012.compose.view.htmleditor.js"/>
+            <fileset dir="./richmail/compose" includes="**/m2012.compose.view.timing.js"/>
+            <fileset dir="./richmail/compose" includes="**/m2012.compose.view.sender.js"/>
+            <fileset dir="./richmail/compose" includes="**/m2012.compose.view.signmenu.js"/>
+            <fileset dir="./richmail/compose" includes="**/m2012.compose.view.addressbook.js"/>
+            <fileset dir="./richmail/compose" includes="**/m2012.compose.view.settruename.js"/>
+            <fileset dir="./richmail/compose" includes="**/m2012.compose.application.js"/>
+        </concat>
+
+        <copy todir="./packs/promotion">
+            <fileset dir="./richmail/compose/template">
+                <include name="*.pack.js" />
+                <!--<exclude name="*.tmp" />-->
+            </fileset>
+        </copy>
+    </target>
+</project>

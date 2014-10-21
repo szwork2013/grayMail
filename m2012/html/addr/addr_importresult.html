@@ -1,0 +1,100 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="Keywords" content="">
+    <meta name="Description" content="">
+    <title>通讯录导入成功-139邮箱</title>
+<script type="text/javascript">
+    document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+
+    try {
+
+    top.loadCSS(["common/global.css", "module/addr/importresult.css", "module/addr/addr.css"], document, "/m2012/css/");
+    top.loadScript('libs.pack.js', document, "utf-8", "/m2012/js/packs/");
+    top.loadScript('m139.core.pack.js', document, "utf-8", "/m2012/js/packs/");
+    top.loadScript("m2012.ui.common.pack.js", document, "utf-8", "/m2012/js/packs/");
+    top.loadScript("addr_importresult.html.pack.js", document, "utf-8", "/m2012/js/packs/addr/");
+
+    } catch (ex) { }
+</script>
+<style>
+.setArea{overflow: hidden;}
+.setArea h2{left: 20px;}
+.norTips-imok{border: none;}
+</style>
+</head>
+<body>
+    <div class="setArea">
+        <h2><strong>导入通讯录</strong> |  <a href="javascript:void(0);" class="fanghui" id="topGoBack">&lt;&lt;返回</a></h2>
+    </div>
+    <div class="im-ok-body">
+        <div class="norTips norTips-imok">
+            <span class="norTipsIco"><i class="i_ok"></i>
+            </span>
+            <dl class="norTipsContent">
+                <dt id="importTitle" class="norTipsTitle">
+                    导入完成: 0人已导入，<span class="red">0人</span> 未导入<span class="fz_12 fw_n c_666">（其中跳过导入0人）</span>
+                </dt>
+                <dd class="norTipsLine" id="dd_test2">
+                    <a id="importMore" href="javascript:void(0);" >继续导入</a>
+                    <a id="mailtoFriends" href="javascript:void(0);" class="hide" style="padding-left:20px">告知好友我的139邮箱地址</a>
+                </dd>
+            </dl>
+        </div>
+        <div id="backboneEl" class="im-error hide">
+            <h2>未导入明细</h2>
+            <div class="tab tab-imok">
+                <div class="tabTitle">
+                    <ul>
+                        <li id="liFailImport" class="on">
+                            <a id="aFailImport" href="javascript:void(0);">
+                                <span>不符合导入规则</span>
+                            </a>
+                        </li>
+                        <li id="liSkipImport" class="">
+                            <a id="aSkipImport" href="javascript:void(0);">
+                                <span>跳过导入</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tabMain">
+                    <div id="divFailImport" class="tabContent">
+                        <h2>不符合导入规则</h2>
+                        <div class="tab-imrule">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th width="128">姓名</th>
+                                        <th>未导入原因</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbFailImport">
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="divSkipImport" class="tabContent">
+                        <h2>跳过导入</h2>
+                        <div class="tab-imrule">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th width="128">姓名</th>
+                                        <th>未导入原因</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbSkipImport">
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

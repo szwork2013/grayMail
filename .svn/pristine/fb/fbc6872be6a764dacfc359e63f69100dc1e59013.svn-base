@@ -1,0 +1,421 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="Keywords" content=""/>
+    <meta name="Description" content=""/>
+    <title>139邮箱在线预览附件</title>
+    <style>
+        @media print{*{margin:0; padding:0;}body{font-size:10pt;}#previewHead,.pdf-sider,.tipBox,.pager-box,select,.newwlogo{display:none}.pdf-main{ position:absolute; left:-200px;top:0; overflow:visible;}.pdf-content{ margin:0; padding:0; width:auto; }iframe{border:none;}.pdf-content-box{position:absolute;top:0;left:0;}}
+    </style>
+<script type="text/javascript">
+ 	document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1]; var m2012ResourceDomain = "http://" + location.host;
+     if (document.domain == "10086.cn") {
+        m2012ResourceDomain = /appmail3/.test(location.host) ? "http://image0.139cm.com" : "http://images.139cm.com";
+    }
+
+    function querySid() { var B = location.search; B = B.split(/&|\?/); var $ = null; for (var D = 0; D < B.length; D++) { var C = B[D], A = C.split("="); if (A[0].toLowerCase() == "sid") { $ = A[1]; break } } if (!$) { var _ = new Date(); $ = [_.getFullYear(), (_.getMonth() > 9 ? "" : "0") + (_.getMonth() + 1), (_.getDate() > 9 ? "" : "0") + _.getDate(), (_.getHours() > 9 ? "" : "0") + _.getHours(), ].join("") } return $ }
+    //document.write('<script type="text/javascript" src="/m2012/conf/config.' + document.domain + '.js?v=' + querySid() + '"></' + 'script>');
+</script>
+
+    <script>	        
+
+        //文件版本
+        function getResVersion(name) {
+            if (window.Config_FileVersion) {
+                var fileName = name.match(/[^\/\\]*$/)[0];
+                return Config_FileVersion[fileName] || Config_FileVersion["defaults"];
+            } else {
+                var date = new Date();
+                var v = [date.getFullYear(),
+                (date.getMonth() > 9 ? "" : "0") + (date.getMonth() + 1),
+                (date.getDate() > 9 ? "" : "0") + date.getDate()].join("");
+
+                return v;
+            }
+        }
+
+        function loadScript(path, _doc, charset) {
+            if (path.indexOf(".js") > -1) {
+                var base = "/m2012";
+                if (path.indexOf("pack.js") > -1) {
+                    base += "/js/packs";
+                }
+                if (path.indexOf("config") > -1) {
+                    base += "/conf";
+                }
+                if (path == "jquery.js") {
+                    var resDomain = top.getDomain("resource") || "";
+                    base = resDomain + "/m2012/js"; //TODO，不知道为何proxy.htm需要加载jq
+                }
+                path = base + "/" + path;
+                if (path.indexOf("?") == -1) {
+                    path += "?v=" + getResVersion(path);
+                }
+            }
+            (_doc || document).write("<script charset=\"" + (charset || "") + "\" type=\"text/javascript\" src=\"" + path + "\"></" + "script>");
+        }
+        function loadCSS(path, _doc) {
+            if (typeof path == "string") path = [path];
+            for (var i = 0; i < path.length; i++) {
+                var item = path[i];
+                item = "/m2012/css/" + item + "?v=" + getResVersion(item);
+                (_doc || document).write('<link rel="stylesheet" href="' + item + '" type="text/css" />');
+            }
+        }
+        (function () {
+            var match = location.href.match(/sid=([^&]+)/);
+            if (match) {
+                window.sid = match[1];
+            } else {
+                window.sid = "none";
+            }
+        })();
+        top.loadScript("config." + document.domain + ".js?sid=" + sid, document);
+    </script>
+<script>   top.loadCSS(["common/global.css", "common/frame.css", "module/attrview.css", "module/documentPreview.css","skin/skin_lightblue.css"], document)</script>
+<script>    top.loadScript('libs.pack.js', document); top.loadScript('m139.core.pack.js', document); top.loadScript('m2012.ui.common.pack.js', document)</script>
+<script>
+	var urlParams = $Url.getQueryObj();
+	var isVideoType = urlParams && /\.(?:mp4|flv|m4v)$/.test(urlParams.fi);
+	if(isVideoType){
+		top.loadCSS("module/videoPlay.css");
+	}
+</script>
+<style>
+  .newwlogo{width: 110px;background-position: -390px -80px; margin-top: 5px;}
+</style>
+</head>
+<body class="newwindowsread" id="newWindowsRead" tabindex="0">
+    <div id="loadingStatus">
+	    <div class="bg-cover"></div><!--bg-cover-->
+	    <p class="loading-pop"><i class="i-loading"></i>正在载入...</p>
+		<div style="width:362px;display:none;" class="boxIframe" id="passBox"></div>
+    </div>
+	<!--<a href="#" class="newwlogo"></a>-->
+	<div class="newredcontent">
+    <div id="headerBar" class="headerBar">
+    
+    </div>
+    <textarea id="topTemplate" style="display:none;">
+        <!--item start--> 
+            <div class="docName">
+                <h1>
+                    <img class="typePic" src="../../images/module/networkDisk/images/big/$fileImg" alt="$filename">$filename   ($filesize)
+                </h1>
+            </div>
+
+            <ul class="toolBarUl">
+                <li class="btnLi"><a class="btnTb" href="$href">下载</a></li>
+                <li class="ml_6 btnLi">@getSaveDisk()</li>
+                <li class="ml_6 btnLi">@getPrint()</li>
+                <li class="ml_20 relative btnLi">
+	                <a class="btnTb btnTbTri relative" id="allAttr" href="javascript:">其它附件<i class="i_triangle_d"></i></a>
+                    <ul class="sliderUl" id="attachList">
+			
+                    </ul>
+                </li>
+                <li class="ml_6 btnLi" id="leftBtn"><a class="btnTb " href="###"><i class="i-pre"></i></a></li>
+                <li class="ml_6 btnLi" id="rightBtn"><a class="btnTb " href="###"><i class="i-nxt"></i></a></li>
+            </ul>
+
+      <!--item end-->
+    </textarea>
+      
+      
+      <div id="previewContent"></div>
+      
+      
+      
+      
+	
+	</div><!--newredcontent-->
+    <textarea id="xlsTemplate" style="display:none;">
+        <!--item start--> 
+            <div class="excel-content" id="attrIframe">
+
+	            
+            </div>
+			<div class="footerBar">
+		            <div class="commonBar">
+		                <div class="fr rightTools" id="rightTools">
+		                    <div class="relative zoomBox fl">
+		                        <a href="javascript:;" class="zoomNow">100%</a>
+		                        <ul class="zoomList">
+		                            <li><a href="javascript:;" class="zoomOpt">200%</a></li>
+		                            <li><a href="javascript:;" class="zoomOpt on">100%</a></li>
+		                            <li><a href="javascript:;" class="zoomOpt">50%</a></li>
+		                        </ul>
+		                    </div>
+
+		                    <div class="zoomBox2 fl">
+		                        <a href="javascript:;" class="zoomM"></a>
+		                        <div class="zoomRange relative">
+		                            <div class="zoomRate" style="width:50%;">
+		                                <a href="javascript:;" hidefocus="true" class="zoomBtn"></a>
+		                            </div>
+		                        </div>
+		                        <a href="javascript:;" class="zoomA"></a>
+		                    </div>
+		                </div>
+
+		                <div class="fl">
+		                    <div class="pageTool fl">
+		                        <a href="javascript:;" class="none" id="pre"><i class="pre"></i></a>
+		                        <a href="javascript:;" class="none" id="nxt"><i class="nxt"></i></a>
+		                    </div>
+		                    <div class="bexlTab fl" id="bexlTab">
+								<ul id="exlTab"  class="exlTab fl">
+								</ul>
+		                    </div>
+							<div class="more" id="more">
+								<a href="javascript:;" class="aBtn on">...</a>
+								<ul class="moreList" id="moreList"></ul>
+							</div>
+
+		                </div>
+
+		            </div>
+
+
+
+			</div>
+          
+        
+      <!--attr-body-->
+        <!--item end--> 
+    </textarea>
+
+
+    
+    <textarea id="txtTemplate" style="display:none;">
+        <!--item start--> 
+        <div class="attr-body">
+	        <div class="txt-wrap contentHeight">
+
+	            <div class="txt-content" id="attrIframe"></div>
+
+	        </div>
+      </div><!--attr-body-->
+		<div class="footerBar">
+            <div class="commonBar">
+                <div class="fr rightTools" id="rightTools">
+                    <div class="relative zoomBox fl">
+                        <a class="zoomNow" href="javascript:;">100%</a>
+                        <ul class="zoomList">
+                            <li><a class="zoomOpt" href="javascript:;">200%</a></li>
+                            <li><a class="zoomOpt on" href="javascript:;">100%</a></li>
+                            <li><a class="zoomOpt" href="javascript:;">50%</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="zoomBox2 fl">
+                        <a class="zoomM" href="javascript:;"></a>
+                        <div class="zoomRange relative">
+                            <div style="width:50%;" class="zoomRate">
+                                <a class="zoomBtn" hidefocus="true" href="javascript:;"></a>
+                            </div>
+                        </div>
+                        <a class="zoomA" href="javascript:;"></a>
+                    </div>
+                </div>
+            </div>
+        </div>     
+        <!--item end--> 
+    </textarea>
+    <textarea id="imgTemplate" style="display:none;">
+        <!--item start--> 
+    <div class="picContent" id="picContent" style="top:65px;">
+        <a href="javascript:;" class="pictureBox_left png24 {hideClass}"></a>
+        <a href="javascript:;" class="pictureBox_right png24 {hideClass}"></a>
+    </div>
+    <div class="backgroundBox_scroll ">
+        <div class="ctrl_box">
+            <div class="ctrl_left {hideClass}">
+                <a href="javascript:;" id="slideDown" class="pageUp png24"></a>
+                <span class="currentPage"><span id="currentImgNum">{currentImg}</span> / {imgNum}</span>
+            </div>
+            <div class="ctrl_right">
+                <a href="javascript:;" id="rotateRight" class="turnL png24" title="向右旋转"></a>
+                <a href="javascript:;" id="rotateLeft" class="turnR png24" title="向左旋转"></a>
+                <a href="javascript:;" id="fullScreen" class="zoom png24" title="点击放大"></a>
+                <a href="javascript:;" id="imgDownload" class="down png24" title="下载图片"></a>
+                <a href="javascript:;" id="palyBtn" class="play png24 {hideClass}" title="自动播放"></a>
+            </div>
+            
+        </div>
+        <div id="bottomCont" class="{hideClass}">
+	        <div class="pic_outer">
+	            <div class="s_picBox" id="smallPicLlist">
+	                <ul class="clearfix">
+						{imgList}
+	                </ul>
+	            </div>
+	        </div>
+		</div>
+    </div>
+
+    <div class="full-screen-mode hide" id="fullScreenMode" style="z-index:99999">
+    <img class="full-screen-img" src="" id="fullScreenImage" alt=""/>
+    <div class="full-screen-console clearfix" id="fullScreenConsole">
+    <h3>{fileName}</h3>
+    <a href="javascript:;" class="backtoMode"><em><i id="normalScreen"></i></em></a>
+    </div>
+    </div>
+        <!--item end--> 
+    </textarea>
+
+
+
+
+    <textarea id="pptTemplate" style="display:none;">
+    <!--item start--> 
+        <div class="attr-body">
+        <div class="pdf-wrap contentHeight">
+          <div class="pdf-sider" id="pdfSider">
+            <div class="pdf-sider-inner" id="pdfSiderInner">
+            </div>
+          </div>
+          
+          
+          <div class="pdf-main">
+          <a class="toggleSide" href="javascript:;" id="toggleSide"><i class="hideSider"></i><!--<i class="showSider"></i>--></a>
+                <div class="pager-box">
+                  <a href="javascript:;" hidefocus="true" id="scrollUp" class="unable"><em><i class="i-pageUp"></i></em></a>
+                  <a href="javascript:;" hidefocus="true" id="scrollDown"><em><i class="i-pageDown"></i></em></a>
+                </div>
+          
+          
+            <div class="pdf-main-inner">
+            
+              <div class="pdf-content" id="pdfContent">
+                <div class="pdf-content-box" id="attrIframe"></div>
+              </div>
+            </div>
+          </div><!--pdf-main-->
+          
+        </div>
+      </div>
+		<div class="footerBar">
+            <div class="commonBar">
+                <div class="fr rightTools" id="rightTools">
+                    <div class="fl playTools" id="playTools">
+                        <a class="playTool1" href="javascript:;" id="playTool1" title="当前页自动播放"></a>
+                        <a class="playTool2" href="javascript:;" id="playTool2" title="首页自动播放"></a>
+                        <a class="stopPlay" href="javascript:;" id="stopPlay" style="display:none;" title="暂停播放"></a>
+                    </div>
+
+                    <div class="relative zoomBox fl">
+                        <a class="zoomNow" href="javascript:;">100%</a>
+                        <ul class="zoomList">
+                            <li><a class="zoomOpt" href="javascript:;">200%</a></li>
+                            <li><a class="zoomOpt on" href="javascript:;">100%</a></li>
+                            <li><a class="zoomOpt" href="javascript:;">50%</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="zoomBox2 fl">
+                        <a class="zoomM" href="javascript:;"></a>
+                        <div class="zoomRange relative">
+                            <div style="width:50%;" class="zoomRate">
+                                <a class="zoomBtn" hidefocus="true" href="javascript:;"></a>
+                            </div>
+                        </div>
+                        <a class="zoomA" href="javascript:;"></a>
+                    </div>
+                </div>
+
+                <div class="fl" id="pagerSelect">
+
+                </div>
+
+            </div>
+
+        </div>
+      <!--attr-body-->
+      <!--item end-->
+    </textarea>
+    <textarea id="pptPageSelect" style="display:none;">
+          <select class="pager-select">
+    <!--item start--> 
+          <option index="$currentPage">$currentPage/$totalPage页</option>
+          <!--item end-->
+          </select>
+    </textarea>
+    <textarea id="pptImageTemplate"  style="display:none;">
+              <ul>
+        <!--item start--> 
+                <li class="$current">
+                 <div class="thumbnail"><img width="114" src="$image" /></div>
+                </li>
+        <!--item end--> 
+              </ul>
+    </textarea>
+
+
+
+    
+    <textarea id="rarTemplate" style="display:none;">
+        <!--item start--> 
+        <div class="bread-crumbs" id="breadCrumbs">
+        位置：
+        @getMenu()
+      </div><!--bread-crumbs-->
+      
+      
+      <div class="attr-body">
+        <div class="rar-wrap" id="contentHeight">
+          <div class="rar-wrap-inner" id="rarWrapInner">
+          
+            </div>
+          
+        </div>
+      </div>
+        <!--item end--> 
+    </textarea>
+
+    <textarea id="rarListTemplate" style="display:none;">
+    <!--item start--> 
+            <div class="rar-items">
+                <span class="alist"><a unzippath="$unzippath" index="$num" isimg="$isimg" title="$filename" israr="$israr" target="$target" href="$openurl" downloadurl="$downloadurl" style="cursor:$cursor;"><i class="i_file i_f_$filetype"></i>$filename</a></span>
+                <p class="operation rar-operate" style="display:$display"><a href="$downloadurl" style="padding-left:0;">下载</a><span style="display:$previewDisplay">  |  <a target="$target" index="$num"  israr="$israr" unzippath="$unzippath"  isimg="$isimg" title="$filename"  href="$openurl" downloadurl="$downloadurl" >$text</a></span><span style="display:$diskDisplay">  |  <a id="saveNet" dl="$downloadurlNet" fi="$filename" fs="$filesize" href="javascript:;">存彩云网盘</a></span></p>
+            </div>
+            <!--item end-->
+    </textarea>
+    <textarea id="passwordInput" style="display:none;">    <!--item start--> 
+
+		    <div class="boxIframeTitle">
+		        <h2><span>输入密码</span></h2>
+		        <a class="i_t_close" href="###"></a></div>
+		    <div class="boxIframeMain">        
+		            <ul class="form formAuto">  
+						<li class="formLine">"$filename"已加密，请输入密码</li>
+		                <li class="formLine">
+		                    <label class="label gray">密码：</label>
+		                    <div class="element">
+		                        <input type="password" style="width:170px;" value="" class="iText">
+		                    </div>
+		                </li>
+						<li class="formLine pl_41 red erro" style="display:none">密码错误，请重新输入</li>
+		            </ul>
+		      
+		        <div class="boxIframeBtn"><span class="bibBtn"> <a class="btnSure" id="btnSure" href="javascript:void(0)"><span>确 定</span></a>&nbsp;<a class="btnNormal" href="javascript:void(0)"><span>取 消</span></a> </span></div>
+		    </div>
+             <!--item end-->
+
+    </textarea>
+
+
+<script>
+	if(isVideoType){
+		document.write('<script src="/m2012/flash/swfobject2.js"></' + 'script>');
+		document.write('<script src="/m2012/js/plugin/player.js"></' + 'script>');
+		$("#loadingStatus").remove();
+	}
+	top.loadScript('m2012.matrixvm.pack.js', document);
+	top.loadScript('focusimages.html.pack.js', document);
+	top.loadScript('online_preview.html.pack.js', document);
+	$('#docIframe').addClass('contentHeight').addClass('rePaintFix');
+	</script>
+</body>
+</html>

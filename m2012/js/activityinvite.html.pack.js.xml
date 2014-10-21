@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<project name="build_pack" default="packFile">
+<target name="packFile">
+<concat destfile="./packs/activityinvite.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+<fileset dir="./" includes="ui/widget/contacts/m2012.ui.widget.contacts.model.js"/>
+<fileset dir="./" includes="ui/widget/contacts/m2012.ui.widget.contacts.view.js"/>
+
+<fileset dir="./" includes="contacts/m2012.contacts.contactsinfo.js"/>
+<fileset dir="./" includes="contacts/m2012.contacts.model.js"/>
+<fileset dir="./" includes="ui/suggest/m2012.ui.suggest.inputsuggest.js"/>
+<fileset dir="./" includes="ui/suggest/m2012.ui.suggest.addrsuggest.js"/>
+<fileset dir="./" includes="ui/suggest/m2012.ui.suggest.inputassociate.js"/>
+<fileset dir="./" includes="ui/suggest/m2012.ui.suggest.inputcorrect.js"/>
+<fileset dir="./" includes="ui/richinput/m2012.ui.richinput.documentview.js"/>
+<fileset dir="./" includes="ui/richinput/m2012.ui.richinput.itemview.js"/>
+<fileset dir="./" includes="ui/richinput/m2012.ui.richinput.plugin.js"/>
+<fileset dir="./" includes="ui/richinput/m2012.ui.richinput.textboxview.js"/>
+<fileset dir="./" includes="ui/richinput/m2012.ui.richinput.view.js"/>
+
+
+<fileset dir="./" includes="ui/menu/m2012.ui.popmenu.js"/>
+<fileset dir="./" includes="ui/picker/m2012.ui.picker.calendar.js"/>
+<fileset dir="./" includes="service/calendar_v2/component/m2012.calendar.view.validatetip.js"/>
+<fileset dir="./" includes="service/activityinvite/m2012.activityinvite.model.js"/>
+<fileset dir="./" includes="service/activityinvite/m2012.activityinvite.view.js"/>
+<fileset dir="./" includes="richmail/compose/swfobject.js"/>
+<fileset dir="./" includes="service/activityinvite/upload_file.js"/>
+</concat>
+</target>
+</project>

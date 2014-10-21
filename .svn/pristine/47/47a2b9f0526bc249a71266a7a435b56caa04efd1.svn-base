@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title></title>
+	
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Content-Language" content="zh-CN" />
+	<meta name="Keywords" content="" />
+	<meta name="Description" content="" />		
+	<script type="text/javascript">
+document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+function filltag(d, c, f) { var b, a, e = []; while (d.length) { a = d.shift(); switch (true) { case Object.prototype.toString.apply(a) === "[object Array]": b = "<script " + (a[1].length > 0 ? 'charset="' + a[1] + '" ' : "") + "src='" + (a[2] ? a[2] : c) + "/js/" + a[0] + "' type='text/javascript'><\/script>"; break; case a.indexOf(".js") > -1: b = "<script " + (f ? 'charset="' + f + '" ' : "") + "src='" + c + "/js/" + a + "' type='text/javascript'><\/script>"; break; case a.indexOf(".css") > -1: b = "<link rel='stylesheet' type='text/css' href='" + c + "/css/" + a + "' />"; break; case a.length == 0: b = "<link rel='stylesheet' type='text/css' />" } e.push(b) } document.write(e.join("")) }
+var resourcePath = top.resourcePath, addrsrc = resourcePath.replace('coremail', 'addr'), verifyImageUrl = '', AddressBookType = {}, g = 'GB2312';
+filltag(['global.css','addr2012.css','', 'jquery-1.7.1.min.js',['utils_controls.js?v=20120323',g],['i18n/zh_cn.js?v=20120620','',addrsrc],['updatecontacts.js','',addrsrc]],resourcePath);
+</script>
+<style text="text/css">
+.jubao{overflow:hidden;padding-top:30px;position:relative;}
+.jubao .jubao-error{position:absolute;border:1px solid #cfb168;background-color:#fdfddb;height:24px;line-height:24px;padding:0  15px;color:#af1b17;top:0;left:65px;}
+.jubao .jubao-con{float:left;width:290px;font-size:14px;padding-bottom:10px;}
+.jubao .jubao-con input{vertical-align:middle;}
+.jubao .jubao-con dl{padding:5px 0 10px 0;line-height:25px;}
+.jubao .jubao-con dd label{margin-right:10px;}
+.jubao .jubao-con dd input{margin-right:4px;}
+.jubao .input-ju{border:1px solid #b1b1b1;height:18px;line-height:18px;padding-left:4px;width:250px;margin-top:5px;}
+.jubao .mailn-color{color:#1d6a00;font-weight:bold;font-size:12px;}
+.inputright {text-align: right;}
+</style>
+<!--[if lt IE 9]><script>document.write('<script src="' + resourcePath + '/js/html5.js"><\/script>')</script><![endif]-->
+</head>
+<body >
+<div class="winTip">
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+		<tbody>
+			<tr style="border:none;background:#FFF;">
+				<td colspan="3" style="padding-right:2px;border:none;background:#FFF;">
+					<div class="winTipC">
+						<div class="wTipCont">
+						<div class="jubao" style="padding-top:0;">						
+							<b class="do10"></b>
+							<div class="jubao-con">
+									<h3 style="font-size:14px;padding-bottom:10px;">您的举报已受理。</h3>
+									<p>感谢您对139邮箱的帮助。我们的工作人员会尽快处理您的举报。</p>
+							</div>
+						</div>
+						
+						<div class="inputright">
+							<a href="javascript:void(0);" id="reportsubmit"  class="btn ml_10"><em>确 定</em></a>
+						</div>
+				</div>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+</body>
+<script type="text/javascript">
+$(function (){
+ $("#reportsubmit").click(function(){
+	top.FloatingFrame.close();//关闭弹出窗口
+ });
+});
+</script>
+
+</html>

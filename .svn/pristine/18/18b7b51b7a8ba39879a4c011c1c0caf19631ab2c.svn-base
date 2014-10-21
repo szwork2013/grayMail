@@ -1,0 +1,130 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="Keywords" content="" />
+<meta name="Description" content="" />
+<title>139邮箱</title>
+
+
+<script type="text/javascript">
+    //设域
+    document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+</script>
+<script>top.loadScript('libs.pack.js',document);top.loadScript('m139.core.pack.js',document)</script><script>top.loadCSS(["common/global.css","module/set.css"],document)</script></head>
+<body class="setbody">
+<div class="tab setTab">
+  <div class="tabTitle">
+	<ul>
+	  <li class="on"><a href="javascript:void(0)"><span>账 户</span></a></li>
+	  <li><a href="mail.html"><span>邮件设置</span></a></li>
+	  <li><a href="javascript:void(0)"><span>代收邮箱</span></a></li>
+	  <li><a href="javascript:void(0)"><span>收信规则</span></a></li>
+	  <li><a href="javascript:void(0)"><span>标签文件夹</span></a></li>
+	  <li><a href="javascript:void(0)"><span>手机通知</span></a></li>
+	  <li><a href="javascript:void(0)"><span>反垃圾</span></a></li>
+	  <li><a href="javascript:void(0)"><span>移动特色</span></a></li>
+	</ul>	
+      <a href="#" class="tab-more">设置记录</a>
+  </div>
+</div>	  
+<div class="setWrap">
+	<div class="setArea">
+		<h2>修改密码 <span class="line">|</span> <a href="account.html" class="fanghui">&lt;&lt;返回</a></h2>
+		<div class="setArea-content changepassowrd1 clearfix">
+			<ul class="passwordStep"><!-- passwordStep2 passwordStep3 -->
+				<li class="on">1.验证邮箱密码</li>
+				<li>2.修改邮箱密码</li>
+				<li>3.成功</li>				
+			</ul>			
+			<ul class="form changepassLeft">
+				<li class="formLine v-hidden"><!-- 报错显示 v-visible -->
+					<label class="label"></label>
+					<div class="element">
+						<span class="formError">密码不正确，区分大小写</span>
+					</div>
+				</li>
+				<li class="formLine">
+					<label class="label">验证邮箱密码：</label>
+					<div class="element">
+					<input type="password"  class="iText" value="" />
+					</div>
+				</li>
+			</ul>		
+			<div class="changepassRight">忘记密码，<a href="#">使用短信验证码</a></div>
+		</div>	
+		<div class="setArea-content changepassowrd1 hide">
+			<ul class="passwordStep passwordStep2"><!-- passwordStep2 passwordStep3 -->
+				<li >1.验证邮箱密码</li>
+				<li class="on">2.修改邮箱密码</li>
+				<li>3.成功</li>				
+			</ul>
+			<ul class="form ">					
+					<li class="formLine">
+						<label class="label">设置新密码：</label>
+						<div class="element">
+						<input type="password" class="iText" value="" /> <span class="formError v-visible"><!-- 报错显示 v-visible -->密码不正确，区分大小写</span>
+						</div>
+					</li>
+					<li class="formLine">
+						<label class="label">确认新密码：</label>
+						<div class="element">
+						<input type="password"  class="iText" value="" />
+						</div>
+					</li>
+			</ul>		
+		</div>
+		
+		<div class="setArea-content changepassowrd1 hide">
+			<ul class="passwordStep passwordStep3"><!-- passwordStep2 passwordStep3 -->
+				<li >1.验证邮箱密码</li>
+				<li >2.修改邮箱密码</li>
+				<li class="on">3.成功</li>				
+			</ul>			
+			<div class="norTips norTips-min"> <span class="norTipsIco"><i class="i_ok_min"></i></span>
+			  <div class="norTipsContent">
+				<p class="norTipsTitle">修改成功</p>
+				<p class="norTipsLine"> <a href="javascript:void(0)" class="btnNormal"><span>返回“帐户与安全”</span></a></p>
+			  </div>
+			</div>		
+		</div>
+		
+		<div class="setArea-content changepassowrd1 clearfix hide">
+			<ul class="passwordStep"><!-- passwordStep2 passwordStep3 -->
+				<li class="on">1.验证邮箱密码</li>
+				<li>2.修改邮箱密码</li>
+				<li>3.成功</li>				
+			</ul>			
+				<ul class="form changepassLeft">
+					<li class="formLine v-visible"><!-- 报错显示 v-visible -->
+						<label class="label"></label>
+						<div class="element p_relative">
+							<a href="javascript:void(0)" class="btnNormal passWidth hide"><span>获取短信验证码</span></a>
+								<a href="javascript:void(0)" class="btnNormal passWidth show"><span class="gray">60秒后可重新获取</span></a>							
+								<div class="tips passydztips hide"> 					
+								  <div class="tips-text">  
+									<i class="i_ok_min mr_5"></i>验证码已发送
+								  </div>
+								  <div class="tipsBottom diamond"></div>
+								</div>
+						</div>
+					</li>
+					<li class="formLine">
+						<label class="label">验证邮箱密码：</label>
+						<div class="element">
+							<div><input type="text"  class="iText" value="" /></div>
+							<div> 验证码30分钟内有效</div>
+						</div>
+					</li>
+				</ul>		
+				<div class="changepassRight"><a href="#">使用邮箱验证码</a></div>				
+		</div>
+	</div>	
+	
+</div>   
+<div class="setBtn">
+<a href="javascript:void(0)" class="btnSetG"><span>保 存</span></a> <a href="javascript:void(0)" class="btnSet"><span>取 消</span></a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Content-Language" content="zh-CN" />
+	<meta name="Keywords" content="" />
+	<meta name="Description" content="" />		
+	<script type="text/javascript">
+document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+function filltag(d, c, f) { var b, a, e = []; while (d.length) { a = d.shift(); switch (true) { case Object.prototype.toString.apply(a) === "[object Array]": b = "<script " + (a[1].length > 0 ? 'charset="' + a[1] + '" ' : "") + "src='" + (a[2] ? a[2] : c) + "/js/" + a[0] + "' type='text/javascript'><\/script>"; break; case a.indexOf(".js") > -1: b = "<script " + (f ? 'charset="' + f + '" ' : "") + "src='" + c + "/js/" + a + "' type='text/javascript'><\/script>"; break; case a.indexOf(".css") > -1: b = "<link rel='stylesheet' type='text/css' href='" + c + "/css/" + a + "' />"; break; case a.length == 0: b = "<link rel='stylesheet' type='text/css' />" } e.push(b) } document.write(e.join("")) }
+var resourcePath = top.resourcePath, addrsrc = resourcePath.replace('coremail', 'addr'), verifyImageUrl = '', AddressBookType = {}, g = 'GB2312';
+filltag(['global.css','addr2012.css',''],resourcePath);
+try {
+top.loadScript("libs.pack.js", document);
+top.loadScript('m139.core.pack.js', document);
+top.loadScript("m2012.ui.common.pack.js", document);
+top.loadScript("m2011.utilscontrols.pack.js", document);
+top.loadScript("../../js/packs/addr/addr_zh_hans.pack.js", document);
+top.loadScript("../../js/packs/addr/addr_updatecontactinfo.html.pack.js", document);
+} catch (ex) {}
+</script>
+<style text="text/css">
+/* 举报弹出层 */
+.jubao{overflow:hidden;padding-top:30px;position:relative;}
+.jubao .jubao-error{position:absolute;border:1px solid #cfb168;background-color:#fdfddb;height:24px;line-height:24px;padding:0  15px;color:#af1b17;top:0;left:65px; _left:-290px;}
+.jubao .jubao-con{float:left;width:290px;font-size:14px;padding-bottom:10px;}
+.jubao .jubao-con input{vertical-align:middle;}
+.jubao .jubao-con dl{padding:5px 0 10px 0;line-height:25px;}
+.jubao .jubao-con dd label{margin-right:10px;}
+.jubao .jubao-con dd input{margin-right:4px;}
+.jubao .input-ju{border:1px solid #b1b1b1;height:18px;line-height:18px;padding-left:4px;width:250px;margin-top:5px;}
+.jubao .mailn-color{color:#1d6a00;font-weight:bold;font-size:12px;}
+tr:over{background:#FFF;}
+.winTipC{padding:5px;}
+</style>
+<!--[if lt IE 9]><script>document.write('<script src="' + resourcePath + '/js/html5.js"><\/script>')</script><![endif]-->
+</head>
+<body class="ml3P-contacts">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+		<tbody>
+			<tr style="border:none;background:#FFF;">
+				<td colspan="3" style="padding-right:2px;">
+					<div class="winTipC">
+						<div class="wTipCont" >
+						<div class="jubao">
+							<div class="jubao-error" id="chooseReportType" style="display:none;">请选择举报类型</div>
+							<b class="wcDot"></b>
+							<div class="jubao-con">
+									<p>要举报的账号：<span class="mailn-color" id="reportUser"></span></p>
+									<dl>
+										<dt>举报类型：</dt>
+										<dd id="reportType">
+											<label><input type="checkbox" value="1" />色情</label>
+											<label><input type="checkbox" value="1" />广告欺诈</label>
+											<label><input type="checkbox" value="1" />冒充好友</label><br />
+											<label><input type="checkbox" value="1" />反动</label>
+											<label><input type="checkbox" value="1" />其他</label>
+										</dd>
+									</dl>
+									<p>举报说明(选填)：</p>
+									<p>
+									<input id ="describeReport" type="text" maxlength="200" class="input-ju gray" value="描述要举报的行为(如色情图片)" />
+									</p>
+							</div>
+						</div>
+						
+						<div class="inputright">
+							<a href="javascript:void(0);" id="reportSubmit" class="btn btnGreen" style="margin-right:10px;"><em>提 交</em></a>
+							<a href="javascript:void(0);" id="cancelReport"  class="btn ml_10"><em>取 消</em></a>
+						</div>
+				     </div>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+</table>
+</body>
+<script type="text/javascript">
+$(function (){
+  UpdateContacts.initReportPage();
+});
+</script>
+
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>mail.139.com</title>
+<style>
+body,th, td {
+    margin: 0;
+    padding: 0;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+	font-size:12px;
+	table-layout:fixed;
+	 width:100%;
+}
+
+
+.header , .header td ,.midder ,.midder td{
+	vertical-align:top;
+}
+</style>
+</head>
+
+<body>
+<table class="body" id="tableTop" style="height:100%;min-width:660px;">
+	<tr>
+    	<td class="con" background="footer-bg.png" style="background-position:0 bottom; background-repeat:repeat-x; vertical-align:top;">
+        <!--内容开始-->
+        <table style="height:100%;">
+          <tr>
+            <td class="header"  background="head-bg.png" style="background-repeat:repeat-x; height:100px;">
+            <!--头部的table开始-->
+                <table>
+                    <tr>
+                        <td align="left" background="header-left.png" style="background-repeat:no-repeat; height:100px;">
+                            
+                        </td>
+                      </tr>
+                </table>
+            <!--头部的table结束-->
+            </td>
+          </tr>
+          <tr>
+            <td class="midder" style="padding:0 30px;">
+            <!--内容的table开始-->
+            <table style="height:100%;">
+                <tr>
+                    <td id="contentTD" background="midder-bg.png">
+                    <div class="content" contentEditable=true style="color:#105a2c;
+                    font-size:12px;
+                    min-height:200px;
+                    padding:5px 0px 25px 0px;
+                    line-height:30px;
+                    outline:none;
+                    height:100%;
+                    _height:200px;
+                    _overflow:visible;">
+                    &#8203;
+                    </div>
+                    </td>
+                </tr>
+            </table>
+            <!--内容的table结束-->
+            </td>
+          </tr>
+          <tr>
+            <td class="footer" background="footer-left.png" style="vertical-align:bottom;
+             background-position:0 bottom; background-repeat:no-repeat;">
+            <!--页脚的table结束-->
+                <table>
+                    <tr>
+                        <td align="left" style="height:100px; vertical-align:bottom;">
+                            
+                        </td>
+                      </tr>
+                </table>
+                <!--页脚的table结束-->
+            </td>
+          </tr>
+        </table>
+        <!--内容结束-->
+        </td>
+    </tr>
+</table>
+</body>
+<script>
+//研发同事请注意，此脚本仅用于展示。使得单个信纸在浏览器中能够全屏幕,在开发中可以直接把脚本和id删除。
+temps ={
+	times : false,
+	timesout : "false"
+}
+
+function resizeHeight(){
+	if(temps.timesout == "true"){
+		//document.title = "请等待";
+		return false;
+	}
+	if(temps.timesout == "false"){
+		temps.timesout = "true";
+		var timesSet = function (){
+			temps.timesout = "false";
+			clearInterval(timesWave) ;
+			//document.title = "继续";
+		}
+		var timesWave = function (){
+			setInterval(timesSet , 10)
+		}
+		timesWave()
+	}
+	
+	var content = document.getElementById("contentTD");
+	var doc = function(){return (document.compatMode != "CSS1Compat") ? document.body : document.documentElement;}
+	var objHeight = function(el) {return Math.max(el.scrollHeight, el.clientHeight);}
+	var browserHeight = objHeight(doc())
+	if(temps.times == false){
+		temps.times = objHeight(document.getElementById("tableTop"));
+	}
+	if(browserHeight > temps.times){
+		if(sys().ver == "msie6"){
+			document.getElementById("contentTD").style.height = browserHeight - 206 + "px";
+		}
+		if(sys().ver == "msie7" || sys().ver == "msie8" || sys().browser == "opera"){
+			document.getElementById("contentTD").style.height = browserHeight - 236 + "px";
+		}
+		else{
+			document.getElementById("tableTop").style.height = browserHeight + "px";
+		}
+		
+	}
+	var innerHeight = objHeight(document.getElementById("tableTop"))	
+}
+resizeHeight()
+window.onresize = resizeHeight;
+function sys(){
+			var ua = navigator.userAgent.toLowerCase();
+			(s = ua.match(/msie ([\d.]{1})/g)) ? undefined :
+			(s = ua.match(/firefox\/([\d.]{1})/g)) ? undefined :
+			(s = ua.match(/chrome\/([\d.]{1})/g)) ? undefined :
+			(s = ua.match(/opera.([\d.]{1})/g)) ? undefined :
+			(s = ua.match(/version\/([\d.]{1}).*safari/g)) ? undefined : 0;
+			browser = s.toString().replace(/( )|(\/)|([\d.]+)/g,"");
+			ver = s.toString().replace(/( )|(\/)/,"");
+			return {browser:browser , ver :ver};
+		}
+</script>
+</html>

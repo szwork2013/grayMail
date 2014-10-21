@@ -1,0 +1,1097 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>发送成功</title>
+    <link type="text/css" rel="Stylesheet" />
+    <script>
+
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+
+		top.loadCSS(["common/global.css","module/write.css"],document);
+        top.loadScript('libs.pack.js',document);
+        top.loadScript('m139.core.pack.js',document);
+        top.loadScript("/m2012/js/ui/widget/m2012.ui.widget.contactsautosave.js", document);
+
+        top.loadScript("/m2012/js/service/largeattach/m2011.largeattach.filesharing.js", document);
+    </script>
+
+    <script type="text/javascript">
+        //初始化页面信息
+        fileSharing.initialize();
+        
+    </script>
+    <style type="text/css">
+        p.margin5
+        {
+            margin-bottom: 3px;
+        }
+        #divSaveToAddr
+        {
+            margin-top: 200px;
+        }
+    </style>
+
+    <script type="text/javascript">
+        var __xml2jsonConfig = {
+            "QueryContactsResp": {
+                type: "rich",
+                arrayElement: "ContactsInfo"
+            },
+            "ContactsInfo": {
+                type: "simple"
+            },
+            "AddContactsResp": {
+                type: "rich"
+            }
+        }
+        var AddContactsRespConfig = {
+            "AddContactsResp": {
+                type: "rich",
+                arrayElement: "ContactsInfo"
+            },
+            "ContactsInfo": {
+                type: "simple"
+            }
+        }
+        var GetUserAddrDataRespConfig = {
+            "GetUserAddrDataResp": {
+                type: "rich"
+            },
+            "Group": {
+                type: "array"
+            },
+            "GroupInfo": {
+                type: "simple"
+            },
+            "Contacts": {
+                type: "array"
+            },
+            "ContactsInfo": {
+                type: "simple"
+            },
+            "GroupList": {
+                type: "array"
+            },
+            "GroupListInfo": {
+                type: "simple"
+            },
+            "LastContacts": {
+                type: "array"
+            },
+            "LastContactsInfo": {
+                type: "simple"
+            }
+        }
+        function xml2json(xmlNode, xml2jsonConfig) {
+            if (typeof xmlNode == "string") {
+                var xmldom = getXmlDoc(xmlNode);
+                xmlNode = xmldom.documentElement;
+            }
+            var config = xml2jsonConfig[xmlNode.tagName];
+            if (!config) {
+                return document.all ? xmlNode.text : xmlNode.textContent;
+            } else if (config.type == "simple") {
+                return xml2json_SimpleObject(xmlNode);
+            } else if (config.type == "rich") {
+                return xml2json_RichObject(xmlNode, config);
+            } else if (config.type == "array") {
+                return xml2json_Array(xmlNode);
+            } else {
+                return null;
+            }
+            function xml2json_RichObject(xmlNode, config) {
+                var result = {};
+                var arrayElement = config.arrayElement;
+                if (arrayElement) {
+                    var arrayList = result[arrayElement] = [];
+                }
+                for (var i = 0, childs = xmlNode.childNodes, len = childs.length; i < len; i++) {
+                    var child = childs[i];
+                    if (child.nodeType == 1) {
+                        if (child.tagName == config.arrayElement) {
+                            arrayList.push(xml2json(child, xml2jsonConfig));
+                        } else {
+                            result[child.tagName] = xml2json(child, xml2jsonConfig);
+                        }
+                    }
+                }
+                return result;
+            }
+            function xml2json_SimpleObject(xmlNode) {
+                var result = {};
+                for (var i = 0, children = xmlNode.childNodes, len = children.length; i < len; i++) {
+                    var child = children[i];
+                    if (child.nodeType == 1) {
+                        result[child.tagName] = document.all ? child.text : child.textContent;
+                    }
+                }
+                return result;
+            }
+            function xml2json_Array(xmlNode) {
+                var result = [];
+                for (var i = 0, children = xmlNode.childNodes, len = children.length; i < len; i++) {
+                    var child = children[i];
+                    if (child.nodeType == 1) {
+                        result.push(xml2json(child, xml2jsonConfig));
+                    }
+                }
+                return result;
+            }
+        }
+        function getXmlDoc(response) {
+            var doc;
+            if (!response) {
+                return null;
+            } else if (typeof (response) == "string") {
+                doc = parseText(response);
+            } else if (typeof (response) == "object") {
+                if (response.documentElement) return response;
+                if (response.responseXML && response.responseXML.documentElement) {
+                    doc = response.responseXML;
+                } else if (response.responseText) {
+                    doc = parseText(response.responseText);
+                }
+            }
+            if (doc && doc.documentElement) {
+                return doc;
+            } else {
+                return null;
+            }
+            function parseText(text) {
+                var doc;
+                if (document.all) {
+                    doc = new ActiveXObject("Microsoft.XMLDOM");
+                    doc.loadXML(text);
+                } else {
+                    var parser = new DOMParser();
+                    doc = parser.parseFromString(text, "text/xml");
+                }
+                return doc;
+            }
+        }
+        function encodeXML(T) {
+            return T.toString().replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&apos;")
+        }
+
+        var C = isLocal() ? false : top.Contacts;
+        var pageMode = location.href.indexOf("#email") == -1 ? "mobile" : "email";
+        var inputEmails = [];
+        var inputMobiles = [];
+
+        /* 得到传入的邮箱地址 */
+        if (pageMode == "email") {
+            var regEmails = /emails=([^&]+)/;
+            var match = location.href.match(regEmails);
+            if (match) {
+                inputEmails = match[1].split(",");
+            }
+        }
+        /* 得到传入的手机 */
+        var regMobiles = /mobiles=([^&]+)/;
+        match = location.href.match(regMobiles);
+        if (match) {
+            inputMobiles = match[1].split(",");
+            for (var i = 0; i < inputMobiles.length; i++) {
+                inputMobiles[i] = inputMobiles[i].replace(/^86/, "");
+            }
+        }
+
+        function sendSMS(email) {
+            if (top.$User.isChinaMobileUser()) {
+                if (top._lastSendFiles) {
+                    var content = "你好,我给你的{0}发送了文件:\"{1}\",赶紧去收吧。".format(email, top._lastSendFiles.join("\",\""));
+                } else {
+                    var content = "";
+                }
+                top.Links.show("sms", "&content=" + window.escape(content));
+            } else {
+                top.$User.checkAvaibleForMobile();
+            }
+        }
+
+        $(window).ajaxStart(function() {
+            if (isLocal()) {
+                var div = $("#divLoading");
+                if (div.length == 0) {
+                    div = $('<div id="divLoading" style="position:absolute;right:0;top:0;background:#58bc3e;\
+            color:White;padding:5px;width:auto;height:auto;\
+            display:none;z-index:100;">Loading...</div>').appendTo(document.body);
+                }
+                div.show();
+            } else {
+                top.WaitPannel.show("加载中...");
+            }
+        });
+        $(window).ajaxStop(function() {
+            if (isLocal()) {
+                $("#divLoading").hide();
+            } else {
+                top.WaitPannel.hide();
+            }
+        });
+
+        Utils.getUserDataFromCookie();
+
+        var _confirm = function(msg, callback) {
+            if (confirm(msg)) callback();
+        }
+        if (!isLocal()) {
+            Utils.loadSkinCss(null, document, "fileExp");
+            window.alert = function(msg) { FloatingFrame.alert(msg); }
+            _confirm = top.FF.confirm;
+        }
+
+        //联系人实体
+        function ContactsInfo(obj) {
+            if (!obj) return;
+            for (var p in obj) {
+                this[p] = obj[p];
+            }
+            var emails = this.emails = [];
+            var mobiles = this.mobiles = [];
+            var faxes = this.faxes = [];
+            if (!this.name) this.name = (this.AddrFirstName || "") + (this.AddrSecondName || "");
+            if (this.FamilyEmail) emails.push(this.FamilyEmail);
+            if (this.OtherEmail) emails.push(this.OtherEmail);
+            if (this.BusinessEmail) emails.push(this.BusinessEmail);
+
+            if (this.MobilePhone) mobiles.push(this.MobilePhone);
+            if (this.OtherMobilePhone) mobiles.push(this.OtherMobilePhone);
+            if (this.BusinessMobile) mobiles.push(this.BusinessMobile);
+
+            if (this.OtherFax) faxes.push(this.OtherFax);
+            if (this.FamilyFax) faxes.push(this.FamilyFax);
+            if (this.BusinessFax) faxes.push(this.BusinessFax);
+        }
+
+        ContactsInfo.prototype.validate = function() {
+            this.error = "";
+            if (C.validateAddContacts(this)) {
+                return true;
+            } else {
+                this.error = C.validateAddContacts.error;
+                return false;
+            }
+        }
+
+        if (!C) {
+            C = {
+                data: { contacts: [], group: [], map: [] },
+                addContactsToCache: function(item, obj) { },
+                addLastestContactsToCache: function(_stranger) { },
+                init: function(type, context) { },
+                //添加联系人(单个)
+                getAddContactsUrl: function() {
+                    return "/addr/apiserver/AddContact.ashx?sid=" + UserData.ssoSid + "&rnd=" + Math.random();
+                },
+                //添加联系人(多个)
+                getModContactUrl: function() {
+                    return "/addr/apiserver/addrinterface.ashx?APIType=ModContacts&sid=" + UserData.ssoSid + "&rnd=" + Math.random();
+                },
+                //自动保存联系人，附带添加最近联系人。
+                getAutoSaveRecentContactsUrl: function() {
+                    return "/addr/apiserver/AutosaveContact.ashx?sid=" + UserData.ssoSid + "&rnd=" + Math.random();
+                },
+                getAPIUrl: function(type) {
+                    return "/addr/apiserver/AddrInterface.ashx?sid=" + UserData.ssoSid + "&APIType=" + type + "&rnd=" + Math.random();
+                },
+                isExistMobile: function(mobile) {
+                    try {
+                        for (var i = 0; i < LinkManList.length; i++) if (LinkManList[i].addr == mobile) return true;
+                    } catch (e) {
+                        return false;
+                    }
+                    return false;
+                },
+                isExistMobile2: function(mobile) {
+                    var contacts = C.data.contacts;
+                    if (!contacts) return true;
+                    mobile = mobile.toString().trim().replace(/^[+]?86/, "");
+                    for (var i = 0, len = contacts.length; i < len; i++) {
+                        var info = contacts[i];
+                        if (
+                (info.MobilePhone && info.MobilePhone.trim().replace(/^[+]?86/, "") == mobile)
+                || (info.BusinessMobile && info.BusinessMobile.trim().replace(/^[+]?86/, "") == mobile)
+                || (info.OtherMobilePhone && info.OtherMobilePhone.trim().replace(/^[+]?86/, "") == mobile)) {
+                            return true;
+                        }
+                    }
+                    return false;
+                },
+                isExistEmail: function(email) {
+                    try {
+                        for (var i = 0; i < LinkManList.length; i++) if (LinkManList[i].addr == email) return true;
+                    } catch (e) {
+                        return false;
+                    }
+                    return false;
+                },
+                FROMTYPE: {
+                    MAIL: 0x10,  //电子邮件
+                    MOBILE: 0x20, //短彩信
+                    FAX: 0x40,   //传真
+
+                    NONE: 0,     //默认
+                    SMS: 1,      //发短信成功页
+                    CARD: 2,     //发贺卡成功页
+                    POST: 3,     //发明信片成功页
+                    EMAIL: 4,    //发邮件成功页
+                    MMS: 5,      //发彩信成功页
+                    FILE: 6      //发文件快递成功页
+                },
+                ConvertFrom: function(a) {
+                    var F = this.FROMTYPE;
+                    var from = a & 0x0f; //取来源
+                    var type = a & 0xf0; //来类别
+                    var last = '1';
+                    var key = 'E';
+
+                    if (from == F.MMS) {
+                        last = "2";
+                    }
+
+                    switch (type) {
+                        case F.FAX: key = 'F'; break;
+                        case F.MAIL: key = 'E'; break;
+                        case F.MOBILE: key = 'M'; break;
+                    }
+
+                    return { 'from': from, 'type': type, 'key': key, 'last': last };
+                }
+            };
+
+            C.validateAddContacts = function(obj) {
+                C.validateAddContacts.error = "";
+                if (!obj.name || obj.name.trim() == "") {
+                    C.validateAddContacts.error = "姓名不能为空!";
+                    return false;
+                }
+                if (obj.email && !/^(?:"[^"]*"|[^<;,]+)\s*<(?![\-+._%])(?:(?![\-+._%]{2}|[\-+._%]@)[a-z0-9\-+._%])+@(?:[a-z0-9\-]+\.)+[a-z]{2,4}>$|^(?![\-+._%])(?:(?![\-+._%]{2}|[\-+._%]@)[a-z0-9\-+._%])+@(?:[a-z0-9\-]+\.)+[a-z]{2,4}$/i.test(obj.email)) {
+                    C.validateAddContacts.error = "请输入正确的邮件地址";
+                    return false;
+                }
+                if (obj.mobile && !/^\d{11,20}$/.test(obj.mobile)) {
+                    C.validateAddContacts.error = "请输入正确的手机号码";
+                    return false;
+                }
+                if (!obj.email && !obj.mobile) {
+                    C.validateAddContacts.error = "手机号码和邮件地址请至少填写一项!";
+                    return false;
+                }
+                return true;
+            }
+
+            C.getContactsByEmail = function(email) {
+                var result = [];
+                if (!C.data.contacts) return result;
+                for (var i = 0, contacts = C.data.contacts, len = contacts.length; i < len; i++) {
+                    var c = contacts[i];
+                    for (var j = 0; j < c.emails.length; j++) {
+                        if (c.emails[j] == email) {
+                            result.push(c);
+                        }
+                    }
+                }
+                return result;
+            }
+
+            C.getContactsByMobile = function(mobile) {
+                var result = [];
+                if (!C.data.contacts) return result;
+                if (mobile.length == 13) {
+                    mobile = mobile.replace(/^[+]?86/, "");
+                }
+                for (var i = 0, contacts = C.data.contacts, len = contacts.length; i < len; i++) {
+                    var c = contacts[i];
+                    for (var j = 0; j < c.mobiles.length; j++) {
+                        var m = c.mobiles[j];
+                        if (m.length == 13) m = m.replace(/^[+]?86/, "");
+                        if (m == mobile) {
+                            result.push(c);
+                        }
+                    }
+                }
+                return result;
+            }
+
+            C.deleteContacts = function(sid, callback) {
+                sid = sid.toString();
+                $.ajax({
+                    type: "POST",
+                    url: C.getAPIUrl("DelContacts"),
+                    timeout: 30000,
+                    data: { xml: "<DelContacts><SerialId>" + sid + "</SerialId></DelContacts>" },
+                    success: callback
+                });
+            }
+
+            C._autosaveRowTemplate = '<span>{FamilyEmail}</span><span>{MobilePhone2}</span> <已保存为 {AddrFirstName}> <a onclick="mod({SerialId},\'{MobilePhone}\',\'{AddrFirstName}\',this,pnl)" href="javascript:void(0)" behavior="自动保存联系人-修改" ext="{from}">修改</a> <a href="javascript:del({SerialId},$(\'#divContact li\'))">删除</a>';
+
+            C.AutoSaveRecentContacts = function(contacts, from, panel, subject) {
+
+                if (!contacts || contacts.length == 0 || !from || !panel || !subject) {
+                    alert("参数错误");
+                    return;
+                }
+
+                var _FT = this.FROMTYPE;
+
+                if (isNaN(from)) {
+                    throw "传入参数 from 类型错误!";
+                }
+
+                var fromObj = C.ConvertFrom(from);
+
+                if (fromObj.type == _FT.EMAIL && subject.length > 20) {
+                    subject = subject.substring(0, 20);
+                }
+
+                //根据不同的信息读取现有联系人数据
+                var _keys = {};
+                _keys['E'] = function(addr) { return C.getContactsByEmail(addr)[0] };
+                _keys['M'] = function(addr) { return C.getContactsByMobile(addr)[0] };
+                _keys['F'] = function(addr) { return C.getContactsByFax(addr)[0] };
+
+                var _item = {
+                    SerialId: 0,
+                    AddrName: '',
+                    AddrType: fromObj.key,
+                    AddrContent: '',
+                    AddrMobile: "",
+                    AddrId: 0,
+                    AddrTitle: subject,
+                    ComeFrom: fromObj.last
+                };
+
+                //保存最近联系人报文模板
+                var _itemTemplate = [
+        '<AddContactsInfo>',
+            '<SerialId>{SerialId}</SerialId>',
+            '<AddrName>{AddrName}</AddrName>',
+            '<AddrType>{AddrType}</AddrType>',
+            '<AddrContent>{AddrContent}</AddrContent>',
+            '<AddrMobile>{AddrMobile}</AddrMobile>',
+            '<AddrId>0</AddrId>',
+            '<AddrTitle>{AddrTitle}</AddrTitle>',
+            '<ComeFrom>{ComeFrom}</ComeFrom>',
+        '</AddContactsInfo>'].join('');
+
+                //已保存联系人列表模板
+                var _listTemplate = [
+        '<div style="margin:0pt;padding:0pt;position:static;" class="successContent">',
+            '<fieldset style="margin:0" id="fsSaveToAddr">',
+            '<p class="fcI">以下联系人已保存到通讯录</p>',
+            '<ol>$rows$</ol>',
+            '</fieldset>',
+        '</div>'].join('');
+
+                var _rowTemplate = C._autosaveRowTemplate;
+
+                var waiting = function(_p) {
+                    _p.innerHTML = '<center><div class="loadings"><img src="' + top.resourcePath + '/images/loading2.gif" />&nbsp;正在保存联系人...</div></center>';
+                };
+
+                var _buff = [], _stranger = [], sole = {};
+                if (fromObj.type == _FT.MAIL) {
+
+                    //兼容旧项目只传单个email
+                    if (typeof contacts == "string") {
+                        contacts = Utils.parseEmail(contacts);
+                    }
+
+                    //过滤有效电邮地址，并转成contactinfo实例
+                    for (var i = contacts.length - 1, k = contacts[i]; i >= 0; k = contacts[--i]) {
+                        var eml = Utils.parseSingleEmail(k);
+                        if (eml && sole[eml.addr] === undefined) {
+                            _buff.push(eml);
+                            sole[eml.addr] = eml;
+                        }
+                    };
+                    contacts = _buff;
+                    _buff = [];
+                    sole = [];
+
+                    //检测给的联系人是否已保存，否则将serialid置零。
+                    for (var i = contacts.length - 1, k = contacts[i]; i >= 0; k = contacts[--i]) {
+                        var c = _keys[fromObj.key](k.addr);
+
+                        if (c) {
+                            _item.SerialId = c.SerialId;
+                            _item.AddrName = encodeXML(c.name);
+                            _item.AddrContent = encodeXML(k.addr);
+
+                            if (c.mobiles.length != 0) {
+                                if (c.OtherMobilePhone) {
+                                    _item.AddrMobile = c.OtherMobilePhone;
+                                }
+                                if (c.BusinessMobile) {
+                                    _item.AddrMobile = c.BusinessMobile;
+                                }
+                                if (c.MobilePhone) {
+                                    _item.AddrMobile = c.MobilePhone;
+                                }
+                            } else {
+                                var __mobile = Utils.getEmail(k.addr)[0];
+                                if (Utils.isChinaMobileNumber(__mobile)) {
+                                    _item.AddrMobile = __mobile;
+                                }
+                            }
+                        } else {
+                            _item.SerialId = 0;
+                            _item.AddrName = encodeXML(k.name);
+                            _item.AddrContent = encodeXML(k.addr);
+
+                            _item.AddrMobile = "";
+                            var __mobile = Utils.getEmail(k.addr)[0];
+                            if (Utils.isChinaMobileNumber(__mobile)) {
+                                if (!C.isExistMobile2(__mobile)) {
+                                    _item.AddrMobile = __mobile;  //该处修正手机号已存在通讯录时无法保存的情况。
+                                }
+                            }
+
+                            var temp = {};
+                            for (var j in _item) temp[j] = _item[j];
+                            _stranger.push(temp);
+                        }
+                        sole.push({
+                            AddrContent: _item.AddrContent,
+                            AddrName: _item.AddrName,
+                            AddrType: _item.AddrType,
+                            SerialId: _item.SerialId
+                        });
+
+                        _buff.push(String.format(_itemTemplate, _item));
+                    };
+
+                    if (_stranger.length > 0) {
+                        waiting(panel);
+                    }
+
+                } else if (fromObj.type == _FT.MOBILE) {
+
+                    if (typeof contacts == "string") {
+                        contacts = contacts.split(",");
+                    }
+                    sole = [];
+                    for (var i = contacts.length - 1, k = contacts[i]; i >= 0; k = contacts[--i]) {
+                        k = NumberTool.remove86(k);
+                        var c = _keys[fromObj.key](k);
+                        _item.AddrName = encodeXML(k);
+                        _item.AddrMobile = k;
+                        _item.AddrContent = k;
+                        _item.AddrType = _item.AddrType;
+                        if (c) {
+                            _item.SerialId = c.SerialId;
+                        } else {
+                            _item.SerialId = 0;
+                            var temp = {};
+                            for (var j in _item) temp[j] = _item[j];
+                            _stranger.push(temp);
+                        }
+                        _buff.push(String.format(_itemTemplate, _item));
+                        sole.push({
+                            AddrContent: _item.AddrContent,
+                            AddrName: _item.AddrName,
+                            AddrType: _item.AddrType,
+                            SerialId: _item.SerialId
+                        });
+                    };
+                    if (_stranger.length > 0) {
+                        panel.mobiles = contacts;
+                        waiting(panel);
+                    }
+                }
+
+                _buff = "<AddLastContacts>" + _buff.join("\n") + "</AddLastContacts>";
+                var requestUrl = C.getAutoSaveRecentContactsUrl();
+
+                var onError = function() {
+                    $(panel).html('<center><div class="loadings">自动保存联系人失败。</div></center>');
+                };
+
+                var onCalled = function(response) {
+                    var doc = getXmlDoc(response);
+                    if (doc) {
+                        var obj = xml2json(doc.documentElement, { AutoSaveReceiversResp: { type: "rich", arrayElement: "ContactsInfo" }, ContactsInfo: { type: "simple"} });
+
+                        if (obj && obj.ResultCode == "0") {
+                            _stranger = obj.ContactsInfo;
+
+                            var cache = [], buff = [], last = [];
+                            for (var i = 0; i < _stranger.length; i++) {
+                                var __item = _stranger[i];
+                                __item.from = fromObj.from;
+                                if (_stranger[i].FamilyEmail.length == 0 && _stranger[i].MobilePhone.length > 0) {
+                                    __item.MobilePhone2 = _stranger[i].MobilePhone;
+                                } else {
+                                    __item.MobilePhone2 = "";
+                                }
+                                cache.push("<li>" + String.format(_rowTemplate, __item) + "</li>");
+                                __item.name = _stranger[i].AddrFirstName;
+                                __item.mobile = _stranger[i].MobilePhone;
+                                __item.email = _stranger[i].FamilyEmail;
+                                buff.push(__item);
+                                last.push({
+                                    AddrContent: fromObj.type == C.FROMTYPE.MAIL ?
+                            _stranger[i].FamilyEmail : _stranger[i].MobilePhone,
+                                    AddrName: _stranger[i].AddrFirstName,
+                                    AddrType: fromObj.key,
+                                    SerialId: _stranger[i].SerialId
+                                });
+                            }
+
+                            if (_stranger.length > 0) {
+                                cache = _listTemplate.replace("$rows$", cache.join(''));
+                                $(panel).html(cache);
+                            }
+                        } else {
+                            onError(obj.ResultCode);
+                        }
+                    }
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: requestUrl,
+                    timeout: 5000,
+                    data: { xml: _buff },
+                    success: onCalled,
+                    error: function() {
+                        onError();
+                    }
+                });
+            }
+
+            C.DelSavedContact = function(serialId, lst) {
+                _confirm("确定要删除该联系人？", function PressYes() {
+                    var index = -1;
+                    lst.each(function(i) {
+                        if (this.innerHTML.indexOf('del(' + serialId) > -1) {
+                            index = i; return false;
+                        }
+                    });
+
+                    C.deleteContacts(serialId.toString(), function() {
+                        var div = $(lst[index]).next()[0];
+                        if (div && div.tagName == 'DIV') { $(lst[index]).next().remove() };
+                        $(lst[index]).remove();
+                    });
+                });
+            }
+
+            C.ModSavedContact = function(serialId, mobile, name, lnk, pnl) {
+                pnl.isbusy = false;
+                if (lnk.innerHTML == "取消修改") {
+                    try {
+                        lnk.innerHTML = "修改";
+                    } catch (ex) {
+                        lnk.innerText = "修改";
+                    }
+                    lnk.hide();
+                    return;
+                }
+
+                var _email = lnk.parentNode.getElementsByTagName('SPAN')[0].innerHTML;
+                var _main = pnl.main.clone(true);
+
+                function SaveContact(groupId) {
+                    if (pnl.isbusy) return;
+                    pnl.isbusy = true;
+                    var name = _main.name.val(),
+            mobile = _main.mobile.val(),
+            email = _main.email.val(),
+            requestBody =
+            "<ModContacts>" +
+                "<SerialId>" + serialId + "</SerialId>" +
+                "<UserType>1</UserType>" +
+                "<AddrFirstName>" + encodeXML(name) + "</AddrFirstName>" +
+                "<MobilePhone>" + encodeXML(mobile) + "</MobilePhone>" +
+                "<FamilyEmail>" + encodeXML(email) + "</FamilyEmail>" +
+                "<OverWrite>1</OverWrite>" +
+            "</ModContacts>";
+
+                    var requestUrl = C.getModContactUrl();
+                    $.ajax({
+                        url: requestUrl,
+                        type: "post",
+                        data: { xml: requestBody },
+                        success: function(response) {
+                            var doc = getXmlDoc(response);
+                            if (doc) {
+                                var result = xml2json(doc.documentElement, { ModContactsResp: { type: "rich"} });
+                                if (result && (result.ResultCode == "0")) {
+                                    pnl.isbusy = false;
+
+                                    //记录修改联系人的组信息。
+                                    $('table input[@type="checkbox"][@checked]').each(function() {
+                                        if ($(this).parent()[0].tagName != "TH") {
+                                            $(this).parent().parent().remove();
+                                        }
+                                    });
+                                    var par = { info: {
+                                        FamilyEmail: email,
+                                        AddrFirstName: Utils.htmlEncode(name),
+                                        SerialId: serialId,
+                                        MobilePhone: Utils.htmlEncode(mobile),
+                                        MobilePhone2: "",
+                                        GroupId: groupId,
+                                        from: lnk.ext
+                                    }
+                                    };
+
+                                    alert("保存成功");
+
+                                    //刷新UI
+                                    if (email.length == 0) {
+                                        par.info.MobilePhone2 = mobile;
+                                    }
+                                    var _rowTemplate = C._autosaveRowTemplate;
+                                    var _html = String.format(_rowTemplate, par.info);
+
+                                    //避免 名字中带 ' 时出错
+                                    if (name.indexOf("'") > -1) {
+                                        _html = _html.replace("'" + par.info.AddrFirstName + "',this,pnl)", "'" + par.info.AddrFirstName.replace(/(&#39;)|\'/g, "\\'") + "',this,pnl)");
+                                    }
+                                    if (mobile.indexOf("'") > -1) {
+                                        _html = _html.replace(",'" + mobile + "',", ",'" + mobile.replace(/(&#39;)|\'/g, "\\'") + "',");
+                                    }
+
+                                    $(lnk.parentNode).html(_html);
+                                    lnk.hide();
+
+                                } else {
+                                    alert("保存修改失败");
+                                }
+                            }
+                        },
+                        error: function() {
+                            pnl.isbusy = false;
+                            alert("保存修改失败");
+                        }
+                    });
+                }
+
+                _main.html(pnl.mainHTML);
+                _main.insertAfter($(lnk.parentNode));
+                _main.show();
+
+                _main.name = _main.find("#txtName");
+                _main.email = _main.find("#txtEmail");
+                _main.mobile = _main.find("#txtMobile");
+
+                if (_email.length == 0 || pnl[_email]) {
+                    _main.email.removeAttr('disabled');
+                    var lblStar = _main.email.next();
+                    _main.mobile.attr('disabled', 'disabled');
+                    lblStar.insertAfter(_main.mobile);
+                    pnl[_email] = true;
+                }
+
+                $(lnk).html("取消修改");
+                _main.name.val(name);
+                _main.email.val(_email);
+                if (_email == "") _main.email.removeAttr('disabled');
+                _main.mobile.val(mobile);
+                $('tr.group_field').hide();
+                lnk.hide = function() {
+                    _main.remove();
+                }
+
+                _main.find("#btnSave").click(function() {
+                    var F = false,
+            name = _main.name.val(),
+            mobile = _main.mobile.val(),
+            email = _main.email.val();
+
+                    if (name.length == "") {
+                        FF.alert("请填写联系人姓名", function() { _main.name.focus() });
+                        return F;
+                    }
+                    if (name.getByteCount() > 100) {
+                        FF.alert("联系人姓名太长了", function() { _main.name.focus() });
+                        return F;
+                    }
+                    if (email.getByteCount() > 60) {
+                        FF.alert("电子邮箱地址太长了", function() { _main.email.focus() });
+                        return F;
+                    }
+                    if (email.length > 0 && !MailTool.checkEmail(email)) {
+                        FF.alert("电子邮箱地址格式不正确，请重新输入", function() { _main.email.focus() });
+                        return F;
+                    }
+                    if (mobile.getByteCount() > 100) {
+                        FF.alert("手机号码太长了", function() { _main.mobile.focus() });
+                        return F;
+                    }
+                    SaveContact("");
+                });
+            }
+
+        } //end if islocal
+
+    </script>
+
+</head>
+<body>
+    <div class="rightContentBg">
+        <div class="fileExpspInfo">
+            <span class="do4"></span><b class="fcI f16px">文件已发送！</b>
+
+            <script type="text/javascript">
+                var linkHtml = '<p><a href="largeattach_send.html?sid={0}#{1}">&lt;&lt;继续发送</a>\
+&nbsp;&nbsp;&nbsp;&nbsp;<a onclick="godisk()" style="cursor:pointer;">到暂存柜管理文件</a></p>'.format(top.$App.getSid(), pageMode);
+                document.write(linkHtml);
+            </script>
+
+            <div id='divMobileLimitTip' style="display: none">
+                温馨提示：接收方可直接下载3M内的文件，部分手机可能因仅支持较小文件<br />
+                或无法识别文件格式，导致下载失败。 <a href='javascript:;' onclick='dotnotShowTip();return false;'>以后不再提示</a></div>
+
+            <script type="text/javascript">
+                function godisk() {
+                    if (top && top.Links) {
+                        top.Links.show('diskDev', '&goid=9000', false);
+                    }
+                    else {
+                        location.href = "filelist.htm";
+                    }
+                }
+
+                function dotnotShowTip() {
+                    $("#divMobileLimitTip").hide();
+                    tempImg = new Image();
+                    tempImg.src = fileSharing.resolveUrl("setFlag");
+                }
+                var showQuicklyShareMobileLimitTip = top.showQuicklyShareMobileLimitTip;
+
+                if (isLocal()) {
+
+                    try {
+                        var response = external.Request('<command id="getstring"><stringid>showQuicklyShareMobileLimitTip</stringid></command>');
+                        var doc = getXmlDoc(response);
+                        showQuicklyShareMobileLimitTip = doc.documentElement.text == "true";
+                    } catch (e) { }
+
+                    var _url = C.getAPIUrl("GetUserAddrJsonData");
+                    var _data = "xml=<GetUserAddrData Record=\"2000\"></GetUserAddrData>";
+                    $(function() {
+                        $.ajax({
+                            url: _url,
+                            data: _data,
+                            success: function(response) {
+                                try {
+                                    window.eval(response.responseText || response);
+                                } catch (e) {
+                                    if (response.indexOf("<ResultCode>-100</ResultCode>") > 0) return;
+                                }
+                                doOnLoad();
+                            },
+                            error: function() { }
+                        });
+                    });
+                }
+
+                if (window.location.href.indexOf("&showMobileSizeTip") > 0 && showQuicklyShareMobileLimitTip) $("#divMobileLimitTip").show();
+            </script>
+
+        </div>
+        <div class="fileExpspInfo1">
+            <div class="fileExpcreateFolder">
+                <span class="fcI">已发送给：</span>
+
+                <script type="text/javascript">
+                    var strangeAddr = [];
+                    for (var i = 0; i < inputEmails.length; i++) {
+                        var not139 = true;
+                        var email = inputEmails[i];
+                        document.write('<p class="margin5">{0}<a style="display:{1}" href="javascript:sendSMS(\'{0}\');">发送短信通知</a></p>'.format(email, isLocal() ? "none" : ""));
+                        try {
+                            if (!C.isExistEmail(email)) strangeAddr.push(email);
+                        } catch (e) { }
+                    }
+
+                    for (var i = 0; i < inputMobiles.length; i++) {
+                        var number = inputMobiles[i];
+                        document.write('<p class="margin5">{0}</p>'.format(number));
+                        try {
+                            if (!C.isExistMobile(number)) strangeAddr.push(number);
+                        } catch (e) { }
+                    }
+                </script>
+
+            </div>
+            <div id="divContact">
+            </div>
+        </div>
+        <div id="divSaveToAddr">
+        </div>
+    </div>
+    <div id="pnlDetail" class="detail" style="display: none">
+        <p>
+            编辑联系人</p>
+        <table summary="">
+            <tbody>
+                <tr>
+                    <th>
+                        姓名:
+                    </th>
+                    <td>
+                        <input id="txtName" class="text" type="text" maxlength="100" name="name"><span>*必填</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        邮箱:
+                    </th>
+                    <td>
+                        <input id="txtEmail" class="text" type="text" maxlength="60" name="name" disabled="disabled"><span>*必填</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        手机:
+                    </th>
+                    <td>
+                        <input id="txtMobile" class="text" type="text" maxlength="100" name="name">
+                    </td>
+                </tr>
+                <tr class="group_field">
+                    <th>
+                        所属分组:
+                    </th>
+                    <td>
+                        <div class="saveGroup">
+                            <ul id="GroupsContainer">
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="group_field">
+                    <th>
+                    </th>
+                    <td class="addGroup">
+                        <a onclick="showadd(this,document)" href="javascript:void(0)">添加新组</a>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                    </th>
+                    <td>
+                        <button id="btnSave" type="button">
+                            保存信息</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script type="text/javascript">        //自动保存联系人
+        function doOnLoad() {
+            var json = window.GetUserAddrDataResp;
+            if (json && json.ResultCode == "0") {
+                json.Groups = json.Group || json.Groups;
+                C.data.userSerialId = json.UserSerialId;
+                C.data.TotalRecord = parseInt(json.TotalRecord);
+                var groups = C.data.groups = new Array(json.Groups.length);
+                var groupsMap = C.data.groupsMap = {};
+                for (var i = 0, gs = json.Groups, len = gs.length; i < len; i++) {
+                    var g = gs[i];
+                    groupsMap[g.gd] = groups[i] = {
+                        GroupId: g.gd,
+                        GroupName: g.gn,
+                        CntNum: g.cn
+                    };
+                }
+                if (!C.data.lastestContacts) {
+                    C.data.lastestContacts = [];
+                }
+                if (!C.data.closeContacts) {
+                    C.data.closeContacts = [];
+                }
+                var contacts = C.data.contacts = new Array(json.Contacts.length);
+                var contactsMap = C.data.ContactsMap = [];
+                for (var i = 0, cs = json.Contacts, len = cs.length; i < len; i++) {
+                    var c = cs[i];
+                    var info = new ContactsInfo({
+                        SerialId: c.sd,
+                        AddrFirstName: c.c,
+                        AddrSecondName: c.d,
+                        MobilePhone: c.p,
+                        BusinessMobile: c.q,
+                        OtherMobilePhone: c.w,
+                        FamilyEmail: c.y,
+                        BusinessEmail: c.z,
+                        OtherEmail: c.c2,
+                        FirstNameword: c.b3,
+                        FamilyFax: c.u,
+                        BusinessFax: c.t,
+                        OtherFax: c.x,
+                        ImageUrl: c.b8,
+                        Quanpin: c.d2,
+                        Jianpin: c.d3,
+                        CPName: c.a4,
+                        UserJob: c.c1
+                    });
+                    contacts[i] = info;
+                    contactsMap[c.sd] = info;
+                }
+                var map = C.data.map = new Array();
+                for (var i = 0, ms = json.GroupList, len = ms.length; i < len; i++) {
+                    var m = ms[i];
+                    if (contactsMap[m.sd]) {
+                        map.push({
+                            SerialId: m.sd,
+                            GroupId: m.gd
+                        });
+                    } else {
+                        if (groupsMap[m.gd]) groupsMap[m.gd].CntNum--;
+                    }
+                }
+                C.isReady = true;
+            }
+        }
+
+        var enableAutoSave = top.Contacts && top.Contacts.isAutoSaveContact && top.Contacts.isAutoSaveContact();
+
+        if (enableAutoSave) {
+            var del = C.DelSavedContact, mod = C.ModSavedContact, showadd = C.QuickAddGroup;
+            var pnl = { main: $('#pnlDetail'), mainHTML: $('#pnlDetail').html() };
+            try {
+                (function(c, t) {
+                    var from = t | 6, //发送媒介 + 文件快递Id
+                        contacts = c,
+                        recentMail = "发送了一次文件",
+                        panel = document.getElementById("divContact");
+                    var tm = setInterval(function() {
+                        if (C.isReady) {
+                        	// add by tkh
+							var list = [];
+							new M2012.UI.Widget.ContactsAutoSave({
+						        container:document.getElementById("divContact"),
+						        type: inputMobiles.length > 0 ? 'mobile' : 'email',
+						        list: list.concat(contacts)
+						    }).render();
+                        	
+                            //C.AutoSaveRecentContacts(contacts, from, panel, recentMail);
+                            clearInterval(tm);
+                        }
+                    }, 100);
+                })(strangeAddr, inputMobiles.length > 0 ? 0x20 : 0x10);
+            } catch (e) { }
+        } else {
+            C.createAddContactsPage({
+                type: inputMobiles.length > 0 ? 'mobile' : 'email',
+                emails: strangeAddr.join(','),
+                mobiles: strangeAddr.join(','),
+                container: $('#divSaveToAddr')
+            });
+        }
+    </script>
+<script language="javascript" type="text/javascript" charset="utf-8">
+try{
+    top.postJiFen(64,1);//文件快递发送成功积分上报
+}catch(e){}
+</script>
+</body>
+</html>

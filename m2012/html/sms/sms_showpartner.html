@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="pg-record" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <title>免费条数已超出</title>
+    <script type="text/javascript">
+//设域
+document.domain=window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+//获得资源路径
+var resourcePath=window.top.resourcePath;
+var supermanResourcePath=resourcePath.replace("coremail","sms");
+var htmlCode="";
+htmlCode+=getLinkTag(supermanResourcePath+"/css/style_bm.css?v=20111008");
+htmlCode+=getLinkTag(supermanResourcePath+"/css/lmd.css?v=20111008");
+var supermanResourcePath1=resourcePath.replace("coremail","superman");
+top.loadScript("jquery.js", document);
+top.loadScript("m2011.utilscontrols.pack.js", document);
+top.loadScript("/m2012/js/service/sms/m2011.sms.superman.js", document);
+document.write(htmlCode);
+function getJsTag(path,charset){
+    var html="<script charset='gb2312' src='"+path+"' type='text/javascript'></"+"script>";
+    if (charset) html = html.replace("gb2312",charset);
+    return html;
+}
+function getLinkTag(path){
+    var text="";
+    if(path)text="href='"+path+"'";
+    return "<link rel='stylesheet' type='text/css' "+text+" />";
+}
+</script>
+</head>
+<body>
+<form id="form1" runat="server">
+    <table width="100%" border="0" cellspacing="0" cellpadding="3">
+  <tr>
+    <td width="80" rowspan="3" align="center" valign="top"><img id="imgBigSpend" width="65" height="66" /></td>
+    <td style="font-size:14px; font-weight:bold;">您的自写短信免费条数已经用完！</td>
+  </tr>
+  <tr>
+    <td style="color:#999999; height: 25px;" id="feeInfo">
+        </td>
+  </tr>
+  <tr>
+    <td><a href="javascript:void(0);" style="margin-left:15px" class="green" onclick="top.FloatingFrame.close();"> &lt;&lt;继续发送</a>
+	<a href="javascript:void(0);" style="margin-left:15px" class="green"  onclick="SetNoShowPartner();return false;"> 我知道了，不再提醒&gt;&gt;</a></td>
+  </tr>
+</table>
+<div id="gd" style="display:none">
+<table width="400" border="0" cellspacing="0" cellpadding="2" style="margin-top:20px">
+  <tr>
+    <td style="font-size:14px;"><b style=" color:#444444;">您想获取更多优惠的自写短信吗？</b><a class="green" href="javascript:void(0);" onclick="javascript:window.top.Links.show('partner');top.FloatingFrame.close();">使用邮箱伴侣吧！</a></td>
+  </tr>
+  <tr>
+    <td height="23" valign="top" style="color:#999999">开通6元/月的邮箱伴侣，即可获得超值的移动增值服务大礼包哦！</td>
+  </tr>
+  <tr>
+    <td height="77" style="background-color:#ebf4d9; border:1px solid #87a34c; padding:5px; line-height:34px">
+	<div style="float:left; width:150px; color:#666666; margin-left:10px">
+	<li>赠送150条自写短信</li>
+	<li>赠送10页同城传真</li>
+	</div>
+	<div style="float:left; width:150px; color:#666666">
+	<li>赠送40条自写彩信</li>
+	<li>手机彩云容量增加2G</li>
+	</div>
+	</td>
+  </tr>
+  <tr>
+    <td height="60" align="center">
+      <label>
+          <input name="Submit" type="button" id="btnPartner"  onclick="window.top.Links.show('partner');top.FloatingFrame.close();"/>
+          </label>
+     </td>
+  </tr>
+</table>
+</div>
+
+<div id="ln" style="display:none">
+<table width="400" border="0" cellspacing="0" cellpadding="2" style="margin-top:20px">
+  <tr>
+    <td style="font-size:14px;"><b style=" color:#444444;">您想获取更多优惠的自写短信吗？</b><a class="green" href="javascript:void(0);" onclick="window.top.Links.show('partner');top.FloatingFrame.close();">使用邮箱伴侣吧！</a></td>
+  </tr>
+  <tr>
+    <td height="23" valign="top" style="color:#999999">开通5元/月的邮箱伴侣，即可获得超值的移动增值服务大礼包哦！</td>
+  </tr>
+  <tr>
+    <td height="77" style="background-color:#ebf4d9; border:1px solid #87a34c; padding:5px; line-height:34px">
+	<div style="float:left; width:150px; color:#666666; margin-left:10px">
+	<li>赠送60条自写短信</li>
+	</div>
+	<div style="float:left; width:150px; color:#666666">
+	<li>赠送10条自写彩信</li>
+	<li>手机彩云容量增加到10G</li>
+	</div>
+	</td>
+  </tr>
+  <tr>
+    <td height="60" align="center">
+      <label>
+          <input name="Submit" type="button" id="btnPartner2" onclick="window.top.Links.show('partner');top.FloatingFrame.close();"/>
+          </label>
+     </td>
+  </tr>
+</table>
+    </div>
+    </form>
+</body>
+    <script type="text/javascript">
+
+$("#imgBigSpend").attr("src",supermanResourcePath+"/images/icon-big-spend.gif");
+$("#feeInfo").html("超出的短信为"+Utils.queryString("Money")+"元/条");
+$("#btnPartner").attr("style","background:url("+supermanResourcePath+"/images/bt_iwant.gif) no-repeat; width:143px; height:37px; border:none; cursor:hand;");
+$("#btnPartner2").attr("style","background:url("+supermanResourcePath+"/images/bt_iwant.gif) no-repeat; width:143px; height:37px; border:none; cursor:hand;");
+
+$(function(){selectProcodePop();});
+ function SetNoShowPartner()
+ {         
+	$.ajax({
+		type: "post",//使用post方法访问后台
+		contentType: "application/xml;charset:utf-8",
+		dataType: "json",//返回json格式的数据
+		url: Common.getUrl("config"),//要发送的数据,
+        data: String.format(PostXML["Config_Xml"], 7, 1, "", ""),
+        error: function(err){top.FloatingFrame.alert(err.statusText);},
+		success: function(jdata){
+		    top.FloatingFrame.close();
+		}
+	});
+ }
+ 
+ function selectProcodePop()
+ {
+    if(window.top!=null && window.top.UserData!=null && window.top.UserData.provCode!=null)
+    {
+       if(window.top.UserData.provCode==1)
+       {
+          showDivGd(true);
+          showDivLn(false);
+       }
+       else if(window.top.UserData.provCode==7)
+       {
+          showDivGd(false);
+          showDivLn(true);
+       }
+    }
+ }
+ 
+ function showDivGd(flag)
+ {
+    var divIdGd = document.getElementById("gd");
+    if(flag)
+    {
+        divIdGd.style.display =""
+    }
+    else
+    {
+        divIdGd.style.display ="none"
+    }
+ }
+ 
+ function showDivLn(flag)
+ {
+    var divIdLn = document.getElementById("ln");
+    if(flag)
+    {
+        divIdLn.style.display =""
+    }
+    else
+    {
+        divIdLn.style.display ="none"
+    }
+ }
+    </script>
+
+</html>

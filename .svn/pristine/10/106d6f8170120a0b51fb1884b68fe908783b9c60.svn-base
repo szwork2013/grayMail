@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html>
+<html class="ifm">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>账单管理首页</title>
+
+<script type="text/javascript">
+    //设域
+    document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+    //获得资源路径
+    var resourcePath = window.top.rmResourcePath;
+    //写加载资源
+    var filePath = ('<link rel="stylesheet" rev="stylesheet" type="text/css" />\
+<link href="#resourcePath#/css/bill.css" rel="stylesheet" type="text/css" />\
+<script type="text/javascript" src="#resourcePath#/js/utils_controls.js" charset="gb2312"></' + 'script>\
+<script type="text/javascript" src="#resourcePath#/js/jquery.js" charset="gb2312"></' + 'script>').replace(/\#resourcePath\#/g, resourcePath);
+    document.write(filePath);
+</script>
+
+</head>
+<body>
+                                <div class="open_zd_l">
+									<form>
+										<div class="l_li">
+											<label class="label">业务单位：</label>
+											<div class="element">
+												<div>
+												  <select name="" class="form_sle" >
+													<option value="">上海自来水</option>
+													<option value="">上海自来水2</option>
+													<option value="">上海自来水3</option>
+													<option value="">上海自来水4</option>
+												</select>
+												</div>
+											</div>
+										</div>
+										<div class="l_li">
+											<label class="label">用户名：</label>
+											<div class="element">
+												<div><input type="text" class="form_text" />
+												</div>
+											</div>	
+										</div>
+										<div class="l_li">
+											<label class="label">用户编码：</label>
+											<div class="element">
+												<div>
+													<input type="text" class="form_text" />
+												</div>
+											</div>	
+										</div>
+										<div class="l_li">
+											<label class="label">条形码：</label>
+											<div class="element">
+												<div>
+													<input type="text" class="form_text" />
+												</div>
+											</div>	
+										</div>
+										<div class="l_li">
+											<label class="label"></label>
+											<div class="element">
+												<div>
+													<a class="btn139" href="###" onclick="subscribeBill(2,1,this)"><i class="l_border"></i>立即开通<i class="r_border"></i></a>
+												</div>
+											</div>	
+										</div>
+									</form>
+								</div>
+								<div class="open_zd_r">
+									<p class="open_zd_title">上海自来水市化有限公司</p>
+									<img src="../../images/bill_zd_explame.jpg" width="325" height="185" />
+									<p>（示例账单）</p>
+								</div>	
+<script>
+    //var middleServer="http://mw.mail.10086rd.cn/";
+    var middleServer = top.SiteConfig["billMiddleware"];
+    if (!middleServer) {
+        alert("服务器地址配置不正确");
+    }
+    function pageInit() {
+
+        var frm = document.createElement("iframe");
+        frm.id = "frmProxy";
+        frm.name = "frmProxy";
+        frm.style.display = "none";
+        document.body.appendChild(frm);
+        frm.style.display = "none";
+        frm.contentWindow.location.href = middleServer + "/proxy.htm";
+        var frm1 = document.createElement("iframe");
+        frm1.id = "frmProxy1";
+        frm1.name = "frmProxy1";
+        frm1.style.display = "none";
+        document.body.appendChild(frm1);
+        frm1.style.display = "none";
+        frm1.contentWindow.location.href = middleServer + "/proxy.htm";
+        $(frm).load(function () {
+            loadBillType();
+        });
+    }
+    function loadBillType() {
+        var url = middleServer + "/billsvr?func=bill:getTypeList&sid=" + top.sid;
+        var data = {};
+        data.targetServer = url;
+        data.ajax = window.frames["frmProxy"]._ajax;
+        RequestBuilder.call("", data, function (result) {
+            for (var i = 0, bills = result["var"], m = bills.length; i < m; i++) {
+                var status = bills[i].status == 2 ? "1" : "2";
+                if (bills[i].columnId == 2) {
+                    var width = "600";
+                    $(".element .btn139").parent().html('<a class="btn139" href="###" onclick="subscribeBill(' + bills[i].columnId + ',' + bills[i].billType + ',' + status + ',' + i + ',\'' + bills[i].columnName + '\',' + width + ')"><i class="l_border"></i>立即开通<i class="r_border"></i></a>');
+                }
+            }
+        });
+    }
+    function subscribeBill(columnId, billType, status, num, columnName, width) {
+        var url1 = middleServer + "/billsvr?func=bill:getTypeList&sid=" + top.sid;
+        var data1 = {};
+        var attrs = [];
+        data1.targetServer = url1;
+        data1.ajax = window.frames["frmProxy"]._ajax;
+        RequestBuilder.call("", data1, function (result) {
+            attrs = result["var"][num].attrs;
+            var attrsLen = attrs.length;
+            var date = new Date();
+            var time = date.format("yyyy-MM-dd");
+            var url = middleServer + "/billsvr?func=bill:setBill&sid=" + top.sid;
+            var userName = $(".form_text")[0].value;
+            var userNum = $(".form_text")[1].value;
+            var userBarcode = $(".form_text")[2].value;
+            var company = $(".form_sle option:selected").text();
+            var data = {
+                "deliverType": "C",
+                "billType": billType,
+                "status": status,
+                "attrs": attrs
+            }
+            var attrsList = {};
+            switch (attrsLen) {
+                case 0:
+                    attrsList = { a1Id: company, a1Phone: userName, a1Time: userNum, a1Company: userBarcode };
+                    break;
+                case 1:
+                    attrsList = { a2Id: company, a2Phone: userName, a2Time: userNum, a2Company: userBarcode };
+                    break;
+                case 2:
+                    attrsList = { a3Id: company, a3Phone: userName, a3Time: userNum, a3Company: userBarcode };
+                    break;
+                case 3:
+                    attrsList = { a4Id: company, a4Phone: userName, a4Time: userNum, a4Company: userBarcode };
+                    break;
+                case 4:
+                    attrsList = { a5Id: company, a5Phone: userName, a5Time: userNum, a5Company: userBarcode };
+                    break;
+            }
+            data.attrs.push(attrsList);
+            data.targetServer = url;
+            data.ajax = window.frames["frmProxy1"]._ajax;
+            RequestBuilder.call("", data, function (result) {
+                switchStatus(columnId, billType, status, num, columnName, width);
+                FloatingFrame.close();
+            });
+        });
+    }
+
+    function switchStatus(columnId, billType, status, num, columnName, width) {//切换订购状态显示
+        parent.window.document.getElementById("billmanager").contentWindow.$(".normal_a")[num].innerHTML = '<span class="b_ico b_ico_ok"></span>已开通 <a class="no_a" href="javascript:void(0)" onclick="showBill(\'' + columnName + '\',' + width + ')">账单管理</a>';
+
+    }
+    pageInit();
+  
+</script>
+</body>
+
+</html>

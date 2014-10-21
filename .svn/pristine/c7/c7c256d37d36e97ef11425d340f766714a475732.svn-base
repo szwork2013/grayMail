@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<script type="text/javascript">
+//设域
+document.domain=window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1].split(":")[0];
+
+var version = "20140815";
+//获得资源路径
+var resourcePath=window.top.resourcePath;
+
+
+var mmsResourcePath=resourcePath.replace("coremail","suppermms");
+var htmlCode="";
+htmlCode += getLinkTag("");
+
+
+htmlCode+=getLinkTag(mmsResourcePath+"/css/mms.css");
+
+top.loadScript("jquery.js", document);
+top.loadScript("m2011.utilscontrols.pack.js", document);
+top.loadScript("/m2012/js/matrixvm/page/m2011.page.RichInputBox.js", document);
+top.loadScript("/m2012/js/matrixvm/page/m2011.page.floatTips.js", document);
+top.loadScript("/m2012/js/service/mms/m2011.mms.mms.js", document);
+top.loadScript("/m2012/js/service/mms/m2011.mms.script.js", document);
+
+document.write(htmlCode);
+function getJsTag(path,charset){
+	return "<script charset='" + (charset || "utf-8") + "' src='" + path + "?v=" + version + "' type='text/javascript'></" + "script>";
+}
+function getLinkTag(path){
+	var text="";
+	if(path){
+		 text = "href='" + path + "?v" + version + "'";
+	}
+	return "<link rel='stylesheet' type='text/css' " + text + " />";
+}
+</script>
+<link rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+    Utils.loadSkinCss(null,document,"mms");
+</script>
+</head>
+<body>
+
+<div class="container">
+	<div class="header">
+    	<ul class="nav clr">
+            <li><a id="aToolsFactory">彩信仓库</a></li>
+            <li><a  id="aToolsDIY">自制彩信</a></li>
+            <li><a  id="aToolsmmsSend">发彩字</a></li>
+            <li class="curr_n"><a>彩信记录</a></li>
+        </ul>
+        <!--<em style="right: 70px;"><a target="_blank" href="http://mms0.mail.10086.cn/ad.html?v=20110414">彩信升级公告</a></em> 
+        <em><a href="javascript:void(0);" id="aSuggest">意见反馈</a></em>-->
+    </div>
+    <div class="wrap">
+	    <div class="aside w204">
+            <div class="side_wrap" style="padding:4px;">
+            	<div class="search">
+                	<input type="text" class="ipt_t def_txt" id="txtSubject" maxlength="25" value="查找彩信记录"/>
+					<a id="btnSearch" href="javascript:;" class="btnNm"><i class="but_lIco"></i><span class="but_bg-x">搜索</span><i class="but_rIco"></i></a>
+                </div>
+            	<div class="side_box">
+                    <div class="panel" id="divPanel">
+                    	<dl class="list" id="dlList">
+                        	<dd><a href="javascript:" typeGroup="recordType" typeValue="0" class="current" >彩信记录</a></dd>
+                            <dd><a href="javascript:" typeGroup="recordType" typeValue="1">已发送</a></dd>
+                            <dd><a href="javascript:" typeGroup="recordType" typeValue="2">定时发送</a></dd>
+                            <dd><a href="javascript:" typeGroup="recordType" typeValue="3">彩信珍藏</a></dd>
+							<dd><a href="javascript:" typeGroup="recordType" typeValue="4">草稿箱</a></dd>
+                            
+                        	<dt>按时间查找</dt>
+                        	<dd><a href="javascript:" typeGroup="dateType" typeValue="0" class="current" >全部时间</a></dd>
+                            <dd><a href="javascript:" typeGroup="dateType" typeValue="1">今天发送</a></dd>
+                            <dd><a href="javascript:" typeGroup="dateType" typeValue="2">本周发送</a></dd>
+                            <dd><a href="javascript:" typeGroup="dateType" typeValue="3">本月发送</a></dd>
+                            
+                            <dt id="dtDestUser">按联系人查找</dt>
+                            <dd class="scroll_box" id="scrollBox"></dd>
+                        </dl>
+                        <a href="javascript:" class="more" hrefType="moreDestUser" id="hrMoreDestUser">查看更多</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    	<div class="bd record">
+        	<h1 id="hRecordCountText"></h1>
+        	<div class="toolbar toolbar_page">
+				<ul class="pageCountBar" id="ulPageTurner">
+					<li class="prev"><a href="javascript:;"><span>上一页</span></a></li>
+					<li class="next"><a href="javascript:;"><span>下一页</span></a></li>
+					<li class="selPages" style="margin-left:10px;">
+						<a href="javascript:;"><span class="curPage"></span><i class="sjdown"></i></a>
+						<ul class="selectPage" style="display:none;">
+						</ul>
+					</li>
+				</ul>
+				<a href="javascript:;" class="btnDel btnNm"><i class="but_lIco"></i><span class="but_bg-x">删除</span><i class="but_rIco"></i></a>
+				<a id="" href="javascript:;" class="btnCopy btnNm"><i class="but_lIco"></i><span class="but_bg-x">复制到彩信珍藏</span><i class="but_rIco"></i></a>
+            </div>
+            <p class="func">全选</p>
+            <div class="content" id="divContent">
+                   <ul class="rec_list clr" id="ulMmsContent">
+                   </ul>
+                   <p class="no_record" id="pNoRecord" style="display:none">
+                	    暂无彩信记录，<a href="javascript:" id="hrefSendMms">发彩信</a>
+                   </p>
+                   <p class="no_record" id="pNoCollect" style="display:none">
+                	    暂无珍藏。
+                   </p>
+                   <p class="no_record" id="defNoRecord"></p>
+            </div>
+            <p class="func">全选</p>
+            <div class="toolbar toolbar_page">
+				<ul class="pageCountBar" id="ulPageTurner">
+					<li class="prev"><a href="javascript:;"><span>上一页</span></a></li>
+					<li class="next"><a href="javascript:;"><span>下一页</span></a></li>
+					<li class="selPages" style="margin-left:10px;">
+						<a href="javascript:;"><span class="curPage"></span><i class="sjup"></i></a>
+						<ul class="selectPage ultop" style="display:none;">
+						</ul>
+					</li>
+				</ul>
+	            <a href="javascript:;" class="btnDel btnNm"><i class="but_lIco"></i><span class="but_bg-x">删除</span><i class="but_rIco"></i></a>
+				<a id="" href="javascript:;" class="btnCopy btnNm"><i class="but_lIco"></i><span class="but_bg-x">复制到彩信珍藏</span><i class="but_rIco"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function()
+    {
+        //初始化导航 
+        MMSCommonHelper.InitTools(); 
+        var obj=new mmsRecord();
+        obj.initData();
+    });
+</script>
+<script type="text/javascript">top.loadCSS(["module/fontbase.css"], document);</script>
+</body>
+</html>

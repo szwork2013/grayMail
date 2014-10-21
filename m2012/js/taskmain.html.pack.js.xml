@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<project name="build_pack" default="packFile">
+    <target name="packFile">
+        <concat destfile="./packs/taskmain.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+			<fileset dir="./prod/mytask" includes="**/newtaskmonth.js"/> 
+        </concat>
+    </target>
+</project>

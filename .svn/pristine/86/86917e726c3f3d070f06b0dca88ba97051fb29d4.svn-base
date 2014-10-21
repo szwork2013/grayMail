@@ -1,0 +1,328 @@
+﻿<!DOCTYPE html>
+<html class="ifm">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>账单管理首页</title>
+
+<script type="text/javascript">
+    //设域
+    document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+	//获得资源路径
+	var resourcePath = top.domainList.global.rmResourcePath;
+    //写加载资源
+    /*
+	var filePath = ('<link href="#resourcePath#/css/min_global_all.css" rel="stylesheet" type="text/css" />\
+                     <link href="#resourcePath#/css/bill.css" rel="stylesheet" type="text/css" />\
+                     <script type="text/javascript" src="#resourcePath#/js/utils_controls.js" charset="gb2312"></' + 'script>\
+                     <script type="text/javascript" src="#resourcePath#/js/jquery.js" charset="gb2312"></' + 'script>')
+                     .replace(/\#resourcePath\#/g, resourcePath);
+    document.write(filePath);
+	*/
+	top.loadCSS([ resourcePath + "/css/min_global_all.css",resourcePath + "/css/bill.css",resourcePath + "/css/bill_skin_snow.css"], document); //加载旧版样式
+	top.loadScript('libs.pack.js', document);
+	top.loadScript('m139.core.pack.js', document);
+</script>
+
+</head>
+<body>
+<div id="trafic_open" style="display:none;">
+    <div style="padding:20px 0 0 20px;">
+        <p style="height:14px;"><em id="error" style="color:#990000; padding-left:30px; display:none;"></em></p>
+        <table class="car_inqure">
+            <tbody>
+                <tr style="">
+                    <td class="car_clasy" style="">车牌号：</td>
+                    <td class="pt5"><input id="carNum" name="carNum" maxlength="8" type="text" value="粤B"></td>
+                </tr>
+                <tr>
+                    <td class="car_clasy">机动车类型：</td>
+                    <td class="pt5">
+                        <ul class="mail_storing tips_stor">
+                            <li style="margin:0;">
+                                <a id="carType" href="javascript:;" class="pageStyles" style="width:180px; margin-right:0;">
+                                    <em id="carTypeVal" val=""></em> 
+                                    <i class="dot_ddl dot_t" style="left:18px; *left:12px;"></i> 
+                                </a>
+                                <dl id="carTypeList" class="search_drop" style="width:180px; height:120px; overflow-y:scroll;left:100px; top:113px; display:none;">
+                                </dl>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="car_clasy">车架后四位：</td>
+                    <td class="pt5"><input id="carLast4digits" name="carLast4digits" maxlength="4" type="text"></td>
+                </tr>
+                <tr>
+                    <td class="car_clasy"></td>
+                    <td class="pt5"><img id="imageLoading" style="margin-left:20px; padding-top:6px; display:none;" alt="加载中" src=""></td>
+                </tr>
+                <tr>
+                    <td class="car_clasy"></td>
+                    <td class="pt5"><a id="openBillBtn" href="javascript:;" onclick="openBill();" class="but YesButton">立即开通</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="car_bill">
+        <p class="car_p1">免费为您提供短信违章提醒及交通违章邮件账单；
+        <br />免费获取最新的交通管理资讯；
+        <br />拨打12580 或 发送短信 DZ# 驾驶证号 到 106571208400218 绑定更多车辆违章服务；
+        <br />发送短信 H 到106571208400218 获取更多帮助；
+        </p>
+        <p class="car_p2">该服务由深圳移动无线城市提供</p>
+    </div>
+</div>
+
+<div id="trafic_unsubscribe" style="display:none;">
+    <table id="trafic_list" class="bus_inf"></table>
+    <br />
+    <p style="height:14px;text-align:center;"><em id="error2" style="color:#990000; display:none;"></em></p>
+</div>
+
+<script>
+
+//var middleServer = "http://mw.mail.10086rd.cn/setting2/";
+//var middleServer = top.SiteConfig["selfSearchUrl"];
+
+/*
+var type = Utils.queryString("type");
+var numval = Utils.queryString("num");
+*/
+
+var mailboxModel = new top.M2012.Mailbox.Model.Mailbox();
+
+var type = $T.Url.queryString("type");
+var numval = $T.Url.queryString("num");
+
+var carModels = [
+    { id : 1 ,  name:'大型汽车（黄牌）'},
+    { id : 2 ,  name:'小型汽车（蓝牌）'},
+    { id : 3 ,  name:'使馆汽车'},
+    { id : 4 ,  name:'领馆汽车'},
+    { id : 5 ,  name:'境外汽车'},
+    { id : 6 ,  name:'外籍汽车（黑牌）'},
+    { id : 7 ,  name:'两、三轮摩托车'},
+    { id : 8 ,  name:'轻便摩托车'},
+    { id : 9 ,  name:'使馆摩托车'},
+    { id : 10 , name:'领馆摩托车'},
+    { id : 11 , name:'境外摩托车'},
+    { id : 12 , name:'外籍摩托车'},
+    { id : 13 , name:'农用运输车'},
+    { id : 14 , name:'拖拉机'},
+    { id : 15 , name:'挂车'},
+    { id : 16 , name:'教练汽车'},
+    { id : 17 , name:'教练摩托车'},
+    { id : 18 , name:'试验汽车'},
+    { id : 19 , name:'试验摩托车'},
+    { id : 20 , name:'临时入境汽车'},
+    { id : 21 , name:'临时入境摩托车'},
+    { id : 22 , name:'临时行驶车'},
+    { id : 23 , name:'警用汽车（白牌）'},
+    { id : 24 , name:'警用摩托'}
+];
+
+$(function(){
+    pageInit();
+    if(type == 'trafic_open' || type == 'trafic_more'){
+        $('#trafic_open').show();
+        carTypeListInit();
+        //显示车辆类型
+        $('#carType').click(function(){
+            var carTypeList = $('#carTypeList');
+            carTypeList.toggle();
+        });
+        //select 选择车辆类型
+        $('#carTypeList a').click(function(){
+            var text = $(this).text();
+            var val = $(this).attr('val');
+            $('#carTypeVal').text(text).attr('val',val);
+            $(this).parent().parent().hide();
+        });
+        $('#carNum').focus();
+        if(type == 'trafic_more'){
+            $('#openBillBtn').text('添加车牌');
+        }
+    }else if(type == 'trafic_unsubscribe'){
+        renderTraficlist();
+        $('#trafic_unsubscribe').show();
+    }
+});
+function renderTraficlist(){
+        var bill_data = top.traficBillData;
+        var html = '<tr style="background:#eef3f7;">'
+                 + '<td>车牌号</td><td>机动车类型</td><td>开通日期</td><td>操作</td>'
+                 + '</tr>';
+        for(var i=0; i<bill_data.length; i++){
+            var bill = bill_data[i];
+            html += '<tr>'
+                 + '<td>'+ bill.car_num +'</td>'
+             + '<td>'+ carModels[parseInt(bill.models) - 1].name +'</td>'
+                 + '<td>'+ bill.create_time.substring(0,10) +'</td>'
+             + '<td><a onclick="unsubscribeBill('+ bill.cxbd_id +','+ i +');" href="javascript:;">退订</a></td>'
+                 + '</tr>';
+        }
+    $('#trafic_list').html(html);
+    resetHeight();
+}
+
+function resetHeight(){
+    var height = 54 + (26 * top.traficBillData.length);
+    top.FF.setHeight(height);
+}
+
+function carTypeListInit(){
+    var carTypeList = $('#carTypeList');
+    var html = '';
+    for(var i=0;i<carModels.length;i++){
+        var car = carModels[i];
+        html += '<dt><a href="javascript:;" val="'+ car.id +'">'+ car.name +'</a></dt>';
+    }
+    carTypeList.html(html);
+    $('#carTypeVal').text(carModels[1].name).attr('val',carModels[1].id);
+}
+
+function pageInit(){
+	/*
+    var frm=document.createElement("iframe");
+    frm.id="frmProxy";
+    frm.name="frmProxy";
+    frm.style.display="none";
+    document.body.appendChild(frm);
+    frm.style.display="none";
+    frm.contentWindow.location.href=middleServer+"proxy.htm";
+    $(frm).load(function(){ });
+	*/
+}
+
+
+//开通
+function openBill(){
+    if(!checkInput()){
+        return;
+    }
+    $('#error').hide();
+    //loading
+    $('#imageLoading').attr('src', resourcePath + '/images/load.gif').show();
+    
+    var carNumVal = $('#carNum').val();
+    carNumVal = carNumVal.trim();
+    var carLast4digits = $('#carLast4digits').val();
+    carLast4digits = carLast4digits.trim();
+    
+    var data = {
+        //"columnId" : 4,
+        //"status"   : 1,
+        //"car_num"  : carNumVal.toUpperCase(),
+        //"car_framenum" : carLast4digits,
+        "carNum"  : carNumVal.toUpperCase(),
+        "carFramenum" : carLast4digits,
+        "models"   : parseInt($('#carTypeVal').attr('val'))
+    };
+    
+    submitData('bill:openTrafficBill', data, function (result) {
+        $('#imageLoading').hide();
+        var code = result["code"];
+        if(code == "S_OK"){
+            var pdoc = top.window.document;
+            $(pdoc).find("#billManager")[0].contentWindow.switchStatus(13,4,1,numval,'深圳交通违章提醒账单');
+            //top.traficBillData.push(result["record"]);
+            top.traficBillData.unshift(result["record"]);
+            top.addBehavior("账单中心-定制成功深圳交通违章信息");
+            top.FF.close();
+        }else{
+            if(result["msg"]) errorTip(result["msg"]);
+            else if(result["summary"]) errorTip(result["summary"]);
+        }
+    });
+    return false;
+}
+
+//退订
+function unsubscribeBill(cxbd_id,i){
+    var data = {
+        //"columnId" : 4,
+        //"status"   : 3,
+        //"cxbd_id"  : cxbd_id
+        "cxbdId"  : cxbd_id
+    };
+    submitData('bill:clossTrafficBill', data , function (result) {
+        var code = result["code"];
+        if(code == "S_OK"){
+            top.addBehavior("账单中心-成功退订深圳交通违章信息");
+            top.traficBillData.splice(i,1);
+            if(top.traficBillData.length > 0){
+                renderTraficlist();
+            }else{
+            var pdoc = top.window.document;
+            $(pdoc).find("#billManager")[0].contentWindow.switchStatus(13,4,2,numval,'深圳交通违章提醒账单');
+                top.traficBillData = [];
+            top.FF.close();
+            }
+        }else{
+            if(result["msg"]) errorTip(result["msg"],$('#error2'));
+            else if(result["summary"]) errorTip(result["summary"],$('#error2'));
+        }
+    });
+}
+
+//提交数据
+function submitData(api,data,callback){
+	mailboxModel.setszjtBill = function(data,callback){
+		var self = this;
+		top.M139.RichMail.API.call(api, data, function(response) {
+			callback && callback(response.responseData);	
+		}); 
+	}
+	mailboxModel.setszjtBill(data,callback);
+}
+
+//输入检查
+function checkInput(){
+    var carNumVal = $('#carNum').val();
+    carNumVal = carNumVal.trim();
+    var carLast4digits = $('#carLast4digits').val();
+    carLast4digits = carLast4digits.trim();
+    if(!checkCarNum(carNumVal)) return false;
+    if(!checkCarLast4digits(carLast4digits)) return false;
+    return true;
+}
+
+//验证车牌号
+function checkCarNum(num){
+    if(num == ''){
+        errorTip('车牌号不能为空');
+        return false;
+    }
+    var isCarNum = /^[\u4e00-\u9fa5]{1}[a-zA-Z]{1}[a-zA-Z0-9]{4,5}[a-zA-Z0-9\u4e00-\u9fa5]{1}$/.test(num);
+    if(!isCarNum){
+        errorTip('您输入的车牌格式不正确，请重新输入');
+        return false;
+    }
+    return true;
+}
+
+//验证车架后四位
+function checkCarLast4digits(num){
+    if(num == ''){
+        errorTip('车架后四位不能为空');
+        return false;
+    }
+    var isStr = /^[0-9]{4}$/.test(num);
+    if(!isStr){
+        errorTip('请输入正确的车架后四位');
+        return false;
+    }
+    return true;
+}
+
+//错误提示
+function errorTip(msg,el){
+    if(el) el.text(msg).show();
+    else $('#error').text(msg).show();
+}
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,202 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="page-friend-share" xmlns="http://www.w3.org/1999/xhtml" style="background: #fff;">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <title>好友共享</title>
+
+    <script type="text/javascript">
+        //设域
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1].replace(/:\d+/, "");
+
+        top.loadCSS(["common/global.css"], document);
+        top.loadScript('libs.pack.js', document);
+        top.loadScript('m139.core.pack.js', document);
+        top.loadScript("m2012.ui.common.pack.js", document);
+    </script>
+    <script type="text/javascript">
+        //加载CSS和JS,CommonInit(当前document,彩云最顶层window)
+        window.parent.CommonInit(document,window.parent,
+                [{"dirName": "js/", fileName:"m2011.disk.listpager.js"}, {"dirName": "js/", fileName:"m2011.disk.share.js"}]);
+    </script>
+    <script type="text/javascript">
+        //加载皮肤
+        Utils.loadSkinCss(null, document, "netdisk");
+        top.loadCSS(["module/fontbase.css"], document);
+    </script>
+</head>
+<script>top.loadCSS(["common/global.css", "module/FileExtract/extract.css", "module/networkDisk/networkDisk.css"], document);</script>
+<style type="text/css">
+.thumbnail { border : none;}
+.addr-imgInfo{ margin-top: 100px;}
+.tbl-list td{ border-top:0px;}
+.t-checked2 td{background-color:#f2f2f2;}
+.t-hover td{background-color:#f8f8f8;}
+</style>
+<body>
+    <div id="sortMenus" class="menuPop  shadow" style="display:none;" bindautohide="1">
+        <ul>
+            <li name="name-desc"><a href="javascript:void(0);"><i class="i_b_right"></i><span class="text">按名称</span></a></li>
+            <li name="date-desc" class="cur"><a href="javascript:void(0);"><i class="i_b_right"></i><span class="text">按上传时间<em class="downRinking">↓</em></span></a></li>
+            <li name="size-desc"><a href="javascript:void(0);"><i class="i_b_right"></i><span class="text">按大小</span></a></li>
+            <li name="type-desc"><a href="javascript:void(0);"><i class="i_b_right"></i><span class="text">按类型</span></a></li>
+        </ul>
+    </div>
+    <div id="container">
+        <!--<div class="inboxHeader netdiskdiv crumb pl_10">
+            <span class="fl ml_10"><strong>好友共享：</strong>(共0个文件)</span>
+        </div>-->
+        <div class="toolBar bgMargin border-btm">
+        <ul class="toolBarUl" style="display: block;">            
+            <li class="mr_0">
+                <a id="btnDown" bh="diskv2_download_package" href="javascript:void(0)" class="btnTb">
+                    <span class="p_relative">下载</span>
+                </a>
+            </li>
+            <li class="mr_0">
+                <a id="btnCopy" href="javascript:void(0)" class="btnTb ml_6">
+                    <span class="p_relative">存彩云网盘</span>
+                </a>
+            </li>
+            <li class="mr_0">
+                <a id="btncancel" href="javascript:void(0)" class="btnTb ml_6">
+					<span class="p_relative">删除</span>
+                </a>
+            </li>
+        </ul>
+		<div id="filelist_pager"></div>
+        <a href="javascript:void(0)" class="diskSortTitle pagenum" style="float:right;" id="sortDock"><span class="pagenumtext">排序</span></a>
+    </div>
+        <div class="rcd-hd hide">
+            <div class="page">
+                <a href="#" style="display: none"></a><a href="#">上一页</a> <a href="#">下一页</a> <a
+                    href="#" style="display: none"></a>
+                <select keyname="pagerSelect">
+                </select>
+            </div>
+            <div class="diskSortWrap">
+                <a class="diskSortTitle">排序 </a>
+                <ul class="diskSort" style="display: none;">
+                    <li><a href="javascript:;" id="date-desc">时间从新到旧时</a></li>
+                    <li><a href="javascript:;" id="date-asc">时间从旧到新时</a></li>
+                    <li><a href="javascript:;" id="size-asc">文件从大到小</a></li>
+                    <li><a href="javascript:;" id="size-desc">文件从小到大</a></li>
+                    <li><a href="javascript:;" id="type-asc">按文件类型升序</a></li>
+                    <li><a href="javascript:;" id="type-desc">按文件类型降序</a></li>
+                    <li><a href="javascript:;" id="name-asc">按文件名升序</a></li>
+                    <li><a href="javascript:;" id="name-desc">按文件名降序</a></li>
+                </ul>
+            </div>
+            <div id="divcopyto" class="drop-menu sent-locker" style="display: none;">
+                <ul id="ulDownList" style="width: auto;">
+                </ul>
+            </div>
+            <button class="include-i" id="btnDown">
+                下载<i class="i-download"></i></button>
+            <button class="include-i" id="btnCopy">
+                复制到<i class="i-list"></i></button>
+            <button id="btncancel">
+                删除</button>
+        </div>
+		<div class="diskTableList onScollTable" style="display:none;" id="tbl-list">
+                <table cellspacing="0" cellpadding="0" class="listHead newShareTable" id="sort2">
+					<thead>
+                    <tr>
+                        <th class="t-check wh1" style="text-align: center; vertical-align: middle;">
+                            <label id="lblSelectAllFile" for="cbSelectAllFile" style="display:none">
+                            全选</label>
+                        <input  type="checkbox" id="cbSelectAllFile" />
+                        </th>
+                        <th class="t-type wh2" title="点击按类型排序">类型<span class="t-arrow"></span></th>
+                        <th class="t-name " title="点击按名称排序">名称<span class="t-arrow"></span></th>
+                        <th class="t-sName wh4">分享人</th>
+                        <th class="t-date wh5" title="点击按时间排序">时间<span class="t-arrow"></span></th>
+						<th class="t-size wh6" title="点击按大小排序">大小<span class="t-arrow"></span></th>
+                    </tr>
+					</thead>
+                </table>
+		</div>
+        <table cellpadding="0" class="tbl-list" style="display: none;">
+            <thead>
+                <tr>
+                    <th class="t-check">
+                        <label id="lblSelectAllFile" for="cbSelectAllFile" style="display:none">
+                            全选</label>
+                        <input  type="checkbox" id="cbSelectAllFile" />
+                    </th>
+                    <th class="t-type" title="点击按类型排序">
+                        类型<span class="t-arrow"></span>
+                    </th>
+                    <th class="t-name" title="点击按名称排序">
+                        名称<span class="t-arrow"></span>
+                    </th>
+                    <th class="t-sName"  style='width:150px'>
+                        共享人
+                    </th>
+                    <th class="t-date" title="点击按时间排序">
+                        时间<span class="t-arrow"></span>
+                    </th>
+                    <th class="t-size" title="点击按大小排序">
+                        大小<span class="t-arrow"></span>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+        <div class="tbl-list-return">
+            <p>
+                <a href="javascript:void(0)" title="返回上级">返回上级</a>
+            </p>
+        </div>
+        <div>
+		<div id="d_page" style="display: none" class="imgInfo addr-imgInfo ta_c">
+			<dl>
+				<dt><img src="../../images/module/networkDisk/sahreJpg.jpg" /></dt>
+				<dd>
+					<p class="fz_14">暂无文件</p>
+				</dd>
+				<dd>
+					<p>好友分享给你的文件、文件夹会出现在这里哦！</p>
+				</dd>
+			</dl>
+		</div>
+        </div>
+		<div class="appendixList p_relative" style="margin-top:0px;">
+        <table cellpadding="0" class="tbl-list listHead newShareTable">
+            <tbody id="tblist">
+            </tbody>
+        </table>
+		</div>
+        <!--<table cellpadding="0" class="tbl-list">
+            <tr class="tfoot">
+                <th class="t-check">
+                    <label id="lblSelectAllFile2" for="cbSelectAllFile" style="display:none">
+                        全选</label>
+                </th>
+                <th>
+                </th>
+            </tr>
+        </table>-->
+        <div class="rcd-hd" style="display: none;">
+            <div class="page">
+                <a href="#" style="display: none"></a><a href="#">上一页</a> <a href="#">下一页</a> <a
+                    href="#" style="display: none"></a>
+                <select>
+                </select>
+            </div>
+            <div id="divcopyto2" class="drop-menu sent-locker" style="display: none;">
+                <ul id="ulDownList2" style="width: auto;">
+                </ul>
+            </div>
+            <button class="include-i" id="btnDown2">
+                下载<i class="i-download"></i></button>
+            <button class="include-i" id="btnCopy2">
+                复制到<i class="i-list"></i></button>
+            <button id="btncancel2">
+                删除</button>
+        </div>
+    </div>
+    <input type="hidden" id="hidfriendid" value="" />
+    <iframe id="iframecgi" width="0" frameborder="no" height="0"></iframe>
+</body>
+<script>
+</script>
+</html>

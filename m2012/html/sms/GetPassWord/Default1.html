@@ -1,0 +1,315 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <title>忘记密码</title>
+
+    <script type="text/javascript">
+        //设域
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+        //获得资源路径
+        var resourcePath = window.top.resourcePath;
+        var supermanResourcePath = resourcePath.replace("coremail", "superman");
+        var htmlCode = "";
+        htmlCode += getLinkTag("");
+        htmlCode += getLinkTag(resourcePath + "/css/supersms.css?v=20101026");
+        
+        top.loadScript("jquery.js", document);
+        top.loadScript("/m2012/js/packs/m2011.utilscontrols.pack.js", document);
+
+        document.write(htmlCode);
+        function getJsTag(path, charset) {
+            var html = "<script src='" + path + "' type='text/javascript'></" + "script>";
+            if (charset) html = html.replace("gb2312", charset);
+            return html;
+        }
+        function getLinkTag(path) {
+            var text = "";
+            if (path) text = "href='" + path + "'";
+            return "<link rel='stylesheet' type='text/css' " + text + " />";
+        }
+    </script>
+
+    <link rel="stylesheet" type="text/css" />
+
+    <script type="text/javascript">
+        Utils.loadSkinCss(null, document, "supersms");
+    </script>
+
+</head>
+<body>
+<div id="yzm" style="position: absolute; border: 1px #a4acbf solid; padding: 8px 10px; width: 260px; background-color: #FFF; display:none;">
+			<table border="0" >
+				<tr>
+					<td width="180"><img id="yangzhengma" style="border: 0" src="" /></td>
+					<td>
+					<p style="font-size: 14px; font-weight: 700; line-height: 17px;">图案显示的是什么？</p>
+					<p style="padding-top: 4px;"><a href="javascript:;" style="color:#2D5169; text-decoration: underline;" id="cantsee">看不清换一张</a></p></td>
+				</tr>
+				<tr>
+					<td><p style="padding-top: 5px;clear: both;font-weight: 700;height: 21px;line-height: 21px;">请输入答案前的 <span style="color: #ff6600;">数字或字母</span></p></td>
+					<td>&nbsp;</td>
+				</tr>
+			</table>
+</div>
+    <div id="container">
+        <div id="header">
+            <ul class="nav-hd" >
+                <li><a href="../sms_send.html">发短信</a></li>
+                <li class="current"><a id='recordSetting'>短信记录</a>
+					<a  id='recordSms'>
+						<i class="i-lock" id="lock" style="display: none;"></i>
+					</a>
+				</li>
+                <li><a href="javascript:;" onclick="top.Links.show('mms');return false;">发彩信</a></li>
+                <li><a href="javascript:;" onclick="top.Links.show('greetingcard');return false;">发贺卡</a></li>
+            </ul>
+            <a href="javascript:void(0)" class="m-l" id="aOpenCalendar" behavior="日程提醒" ext="5"
+                title="如您设置了约会、生日或备忘提醒，系统会在您指定的时间点，通过短信或邮件提醒您。" style="display: none">日程提醒</a>
+            <p style="display: none">
+                <a id="aFileUpload" behavior="短信超人-文件快递" href="javascript:void(0)">快速把文件发送到手机&gt;&gt;</a></p>
+        </div>
+        <div class="wrapper">
+            <div class="find-pwd">
+                <ul class="crumb">
+                    <li class="current">验证手机号码</li>
+                    <li class="s">&gt;&gt;</li>
+                    <li>设置新密码</li>
+                    <li class="s">&gt;&gt;</li>
+                    <li>完成</li>
+                </ul>
+                <div class="pwd-pannel-1">
+                    <fieldset>
+                        <legend><span>短信验证码将下发到您的手机，请注意查收。收取短信验证码是免费的。</span></legend>
+                        <div class="hd">
+                            <span class="rc5"></span><span class="rc4"></span><span class="rc3"></span><span
+                                class="rc2"></span><span class="rc1"></span>
+                        </div>
+                        <div class="bd">
+                            <table cellpadding="0">
+                                <tr>
+                                    <th>
+                                        手机号码
+                                    </th>
+                                    <td>
+                                        <span id="lbnumber" class="text-disable"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        图片验证码
+                                    </th>
+                                    <td>
+                                        <span id="" class=""><input id="imgCode" name="imgCode" type="text" maxlength="1" placeholder="点击获取图片验证码"></span>
+                                    </td>
+                                </tr>
+								<!--
+								<tr>
+                                    <th>
+                                        验证码
+                                    </th>
+                                    <td>
+                                        <span class=""><img id="yangzhengma" style="border: 0" src="" /></span><a href="javascript:;" id="cantsee">看不清，换一张</a>
+                                    </td>
+                                </tr>
+								-->
+								
+                                <tr>
+                                    <th>
+                                    </th>
+                                    <td>
+                                        <input name="btnLeftTime" id="btnLeftTime" type="button" class="button" value="60秒后可重新获取短信验证码"
+                                            style="display: none" disabled="disabled" />
+                                        <input name="btnGetSms" class="button" type="button" id="btnGetSms" value="获取短信验证码" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        短信验证码
+                                    </th>
+                                    <td>
+                                        <input name="txtSmsCode" tabindex="1" id="txtSmsCode" type="text" onkeydown="if(event.keyCode==13) txtSmsCodeKeyPress();" /><span
+                                            class="succeed" id="spSuccCode" style="display: none"></span><span><span class="error"
+                                                id="spErrorCode" style="display: none"><span class="input-check-tip" id="spErrorCodeInfo"><i
+                                                    class="i-error"></i>请输入短信验证码。</span></span></span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="ft">
+                            <span class="rc1"></span><span class="rc2"></span><span class="rc3"></span><span
+                                class="rc4"></span><span class="rc5"></span>
+                        </div>
+                    </fieldset>
+                    <input name="btnNext" type="button" tabindex="2" id="btnNext" class="button" value="下一步" />
+                    <input name="btnBack" type="button" tabindex="3" id="btnBack" class="button" value="返回"
+                        style="margin-left: 20px;" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Main End -->
+    <input type="hidden" id="hdErrorInfo" value="" />
+    <input type="hidden" id="hdErrorCodeInfo" value="" />
+
+    <script language="javascript" src="GetPsw_Default1.js"></script>
+
+</body>
+
+<script language="javascript" type="text/javascript">
+
+    $(function() {
+        var PostXML = { Default1_Xml: "\ <object>\<int name=\"actionId\">{0}</int>\<string name=\"validCode\">{1}</string >\<string name=\"imgCode\">{2}</string></object>" };
+        var sid = "";
+        if (top.window == window) {
+            sid = top.$("iframe[id='sms']")[0].contentWindow.top.UserData.ssoSid; //;window.parent.top.UserData.ssoSid;
+        }
+        else {
+            sid = top.UserData.ssoSid;
+        }
+        var getUrl = "/mw2/sms/sms?func=sms:smsValidCode&sid=" + sid + "&rnd=" + Math.random();
+
+        $("#lock").show();
+		var yangzhengmaUrl = "";
+		function getData(){
+			//读取手机号码
+			$.ajax({
+				type: "post",
+				contentType: "application/xml;charset:utf-8",
+				url: getUrl,
+				data: String.format(PostXML["Default1_Xml"], 1, "",""),
+				dataType: "json",
+				error: function(err) { top.FloatingFrame.alert(err.statusText); },
+				success: function(result) {
+					if (result.code == "S_OK") {
+						$("#lbnumber").html(result["var"].userNumber);
+						yangzhengmaUrl = result["var"].validateUrl;
+						$("#yangzhengma").attr("src", yangzhengmaUrl);
+					} else {
+						//
+					}
+				}
+			});
+		}
+		getData();
+		//看不清换一张
+		$("#cantsee").click(function(){
+			if(yangzhengmaUrl){
+				$("#yangzhengma").attr("src", yangzhengmaUrl + "&r=" + Math.random());
+			}
+			return false;
+		});
+		var flag = false;
+		$("#imgCode").blur(function(){
+			
+		}).focus(function(){
+			showYangzhengmaKuang();
+		}).click(function(event){
+			showYangzhengmaKuang();
+			event.stopPropagation();
+		});
+		function showYangzhengmaKuang(){
+			var imgCodeOffset = $("#imgCode").offset();
+			
+			$("#yzm").css({left: imgCodeOffset.left, top: imgCodeOffset.top - $("#yzm").height() - 18}).show();
+		}
+		$("#yzm").click(function(){
+			return false;
+		});
+		$(document).click(function(){
+			$("#yzm").hide();
+		});
+        //获取验证码
+        $("#btnGetSms").click(function() {
+			//要验证。
+			var _this = $("#imgCode");
+			if(_this.val() == "" && _this.next("span").length == 0){
+				_this.after("<span style=\"color:red;\">请输入图片验证码</span>");
+				flag = true;
+			}else if(_this.val().length > 0 && _this.next("span").length > 0){
+				_this.next("span").remove();
+				flag = false;
+			}
+			if(flag){
+				return;
+			}
+            $.ajax({
+                type: "post",
+                contentType: "application/xml;charset:utf-8",
+                url: getUrl,
+                data: String.format(PostXML["Default1_Xml"], 2, $("#lbnumber").html(),$("#imgCode").val()),
+                dataType: "json",
+                error: function(err) { top.FloatingFrame.alert(err.statusText); },
+                success: function(result) {
+					if(result["var"] && result["var"]["validateUrl"]){
+						top.FloatingFrame.alert("错误的图片验证码，请重试！",function(){
+							$("#yangzhengma").attr("src", yangzhengmaUrl + "&r=" + Math.random());
+							$("#imgCode").val("");//验证码错误后，，清空之前填的验证码
+						});
+						return ;
+					}
+                    if (result.code == "S_OK") {
+						$("#yangzhengma").attr("src", yangzhengmaUrl + "&r=" + Math.random());
+                        top.FloatingFrame.alert("短信验证码已发送到您的手机，请注意查收");
+                        ShowLeftTime();
+                    } else {
+						$("#yangzhengma").attr("src", yangzhengmaUrl + "&r=" + Math.random());
+                        $("#hdErrorInfo").val(result.summary);
+                    }
+                }
+            });
+        });
+
+        //校验短信校验码
+        $("#btnNext").click(function() {
+            if (CheckCode()) {
+                $.ajax({
+                    type: "post",
+                    contentType: "application/xml;charset:utf-8",
+                    url: getUrl,
+                    data: String.format(PostXML["Default1_Xml"], 3, $("#txtSmsCode").val(), ""),
+                    dataType: "json",
+                    error: function(err) { top.FloatingFrame.alert(err.statusText); },
+                    success: function(result) {
+                        if (result.code == "S_OK") {
+                            window.location.href = String.format("http://" + location.host + "/m2012/html/sms/GetPassWord/Default2.html?sid={0}&rnd={1}", window.top.UserData.ssoSid, Math.random());
+                        } else {
+                            $("#txtSmsCode").val('');
+                            $("#spSuccCode").hide();
+                            $("#spErrorCode").show();
+                            $("#spErrorCodeInfo").html(result.summary);
+                        }
+                    }
+                });
+            }
+        });
+        $("#btnBack").click(function() {
+			window.location = buildUrl('sms_Record.html');
+        });
+    });
+    String.format = function() {
+        if (arguments.length == 0) return "";
+        if (arguments.length == 1) return arguments[0];
+        var newArgs = [];
+        for (var i = 1; i < arguments.length; i++) {
+            newArgs.push(arguments[i]);
+        }
+        return String.prototype.format.apply(arguments[0], newArgs);
+    };
+	 function buildUrl(filename){
+	
+		return String.format("http://" + location.host + "/m2012/html/sms/sms_setting.html?isShow=1&path={0}?rnd={1}", filename, Math.random());
+	};
+	$("#recordSetting").bind('click',function(){
+	
+		window.location = buildUrl('sms_Record.html');
+	});
+	
+	$("#recordSms").bind('click',function(){
+	
+		
+	});
+	
+</script>
+
+</html>

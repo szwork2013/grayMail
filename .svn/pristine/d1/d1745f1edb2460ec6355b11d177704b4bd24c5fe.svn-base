@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>139个邮通讯录 - 选择重复处理方式</title>
+<script type="text/javascript">
+document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+function filltag(d,c,f){var b,a,e=[];while(d.length){a=d.shift();switch(true){case Object.prototype.toString.apply(a)==="[object Array]":b="<script "+(a[1].length>0?'charset="'+a[1]+'" ':"")+"src='"+(a[2]?a[2]:c)+"/js/"+a[0]+"' type='text/javascript'><\/script>";break;case a.indexOf(".js")>-1:b="<script "+(f?'charset="'+f+'" ':"")+"src='"+c+"/js/"+a+"' type='text/javascript'><\/script>";break;case a.indexOf(".css")>-1:b="<link rel='stylesheet' type='text/css' href='"+c+"/css/"+a+"' />";break;case a.length==0:b="<link rel='stylesheet' type='text/css' />"}e.push(b)}document.write(e.join(""))}
+var resourcePath = top.resourcePath
+var addrPath = resourcePath.replace('coremail', 'addr');
+filltag(['global2012.css', 'addr2012.css', 'jquery-1.7.1.min.js'], resourcePath);
+</script>
+<style type="text/css">
+.import-cts { margin-left: 40px; margin-bottom: 30px; }
+.tab-title { margin: 16px 0; }
+.btn_normal { margin-left: 200px; }
+.btn_normal li a { padding-left: 25px; padding-right: 30px; }
+#showName { display: none; }
+</style>
+</head>
+
+<body class="ml3P-contacts">
+
+<div class="main-wrap">
+
+    <div class="tab-title">
+        <p>导入过程中，如遇“<span id="showName">姓名相同，且</span>邮箱或手机号相同”的联系人时：</p>
+    </div>
+
+    <div class="contacts-main">
+        <div class="import-cts">
+            <p><input type="radio" name="rblIpt" id="rblIptClt1" value="ignore"><label for="rblIptClt1"><strong>跳过</strong> <span class="gray">(保留邮箱联系人资料)</span></label></p>
+            <p><input type="radio" name="rblIpt" id="rblIptClt2" value="replace"><label for="rblIptClt2"><strong>替换</strong> <span class="gray">(待导入的重复联系人将替换邮箱对应的联系人)</span></label></p>
+            <p><input type="radio" name="rblIpt" id="rblIptClt3" value="new"><label for="rblIptClt3"><strong>新增</strong> <span class="gray">(邮箱原记录保留，待导入的将保存为新记录)</span></label></p>
+            <p><input type="radio" name="rblIpt" id="rblIptClt4" value="merge"><label for="rblIptClt4"><strong>合并</strong> <span class="gray">(以和通讯录资料为标准补全)</span></label></p>
+        </div>
+        <div class="btn_normal">
+            <ul class="btn_main">
+                <li class="mr_10"><a id="btnSave" hidefocus="1" href="javascript:void(0)"><i class="l_border"></i>确 认<i class="r_border"></i></a></li>
+                <li class="mr_10"><a id="btnCancel" hidefocus="1" href="javascript:void(0)"><i class="l_border"></i>取 消<i class="r_border"></i></a></li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+var options = window.frameElement.options || {};
+
+if (options.disableField) {
+    var field = options.disableField;
+    for (var i = field.length; i--; ) {
+        $(":radio[value=" + field[i] + "]").hide();
+    }
+}
+
+if (options.checked) {
+    $(":radio[value=" + options.checked + "]").attr("checked", "checked");
+} else {
+    $("#rblIptClt1").attr("checked", "checked");
+}
+
+if (options.showName) {
+    $("#showName").show();
+}
+
+$("#btnSave").click(function(){
+    var type = $(":checked").val();
+    if ($.isFunction(options.sure)) {
+        options.sure(type);
+    }
+});
+
+$("#btnCancel").click(function(){
+    if ($.isFunction(options.cancel)) {
+        options.cancel();
+    } else {
+        top.FF.close();
+    }
+});
+</script>
+</body>
+</html>

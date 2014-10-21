@@ -1,0 +1,733 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="pg-success" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <title>发送成功</title>
+
+    <script type="text/javascript">
+        //设域
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+        //获得资源路径
+        var resourcePath = window.top.resourcePath;
+        var supermanResourcePath = resourcePath.replace("coremail", "superman");
+        var htmlCode = "";
+        htmlCode += getLinkTag("");
+        htmlCode += getLinkTag(resourcePath + "/css/supersms.css?v=20111230");
+
+		top.loadCSS(["common/global.css","module/write.css"],document);
+        top.loadScript('libs.pack.js',document);
+        top.loadScript("m2011.utilscontrols.pack.js", document);
+        top.loadScript('m139.core.pack.js',document);
+        top.loadScript("/m2012/js/ui/widget/m2012.ui.widget.contactsautosave.js", document);
+
+        top.loadScript("/m2012/js/service/sms/m2011.sms.superman.js", document);
+
+
+        document.write(htmlCode);
+        function getJsTag(path, charset) {
+            var html = "<script charset='gb2312' src='" + path + "' type='text/javascript'></" + "script>";
+            if (charset) html = html.replace("gb2312", charset);
+            return html;
+        }
+        function getLinkTag(path) {
+            var text = "";
+            if (path) text = "href='" + path + "'";
+            return "<link rel='stylesheet' type='text/css' " + text + " />";
+        }
+    </script>
+
+    <link rel="stylesheet" type="text/css" />
+
+    <script type="text/javascript">
+        Utils.loadSkinCss(null, document, "supersms");
+    </script>
+
+	<style type="text/css">
+	.btnNormal{width:auto;}	
+	.btnNormal{background: url(../../images/global/button.png) no-repeat;}
+	.btnNormal{background:none;}
+	.btnNormal span{background:none;}
+	.btnNormal:hover{background-position:0 -305px;}
+	.btnNormal:hover span{background-position:right -305px;}
+	
+        .yt-tip
+        {
+            margin-top: 15px;
+        }
+        #pg-success #container
+        {
+            padding: 0 0 0 180px;
+            margin: 35px 0 0;
+        }
+        i.i-success
+        {
+            background-position: -700px -70px;
+            height: 80px;
+            left: 80px;
+            position: absolute;
+            top: 30px;
+            width: 80px;
+        }
+        .success
+        {
+            background: none;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+        .success h2
+        {
+            margin-bottom: 10px;
+        }
+        .success h2, .success button
+        {
+            float: none;
+        }
+        .success p
+        {
+            padding: 5px 0;
+        }
+        .dropdownlist
+        {
+            margin-top: 10px;
+        }
+        .rnd-tip
+        {
+            top: 0px;
+            left: 138px;
+            bottom: auto;
+        }
+        .success span.phone_wrong span
+        {
+            display: inline-block;
+        }
+        #pbatch
+        {
+            color: #279704 !important;
+            font-weight: bold;
+        }
+        .btnPost
+        {
+            width: 60px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <i class="i-small-succ"></i>
+        <div class="success">
+            <div class="hd" id="divSuccessMsg" style="margin-bottom: 10px;">
+                <h2 id="successTitle" style="padding-top: 6px;">
+                    短信发送完成!</h2>
+            </div>
+            <div class="raffleTips mt_10" id="message_text1" style="display:none">
+				<i class="add_integral mr_5"></i>成功获得<strong class="fz_14"> 1 </strong>积分
+                <a href="javascript:;" class="rafBtn ml_10">去换好礼</a>
+                <a href="javascript:;" class="rafBtn ml_10">去做任务</a>
+			</div>
+            <p id="pbatch" style="display: none;">
+            </p>
+            <p id="planshow" style="display: none;">
+                如果对方开通了139邮箱，短信也会同时以邮件方式发给对方。</p>
+            <p>
+                <b id="divSetRecords">已保存到往来记录 <a href="javascript:;" id="aRecordSetting" href="javascript:void(0);">立即查看</a></b> | 
+                <a href="javascript:void(0);" id="dlSaveBox">保存到珍藏记录</a>
+            </p>
+            <dl id="dl1" class="dropdownlist has-form">
+                <dt><a class="btnNm" href="javascript:;" id="btnReturn"><i class="but_lIco"></i><span
+                    class="but_bg-x">返回</span><i class="but_rIco"></i></a> <a class="btnNm" type="javascript:;"
+                        id="btnAgain"><i class="but_lIco"></i><span class="but_bg-x">继续写短信</span><i class="but_rIco"></i></a>
+                </dt>
+            </dl>
+        </div>
+        <p id="pThanksForShareSms">
+        </p>
+        <a href="javascript:;" id="message_text" style="display:none"><img src="../../images/module/usercenter/m_text.png" /></a>
+        <div style="height:15px; clear:both"></div>
+        <div class="loveSms">
+        </div>
+        <div id="divContact" style="width: 450px">
+        </div>
+        <div class="card_birdTip mt_10" id="card_birthday" style="display: none;">
+            <i class="fl card_birdayIco"></i>
+            <div class="fl">
+                <i class="careBirdIco mt_10"></i>
+                <div class="card_birdMes">
+                    <span class="lt"></span><span class="rt"></span><span class="rb"></span><span class="lb">
+                    </span>
+                    <dl>
+                        <dt><strong>填生日，享祝福</strong></dt>
+                        <dd>
+                            您的生日是啥时候？朋友们都想给您送生日祝福哦！<a href="javascript:;" onclick="javascript:top.Links.show('baseData');">赶紧去填写您的生日吧！&gt;&gt;</a></dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div class="yt-tip" id="flack">
+        </div>
+        <input id="hidContent" type="hidden" value="" />
+        <input type="hidden" id="hidShareSmsUsernumber" value="" />
+        <input id="hidShareSmsId" type="hidden" value="" />
+    </div>
+    <div id="pnlDetail" class="detail" style="display: none">
+        <p>
+            编辑联系人</p>
+        <table summary="">
+            <tbody>
+                <tr>
+                    <th>
+                        姓名:
+                    </th>
+                    <td>
+                        <input id="txtName" class="text" type="text" maxlength="100" name="name" /><span>*必填</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        邮箱:
+                    </th>
+                    <td>
+                        <input id="txtEmail" class="text" type="text" maxlength="60" name="name" disabled="disabled" /><span>*必填</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        手机:
+                    </th>
+                    <td>
+                        <input id="txtMobile" class="text" type="text" maxlength="100" name="name" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        所属分组:
+                    </th>
+                    <td>
+                        <div class="saveGroup">
+                            <ul id="GroupsContainer">
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                    </th>
+                    <td class="addGroup">
+                        <a onclick="showadd(this,document)" href="javascript:void(0)">添加新组</a>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                    </th>
+                    <td>
+                        <button id="btnSave" type="button">
+                            保存信息</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+<script type="text/javascript">
+    //去掉发邮件
+    top.SendMail = 1;
+    var mb = "";
+    var emailDomain = top.coremailDomain;
+    if (top.isRichmail) {
+        mb = "/sms";
+        emailDomain = top.mailDomain;
+    }
+    //通讯录自动保存
+    var isAutoSaveContact = top.Contacts.isAutoSaveContact();
+
+    var C = top.Contacts;
+    var del = C.DelSavedContact, mod = C.ModSavedContact, showadd = C.QuickAddGroup;
+    var pnl = {
+        main: $('#pnlDetail'),
+        mainHTML: $('#pnlDetail').html()
+    };
+    jQuery.fn.getParmByUrl = function(o) {
+        var url = window.location.toString();
+        var tmp;
+        if (url && url.indexOf("?")) {
+            var arr = url.split("?");
+            var parms = arr[1];
+            if (parms && parms.indexOf("&")) {
+                var parmList = parms.split("&");
+                jQuery.each(parmList, function(key, val) {
+                    if (val && val.indexOf("=")) {
+                        var parmarr = val.split("=");
+                        if (o) {
+                            if (typeof (o) == "string" && o == parmarr[0]) {
+                                tmp = parmarr[1] == null ? '' : parmarr[1];
+                            }
+                        }
+                        else {
+                            tmp = parms;
+                        }
+                    }
+                });
+            }
+        }
+        return tmp;
+    }
+    String.format = function() {
+        if (arguments.length == 0)
+            return null;
+
+        var str = arguments[0];
+        for (var i = 1; i < arguments.length; i++) {
+            var re = new RegExp('\\{' + (i - 1) + '\\}', 'gm');
+            str = str.replace(re, arguments[i]);
+        }
+        return str;
+    }
+    var templeSaveBoxClass = '<li>{0}</li>';
+    var htmlSaveBoxClass = '<li class="add-form"><input type="text" /><button>确定</button></li>';
+    var templeSavedContact =
+        '<i class="i-right"></i>\
+	     以下联系人已保存到通讯录中：\
+	    <ul class="contact-list">{0}</ul>\
+	    <a id="aGoToAddr" class="scs-act" href="javascript:void(0)">立即查看</a>';
+
+    //短信邮箱模板
+    var maildTemplate = '<html xmlns="http://www.w3.org/1999/xhtml">\
+<head>\
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />\
+<title>{0}</title>\
+<style type="text/css">\
+body,p{padding:0;margin:0}\
+body{font:14px/1.75 Tahoma,Arial;color:#000}\
+.main{width:690px;margin:0 auto;}\
+span,a{color:#0e822f}\
+.txt{margin:20px 0}\
+.signature{color:#8d8d8d}\
+.from{border-top:1px solid #e2e2e2;padding-top:10px; color:#8c8c8c;margin-top:27px}\
+</style>\
+</head>\
+<body>\
+<div class="main">\
+<p></p>\
+<div class="txt">{1}</div>\
+<div class="signature">{2}</div>\
+<div class="signature">{3}</div>\
+<div class="from">此邮件来自139邮箱发短信功能<a href="{4}">了解更多&gt;&gt;</a></div>\
+</div>\
+</body></html>\
+'
+    //获取发送成功的联系人
+    function getMobiles() {
+        var batchInfo = null;
+        if (window.top.SmsMobileNumberkind) {
+            batchInfo = window.top.SmsMobileNumberkind;
+        }
+        if (Utils.queryString("batchs") && batchInfo && batchInfo.senders) {
+            return batchInfo.senders.join(",");
+        } else {
+            return Utils.queryString("mobiles");
+        }
+    }
+
+    $(function() {
+        //如果用户发的是自写短信，则不显示推荐内容 add by chenzhuo
+        top.isDoYourselfSms && $(".loveSms").hide();
+
+        //shenglan 6月需求 start
+        $("#btnReturn").click(function() {
+            if (top.SendMail == 0) {
+                Send(function() {
+                    window.location.href = "sms_send.html";
+                });
+            } else {
+              top.WaitPannel.show();
+               setTimeout(function(){//ie6下延迟执行，不然没效果
+                 window.location.href = "sms_send.html";
+                 top.WaitPannel.hide();
+               },10);
+            }
+        });
+        var isMobileUser = $Mobile.isChinaMobile(top.$User.getShortUid());  //判断是不是移动用户
+        if (isMobileUser) {
+            var message = $("#message_text1").show()
+            message.find('a:eq(0)').click(function () {
+                top.BH('send_ok_sms');  //统计发短信完成页中，点击“立即参与”按钮的人数、次数
+                var url = 'http://zone.mail.10086.cn/api/sso/ssoformail.ashx?to=CN201204A1&flag=2&sid=';
+                url += top.$App.getSid();
+                top.window.open(url);
+            });
+            message.find('a:eq(1)').click(function () {
+                top.BH('send_sms_myTask');
+                top.$App.show('myTask');
+            });
+        }
+
+        $("#btnAgain").click(function() {
+            if (top.SendMail == 0) {
+                Send(function() {
+                    top.SmsContent = escape($("#hidContent").val());
+                    if ($("#hidShareSmsId").val().length > 0 && $("#hidShareSmsUsernumber").val().length > 0)
+                        window.location.href = "sms_send.html?from={0}&ShareSmsId={1}&ShareSmsUsernumber={2}".format("3", $("#hidShareSmsId").val(), $("#hidShareSmsUsernumber").val());
+                    else
+                        window.location.href = "sms_send.html?from={0}".format("3");
+                    return false;
+                });
+            } else {
+                top.SmsContent = escape($("#hidContent").val());
+                if ($("#hidShareSmsId").val().length > 0 && $("#hidShareSmsUsernumber").val().length > 0)
+                    window.location.href = "sms_send.html?from={0}&ShareSmsId={1}&ShareSmsUsernumber={2}".format("3", $("#hidShareSmsId").val(), $("#hidShareSmsUsernumber").val());
+                else
+//                    window.location.href = "sms_send.html?from={0}".format("3");
+                    window.location.href = "sms_send.html";
+                return false;
+            }
+        });
+        Common.postXml({
+            url: Common.getUrl("success"), //要发送的数据,
+            data: String.format(PostXML["Success_Xml"], 0, 3, ""),
+            success: function(data) {
+                if (data.code == "S_OK") {
+                    if (data["var"].userSetDouble == 1)
+                        $("#planshow").show();
+
+                    htmls = '<h3><i class="i-love"></i>喜欢这条短信的人还喜欢<a href="' + top.getDomain("rebuildDomain") + mb + '/uploads/html/NewFreeSms/index.html">查看更多&gt;&gt;</a></h3>';
+                    $.each(data["var"].table, function(i, n) {
+                        if (i == 0)
+                            htmls += '<p context=' + n.content + '>' + n.content + '<em><button class="btnPost"> 发 送 </button><a onclick="return false" href="javascript:;"  class="btnPost"  style="display:none;">发 送</a></em></p>';
+                        if (i == 1)
+                            htmls += '<p class="hover" context=' + n.content + '>' + n.content + '<em><button class="btnPost"> 发 送 </button><a onclick="return false" href="javascript:;"  class="btnPost" style="display:none;">发 送</a></em></p>';
+                        if (i == 2)
+                            htmls += '<p class="last" context=' + n.content + '>' + n.content + '<em><button class="btnPost"> 发 送 </button><a onclick="return false" href="javascript:;"  class="btnPost"  style="display:none;">发 送</a></em></p>';
+                    });
+                    $(".loveSms").html(htmls);
+                    $(".btnPost").click(function() {
+                        top.SmsContent = escape($(this).parent().parent().attr("context"));
+                        window.location.href = "sms_send.html?from={0}".format("2");
+                    });
+                    if (top.SendMail == 0 && data["var"].userSetDouble == 1) {
+                        //9301日志上报
+                        top.addBehaviorExt({
+                            actionId: 9301,
+                            thingId: 1,
+                            moduleId: 14
+                        });
+                        Send(function() { });
+                    } else {
+                        //9301日志上报
+                        top.addBehaviorExt({
+                            actionId: 9301,
+                            thingId: 2,
+                            moduleId: 14
+                        });
+                    }
+                }
+            }
+        });
+
+        //加载广告位
+        // window.top.loadAD(202, $("#flack")[0]);
+        //url传过来的值
+        if (Utils.queryString("timeSms") != null) {
+            $("#successTitle").html("定时短信设置成功！");
+            $("#pThanksForShareSms").html($("#pThanksForShareSms").html() + '您可以在<a href="javascript:;" onclick="Common.openRecord(1,\'sms_TimingList.html\')">定时记录</a>中修改或删除。');
+        }
+        //分批发送提示
+        if (Utils.queryString("batchs") && Utils.queryString("sender")) {
+            var batch = Utils.queryString("batchs");
+            $("#pbatch").show().html("第{0}批短信已经发送完成".format(batch));
+        }
+        if (top.SmsContent) {
+            $("#hidContent").val(top.SmsContent);
+        }
+        if (!isAutoSaveContact) {
+            try {
+                var obj = {};
+                obj.type = "mobile";
+                obj.container = document.getElementById("divContact");
+                obj.mobiles = getMobiles();
+                top.Contacts.createAddContactsPage(obj);
+            }
+            catch (e) { }
+        }
+
+		var saveRecord = /saveRecord=(\d)/.exec(location.href);
+        if (saveRecord && saveRecord[1] == 1) {
+			$("#divSetRecords").html('已保存到往来记录 <a href="javascript:;" id="aRecordSetting">立即查看</a>');
+        }
+        else {
+	        $("#divSetRecords").html('该记录未保存 <a href="javascript:;" id="aRecordSetting">查看记录</a>');
+        }
+        $("#aRecordSetting").click(function () {
+            viewRecord();
+        });
+
+        if (isAutoSaveContact) {
+            var autoSave = null;
+            // add by tkh
+        	var contacts = new CommonPage().getFormatMobile(getMobiles());
+        	var list = [];
+        	autoSave = new M2012.UI.Widget.ContactsAutoSave({
+	            container:document.getElementById("divContact"),
+	            type: "mobile",
+	            list: list.concat(contacts.split(','))
+        	});
+
+        	autoSave.on("BH_CancelModify", function () {
+        	    top.BH("send_sms_cancel_modify");
+        	});
+
+        	autoSave.on("BH_Modify", function () {
+        	    top.BH("send_sms_modify");
+        	});
+
+        	autoSave.on("BH_AddGroup", function () {
+        	    top.BH("send_sms_add_group");
+        	});
+
+        	autoSave.on("BH_DeleteContact", function () {
+        	    top.BH("send_sms_delete_contact");
+        	});
+
+        	autoSave.on("BH_Save", function () {
+        	    top.BH("send_sms_save");
+        	});
+
+        	autoSave.on("BH_Cancel", function () {
+        	    top.BH("send_sms_cancel");
+        	});
+        	
+        	autoSave.render();
+
+            //自动保存联系人与最近联系人
+            /*try {
+                (function() {
+                    var email = {},
+                    from = C.FROMTYPE.MOBILE | C.FROMTYPE.SMS,
+                    contacts = [],
+                    recentMail = $("#hidContent").val(),
+                    panel = document.getElementById("divContact");
+                    contacts = new CommonPage().getFormatMobile(getMobiles());
+                    C.AutoSaveRecentContacts(contacts, from, panel, recentMail);
+                })();
+            } catch (e) { }*/
+        }
+        if (!isAutoSaveContact) {
+            //更新最近联系人
+            if (window != window.top) {
+                try {
+                    if (top.Contacts.addLastestContactsExt) {
+                        top.Contacts.addLastestContactsExt({
+                            ComeFrom: "M1",
+                            AddrContent: new CommonPage().getFormatMobile(getMobiles()),
+                            AddrTitle: $("#hidContent").val()
+                        });
+                    } else {
+                        top.Contacts.addLastestContacts("mobile", new CommonPage().getFormatMobile(getMobiles()));
+                    }
+                } catch (e) { }
+            }
+        }
+        //返回 
+        $("#dlSaveBox").click(function() {
+            top.FloatingFrame.open("短信存到珍藏记录", "/m2012/html/sms/sms_SaveSmsToBox.html?type=1", 433, 300);
+        });
+
+    });
+    var Send = function(callback) {
+        var mobiles = getMobiles();
+        var timeSmss = $().getParmByUrl("timeSms");
+        if (typeof (timeSmss) == "undefined") {
+            timeSmss = 1;
+        }
+        else {
+            timeSmss = 0;
+        }
+        if (timeSmss == 0) {
+            callback(); //定时无双通道
+        }
+        else {
+            Common.postXml({
+                url: Common.getUrl("success"), //要发送的数据,
+                data: String.format(PostXML["Success_Xml"], 1, 3, mobiles),
+                success: function(data) {
+                    if (data.code == "S_OK") {
+                        var tempmobile = data["var"].everyoneNumber;
+                        var mailmobile = data["var"].receiveMail;
+                        var usernumber = data["var"].sendUserNumber;
+                        //增加双通倒的功能 shenglan  upatedate 20101130
+                        try {
+                            if (data["var"].userSetDouble == 1) {
+                                if (top.SendMail == 0)//
+                                {
+                                    top.SendMail = 1;
+                                    var da = new Date();
+                                    var url = "http://smsrebuild1.mail.10086.cn/sms/smsmms/superman/smshelp.htm?provid=" + top.UserData.provCode;
+                                    var name = getUserName(data["var"].sendUserNumber.substring(2));
+                                    var title = "来自用户" + name + "的短信";
+                                    var mail = maildTemplate.format(title, top.SmsContent.encode(), name, da.toLocaleDateString(), url);
+                                    //139邮箱用户发邮件	       		       
+                                    if (data["var"].receiveMail.length > 0)
+                                        SendMailByRegister(mail, data["var"].receiveMail, title);
+                                    //发送人人邮邮件
+                                    if (data["var"].everyoneNumber.length > 0)
+                                        SendMail(mail, data["var"].everyoneNumber, title, "");
+                                }
+                            }
+                            callback();
+                        } catch (err) { }
+                        //shenglan end
+                    }
+                }
+            });
+        }
+    }
+
+    //人人邮发邮件
+    var SendMail = function(context, aEmails, title, datauser) {
+        var ls = aEmails.split(',');
+        for (var i = 0; i < ls.length; i++) {
+            if (ls[i].substring(0, 2) != "86") {
+                ls[i] = ls[i] + "@" + emailDomain;
+            } else {
+                ls[i] = ls[i].substring(2) + "@" + emailDomain;
+            }
+        }
+        if (top.isRichmail) {
+            //调用发信函数
+            var sendMailInfo = {
+                to: ls,
+                isHtml: true,
+                subject: title,
+                content: context,
+                saveToSendBox: false,
+                headers: { smsNotify: 0 }
+            };
+            top.CM.sendMail(sendMailInfo, 'sms');
+        } else {
+            var requestXml = {
+                attrs: {
+                    account: "",
+                    to: ls,
+                    cc: [],
+                    showOneRcpt: false,
+                    isHtml: true,
+                    subject: title,
+                    content: context,
+                    priority: 3,
+                    requestReadReceipt: false,
+                    saveSentCopy: false,
+                    inlineResources: null,
+                    scheduleDate: null,
+                    normalizeRfc822: false,
+                    attachments: []
+                },
+                action: 'deliver',
+                returnInfo: true
+            };
+            top.RequestBuilder.call("mbox:compose", requestXml, function(result) {
+                if (result.code == 'S_OK') {
+                    //alert("人人邮");
+                }
+            });
+        }
+    }
+
+    //139注册邮箱用户发邮件
+    var SendMailByRegister = function(context, aPhones, title) {
+        var ls = aPhones.split(',');
+        for (var i = 0; i < ls.length; i++) {
+            if (ls[i].substring(0, 2) == "86") {
+                ls[i] = ls[i].substring(2) + "@" + emailDomain;
+            } else {
+                ls[i] = ls[i] + "@" + emailDomain;
+            }
+        }
+        //调用发信函数
+        var sendMailInfo = {
+            to: ls,
+            isHtml: true,
+            subject: title,
+            content: context,
+            saveToSendBox: false,
+            headers: { smsNotify: 0 }
+        };
+        top.CM.sendMail(sendMailInfo, 'sms');
+    }
+
+    //取的用户名
+    function getUserName(userNumber) {
+        var d = window.top.UserData;
+        if (d["userName"] != "") {
+            return d["userName"];
+        }
+        if (top.uid.match(/\d{11}/)) {	//手机号登录
+            if (d["uidList"].length > 0) {
+                return d["uidList"][0]
+            }
+        }
+        return top.uid;
+    }
+    function viewRecord() {
+        Common.openRecord(0, "sms_Record.html");
+    };
+
+    //设置已经发送生日提醒用户
+    (function() {
+        var key = "sucMobiles" + top.UserData.ssoSid;
+        if (Utils.getCookie(key)) {
+            var url = top.SiteConfig.cardMiddleware + "cardsvr";
+            url = "{0}?func=card:birthdayRemind&sid={1}&rnd={2}".format(url, top.UserData.ssoSid, Math.random());
+            var data = '<object><string name="op">set</string><string name="mobiles">{0}</string></object>'.format(Utils.getCookie(key));
+            Common.postXml({
+                url: url,
+                data: data,
+                error: function(err) { },
+                success: function(result) { }
+            });
+            //生日提醒清理
+            Utils.requestByScript("listByTemplate", top.resourcePath + "/js/listByTemplate.js", function() {
+                new ListByTemplate().cleanSelectedItem();
+            }, "utf-8");
+            var date = new Date();
+            date.setDate(date.getDate() - 10);
+            Utils.setCookie("sucMobiles" + top.UserData.ssoSid, "", date);
+        }
+    })();
+    //隐藏或显示生日
+    top.Contacts.QueryUserInfo(function(result) {
+        if (result && result.info && result.info.BirDay) {
+            $("#card_birthday").hide();
+        } else {
+            $("#card_birthday").show();
+        }
+    });
+
+    function showPartnerTip(data) {
+        function showInfo(count) {
+            //var count = top.$User.getFreeSmsCount();
+            if (count <= 5 && top.$User.needMailPartner()) { //免费条数小于6,从全局变量取
+
+                $("#divSetRecords").before("<div>*本月免费自写短信仅余<b>" + count + "</b>条，<a href='javascript:top.$App.show(\"mobile\")'>开通邮箱伴侣</a>享受更多短信优惠</div>");
+                top.BH("partner_guide0");
+
+            }
+        }
+        //因为有可能发给非移动号码，在客户端计算免费条数不准备，改从服务端加载最新的免费条数
+        Common.postXml({ 
+            url: Common.getUrl("maindata"), //要发送的数据,
+            data:"<object><int name=\"serialId\">-1</int><int name=\"dataType\">0</int></object>",
+            success: function (result) {
+                if (result.code == "S_OK") {
+                    var count = result["var"].userFreeCount;
+                    showInfo(count);
+                }
+            }
+        });
+
+       
+    }
+    $(function () {
+        showPartnerTip();
+    })
+</script>
+<script>top.loadCSS(["module/fontbase.css"], document);</script>
+</html>

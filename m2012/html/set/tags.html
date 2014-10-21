@@ -1,0 +1,330 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+
+    
+    
+    
+    
+    <title></title>
+    <!-- 基础类库 -->
+    
+<script type="text/javascript">
+    //设域
+    document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+</script>
+<script>top.loadScript('libs.pack.js',document);top.loadScript('m139.core.pack.js',document)</script><script>top.loadScript("m2012.ui.common.pack.js",document)</script><script>top.loadCSS(["common/global.css","module/folder.css","module/set.css","skin/skin_lightblue.css"],document)</script></head>
+<style type="text/css">
+.tag { margin-top: 3px;}
+.tag2 { float: left; margin-top:5px;}
+.systemwjj .td1 .lbOpenMailList{ width: 140px;}
+</style>
+<body class="setbody">
+    <div id="tag_list"></div>
+    <div id="contactFloatHolder" style="display: none;">
+    </div>
+    <div class="setWrap">
+        <div id="addrFloarWapper" class="">
+        </div>
+    </div>
+<div class="setWrap">
+<div class="tagmoveing shadow" style="display: none;"> 
+	<span class="leftico"></span><span class="rightico"></span>
+	<img src="../../images/global/mailflloading.gif" alt="">	
+	<p><span class="num">1312</span>  封邮件，移动到“重要邮件”文件夹</p>
+
+</div>
+		</div>
+    <!-- 模版 -->
+    <script type="text/template" id="folder-template">
+         <div id="customerFolder">
+            <div id="addFolderTop">
+		        <dl class="tagcreat" style="border-bottom:2px solid #dfdfe2;">
+			        <dt><i class="i_creatwjj"></i></dt>
+			        <dd>
+				        <h2>建立一个文件夹，整理邮件从此简单</h2>
+				        <a href="javascript:void(0)" class="btnSetB" id="openAddFolder" bh="set_foldermanager_create_folder"><span>创建文件夹</span></a>
+			        </dd>
+		        </dl>
+            </div>
+		    <table class="systemwjj">
+			    <tr>
+				    <th class="td1">我的文件夹</th>
+				    <th class="td2">目前状态</th>
+				    <th class="td5 ">管理</th>
+			
+			    </tr>
+                <%_.each(customFolders,function(item){ %>
+			    <tr fid="<%=item.fid%>">
+				    <td class="td1">
+                    <span class="dragBar" name="dragBar"></span>
+                        <%if(item.folderPassFlag===0){ %>
+                        <%}else{ %>
+                        <i class="i_lock mr_5"></i>
+                        <%}; %><a href="javascript:void(0)" class="lbOpenMailList" id="fmaillist_<%=item.fid %>"><%=item.name %></a> </td>
+				    <td class="td2">邮件:<span class="c_ff6600"><%=item.stats.unreadMessageCount %></span>/<%=item.stats.messageCount %> 占用:<%if(item.stats.messageSize===0){ %>
+                        0K
+                        <%}else{ %>
+                        <%=$T.Utils.getFileSizeText(item.stats.messageSize*1024,{maxUnit:"G"}) %>
+                        <%}; %></td>
+				    <td class="td5">
+					    <a href="javascript:void(0)" class="clearFolder" hidefocus="true" bh="set_foldermanager_custom_clear"  id="fclear_<%=item.fid %>">清空</a> | <a href="javascript:void(0)" class="deleteFolder" bh="set_foldermanager_custom_del" hidefocus="true" id="fdelete_<%=item.fid %>">删除</a> | <a href="javascript:void(0)" class="update" hidefocus="true" bh="set_foldermanager_custom_rename" id="frename_<%=item.fid %>">重命名</a> | <% 
+					    	if(item.stats.messageSize > 1024 * 1024 * 1024){
+					    	%>
+							<a hidefocus="true" class="gray" title="仅支持导出1G以内的文件夹中的邮件">导出邮件</a>
+					    	<%
+					    	}else if(item.stats.messageSize === 0 ){
+					    	%><a hidefocus="true" class="gray" >导出邮件</a>
+					    	<%} else { %><a href="javascript:;" hidefocus="true" class="export" id="export_<%=item.fid%>">导出邮件</a><% }%> | <a href="javascript:void(0)" class="filter" hidefocus="true" bh="set_foldermanager_custom_filter" id="filter_<%=item.fid %>">接收指定邮件</a> 	
+                        
+				    </td>			
+			    </tr>
+                <%}); %>
+
+			
+		    </table> 
+        </div>    
+        <div id="customerTags">
+            <div id="addTagTop">
+		        <dl class="tagcreat">
+			        <dt><i class="i_creattab"></i></dt>
+			        <dd>
+				        <h2>重要邮件贴上标签让邮件更容易找</h2>
+				        <a href="javascript:void(0)" class="btnSetB" id="openAddtag" bh="set_foldermanagers_tag_create"><span>创建标签</span></a>
+			        </dd>
+		        </dl>   
+            </div>
+			<table class="systemwjj">
+			    <tr>
+				    <th class="td1">我的标签</th>
+				    <th class="td2">目前状态</th>
+				    <th class="td6 ">管理</th>
+			
+			    </tr>
+                <%_.each(tags,function(item){ %>
+			    <tr fid="<%=item.fid%>">
+				    <td class="td1" id="tagTd_<%=item.fid %>">
+						<span class="dragBar tag2" name="dragBarTag"></span>
+					    <span class="tag" href="javascript:void(0)" style="border-left-color:<%=getAllColor()[item.folderColor] %>;border-right-color:<%=getAllColor()[item.folderColor] %>;"><span class="tagBody" style="background:<%=getAllColor()[item.folderColor] %>;border-bottom-color:<%=getAllColor()[item.folderColor] %>;border-top-color:<%=getAllColor()[item.folderColor] %>;"><span><i folderColor="<%=item.folderColor %>"  id="fcolor_<%=item.fid %>" class="i_triangle_dw colorFolder p_relative"></i></span></span></span>
+					    <span class="lbOpenMailList" id="fmaillist_<%=item.fid %>"><%=item.name %></span>
+				    </td>
+				    <td class="td2">邮件:<span class="c_ff6600"><%=item.stats.unreadMessageCount %></span>/<%=item.stats.messageCount %> 占用:<%if(item.stats.messageSize===0){ %>
+                        0K
+                        <%}else{ %>
+                        <%=$T.Utils.getFileSizeText(item.stats.messageSize*1024,{maxUnit:"G"}) %>
+                        <%}; %></td>
+				    <td class="td6">
+					    <a href="javascript:void(0)" class="deleteFolder" hidefocus="true" bh="set_foldermanagers_tag_del" id="fdelete_<%=item.fid %>">删除</a> | <a href="javascript:void(0)" class="update" hidefocus="true" bh="set_foldermanagers_tag_rename" id="frename_<%=item.fid %>">重命名</a> | <a class="filter" hidefocus="true" bh="set_foldermanagers_tag_filter" id="filter_<%=item.fid %>" href="javascript:void(0)">给指定邮件贴标签</a> 
+				    </td>			
+			    </tr>
+                <%}); %>
+			
+		</table>
+        </div>   
+        <p class="fw_b mt_20 fz_14">系统文件夹</p>
+        <div id="systemFolder">
+		    <table class="systemwjj">
+			    <tr>
+				    <th class="td1">系统文件夹</th>
+				    <th class="td2">目前状态</th>
+				    <th class="td3 ">管理</th>	
+			    </tr>
+                <%_.each(systemFolders,function(item){ %>
+			    <tr>
+				    <td class="td1">
+                    <%if(item.folderPassFlag===0){ %>
+                        <%}else{ %>
+                        <i class="i_lock mr_5"></i>
+                        <%}; %><a href="javascript:void(0)" class="lbOpenMailList" id="fmaillist_<%=item.fid %>"><%=item.name %></a></td>
+				    <td class="td2">邮件:<span class="c_ff6600"><%=item.stats.unreadMessageCount %></span>/<%=item.stats.messageCount %> 占用:<%if(item.stats.messageSize===0){ %>
+                        0K
+                        <%}else{ %>
+                        <%=$T.Utils.getFileSizeText(item.stats.messageSize*1024,{maxUnit:"G"}) %>
+                        <%}; %></td>
+				    <td class="td3"><a href="javascript:void(0)" class="clearFolder" hidefocus="true" bh="set_foldermanager_system_clear"  id="fclear_<%=item.fid %>">清空</a></td>
+				   
+			    </tr>
+                <%}); %>
+			   
+		    </table> 
+        </div>  
+    </script>
+    <!-- 文件夹弹窗模版 -->
+    <script type="text/template" id="add-folder-template">
+		<div class="creattabbody creattabbody2" id="creatTabBody">
+				<a href="javascript:void(0)" class="i_u_close addCancel"></a>
+				 <ul class="form ">		
+					<li class="formLine">
+						<label class="label">名称：</label>
+						<div class="element">	
+								<div><input type="text" maxlength="16" id="tbFolderName" class="iText" value="" style="width:210px;" /></div>
+									<div class="pt_5"><a hidefocus="true" href="javascript:void(0)" id="showFolderInput">接收指定人的来信<i class="i_triangle_d"></i></a></div>
+						</div>
+					</li>	
+					<li class="formLine" id="mailFrom" style="display: none;">
+						<label class="label">发件人：</label>
+						<div class="element">	
+								<div class="peoinput">
+									<input type="text" id="tbAddr" class="iText" value="" /><a href="javascript:void(0)" class="i_peo" id="filterMailFrom"></a>
+								</div>
+								<p class="gray pt_5">以分号隔开</p>
+						</div>
+					</li>	
+				</ul>
+				<div class="creattabbody-btn">
+					<a href="javascript:void(0)" class="btnNormal " id="addSure"><span>确 定</span></a>	<a href="javascript:void(0)" class="btnNormal addCancel"><span>取 消</span></a>
+				</div>	
+		</div>
+    </script>
+    <script type="text/template" id="update-folder-template">
+                <tr id="floatLayer">
+				    <td colspan="3">
+				    <div class="tips tipsnameagin-tips">
+						    <a class="i_u_close updateCancel" href="javascript:void(0)"></a>
+						    <div class="tips-text">
+							    <div class="content-text">
+								    名称: <input type="text" maxlength="16" id="tbNewFolderName" class="iText" value="" />
+							    </div>
+							    <div class="tips-btn">
+							    <a href="javascript:void(0)" class="btnNormal " id="updateSure"><span>确 定</span></a>	<a href="javascript:void(0)" class="btnNormal updateCancel"><span>取 消</span></a>
+							    </div>
+						    </div>
+						    <div class="tipsTop diamond"></div>
+					    </div>
+				    </td>
+			    </tr>
+    </script>
+    <script type="text/template" id="filter-folder-template">
+                <tr id="floatLayer">
+				    <td colspan="3">
+				    <div class="tips pushmail-tips" >						
+						    <div class="tips-text">			
+							    <div class="content-text">
+								    <p class="top1"><span id="currentFolder">文件夹</span>：<span id="currentFolderName"></span></p>
+								    <p class="top2">将符合以下规则的邮件，<span id="filterTagOrFolderText">放入该文件夹</span>：</p>
+								     <ul class="form form-tagform" id="formTagForm">		
+										    <li class="formLine">
+											    <label class="label">发件人：</label>
+											    <div class="element">		
+                                                    <div id="dropDown_from" class=" dropDown-sortnew"></div>			
+												    <div class="peoinput fl">
+													    <input type="text" id="tbFilterMails" class="iText" value="" /><a href="javascript:;" class="i_peo filterMailFrom1"></a>
+												    </div>
+
+												
+											    </div>
+										    </li>	
+										    <li class="formLine">
+                                                <label class="label">收件人：</label>
+											    <div class="element">			
+                                                    <div id="dropDown_to" class=" dropDown-sortnew"></div>		
+												    <div class="peoinput fl">
+													    <input type="text" id="tbFilterTo" class="iText" value="" /><a href="javascript:;" class="i_peo filterMailFrom1"></a>
+												    </div>
+
+												
+											    </div>
+										    </li>	
+										    <li class="formLine">
+                                                <label class="label">主题：</label>
+											    <div class="element">		
+                                                    <div id="dropDown_subject" class=" dropDown-sortnew"></div>	
+                                                    <div class="peoinput fl">
+													    <input type="text" class="iText" id="tbFilterSubject" value="" />
+                                                    </div>
+											    </div>
+										    </li>	
+
+									    </ul>	
+							    </div>
+							    <div class="tips-btn">
+								    <a href="javascript:void(0)" class="btnNormal " id="filterSure"><span>确 定</span></a>	<a href="javascript:void(0)" class="btnNormal filterCancel"><span>取 消</span></a>
+							    </div>
+						    </div>	
+						    <a class="i_u_close filterCancel" hidefocus="true" href="javascript:void(0)"></a>
+						    <div class="tipsTop diamond"></div>
+					    </div>
+				    </td>
+			    </tr>
+    </script>
+    <!-- 标签弹窗模版 -->
+    <script type="text/template" id="color-folder-template">
+        <div class="boxIframe">
+            <div class="boxIframeTitle">
+            <h2><span>标签颜色</span></h2>
+            <a href="###" class="i_t_close"></a></div>
+            <div class="boxIframeMain">
+            <div class="boxIframeText">
+                <fieldset class="form">
+                <legend class="hide">修改标签颜色</legend>
+                <ul class="formLine">
+                    <li>
+                    <label class="label">域名：</label>
+                    <div class="element">
+                        <input type="text" id="tbcolorFolderName" class="iText" value="" style="width:170px;">                       
+                    </div>
+                    </li>                   
+                </ul>
+                </fieldset>
+            </div>
+            <div class="boxIframeBtn"> <span class="bibBtn"> <a href="javascript:void(0)" id="colorSure" class="btnSure"><span>确 定</span></a>&nbsp;<a id="colorCancel" href="javascript:void(0)" class="btnNormal"><span>取 消</span></a> </span> </div>
+            </div>
+        </div>
+    </script>
+    <script type="text/template" id="add-tag-template">
+        <div class="creattabbody creattabbody2" id="creatTabBody">
+				<a href="javascript:void(0)" class="i_u_close addTagCancel"></a>
+				 <ul class="form ">		
+					<li class="formLine">
+						<label class="label">名称：</label>
+						<div class="element">	
+								<div class="setTag">
+								  <input type="" value="" maxlength="16" id="tbTagName" class="iText">
+
+								  <div class="mailThemeBg" id="mailThemeBg" color="3">
+									<span href="javascript:void(0)" class="tagMin tagRed"><span class="tagBody"></span></span><i class="i_triangle_d"></i>
+								  </div>						
+								</div>
+								<div class="pt_5"><a hidefocus="true" href="javascript:void(0)" id="showTagInput">接收指定人的来信<i class="i_triangle_d"></i></a></div>
+						</div>
+					</li>	
+					<li class="formLine" id="mailFrom" style="display: none;">
+						<label class="label">发件人：</label>
+						<div class="element">	
+								<div class="peoinput">
+									<input type="text" id="tbAddr" class="iText" value="" /><a href="javascript:void(0)" class="i_peo" id="filterMailFrom"></a>
+								</div>
+								<p class="gray pt_5">以分号隔开</p>
+						</div>
+					</li>	
+					
+				</ul>
+				<div class="creattabbody-btn">
+					<a href="javascript:void(0)" class="btnNormal " id="addTagSure"><span>确 定</span></a>	<a href="javascript:void(0)" class="btnNormal addTagCancel"><span>取 消</span></a>
+				</div>	
+		</div>
+        
+    </script>
+    
+
+
+
+
+      
+      
+    
+    <script>        top.loadScript("tags.html.pack.js", document)</script>
+ <script>
+$(function(){
+	var anchor = $T.Url.queryString("anchor");
+	if($("#"+anchor)[0]){
+		var _scrollTop = $("#"+anchor).offset().top;
+		$(window).scrollTop(_scrollTop);
+	}
+});
+</script>   
+ 
+
+</body>
+</html>

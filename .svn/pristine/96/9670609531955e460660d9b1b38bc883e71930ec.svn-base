@@ -1,0 +1,142 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="Keywords" content="">
+    <meta name="Description" content="">
+    <title>通讯录首页-139邮箱</title>
+    <script type="text/javascript">
+        document.domain = window.location.host.match(/[^.]+\.[^.]+$/)[0];
+        var resourcePath = top.$App.getResourcePath(), resourcePath = resourcePath.replace('richmail', 'coremail');
+        // var jQuery = $ = top.$;
+        // var _ = top._ ;
+        // var M139 = top.M139;
+        // var $Mock = top.$Mock;
+        // var  Backbone = top.Backbone;
+        try {
+            top.loadCSS(["common/global.css", "module/addr/addrnew.css", "module/addr/addr.css","module/addr/group.css"], document);
+
+            top.loadScript('libs.pack.js', document);
+            top.loadScript('m139.core.pack.js', document);
+            top.loadScript("m2012.ui.common.pack.js", document);
+             top.loadScript("/m2012/js/packs/addr/addr_zh_hans.pack.js", document);
+        } catch (ex) {
+        	console.warn(ex);
+        }
+        /**
+         * [regularName 名字处理函数]
+         * @param  {[type]} str [description]
+         * @return {[type]}     [description]
+         */
+        function regularName( str ){
+            var reg = /([\u4E00-\u9FA5])|[^\u4E00-\u9FA5,^a-z,^A-Z,^\d]/g;
+            var str_arr = str.split("");
+            var result , name;
+            if( result = reg.exec( str ) ){
+                if(result.index > 1){
+                    name = str.slice(0,2).split("");
+                    name[0] = name[0].toUpperCase();
+                  return "<span style='font-size:24px;'>" + name.join("") + "</span>"; 
+                }
+                if( !result[1] && (result.index === 0)  ){
+                  return false;//按照规则需要返回默认头像图片
+                }else{
+                  return  str_arr[0];
+                }
+            }else{
+                name = str.slice(0,2).split("");
+                name[0] = name[0].toUpperCase();                
+                return "<span style='font-size:24px;'>" + name.join("") + "</span>"; 
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="addr-list-body bgPadding">
+        <div class="setArea">
+            <h2>群组消息 | <a href="javascript:void(0);" class="fanghui" id="goBack">&lt;&lt;返回</a></h2>
+        </div>
+        <div id="invite_wrapper" style="display:none;" >
+            <div class="pt_5 pb_5">
+                <div id="msg_pager_top"></div>
+                <p class="gray">加入群组后，即可使用群组发送群邮件，沟通更便捷</p>
+            </div>
+            <div class="groupMessage" id="group_message_wrapper">
+            </div>
+        </div>
+        <div id="empty_invite_wrapper" style="display:none;" >
+            <div class="addr-list-body">
+                <div class="p_relative emptyGroup">
+                    <h3>高效沟通的利器——群邮件</h3>
+                    <p class="fz_12 c_666 empty_sub">使用群邮件，更好地进行 <strong>项目讨论、小组会议、流程沟通</strong>····</p>
+                    <div class="ta_c" style="padding-top: 330px">
+                        <a href="javascript:top.BH('gom_null_create_group');top.$Addr.trigger('redirect', { key: 'addr_team_create' });return false;" class="btnSetG" hidefocus=""><span>新建群组</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/template" id="group_message_template">
+        <table class="groupMessageTbl" width="100%">
+            <colgroup>
+                <col width="68" />
+                <col width="104" />
+                <col width="366" />
+                <col width="126" align="center" />
+                <col width="106" />
+                <col />
+            </colgroup>
+            <tbody>
+                <% _.each( data , function( item ){%>
+                <tr>
+                    <td>
+                        <% if(item["imageUrl"]){%>
+                        <img src="item['imageUrl']" class="bd_e8" height="50" width="50" alt="" class="avatar">
+                        <% }else if( regularName( item["inviterName"] ) ){%>
+                        <i class='avBg bg_1481e7 bd_white'><%= regularName( item["inviterName"] ) %></i>
+                        <% }else{%>
+                        <img height='50' width='50' class="bd_e8" src="/images/global/avatar/avatar_s_01.png"  >
+                        <%}%>
+                    </td>
+                    <td class="pr_20 name">
+                        <strong class="fz_14"><%= $T.Html.encode(item["inviterName"]) %></strong>
+                    </td>
+                    <td><span class="fz_14">邀请您加入“<strong><%= $T.Html.encode(item["groupName"]) %></strong>”群组</span></td>
+                    <td class="ta_c">
+                        <span class="gray">
+                            <%= item["createTime"].split(" ")[0] %>
+                        </span>
+                    </td>
+                    <td>
+                        <% if( parseInt(item["status"] , 10 ) == 1 ){%>
+                        <a href="javascript:void(0)" bh="gom_notify_agree" data-action="handle_invent" data-id="<%= item["recordId"] %>" data-act="1" class="btn btnGreenBd mr_6"><span>同 意</span></a><a href="javascript:void(0)" bh="gom_notify_ignore"
+   data-id="<%= item["recordId"] %>" data-action="handle_invent" class="btn btnGray" data-act="2" ><span>忽 略</span></a>
+                        <% }else if( parseInt(item["status"] , 10 ) == 2  ){ %>
+                        <span class="green">已同意</span>
+                        <% }else if( parseInt(item["status"] , 10 ) == 3  ){%>
+                        已忽略
+                        <% }else{ %>
+                        已失效
+                        <%}%>
+                    </td>
+                    <td></td>
+                </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </script>
+    <script type="text/javascript">
+        try {           
+       top.loadScript("/m2012/js/service/groupmail_v2/manage/m2012.groupmail.view.invitelist.js", document);
+        } catch (ex) {
+            console.warn(ex);
+        }
+
+        $(function () {
+            var main = new M2012.GroupMail.View.InviteList({ model: top.$Addr.GomModel });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<project name="build_test" default="replace_script">
+    <!--引用环境变量-->
+    <property file="local.conf" />
+
+    <property name="dir.m2012" location="${source_base}/m2012"/>
+    <property name="dir.m2012.js" location="${source_base}/m2012/js"/>
+
+    <property name="dir.build" location="${source_base}/build/"/>
+    <property name="dir.build.temp" location="${source_base}/build/temp/"/>
+    <property name="dir.build.src" location="${source_base}/build/src/"/>
+
+    <property name="dir.m2012.html" location="${source_base}/m2012/html/"/>
+
+    <!-- 替换html中的script标签 -->
+    <target name="replace_script">
+        <!-- 正则太猥琐，改在配置文件定义 -->
+        <!-- 在head里引用libs.pack.js,m139.core.pack.js -->
+        <replaceregexp 
+            match="&lt;/head&gt;" 
+            replace="&lt;script&gt;top.loadScript('libs.pack.js',document);top.loadScript('m139.core.pack.js',document)&lt;/script&gt;&lt;/head&gt;" 
+            flags="i" 
+            encoding="utf8">
+            <fileset dir="${dir.m2012.html}">
+                <include name="set/*.html" />
+                <!-- 排除掉空白页，信纸等 -->
+                <exclude name="blank.html" />
+                <exclude name="editor_blank.htm" />
+            </fileset>
+        </replaceregexp>
+
+        <!-- 干掉原来m139.core小文件的引用 -->
+        <replaceregexp 
+            match="&lt;script[^&gt;]+?/js/core/[^&gt;]+?&gt;\s*&lt;/script&gt;" 
+            replace="" 
+            flags="ig"
+            encoding="utf8">
+            <fileset dir="${dir.m2012.html}">
+                <include name="set/*.html" />
+                <!-- 排除掉空白页，信纸等 -->
+                <exclude name="blank.html" />
+            </fileset>
+        </replaceregexp>
+
+        <!-- 干掉jq，bb，underscore的单个引用 -->
+        <replaceregexp
+            match="&lt;script[^&gt;]+?(jquery|backbone|underscore)[^&gt;]+?&gt;\s*&lt;/script&gt;"
+            replace=""
+            flags="ig"
+            encoding="utf8">
+            <fileset dir="${dir.m2012.html}">
+                <include name="set/*.html" />
+                <!-- 排除掉空白页，信纸等 -->
+                <exclude name="blank.html" />
+            </fileset>
+        </replaceregexp>
+
+    </target>
+</project>

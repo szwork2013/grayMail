@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<project name="build_test" default="show_conf">
+    <!--引用环境变量-->
+    <property file="local.conf" />
+
+    <property name="dir.m2012" location="${source_base}/m2012"/>
+    <property name="dir.m2012.js" location="${source_base}/m2012/js"/>
+
+    <property name="dir.build" location="${source_base}/build/"/>
+    <property name="dir.build.temp" location="${source_base}/build/temp/"/>
+    <property name="dir.build.src" location="${source_base}/build/src/"/>
+
+    
+
+    <!-- 打印环境变量 -->
+    <target name="show_conf">
+        <echo>base:${dir.m2012}</echo>
+        <echo>js:${dir.m2012.js}</echo>
+        <echo>build:${dir.build}</echo>
+        <echo>temp:${dir.build.temp}</echo>
+        <echo>temp:${dir.build.src}</echo>
+
+    </target>
+</project>

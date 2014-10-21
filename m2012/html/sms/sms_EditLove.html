@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="pg-window" xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <title>添加情侣号码</title>
+<script type="text/javascript">
+//设域
+document.domain=window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+//获得资源路径
+var resourcePath=window.top.resourcePath;
+var supermanResourcePath=resourcePath.replace("coremail","superman");
+var htmlCode="";
+htmlCode+=getLinkTag("");
+htmlCode+=getLinkTag(resourcePath+"/css/supersms.css?v=20101026");
+top.loadScript("jquery.js", document);
+top.loadScript("m2011.utilscontrols.pack.js", document);
+top.loadScript("/m2012/js/service/sms/m2011.sms.superman.js", document);
+document.write(htmlCode);
+function getJsTag(path,charset){
+    var html="<script charset='gb2312' src='"+path+"' type='text/javascript'></"+"script>";
+    if (charset) html = html.replace("gb2312",charset);
+    return html;
+}
+function getLinkTag(path){
+    var text="";
+    if(path)text="href='"+path+"'";
+    return "<link rel='stylesheet' type='text/css' "+text+" />";
+}
+</script>
+<link rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+Utils.loadSkinCss(null,document,"supersms");
+</script>
+
+</head>
+<body>
+<div class="dialog">
+	<div class="bd">
+		    <p id="setloveshow" style="display:none">由于功能升级，请设置一下您的情侣的性别。</p>
+		<table cellpadding="0">
+			<tr id="trInputLoveMan">
+				<th>请输入情侣号码：</th>
+				<td><span class="input-text"><input class="text" id="txtMobile" type="text" onkeydown="if(event.keyCode==13) checkSubmit();"/></span></td>
+			</tr>
+			<tr>
+				<th>选择性别：</th>
+				<td>
+				<ul class="box-list">
+					<li><label  for="my-radio0"><input type="radio" id="my-radio0" name="rbsex" checked="checked" value="0"/>帅哥</label></li>
+					<li><label  for="my-radio1"><input type="radio" id="my-radio1" name="rbsex" value="1"/>美女</label></li>
+				</ul>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="ft">
+		<ul class="dbtn-list">
+			<li><a class="btnNormal" id="btnOk" href="javascript:void(0);">邀请</a></li>
+			<li><a class="btnNormal" id="btnUpdateSex" href="javascript:void(0);" style="display:none">邀请</a></li>
+			<li><a class="btnNormal" id="btnCancel" href="javascript:void(0);">取 消</a></li>
+		</ul>
+	</div>
+	<div class="dialog-ft-tips">
+		<p>温馨提示：<br />
+		1、邀请之后，提醒Ta发送“OK”到“1065813992”来确认。<br />
+		2、确认后，您们的短信，发送到1065813992，对方即可收到，并自动保存在双方的情侣记录。<br />
+		资费提示：双方发送的短信，按移动短信资费标准收取，不加收费用。本服务目前只支持设置一个手机号码为情侣号码。</p>
+	</div>
+</div>
+</body>
+<script language="javascript"  type="text/javascript">
+$(function(){
+   top.$(".winTipC").css("padding","0px");
+   $("#txtMobile").focus();
+   $("#btnOk").click(function()
+   {
+        checkSubmit();
+   });
+   $("#btnCancel").click(function()
+   {
+        if($("#trInputLoveMan").css("display")=="none")
+        {
+            top.document.getElementById("sms").contentWindow.updateLovePage();
+        }
+        top.FloatingFrame.close();
+   });
+   $("#btnUpdateSex").click(function()
+   {
+        var love = new Love();
+        love.SetSex(getSex());
+   });  
+});
+</script>
+<script language="javascript" type="text/javascript">
+function getSex()
+{
+   var sex = 0;
+   $("input[type=radio]").each(function(i)
+   {
+        if($(this).attr("checked")==true)
+        {
+            sex = $(this)[0].value;
+        }
+   });
+   return sex;
+}
+    
+function checkSubmit()
+{
+    if($.trim($("#txtMobile").val()).length==0)
+    {
+        alert("请输入手机号码!");
+    }
+    else
+    {
+       var love = new Love();
+       love.addLoveMan($.trim($("#txtMobile").val()),getSex());
+    }
+}
+</script>
+</html>

@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=0.8,minimum-scale=0.8,maximum-scale=1.0,user-scalable=yes">
+<meta name="format-detection" content="telephone=no;email=no;">
+<title>139邮箱</title>
+<link rel="stylesheet" href="css/main.css" />
+<link rel="stylesheet" href="css/web-fix.css" />
+    <script>
+        document.domain=window.location.host.match(/[^.]+\.[^.]+$/)[0];
+
+    </script>
+<!--让浏览器IE10以下版本支持HTML5-->
+<!--[if IE]>
+  <script src="js/html5IE.js" type="text/javascript"></script>
+<![endif]-->
+</head>
+<body>
+<header>
+  <div class="header">
+    <h1><a href="javacript:void(0)" class="header_logo"><i class="i-logo"></i></a></h1>
+  </div>
+</header>
+<div class="sec-wrapper">
+  <h2 class="nopadding">一键升级互联网通行证</h2>
+  <p id = "errorMsg" style="color:#f00; height:18px; line-height: 18px; margin-top: 10px;"></p>
+  <div class="clear setPass">
+    <label for="passwd">设置通行证密码：</label><input type="password" id="passwd" class="pass-ipt" maxlength="16">
+  </div>
+  <div class="clear setPass">
+    <label for="vc">图片验证码：</label><input type="text" id="vc" class="pass-ipt" maxlength="1">
+  </div>  
+
+  <div class="verificationCodeBox clear" style="padding-left:112px;">
+    <a href="javascript:;" class="touchLink">
+	 <!-- src="http://pvcnew.mail.10086ts.cn:20080/getimage?clientid=1&amp;rnd=0.6164480349980295"-->
+	     <img id="imgRnd"/>
+		       <p>请输入图片对应的字母或数字，<span id = "btnAnother" class="lnk">看不清，换一张</span></p>
+    </a>
+  </div>
+  <p class="mt_15" style="*zoom:1;">升级后，139邮箱密码就是您的通行证密码，您可使用手机号码和139邮箱密码登录使用以下业务：</p>
+    <div class="imgTxtWrap">
+  <a href="javascript:;"><i class="i-feixin"></i><br />飞信</a><a href="javascript:;"><i class="i-139"></i><br />139邮箱</a><a href="javascript:;"><i class="i-cloud"></i><br />和彩云</a><a href="javascript:;"><i class="i-content"></i><br />和通讯录</a><a href="javascript:;"><i class="i-weibo"></i><br />移动微博</a><a href="javascript:;"><i class="i-biji"></i><br />和笔记</a>
+  </div>
+  <div class="submitArea">
+    <a href="javascript:;" class="greenBtn" id="comfirmUpgrade">确认升级</a>&nbsp;&nbsp;&nbsp;<a href="javascript:;" class="lnk">暂不升级，进入139邮箱</a><!--grayBtn灰按钮-->
+  </div>
+</div>
+</body>
+</html>

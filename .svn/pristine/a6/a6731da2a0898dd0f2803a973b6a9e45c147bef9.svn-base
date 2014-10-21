@@ -1,0 +1,3473 @@
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="generator" content="JsDoc Toolkit" />
+		<title>M2012.UI.HTMLEditor.Model.Editor | JsDoc Reference</title>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+		<meta name="mobileoptimized" content="0" />
+	
+		<link rel="stylesheet" href="../css/all.css" media="all" />
+		<link rel="stylesheet" href="../css/handheld.css" media="only screen and (max-width: 660px)" />
+		<link rel="stylesheet" href="../css/handheld.css" media="handheld" />
+		<link rel="stylesheet" href="../css/screen.css" media="screen and (min-width: 661px)" />
+
+		<script src="../javascript/all.js"></script>
+		<!--[if lt IE 9]>
+			<script src="../javascript/html5.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+<div class="index">
+	<div class="menu">
+		<div class="indexLinks">
+			<a href="../index.html">Classes</a>
+			<a href="../files.html">Files</a>
+		</div>
+	
+		<h2 class="heading1">类</h2>
+		
+		<input type="text" name="classFilter" class="classFilter" id="ClassFilter" placeholder="Filter"></input>
+		
+		<nav>
+			<ul class="classList" id="ClassList">
+				
+					<li><a href="../symbols/_global_.html">_global_</a></li>
+				
+					<li><a href="../symbols/Array.html">Array</a></li>
+				
+					<li><a href="../symbols/Date.html">Date</a></li>
+				
+					<li><a href="../symbols/M139.Browser.html">M139<span class='break'> </span>.<span class='break'> </span>Browser</a></li>
+				
+					<li><a href="../symbols/M139.Browser.is.html">M139<span class='break'> </span>.<span class='break'> </span>Browser<span class='break'> </span>.<span class='break'> </span>is</a></li>
+				
+					<li><a href="../symbols/M139.Browser.support.html">M139<span class='break'> </span>.<span class='break'> </span>Browser<span class='break'> </span>.<span class='break'> </span>support</a></li>
+				
+					<li><a href="../symbols/M139.ConfigManager.html">M139<span class='break'> </span>.<span class='break'> </span>ConfigManager</a></li>
+				
+					<li><a href="../symbols/M139.Core.html">M139<span class='break'> </span>.<span class='break'> </span>Core</a></li>
+				
+					<li><a href="../symbols/M139.Date.html">M139<span class='break'> </span>.<span class='break'> </span>Date</a></li>
+				
+					<li><a href="../symbols/M139.Dom.html">M139<span class='break'> </span>.<span class='break'> </span>Dom</a></li>
+				
+					<li><a href="../symbols/M139.Event.html">M139<span class='break'> </span>.<span class='break'> </span>Event</a></li>
+				
+					<li><a href="../symbols/M139.Event.GlobalEventManager.html">M139<span class='break'> </span>.<span class='break'> </span>Event<span class='break'> </span>.<span class='break'> </span>GlobalEventManager</a></li>
+				
+					<li><a href="../symbols/M139.ExchangeHttpClient.html">M139<span class='break'> </span>.<span class='break'> </span>ExchangeHttpClient</a></li>
+				
+					<li><a href="../symbols/M139.HTTPClient.html">M139<span class='break'> </span>.<span class='break'> </span>HTTPClient</a></li>
+				
+					<li><a href="../symbols/M139.Iframe.html">M139<span class='break'> </span>.<span class='break'> </span>Iframe</a></li>
+				
+					<li><a href="../symbols/M139.JSON.html">M139<span class='break'> </span>.<span class='break'> </span>JSON</a></li>
+				
+					<li><a href="../symbols/M139.Logger.html">M139<span class='break'> </span>.<span class='break'> </span>Logger</a></li>
+				
+					<li><a href="../symbols/M139.Model.html">M139<span class='break'> </span>.<span class='break'> </span>Model</a></li>
+				
+					<li><a href="../symbols/M139.Model.ModelBase.html">M139<span class='break'> </span>.<span class='break'> </span>Model<span class='break'> </span>.<span class='break'> </span>ModelBase</a></li>
+				
+					<li><a href="../symbols/M139.PageApplication.html">M139<span class='break'> </span>.<span class='break'> </span>PageApplication</a></li>
+				
+					<li><a href="../symbols/M139.Plugin.Flash.html">M139<span class='break'> </span>.<span class='break'> </span>Plugin<span class='break'> </span>.<span class='break'> </span>Flash</a></li>
+				
+					<li><a href="../symbols/M139.RichMail.html">M139<span class='break'> </span>.<span class='break'> </span>RichMail</a></li>
+				
+					<li><a href="../symbols/M139.RichMail.API.html">M139<span class='break'> </span>.<span class='break'> </span>RichMail<span class='break'> </span>.<span class='break'> </span>API</a></li>
+				
+					<li><a href="../symbols/M139.RichMail.RichMailHttpClient.html">M139<span class='break'> </span>.<span class='break'> </span>RichMail<span class='break'> </span>.<span class='break'> </span>RichMailHttpClient</a></li>
+				
+					<li><a href="../symbols/M139.Testing.LoginHelper.html">M139<span class='break'> </span>.<span class='break'> </span>Testing<span class='break'> </span>.<span class='break'> </span>LoginHelper</a></li>
+				
+					<li><a href="../symbols/M139.Text.Cookie.html">M139<span class='break'> </span>.<span class='break'> </span>Text<span class='break'> </span>.<span class='break'> </span>Cookie</a></li>
+				
+					<li><a href="../symbols/M139.Text.Email.html">M139<span class='break'> </span>.<span class='break'> </span>Text<span class='break'> </span>.<span class='break'> </span>Email</a></li>
+				
+					<li><a href="../symbols/M139.Text.Html.html">M139<span class='break'> </span>.<span class='break'> </span>Text<span class='break'> </span>.<span class='break'> </span>Html</a></li>
+				
+					<li><a href="../symbols/M139.Text.Mobile.html">M139<span class='break'> </span>.<span class='break'> </span>Text<span class='break'> </span>.<span class='break'> </span>Mobile</a></li>
+				
+					<li><a href="../symbols/M139.Text.Url.html">M139<span class='break'> </span>.<span class='break'> </span>Text<span class='break'> </span>.<span class='break'> </span>Url</a></li>
+				
+					<li><a href="../symbols/M139.Text.Utils.html">M139<span class='break'> </span>.<span class='break'> </span>Text<span class='break'> </span>.<span class='break'> </span>Utils</a></li>
+				
+					<li><a href="../symbols/M139.Text.Xml.html">M139<span class='break'> </span>.<span class='break'> </span>Text<span class='break'> </span>.<span class='break'> </span>Xml</a></li>
+				
+					<li><a href="../symbols/M139.Timing.html">M139<span class='break'> </span>.<span class='break'> </span>Timing</a></li>
+				
+					<li><a href="../symbols/M139.UserModel.html">M139<span class='break'> </span>.<span class='break'> </span>UserModel</a></li>
+				
+					<li><a href="../symbols/M139.View.html">M139<span class='break'> </span>.<span class='break'> </span>View</a></li>
+				
+					<li><a href="../symbols/M139.View.ViewBase.html">M139<span class='break'> </span>.<span class='break'> </span>View<span class='break'> </span>.<span class='break'> </span>ViewBase</a></li>
+				
+					<li><a href="../symbols/M139.VipTool.levelEnum.html">M139<span class='break'> </span>.<span class='break'> </span>VipTool<span class='break'> </span>.<span class='break'> </span>levelEnum</a></li>
+				
+					<li><a href="../symbols/M2011.UI.Dialog.RecentMail.html">M2011<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Dialog<span class='break'> </span>.<span class='break'> </span>RecentMail</a></li>
+				
+					<li><a href="../symbols/M2012.Contacts.API.html">M2012<span class='break'> </span>.<span class='break'> </span>Contacts<span class='break'> </span>.<span class='break'> </span>API</a></li>
+				
+					<li><a href="../symbols/M2012.Contacts.ContactsInfo.html">M2012<span class='break'> </span>.<span class='break'> </span>Contacts<span class='break'> </span>.<span class='break'> </span>ContactsInfo</a></li>
+				
+					<li><a href="../symbols/M2012.Contacts.HttpClient.html">M2012<span class='break'> </span>.<span class='break'> </span>Contacts<span class='break'> </span>.<span class='break'> </span>HttpClient</a></li>
+				
+					<li><a href="../symbols/M2012.Contacts.Model.html">M2012<span class='break'> </span>.<span class='break'> </span>Contacts<span class='break'> </span>.<span class='break'> </span>Model</a></li>
+				
+					<li><a href="../symbols/M2012.MainApplication.html">M2012<span class='break'> </span>.<span class='break'> </span>MainApplication</a></li>
+				
+					<li><a href="../symbols/M2012.MatrixVM.html">M2012<span class='break'> </span>.<span class='break'> </span>MatrixVM</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Dialog.AddressBook.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Dialog<span class='break'> </span>.<span class='break'> </span>AddressBook</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Dialog.ContactsEditor.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Dialog<span class='break'> </span>.<span class='break'> </span>ContactsEditor</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Dialog.ExceptNotify.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Dialog<span class='break'> </span>.<span class='break'> </span>ExceptNotify</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Dialog.LargeAttach.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Dialog<span class='break'> </span>.<span class='break'> </span>LargeAttach</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Dialog.RecentMail.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Dialog<span class='break'> </span>.<span class='break'> </span>RecentMail</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Dialog.SaveToDisk.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Dialog<span class='break'> </span>.<span class='break'> </span>SaveToDisk</a></li>
+				
+					<li><a href="../symbols/M2012.UI.DialogBase.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>DialogBase</a></li>
+				
+					<li><a href="../symbols/M2012.UI.DropMenu.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>DropMenu</a></li>
+				
+					<li><a href="../symbols/M2012.UI.HTMLEditor.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>HTMLEditor</a></li>
+				
+					<li><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>HTMLEditor<span class='break'> </span>.<span class='break'> </span>Model<span class='break'> </span>.<span class='break'> </span>Editor</a></li>
+				
+					<li><a href="../symbols/M2012.UI.HTMLEditor.View.Editor.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>HTMLEditor<span class='break'> </span>.<span class='break'> </span>View<span class='break'> </span>.<span class='break'> </span>Editor</a></li>
+				
+					<li><a href="../symbols/M2012.UI.HTMLEditor.View.FaceMenu.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>HTMLEditor<span class='break'> </span>.<span class='break'> </span>View<span class='break'> </span>.<span class='break'> </span>FaceMenu</a></li>
+				
+					<li><a href="../symbols/M2012.UI.HTMLEditor.View.Menu.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>HTMLEditor<span class='break'> </span>.<span class='break'> </span>View<span class='break'> </span>.<span class='break'> </span>Menu</a></li>
+				
+					<li><a href="../symbols/M2012.UI.MenuButton.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>MenuButton</a></li>
+				
+					<li><a href="../symbols/M2012.UI.PageTurning.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>PageTurning</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Picker.Calendar.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Picker<span class='break'> </span>.<span class='break'> </span>Calendar</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Picker.PickerBase.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Picker<span class='break'> </span>.<span class='break'> </span>PickerBase</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Picker.Range.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Picker<span class='break'> </span>.<span class='break'> </span>Range</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Picker.TimeRange.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Picker<span class='break'> </span>.<span class='break'> </span>TimeRange</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Picker.Week.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Picker<span class='break'> </span>.<span class='break'> </span>Week</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Picker.Weekday.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Picker<span class='break'> </span>.<span class='break'> </span>Weekday</a></li>
+				
+					<li><a href="../symbols/M2012.UI.PopMenu.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>PopMenu</a></li>
+				
+					<li><a href="../symbols/M2012.UI.RichInput.ItemView.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>RichInput<span class='break'> </span>.<span class='break'> </span>ItemView</a></li>
+				
+					<li><a href="../symbols/M2012.UI.RichInput.TextBoxView.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>RichInput<span class='break'> </span>.<span class='break'> </span>TextBoxView</a></li>
+				
+					<li><a href="../symbols/M2012.UI.RichInput.View.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>RichInput<span class='break'> </span>.<span class='break'> </span>View</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Widget.Contacts.Model.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Widget<span class='break'> </span>.<span class='break'> </span>Contacts<span class='break'> </span>.<span class='break'> </span>Model</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Widget.Contacts.View.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Widget<span class='break'> </span>.<span class='break'> </span>Contacts<span class='break'> </span>.<span class='break'> </span>View</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Widget.ContactsAutoSave.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Widget<span class='break'> </span>.<span class='break'> </span>ContactsAutoSave</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Widget.ContactsCard.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Widget<span class='break'> </span>.<span class='break'> </span>ContactsCard</a></li>
+				
+					<li><a href="../symbols/String.html">String</a></li>
+				
+			</ul>
+		</nav>
+	</div>
+	<div class="fineprint" style="clear:both">
+		<footer>
+			
+			Documentation generator: <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0<br />
+			Template: <a href="http://www.thebrightlines.com/2010/05/06/new-template-for-jsdoctoolkit-codeview/" target="_blank">Codeview</a> 1.2<br />
+			Generated on:
+			<time datetime='2012-11-21' pubdate>2012-11-21 17:10</time>
+		</footer>
+	</div>
+</div>
+
+<div class="index indexStatic"></div>
+
+<div class="content">
+	<div class="innerContent">
+		<article>
+			<header>
+				<h1 class="classTitle">
+					
+					Class <span>M2012.UI.HTMLEditor.Model.Editor</span>
+				</h1>
+				
+				<div class="intro">
+					<p class="description summary">
+						
+					</p>
+						
+					
+						<ul class="summary">
+							
+							
+							
+								<li>Defined in: <a href="../symbols/src/G__Work_SVN_Mail139_M2012(rebuild2012)_trunk_src_jsdoc_doc_template_m2012.ui.htmleditor.model.editor.js.html">m2012.ui.htmleditor.model.editor.js</a></li>
+							
+							<li>Extends <span class="fixedFont">
+								<a href="../symbols/M139.Model.ModelBase.html">M139.Model.ModelBase</a></span></li>
+							
+						</ul>
+					
+				</div>
+			</header>
+			
+			
+				<section>
+					<div class="props">
+						<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class M2012.UI.HTMLEditor.Model.Editor.">
+							<caption class="sectionTitle">Class Summary</caption>
+							<thead>
+								<tr>
+									<th scope="col">Constructor Attributes</th>
+									<th scope="col">Constructor Name and Description</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="attributes">&nbsp;</td>
+									<td class="nameDescription" >
+										<div class="fixedFont">
+											<b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#constructor">M2012.UI.HTMLEditor.Model.Editor</a></b>(options)
+										</div>
+										<div class="description">编辑器基础类</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</section>
+			
+			
+			
+				
+				<section>
+					
+						<nav>
+							<div class="props">
+								<table class="summaryTable" cellspacing="0" summary="A summary of the fields documented in the class M2012.UI.HTMLEditor.Model.Editor.">
+									<caption class="sectionTitle">属性列表</caption>
+									
+									<thead>
+										<tr>
+											<th scope="col">属性类型</th>
+											<th scope="col">属性描述</th>
+										</tr>
+									</thead>
+									
+									<tbody>
+										
+											<tr>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">
+													<b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#editorDocument">editorDocument</a></b>
+													</div>
+													<div class="description">编辑区iframe的document对象</div>
+												</td>
+											</tr>
+										
+											<tr>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">
+													<b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#editorWindow">editorWindow</a></b>
+													</div>
+													<div class="description">编辑区iframe的window对象</div>
+												</td>
+											</tr>
+										
+											<tr>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">
+													<b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#frame">frame</a></b>
+													</div>
+													<div class="description">编辑器iframe对象</div>
+												</td>
+											</tr>
+										
+											<tr>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">
+													<b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#isHtml">isHtml</a></b>
+													</div>
+													<div class="description">编辑器是否为html模式</div>
+												</td>
+											</tr>
+										
+											<tr>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">
+													<b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#isReady">isReady</a></b>
+													</div>
+													<div class="description">编辑器是否加载完成进入可用状态</div>
+												</td>
+											</tr>
+										
+											<tr>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">
+													<b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#jEditorDocument">jEditorDocument</a></b>
+													</div>
+													<div class="description">编辑区iframe的document的jQuery对象</div>
+												</td>
+											</tr>
+										
+											<tr>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">
+													<b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#jFrame">jFrame</a></b>
+													</div>
+													<div class="description">编辑器iframe的jQuery对象</div>
+												</td>
+											</tr>
+										
+											<tr>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">
+													<b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#jTextArea">jTextArea</a></b>
+													</div>
+													<div class="description">存放纯文本文本框的jQuery对象</div>
+												</td>
+											</tr>
+										
+											<tr>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">
+													<b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#textArea">textArea</a></b>
+													</div>
+													<div class="description">存放纯文本的文本框</div>
+												</td>
+											</tr>
+										
+									</tbody>
+								</table>
+							</div>
+						</nav>
+					
+					
+					
+						<nav>
+							<dl class="inheritsList">
+							<dt>Fields borrowed from class <a href="../symbols/M139.Model.ModelBase.html">M139.Model.ModelBase</a>: </dt><dd><a href="../symbols/M139.Model.ModelBase.html#logger">logger</a></dd>
+							</dl>
+						</nav>
+					
+				</section>
+			
+	<!--
+	#### METHODS SUMMARY
+	-->
+			
+				<section>
+					
+					
+					<div class="props">
+						<h2 class="sectionTitle">方法列表</h2>
+						
+						
+							<nav>
+								<table class="summaryTable" id="MethodsList" cellspacing="0" summary="A summary of the methods documented in the class M2012.UI.HTMLEditor.Model.Editor.">
+									<thead>
+										<tr>
+											<th scope="col">方法类型</th>
+											<th scope="col">方法描述</th>
+										</tr>
+									</thead>
+									
+									<tbody>
+										
+										
+											<tr
+												 class='item0'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#addReplyContent">addReplyContent</a></b>(content)
+													</div>
+													<div class="description">添加引用内容（写信编辑器）</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item1'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#changeRGBColor">changeRGBColor</a></b>(rgb)
+													</div>
+													<div class="description">rgb(1,1,1)格式转#010101格式</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item2'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#clearFormat">clearFormat</a></b>()
+													</div>
+													<div class="description">清除文字格式</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item3'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#copy">copy</a></b>()
+													</div>
+													<div class="description">复制选中内容</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item4'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#cut">cut</a></b>()
+													</div>
+													<div class="description">剪切选中内容</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item5'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#dispose">dispose</a></b>()
+													</div>
+													<div class="description">销毁对象，释放资源</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item6'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#execCommand">execCommand</a></b>(command, param, isSilent)
+													</div>
+													<div class="description">封装document.execCommand操作</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item7'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#getHtmlContent">getHtmlContent</a></b>()
+													</div>
+													<div class="description">获得编辑器的html内容</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item8'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#getHtmlToTextContent">getHtmlToTextContent</a></b>()
+													</div>
+													<div class="description">将html文本转化成普通文本</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item9'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#getRangeObject">getRangeObject</a></b>()
+													</div>
+													<div class="description">得到选中的范围对象</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item10'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#getSelectedElement">getSelectedElement</a></b>()
+													</div>
+													<div class="description">获得选中的元素（不精确）</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item11'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#getSelectedStyle">getSelectedStyle</a></b>()
+													</div>
+													<div class="description">获得光标当前所在位置的样式值：字体、颜色、对齐方式等</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item12'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#getSelectedText">getSelectedText</a></b>()
+													</div>
+													<div class="description"></div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item13'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#getSelection">getSelection</a></b>()
+													</div>
+													<div class="description">得到选中区域对象</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item14'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#getTextContent">getTextContent</a></b>()
+													</div>
+													<div class="description">获得纯文本内容</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item15'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#getTextToHtmlContent">getTextToHtmlContent</a></b>()
+													</div>
+													<div class="description">纯文本模式切换到编辑器模式，内容转换</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item16'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#insertHTML">insertHTML</a></b>(htmlCode)
+													</div>
+													<div class="description">光标处插入html</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item17'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#insertImage">insertImage</a></b>(uri)
+													</div>
+													<div class="description">光标处插入图片</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item18'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#insertObject">insertObject</a></b>(html)
+													</div>
+													<div class="description">todo 不记得是干嘛用的？</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item19'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#insertOrderedList">insertOrderedList</a></b>()
+													</div>
+													<div class="description">设置数字列表（ol）</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item20'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#insertTable">insertTable</a></b>(options)
+													</div>
+													<div class="description">在光标处插入表格</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item21'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#insertUnorderedList">insertUnorderedList</a></b>()
+													</div>
+													<div class="description">设置符号列表（ul）</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item22'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#onBlur">onBlur</a></b>()
+													</div>
+													<div class="description">当失去焦点触发事件</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item23'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#onFocus">onFocus</a></b>()
+													</div>
+													<div class="description">当获得焦点触发事件</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item24'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#paste">paste</a></b>()
+													</div>
+													<div class="description">在光标处粘贴内容</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item25'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#printFormat">printFormat</a></b>(formatStyle)
+													</div>
+													<div class="description">格式化选中内容</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item26'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#redo">redo</a></b>()
+													</div>
+													<div class="description">重做（取消撤销的操作）</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item27'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#replaceImage">replaceImage</a></b>(fileName, uri)
+													</div>
+													<div class="description">不晓得干嘛用的，控件粘贴图片要做处理？</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item28'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#setAlignCenter">setAlignCenter</a></b>()
+													</div>
+													<div class="description">设置内容居中对齐</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item29'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#setAlignLeft">setAlignLeft</a></b>()
+													</div>
+													<div class="description">设置内容左对齐</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item30'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#setAlignRight">setAlignRight</a></b>()
+													</div>
+													<div class="description">设置内容右对齐</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item31'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#setBackgroundColor">setBackgroundColor</a></b>(color, isSilent)
+													</div>
+													<div class="description">清除文字背景颜色</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item32'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#setBlessings">setBlessings</a></b>(text)
+													</div>
+													<div class="description">todo 插入祝福语</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item33'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#setBold">setBold</a></b>()
+													</div>
+													<div class="description">设置文字效果粗体</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item34'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#setFontFamily">setFontFamily</a></b>(fontName)
+													</div>
+													<div class="description">设置字体</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item35'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#setFontSize">setFontSize</a></b>(fontSize)
+													</div>
+													<div class="description">设置字号</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item36'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#setFontSizeDown">setFontSizeDown</a></b>()
+													</div>
+													<div class="description">减少字号</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item37'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#setFontSizeUp">setFontSizeUp</a></b>()
+													</div>
+													<div class="description">加大字号</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item38'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#setForeColor">setForeColor</a></b>(color)
+													</div>
+													<div class="description">设置字体颜色</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item39'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#setFormatPrinter">setFormatPrinter</a></b>()
+													</div>
+													<div class="description">设置、取消格式刷</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item40'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#setFormatPrinterOn">setFormatPrinterOn</a></b>(keep)
+													</div>
+													<div class="description">选中格式刷</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item41'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#setFormatPrintOff">setFormatPrintOff</a></b>()
+													</div>
+													<div class="description">退出格式刷</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item42'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#setHtmlContent">setHtmlContent</a></b>(htmlCode)
+													</div>
+													<div class="description">设置html内容</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item43'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#setIndent">setIndent</a></b>()
+													</div>
+													<div class="description">增加缩进</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item44'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#setItalic">setItalic</a></b>()
+													</div>
+													<div class="description">设置文字效果斜体字</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item45'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#setLink">setLink</a></b>(url)
+													</div>
+													<div class="description">插入超链接</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item46'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#setOutdent">setOutdent</a></b>()
+													</div>
+													<div class="description">减少缩进</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item47'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#setRowSpace">setRowSpace</a></b>(rowSpace)
+													</div>
+													<div class="description">设置行距 todo 不大管用</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item48'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#setSign">setSign</a></b>(text)
+													</div>
+													<div class="description">插入签名</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item49'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#setTextContent">setTextContent</a></b>(text)
+													</div>
+													<div class="description">纯文本模式下设置内容</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item50'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#setUnderline">setUnderline</a></b>()
+													</div>
+													<div class="description">设置文字效果下划线</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item51'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#switchEditor">switchEditor</a></b>()
+													</div>
+													<div class="description">切换编辑器模式 html or 纯文本</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item52'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#undo">undo</a></b>()
+													</div>
+													<div class="description">撤销操作</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item53'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#utilIsBlockElement">utilIsBlockElement</a></b>(tagName)
+													</div>
+													<div class="description">判断元素是否块元素</div>
+												</td>
+											</tr>
+										
+									</tbody>
+								</table>
+							</nav>
+						
+					
+						
+							<nav>
+								<dl class="inheritsList" id="MethodsListInherited">
+								<dt>Methods borrowed from class <span class='fixedFont'><a href="../symbols/M139.Model.ModelBase.html">M139.Model.ModelBase</a></span>: </dt><dd><span class='fixedFont'><a href="../symbols/M139.Model.ModelBase.html#trigger">trigger</a></span></dd>
+								</dl>
+							</nav>
+						
+					</div>
+				</section>
+			
+			
+	<!--
+	#### EVENTS SUMMARY
+	-->
+			
+				
+				<section>
+					
+						<nav>
+							<div class="props">
+								<table class="summaryTable" cellspacing="0" summary="A summary of the events documented in the class M2012.UI.HTMLEditor.Model.Editor.">
+									<caption class="sectionTitle">事件列表</caption>
+									
+									<thead>
+										<tr>
+											<th scope="col">事件类型</th>
+											<th scope="col">事件描述</th>
+										</tr>
+									</thead>
+									
+									<tbody>
+										
+											<tr>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#event:blur">blur</a></b>(e)
+													</div>
+													<div class="description">编辑器加载完成(主要是空白页需要网络加载)</div>
+												</td>
+											</tr>
+										
+											<tr>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#event:bookmarkchange">bookmarkchange</a></b>(e)
+													</div>
+													<div class="description">光标选择区域发生变化</div>
+												</td>
+											</tr>
+										
+											<tr>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#event:focus">focus</a></b>(e)
+													</div>
+													<div class="description">编辑器加载完成(主要是空白页需要网络加载)</div>
+												</td>
+											</tr>
+										
+											<tr>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#event:keydown">keydown</a></b>(e)
+													</div>
+													<div class="description">编辑器加载完成(主要是空白页需要网络加载)</div>
+												</td>
+											</tr>
+										
+											<tr>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html#event:ready">ready</a></b>(e)
+													</div>
+													<div class="description">编辑器加载完成(主要是空白页需要网络加载)</div>
+												</td>
+											</tr>
+										
+									</tbody>
+								</table>
+							</div>
+						</nav>
+					
+					
+					
+						<nav>
+							<dl class="inheritsList">
+							
+							</dl>
+						</nav>
+					
+				</section>
+			
+	<!--
+	#### CONSTRUCTOR DETAILS
+	-->
+			
+				<section>
+					<div class="details props">
+						<div class="innerProps">
+							<h2 class="sectionTitle" id="constructor">
+								Class Detail
+							</h2>
+							
+							<div class="fixedFont">
+								<b>M2012.UI.HTMLEditor.Model.Editor</b>(options)
+							</div>
+							
+							<div class="description">
+								编辑器基础类
+								
+							</div>
+							
+							
+								
+									<pre class="code"></pre>
+								
+							
+						
+							
+								<dl class="detailList params">
+									<dt class="heading">Parameters:</dt>
+									
+										<dt>
+											<span class="light fixedFont">{Object}</span>  <b>options</b>
+											
+										</dt>
+										<dd>初始化参数集</dd>
+									
+										<dt>
+											<span class="light fixedFont">{HTMLElement}</span>  <b>options.frame</b>
+											
+										</dt>
+										<dd>必选参数，编辑区域的iframe对象</dd>
+									
+										<dt>
+											<span class="light fixedFont">{HTMLElement}</span>  <b>options.textArea</b>
+											
+										</dt>
+										<dd>存放存文本内容的文本框对象（如果不使用纯文本模式，可以不传该参数）</dd>
+									
+								</dl>
+							
+							
+							
+						</div>
+					</div>
+				</section>
+			
+	<!--
+	#### FIELD DETAILS
+	-->
+			
+				<section>
+					<div class="details props">
+						<div class="innerProps">
+							<h2 class="sectionTitle">
+								属性详细说明
+							</h2>
+							
+							
+								<div class="fixedFont heading" id="editorDocument">
+									<span class='lighter'>
+									
+									</span>
+									
+									
+									
+									<b>editorDocument</b>							
+								</div>
+								
+								<div class="description">
+									编辑区iframe的document对象
+									
+									
+									
+								</div>
+								
+								
+									
+								
+								<div class="hr"></div>
+							
+								<div class="fixedFont heading" id="editorWindow">
+									<span class='lighter'>
+									
+									</span>
+									
+									
+									
+									<b>editorWindow</b>							
+								</div>
+								
+								<div class="description">
+									编辑区iframe的window对象
+									
+									
+									
+								</div>
+								
+								
+									
+								
+								<div class="hr"></div>
+							
+								<div class="fixedFont heading" id="frame">
+									<span class='lighter'>
+									
+									</span>
+									
+									
+									
+									<b>frame</b>							
+								</div>
+								
+								<div class="description">
+									编辑器iframe对象
+									
+									
+									
+								</div>
+								
+								
+									
+								
+								<div class="hr"></div>
+							
+								<div class="fixedFont heading" id="isHtml">
+									<span class='lighter'>
+									
+									</span>
+									
+									
+									
+									<b>isHtml</b>							
+								</div>
+								
+								<div class="description">
+									编辑器是否为html模式
+									
+									
+									
+								</div>
+								
+								
+									
+								
+								<div class="hr"></div>
+							
+								<div class="fixedFont heading" id="isReady">
+									<span class='lighter'>
+									
+									</span>
+									
+									
+									
+									<b>isReady</b>							
+								</div>
+								
+								<div class="description">
+									编辑器是否加载完成进入可用状态
+									
+									
+									
+								</div>
+								
+								
+									
+								
+								<div class="hr"></div>
+							
+								<div class="fixedFont heading" id="jEditorDocument">
+									<span class='lighter'>
+									
+									</span>
+									
+									
+									
+									<b>jEditorDocument</b>							
+								</div>
+								
+								<div class="description">
+									编辑区iframe的document的jQuery对象
+									
+									
+									
+								</div>
+								
+								
+									
+								
+								<div class="hr"></div>
+							
+								<div class="fixedFont heading" id="jFrame">
+									<span class='lighter'>
+									
+									</span>
+									
+									
+									
+									<b>jFrame</b>							
+								</div>
+								
+								<div class="description">
+									编辑器iframe的jQuery对象
+									
+									
+									
+								</div>
+								
+								
+									
+								
+								<div class="hr"></div>
+							
+								<div class="fixedFont heading" id="jTextArea">
+									<span class='lighter'>
+									
+									</span>
+									
+									
+									
+									<b>jTextArea</b>							
+								</div>
+								
+								<div class="description">
+									存放纯文本文本框的jQuery对象
+									
+									
+									
+								</div>
+								
+								
+									
+								
+								<div class="hr"></div>
+							
+								<div class="fixedFont heading" id="textArea">
+									<span class='lighter'>
+									
+									</span>
+									
+									
+									
+									<b>textArea</b>							
+								</div>
+								
+								<div class="description">
+									存放纯文本的文本框
+									
+									
+									
+								</div>
+								
+								
+									
+								
+								
+							
+						</div>
+					</div>
+				</section>
+			
+	<!--
+	#### METHOD DETAILS
+	-->		
+			
+				<section>
+					<div class="details props">
+						<div class="innerProps">
+							<h2 class="sectionTitle">
+								方法详细说明
+							</h2>
+							
+							<ul class="methodDetail" id="MethodDetail">
+								
+								
+									<li 
+										 class='item0'
+									>
+										<div class="fixedFont heading" id="addReplyContent">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>addReplyContent</b>(content)
+										</div>
+										
+										<div class="description">
+											添加引用内容（写信编辑器）
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>content</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item1'
+									>
+										<div class="fixedFont heading" id="changeRGBColor">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>changeRGBColor</b>(rgb)
+										</div>
+										
+										<div class="description">
+											rgb(1,1,1)格式转#010101格式
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>rgb</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item2'
+									>
+										<div class="fixedFont heading" id="clearFormat">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>clearFormat</b>()
+										</div>
+										
+										<div class="description">
+											清除文字格式
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item3'
+									>
+										<div class="fixedFont heading" id="copy">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>copy</b>()
+										</div>
+										
+										<div class="description">
+											复制选中内容
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item4'
+									>
+										<div class="fixedFont heading" id="cut">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>cut</b>()
+										</div>
+										
+										<div class="description">
+											剪切选中内容
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item5'
+									>
+										<div class="fixedFont heading" id="dispose">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>dispose</b>()
+										</div>
+										
+										<div class="description">
+											销毁对象，释放资源
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item6'
+									>
+										<div class="fixedFont heading" id="execCommand">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>execCommand</b>(command, param, isSilent)
+										</div>
+										
+										<div class="description">
+											封装document.execCommand操作
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>command</b>
+														
+													</dt>
+													<dd></dd>
+												
+													<dt>
+														<b>param</b>
+														
+													</dt>
+													<dd></dd>
+												
+													<dt>
+														<b>isSilent</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item7'
+									>
+										<div class="fixedFont heading" id="getHtmlContent">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>getHtmlContent</b>()
+										</div>
+										
+										<div class="description">
+											获得编辑器的html内容
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item8'
+									>
+										<div class="fixedFont heading" id="getHtmlToTextContent">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>getHtmlToTextContent</b>()
+										</div>
+										
+										<div class="description">
+											将html文本转化成普通文本
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item9'
+									>
+										<div class="fixedFont heading" id="getRangeObject">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>getRangeObject</b>()
+										</div>
+										
+										<div class="description">
+											得到选中的范围对象
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item10'
+									>
+										<div class="fixedFont heading" id="getSelectedElement">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>getSelectedElement</b>()
+										</div>
+										
+										<div class="description">
+											获得选中的元素（不精确）
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item11'
+									>
+										<div class="fixedFont heading" id="getSelectedStyle">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>getSelectedStyle</b>()
+										</div>
+										
+										<div class="description">
+											获得光标当前所在位置的样式值：字体、颜色、对齐方式等
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item12'
+									>
+										<div class="fixedFont heading" id="getSelectedText">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>getSelectedText</b>()
+										</div>
+										
+										<div class="description">
+											
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item13'
+									>
+										<div class="fixedFont heading" id="getSelection">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>getSelection</b>()
+										</div>
+										
+										<div class="description">
+											得到选中区域对象
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item14'
+									>
+										<div class="fixedFont heading" id="getTextContent">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>getTextContent</b>()
+										</div>
+										
+										<div class="description">
+											获得纯文本内容
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item15'
+									>
+										<div class="fixedFont heading" id="getTextToHtmlContent">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>getTextToHtmlContent</b>()
+										</div>
+										
+										<div class="description">
+											纯文本模式切换到编辑器模式，内容转换
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item16'
+									>
+										<div class="fixedFont heading" id="insertHTML">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>insertHTML</b>(htmlCode)
+										</div>
+										
+										<div class="description">
+											光标处插入html
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<span class="light fixedFont">{<a href="../symbols/String.html">String</a>}</span> <b>htmlCode</b>
+														
+													</dt>
+													<dd>要插入的html</dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item17'
+									>
+										<div class="fixedFont heading" id="insertImage">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>insertImage</b>(uri)
+										</div>
+										
+										<div class="description">
+											光标处插入图片
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<span class="light fixedFont">{<a href="../symbols/String.html">String</a>}</span> <b>uri</b>
+														
+													</dt>
+													<dd>要插入的图片地址</dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item18'
+									>
+										<div class="fixedFont heading" id="insertObject">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>insertObject</b>(html)
+										</div>
+										
+										<div class="description">
+											todo 不记得是干嘛用的？
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>html</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item19'
+									>
+										<div class="fixedFont heading" id="insertOrderedList">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>insertOrderedList</b>()
+										</div>
+										
+										<div class="description">
+											设置数字列表（ol）
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item20'
+									>
+										<div class="fixedFont heading" id="insertTable">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>insertTable</b>(options)
+										</div>
+										
+										<div class="description">
+											在光标处插入表格
+											
+											
+											
+											
+										</div>
+										
+										
+											
+												<pre class="code"></pre>
+											
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<span class="light fixedFont">{Object}</span> <b>options</b>
+														
+													</dt>
+													<dd>初始化参数集</dd>
+												
+													<dt>
+														<span class="light fixedFont">{Number}</span> <b>options.rows</b>
+														
+													</dt>
+													<dd>表格的行数</dd>
+												
+													<dt>
+														<span class="light fixedFont">{Number}</span> <b>options.cells</b>
+														
+													</dt>
+													<dd>表格的列数</dd>
+												
+													<dt>
+														<span class="light fixedFont">{Number}</span> <b>options.width</b>
+														
+													</dt>
+													<dd>表格的宽度</dd>
+												
+													<dt>
+														<span class="light fixedFont">{Number}</span> <b>options.height</b>
+														
+													</dt>
+													<dd>表格的高度</dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item21'
+									>
+										<div class="fixedFont heading" id="insertUnorderedList">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>insertUnorderedList</b>()
+										</div>
+										
+										<div class="description">
+											设置符号列表（ul）
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item22'
+									>
+										<div class="fixedFont heading" id="onBlur">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>onBlur</b>()
+										</div>
+										
+										<div class="description">
+											当失去焦点触发事件
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item23'
+									>
+										<div class="fixedFont heading" id="onFocus">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>onFocus</b>()
+										</div>
+										
+										<div class="description">
+											当获得焦点触发事件
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item24'
+									>
+										<div class="fixedFont heading" id="paste">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>paste</b>()
+										</div>
+										
+										<div class="description">
+											在光标处粘贴内容
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item25'
+									>
+										<div class="fixedFont heading" id="printFormat">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>printFormat</b>(formatStyle)
+										</div>
+										
+										<div class="description">
+											格式化选中内容
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>formatStyle</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item26'
+									>
+										<div class="fixedFont heading" id="redo">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>redo</b>()
+										</div>
+										
+										<div class="description">
+											重做（取消撤销的操作）
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item27'
+									>
+										<div class="fixedFont heading" id="replaceImage">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>replaceImage</b>(fileName, uri)
+										</div>
+										
+										<div class="description">
+											不晓得干嘛用的，控件粘贴图片要做处理？
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>fileName</b>
+														
+													</dt>
+													<dd></dd>
+												
+													<dt>
+														<b>uri</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item28'
+									>
+										<div class="fixedFont heading" id="setAlignCenter">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>setAlignCenter</b>()
+										</div>
+										
+										<div class="description">
+											设置内容居中对齐
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item29'
+									>
+										<div class="fixedFont heading" id="setAlignLeft">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>setAlignLeft</b>()
+										</div>
+										
+										<div class="description">
+											设置内容左对齐
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item30'
+									>
+										<div class="fixedFont heading" id="setAlignRight">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>setAlignRight</b>()
+										</div>
+										
+										<div class="description">
+											设置内容右对齐
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item31'
+									>
+										<div class="fixedFont heading" id="setBackgroundColor">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>setBackgroundColor</b>(color, isSilent)
+										</div>
+										
+										<div class="description">
+											清除文字背景颜色
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>color</b>
+														
+													</dt>
+													<dd></dd>
+												
+													<dt>
+														<b>isSilent</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item32'
+									>
+										<div class="fixedFont heading" id="setBlessings">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>setBlessings</b>(text)
+										</div>
+										
+										<div class="description">
+											todo 插入祝福语
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>text</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item33'
+									>
+										<div class="fixedFont heading" id="setBold">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>setBold</b>()
+										</div>
+										
+										<div class="description">
+											设置文字效果粗体
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item34'
+									>
+										<div class="fixedFont heading" id="setFontFamily">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>setFontFamily</b>(fontName)
+										</div>
+										
+										<div class="description">
+											设置字体
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>fontName</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item35'
+									>
+										<div class="fixedFont heading" id="setFontSize">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>setFontSize</b>(fontSize)
+										</div>
+										
+										<div class="description">
+											设置字号
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>fontSize</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item36'
+									>
+										<div class="fixedFont heading" id="setFontSizeDown">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>setFontSizeDown</b>()
+										</div>
+										
+										<div class="description">
+											减少字号
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item37'
+									>
+										<div class="fixedFont heading" id="setFontSizeUp">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>setFontSizeUp</b>()
+										</div>
+										
+										<div class="description">
+											加大字号
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item38'
+									>
+										<div class="fixedFont heading" id="setForeColor">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>setForeColor</b>(color)
+										</div>
+										
+										<div class="description">
+											设置字体颜色
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>color</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item39'
+									>
+										<div class="fixedFont heading" id="setFormatPrinter">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>setFormatPrinter</b>()
+										</div>
+										
+										<div class="description">
+											设置、取消格式刷
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item40'
+									>
+										<div class="fixedFont heading" id="setFormatPrinterOn">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>setFormatPrinterOn</b>(keep)
+										</div>
+										
+										<div class="description">
+											选中格式刷
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>keep</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item41'
+									>
+										<div class="fixedFont heading" id="setFormatPrintOff">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>setFormatPrintOff</b>()
+										</div>
+										
+										<div class="description">
+											退出格式刷
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item42'
+									>
+										<div class="fixedFont heading" id="setHtmlContent">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>setHtmlContent</b>(htmlCode)
+										</div>
+										
+										<div class="description">
+											设置html内容
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>htmlCode</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item43'
+									>
+										<div class="fixedFont heading" id="setIndent">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>setIndent</b>()
+										</div>
+										
+										<div class="description">
+											增加缩进
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item44'
+									>
+										<div class="fixedFont heading" id="setItalic">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>setItalic</b>()
+										</div>
+										
+										<div class="description">
+											设置文字效果斜体字
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item45'
+									>
+										<div class="fixedFont heading" id="setLink">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>setLink</b>(url)
+										</div>
+										
+										<div class="description">
+											插入超链接
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>url</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item46'
+									>
+										<div class="fixedFont heading" id="setOutdent">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>setOutdent</b>()
+										</div>
+										
+										<div class="description">
+											减少缩进
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item47'
+									>
+										<div class="fixedFont heading" id="setRowSpace">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>setRowSpace</b>(rowSpace)
+										</div>
+										
+										<div class="description">
+											设置行距 todo 不大管用
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>rowSpace</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item48'
+									>
+										<div class="fixedFont heading" id="setSign">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>setSign</b>(text)
+										</div>
+										
+										<div class="description">
+											插入签名
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>text</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item49'
+									>
+										<div class="fixedFont heading" id="setTextContent">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>setTextContent</b>(text)
+										</div>
+										
+										<div class="description">
+											纯文本模式下设置内容
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>text</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item50'
+									>
+										<div class="fixedFont heading" id="setUnderline">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>setUnderline</b>()
+										</div>
+										
+										<div class="description">
+											设置文字效果下划线
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item51'
+									>
+										<div class="fixedFont heading" id="switchEditor">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>switchEditor</b>()
+										</div>
+										
+										<div class="description">
+											切换编辑器模式 html or 纯文本
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item52'
+									>
+										<div class="fixedFont heading" id="undo">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>undo</b>()
+										</div>
+										
+										<div class="description">
+											撤销操作
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item53'
+									>
+										<div class="fixedFont heading" id="utilIsBlockElement">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>utilIsBlockElement</b>(tagName)
+										</div>
+										
+										<div class="description">
+											判断元素是否块元素
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>tagName</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										
+									</li>
+								
+							</ul>
+						</div>
+					</div>
+				</section>
+			
+			
+	<!--
+	#### EVENT DETAILS
+	-->		
+			
+				<section>
+					<div class="details props">
+						<div class="innerProps">
+							<h2 class="sectionTitle">
+								事件详细说明
+							</h2>
+							
+							
+								<div class="fixedFont heading" id="event:blur">
+									<span class='lighter'>
+									
+									</span>
+									
+									
+									
+									<b>blur</b>(e)
+								</div>
+								
+								<div class="description">
+									编辑器加载完成(主要是空白页需要网络加载)
+									
+									
+									
+									
+								</div>
+								
+								
+									
+										<pre class="code">
+                editor.on("blur",function(e){});</pre>
+									
+								
+								
+								
+									<dl class="detailList params">
+										<dt class="heading">Parameters:</dt>
+										
+											<dt>
+												<span class="light fixedFont">{Object}</span> <b>e</b>
+												
+											</dt>
+											<dd>事件参数</dd>
+										
+									</dl>
+								
+								
+								
+								
+								<div class="hr"></div>
+							
+								<div class="fixedFont heading" id="event:bookmarkchange">
+									<span class='lighter'>
+									
+									</span>
+									
+									
+									
+									<b>bookmarkchange</b>(e)
+								</div>
+								
+								<div class="description">
+									光标选择区域发生变化
+									
+									
+									
+									
+								</div>
+								
+								
+									
+										<pre class="code">
+            editor.on("bookmarkchange",function(e){});</pre>
+									
+								
+								
+								
+									<dl class="detailList params">
+										<dt class="heading">Parameters:</dt>
+										
+											<dt>
+												<span class="light fixedFont">{Object}</span> <b>e</b>
+												
+											</dt>
+											<dd>事件参数</dd>
+										
+									</dl>
+								
+								
+								
+								
+								<div class="hr"></div>
+							
+								<div class="fixedFont heading" id="event:focus">
+									<span class='lighter'>
+									
+									</span>
+									
+									
+									
+									<b>focus</b>(e)
+								</div>
+								
+								<div class="description">
+									编辑器加载完成(主要是空白页需要网络加载)
+									
+									
+									
+									
+								</div>
+								
+								
+									
+										<pre class="code">
+                editor.on("focus",function(e){});</pre>
+									
+								
+								
+								
+									<dl class="detailList params">
+										<dt class="heading">Parameters:</dt>
+										
+											<dt>
+												<span class="light fixedFont">{Object}</span> <b>e</b>
+												
+											</dt>
+											<dd>事件参数</dd>
+										
+									</dl>
+								
+								
+								
+								
+								<div class="hr"></div>
+							
+								<div class="fixedFont heading" id="event:keydown">
+									<span class='lighter'>
+									
+									</span>
+									
+									
+									
+									<b>keydown</b>(e)
+								</div>
+								
+								<div class="description">
+									编辑器加载完成(主要是空白页需要网络加载)
+									
+									
+									
+									
+								</div>
+								
+								
+									
+										<pre class="code">
+                editor.on("keydown",function(e){
+                    console.log(e.keyCode);
+                });</pre>
+									
+								
+								
+								
+									<dl class="detailList params">
+										<dt class="heading">Parameters:</dt>
+										
+											<dt>
+												<span class="light fixedFont">{Object}</span> <b>e</b>
+												
+											</dt>
+											<dd>事件参数</dd>
+										
+									</dl>
+								
+								
+								
+								
+								<div class="hr"></div>
+							
+								<div class="fixedFont heading" id="event:ready">
+									<span class='lighter'>
+									
+									</span>
+									
+									
+									
+									<b>ready</b>(e)
+								</div>
+								
+								<div class="description">
+									编辑器加载完成(主要是空白页需要网络加载)
+									
+									
+									
+									
+								</div>
+								
+								
+									
+										<pre class="code">
+                editor.on("ready",function(e){});</pre>
+									
+								
+								
+								
+									<dl class="detailList params">
+										<dt class="heading">Parameters:</dt>
+										
+											<dt>
+												<span class="light fixedFont">{Object}</span> <b>e</b>
+												
+											</dt>
+											<dd>事件参数</dd>
+										
+									</dl>
+								
+								
+								
+								
+								
+							
+						</div>
+					</div>
+				</section>
+			
+		</article>
+	</div>
+</div>
+
+		<script type="text/javascript">
+			wbos.CssTools.MediaQueryFallBack.LoadCss('../css/screen.css', '../css/handheld.css', 660)
+			codeview.classFilter.Init()
+		</script>
+	</body>
+</html>
+

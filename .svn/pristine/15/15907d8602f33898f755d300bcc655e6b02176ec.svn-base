@@ -1,0 +1,234 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="Keywords" content=""/>
+	<meta name="Description" content=""/>
+	<title>附件夹-139邮箱</title>
+<script type="text/javascript">
+
+	document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+	top.$App.dyinfoChanged = true;
+
+	top.loadCSS(["common/global.css", "module/atta/atta.css", "module/FileExtract/extract.css", "module/networkDisk/networkDisk.css"], document);
+
+	top.loadScript('libs.pack.js', document);
+	top.loadScript('m139.core.pack.js', document);
+	top.loadScript("m2012.ui.common.pack.js", document);
+
+</script>
+
+<style type="text/css">
+
+body{
+	overflow:hidden;
+}
+/*view list*/
+
+/*
+.listViewHover{
+	border:1px solid #d8dee7; border-radius:5px; -webkit-border-radius:5px;
+}
+.listViewChecked{
+	border:1px solid #d8dee7; border-radius:5px; -webkit-border-radius:5px;
+	background:#f4f5f9;border: 1px solid #a2b0c6;
+}
+*/
+li .lista, li .checkView{
+	display: none;
+}
+li .gray{
+	display: block;
+}
+
+
+.listViewHover .checkView, .listViewChecked .checkView{display: inline-block;}
+
+li.listViewHover .lista{
+	display: block;
+}
+
+li.listViewHover .gray{
+	display: none;
+}
+
+li.listViewChecked .lista{
+	display: none;
+}
+
+li.listViewChecked .gray{
+	display: block;
+}
+
+
+li.listViewChecked:hover .lista{
+	display: block;
+}
+
+li.listViewChecked:hover .gray{
+	display: none;
+}
+
+.itemName{
+	cursor: pointer;
+}
+
+tr.listViewHover {background-color:#f2f2f2;}
+tr.listViewChecked {background-color:#f8f8f8;}
+
+.addr-imgInfo{ margin-top: 100px;}
+.diskTableList,.appendixList{ margin-right: 0px;}
+
+</style>
+</head>
+
+<body>
+<div class="toolBar bgMargin border-btm">
+	<ul class="toolBarUl" style="display: block;">
+		<li id="downloadAttaches" class="mr_0">
+			<a href="javascript:void(0)" role="button" class="btnTb">	<span class="p_relative">下载</span>
+			</a>
+		</li>
+		<li id="forwardAttaches" class="mr_0">
+			<a href="javascript:void(0)" role="button" class="btnTb ml_6">	<span class="p_relative">转发</span>
+			</a>
+		</li>
+		<li id="saveToDiskBatch" class="mr_0" style="">
+			<a href="javascript:void(0)" role="button" class="btnTb ml_6">	<span class="p_relative">存彩云网盘</span>
+			</a>
+		</li>
+	</ul>
+	<div id="maillist_pager">
+		<span id="listModeContainer">
+				<span class="viewTipPic fr mr_10 ml_10">
+					<a href="javascript:void(0)" class="ml_10 mr_5" id="listMode">
+						<i class="i_view"></i>
+					</a>
+					<a href="javascript:void(0)" id="iconMode">
+						<i class="i_list_checked"></i>
+					</a>
+				</span>
+		</span>
+		<div id="filelist_pager">
+			<div class="toolBarPaging ml_10 fr" id="view_0.8189248512499034">
+				<div>
+				</div>
+				<a rel="selector" href="javascript:;" class="pagenum">
+					<span class="pagenumtext">
+
+					</span>
+				</a>
+				<a rel="prev" title="上一页" href="javascript:;" class="up up-gray">
+				</a>
+				<a rel="next" title="下一页" href="javascript:;" class="down ">
+				</a>
+			</div>
+		</div>
+        <a href="javascript:void(0)" class="pagenum pageNumTop" id="sortDock" style="float:right;"><span class="pagenumtext">排序</span></a>
+    </div>
+</div>
+
+<div id="searchTitle" class="inboxHeader bgMargin" style="display:none">
+	<!--<span id="navContainer">全部文件</span>--><!-- 筛选条件 -->
+	<strong>搜索结果</strong>
+	<em>（共 <span> 0 </span> 个）</em>
+</div>
+
+<div id="sortMenu" class="menuPop menuPops shadow" style="right:150px; top:40px; display: none;">
+	<ul>
+		<li rel="FILE_TYPE">
+			<a href="javascript:;">
+				<i class="i_b_right"></i><span class="text">按类型</span>
+			</a>
+		</li>
+		<li rel="FILE_NAME">
+			<a href="javascript:;">
+				<i class="i_b_right"></i><span class="text">按名称</span>
+			</a>
+		</li>
+		<li rel="MAIL_NAME">
+			<a href="javascript:;">
+				<i class="i_b_right"></i><span class="text">按所属邮件</span>
+			</a>
+		</li>
+		<li rel="FILE_TIME">
+			<a href="javascript:;">
+				<i class="i_b_right"></i><span class="text">按时间</span>
+			</a>
+		</li>
+		<li rel="FILE_SIZE">
+			<a href="javascript:;">
+				<i class="i_b_right"></i><span class="text">按大小</span>
+			</a>
+		</li>
+	</ul>
+</div>
+
+<div class="diskTableList onScollTable">
+	<table cellspacing="0" cellpadding="0" class="listHead newShareTable">
+		<tbody>
+			<tr>
+				<th class="wh1 t-check">
+					<input type="checkbox" id="selectAll" />
+				</th>
+				<th id="fileName" class="t-name" rel="FILE_NAME" style="display:table-cell;">
+					<a href="javascript:" hidefocus="true"> <span>文件名</span>
+						<i class=""></i>
+					</a>
+				</th>
+				<th id="selectCount" class="t-name" class="bdRightNone" style="display: none">已选择：<span><b class="c_ff6600"></b>个文件</span>&nbsp;<a id="cleanSelected" href="javascript:void(0)" class="c_ff6600" style="color:#1a75ca; display:inline">取消选择</a>
+				</th>
+				<th rel="MAIL_NAME" style="width: 30%;padding-left:18px;">
+					<a id="th_from" href="javascript:" hidefocus="true"> <span>所属邮件</span>
+						<i class=""></i>
+					</a>
+				</th>
+				<th class="wh3" rel="FILE_TIME" style="text-align: center;">
+					<a id="th_from" href="javascript:" hidefocus="true"> <span>时间</span>
+						<i class=""></i>
+					</a>
+				</th>
+				<th class="wh4" rel="FILE_SIZE" style="text-align: center;padding-right:18px;">
+					<!-- 下面列表有滚动条时 style="padding-right: 滚动条的宽度 " -->
+					<a id="th_from" href="javascript:" hidefocus="true"> <span>大小</span>
+						<i class=""></i>
+					</a>
+				</th>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<!--文件列表-->
+<div class="appendixList p_relative" id="fileList" style="height: 400px;"></div>
+
+<div id="tipsLayer" class="tips netpictips pl_10" style="display: none; width:240px;background:#fff; border:1px solid #cecece;">
+    <div class="tips-text"></div>
+    <div class="diamond" style="background:#fff;"></div>
+</div>
+
+<iframe id="downloadFrame" name="downloadFrame" style="display: none;"></iframe>
+<form id="downloadForm" name="downloadForm" action="" method="post" target="downloadFrame">
+	<input type="hidden" name="postData" value="">
+</form>
+
+<script src="/m2012/js/packs/mailattach.pack.js?v=20140911"></script>
+
+<script type="text/javascript">
+
+	if(!M2012.Mailattach || !M2012.Mailattach.View) {
+		top.WaitPannel.show("脚本加载失败，请稍后再试^^", {className: "msgRed"});
+		setTimeout(function(){
+			top.WaitPannel.hide();
+		}, 3000);
+	}
+
+	var mainView = new M2012.Mailattach.View.Main({
+		model : new M2012.Mailattach.Model()
+	});
+	mainView.render();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+﻿html,body,div,ul,ol,li,h1,h2,form,table,input,button,i,select,textarea,p,th,td{margin:0;padding:0;}
+li{list-style:none;}
+img,table{border:none;}
+body{font:12px "宋体";background:#fff;}
+i{font-style:normal;background:url(../../../images/module/myrings/myRings_ico_sprite.png) no-repeat;display:inline-block;overflow:hidden;}
+a{color:#333;text-decoration:none;}
+.textC{color:#666;}
+
+.header{background:#f4f5f7;}
+.nav{height:32px;border-bottom:1px solid #a4acbf;background:#d3eaff;padding-left:66px;}
+.nav li{width:86px;height:25px;float:left;margin-top:7px;font-weight:bold;position: relative;}
+.nav li a{display:block;height:25px;width:86px;line-height:25px;text-align:center;}
+.nav li.current a{background:#f4f5f7;height:25px;width:84px;border-top:1px solid #a4acbf;border-left:1px solid #a4acbf;border-right:1px solid #a4acbf;position:absolute;}
+.search{height:40px;padding:17px 0 0 152px;border-bottom:1px solid #a4acbf;position:relative;}
+.seatchInput{width:287px;padding-left:5px;height:22px;line-height:22px;border:1px solid #b6bdcc;float:left;margin-right:10px;color:#666;}
+.seatchBtn{background:url(../../../images/myRings_ico_sprite.png) no-repeat;border:none;width:60px;height:25px;cursor:pointer;}
+.pageTable{height:30px;background:#d6ebff;width:100%;border-bottom-color: #FFFFFF;border-bottom-style: solid;border-bottom-width: 1px;}
+.pageTable i{cursor:pointer;height:22px;width:90px;background-position:0 -25px;vertical-align:middle;}
+.pageTable .backLink{font-weight:bold;display:none}
+.pageTable a{text-decoration:underline;}
+.pageTd1{padding-left:17px;}
+.pageTd2{width:70%;text-align:right;}
+.pageTd2 .pageBox{padding-right:15px;}
+.tableList{width:100%;background:#f4f5f7;table-layout:fixed;white-space:nowrap;overflow:hidden;}
+.tableList thead th,
+.tableList tfoot th{height:25px;line-height:25px;padding-left:12px;border-bottom:1px solid #c2c9d3;border-left:1px solid #c2c9d3;background:#e8e8e8;text-align:left;}
+/*.tableList thead th.t1,.tableList tfoot th.t1{padding-left:18px;}*/
+.tableList tbody td{height:30px;padding-left:12px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
+.tableList tbody tr.even{background:#fff;}
+.tableList .t1{width:40px;text-align:center;padding-left:10px;}
+.tableList .t2{}
+.tableList .t3{}
+.tableList .t3 a{color:#666;}
+.tableList .t4{width:74px;}
+.tableList .t5{width:100px;}
+.tableList .t6{width:70px;}
+.tableList .tN{width:45px;}
+.tableList tbody td.tN span{color:#999;padding-left:3px;}
+.tableList tbody .crA{width:11px;height:9px;background-position:0 -69px;}
+.tableList tbody .crB{width:19px;height:19px;background-position:0 -89px;}
+.tableList tbody .crC{width:11px;height:13px;background-position:0 -119px;}
+.tableList tbody .n1{width:14px;height:14px;background-position:0 -149px;}
+.tableList tbody .n2{width:14px;height:14px;background-position:0 -175px;}
+.tableList tbody .n3{width:14px;height:14px;background-position:0 -203px;}
+.tableListClass{width:151px;float:left;margin-left:-100%;border-right: 1px solid #a4acbf;}
+.tableListCon{width:100%;float:left;}
+.tableListCon_wrap{margin-left:150px;}
+.tableListClass h2,.tableListClassFooter{height:25px;line-height:25px;border-bottom:1px solid #c2c9d3;background:#e8e8e8;font-size:12px;text-align:center;}
+.tableListClass ul{height:301px;position:relative;padding-top:7px;}
+.tableListClass ul li{height:30px;line-height:30px;font-weight:bold;}
+.tableListClass ul li a{padding-left:45px;display:block;width:107px;}
+.tableListClass ul li.current a{background:#f4f5f7;border-top:1px solid #a4acbf;border-bottom:1px solid #a4acbf;position:absolute;right:-1px;}
+.seatchInputDow {position:absolute;width:293px;border:1px solid #000;top:42px;left:212px;background:#fff;line-height:20px;}
+.seatchInputDow div{white-space:nowrap;width:286px;padding-left:7px;overflow:hidden;}
+.seatchInputDow div{position:relative;cursor:default;}
+.seatchInputDow div .num{position:absolute;right:-1px;top:0px;background:#fff;padding:0 5px 0 10px;color:#008000;}
+.seatchInputDow div.current{background:#3366cc;color:#fff;}
+.seatchInputDow div.current .num{background:#3366cc;color:#fff;}
+.selectBox{height:22px;border-left:1px solid #b6bdcc;border-bottom:1px solid #b6bdcc;border-top:1px solid #b6bdcc;display:inline-block;width:59px;position:relative;float:left;}
+.selectBox div{height:22px;line-height:22px;background-color:#FFFFFF;background-image:url(../../../images/myRings_ico_sprite.png);background-position:40px -47px;padding-left:8px;}
+.selectOption{position:absolute;background:#f4f9ff;width:57px;border:1px solid #a4acbf;top:24px;}
+.selectOption li{line-height:26px;padding-left:8px;position:relative;cursor:default;}
+.w134{width:134px;text-align:right}
+.w40{width:40px;text-align:right}
+.footer li{width:193px;height:77px;float:left;margin:8px 0 0 8px;}
+.footer ul{height:77px;height:96px;width:816px;}
+.footer .adlistBox{border-bottom:1px solid #ccc;}
+.footer li a img{opacity:0.5;filter:alpha(opacity=50)}
+.footer li a:hover img{opacity:1;filter:alpha(opacity=100)}
+.hotTxt{height:30px;line-height:30px;padding-left:10px;color:#666}
+.tableList tbody .top7{height:38px}
+.tableList tbody .top7 td{padding-top:7px;}
+#iframeContainer{display:none}
+#ringsIframe{width:99%;margin:0px;padding:0px;border-style:none;}

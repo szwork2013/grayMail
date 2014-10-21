@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>“我的任务”升级告知页面</title>
+    <script >
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1].replace(/:\d+/, "");
+    </script>
+</head>
+
+<body>
+<div style="width:760px;">
+<div>
+<img src="images/r_01.jpg" alt="" width="760" height="166" border="0"  style="display:block;"/>
+</div>
+<div>
+<img src="images/r_03.jpg" alt="" width="760" height="117" border="0"  style="display:block;" />
+</div>
+<div>
+<img src="images/r_04.jpg" alt="" width="760" height="165"  style="display:block;"/>
+</div>
+<div>
+<div style="float:left"><img src="images/r_05.jpg" alt="" width="118" height="152" border="0" style="display:block;" /></div>
+<div style="float:left"><a href="http://zone.mail.10086.cn/api/sso/ssoformail.ashx?to=CN201204A1&sid=$sid&flag=10" target="_blank"><img src="images/r_06.jpg" alt="" width="174" height="152" border="0" style="display:block;" /></a></div>
+<div style="float:left"><a href="http://zone.mail.10086.cn/api/sso/ssoformail.ashx?to=CN201204A1&flag=2&sid=$sid" target="_blank"><img src="images/r_07.jpg" alt="" width="187" height="152" border="0"  style="display:block;"/></a></div>
+<div style="float:left"><a href="http://zone.mail.10086.cn/api/sso/ssoformail.ashx?to=CN201204A1&sid=$sid&flag=9" target="_blank"><img src="images/r_08.jpg" alt="" width="174" height="152" border="0"  style="display:block;"/></a></div>
+<div style="float:left"><img src="images/r_09.jpg" alt="" width="106" height="152" border="0"  style="display:block;"/></div>
+<div style="clear:both"></div>
+</div>
+</div>
+    <script type="text/javascript">
+        var aa = document.getElementsByTagName('a');
+        for (var i = 0; i < aa.length; i++) {
+            aa[i].href = aa[i].href.replace(/\$sid/, top.sid);
+        }
+    </script>
+</body>
+</html>

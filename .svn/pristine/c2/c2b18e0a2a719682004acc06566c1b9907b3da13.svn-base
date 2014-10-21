@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<project name="build_pack" default="packFile">
+    <target name="packFile">
+        <concat destfile="./packs/cabinet_send.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+            <fileset dir="./contacts" includes="**/m2012.contacts.contactsinfo.js"/>
+            <fileset dir="./controls" includes="**/mailTool.js"/>
+            <fileset dir="./contacts" includes="**/m2012.contacts.model.js"/>
+            <fileset dir="./ui/richinput" includes="**/m2012.ui.richinput.documentview.js"/>
+            <fileset dir="./ui/richinput" includes="**/m2012.ui.richinput.itemview.js"/>
+            <fileset dir="./ui/richinput" includes="**/m2012.ui.richinput.plugin.js"/>
+            <fileset dir="./ui/richinput" includes="**/m2012.ui.richinput.textboxview.js"/>
+            <fileset dir="./ui/richinput" includes="**/m2012.ui.richinput.view.js"/>
+            <fileset dir="./ui" includes="**/m2012.ui.suggest.inputsuggest.js"/>
+            <fileset dir="./ui" includes="**/m2012.ui.suggest.addrsuggest.js"/>
+            <fileset dir="./ui" includes="**/m2012.ui.suggest.inputassociate.js"/>
+            <fileset dir="./ui" includes="**/m2012.ui.widget.contacts.model.js"/>
+            <fileset dir="./ui" includes="**/m2012.ui.widget.contacts.view.js"/>
+            <fileset dir="./service/fileexpress" includes="**/m2012.fileexpress.send.model.js"/>
+            <fileset dir="./service/fileexpress" includes="**/m2012.fileexpress.send.view.filelist.js"/>
+            <fileset dir="./service/fileexpress" includes="**/m2012.fileexpress.send.view.sendmail.js"/>
+            <fileset dir="./service/fileexpress" includes="**/m2012.fileexpress.send.view.sendmobile.js"/>
+            <fileset dir="./service/fileexpress" includes="**/m2012.fileexpress.send.view.main.js"/>
+        </concat>
+    </target>
+</project>
+	
+
+
+
+
+
+
+

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="M2012" default="all" basedir=".">
+      <property file="build.properties"/>
+      <target name="all" depends="m2012Server,clean,connect,copy,compress,deploy"/>
+      <target name="m2012Server">
+        <subant target="">
+          <fileset dir="${root.dir}/build/">
+            <include name="build-m2012server.xml"/>
+          </fileset>
+        </subant>
+      </target>
+      <target name="clean">
+            <delete dir="${M2012.build.dir}" quiet="ture"/>
+      </target>
+      <target name="connect" depends="clean">
+            <echo>创建发布包目录</echo>
+            <mkdir dir="${M2012.file.dir}/m2012"/>
+            <echo>执行js合并文件</echo>
+            <subant target="">
+                   <fileset dir="${M2012.src.dir}/js/" includes="**.pack.js.xml"/>
+            </subant>
+            <echo>执行css合并文件</echo>
+            <subant target="">
+                   <fileset dir="${M2012.src.dir}" includes="concatcss.xml"/>
+            </subant>
+            <echo>执行提取文件版本号</echo>
+            <subant target="">
+                   <fileset dir="${M2012.src.dir}" includes="createFileVersion.xml"/>
+            </subant>
+      </target>
+  
+      <target name="copy" depends="connect">
+            <echo>复制js/css/image/html/flash文件到发布包</echo>
+            <copydir src="${M2012.src.dir}/js/" dest="${M2012.file.dir}/m2012/js/">
+                  <include name="**/**.js"/>
+            </copydir>
+            <copydir src="${M2012.src.dir}/css/" dest="${M2012.file.dir}/m2012/css/">
+                   <include name="**/**.css"/>
+            </copydir>
+            <copydir src="${M2012.src.dir}/images/" dest="${M2012.file.dir}/m2012/images/">
+                  <include name="**/**"/>
+            </copydir>
+            <copydir src="${M2012.src.dir}/flash/" dest="${M2012.file.dir}/m2012/flash/">
+                  <include name="**/**"/>
+            </copydir>
+            <copydir src="${M2012.src.dir}/html/" dest="${M2012.file.dir}/m2012/html">
+                  <include name="**/**"/>
+            </copydir>
+			<!--
+			小工具文件夹包删除
+			<copydir src="${M2012.src.dir}/controlupdate/" dest="${M2012.file.dir}/m2012/controlupdate">
+                  <include name="**/**"/>
+            </copydir>
+			-->
+            <copydir src="${M2012.src.dir}/component/" dest="${M2012.file.dir}/m2012/component">
+                  <include name="**/**"/>
+            </copydir>
+
+          <!-- 生成样式引用图片的版本号 -->
+          <exec executable="node">
+            <arg value="${M2012.src.dir}/build/lib/replaceCSSImageVersion.js" />
+            <arg value="--csspath=${M2012.file.dir}/m2012/css" />
+          </exec>
+
+        <!--删除垃圾文件-->
+            <delete file="${M2012.file.dir}/m2012/html/set/feature_meal_config.js"/>
+            <delete file="${M2012.file.dir}/m2012/js/config.*.js"/>
+            <copydir src="${M2012.src.dir}/conf/" dest="${M2012.file.dir}/m2012/conf/">
+                  <include name="**/**"/>
+            </copydir>
+            <!-- 删除掉被变更的config文件，避免构建服务器下次获取更新的时候文件冲突 -->
+            <delete>
+              <fileset dir="${M2012.src.dir}/conf" includes="*.js"/>
+            </delete>
+      </target>
+      <target name="compress" depends="copy">
+            <subant target="">
+                <fileset dir="${root.dir}/build/">
+                     <include name="compress.xml"/>
+                </fileset>
+            </subant>
+      </target>
+      <target name="deploy" depends="compress">
+            <!--
+            <echo>部署虚拟测试服务器</echo>
+            <scp todir="root@192.168.9.193:/home/richmail/nginx/htdocs/m2012" password="richinfo139.com" port="22" trust="true">
+                   <fileset dir="${M2012.build.dir}"/>
+            </scp>
+            <echo>部署m2012服务</echo>
+            <scp todir="html5web@192.168.9.181:/home/html5web/m2012server" password="richinf139.com-html5web" port="22" trust="true">
+              <fileset dir="${M2012.file.dir}/m2012server/home/m2012server"/>
+            </scp>
+            <echo>重启服务</echo>
+            <sshexec host="192.168.9.181" username="html5web" password="richinf139.com-html5web" trust="true" command="source ~/.bash_profile;/home/html5web/m2012server/restart.sh;sleep 2" port="22">
+            </sshexec>
+            -->
+      </target>
+      
+</project>

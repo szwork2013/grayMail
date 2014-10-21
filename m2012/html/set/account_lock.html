@@ -1,0 +1,155 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="Keywords" content="" />
+<meta name="Description" content="" />
+<title>139邮箱</title>
+
+
+<script type="text/javascript">
+    //设域
+    document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+</script>
+<script>top.loadScript('libs.pack.js',document);top.loadScript('m139.core.pack.js',document)</script><script>top.loadScript("m2012.ui.common.pack.js",document)</script><script>top.loadCSS(["common/global.css","module/set.css"],document)</script></head>
+<body class="setbody"> 
+<div class="setWrap">		
+	<div class="setArea">	
+		<h2 id="setAreaH2">安全锁 <span class="line">|</span> <a href="javascript:;" id="goBack" class="fanghui">&lt;&lt;返回</a></h2>
+		<ul class="form" id="accountLockUl">					
+			<li class="formLine hide" id="verifyPasswordLi">
+				<label class="label">安全锁密码：</label>
+				<div class="element">
+                    <div>
+				    <input type="password" id="verifyPass" class="iText" value="" /> <span class="formError v-visible hide"><!-- 报错显示 v-visible -->密码不正确，区分大小写</span>
+                    </div>
+                    <a href="javascript:;" id="useSmsPass">使用短信验证码</a>
+				</div>
+			</li>	
+            <li class="formLine hide" id="smsPasswordLi">
+                <label class="label">短信验证码：</label>
+
+                <div class="element">
+                    <div><input type="password" value="" class="iText" id="smsPass"><a id="getSmsPass" class="btnNormal ml_5" href="javascript:void(0)"><span>获取短信验证码</span></a>
+                        <span class="formError v-visible hide"><!-- 报错显示 v-visible -->密码不正确，区分大小写</span></div>
+                    <a href="javascript:;" id="useSafePass">使用安全锁密码</a>
+                </div>
+            </li>	
+			<li class="formLine hide" id="passwordLi">
+				<label class="label">设置安全锁密码：</label>
+				<div class="element">
+				<input type="password" id="setPass" class="iText" value="" /> <span class="formError v-visible hide"><!-- 报错显示 v-visible -->密码不正确，区分大小写</span>
+				</div>
+			</li>
+			<li class="formLine hide" id="confirmPasswordLi">
+				<label class="label">确认密码：</label>
+				<div class="element">
+				<input type="password" id="comfirmPass" class="iText" value="" /> <span class="formError v-visible hide"><!-- 报错显示 v-visible -->密码不正确，区分大小写</span>
+				</div>
+			</li>
+			<li class="formLine" id="lockAreaLi">
+				<label class="label" id="lockAreaText">已加锁范围：</label>
+				<div class="element">
+					<div class="safelockTab" id="safelockTab">
+<textarea id="setUserTdTemplate" style="display:none">
+    <!--item start--><td width="33%"><label><input fid="$fid" name="checkbox" type="checkbox" class="mr_5 hide" value="" />$name</label></td><!--item end-->	
+</textarea>
+<textarea id="setPopTdTemplate" style="display:none">
+    <!--item start--><td width="33%"><label><input fid="$fid" name="checkbox" type="checkbox" class="mr_5 hide" value=""  />$name</label> <span class="gray safelockTab-name">$mail</span></td><!--item end-->	
+</textarea>
+
+								<table id="userTable">
+                                    <thead>
+									<tr>
+										<th colspan="3"><label><input type="checkbox" id="allUser" class="mr_5 hide" value=""  />全部文件夹</label></th>										
+									</tr>
+                                    </thead>
+
+                                    <tbody>
+<textarea id="setUserTemplate" style="display:none">
+                                    <!--item start--> 
+									<tr class="userTr">
+										<td></td>
+                                    </tr>
+                                    <!--item end-->		
+</textarea> 
+                                    </tbody>		
+                                 		
+								</table>
+
+
+								<table id="popTable">
+                                    <thead>
+									<tr>
+										<th colspan="3"><label><input type="checkbox" id="allPop" class="mr_5 hide" value=""  />代收邮箱</label></th>										
+									</tr>
+                                    </thead>
+
+                                    <tbody>
+<textarea id="setPopTemplate" style="display:none">
+                                    <!--item start--> 
+                                    <tr class="popTr">
+                                        <td width="33%"></td>
+                                    </tr>	
+                                    <!--item end-->
+</textarea>
+                                    </tbody>
+
+								</table>
+
+					
+					</div>
+				</div>				
+			</li>
+		</ul>	
+	</div>	
+</div>
+
+<div class="setBtn fixed-bottom" id="setBtn">
+<span class="pl_20"><a href="javascript:void(0)" bh="set_account_lock_editarea" class="btnSet" id="editArea"><span>修改加锁范围</span></a> <a href="javascript:void(0)" bh="set_account_lock_editpassword" class="btnSet" id="editPassword"><span>修改密码</span></a> <a href="javascript:void(0)" bh="set_account_unlock"  class="btnSet" id="unLock"><span>解 锁</span></a></span>
+</div>
+<script>    top.loadScript("account_lock.html.pack.js?v=" + Math.random(), document)</script>
+
+</body>
+
+
+
+
+
+
+
+      
+      
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+
+
+</html>

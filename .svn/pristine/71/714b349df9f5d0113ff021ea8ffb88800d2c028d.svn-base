@@ -1,0 +1,226 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="Keywords" content="">
+    <meta name="Description" content="">
+    <title>收件箱-139邮箱</title>
+    <link rel="stylesheet" href="../../css/common/global.css" type="text/css">
+	<link href="../../css/module/FileExtract/extract.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="tab setTab2">
+	<div class="tabTitle extractTitle">
+		<ul>
+			<li class=""> <a href="javascript:"> <span>彩云</span> </a></li>
+			<li class="on"> <a href="javascript:"> <span>暂存柜</span> </a></li>
+			<li class=""> <a href="javascript:"> <span>附件夹 </span> </a></li>
+			<li class=""> <a href="javascript:"> <span>共享管理 </span> </a></li>		
+		</ul>
+		<span class="tab-more"><a href="javascript:void(0)" class="diskDown"><i class="diskPc"></i>彩云PC客户端（139邮箱版）发布了，立即安装体验吧！</a></span>
+	</div>
+</div>
+
+<div class="inboxHeader">
+	<span class="viewTipPic fr mr_10"><a href="javascript:void(0)" class="mr_5"><i class="i_list"></i></a><a href="javascript:void(0)"><i class="i_view"></i></a></span>
+    <div class="fileSearchBar fr mr_10"><input type="text" class="text gray" value="搜索暂存柜"><a href="#" class="fileSearchBtn"><i class="i_g-search"></i></a></div>
+	<span class="inboxHeaderfr"><em>139邮箱小工具：</em><a href="#" class="c_0066cc">立即安装</a></span>
+	<strong>暂存柜</strong><span class="bl">(共 123365 个文件)<span class="line">|</span><span>容量：<span class="progressBarGreen"><em></em></span></span><span class="ml_10">2.1G/4.5G</span><span class="line">|</span><em>存放期：15天</em> <span class="upgrade"><a href="#">升级</a><span class="line">|</span><a href="#">过期提醒</a></span></span></div>
+<div class="toolBar">
+    <ul class="toolBarUl">
+        <li class="mr_5"><a href="javascript:void(0)" class="btnTb"><span><i class="upLoad"></i> 上 传</span></a></li>
+        <li class="mr_5"><a href="javascript:void(0)" class="btnTb"><span><i class="upLoad"></i> 下 载</span></a></li>
+        <li class="mr_5"><a href="javascript:void(0)" class="btnTb"><span>发送到邮箱</span></a></li>
+        <li class="mr_5"><a href="javascript:void(0)" class="btnTb"><span>发送到手机</span></a></li>
+		<li class="mr_5"><a href="javascript:void(0)" class="btnTb"><span>续 期</span></a></li>
+        <li class="mr_5"><a href="javascript:void(0)" class="btnTb"><span>存彩云</span></a></li>
+		<li class="mr_5"><a href="javascript:void(0)" class="btnTb"><span>重命名</span></a></li>
+		<li class="mr_5"><a href="javascript:void(0)" class="btnTb"><span>删 除</span></a></li>
+    </ul>
+    <div class="toolBarPaging ml_10 fr">
+		<a href="#" class="pagenum">
+			<span class="pagenumtext">100/5000</span>
+		</a>
+        <a title="上一页" href="javascript:void(0)" class="up up-gray"></a><!-- 不可点击时 加 上  up-gray -->
+        <a title="下一页" href="javascript:void(0)" class="down "></a><!-- 不可点击时 加 上  down-gray -->
+    </div>
+    <div class="toolBarArray fr mr_5 p_relative">
+        <a href="javascript:void(0)" class="one"></a>
+        <a href="javascript:void(0)" class="two"></a>
+        <a href="javascript:void(0)" class="rdCl ml_10"></a>
+    </div>
+</div>
+    <div class="diskTableList onScollTable">
+        <table cellspacing="0" cellpadding="0" class="listHead">
+            <tr>
+                <th class="wh1"><input type="checkbox" /></th>
+                <th><a id="th_from" field="from" href="javascript:" hidefocus="true"><span>文件名</span><i class="i_th0"></i></a></th>
+                <th class="wh3"><a id="th_from" field="from" href="javascript:" hidefocus="true"><span>上传时间</span><i class=""></i></a></th>
+                <th class="wh4"><a id="th_from" field="from" href="javascript:" hidefocus="true"><span>有效时间</span><i class=""></i></a></th>
+                <th class="wh5"><a id="th_from" field="from" href="javascript:" hidefocus="true"><span>下载次数</span><i class=""></i></a></th>
+                <th class="wh6 bdRightNone"><a id="th_from" field="from" href="javascript:" hidefocus="true"><span>大小</span><i class=""></i></a></th>
+              </tr>
+        </table>
+    </div>
+<div class=" appendixList" style="height:300px;">
+    <!--[if lt ie 8]>
+        <div style='+zoom:1;'><![endif]-->
+        <table cellpadding="0" cellspacing="0" class="listHead">
+            <tbody><tr>
+                <td class="wh1"><input type="checkbox"></td>
+                <td>
+                    <a href="#" class="attchName"><i class="i_file_16 i_m_jpg"></i><span class=""> <em>相关行业精品动态20130201</em></span>.JPG</a>
+                    <div class="attachment"><a href="#">下载</a> <span>|</span> <a href="#"> 发送 </a><span>|</span><a href="#"> 续期 </a> <span>|</span> <a href="#"> 删除</a></div>
+                </td>
+                <td class="wh3 gray">2013-03-18 18:30:34</td>
+                <td class="wh4 gray">12天</td>
+                <td class="wh5 gray">15</td>
+                <td class="wh6 gray">78.9k</td>                            
+            </tr>
+            <tr>
+                <td class="wh1"><input type="checkbox"></td>
+                <td>
+                    <a href="#" class="attchName"><i class="i_file_16 i_m_jpg"></i><span class=""> <em>相关行业精品动态20130201</em></span>.JPG</a>
+                    <div class="attachment"><a href="#">下载</a> <span>|</span> <a href="#"> 发送 </a><span>|</span><a href="#"> 续期 </a> <span>|</span> <a href="#"> 删除</a></div>
+                </td>
+                <td class="wh3 gray">2013-03-18 18:30:34</td>
+                <td class="wh4 gray">12天</td>
+                <td class="wh5 gray">15</td>
+                <td class="wh6 gray">78.9k</td>                            
+            </tr>    
+            <tr>
+                <td class="wh1"><input type="checkbox"></td>
+                <td>
+                    <a href="#" class="attchName"><i class="i_file_16 i_m_jpg"></i><span class=""> <em>相关行业精品动态20130201</em></span>.JPG</a>
+                    <div class="attachment"><a href="#">下载</a> <span>|</span> <a href="#"> 发送 </a><span>|</span><a href="#"> 续期 </a> <span>|</span> <a href="#"> 删除</a></div>
+                </td>
+                <td class="wh3 gray">2013-03-18 18:30:34</td>
+                <td class="wh4 gray">12天</td>
+                <td class="wh5 gray">15</td>
+                <td class="wh6 gray">78.9k</td>                            
+            </tr>   <tr>
+                <td class="wh1"><input type="checkbox"></td>
+                <td>
+                    <a href="#" class="attchName"><i class="i_file_16 i_m_jpg"></i><span class=""> <em>相关行业精品动态20130201</em></span>.JPG</a>
+                    <div class="attachment"><a href="#">下载</a> <span>|</span> <a href="#"> 发送 </a><span>|</span><a href="#"> 续期 </a> <span>|</span> <a href="#"> 删除</a></div>
+                </td>
+                <td class="wh3 gray">2013-03-18 18:30:34</td>
+                <td class="wh4 gray">12天</td>
+                <td class="wh5 gray">15</td>
+                <td class="wh6 gray">78.9k</td>                            
+            </tr>   <tr>
+                <td class="wh1"><input type="checkbox"></td>
+                <td>
+                    <a href="#" class="attchName"><i class="i_file_16 i_m_jpg"></i><span class=""> <em>相关行业精品动态20130201</em></span>.JPG</a>
+                    <div class="attachment"><a href="#">下载</a> <span>|</span> <a href="#"> 发送 </a><span>|</span><a href="#"> 续期 </a> <span>|</span> <a href="#"> 删除</a></div>
+                </td>
+                <td class="wh3 gray">2013-03-18 18:30:34</td>
+                <td class="wh4 gray">12天</td>
+                <td class="wh5 gray">15</td>
+                <td class="wh6 gray">78.9k</td>                            
+            </tr>   <tr>
+                <td class="wh1"><input type="checkbox"></td>
+                <td>
+                    <a href="#" class="attchName"><i class="i_file_16 i_m_jpg"></i><span class=""> <em>相关行业精品动态20130201</em></span>.JPG</a>
+                    <div class="attachment"><a href="#">下载</a> <span>|</span> <a href="#"> 发送 </a><span>|</span><a href="#"> 续期 </a> <span>|</span> <a href="#"> 删除</a></div>
+                </td>
+                <td class="wh3 gray">2013-03-18 18:30:34</td>
+                <td class="wh4 gray">12天</td>
+                <td class="wh5 gray">15</td>
+                <td class="wh6 gray">78.9k</td>                            
+            </tr>   <tr>
+                <td class="wh1"><input type="checkbox"></td>
+                <td>
+                    <a href="#" class="attchName"><i class="i_file_16 i_m_jpg"></i><span class=""> <em>相关行业精品动态20130201</em></span>.JPG</a>
+                    <div class="attachment"><a href="#">下载</a> <span>|</span> <a href="#"> 发送 </a><span>|</span><a href="#"> 续期 </a> <span>|</span> <a href="#"> 删除</a></div>
+                </td>
+                <td class="wh3 gray">2013-03-18 18:30:34</td>
+                <td class="wh4 gray">12天</td>
+                <td class="wh5 gray">15</td>
+                <td class="wh6 gray">78.9k</td>                            
+            </tr>   <tr>
+                <td class="wh1"><input type="checkbox"></td>
+                <td>
+                    <a href="#" class="attchName"><i class="i_file_16 i_m_jpg"></i><span class=""> <em>相关行业精品动态20130201</em></span>.JPG</a>
+                    <div class="attachment"><a href="#">下载</a> <span>|</span> <a href="#"> 发送 </a><span>|</span><a href="#"> 续期 </a> <span>|</span> <a href="#"> 删除</a></div>
+                </td>
+                <td class="wh3 gray">2013-03-18 18:30:34</td>
+                <td class="wh4 gray">12天</td>
+                <td class="wh5 gray">15</td>
+                <td class="wh6 gray">78.9k</td>                            
+            </tr>   <tr>
+                <td class="wh1"><input type="checkbox"></td>
+                <td>
+                    <a href="#" class="attchName"><i class="i_file_16 i_m_jpg"></i><span class=""> <em>相关行业精品动态20130201</em></span>.JPG</a>
+                    <div class="attachment"><a href="#">下载</a> <span>|</span> <a href="#"> 发送 </a><span>|</span><a href="#"> 续期 </a> <span>|</span> <a href="#"> 删除</a></div>
+                </td>
+                <td class="wh3 gray">2013-03-18 18:30:34</td>
+                <td class="wh4 gray">12天</td>
+                <td class="wh5 gray">15</td>
+                <td class="wh6 gray">78.9k</td>                            
+            </tr>   <tr>
+                <td class="wh1"><input type="checkbox"></td>
+                <td>
+                    <a href="#" class="attchName"><i class="i_file_16 i_m_jpg"></i><span class=""> <em>相关行业精品动态20130201</em></span>.JPG</a>
+                    <div class="attachment"><a href="#">下载</a> <span>|</span> <a href="#"> 发送 </a><span>|</span><a href="#"> 续期 </a> <span>|</span> <a href="#"> 删除</a></div>
+                </td>
+                <td class="wh3 gray">2013-03-18 18:30:34</td>
+                <td class="wh4 gray">12天</td>
+                <td class="wh5 gray">15</td>
+                <td class="wh6 gray">78.9k</td>                            
+            </tr>   <tr>
+                <td class="wh1"><input type="checkbox"></td>
+                <td>
+                    <a href="#" class="attchName"><i class="i_file_16 i_m_jpg"></i><span class=""> <em>相关行业精品动态20130201</em></span>.JPG</a>
+                    <div class="attachment"><a href="#">下载</a> <span>|</span> <a href="#"> 发送 </a><span>|</span><a href="#"> 续期 </a> <span>|</span> <a href="#"> 删除</a></div>
+                </td>
+                <td class="wh3 gray">2013-03-18 18:30:34</td>
+                <td class="wh4 gray">12天</td>
+                <td class="wh5 gray">15</td>
+                <td class="wh6 gray">78.9k</td>                            
+            </tr>   <tr>
+                <td class="wh1"><input type="checkbox"></td>
+                <td>
+                    <a href="#" class="attchName"><i class="i_file_16 i_m_jpg"></i><span class=""> <em>相关行业精品动态20130201</em></span>.JPG</a>
+                    <div class="attachment"><a href="#">下载</a> <span>|</span> <a href="#"> 发送 </a><span>|</span><a href="#"> 续期 </a> <span>|</span> <a href="#"> 删除</a></div>
+                </td>
+                <td class="wh3 gray">2013-03-18 18:30:34</td>
+                <td class="wh4 gray">12天</td>
+                <td class="wh5 gray">15</td>
+                <td class="wh6 gray">78.9k</td>                            
+            </tr>   <tr>
+                <td class="wh1"><input type="checkbox"></td>
+                <td>
+                    <a href="#" class="attchName"><i class="i_file_16 i_m_jpg"></i><span class=""> <em>相关行业精品动态20130201</em></span>.JPG</a>
+                    <div class="attachment"><a href="#">下载</a> <span>|</span> <a href="#"> 发送 </a><span>|</span><a href="#"> 续期 </a> <span>|</span> <a href="#"> 删除</a></div>
+                </td>
+                <td class="wh3 gray">2013-03-18 18:30:34</td>
+                <td class="wh4 gray">12天</td>
+                <td class="wh5 gray">15</td>
+                <td class="wh6 gray">78.9k</td>                            
+            </tr>   <tr>
+                <td class="wh1"><input type="checkbox"></td>
+                <td>
+                    <a href="#" class="attchName"><i class="i_file_16 i_m_jpg"></i><span class=""> <em>相关行业精品动态20130201</em></span>.JPG</a>
+                    <div class="attachment"><a href="#">下载</a> <span>|</span> <a href="#"> 发送 </a><span>|</span><a href="#"> 续期 </a> <span>|</span> <a href="#"> 删除</a></div>
+                </td>
+                <td class="wh3 gray">2013-03-18 18:30:34</td>
+                <td class="wh4 gray">12天</td>
+                <td class="wh5 gray">15</td>
+                <td class="wh6 gray">78.9k</td>                            
+            </tr>   <tr>
+                <td class="wh1"><input type="checkbox"></td>
+                <td>
+                    <a href="#" class="attchName"><i class="i_file_16 i_m_jpg"></i><span class=""> <em>相关行业精品动态20130201</em></span>.JPG</a>
+                    <div class="attachment"><a href="#">下载</a> <span>|</span> <a href="#"> 发送 </a><span>|</span><a href="#"> 续期 </a> <span>|</span> <a href="#"> 删除</a></div>
+                </td>
+                <td class="wh3 gray">2013-03-18 18:30:34</td>
+                <td class="wh4 gray">12天</td>
+                <td class="wh5 gray">15</td>
+                <td class="wh6 gray">78.9k</td>                            
+            </tr>   
+          </tbody></table>
+      <!--[if lt ie 8]></div><![endif]-->
+    </div>
+	</body>
+</html>

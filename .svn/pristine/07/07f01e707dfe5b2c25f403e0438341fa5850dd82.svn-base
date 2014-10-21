@@ -1,0 +1,5 @@
+﻿<script>
+var m = location.href.match(/sid=([^&#]+)/);
+var sid = (m && m[1]) || "";
+location.href = "/m2012/richmail/html/welcome.html?sid=" + sid;
+</script>

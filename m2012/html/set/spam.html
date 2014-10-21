@@ -1,0 +1,201 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="Keywords" content="" />
+<meta name="Description" content="" />
+<title>139邮箱</title>
+
+
+<script type="text/javascript">
+    //设域
+    document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+</script>    
+    
+<script>    top.loadScript('libs.pack.js', document); top.loadScript('m139.core.pack.js', document)</script><script>                                                                                                                top.loadScript("m2012.ui.common.pack.js", document)</script><script>top.loadCSS(["common/global.css","module/set.css"],document)</script></head>
+<body class="setbody">  
+<div class="setWrap" id="setSpam">
+	<div class="setArea" id="blackListArea">
+		<h2>黑名单</h2>
+		<div class="setArea-content">
+				<ul class="form">					
+				<li class="formLine">
+					<label class="label"></label>
+					<div class="element">	
+						<div><a bh="set_spam_black_mail" href="javascript:void(0)" class="btnNormal showAddr" type="mail" key="black"><span>&nbsp;添加发件人黑名单&nbsp;&nbsp;</span></a><span class="gray ml_10">拒收TA的来信</span></div>
+						<p class="mb_5 pt_5" style="display: none;">发件人黑名单</p>
+						<ul class="" id="blacklistMail">
+						</ul>
+						<div class="blasklistbtn mb_10" style="display: none;">
+							<div class="pageList">
+							</div>
+							<label class="selectall"><input type="checkbox" value="" /> 全选</label><a href="javascript:void(0)" class="ml_10" id="btnDelBlackMail">删除</a>
+						</div>
+						<div class="mt_10"><a href="javascript:void(0)" class="btnNormal showAddr" type="domain" bh="set_spam_black_domain" key="black"><span>添加发件域名黑名单</span></a><span class="gray ml_10">如：添加“*@example.com”拒收该站点的来信</span></div>
+						<p class="mb_5 pt_5" style="display: none;">发件域名黑名单</p>
+						<ul class="" id="blacklistDomain">
+						</ul>
+						<div class="blasklistbtn mb_10" style="display: none;">
+							<div class="pageList">
+							</div>
+							<label class="selectall"><input type="checkbox" value="" /> 全选</label><a href="javascript:void(0)" class="ml_10" id="btnDelBlackDomain">删除</a>
+						</div>
+					</div>
+				</li>						
+			</ul>			
+		</div>
+	</div>
+	<div class="setArea" id="whiteListArea">
+		<h2>白名单</h2>
+		<div class="setArea-content">
+			<ul class="form">					
+				<li class="formLine">
+					<label class="label"></label>
+					<div class="element">	
+						<div><a href="javascript:void(0)" class="btnNormal showAddr" bh="set_spam_white_mail" type="mail" key="white"><span>&nbsp;添加发件人白名单&nbsp;&nbsp;</span></a><span class="gray ml_10">确保能收到TA的所有来信</span></div>
+						<p class="mb_5 pt_5" style="display: none;">发件人白名单</p>
+						<ul class="" id="whitelistMail">
+                        <textarea style="display:none;" id="whitelistTemplateMail">
+                        <!--item start-->
+							<li><a href="javascript:;">删除</a><label><input type="checkbox" value="" />$mail</label></li>			
+                        <!--item end-->		
+                        </textarea>	
+						</ul>
+						<div class="blasklistbtn mb_10" style="display: none;">
+							<div class="pageList">
+							</div>
+							<label class="selectall"><input type="checkbox" value="" /> 全选</label><a href="javascript:void(0)" class="ml_10" id="btnDelWhiteMail">删除</a>
+						</div>
+						<div class="mt_10"><a href="javascript:void(0)" class="btnNormal showAddr" bh="set_spam_white_domain" type="domain" key="white"><span>添加发件域名白名单</span></a><span class="gray ml_10">添加“*@example.com”确保能收到该站点的所有来信</span></div>
+						<p class="mb_5 pt_5" style="display: none;">发件域名白名单</p>
+						<ul class="" id="whitelistDomain">
+                        <textarea style="display:none;" id="whitelistTemplateDomain">
+                        <!--item start-->
+							<li><a href="javascript:;">删除</a><label><input type="checkbox" value="" />$mail</label></li>			
+                        <!--item end-->		
+                        </textarea>	
+						</ul>
+						<div class="blasklistbtn mb_10" style="display: none;">
+							<div class="pageList">
+                            
+							</div>
+							<label class="selectall"><input type="checkbox" value="" /> 全选</label><a href="javascript:void(0)" class="ml_10" id="btnDelWhiteDomain">删除</a>
+						</div>
+					</div>
+				</li>	
+					
+			</ul>			
+		</div>
+	</div>
+	<div class="setArea" id="spamMailArea">
+		<h2>垃圾邮件</h2>
+		<div class="setArea-content">
+			<ul class="form setForm">					
+				<li class="formLine">
+					<label class="label">判断方法：</label>
+					<div class="element">	
+						<div><label><input type="radio" keyvalue="spam_level-1" name="spam_level" value="" class="mr_5" />宽松 </label><span class="ml_10 gray">使用默认的反垃圾设置<i class="i_tuij"></i></span>		
+						</div>	
+						<div><label><input type="radio" keyvalue="spam_level-2" name="spam_level" value="" class="mr_5" />一般</label><span class="ml_10 gray">我不在“收件人”或“抄送”里，且“发件人”不在我的白名单里，就判断为垃圾邮件</span>		
+						</div>	
+						<div><label><input type="radio" keyvalue="spam_level-3" name="spam_level" value="" class="mr_5" />严格</label><span class="ml_10 gray">“发件人”不在我的白名单里，就判断为垃圾邮件</span>		
+						</div>	
+					</div>
+				</li>	
+				<li class="formLine">
+					<label class="label">处理方式：</label>
+					<div class="element">		
+							<div><label><input type="radio" keyvalue="spam_deal-1" name="spam_deal" value="" class="mr_5" />接收</label><span class="ml_10 gray">放入“垃圾邮件”文件夹，存放7天自动删除</span>		
+						</div>	
+						<div><label><input type="radio" keyvalue="spam_deal-2" name="spam_deal" value="" class="mr_5" />拒收</label>
+						</div>	
+					</div>
+				</li>				
+					
+			</ul>			
+		</div>
+	</div>
+	<div class="setArea" id="antivirusArea">
+		<h2>病毒邮件</h2>
+		<div class="setArea-content p_relative" id="virusMail">
+			<ul class="form setForm mt_15">					
+				<li class="formLine bgef" id="itemLayer">
+					<label class="label">扫描来信病毒：</label>
+					<div class="element">	
+						<label><input type="radio" keyvalue="virus_status-1" name="virus_status" value="" class="mr_5" />开启</label><br />
+						<label><input type="radio" keyvalue="virus_status-0" name="virus_status" value="" class="mr_5" />关闭</label>
+					</div>
+				</li>	
+				<li class="formLine">
+					<label class="label">杀毒成功时：</label>
+					<div class="element">		
+						<label><input type="radio" keyvalue="virus_sucess-3" name="virus_sucess" value="" class="mr_5" />删除邮件</label><br />
+						<label><input type="radio" keyvalue="virus_sucess-1" name="virus_sucess" value="" class="mr_5" />清除病毒</label><br />
+						<label><input type="radio" keyvalue="virus_sucess-2" name="virus_sucess" value="" class="mr_5" /> 不处理</label>
+					</div>
+				</li>	
+				<li class="formLine">
+					<label class="label">杀毒失败时：</label>
+					<div class="element">		
+						<label><input type="radio" keyvalue="virus_fail-1" name="virus_fail" value="" class="mr_5" />作为EML附件接收</label><br />
+						<label><input type="radio" keyvalue="virus_fail-3" name="virus_fail" value="" class="mr_5" />删除邮件</label><br />
+						<label><input type="radio" keyvalue="virus_fail-2" name="virus_fail" value="" class="mr_5" /> 不处理</label>
+					</div>
+				</li>		
+				<li class="formLine">
+					<label class="label">无法判断时：</label>
+					<div class="element">		
+						<label><input type="radio" keyvalue="virus_doubt-1" name="virus_doubt" value="" class="mr_5" />作为EML附件接收</label><br />
+						<label><input type="radio" keyvalue="virus_doubt-3" name="virus_doubt" value="" class="mr_5" />删除邮件</label><br />
+						<label><input type="radio" keyvalue="virus_doubt-2" name="virus_doubt" value="" class="mr_5" /> 不处理</label>
+					</div>
+				</li>	
+				<li class="formLine">
+					<label class="label">处理结果：</label>
+					<div class="element">		
+						<label><input type="checkbox" keyvalue="virus_notify_me-1" name="virus_notify_me" value="" class="mr_5" />通知我处理结果</label><br />
+						<label><input type="checkbox" keyvalue="virus_notify_send-1" name="virus_notify_send" value="" class="mr_5" />通知发件人处理结果</label>					
+					</div>
+				</li>		
+			</ul>		
+		</div>
+	</div>
+</div>
+	<div class="setBtn fixed-bottom">
+<span class="pl_20"><a href="javascript:void(0)" class="btnSetG" id="doOk"><span>保 存</span></a> <a id="doCancel" href="javascript:void(0)" class="btnSet"><span>取 消</span></a></span>
+</div>
+<textarea id="creattabTem" style="display:none;">
+                    <!--item start-->
+                   <div class="creattabbody" id="creatTabBody">
+				            <a href="javascript:void(0)" class="i_u_close cancelBlackWhite"></a>
+				             <ul class="form ">		
+					            <li class="formLine" id="mailFrom" style="">
+						            <label class="label">发件$text：</label>
+						            <div class="element">	
+								            <div class="boxFocus peoinput">
+									            <input type="text" id="tbAddr" class="iText" value=""><a href="javascript:void(0)" id="mailAddr" class="i_peo"></a>
+								            </div>
+								            <p class="gray pt_5">以分号隔开</p>
+						            </div>
+					            </li>	
+				            </ul>
+				            <div class="creattabbody-btn">
+					            <a href="javascript:void(0)" class="btnNormal " id="addBlackWhite" type="$status" key="$type"><span>确 定</span></a>	<a href="javascript:void(0)" class="btnNormal cancelBlackWhite"><span>取 消</span></a>
+				            </div>	
+		            </div>
+                    <!--item end-->
+</textarea>
+
+<script>top.loadScript("spam.html.pack.js", document)</script>
+<script>
+$(function(){
+	var anchor = $T.Url.queryString("anchor");
+	if($("#"+anchor)[0]){
+		var _scrollTop = $("#"+anchor).offset().top;
+		$(window).scrollTop(_scrollTop);
+	}
+});
+</script>
+
+</body>
+</html>

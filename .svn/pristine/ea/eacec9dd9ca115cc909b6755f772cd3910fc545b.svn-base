@@ -1,0 +1,79 @@
+@charset "utf-8";
+/*========================================
+Version：1.0 Date：2014/08/15
+Author：Radom
+========================================*/
+html,body,p,ul,ol,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,form,iframe,fieldset,legend,input,select,textarea,button,th,td,blockquote,address,pre,menu{margin:0;padding:0;}
+html,body{font:12px/1.5 "Microsoft YaHei",Verdana,"Simsun";}
+html,body{height:100%;}
+body{background:white url(../../../images/module/disk/pcClientSetup/banner-x.png) left 70px repeat-x;}
+h1,h2,h3,h4,h5,h6,input,textarea,select,button,label{font-size:100%;}
+button,select,textarea,input{vertical-align:middle;}
+input,button{overflow:visible;width:auto;}
+textarea{resize:vertical;}
+a{text-decoration:none;color:#999;}
+a:hover{text-decoration:underline;}
+ul,ol,li{list-style:none outside none;}
+img,fieldset{border:0;}
+address,cite,code,em,var,abbr,acronym,dfn{font-style:normal}
+i{display:inline-block;}
+img{vertical-align:top;}
+div,p,li,pre{word-wrap:break-word;}
+table{border-collapse:collapse;border-spacing:0;}
+article,aside,section,canvas,details,figcaption,figure,footer,header,hgroup,menu,nav,summary,audio,video{display:block;}
+/* 符动 */
+.fl{float:left;display:inline;}
+.fr{float:right;display:inline;}
+.clearfix:after{visibility:hidden;display:block;font-size:0;content:" ";clear:both;height:0;}
+.clearfix{zoom:1;}
+.clearAll{overflow:hidden;_zoom:1;}
+
+.ta_r{text-align:right;}
+
+.c_999{color:#999;}
+
+.line{color:#CCC;font-family:SimSun;height:12px;overflow:hidden;display:inline-block;margin:0 5px;*vertical-align:5px;}
+/* 私有类 */
+.header,.banner,.funList{width:960px;margin:0 auto;}
+.header{height:70px;position:relative;}
+.header h1{width:220px;height:30px;padding-top:20px;}
+.header h1 .i-logo{display:block;}
+.topNav{position:absolute;top:25px;right:0;}
+.topNav a{color:#666;}
+.content,.banner{background:url(../../../images/module/disk/pcClientSetup/banner.jpg) center top no-repeat;}
+.banner{height:403px;position:relative;}
+.banTxtInfo,.downLoadBtn{position:absolute;left:0;}
+.banTxtInfo{color:white;font-size:14px;top:155px;}
+.banTxtInfo li{line-height:24px;}
+.downLoadBtn{top:250px;width:208px;height:60px;line-height:60px;text-align:center;background-color:#198FFE;font-size:26px;color:white;
+	-webkit-border-radius:3px;
+	-moz-border-radius:3px;
+	border-radius:3px;
+	-webkit-box-shadow:0 4px 0px #B7D8F6;
+	-moz-box-shadow:0 4px 0px #B7D8F6;
+	box-shadow:0 4px 0px #B7D8F6;
+}
+.downLoadBtn:hover{text-decoration:none;}
+.downLoadBtn .i-download{vertical-align:-7px;*vertical-align:4px;_vertical-align:12px;*position:relative;_top:15px;margin-right:5px;}
+.funList{}
+.funList li{float:left;width:290px;padding:40px 80px 40px 110px;position:relative;}
+.funList li i{position:absolute;top:50px;left:60px;}
+.funList li .i-backup,.funList li .i-synchronous{left:65px;}
+.funList dt{font-size:30px;color:#444;}
+.funList dd{font-size:12px;color:#999;line-height:20px;}
+.footer{border-top:1px solid #F5F5F5;padding:15px 0;}
+.bottomNav{width:960px;margin:0 auto;}
+.footer .i-copyright{vertical-align:-7px;*vertical-align:-8px;*position:relative;top:-5px;margin-right:5px;}
+
+/* 修饰图标 */
+.i-logo,
+.i-computer,.i-backup,.i-http,.i-synchronous,
+.i-download,
+.i-copyright{background:url(../../../images/module/disk/pcClientSetup/style.png) no-repeat;_background-image:url(../../../images/module/disk/pcClientSetup/styleIE6.png);}
+.i-logo{background-position:0 0;width:220px;height:30px;}
+.i-computer{background-position:0 -72px;width:31px;height:27px;}
+.i-backup{background-position:-35px -72px;width:26px;height:32px;}
+.i-http{background-position:-63px -72px;width:33px;height:21px;}
+.i-synchronous{background-position:-99px -72px;width:26px;height:23px;}
+.i-download{background-position:-1px -34px;width:34px;height:33px;}
+.i-copyright{background-position:-37px -33px;width:18px;height:22px;}

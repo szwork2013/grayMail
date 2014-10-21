@@ -1,0 +1,472 @@
+﻿var upload_module_ajax = {
+    init: function() {
+        document.body.addEventListener("dragenter", _dragenter, false);
+        document.body.addEventListener("dragover", _dragover, false);
+        document.body.addEventListener("drop", _drop, false);
+
+        //如果支持控件上传，点击附件按钮不使用ajax上传，只在拖放时应用
+        //if (supportUploadType.isSupportMultiThreadUpload) return;
+
+        var uploadInput = document.getElementById("uploadInput");
+        uploadInput.onmouseover = function() {
+            upload_module.model.requestComposeId();
+            //requestComposeId();
+            uploadInput.onmouseover = null;
+        }
+        uploadInput.setAttribute("multiple", true);
+        uploadInput.onchange = function() {
+            var files = this.files;
+            upload_module.model.requestComposeId();
+
+            var oldList = uploadManager.fileList;
+            for (var i = 0; i < oldList.length; i++) {
+                var f = oldList[i];
+                if (f.state == "blockerror") {
+                    $Msg.alert("上传队列中存在上传中断的文件，请续传或删除后才能选择新的文件上传。");
+                    return;
+                }
+            }
+            var self = this;
+            var isShowConfirm= UploadLargeAttach.isShowLargeAttach(files,'ajax', function () {
+				if(UploadLargeAttach.isLargeAttach){
+					$(files).each(function(i,file){
+				        file.isLargeAttach = true;
+					})
+				}
+                _uploadFiles(files);
+                self.parentNode.reset();
+            });
+            if (isShowConfirm) { return;}
+            
+            /*
+            model.requestComposeId(function() {
+                _uploadFiles(files);
+            });*/
+//            this.value = "";//ie10有兼容性问题
+            _uploadFiles(files);
+            this.parentNode.reset();
+        }
+        uploadInput.onclick = function() {
+        	BH({key : "compose_commonattach"});
+        	
+            if (upload_module_screenShot.isUploading) {
+            	top.$Msg.alert(ComposeMessages.PleaseUploadSoon,{
+			        onclose:function(e){
+			            //e.cancel = true;//撤销关闭
+			        }
+			    });
+                return false;
+            }
+        };
+    },
+    upload: function(file) {
+        if (!file || !file.fileObj) return;
+
+        HTML5AJAXUpload.lastSendedTime = new Date();
+        HTML5AJAXUpload.lastSendedSize = 0;
+        HTML5AJAXUpload.retryCount = 0;
+        HTML5AJAXUpload.isCancel = false;
+        if (UploadLargeAttach.enable) {
+            UploadLargeAttach.prepareUpload(file, function (postParams) {
+                HTML5AJAXUpload.upload(file);
+            });
+        } else {
+            HTML5AJAXUpload.upload(file);
+        }
+    },
+    cancel: function () {
+        HTML5AJAXUpload.isCancel = true;
+        HTML5AJAXUpload.stop();
+
+        HTML5AJAXUpload.clearTimer();
+
+        if (HTML5AJAXUpload.currentFile) uploadManager.removeFile(HTML5AJAXUpload.currentFile);
+        uploadManager.autoUpload();
+    },
+    uploadResume: function(file){
+        if (!file || !file.fileObj) return;
+        HTML5AJAXUpload.upload(file);
+    },
+    isSupport: function() {
+        //火狐3.6以上,Safari,Chrome,IE10+ 支持XMLHttpRequest上传文件
+        if (window.FormData && !$B.is.opera && !$B.is.ie) {  //ie10 11浏览器暂不用html5上传
+            return true;
+        } else {
+            return false;
+        }
+    }
+};
+
+var HTML5AJAXUpload = {
+    timeout: 30 * 1000,//监控1个分块上传时间超过20秒，认为网络问题，自动续传
+    xhr: {},
+    currentFile :{},
+    onabort: function(oEvent){
+        console.log('onabort');
+        console.log(oEvent);
+    },
+    onerror: function (oEvent) {
+        if (this.isCancel) {
+            return;
+        }
+        var self = this;
+        console.log('onerror');
+        console.log(oEvent);
+        var f = this.currentFile;
+        f.state = "blockerror"; //上传失败，删除/续传
+        f.updateUI();
+        M139.Logger.sendClientLog({
+            level: "ERROR",
+            name: "I/O Error",
+            errorMsg: "fileName:"+f.fileName+"|error:"+oEvent//+args.error
+        });
+        if (this.timeoutId) {
+            window.clearTimeout(this.timeoutId);//清理掉超时监控，避免两个自动续传同时进行
+        }
+        if (this.retryCount <= 3) {
+            setTimeout(function () {
+                self.uploadResume(f);
+            }, 5000);
+        }
+    },
+    onload: function(oEvent){
+        console.log('onload');
+        console.log(oEvent);
+    },
+    onloadend: function(oEvent){
+        console.log('onloadend');
+        console.log(oEvent);
+    },
+    onloadstart: function(oEvent){
+        console.log('onloadstart');
+        console.log(oEvent);
+    },
+    onprogress: function(oEvent){
+        var This = this;
+        if (oEvent.lengthComputable) {
+            var f = This.currentFile; //ff下xhr事件指针有bug，所以不能直接用fileInfo
+            f.sendedSize = f.offset + oEvent.loaded;
+            f.progress = parseInt(f.sendedSize / f.fileSize * 100);
+            f.state = "uploading";
+            //计算速度
+            
+            f.uploadSpeed = (f.sendedSize - this.lastSendedSize) / (new Date() - this.lastSendedTime);
+            console.log("上传速度"+f.uploadSpeed);
+            f.updateUI();
+
+            if (f.uploadSpeed>0 && f.uploadSpeed < 30) {//KB为单位
+                M139.Logger.sendClientLog({
+                    level: "INFO",
+                    name: "upload speed is too slow",
+                    errorMsg: "speed:" + f.uploadSpeed + "|filename:" + f.fileName
+                });
+            }
+            if (this.retryCount > 0 && f.sendedSize > this.lastSendedSize && !this.retryLogSended) { //重试次数大于0，表示是上传重试恢复的，上报日志
+                M139.Logger.sendClientLog({
+                    level: "INFO",
+                    name: "upload fail retry",
+                    errorMsg: "retry ok," + f.fileName
+                });
+                this.retryLogSended = true;
+            }
+
+            this.lastSendedTime = new Date();
+            this.lastSendedSize = f.sendedSize;
+        }
+        
+        this.monitorTimeout(f);
+    },
+    monitorTimeout: function (file) { //监控1个分块上传时间超过20秒，认为网络问题，自动续传
+        var self = this;
+        window.lastFile=file;
+        if (this.timeoutId) {
+            window.clearTimeout(this.timeoutId);//作好清理
+        }
+        this.timeoutId = window.setTimeout(function () {
+            if (file == window.lastFile && file.progress<100 && file.progress == window.lastFile.progress && file.state!="complete") {
+                self.ontimeout();
+            } 
+
+        }, 30000);
+
+    },
+    clearTimer: function () {
+        if (this.timeoutId) {
+            window.clearTimeout(this.timeoutId);//清理掉超时监控，避免两个自动续传同时进行
+        }
+    },
+    ontimeout: function (oEvent) { //超时
+        var f = this.currentFile;
+        var msg = "上传超时,fileName:" + f.fileName +"|fileSize:"+f.fileSize+ "|progress:" + (f.progress || "0") + "%";
+        console.warn(msg);
+        M139.Logger.sendClientLog({
+            level: "ERROR",
+            name: "request timeout",
+            errorMsg: msg
+        });
+        console.log(f);
+        //上传超时，自动续传
+        this.uploadResume(f);
+        //this.onFail();
+    },
+    onreadystatechange: function(oEvent){
+        //abort也会触发，但是xhr.responseText为空
+        var xhr = this.xhr;
+        var This = this;
+        if (xhr.readyState == 4) {
+            if (xhr.status == 200) {
+                var f = This.currentFile;
+                var responseText = xhr.responseText;
+                if (responseText.indexOf("middleret") > 0) {
+                    responseText = UploadLargeAttach.responseConvert(responseText);
+                }
+                var uploadResult = This.uploadResult = utool.checkUploadResultWithResponseText({
+                    responseText: responseText,
+                    fileName: f.fileName
+                });
+                if (uploadResult.success) {
+                    if (uploadResult.fileSize == f.fileSize) {
+                        This.oncomplete();
+                    } else if ((uploadResult.offset + uploadResult.length) < f.fileSize) {
+                        f = $.extend(f, uploadResult);
+                        f.offset = uploadResult.offset + uploadResult.length;
+                        if (f.isLargeAttach) { f.offset = f.offset + 1;}
+                        f.state = "uploading";
+                        f.updateUI();
+                        This.upload(f);
+                    }
+                } else {
+                    This.onFail("response not ok:" + xhr.responseText);
+                }
+            } else {
+                This.onFail("http code:" + xhr.status);
+            }
+        } 
+    },
+    oncomplete: function () {
+        var f = this.currentFile;
+        f.fileId = this.uploadResult.fileId;
+        f.state = "complete";
+        f.progress = 100;
+        f.updateUI();
+        UploadLargeAttach.completeUpload(f);
+        uploadManager.autoUpload();
+        utool.logUpload(UploadLogs.AjaxSuccess);
+    },
+    onFail: function(code){
+        var f = this.currentFile;
+        f.state = "uploading";
+        f.updateUI();
+        utool.logUpload(UploadLogs.AjaxFail);
+        
+        var response = this.xhr.responseText;
+        if(response.indexOf('FA_ATTACH_SIZE_EXCEED') > 0){
+            console.log('附件大小超过服务端允许的大小!responseText:'+response);
+            top.$Msg.alert(ComposeMessages.FileSizeOverFlow);
+            M139.Logger.sendClientLog({
+                level: "ERROR",
+                name: "html5Upload fail",
+                errorMsg: ComposeMessages.FileSizeOverFlow + 'responseText' + response
+            });
+        } else if (response.indexOf('FS_UNKNOWN') > 0) {
+            console.log('上传文件未知错误!responseText:' + response);
+            top.$Msg.alert(ComposeMessages.FileUploadFail);
+            M139.Logger.sendClientLog({
+                level: "ERROR",
+                name: "html5Upload fail",
+                errorMsg: ComposeMessages.FileUploadFail + 'responseText' + response
+            });
+        } else {
+            this.onerror(code);
+        }
+    },
+    uploadResume: function (fileInfo) {
+        if (!this.isCancel) {
+            this.retryCount++;
+            HTML5AJAXUpload.upload(fileInfo);
+            M139.Logger.sendClientLog({
+                level: "INFO",
+                name: "upload fail retry",
+                errorMsg: "time:" + new Date().toString() + "|retryCount:" + this.retryCount
+            });
+        }
+    },
+    upload: function(fileInfo) {
+        fileInfo.offset = fileInfo.offset || 0;
+        fileInfo.length = fileInfo.length || 1024 * 1024;//原本192KB 
+        
+        var This = this;
+        this.currentFile = fileInfo;
+        
+        var xhr = this.getFileUploadXHR();
+        this.xhr = xhr;
+        
+        xhr.upload.onabort = function(oEvent){This.onabort(oEvent);};
+        xhr.upload.onerror = function(oEvent){This.onerror(oEvent);};
+        xhr.upload.onload = function(oEvent){This.onload(oEvent);};
+        xhr.upload.onloadend = function(oEvent){This.onloadend(oEvent);};
+        xhr.upload.onloadstart = function(oEvent){This.onloadstart(oEvent);};
+        xhr.upload.onprogress = function(oEvent){This.onprogress(oEvent);};
+        //xhr.ontimeout = function(oEvent){This.ontimeout(oEvent);};
+        xhr.onreadystatechange = function(oEvent) {This.onreadystatechange(oEvent);};
+        
+        
+        this.isSupportFileSlice = This.isSupportFileSliceFn(fileInfo.fileObj);
+        
+        //var url = utool.getControlUploadUrl(); //整块上传接口地址
+        //var url = utool.getBlockUploadUrl(); //分块上传接口地址
+        var url = this.isSupportFileSlice ? utool.getBlockUploadUrl("html5") : utool.getControlUploadUrl();
+        if (fileInfo.isLargeAttach) {
+            url = fileInfo.uploadUrl;
+        }
+        xhr.open("POST", url, true);
+        
+        xhr.timeout = this.timeout; //timeout
+ 
+        var fd = this.getFormData(fileInfo);
+        xhr.send(fd);
+
+        fileInfo.state = "uploading";
+        fileInfo.updateUI();
+        utool.logUpload(UploadLogs.AjaxStart);
+    },
+    getFormData:function(fileInfo){
+        var formData = new FormData();
+        var fileData ;
+        if (fileInfo.isLargeAttach) {
+            fileData = this.getFileDataForLarge(fileInfo);
+        } else {
+            fileData = this.getFileData(fileInfo)
+        }
+        for (var key in fileData) {
+            if(key == 'FileData'){
+                formData.append(key, fileData[key], fileInfo.fileName); //由于切片会将fileName改成blob，分块需重写fileName
+            }else{
+                formData.append(key, fileData[key]);
+            }
+        }
+        return formData;
+    },
+    getFileData: function(fileInfo){
+        var This = this;
+        if(!This.isSupportFileSlice){
+            return {
+                FileData : fileInfo.fileObj
+            };
+        }
+        var range = this.getRange(fileInfo);
+        return {
+            timestamp : new Date().toDateString(),
+            type : "1",
+            sip : fileInfo.sip || "",
+            range : range.from + "-" + range.to,
+            fileid : fileInfo.fileId || "",
+            filesize : fileInfo.fileSize,
+            Filename : fileInfo.fileName,
+            FileData : This.fileSlice(fileInfo.fileObj, range.from, range.to)  //必须放在最后，不然上传数据会出错
+        };
+    },
+    getFileDataForLarge: function (fileInfo) {
+        var result = UploadLargeAttach.postParams;
+        var range = this.getRange(fileInfo,1);
+        result.range = range.from + "-" + range.to,
+        result.filedata = this.fileSlice(fileInfo.fileObj, range.from, range.to+1);//分布式上传接口这个字段居然用的小写字母
+        return result;
+    },
+    getRange: function(fileInfo,delta){
+        var from = fileInfo.offset;
+        var to = Number(fileInfo.offset) + Number(fileInfo.length);
+        to = to > fileInfo.fileSize ? fileInfo.fileSize : to;
+        if (!delta) { delta = 0;}
+        return {
+            from: from,
+            to: to - delta
+        };
+    },
+    stop: function() {
+        this.xhr.abort();
+        utool.logUpload(UploadLogs.AjaxCancel);
+    },
+    getFileUploadXHR: function() {
+        if (!window.fileUploadXHR) {
+            fileUploadXHR = new XMLHttpRequest();
+        }
+        return fileUploadXHR;
+    },
+    isSupportFileSliceFn: function(file){
+        if (file.slice || file.webkitSlice || file.mozSlice) {
+            return true;
+        }else{
+            return false;
+        }
+    },
+    fileSlice: function (file, from, to) {
+        var type = file.type;
+        if (file.slice) {
+            return file.slice(from, to, type);
+        } else if (file.webkitSlice) {
+            return file.webkitSlice(from, to, type);
+        } else if (file.mozSlice) {
+            return file.mozSlice(from, to, type);
+        }
+    }
+}
+
+function _dragenter(e){
+	upload_module.model.requestComposeId();
+	var files = e.dataTransfer && e.dataTransfer.files;
+	e.stopPropagation();
+	if(files && files.length > 0){
+		e.preventDefault();
+	}
+}
+function _dragover(e){
+	var files = e.dataTransfer && e.dataTransfer.files;
+	e.stopPropagation();
+	if(files && files.length > 0){
+		e.preventDefault();
+	}
+}
+function _drop(e){
+	var files = e.dataTransfer && e.dataTransfer.files;
+	e.stopPropagation();
+	if(files && files.length > 0){
+		e.preventDefault();
+	} else {
+		return;
+	}
+
+    for (var i = 0; i < files.length; i++) {
+        if(files[i].fileSize==0){
+            top.$Msg.alert('不能拖放文件夹，以及大小为零的文件');
+            return;
+        }
+    }
+    var isShowConfirm= UploadLargeAttach.isShowLargeAttach(files,'ajax', function () {
+		if(UploadLargeAttach.isLargeAttach){
+			$(files).each(function(i,file){
+		        file.isLargeAttach = true;
+			})
+		}
+        _uploadFiles(files);
+    });
+    if (isShowConfirm) { return;}
+    _uploadFiles(files);
+}
+function _uploadFiles(files){
+    if (!files || files.length == 0) return;
+    var list = [];
+    for(var i=0;i<files.length;i++){
+	    
+        var f=files[i];
+        var obj = {
+            fileName: f.fileName || f.name,
+            fileSize: f.fileSize || f.size,
+            fileObj: f.fileObj ||f,
+            uploadType:'ajax',
+            isLargeAttach:f.isLargeAttach
+        };
+        list.push(obj);
+    }
+    uploadManager.uploadFile(list);
+}

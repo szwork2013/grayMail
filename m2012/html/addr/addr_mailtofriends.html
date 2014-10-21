@@ -1,0 +1,86 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<title>通知好友</title>
+<script type="text/javascript">
+function getLinkTag(path) {
+    var text = "";
+    if (path) text = "href='" + path + "'";
+    return "<link rel='stylesheet' type='text/css' " + text + " />";
+}
+
+function getJsTag(path) {
+    return "<script charset='gb2312' src='" + path + "' type='text/javascript'></" + "script>";
+}
+
+document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+var resourcePath = window.top.resourcePath;
+
+var htmlCode = "";
+htmlCode += getLinkTag(resourcePath + "/css/addr.css");
+htmlCode += getLinkTag("");
+document.write(htmlCode);
+</script>
+<script type="text/javascript">
+document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+try {
+top.loadCSS(["common/global.css", "module/addr/addr.css"], document);
+top.loadScript('libs.pack.js', document, "utf-8", "/m2012/js/packs/");
+top.loadScript('m139.core.pack.js', document, "utf-8", "/m2012/js/packs/");
+if (top.$App) {
+    top.loadScript('m2011.utilscontrols.pack.js', document, "utf-8", "/m2012/js/packs/");
+} else {
+    document.write(getJsTag(resourcePath + "/js/utils_controls.js"));
+}
+top.loadScript("addr_mailtofriends.html.pack.js", document, "utf-8", "/m2012/js/packs/addr/");
+} catch (ex) { }
+</script>
+<style type="text/css">
+    .setArea h2{left: 20px;}
+</style>
+</head>
+<body>
+    <div class="setArea">
+        <h2><strong>通知好友</strong> |  <a href="javascript:void(0);" class="fanghui" id="goback">&lt;&lt;返回</a></h2>
+    </div>    
+    <form name="form1" method="post" action="Invite.aspx?sid={sid}&groupname={groupname}&invitetype={invitetype}&batch={batch}" id="form1">
+        <div id="container" style="display: block">            
+            <div class="formSelect">
+                <fieldset>
+                    <dl class="checkContact">
+                        <dt>邮件通知好友,您在使用139邮箱</dt>
+                        <dd>
+                            <ul id="ulImported" style="margin-left:0px">
+
+                            </ul>
+                        </dd>
+                    </dl>
+                    <p class="checkAction">选择：<a id="selectAll" href="javascript:void(0);">全选</a> | <a id="selectNull" href="javascript:void(0);">清空</a> | <a id="selectOther" href="javascript:void(0);">反选</a></p>
+                </fieldset>
+            </div>
+            <div class="formLetter">
+                <fieldset>
+                    <ul class="form">
+                        <li>
+                            <label>您的昵称：</label><input name="txtNickName" type="text" id="txtNickName" class="text" maxlength="12" /><em>*</em> 请输入1-12个字符的昵称</li>
+                        <li>
+                            <label>通知信附言：</label><textarea id="txtMailBody" hidefocus readonly style="cursor:default">嗨：
+&nbsp;&nbsp;&nbsp;&nbsp;我是{name}，我现在用中国移动的139邮箱了，以后你可以用 {email} 联系我了。
+&nbsp;&nbsp;* 我的手机号码就是我的139邮箱邮箱帐号，很好记哦！
+&nbsp;&nbsp;* 收到新邮件后，手机立刻就收到短信提醒，还是免费的哦！
+&nbsp;&nbsp;* 有时不在电脑前收到你的邮件还可以随时随地用手机短信或者WAP处理邮件。
+&nbsp;&nbsp;* 还有啊，还是用电脑打字比较快，我以后用139邮箱给你发的短信彩信，记得要回！
+&nbsp;&nbsp;&nbsp;&nbsp;好东西与你一起分享，现在注册还送积分呢。
+&nbsp;&nbsp;&nbsp;&nbsp;呵呵，先到这了，常联系哦！
+</textarea></li>
+                    </ul>
+                </fieldset>
+            </div>
+            <ul class="formAction">
+                <li><a id="btnInvite" class="btn btnGreen" href="javascript:void(0);"><em>立即发送</em></a></li>
+                <li><a id="btnInviteLook" class="btn btnGreen" href="javascript:void(0);"><em>立即发送并查看复制的联系人</em></a></li>
+            </ul>
+        </div>
+    </form>
+</body>
+</html>

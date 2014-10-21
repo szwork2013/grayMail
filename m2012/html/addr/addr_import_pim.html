@@ -1,0 +1,37 @@
+﻿<!DOCTYPE HTML>
+<html><head>
+<title>139个邮通讯录-和通讯录导入</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript">
+document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+
+try {
+top.loadCSS(["common/global.css", "module/addr/addr.css"], document);
+top.loadScript('libs.pack.js', document);
+top.loadScript('m139.core.pack.js', document);
+top.loadScript("/m2012/js/packs/addr/addr_zh_hans.pack.js", document);
+top.loadScript("/m2012/js/packs/addr/addr_import_pim.html.pack.js", document);
+} catch (ex) {}
+</script>
+<style type="text/css">
+    .setArea{overflow: hidden;}
+    .setArea h2{left: 20px;}
+</style>
+</head>
+
+<body class="ml3P-contacts">
+    <div class="setArea">
+            <h2><strong>导入通讯录</strong> |  <a href="javascript:void(0);" class="fanghui" id="goBack">&lt;&lt;返回</a></h2>
+        </div>  
+        <div class="addr-nav">
+            <ul>
+                <li ><a  bh="addr_importClone_label" href="addr_import_clone.html">导入其他邮箱通讯录</a></li>
+                <li ><a  bh="addr_importFile_label" href="addr_import_file.html">导入本地联系人</a></li>
+                <li class="on"><a href="javascript:void(0);">导入“和通讯录”</a></li>
+            </ul>
+        </div>
+    <div class="setWrap">        
+        <div class="" id="import_container"></div>
+    </div>  
+</body>
+</html>

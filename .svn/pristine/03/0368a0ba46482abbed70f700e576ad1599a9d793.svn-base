@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<project name="disk_package_pack" default="disk_package_pack">
+  <property name="SolutionPath" value="service/disk_v2_1"/>
+  <target name="disk_package_pack">
+    <antcall target="index_pack"/>
+    <antcall target="recycle_pack"/>
+  </target>
+
+  <target name="index_pack">
+    <concat destfile="./packs/disk/disk_index.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">      
+      <fileset dir="${SolutionPath}" includes="**/m2012.disk.common.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.disk.commapi.js"/>     
+      <fileset dir="${SolutionPath}" includes="**/m2012.disk.view.viewmanager.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.disk.model.master.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.disk.model.navigatebar.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.disk.view.navigatebar.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.disk.model.listemplate.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.disk.view.listemplate.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.disk.model.main.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.disk.view.main.js"/>
+    </concat>
+  </target>
+
+  <target name="recycle_pack">
+    <concat destfile="./packs/disk/disk_recycle_async.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+      <fileset dir="${SolutionPath}" includes="**/m2012.disk.model.recycle.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.disk.view.recycle.js"/>
+    </concat>
+  </target>
+
+
+</project>

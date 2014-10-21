@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html style="overflow-y:hidden">
+<head>
+    <meta charset="utf-8">
+    <title>会话邮件写信页-139邮箱</title>
+	
+	<script type="text/javascript">
+    document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+    if (!top.m139LoadScript) {
+        top.m139LoadScript = top.loadScript;
+    }
+	var conversationPage = true; //方便组件判断
+</script>
+
+<script>
+    try{
+        top.m139LoadScript('libs.pack.js', document);
+        top.m139LoadScript('m139.core.pack.js', document);
+		top.m139LoadScript("m2012.ui.common.pack.js", document);
+    } catch (e) { }
+</script>
+
+<script>
+	try{
+		top.loadCSS(["common/global.css","packs/conversationcompose.pack.css"], document);
+	} catch (e) { }
+</script>
+
+	
+</head>
+
+<body style="background:white">
+
+</body>	
+
+<script>
+	try{
+		top.m139LoadScript("coversationcompose.html.pack.js", document);
+	} catch (e) { }
+</script>	
+</html>

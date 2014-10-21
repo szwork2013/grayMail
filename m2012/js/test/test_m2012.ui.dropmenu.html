@@ -1,0 +1,73 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="Keywords" content="" />
+<meta name="Description" content="" />
+<title>139邮箱</title>
+<link rel="stylesheet" href="../../css/common/global.css" type="text/css" />
+<link rel="stylesheet" href="../../css/common/frame.css" type="text/css" />
+<link rel="stylesheet" href="../../css/skin/skin_lightblue.css" type="text/css" />
+    <script src="../packs/libs.pack.js"></script>
+    <script src="../packs/m139.core.pack.js"></script>
+    <script src="../packs/m2012.ui.common.pack.js"></script>
+</head>
+<body class="bodycolor">
+    <div> 
+    </div>
+
+    <script>
+        var dropMenu = M2012.UI.DropMenu.create({
+            defaultText:"默认文本",
+            selectedIndex: 1,
+            maxHeight:200,
+            menuItems:[
+                {
+                    text:"选项一",
+                    myData:1
+                },
+                {
+                    text: "选项一",
+                    myData: 1
+                },
+                {
+                    text: "选项一",
+                    myData: 1
+                },
+                {
+                    text: "选项一",
+                    myData: 1
+                },
+                {
+                    text: "选项一",
+                    myData: 1
+                },
+                {
+                    text: "选项一",
+                    myData: 1
+                },
+                {
+                    text: "选项一",
+                    myData: 1
+                },
+                {
+                    text: "选项一",
+                    myData: 1
+                },
+                {
+                    text: "选项一",
+                    myData: 1
+                },
+                {
+                    text:"选项二",
+                    myData:2
+                }
+            ],
+            container:$("div")
+        });
+        dropMenu.on("change",function(item){
+            alert(item.myData);
+        });
+    </script>
+</body>
+</html>

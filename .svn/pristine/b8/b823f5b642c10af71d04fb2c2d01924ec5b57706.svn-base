@@ -1,0 +1,169 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="Keywords" content="" />
+<meta name="Description" content="" />
+<title>139邮箱</title>
+
+
+<script type="text/javascript">
+    //设域
+    document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+</script>
+<style>
+.mySLinfo{border:none !important; box-shadow: 0 0 0 0 #fff !important;-webkit-box-shadow:0 0 0 0 #fff !important; float: none !important; padding: 0 !important;}
+.mySLinfo div{ width: 52px !important; height: 52px !important;}
+.mySLinfo div img{ width: 52px !important; height: 52px !important;}
+</style>
+<script>top.loadScript('libs.pack.js',document);top.loadScript('m139.core.pack.js',document)</script><script>top.loadScript("m2012.ui.common.pack.js",document)</script><script>top.loadScript("my_vcard.html.pack.js",document)</script><script>top.loadCSS(["common/global.css","module/set.css"],document)</script></head>
+<body class="setbody">
+            <div class="norTips editcardPop">
+				<span class="norTipsIco"><img id="faceImg" width="52" height="52" alt="" src="/m2012/images/ad/face.jpg"></span>
+				<div class="norTipsContent">
+					<div class="norTipsLine"><input id="vcardTitle" type="text" class="iText" value="" /></div>
+					<div class="norTipsLine">
+					<textarea class="accountTextare" id="vcardSubject">我喜欢美食。</textarea>
+					</div>
+					<div class="norTipsLine">
+						<ul class="form">		
+							<li class="formLine">
+								<label class="label">职务：</label>
+								<div class="element"><input id="vcardJob" name="info" type="text" class="iText" value="" /></div>
+							</li>
+							<li class="formLine">
+								<label class="label">公司：</label>
+								<div class="element"><input id="vcardCompany" name="info" type="text" class="iText" value="" /></div>
+							</li>
+							<li class="formLine">
+								<label class="label">地址：</label>
+								<div class="element"><input id="vcardAddr" name="info" type="text" class="iText" value="" /></div>
+							</li>
+							<li class="formLine">
+								<label class="label">邮箱：</label>
+								<div class="element"><input id="vcardMail" name="info" type="text" class="iText" value="" /></div>
+							</li>
+							<li class="formLine">
+								<label class="label">手机：</label>
+								<div class="element"><input id="vcardMobile" name="info" type="text" class="iText" value="" /></div>
+							</li>
+							<li class="formLine">
+								<label class="label">电话：</label>
+								<div class="element"><input id="vcardPhone" name="info" type="text" class="iText" value="" /></div>
+							</li>
+							<li class="formLine">
+								<label class="label">传真：</label>
+								<div class="element"><input id="vcardFax" name="info" type="text" class="iText" value="" /></div>
+							</li>
+							<li class="formLine">
+								<label class="label">邮编：</label>
+								<div class="element"><input id="vcardZipCode" name="info" type="text" class="iText" value="" /></div>
+							</li>
+						</ul>
+					</div>
+					
+				</div>
+			</div>
+			<div class="editcardPop-foot">
+				<label class="mr_10"><input id="defaultSign" type="checkbox" class="mr_5" value="" />设为默认邮件签名</label>
+				<label><input type="checkbox" id="addDate" class="mr_5" value="" />添加写信日期<span class="gray">(*年*月*日 星期*)</span></label>
+			</div>
+		<div class="boxIframeBtn">
+			<span class="bibText"></span><span class="bibBtn">
+					<a href="javascript:void(0)" class="btnSure" id="btnSure"><span>确 定</span></a> <a href="javascript:void(0)" class="btnNormal" id="btnCancel"><span>取 消</span></a>
+			</span>
+		</div>
+<div id="getContent" class="hide">
+    
+</div>
+
+<textarea id="infoTem" style="display:none;">
+<!--item start-->$value<!--item end-->
+</textarea>
+<textarea id="nameTem" style="display:none;">
+<!--item start-->$value<!--item end-->
+</textarea>
+
+        <textarea id="tableTem" style="display:none;">
+            <dl  style="float:left;">
+                <dt style="font-size: 14px; font-weight: bold; margin-bottom: 6px; padding: 0; margin: 0;"><span id="nameCon"></span></dt>
+                <dd style="padding:0;margin:0;">
+                <table style="color: #333333; font-size: 12px;">
+                    <dt style="font-size: 14px; font-weight: bold; margin-bottom: 6px; padding: 0; margin: 0;">
+                        <span id="infoCon"></span>
+                    </dt>
+                    <!--item start-->
+                    <tr>
+                        <td width="36">$key:</td>
+                        <td>$text</td>
+                    </tr>
+                    <!--item end-->
+                </table>
+                </dd>
+            </dl>
+        </textarea>
+
+
+
+
+
+
+      
+      
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  
+     
+       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    
+    
+    
+
+
+
+
+
+</body>
+</html>

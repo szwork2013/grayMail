@@ -1,0 +1,35 @@
+﻿<project default="minify-js-closure">
+    <target name="minify-js-closure" >
+        <property name="closure.path" location="./build/lib/compiler.jar" />
+
+        <property name="inputDir" location="./js/" />
+        <property name="tempDir" location="./build/temp" />
+
+
+        <delete>
+            <fileset dir="${tempDir}" includes="**/*.js"/>
+        </delete>
+
+        <copydir src="${inputDir}"
+          dest="${tempDir}"
+          includes="**/*.js"
+          excludes="**/*.pack.js"
+        />
+
+
+        <apply executable="java" verbose="true" dest="${tempDir}" failonerror="true" parallel="false">
+            <fileset dir="${tempDir}" includes="**/*.js" />
+            <arg line="-jar"/>
+            <arg path="${closure.path}"/>
+            <arg line="--charset utf8"/>
+            <arg value="--warning_level"/>
+            <arg value="QUIET"/>
+            <arg value="--js"/>
+            <srcfile/>
+            <arg value="--js_output_file"/>
+            <targetfile/>
+            <mapper type="regexp" from="^(.*)\.js$" to="\1.ok.js" />
+        </apply>
+
+    </target>
+</project>

@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>139” œ‰≤•∑≈∆˜≤‚ ‘</title>
+  <script src="m139.component.mediaplayer.js"></script>
+</head>
+<body>
+    <script>
+        /*
+        var source = ['Tank-IfILoveYou.mp3'];
+        var mp = new M139.Component.MediaPlayer.Player({
+            type: "audio",
+            sources: source,
+            height: 60,
+            width: 460,
+            preload: false,
+            autoplay: false,
+            container: document.body
+        });
+        */
+        var videoSource = [
+            { type: "video/mp4", src: "video/oceans-clip.mp4" },
+            { type: "video/webm", src: "video/oceans-clip.webm" },
+            { type: "video/ogg", src: "video/oceans-clip.ogv" }
+        ];
+        var mp = new M139.Component.MediaPlayer.Player({
+            type: "video",
+            sources: videoSource,
+            poster: "oceans-clip.png",
+            height: 400,
+            width: 600,
+            preload: false,
+            autoplay: true,
+            container: document.body
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,90 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="Keywords" content="" />
+<meta name="Description" content="" />
+<title>139邮箱-设置-代收邮件</title>
+<script type="text/javascript">
+document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+</script>
+<script>
+	top.loadScript('libs.pack.js',document);
+	top.loadScript('m139.core.pack.js',document)
+	top.loadScript("m2012.ui.common.pack.js",document)
+</script>
+<script>top.loadScript("/m2012/js/richmail/settings/rsa.js",document);</script>
+<script type="text/javascript">
+setMaxDigits(131);
+</script>
+<script>top.loadScript("add_pop.html.pack.js",document);</script>
+<!--<script src="m2012.settings.pop.model.js"></script>
+<script src="m2012.settings.pop.view.step1.js"></script>-->
+<script>top.loadCSS(["common/global.css","module/set.css"],document)</script>
+<!--要取消按钮的灰色字体，但是提交是以此灰色样式判断的，故只改掉灰色样式的字体(覆盖)-->
+<style type="text/css">
+.btngray{color:#000;}
+</style>
+</head>
+<body class="setbody">  
+<div class="setWrap">
+	<div class="setArea">	
+		<h2>添加代收邮箱 <span class="line">|</span> <a href="javascritp:;" id="goBack" class="fanghui">&lt;&lt;返回</a></h2>
+		<ul class="collectionstep" id="popStep"><!-- passwordStep2 -->
+				<li class="on">1.填写代收邮箱信息</li>
+				<li>2.确认信息</li>						
+		</ul>	
+		<ul class="form" id="addPopForm">				
+			<li class="formLine">
+				<label class="label">要代收的邮箱：</label>
+				<div class="element p_relative">
+					<input type="text" id="popUsername"  class="iText" value="" /> 
+				</div>
+			</li>
+			<li class="formLine">
+				<label class="label">邮箱密码：</label>
+				<div class="element p_relative">
+				    <input type="password" id="popPassword"  class="iText" value="" />
+                    <div class="tips yellowtips" style="left:214px;top:0px;display:none;">
+                        <div class="tips-text">									
+                            验证失败，邮箱地址和密码<strong>不匹配</strong>																			
+                        </div>
+                        <div class="tipsLeft diamond"></div>
+					</div>
+				</div>
+			</li>	
+			<li class="formLine">
+                <label class="label" >代收方式：</label>
+                <div class="element">
+                   <label hidefocus=true for="pop" class="mr_10" id="popSelect"><input type="radio" name="server" id="pop" value="" checked class="mr_5" />POP</label> <label hidefocus=true for="imap" id="imapSelect"><input class="mr_5" name="server" type="radio" id="imap" value="" />IMAP</label>
+                </div>
+            </li>
+			<li class="formLine">
+                <label class="label">&nbsp;</label>
+                <div class="element">
+                    <a href="javascript:void(0)" hidefocus=true id="setPort"><span class="mr_5">端口设置</span><i class="i_th0"></i><!-- i_th1 --></a>
+                </div>
+            </li>
+			<li class="formLine hide" id="portLine">
+                <label class="label">端口：</label>
+                <div class="element p_relative">
+                    <input id="popPort" type="text" class="iText" value="110"/>
+                </div>
+            </li>
+            <li class="formLine">
+                <label class="label">收取设置：</label>
+                <div class="element">
+                   <input type="checkbox" value="1" id="checkboxGet" checked="checked" class="mr_5"><label for="checkboxGet" class="mr_10">自动收取</label>
+                </div>
+            </li>
+			<li class="formLine">
+				<label class="label"></label>
+				<div class="element">				
+					<a href="javascript:void(0)" class="btnNormal btngray" id="btn_first_step"><span>确 定</span></a>					
+				</div>
+			</li>				
+		</ul>	
+	</div>	
+</div>
+</body>
+</html>

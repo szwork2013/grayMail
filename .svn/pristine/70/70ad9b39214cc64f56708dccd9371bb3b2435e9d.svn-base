@@ -1,0 +1,180 @@
+﻿
+(function (jQuery, _, M139) {
+    var $ = jQuery;
+    var superClass = M139.View.ViewBase;
+    //todo newclass clone
+    M139.namespace('M2012.Service.OnlinePreview.Img.View', superClass.extend({
+
+        /**
+        *@lends M2012.ReadMail.View.prototype
+        */
+        initialize: function () {
+            this.mainView = new M2012.Service.OnlinePreview.View();
+            this.model = new M2012.Service.OnlinePreview.Model();
+            //this.model2 = new M2012.OnlinePreview.Focusimagesemail.Model();
+            this.unzippath = $T.Url.queryString("unzippath");
+            return superClass.prototype.initialize.apply(this, arguments);
+        },
+        render: function (obj) {
+	        this.model.set({ initData: obj })//保存地址栏的参数到model
+            var self = this;
+            var dl = decodeURIComponent(obj.dl);
+            var obj = $Url.getQueryObj();
+            this.mainView.appendHeaderHtml(obj);
+            this.getAllAttach(obj);
+            //$("#loadingStatus").remove();
+        },
+        getAllAttach : function(initData){
+            var self = this;
+            this.imgNum = 0;
+            var comefrom = initData.comefrom;
+            this.model.getAttach = comefrom == "compose" ? this.model.getAttachForCompose : this.model.getAttach; 
+				
+			if(comefrom == 'draftresend'){
+				this.model.getAttach = this.model.getAttachForCompose;
+			}
+            this.model.getAttach(success,err)
+            function success(dataSource) {
+                var result = comefrom == "compose" ? dataSource : dataSource.attachments; 
+				if(comefrom == 'draftresend'){
+					result = dataSource;
+				}
+
+                var len = result.length;
+                var arr = [];
+                for (var i = 0; i < len; i++) {
+                    if (result[i].fileRealSize < 1024 * 1024 * 20) {
+                        arr.push(result[i]);
+                    }
+                }
+                var liFlag = self.getAttachList(arr, initData);
+				var timer = setInterval(getImg, 500);
+                
+                function getImg(){
+	                
+	                if(liFlag){
+		                
+		                var filename = $("#headerBar img").attr("alt");
+		                var imgCont = $("#attachList img[alt='"+filename+"']");
+		                var num = "0";
+		                if(imgCont.length){
+			                num = imgCont.parent().parent().attr("index");
+		                }
+		                if (num != "" && num != "null" && num+"" != 'undefined') {
+		                    top.focusImagesView = new M2012.OnlinePreview.Focusimagesemail.View();
+		                    top.focusImagesView.compose = comefrom == "compose" ? true : false; 
+		                    top.focusImagesView.render({ data: self.previewImg, num: parseInt(num) });
+
+		                }
+		                clearInterval(timer);
+	                }
+
+                }
+                
+            };
+            function err(result){
+	            var obj = self.model.get('initData');
+				if(result.code == "FA_INVALID_SESSION" || result.code == "FS_NOT_LOGIN"){
+	                obj.display = "none";
+	                obj.text = self.model.message.relogin;
+				}
+                var html = self.mainView.loadingErrorHtml(obj);
+                $("#loadingStatus").html(html);
+                top.BH("preview_load_error");
+                return
+	            
+            }
+	        
+        },
+        getAttachList: function (result, initData) {//拼装其他附件列表，并输出html
+	        this.arrListUrl = [];//附件Url
+	        this.currentLi = 0;
+            var self = this;
+            var len = result.length;
+            var list = '';
+            var num = 0;
+            var arr = [];
+            var previewImg = [];
+            for (var i = 0; i < len; i++) {
+                var f = result[i];
+                var filename = f.fileName;
+                var data = self.getAttrImages(f, initData)
+                this.arrListUrl.push(data.previewUrl);
+                if (data["index"] != "null") {
+                    previewImg.push({
+                        imgUrl: data.imgUrl,
+                        fileName: filename,
+                        downLoad: data.downloadUrl,
+                        num : data.index,
+	                    previewUrl:data.previewUrl
+                    });
+                }
+            }
+            this.previewImg = previewImg;
+            return 'ok';
+        },
+        getAttrImages: function (f, initData) {//从所有附件中筛选出图片附件
+            var self = this;
+            var comefrom = this.model.get("comefrom");
+            var composeUrl = self.model.getPreViewUrlForCompose(f);
+            var readmailUrl = self.model.getPreViewUrl(f, initData);
+            var downloadUrl = f.type == "attach" ? readmailUrl : composeUrl;
+            var obj = {
+                fileName: encodeURIComponent(f.fileName),
+                fileSize: f.fileSize,
+                downloadUrl: encodeURIComponent(downloadUrl),
+                type: initData.src,
+                contextId: initData.id,
+                comefrom: comefrom,
+                composeId: initData.composeId
+
+            }
+            var previewUrl = self.model.getUrl(obj);
+            var target = "_blank";
+            var index = "null";
+            var isImg = /(?:\.jpg|\.gif|\.png|\.ico|\.jfif|\.bmp|\.jpeg|\.jpe)$/i.test(f.fileName);
+            if (isImg) {
+                var imgUrl = "";
+                var urltemp = "&sid={sid}&mid={mid}&size={size}&offset={offset}&name={name}&type={type}&width={width}&height={height}&quality={quality}&encoding=1";
+                imgUrl = 'http://' + location.host + "/RmWeb/mail?func=mbox:getThumbnail" + $T.Utils.format(urltemp, {
+                    sid: this.model.get("sid"),
+                    mid: initData.id,
+                    size: f.fileSize,
+                    offset: f.fileOffSet,
+                    name: f.fileName,
+                    type: f.type,
+                    width: 72,
+                    height: 72,
+                    quality: 80
+                });
+                this.imgNum++;
+                index = this.imgNum - 1;
+                previewUrl = "javascript:;";
+                target = "_self";
+                imgUrl = comefrom == "compose" ? imgUrl : imgUrl;
+            };
+            var dataSource = {
+                previewUrl: previewUrl,
+                target: target,
+                index: index,
+                imgUrl: imgUrl,
+                downloadUrl: downloadUrl
+            };
+            return dataSource;
+        },
+        getData: function (options, obj) {
+            var self = this;
+            this.model.getImageAttach(options, function (result) {
+				//console.log(result)
+            })
+        },
+        template: function (result) {
+            var tableArr = [{}];
+            var str = $("#imgTemplate").val();
+
+        }
+
+
+    }));
+
+})(jQuery, _, M139);

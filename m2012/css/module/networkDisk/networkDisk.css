@@ -1,0 +1,223 @@
+html, body {height: 100%;}
+a:hover{text-decoration:none;}
+/*重置btn按钮hover*/
+.btn:hover{color:#666;}
+.icon,.i-file-smalIcion, .cShare, .i-addrDot{background:url(../../../images/module/networkDisk/networkIcon_24.png) no-repeat;_background:url(../../../images/module/networkDisk/networkIcon.png) no-repeat; display:inline-block; overflow:hidden; vertical-align:middle;}
+.all-file, .i-doc, .i-img, .i-mic, .i-mov, .i-link, .i-share, .i-myShare, .i-clamp, .i-tank, .i-c139,.i-recycle{width:16px; height:16px;}
+.i-cOpen, .i-cDown, .i-cShare, .i-cMove, .i-cRenaming, .i-cDelete, .i-cSend,.i-cSendmail,.i-cRenewal,.i-cPhone,.i-cColrDisk,.i-m-footerBall,.i-m-footerballStar,.i-m-footerballMisic,.i-m-footerballMV,.i-deleteForever,.i-restore{width:14px; height:14px;}
+.all-file{background-position:0 0;}
+.i-doc{background-position:-17px 0;}
+.i-img{background-position:-34px 0;}
+.i-mic{background-position:-51px 0;}
+.i-mov{background-position:-68px 0;}
+.i-link{background-position:-85px 0;}
+.i-share{background-position:-102px 0;}
+.i-myShare{background-position:-119px 0;}
+.i-clamp{background-position:-136px 0;}/*附件夹*/
+.i-tank{background-position:-153px 0;}/*暂存柜*/
+.i-c139{background-position:-87px -116px;}
+.i-upload{width:13px; height:15px; background-position:-118px -49px;}
+.i-pc{width:25px; height:23px;background-position:-20px -34px;}
+.i-tool{width:24px; height:23px; background-position:-47px -34px;}
+.i-addrDot{width:7px; height:7px; background-position:0 -63px;}
+
+.i-cOpen{background-position:-87px -34px;}
+.i-cDown{background-position:-102px -34px;}
+.i-cShare{background-position:-117px -34px;}
+.i-cMove{background-position:-132px -34px;}
+.i-cRenaming{background-position:-147px -34px;}
+.i-cDelete{background-position:-87px -49px;}
+.i-cSend{background-position:-102px -49px;}
+.i-cSendmail{background-position:-102px -49px;}
+.i-cRenewal{background-position:-102px -65px;}
+.i-cPhone{background-position:-118px -65px;}
+.i-cColrDisk{background-position:-132px -65px;}
+.cShare{background-position:0 -34px; width:19px; height:19px;}
+
+.i-recycle{background-position:0 -75px;}
+.i-restore{background-position:-26px -76px;}
+.i-deleteForever{background-position:-52px -76px;}
+.menuPop .text .i-restore,.menuPop .text .i-deleteForever{position: relative; top:-2px;}
+/*
+.listMenu .on .all-file{background-position:0 -17px;}
+.listMenu .on .i-doc{background-position:-17px -17px;}
+.listMenu .on .i-img{background-position:-34px -17px;}
+.listMenu .on .i-mic{background-position:-51px -17px;}
+.listMenu .on .i-mov{background-position:-68px -17px;}
+.listMenu .on .i-link{background-position:-85px -17px;}
+.listMenu .on .i-share{background-position:-102px -17px;}
+.listMenu .on .i-myShare{background-position:-119px -17px;}
+.listMenu .on .i-clamp{background-position:-136px -17px;}
+.listMenu .on .i-tank{background-position:-154px -17px;}
+*/
+/*足球世界杯*/
+.m-footerBall{width:32px; height:32px;background:url(../../../images/module/networkDisk/footerSmallIcon.png) no-repeat;display:inline-block; overflow:hidden; vertical-align:middle;}
+
+.i-m-footerBall{background-position:0 0;}
+.i-m-footerballStar{background-position:0 -32px;}
+.i-m-footerballMisic{background-position:0 -68px;}
+.i-m-footerballMV{background-position:0 -100px;}
+
+
+
+/*左侧菜单*/
+.uploadDiv{padding:10px 30px 10px; text-align:center;}
+.uploadDiv a{display:block; font-size:14px; height:28px; padding:0; position:relative;}
+.uploadDiv a:hover{color:#fff;}
+.uploadDiv a i{vertical-align:top; margin:4px 6px 0 0; *margin:3px 6px 0 0; _margin-top:0;}
+.uploadDiv a em{padding-top:4px;}
+.uploadDiv a span{padding:1px 0 0 0;display:inline-block; height:28px; width:54px; _position:relative; _top:5px;}
+.listMenu{border-bottom:1px solid #e8e8e8; padding:3px 0 3px;}
+.listMenu li{height:28px; padding-bottom:3px;}
+.listMenu li a{ display:block; color:#666;font-size:14px;overflow:hidden; vertical-align:middle; _zoom:1; height:28px; line-height:28px; padding-left:30px; _padding-top:5px; _height:23px;}
+.listMenu li a i{margin:-2px 8px 0 0;*margin-top:0;}
+.listMenu li a .i-img{vertical-align:-2px;*vertical-align:middle;}
+
+.listMenu li a:hover{background-color:#e8e8e8;color:#444;}
+.listMenu li.on a,.listMenu li.on a:hover{text-decoration:none; background:#e8e8e8; color:#444;}
+.listMenu li a.borderBtm{border-bottom:1px solid #e8e8e8;}
+.listMenu li a.borderTop{border-top:1px solid #fff;}
+.downloadDisk{padding-bottom: 8px; text-align:center;}
+.downloadDisk a{display:inline-block; text-decoration:none;}
+.downloadDisk a span{padding-top:8px; display:block; color:#464646;}
+.downloadDisk .i-addrDot{position:absolute; left:0px; top:-6px; font-size:1px;}
+.downloadDisk  .diskpOtherTool{ padding-top:8px;}
+.inAside .downloadDisk .progressBarDiv{height:5px;}
+/*右侧菜单*/
+.border-btm{border-bottom:1px solid #e8e8e8;}
+/*上传按钮
+.greenBtn{border:1px solid #038f00; border-radius:2px;background:#00AD14;}
+.uploadBtn{padding:6px 55px; color:#fff; font-size:16px; margin: 14px;display:block; text-decoration: none;}
+.uploadBtn:hover{color:#fff;}
+*/
+/*进度条*/
+.diskUseAmount{padding:6px 0; border-top:1px solid #e8e8e8;}
+.diskUseAmount .progressBar{height:5px;}
+.diskUseAmount .progressBarCur{height:5px;}
+.diskUseAmount .progressBar {border:0; background:#d5d7d9;}
+.diskUseAmount .progressBarCur span{height: 5px; background: #1f95f0;}
+/*网盘功能菜单*/
+.diskSortTitle{margin-top:5px;}
+.btnGreen:hover{color:#fff;}
+/*网盘小图标*/
+.i-file-smalIcion{background:url(../../../images/module/networkDisk/disk-small-icon.png) no-repeat; width:32px; height:32px;}
+.i-f-none{background-position:0 0;}
+.i-f-doc{background-position:0 -34px;}
+.i-f-docx{background-position:0 -34px;}
+.i-f-exe{background-position:0 -67px;}
+.i-f-fla{background-position:0 -100px;}
+.i-f-html{background-position:0 -133px;}
+.i-f-htm{background-position:0 -133px;}
+.i-f-pdf{background-position:0 -168px;}
+.i-f-ppt{background-position:0 -201px;}
+.i-f-pptx{background-position:0 -201px;}
+.i-f-psd{background-position:0 -234px;}
+.i-f-swf{background-position:0 -268px;}
+.i-f-txt{background-position:0 -301px;}
+.i-f-xls{background-position:0 -335px;}
+.i-f-xlsx{background-position:0 -335px;}
+.i-f-rm{background-position:0 -369px;}
+.i-f-mp4{background-position:0 -369px;}
+.i-f-wmv{background-position:0 -369px;}
+.i-f-flv{background-position:0 -369px;}
+.i-f-rmvb{background-position:0 -369px;}
+.i-f-3gp{background-position:0 -369px;}
+.i-f-avi{background-position:0 -369px;}
+.i-f-mpg{background-position:0 -369px;}
+.i-f-mkv{background-position:0 -369px;}
+.i-f-rar{background-position:0 -403px;}
+.i-f-zip{background-position:0 -403px;}
+.i-f-7z{background-position:0 -403px;}
+.i-f-mp3{background-position:0 -437px;}
+.i-f-wma{background-position:0 -437px;}
+.i-f-wav{background-position:0 -437px;}
+.i-f-mod{background-position:0 -437px;}
+.i-f-m4a{background-position:0 -437px;}
+.i-f-jpg{background-position:0 -471px;}
+.i-f-png{background-position:0 -471px;}
+.i-f-bmp{background-position:0 -471px;}
+.i-f-gif{background-position:0 -471px;}
+.i-f-tif{background-position:0 -471px;}
+.i-f-ai{background-position:0 -504px;}
+.i-f-sys{background-position:0 -538px;}
+.i-f-smv{background-position:0 -570px;}
+.i-f-sJpg{background-position:0 -602px;}
+.i-f-smic{background-position:0 -634px;}
+.i-f-eml{background-position:0 -667px;}
+.i_m_139{background-position:0 0;}
+.i-f-mov{background-position:0 -369px;}
+.i-f-asf{background-position:0 -369px;}
+.i-f-system{background-position:0 -702px;}
+
+.i-f-png{background-position:0 -471px;}
+
+.newShareTable .i_m_139{background-position:0 0;}
+
+.noLineTop{border-top:none !important;}
+.noLineBottom{border-bottom:none !important;}
+.growFont{color:#7b9eb7;}
+
+/*头部面包屑*/
+.inboxHeadeTitle{float:left; padding-left:10px;}
+.inboxHeadeTitle strong{float:none; font-weight:normal; color:#464646;}
+.inboxHeadeTitle em{color:#999;}
+.inboxHeadeTitle span{color:#ff5907;}
+.inboxHeadeTitle a{color:#1a75ca;}
+.toolBarUl{height:28px;}
+.viewTipPic{position:relative;top:6px; *top:9px;}
+
+/*右键弹出框*/
+.menuPop{zoom:1;}
+.menuPop .icon{margin-right:10px; vertical-align:middle; _vertical-align:bottom;}
+
+.listItem .cShare, .listHead .cShare{position:absolute; left:-5px; bottom:-2px;}
+
+.diskShare{border-bottom:1px solid #d7d7d7; padding:20px 11px 10px;}
+.diskShare .i-file-smalIcion{float:left; width:32px;}
+.diskShare_info{float:right; width:200px;}
+.diskShare_info strong{color:#666;}
+.diskShare_info p{color:#888;}
+
+.diskShare_ul{padding:13px 0;}
+.diskShare_ul li{position:relative; zoom:1; vertical-align:top;}
+.diskShare_ul li a{padding:0 19px; display:block; line-height:26px; color:#666; cursor:pointer;}
+.diskShare_ul li a:hover{background-color:#e8e8e8;}
+.diskShare_ul li .i_u_close{position:absolute; right:10px; top:9px; padding:0; background-color:none; cursor:pointer;}
+.diskShare_ul li .diskShare_span{width:200px; height:26px; display:block; overflow:hidden;}
+
+.listHeadMail span{color:#999;}
+.listHeadMail p a{color:#1a75ca;}
+
+.lightGray{color:#999;}
+.toolBarUl a, .toolBarUl .toolBarUlpo{margin-right:0; float:left;}
+
+.inboxHeader .inboxHeaderfr{padding-left:10px;}
+.toolBarUlpo{border:2px solid #fff; display:inline-block; position:relative; top:-2px;}
+.backgroundBlock{width:100%; height:100%; background:#000; filter:alpha(opacity=20); -moz-opacity:0.2; -khtml-opacity:0.8; opacity:0.2; position:absolute; left:0; top:0; z-index:9002;}
+
+.promptOne{background:url(../../../images/module/networkDisk/networkiconAll.png) no-repeat; width:505px; height:282px; position:absolute; left:28px; top:10px; z-index:9003;}
+.promptTwo{background:url(../../../images/module/networkDisk/networkiconDisk.png) no-repeat;width:445px; height:277px; position:absolute; left:651px;top:54px; z-index:9003;}
+
+.promptOne a, .promptTwo a{background:url(../../../images/module/networkDisk/networkIcon_24.png) no-repeat; _background:url(../../../images/module/networkDisk/networkIcon.png) no-repeat; width:12px; height:12px; display:inline-block;}
+.promptOne a, .promptTwo a{background-position:-132px -49px;position: absolute;right: 28px;top: 55px;}
+.promptOne a:hover, .promptTwo a:hover{background-position:-146px -49px;}
+
+
+td.t-name p {display: none;}
+td.t-name a{ cursor:pointer; color:#666;}
+.tbl-list td.t-check {width: 35px;text-align: left;padding: 5px 0;padding-left:8px;vertical-align: middle;}
+.tbl-list td.t-check .i-addrDot{margin-left:5px; *margin-left:0;}
+
+
+.newGroupTips{width:213px; height:48px; background-color:#ffffe1; border:#e1e1c9 solid 1px; position:absolute; top:0px; left:105px; z-index:999;}
+.newGroupTips .inner{padding:15px 0 0 15px;color:#666; line-height:18px;}
+.newGroupTips strong{font-size:14px;}
+.newGroupTips .icon-light{background:url(../../../images/module/networkDisk/rec-ico.png) no-repeat -20px -1px; width:16px; height:16px; float:left;}
+.newGroupTips .arrow-left-tips{ width:5px; height:7px; position:absolute;left:-5px; top:9px; font-size:0;background:url(../../../images/module/networkDisk/rec-ico.png) no-repeat 0 0;}
+
+.newShareTable .t-check{padding-left: 8px;}
+
+.networkDisk-folderScroll{ overflow-y:auto; overflow-x:visible; position: relative;}
+.folder-wraper{ min-height: 100%;_height:99%;}
+.folder-wraper-inner{padding-bottom: 114px;}
+.networkDisk-folderScroll .downloadDisk{margin-top: -114px;}

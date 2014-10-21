@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Language" content="zh-CN"/>
+    <meta name="Keywords" content=""/>
+    <meta name="Description" content=""/>
+    <link rel="stylesheet" href="../../css/common/global.css" type="text/css"/>
+    <link rel="stylesheet" href="../../css/common/frame.css" type="text/css"/>
+    <link rel="stylesheet" href="../../css/skin/skin_lightblue.css" type="text/css"/>
+
+<script>
+	document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+</script>
+<body>
+<div class="bill_list_null" style="height: auto;">
+    <h2>您还没有添加VIP联系人</h2>
+    <p class="c_666">将联系人添加为VIP联系人，TA的邮件将自动标记为"VIP邮件"。</p>
+    <p class="c_666">一目了然，快速处理重要联系人的重要邮件。</p>
+    <div class="addvippeoDiv">
+        <a class="addIco" href="javascript:top.$App.doCommand('addVip');top.BH('click_add_vip_contact');">
+            <span class="a1"></span>
+            <span class="a2"></span>
+            <span class="a3"></span>
+        </a>
+        <a href="javascript:top.$App.doCommand('addVip');top.BH('click_add_vip_contact');" class="btnSetG"><span class="fz_14">添加VIP联系人</span></a>
+    </div>
+
+   </div>
+</body>
+</html>

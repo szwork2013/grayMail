@@ -1,0 +1,156 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-Type" />
+    <title>联系方式</title>
+    <link rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+        function filltag(d, c, f) { var b, a, e = []; while (d.length) { a = d.shift(); switch (true) { case Object.prototype.toString.apply(a) === "[object Array]": b = "<script " + (a[1].length > 0 ? 'charset="' + a[1] + '" ' : "") + "src='" + (a[2] ? a[2] : c) + "/js/" + a[0] + "' type='text/javascript'><\/script>"; break; case a.indexOf(".js") > -1: b = "<script " + (f ? 'charset="' + f + '" ' : "") + "src='" + c + "/js/" + a + "' type='text/javascript'><\/script>"; break; case a.indexOf(".css") > -1: b = "<link rel='stylesheet' type='text/css' href='" + c + "/css/" + a + "' />"; break; case a.length == 0: b = "<link rel='stylesheet' type='text/css' />" } e.push(b) } document.write(e.join("")) }
+        var resourcePath = top.resourcePath, addrsrc = resourcePath.replace('coremail', 'addr'), verifyImageUrl = '', AddressBookType = {}, g = 'GB2312';
+        filltag(['global.css', 'addr.css', ''], resourcePath);
+    </script>
+    <script>
+        top.loadCSS('module/addr/addr.css', document);
+        top.loadCSS(["common/global.css"], document);        
+    </script>
+    <style type="text/css">
+    body{font: 12px/1.5 "Microsoft YaHei",Verdana,"Simsun";}
+    .tabdiv{padding:20px 10px;}
+    .tablib { font-weight:lighter; }
+    .tablib a:link,
+    .tablib a:hover,
+    .tablib a:visited{text-decoration:none;margin:0 10px;font-size:12px;font-weight:lighter;}
+    .tablib a:link.navset,
+    .tablib a:visited.navset { font-weight:bold; }
+    .formArea table{table-layout:auto;}
+    .formArea th{font-weight:lighter;text-align:right;padding-right:5px;height:30px;padding-top:8px;_padding-top:5px;vertical-align:top;}
+    .formArea td{vertical-align:middle;}
+    .formArea td label{padding-right:10px;display:inline-block;}
+    label > input[type = "radio"]{position:relative;top:1px;}
+    .tishi{background:none repeat scroll 0 0 #FFFFE5;border:1px solid #FDB21B;line-height:17px;padding:5px 5px 3px 12px;}
+    p.action{margin-top:10px;}
+    .formArea td {vertical-align:top;padding-top:0; height:24px;}
+    .formArea th {vertical-align:top;padding-top:5px;height:24px;text-align:right;}
+   .formArea input{margin-top:0px;}
+    #tbcss th{padding-top:0;}
+    .warntip{background: #FDFCDE;border:1px solid #FDAB0A;padding-left:5px;margin-top:7px;*margin-top:1px;line-height:1.5;float:left;}
+    i{padding-left:20px;font-size:1.5px;height:14px;zoom:1;positon:relatiove;top:1px;}
+    .warn{background-position:-40px -88px; }
+    .content input.text{margin-top: 2px;}
+    .formArea {border-width: 0px;}
+    #pageSetPassword .formArea th{width: 5em;}    
+    .addr-nav ul li a{padding: 0 21px;}
+    </style>    
+    <script>
+        top.loadScript('libs.pack.js', document);
+        top.loadScript('m139.core.pack.js', document);
+        top.loadScript("m2012.ui.common.pack.js", document);
+        top.loadScript("m2011.utilscontrols.pack.js", document);
+    </script>    
+</head>
+<body>
+    <div id="pageSetPassword">
+        <div class="singTitle">
+            <strong><span>个人资料</span></strong> | <a id="gotoHome" href="javascript:void(0);">&lt;&lt;返回</a>  
+        </div>
+        <div class="content">           
+            <div class="addr-nav" id="addr_nav">
+                <ul>
+                    <li><a href="javascript:void(0);">基本资料</a></li>
+                    <li><a href="javascript:void(0);">联系方式</a></li>
+                    <li><a href="javascript:void(0);">商务信息</a></li>
+                    <li><a href="javascript:void(0);">个人情况</a></li>
+                    <li><a href="javascript:void(0);">我的头像</a></li>
+                </ul>
+            </div>
+            <div style="margin:0 20px;">
+            <div class="formArea">
+                <table cellpadding="0" id="tbcss">
+                    <thead>
+                        <colgroup>
+                            <col width="50" />
+                            <col width="30%" />
+                            <col />
+                        </colgroup>
+                    </thead>
+                    <tbody>
+                        <tr id="trPassword">
+                            <th>邮箱：</th>
+                            <td>
+                                <input name="txtMail" type="text" id="txtMail" maxlength="50" class="text" style="ime-mode: disabled" value="15134566830@139.com" /></td>
+                            <td>
+                                <div class="warntip" id="dEmail" style="display: none"><i class="warn"></i>邮箱格式不正确，请检查修改。</div>
+                            </td>
+                        </tr>
+                        <tr class="newPassword">
+                            <th>通讯地址：</th>
+                            <td>
+                                <input name="txtAddress" type="text" id="txtAddress" maxlength="40" class="text" /></td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <th>邮编：</th>
+                            <td>
+                                <input name="txtPost" type="text" id="txtPost" maxlength="10" class="text" style="ime-mode: disabled" /></td>
+                            <td>
+                                <div class="warntip" id="dPost" style="display: none"><i class="warn"></i>邮编格式不正确，请检查修改。</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>手机：</th>
+                            <td>
+                                <input name="txtMobile" type="text" id="txtMobile" maxlength="11" class="text" style="ime-mode: disabled" value="15134566830" /></td>
+                            <td>
+                                <div class="warntip" id="dMobile" style="display: none"><i class="warn"></i>手机格式不正确，请检查修改。</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>电话：</th>
+                            <td>
+                                <input name="txtPhone" type="text" id="txtPhone" maxlength="20" class="text" style="ime-mode: disabled" /></td>
+                            <td>
+                                <div class="warntip" id="dPhone" style="display: none"><i class="warn"></i>电话格式不正确，请检查修改。</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>飞信号码：</th>
+                            <td>
+                                <input name="txtFetion" type="text" id="txtFetion" maxlength="20" class="text" style="ime-mode: disabled" /></td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <th>QQ：</th>
+                            <td>
+                                <input name="txtQQ" type="text" id="txtQQ" maxlength="50" class="text" style="ime-mode: disabled" /></td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <th>MSN：</th>
+                            <td>
+                                <input name="txtMSN" type="text" id="txtMSN" maxlength="50" class="text" style="ime-mode: disabled" /></td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <th>个人主页：</th>
+                            <td>
+                                <input name="txtMainPage" type="text" id="txtMainPage" class="text" maxlength="50" style="ime-mode: disabled" /></td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <th>&nbsp;</th>
+                            <td colspan="2">
+                                <p class="action">
+                                    <a id="btnSubmit" class="btn btnGreen" href="javascript:void(0)"><em style="color:#fff;">保 存</em></a>
+                                    <a id="btnCancel" class="btn ml_10" onclick="javascript:top.MM.goBack();" href="javascript:void(0)"><em style="color:#666;">取 消</em></a>
+                                </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">top.loadScript("/m2012/js/packs/addr/addr_contact.html.pack.js", document)</script>
+</html>

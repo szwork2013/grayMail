@@ -1,0 +1,203 @@
+﻿<!DOCTYPE html>
+<html class="ifm">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>账单管理首页</title>
+
+<script type="text/javascript">
+    //设域
+    document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+    //获得资源路径
+    var resourcePath = window.top.rmResourcePath;
+    //写加载资源
+    var filePath = ('<link rel="stylesheet" rev="stylesheet" type="text/css" />\
+<link href="#resourcePath#/css/bill.css" rel="stylesheet" type="text/css" />\
+<script type="text/javascript" src="#resourcePath#/js/utils_controls.js" charset="gb2312"></' + 'script>\
+<script type="text/javascript" src="#resourcePath#/js/jquery.js" charset="gb2312"></' + 'script>').replace(/\#resourcePath\#/g, resourcePath);
+    document.write(filePath);
+</script>
+<script type="text/javascript">
+    Utils.loadSkinCss(null, null, "bill");
+
+    function showMyBill() {
+        top.MB.show(top.FM.folderID.myBill);
+        top.MM.close("billmanager");
+    }
+</script>
+</head>
+<body>
+                              <table width="100%" class="zd_mag">
+								<thead id="thead">
+									
+								</thead>
+								<tbody id="tbody">
+									
+								</tbody>	
+                                    <tr>
+										<td colspan="5" class="b_top"><div class="zd_mag_f"></div></td>
+									</tr>							
+							</table>
+<script>
+    //var middleServer="http://mw.mail.10086rd.cn/";
+    var middleServer = top.SiteConfig["billMiddleware"]; 
+    if (!middleServer) {
+        alert("服务器地址配置不正确");
+    }
+    function pageInit() {
+
+        var frm = document.createElement("iframe");
+        frm.id = "frmProxy";
+        frm.name = "frmProxy";
+        frm.style.display = "none";
+        document.body.appendChild(frm);
+        frm.style.display = "none";
+        frm.contentWindow.location.href = middleServer + "/proxy.htm";
+        var frm1 = document.createElement("iframe");
+        frm1.id = "frmProxy1";
+        frm1.name = "frmProxy1";
+        frm1.style.display = "none";
+        document.body.appendChild(frm1);
+        frm1.style.display = "none";
+        frm1.contentWindow.location.href = middleServer + "/proxy.htm";
+        $(frm).load(function () {
+            loadBillType();
+        });
+    }
+    function sortBy(result) {//JSON数组排序
+        var sort_by = function (field, reverse, primer) {
+            reverse = (reverse) ? -1 : 1;
+            return function (a, b) {
+                a = a[field];
+                b = b[field];
+                if (typeof (primer) != 'undefined') {
+                    a = primer(a);
+                    b = primer(b);
+                }
+                if (a < b) return reverse * -1;
+                if (a > b) return reverse * 1;
+                return 0;
+            }
+        }
+        result.sort(sort_by('businessType', false, parseInt)); //按businessType的值排序，区分各大类账单，固定值10，11，12，13分别表示移动、民生、支付、其他
+    }
+    function getTypeList(callback) {
+        var num;
+        var src = window.location.href;
+        src = src.split("=");
+        num = src[1];
+        var url = middleServer + "/billsvr?func=bill:getTypeList&sid=" + top.sid;
+        var data = {};
+        data.targetServer = url;
+        data.ajax = window.frames["frmProxy"]._ajax;
+        RequestBuilder.call("", data, function (result) {
+            sortBy(result["var"]);
+            callback(result,num);
+        });
+    }
+    function init(result,num) {
+        var resultNum = result["var"][num];
+        var phone = top.UserData.userNumber.replace(/^86/gi, "");
+        var userInfoLen = 4;//扩展字段的个数
+        var gronpIdLen = result["var"][num].attrs.length;
+        for (var i = 0; i < gronpIdLen / userInfoLen; i++) {
+            var resultAttrs = resultNum.attrs;
+            $("#thead").html('<tr><th width="120">用户编号</th><th width="80">用户名</th><th width="150">服务商</th><th width="65">开通时间</th><th width="60">操作</th></tr>');
+            $("#tbody").append('<tr><td>' + resultAttrs[userInfoLen * i]["dictvalue"] + '</td><td>' + resultAttrs[(userInfoLen * i) + 1]["dictvalue"] + '</td><td>' + resultAttrs[(userInfoLen * i) + 2]["dictvalue"] + '</td><td>' + resultAttrs[(userInfoLen * i) + 3]["dictvalue"] + '</td><td><a href="javascript:;" onclick="delCounts(' + resultNum.businessType + ',' + resultNum.columnId + ',2,' + num + ',\'' + resultNum.businessName + '\',' + i + ')" title="关闭账单">关闭账单</a></td></tr>');
+            $(".zd_mag_f").html('<a class="btn139" href="###" onclick="addCounts(\'' + resultNum.businessName + '\',' + num + ')"><i class="l_border"></i>新增账号<i class="r_border"></i></a><span>还可增加<em></em>个账号</span>');
+        }
+        var trLen = gronpIdLen / userInfoLen;
+        if (trLen == 3) {
+            $(".zd_mag_f").html('<a class="btn139 gray" href="###"><i class="l_border"></i>新增账号<i class="r_border"></i></a><span>还可增加<em></em>个账号</span>');
+        }
+        if (trLen == 1) {
+            $("#tbody a").attr("behavior", "账单退订");
+        }
+        $(".zd_mag_f em").html(String(3 - trLen));
+        FF.setHeight((i * 31) + 72 + "px");
+    }
+    function loadBillType() {
+        getTypeList(init);
+	}
+
+
+    function delCounts(businessType,columnId,status,num,businessName,thisId) {
+        var attrs = [];
+        getTypeList(function (result) {
+            sortBy(result["var"]);
+            attrs = result["var"][num].attrs;
+            delAdd(businessType, columnId, status, num, businessName, attrs, thisId);
+        })
+
+    }
+    function delAdd(businessType, columnId, status, num, businessName, attrs, thisId) {
+        var userInfoLen = 4;
+        var url = middleServer + "/billsvr?func=bill:setBill&sid=" + top.sid;
+        var data = {
+            "columnId": columnId,
+            "status": status,
+            "attrs": attrs
+        }
+        data.targetServer = url;
+        data.ajax = window.frames["frmProxy1"]._ajax; 
+        var trLen = $("#tbody tr:visible").length;
+        if (trLen == 1) {
+            data.attrs = [];
+            RequestBuilder.call("", data, function (result) {
+                if (result["code"] == "S_OK") {
+                    switchStatus(businessType, columnId, status, num, businessName);
+                    FloatingFrame.close();
+                    top.addBehavior("账单退订成功");
+                }
+            });
+        }
+        else {
+            data.attrs.splice(userInfoLen * thisId, userInfoLen);
+            $("#tbody tr").remove();
+            data.status = 1;
+            RequestBuilder.call("", data, function (result) {
+                loadBillType();
+            });
+            totalCounts(businessName, num);
+        }
+    }
+    function totalCounts(businessName, num) {
+        var emHtml = $(".zd_mag_f em").html();
+        emHtml = parseInt(emHtml) + 1;
+        $(".zd_mag_f").html('<a onclick="addCounts(\'' + businessName + '\',' + num + ')" href="javascript:;" class="btn139"><i class="l_border"></i>新增账号<i class="r_border"></i></a><span>还可增加<em>' + emHtml + '</em>个账号</span>');
+        FF.setHeight($(window).height() - 31 + "px");
+    }
+    function addCounts(businessName,num) {
+        var FF = top.FloatingFrame;
+        var path = top.wmsvrPath2;
+        FF.close();
+        FF.open("开通" + businessName, path + "/billopen.htm?num=" + num, 670, 250);
+        
+    }
+    function subscribeBill(businessType, columnId, status, num, businessName) {
+        var url = middleServer + "/billsvr?func=bill:setBill&sid=" + top.sid;
+        var data = {
+            "columnId": columnId,
+            "status": status,
+            "attrs": []
+         }
+        data.targetServer = url;
+        data.ajax = window.frames["frmProxy"]._ajax;
+        RequestBuilder.call("", data, function (result) {
+            switchStatus(businessType,columnId,status,num,businessName);
+            FloatingFrame.close();
+        });
+
+    }
+    function switchStatus(businessType, columnId, status, num, businessName) {//切换订购状态显示
+        var preHtml = '<a class="btn139" href="javascript:;" onclick="subscribeBill(' + businessType + ',' + columnId + ',1,' + num + ',\'' + businessName + '\',400)"><i class="l_border"></i>免费开通<i class="r_border"></i></a>';
+        var normal_a = parent.window.document.getElementById("billmanager").contentWindow.$(".normal_a")[num];
+        if (businessType == 11) {
+            normal_a.innerHTML = preHtml;
+        }
+    }
+    pageInit();
+  
+</script>
+</body>
+
+</html>

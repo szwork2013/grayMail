@@ -1,0 +1,122 @@
+﻿<!DOCTYPE html>
+<html id="pageShare">
+ <head>
+<title>139个邮通讯录-首页</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript">
+document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+function filltag(d, c, f) { var b, a, e = []; while (d.length) { a = d.shift(); switch (true) { case Object.prototype.toString.apply(a) === "[object Array]": b = "<script " + (a[1].length > 0 ? 'charset="' + a[1] + '" ' : "") + "src='" + (a[2] ? a[2] : c) + "/js/" + a[0] + "' type='text/javascript'><\/script>"; break; case a.indexOf(".js") > -1: b = "<script " + (f ? 'charset="' + f + '" ' : "") + "src='" + c + "/js/" + a + "' type='text/javascript'><\/script>"; break; case a.indexOf(".css") > -1: b = "<link rel='stylesheet' type='text/css' href='" + c + "/css/" + a + "' />"; break; case a.length == 0: b = "<link rel='stylesheet' type='text/css' />" } e.push(b) } document.write(e.join("")) }
+
+var resourcePath = top.$App.getResourcePath(), addrsrc = resourcePath.replace('richmail', 'addr'), AddressBookType = {}, g = 'GB2312';
+filltag(['','addr.css'], resourcePath);
+
+try {
+top.loadScript("libs.pack.js", document);
+top.loadScript("m139.core.pack.js", document);
+top.loadScript("m2011.utilscontrols.pack.js", document);
+top.loadScript("/m2012/js/packs/addr/addr_zh_hans.pack.js", document);
+top.loadScript("/m2012/js/packs/addr/addr_share_home.html.pack.js", document);
+} catch (ex) {}
+</script>
+<script type="text/javascript">Utils.loadSkinCss(null, document, "addr")</script>
+<script type="text/javascript">
+    var ENTER = 13;
+    var BACKSPACE = 8;
+    var DEL = 46;
+    var SPACE = 32;
+
+    var CAPSLOCK = 20;
+    var NUMLOCK = 144;
+
+    var SHIFT = 16;
+    var CTRL = 17;
+    var ALT = 18;
+
+    var INSERT = 45;
+    var END = 35;
+    var HOME = 36;
+
+    var LEFT = 37;
+    var UP = 38;
+    var RIGHT = 39;
+    var DOWN = 40;
+
+    var ignore = [ENTER, BACKSPACE, DEL, SPACE, CAPSLOCK, NUMLOCK, SHIFT, CTRL, ALT, INSERT, END, HOME, LEFT, UP, RIGHT, DOWN];
+
+    $(function () {
+        InitShare();
+        $("#SendTo,#RequestTo").keyup(function (e) {
+            if ($.inArray(e.keyCode, ignore) > -1) {
+                return;
+            }
+
+            add139com(this, true);
+        });
+        $("#RequestSubject,#RequestContent,#Content,#Subject").bind('selectstart', function(){return !1});
+    });
+</script>
+<style type="text/css">
+.txt_ctet, .txt_sbj { border: 1px solid #aaa; padding: 2px; width: 370px; cursor: default; }
+.txt_ctet {  margin-left: 48px; padding-bottom: 10px; }
+.txt_sbj { display: inline-block; }
+.ml_60 { margin-left: 60px; }
+.cls { display: inline; clear:left; line-height:0; }
+</style>
+<!--[if lt IE 8]>
+<style type="text/css">
+.txt_ctet { margin-left: 0; float: left; }
+</style>
+<![endif]-->
+</head>
+
+<body class="hasAddressList">
+    <div id="container">
+        <div class="sendContent">
+            <div id="header">
+                <h2><span class="current">共享通讯录</span></h2>
+                <p><a id="aBack" href="javascript:;">返回</a></p>
+            </div>
+            <div class="tabContainer">
+                <ul class="tab">
+                    <li class="current" id="share">发送共享</li>
+                    <li id="request">请求共享</li>
+                </ul>
+                <div class="tabContent" id="shareTo">
+                    <div class="formSelect" id="ContactGroups">
+                    </div>
+
+                    <fieldset>
+                    <ul class="form">
+                        <li style="position:relative"><label>共享给：</label><input name="SendTo" type="text" id="SendTo" class="text" autocomplete="off" /><a href="javascript:;" id="Sendaddress">通讯录</a>
+                        <p>支持每天共享给10个139邮箱用户</p>
+                                                    </li>
+                        <li><label>主 题：</label><span id="Subject" class="txt_sbj">这是某某的通讯录，请点击获取</span></li>
+                        <li><label>正 文：</label><div id="Content" class="txt_ctet">您好！
+我把139邮箱通讯录里面，对您可能有所帮助的联系人共享给您。您可以选择有用的联系人，导入到您的139邮箱。赶快试试吧！</div></li>
+                        <li class="cls"></li>
+                    </ul>
+                    <input type="hidden" name="SerialIds" id="SerialIds" />
+                    <p class="formAction"><a id="btnSendShare" class="btnStrong" href="javascript:void(0)">发 送</a></p>
+                    </fieldset>
+                    </div>
+
+                <div class="tabContent" id="requestShare" style="display:none">
+                    <fieldset>
+                    <legend><span>发邮件请求好友共享通讯录</span></legend>
+                    <ul class="form">
+                        <li style="position:relative"><label>发请求给：</label><input name="RequestTo" type="text" id="RequestTo" class="text" autocomplete="off" /><a href="javascript:;" id="Requestaddress">通讯录</a></li>
+                        <li><label>主 题：</label><span id="RequestSubject" class="txt_sbj">我是某某，您能把通讯录共享给我吗？</span></li>
+                        <li><label>正 文：</label><div id="RequestContent" class="txt_ctet ml_60">您好！
+您的邮箱通讯录里的有些联系人信息，或许对我很有帮助，想麻烦您共享一下，您在选择好要共享的联系人后，发送给我就可以了。谢谢：）！</div></li>
+                        <li class="cls"></li>
+                    </ul>
+                    <p class="formAction">
+                    <a id="btnSendRequest" class="btnStrong" href="javascript:void(0)">发 送</a></p>
+                    </fieldset> 
+                    </div>
+                    <input type="hidden" name="type" id="type" />
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

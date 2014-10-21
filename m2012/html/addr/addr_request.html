@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>请求</title>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<script type="text/javascript">
+document.domain=window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+function filltag(d,c,f){var b,a,e=[];while(d.length){a=d.shift();switch(true){case Object.prototype.toString.apply(a)==="[object Array]":b="<script "+(a[1].length>0?'charset="'+a[1]+'" ':"")+"src='"+(a[2]?a[2]:c)+"/js/"+a[0]+"' type='text/javascript'><\/script>";break;case a.indexOf(".js")>-1:b="<script "+(f?'charset="'+f+'" ':"")+"src='"+c+"/js/"+a+"' type='text/javascript'><\/script>";break;case a.indexOf(".css")>-1:b="<link rel='stylesheet' type='text/css' href='"+c+"/css/"+a+"' />";break;case a.length==0:b="<link rel='stylesheet' type='text/css' />"}e.push(b)}document.write(e.join(""))}
+var R = top.resourcePath, addrsrc = R.replace('coremail', 'addr'), g='GB2312';
+filltag(['addr.css?v=20140516'],R);
+</script>
+<script type="text/javascript">
+function goHomePage(){
+    setTimeout(function() {
+        if(top.$Addr){                
+            var master = top.$Addr;
+            master.trigger(master.EVENTS.LOAD_MAIN);
+        }else{
+			top.$('#addr').attr({'src': 'addr_v2/addr_index.html'});
+		}
+    }, 0xff);
+}
+</script>
+<style type="text/css">.ctn { max-width: inherit; _width:auto }
+.contactlist .funbox {top: 28px;}
+</style>
+<script type="text/javascript">
+try {
+top.loadScript("libs.pack.js", document);
+top.loadScript('m139.core.pack.js', document);
+top.loadScript("m2012.ui.common.pack.js", document);
+top.loadScript("m2011.utilscontrols.pack.js", document);
+top.loadScript("../../js/packs/addr/addr_zh_hans.pack.js", document);
+top.loadScript("../../js/packs/addr/addr_request.html.pack.js", document);
+} catch (ex) {}
+</script>
+</head>
+<body class="clr-space msyhv2">
+    <div id="container">
+        <div class="header">
+                <div class="singTitle">
+                    <h4><strong>请求</strong> | <a href="javascript:goHomePage();">&lt;&lt;返回</a></h4>
+                </div>
+        </div>
+        <div class="addr-nav" style="margin">
+            <ul>
+                <li><a id="lnkMaybeknown" bh="addr_remind_remLabel" href="javascript:void(0);">可能认识的人</a></li>
+                <li class="on"><a href="javascript:void(0);"style="padding:0 40px;">请求</a></li>
+            </ul>
+        </div>
+        <div class="wrap">
+            <div class="toolbar toolbarM">
+                <button type="button" class="divWhoWantAddMeAllAgree btn ml_10">全部同意</button>
+                <button type="button" class="divWhoWantAddMeAllRefuse btn ml_10">全部忽略</button>
+                <a id="lnkPrivate" href="javascript:void(0)">设置隐私权限</a>
+                <div class="pager" id="divWhoWantAddMePage" style="float:right"></div>
+            </div>
+            <ul id="divWhoWantAddMe" class="contactlist"></ul>
+        </div>    
+    </div>
+</body>
+</html>

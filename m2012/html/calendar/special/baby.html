@@ -1,0 +1,192 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" class="box">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<script type="text/javascript">
+//设域
+document.domain=window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+
+//获得资源路径
+var resourcePath=window.top.resourcePath;
+var calendarResourcePath=resourcePath.replace("coremail","calendar");
+var htmlCode="";
+htmlCode+=getLinkTag("");
+htmlCode+=getLinkTag(calendarResourcePath+"/css/calendar.css?v=20110617");
+
+top.loadScript("jquery.js", document);
+top.loadScript("m2011.utilscontrols.pack.js", document);
+
+top.loadScript("/m2012/js/service/calendar/m2011.calendar.MyCalendar.js", document);
+top.loadScript("/m2012/js/service/calendar/m2011.calendar.edit.js", document);
+
+document.write(htmlCode);
+
+function getJsTag(path,charset){
+    var html="<script charset='gb2312' src='"+path+"' type='text/javascript'></"+"script>";
+    if (charset) html = html.replace("gb2312",charset);
+    return html;
+}
+function getLinkTag(path){
+    var text="";
+    if(path)text="href='"+path+"'";
+    return "<link rel='stylesheet' type='text/css' "+text+" />";
+}
+</script>
+<link rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+Utils.loadSkinCss(null,document,"calendar");
+</script>
+
+<!--[if lte IE 7]><script>iereset('content')</script><![endif]-->
+</head>
+<body>
+<div class="aside">
+	<ul class="tag">
+	    <li><a href="../calendar_list.html"><i class="allcalendar"></i><span id="spanCount1">全部日程</span></a></li>
+	    <li><a id="aRecent" href="javascript:;"><i class="day7"></i><span id="spanCount2">最近7天日程</span></a></li>
+	    <li><a id="aAgent" href="javascript:;"><i class="undo"></i><span>待办事项</span></a></li>
+	    <li><a id="aHasDone" href="javascript:;"><i class="done"></i><span>已办事项</span></a></li>
+	    <li class="line"></li>
+	</ul>
+	<ul class="category">
+		<script type="text/javascript" language="javascript">
+		    richinfo.email.calendar.commonUI.category.addCategory("baby.html",Utils.queryString("comefrom"));
+		</script>
+	</ul>
+	<b class="shadow"></b>
+</div>
+<div class="header">
+	<h1><i class="allcalendar"></i><span>宝宝防疫</span></h1>
+	<p class="des">| <a href="javascript:" id="goView">返回日程首页</a></p>
+</div>
+<div class="content baby" id="content">
+    <p class="tips" style="display:none" id="pErrorMsg"><i class="error"></i><label id="lblErrorMsg">错误提示信息！</label></p>
+	<div class="empty" id="addBirth" style="display:none;width:540px">
+	    <b class="baby"></b>
+    	<div class="msg" style="width:460px">
+    	    <p class="tips"  id="pBabyName" style="width:440px;display:none"><i class="error"></i><label id="lblBabyName">错误提示信息！</label></p>
+            <div class="birthWrap">
+    	        <i class="bb"></i>
+                <span class="fbc333 indent5">宝宝姓名 <input class="txt" id="txtNameAdd" maxlength="20"/></span>
+                <span class="fbc333 indent5">宝宝生日 <span class="date"><input id="txtBirthdayAdd" style="width:80px"/><i class="drop" id="dropBirthdayAdd"></i></span></span>
+                <input type="button" value="添加" class="btn" id="add"/>
+            </div>
+        宝宝的健康成长，离不开按时有序的防疫。只要在这里输入宝宝的生日，系统将自动计算出宝宝1-7岁的免疫接种项目，并提前提醒您和家人。一次设置，全程提醒。
+        </div>
+    </div>
+    <h3 id="editBirth" style="display:none"><i class="bb"></i><span id="spanBirthday">2010年3月24日 宝宝生日</span> <a href="javascript:" id="hreftEdit">修改</a>&nbsp;&nbsp;<a href="javascript:" id="hrefDel">删除</a></h3>
+    <div class="setbirth" id="setBirth" style="display:none">
+        <p>（变更宝宝生日，免疫接种时间将重新计算，原来添加的提醒会被删除）</p>
+        <i class="bb"></i>
+        <label>宝宝姓名</label><input type="text" class="txt" id="txtNameEdit" maxlength="20"/>
+        <label>宝宝生日</label><span class="date"><input value="" id="txtBirthdayEdit" style="width:80px"/><i class="drop" id="dropBirthdayEdit"></i></span>
+        <input type="button" class="btn" id="btnSave" value="保 存">
+        <input type="button" class="btn" id="btnCancel" value="取 消">
+    </div>    
+    <p id="infoTitle" style="display:none">以下是你的宝宝从现在到7岁生日前中国国家规定的基础免疫接种项目。由于居住地区的不同，你的宝宝也许需要接种更多的疫苗，具体内容，请一定咨询当地保健部门。</p>
+    <table id="infoTable" style="display:none">
+        <caption><label>免疫接种时间表</label><span><i class="append" id="imgForAll"></i><a href="javascript:" id="hrefForAll"></a></span></caption>
+
+        <tbody>
+            <tr groupId="1">
+                <td ><p class="title"><span></span> - 出生24小时内</p>
+                    <p>注射乙型肝炎疫苗第一针，预防乙型病毒性肝炎 </p>
+                    <p>注射卡介苗，预防结核病</p>
+                    <p type="injection"><i class="injection"></i><label></label></p>
+                    <p type="remind"></p></td>
+                <td class="opt"></td>
+            </tr>
+
+            <tr groupId="2">
+                <td ><p class="title"><span></span> - 宝宝1个月大</p>
+                    <p>注射乙型肝炎疫苗第二针，预防乙型病毒性肝炎 </p>
+                     <p type="injection"><i class="injection"></i><label></label></p>
+                    <p type="remind"></p></td>
+                <td class="opt"></td>
+            </tr>
+
+            <tr groupId="3">
+                <td><p class="title"><span></span> - 宝宝2个月大</p>
+                    <p>口服脊髓灰质炎糖丸第一粒，预防脊髓灰质炎（小儿麻痹症）</p>
+                    <p type="injection"><i class="injection"></i><label></label></p>
+                    <p type="remind"></p></td>
+                <td class="opt"></td>
+            </tr>
+            <tr groupId="4">
+                <td><p class="title"><span></span> - 宝宝3个月大</p>
+                    <p>卡介苗复查，检查卡介苗接种效果</p>
+                    <p>口服脊髓灰质炎糖丸第二粒，预防脊髓灰质炎（小儿麻痹症）</p>
+                    <p>注射百白破疫苗第一针，预防百日咳、白喉、破伤风 </p>
+                    <p type="injection"><i class="injection"></i><label></label></p>
+                    <p type="remind"></p></td>
+                <td class="opt"></td>
+            </tr>
+            <tr groupId="5">
+                <td><p class="title"><span></span> - 宝宝4个月大</p>
+                    <p>口服脊髓灰质炎糖丸第三粒，预防脊髓灰质炎（小儿麻痹症） </p>
+                    <p>注射百白破疫苗第二针，预防百日咳、白喉、破伤风 </p>
+                     <p type="injection"><i class="injection"></i><label></label></p>
+                    <p type="remind"></p></td>
+                <td class="opt"></td>
+            </tr>
+             <tr groupId="6">
+                <td><p class="title"><span></span> - 宝宝5个月大</p>
+                    <p>注射百白破疫苗第三针，预防百日咳、白喉、破伤风</p>
+                     <p type="injection"><i class="injection"></i><label></label></p>
+                    <p type="remind"></p></td>
+                <td class="opt"></td>
+            </tr>
+             <tr groupId="7">
+                <td><p class="title"><span></span> - 宝宝6个月大</p>
+                    <p>注射乙型肝炎疫苗第三针，预防乙型病毒性型肝炎</p>
+                      <p type="injection"><i class="injection"></i><label></label></p>
+                    <p type="remind"></p></td>
+                <td class="opt"></td>
+            </tr>
+            <tr groupId="8">
+                <td><p class="title"><span></span> - 宝宝8个月大</p>
+                    <p>注射麻疹疫苗，预防麻疹</p>
+                     <p type="injection"><i class="injection"></i><label></label></p>
+                    <p type="remind"></p></td>
+                <td class="opt"></td>
+            </tr>
+             <tr groupId="9">
+                <td><p class="title"><span></span> - 宝宝1岁半至2岁</p>
+                    <p>注射百白破疫苗加强针，预防百日咳、白喉、破伤风 </p>
+                    <p>口服脊髓灰质炎加强糖丸，预防小儿麻痹症  </p>
+                     <p type="injection"><i class="injection"></i><label></label></p>
+                    <p type="remind"></p></td>
+                <td class="opt"></td>
+            </tr>
+             <tr groupId="10">
+                <td><p class="title"><span></span> - 宝宝4岁</p>
+                    <p>口服脊髓灰质炎加强糖丸，预防小儿麻痹症</p>
+                      <p type="injection"><i class="injection"></i><label></label></p>
+                    <p type="remind"></p></td>
+                <td class="opt"></td>
+            </tr>
+            <tr groupId="11">
+                <td><p class="title"><span></span> - 宝宝7岁</p>
+                    <p>注射麻疹疫苗加强针，预防麻疹 </p>
+                    <p>注射白破二联疫苗加强针，预防白喉、破伤风</p>
+                     <p type="injection"><i class="injection"></i><label></label></p>
+                    <p type="remind"></p></td>
+                <td class="opt"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<script type="text/javascript">
+    var objBaby;
+    $(document).ready(function()
+    {
+        objBaby=new richinfo.email.calendar.baby();
+    });
+    function getBindData()
+    {
+        objBaby.initData();
+    }
+</script>
+</body>
+</html>

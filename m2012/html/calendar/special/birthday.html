@@ -1,0 +1,112 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" class="box">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>生日提醒</title>
+<script type="text/javascript">
+//设域
+document.domain=window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+
+//获得资源路径
+var resourcePath=window.top.resourcePath;
+var calendarResourcePath=resourcePath.replace("coremail","calendar");
+var htmlCode="";
+htmlCode+=getLinkTag("");
+htmlCode += getLinkTag(calendarResourcePath + "/css/calendar.css?v=20110617");
+
+
+top.loadScript("jquery.js", document);
+top.loadScript("m2011.utilscontrols.pack.js", document);
+top.loadScript("/m2012/js/matrixvm/page/m2011.page.RichInputBox.js", document);
+top.loadScript("/m2012/js/service/calendar/m2011.calendar.MyCalendar.js", document);
+top.loadScript("/m2012/js/service/calendar/m2011.calendar.edit.js", document);
+
+document.write(htmlCode);
+
+function getJsTag(path,charset){
+    var html="<script charset='gb2312' src='"+path+"' type='text/javascript'></"+"script>";
+    if (charset) html = html.replace("gb2312",charset);
+    return html;
+}
+function getLinkTag(path){
+    var text="";
+    if(path)text="href='"+path+"'";
+    return "<link rel='stylesheet' type='text/css' "+text+" />";
+}
+</script>
+<link rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+Utils.loadSkinCss(null,document,"calendar");
+</script>
+<!--[if lte IE 7]><script>iereset('content',12)</script><![endif]-->
+</head>
+<body>
+<div class="aside">
+	<ul class="tag">
+	    <li><a href="../calendar_list.html"><i class="allcalendar"></i><span id="spanCount1">全部日程</span></a></li>
+	    <li><a id="aRecent" href="javascript:;"><i class="day7"></i><span id="spanCount2">最近7天日程</span></a></li>
+	    <li><a id="aAgent" href="javascript:;"><i class="undo"></i><span>待办事项</span></a></li>
+	    <li><a id="aHasDone" href="javascript:;"><i class="done"></i><span>已办事项</span></a></li>
+	    <li class="line"></li>
+	</ul>
+	<ul class="category">
+		<script type="text/javascript" language="javascript">
+		    richinfo.email.calendar.commonUI.category.addCategory("listtype=6",Utils.queryString("comefrom"));
+		</script>
+	</ul>
+	<b class="shadow"></b>
+</div>
+<div class="header">
+	<h1><i class="setcalendar"></i><span id="spanTitle">添加生日提醒</span></h1>
+</div>
+<div class="content" id="content">
+    <p class="tips" style="display:none" id="pErrorMsg"><i class="error"></i><label id="lblErrorMsg">错误提示信息！</label></p>
+	<table class="birth" border="0" cellpadding="10" cellspacing="0">
+    <tr type="birthdayRow">
+        <td class="t1">姓名</td>
+        <td><input class="txt" id="txtName0" size="20" maxlength="20"/></td>
+        <td class="t1">生日</td>
+        <td>
+            <div class="seleteDate" id="ulSeleteDate0">
+                <ul>
+                    <li class="cur"  isGreg="true">公 历</li>
+                    <li >农 历</li>
+                </ul>
+                <p><span class="date">
+                    <input type="text" readonly/>
+                    <input type="text" style="display:none" readonly/>
+                    <i class="drop" id="dateSelectDrop"></i></span>
+                </p>                            
+            </div>
+        </td>
+    </tr>
+    <tr class="note">
+    	<td class="t1">备注</td>
+    	<td colspan="3" class="t_btm"><input class="txt normal" id="txtMemo0" size="80" maxlength="100"></td>
+    </tr>
+    <tr id="trAddBirthday">
+        <td colspan="4" class="t1 more"><a href="javascript:" id="hrefAddBirthday">添加更多</a></td>
+    </tr>
+	</table>
+	<dl class="form">
+		<script type="text/javascript">
+		    var objCalendarRemind=new richinfo.email.calendar.commonUI.remindBox(6);
+		</script>
+        <dt>
+			<!--submit button-->
+		</dt>
+		<dd>
+			<input type="submit" value="保 存" id="btnSave" class="btn"/>
+			<input type="button" class="btn" id="btnCalcel" value="取 消"/>
+		</dd>
+	</dl>
+</div>
+<script type="text/javascript" language="javascript">
+ $(document).ready(function()
+    {
+          new richinfo.email.calendar.birthday();
+    });
+</script>
+</body>
+</html>

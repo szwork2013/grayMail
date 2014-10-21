@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>文件属性</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+    <script type="text/javascript">
+        //设域
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1].replace(/:\d+/, "");
+        var diskWindow = top.$("iframe#diskDev")[0].contentWindow;
+        diskWindow.CommonInit(document, diskWindow, [{ dirName: "js/", fileName:"m2011.disk.photoproperty.js"}]);         
+    </script>
+
+</head>
+<body>
+    <div class="dialog">
+        <div class="bd">
+            <table cellpadding="0" class="tbl-dialog-form dl-form-property">
+                <tr class="t-edition">
+                    <th>
+                        名称：
+                    </th>
+                    <td>
+                        <input class="text" type="text" maxlength="50" /><span id="sp_fileExt"></span>
+                        <input type="hidden" id="hidfileExt" value="" />
+                        <p class="dialog-input-tip">
+                            可直接重命名图片，点击确定按钮保存</p>
+                        <p class="dialog-error-tip">
+                            <i class="i-warn"></i><span id="errorMsg">错误信息提示</span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        类型：
+                    </th>
+                    <td id="tdType">
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        位置：
+                    </th>
+                    <td id="tdPos">
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        大小：
+                    </th>
+                    <td id="tdSize">
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        上传时间：
+                    </th>
+                    <td id="tdUploadTime">
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="ft">
+            <ul class="dbtn-list">
+                <li><a class="btnNormal" id="aSumbit" href="">确 定</a></li>
+                <li><a class="btnNormal" id="aCancel" href="">取 消</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

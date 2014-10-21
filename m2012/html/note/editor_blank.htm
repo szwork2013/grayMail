@@ -1,0 +1,140 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>正文</title>
+<script type="text/javascript">
+    if (/MSIE [5-8]/.test(navigator.userAgent) || /firefox|webkit|opera|safari/i.test(navigator.userAgent)) {
+        document.designMode = "on";
+    }
+    try{
+	    document.domain=window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+    }catch(e){}
+    if (document.attachEvent) {
+        document.attachEvent("onkeydown", keyDown);
+    }else{
+        document.addEventListener("keydown",keyDown,false);
+    }
+    
+    //top.loadCSS(["module/imgeditor.css"], document); //放在m2012.readmail.imgeditormenu.js中加载
+
+    function keyDown(e){
+        e = e || event;
+        try {
+	        if (window.top.globalKeyDownEvent) {
+		        return window.top.globalKeyDownEvent(e);
+	        }
+        } 
+        catch (e) {
+        }
+    }
+    function $(e) {
+        var jq = top.$;
+        if (e) {
+            return jq(e, document);
+        } else {
+
+        }
+    };
+</script>
+    <style type="text/css">
+        html {
+	        height:100%;
+        }
+        table.noBorderTable td,table.noBorderTable th,table.noBorderTable caption{border:1px dashed #ddd !important}
+        td,th{ background:white; padding: 5px 10px;border: 1px solid #DDD;}
+        body {
+	        height: 95%;
+	        padding: 5px;
+	        background: #fff;
+	        padding-bottom: 0px;
+	        margin: 0px;
+	        font: 13px Verdana;
+	        /*font: medium Verdana;*/
+	        overflow: auto;
+	        /*padding-top: 2px;*/
+	        line-height:1.6;
+        }
+
+        p, font, div, li {
+	        line-height:1.6;
+        }
+
+        .i {
+	        table-layout: fixed;
+	        width: auto;
+        }
+        a,img {
+            border: none;
+        }
+        table{border-collapse:collapse;display:table;}
+        .attach_default {
+            cursor:pointer;            
+            display: none;
+            width:0px;
+            height:0px;
+
+        }
+       .attach_image{
+            cursor:pointer;
+            display: none;
+            width:0px;
+            height:0px;
+        }
+        body
+        {
+            font-size:small;
+            padding: 0px 5px;
+            background: #fff;
+            padding-bottom: 0px;
+            margin: 0px;
+            /*font: 14px Verdana;*/
+            font: medium Verdana;
+            overflow: auto;
+            /*padding-top: 2px;*/
+            line-height: 150%;
+        }
+        p
+        {
+            line-height: 150%;
+        }
+        font
+        {
+            line-height: 150%;
+        }
+        div
+        {
+            line-height: 150%;
+        }
+        li
+        {
+            line-height: 150%;
+        }
+        .i
+        {
+            table-layout: fixed;
+            width: auto;
+        }
+        pre
+        {
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body hidefocus="1" contenteditable="true" id="mnote_editor_blank">
+<div>
+<br />
+</div>
+</body>
+    <script type="text/javascript">
+        /*
+        function attachDownload() {
+            $('img[rsid]').dblclick(function () {
+                _download();
+            })
+        }
+        function _download() {
+            alert(1)
+        }*/
+
+    </script>
+</html>

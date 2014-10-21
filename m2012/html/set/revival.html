@@ -1,0 +1,137 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>被动注销</title>
+<script type="text/javascript">
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1]; var m2012ResourceDomain = "http://" + location.host;
+        if (document.domain == "10086.cn") {
+            m2012ResourceDomain = /appmail3/.test(location.host) ? "http://image0.139cm.com" : "http://images.139cm.com";
+        }
+</script>
+
+    <script>
+        function loadScript(path, _doc, charset) {
+            if (path.indexOf(".js") > -1) {
+                var base = "/m2012";
+                var jsVersion = Math.random();
+                if (path.indexOf("pack.js") > -1) {
+                    base += "/js/packs";
+                }
+                if (path.indexOf("config") > -1) {
+                    base += "/conf";
+                }
+                path = base + "/" + path;
+                if (path.indexOf("?") == -1) {
+                    path += "?v=" + jsVersion;
+                }
+            }
+            (_doc || document).write("<script charset=\"" + (charset || "") + "\" type=\"text/javascript\" src=\"" + path + "\"></" + "script>");
+        }
+        function loadCSS(path, _doc) {
+            if (typeof path == "string") path = [path];
+            var jsVersion = Math.random();
+            for (var i = 0; i < path.length; i++) {
+                var item = path[i];
+
+                item = "/m2012/css/" + item + "?v=" + jsVersion;
+                (_doc || document).write('<link rel="stylesheet" href="' + item + '" type="text/css" />');
+            }
+            jsVersion = null;
+        }
+        (function () {
+
+            var match = location.href.match(/sid=([^&]+)/);
+            if (match) {
+                window.sid = match[1];
+            } else {
+                window.sid = "none";
+            }
+        })();
+        top.loadScript("config." + document.domain + ".js?sid=" + sid, document);
+    </script>
+<script>top.loadCSS(["module/revival/revival.css"], document);</script>
+<script>top.loadScript('libs.pack.js', document); top.loadScript('m139.core.pack.js', document);</script>
+</head>
+<body>
+<div class="header clearAll">
+  <div class="ban">
+    <h1><a href="http://mail.10086.cn/" class="logo fl" title="返回139邮箱">139邮箱</a></h1>
+    <p class="nav mt_10 fr"><a href="http://mail.10086.cn/">邮箱首页</a>&nbsp;|&nbsp;<a href="http://help.mail.10086.cn/statichtml/1/index.html">帮助中心</a></p>
+  </div>
+</div>
+<p class="gap5"></p>
+<div class="contents">
+  <div class="mainBar">
+    <div class="setPassWordBar">
+      <div class="password_title p_relative">
+        <h2>温馨提示</h2>
+        <i class="i-01"></i> </div>
+        <div style="padding:20px 60px;line-height:28px;font-size:14px;">
+            <p class="fz_16 mb_10">尊敬的用户：</p>
+            <p style="text-indent:2em;" class="fw_b">由于号码品牌变更、话费套餐变更或系统扣费失败等原因，您的邮箱暂时关闭。</p>
+            <p style="text-indent:2em; display: none;" id="loginPassWord">登录通行证后，在业务管理页面可<span class="c_FE9603">重新开启邮箱服务</span>。</p>
+			<p style="text-indent:2em; display: none;" id="UpgradePassWord">您需要通过手机号进行通行证升级，<span class="c_FE9603">升级后即可正常登录邮箱</span>。</p>
+            <p style="text-indent:2em;">给您带来不便，敬请谅解。</p>
+        </div>
+        <p class="ta_c mb_10"><span class="bigBtn"><span>
+			<a href="#" style="width:150px; display:none;" id="loginPass">登录通行证</a>
+			<a href="#" style="width:150px; display:none;" id="UpgradePass">升级通行证</a>
+		</span></span></p>
+    </div>
+    </div>
+  </div>
+  <div class="footer">
+    <ul class="footNav">
+      <li class="ta_r"><span class="fl"><a href="http://help.mail.10086.cn/statichtml/1/Content/1013.html">版权声明</a>|<a href="http://www.10086.cn/service/advise/index.htm">客服受理</a>|<a href="http://gd.10086.cn/aboutus/">关于移动</a>|<a href="http://open.mail.10086.cn/">开放平台</a></span><span><i class="copyright"></i>&nbsp;京ICP备05002571号&nbsp;|&nbsp;中国移动通信版权所有 </span></li>
+    </ul>
+  </div>
+</div>
+<script type="text/javascript">
+	var userNumber = M139.Text.Url.queryString("userNumber");
+	userNumber = M139.Text.Mobile.remove86(userNumber);
+	var isumsuser = M139.Text.Url.queryString("isumcuser") || '';
+	if(isumsuser == '1' || isumsuser ==''){ //为1则说明已升级，转去登陆
+		document.getElementById("loginPassWord").style.display = "block";
+		var loginPass = document.getElementById("loginPass");
+		loginPass.style.display = "block";
+		$("#UpgradePass").remove();
+		$(loginPass).bind("click",function(){
+			location.href = getDomainUrl();
+		});
+	}else if(isumsuser == '0'){ 
+		document.getElementById("UpgradePassWord").style.display = "block";
+		var UpgradePass = document.getElementById("UpgradePass");
+		UpgradePass.style.display = "block";
+		$(UpgradePass).bind("click",function(){
+			//location.href = getDomainUrl() + "umc/reg/upgrade/?from=3&mobilenumber=" + encodeURIComponent(userNumber);
+			location.href = getRegister();
+		});
+	}
+	function getDomainUrl(){
+		var host = location.host;
+		var url ='';
+		if(host.indexOf('10086rd') > -1){
+			url = 'http://www.rdcmpassport.com:30030/';
+		}else if(host.indexOf('10086ts') > -1){
+			url = 'http://www.testcmpassport.com:30030/';
+		}else{
+			url = 'https://www.cmpassport.com/';
+		}
+		return url;
+	}
+	function getRegister(){
+		var host = location.host;
+		var url ='';
+		if(host.indexOf('10086rd') > -1){
+			url = 'http://mail.10086rd.cn/s?func=umc:rdirectTo&_fv=5&optype=2';
+		}else if(host.indexOf('10086ts') > -1){
+			url = 'http://mail.10086ts.cn/s?func=umc:rdirectTo&_fv=5&optype=2';
+		}else{
+			url = 'http://mail.10086.cn/s?func=umc:rdirectTo&_fv=5&optype=2';
+		}
+		return url;
+	}
+</script>
+</body>
+</html>

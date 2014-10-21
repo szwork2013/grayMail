@@ -1,0 +1,125 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="Keywords" content="" />
+<meta name="Description" content="" />
+<title>139邮箱</title>
+
+
+<script type="text/javascript">
+    document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1]; var m2012ResourceDomain = "http://" + location.host;
+    if (document.domain == "10086.cn") {
+        m2012ResourceDomain = /appmail3/.test(location.host) ? "http://image0.139cm.com" : "http://images.139cm.com";
+    }
+</script>
+
+    <script>
+        function loadScript(path, _doc, charset) {
+            if (path.indexOf(".js") > -1) {
+                var base = "/m2012";
+                var jsVersion = Math.random();
+                if (path.indexOf("pack.js") > -1) {
+                    base += "/js/packs";
+                }
+                if (path.indexOf("config") > -1) {
+                    base += "/conf";
+                }
+                path = base + "/" + path;
+                if (path.indexOf("?") == -1) {
+                    path += "?v=" + jsVersion;
+                }
+            }
+            (_doc || document).write("<script charset=\"" + (charset || "") + "\" type=\"text/javascript\" src=\"" + path + "\"></" + "script>");
+        }
+        function loadCSS(path, _doc) {
+            if (typeof path == "string") path = [path];
+            var jsVersion = Math.random();
+            for (var i = 0; i < path.length; i++) {
+                var item = path[i];
+
+                item = "/m2012/css/" + item + "?v=" + jsVersion;
+                (_doc || document).write('<link rel="stylesheet" href="' + item + '" type="text/css" />');
+            }
+            jsVersion = null;
+        }
+        (function () {
+
+            var match = location.href.match(/sid=([^&]+)/);
+            if (match) {
+                window.sid = match[1];
+            } else {
+                window.sid = "none";
+            }
+        })();
+        top.loadScript("config." + document.domain + ".js?sid=" + sid, document);
+    </script>
+<script>    top.loadCSS(["common/global.css", "module/cancellation/upgrade.css"], document)</script>
+<script>    top.loadScript('libs.pack.js', document); top.loadScript('m139.core.pack.js', document); top.loadScript('m2012.ui.common.pack.js', document)</script>
+</head>
+
+<body>
+<div id="header">
+ <div class="wrapper m_clearfix">
+   <h1 class="logo"><a href="http://mail.10086.cn">139邮箱</a></h1>
+   <p class="top_right"><a href="http://mail.10086.cn">邮箱首页</a>&nbsp; | &nbsp;<a href="http://help.mail.10086.cn/statichtml/0/index.html">帮助中心</a></p>
+ 
+ </div>
+</div><!--header--> 
+
+<div id="main">
+ <div class="wrapper">
+    <div class="verifyBox verifyBox2">
+      <div class="verifyBox_head verifyBox_head2">
+       <h2>注销邮箱</h2>       
+       <em class="note_ico"></em>
+      </div>
+      
+      <div class="marginBox p_relative canceldiv" id="mainBox">
+			<div class="canceldivtips">换手机号了？使用邮箱换号可继续使用原邮箱</div>
+			<p>我的邮箱：<span class="verfot" id="mailAddr">15013484410@139.com</span></p>
+			<p>别名地址：<span class="verfot" id="aliasAddr">wangzixin@139.com</span></p>
+			<div class="cancelhavediv clearfix">
+				<div class="imgInfo">
+					<i class="imgLink ci cia1"></i>
+					<dl>  
+						<dt>已拥有邮箱</dt>
+						<dd><span class="num" id="daysCount"></span>天</dd>
+					</dl>
+				</div>
+				<div class="imgInfo">
+					<i class="imgLink ci cia2"></i>
+					<dl>  
+						<dt>已有联系人</dt>
+						<dd><span class="num" id="addrsCount"></span>个</dd>
+					</dl>
+				</div>
+				<div class="imgInfo">
+					<i class="imgLink ci cia3"></i>
+					<dl>  
+						<dt>已有邮件</dt>
+						<dd><span class="num" id="mailsCount"></span>封</dd>
+					</dl>
+				</div>
+			</div>	
+			<div class="xiasgbg"></div>
+			<p><strong>我要：</strong></p>
+			<p><input type="radio" id="changeToFree" name="radioLogout" perennially="0" value="" class="mr_5" /><label for="changeToFree">变更为<strong>免费版</strong>邮箱</label></p>
+			<p><input type="radio" id="changeToLogoff" name="radioLogout" perennially="1" checked value="" class="mr_5"  /><label for="changeToLogoff">注销我的邮箱，丢掉我的邮件、我的通迅录、我的别名 <span class="red">(90天后将删除您的资料，请谨慎)</span></label></p>
+			<p style="margin-left:247px;">邮箱密码：<input type="password" id="verifyPassword" value="" class="verify_txt" /> <span class="red hide" id="passwordError">密码错误</span></p>
+		<div class="btnfooter"><a href="javascript:;" class="blueBtn" id="btnSure">确 定</a></div>
+       
+      </div>
+    </div><!--verifyBox-->
+ </div>
+</div><!--main-->
+
+<div class="wrapper">
+  <div id="footer" class="m_clearfix">
+    <p class="fl"><a href="http://help.mail.10086.cn/statichtml/1/Content/1013.html" target="_blank">版权声明</a> | <a href="http://www.10086.cn/service/advise/index.htm" target="_blank">客服受理</a> | <a target="_blank" href="http://www.10086.cn/aboutus/index_4450.htm">关于移动</a> | <a target="_blank" href="http://open.mail.10086.cn/">开放平台</a></p>
+    <p class="fr footer_ico"><a target="_blank" href="http://www.miibeian.gov.cn/">京ICP备05002571号</a> <span style="color:#999999; padding:0 5px; float:none;">|</span> <a style="color:#999999;" href="http://www.10086.cn/" target="_blank"  title="中国移动通信">中国移动通信版权所有</a></p>
+  </div>
+</div><!--footer-->
+<script>    top.loadScript('logoff.html.pack.js', document); </script>
+</body>
+</html>

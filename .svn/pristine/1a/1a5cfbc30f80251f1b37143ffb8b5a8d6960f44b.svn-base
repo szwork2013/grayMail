@@ -1,0 +1,295 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="Keywords" content="" />
+<meta name="Description" content="" />
+<title>收件箱-139邮箱</title>
+
+
+<style>
+#floatDiv input{width:70px;font-size:16px;cursor:pointer;}
+#floatDiv
+{
+	position:relative;
+	margin-top:-20px;
+	left:0px;
+	width:70px;
+	height:23px;
+	overflow:hidden;
+	z-index:1;
+	padding:0 0 3px 0;
+    opacity:0;
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    #filter:alpha(opacity=0);
+}
+
+#signs:hover .i_triangle_d{
+	background-position: -450px -22px;
+}
+.sendPsel span{
+	width: 201px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	float: left;
+}
+
+</style>
+<script type="text/javascript">
+    document.domain = window.location.host.match(/[^.]+\.[^.]+$/)[0];
+    if (!top.m139LoadScript) {
+        top.m139LoadScript = top.loadScript;
+    }
+</script>
+
+<script>
+    try{
+        top.loadCSS(["common/global.css", "module/write.css"], document);
+    } catch (e) { }
+</script>
+
+</head>
+<body>
+    <div id="toolBar" class="fixed-top">
+<div class="toolBar bgMargin" style="position:relative;z-index:2;">
+  <ul class="toolBarUl">
+    <!--<li class="mr_10"><a hideFocus="1" class="btnTb" href="javascript:void(0)" title="Ctrl+Enter快捷发送" id="topSend"><span class="r pr_25 fw_b two">发 送<span id="topTiming"><i class="i_triangle_d"></i></span></span></a></li>-->
+    <li class="mr_6"><a hideFocus="1" class="btnG" href="javascript:void(0)" title="Ctrl+Enter快捷发送" id="topSend"><span>发 送</span></a></li>
+    <li class="mr_6"><a hideFocus="1" class="btnTb" href="javascript:void(0)" id="topTiming"><span>定时发送</span></a></li>
+    <li class="mr_6"><a hideFocus="1" class="btnTb" href="javascript:void(0)" id="topSave"><span>存草稿</span></a></li>
+    <li class="mr_6"><a hideFocus="1" class="btnTb" href="javascript:void(0)" id="topCancelSend"><span>取 消</span></a></li>
+    <li class="mr_6"><a hideFocus="1" class="btnTb" href="javascript:top.$App.show('activityInvite')" id="btn_invite"><span>会议邀请</span></a></li>
+  </ul>
+	<p class="writeRpa fr">
+		<a bh="compose_preview" id="composePreviewLink" href="javascript:;"><i class="i-wView"></i>预览</a>
+		<span class="lineMlr">|</span>
+		<a href="javascript:void(0);" id="newWinComposeLink" class="ml_10"><i class="i-writeNew"></i>新窗口写信</a>
+	</p>
+</div>
+</div>
+<div class="writeWrap clearfix bgPadding" id="writeWrap">
+<div class="writeMain">
+  <a hideFocus="1" href="javascript:void(0)" title="隐藏右边栏" class="switchOn2" id="switchSider"></a>	
+  <div class="writeMainDiv">
+    <table class="writeTable">
+      <tr>
+        <th scope="row" width="50" class="ta_l" valign="top"><span class="fl mt_5"><a hideFocus="1" href="javascript:void(0)" id="receiverTo" title="点击选择收件人">收件人</a></span></th>
+        <td>
+        <div class="p_relative" style="z-index:3;">
+            <a href="javascript:;" class="write-voice" id="btn_voiceTo" style="right:1px;z-index:999"><i class="i_voice"></i></a>
+            <div id="toContainer">
+                <!-- start 页面加载时显示，js加载完后会覆盖掉 -->
+                <div class="p_relative RichInputBox writeTable" style="z-index:3;">
+                    <div class="ItemContainer writeTable-txt clearfix" unselectable="on" style="cursor: text;overflow-x:hidden"></div>
+                </div>
+                <!-- end -->
+            </div>
+            <p id="sendOperators" class="mt_5 write_sendoperators">
+              <a hideFocus="1" href="javascript:void(0)" id="aShowCc" title="同时将这封邮件发送给其他联系人">添加抄送</a><span class="lineMlr">|</span><a hideFocus="1" href="javascript:void(0)" id="aShowBcc" title="同时将这封邮件发送给其他联系人，但其他收件人和抄送人不会看到密送人">添加密送</a><span class="lineMlr">|</span><a hideFocus="1" href="javascript:void(0)" id="aAllToOne" title="群发的邮件，在收件人看来，就像单独发给他/她的一样。">群发单显</a></p>
+            <p id="allToOneOperator" style="display: none" class="mt_5"><span class="gray">每个收件人只看到自己的地址。</span><a hideFocus="1" href="javascript:void(0)" id="cancelAllToOne">取消群发单显 </a></p>
+          
+          </div></td>
+      </tr>
+      <tr id="trCc" style="display: none">
+        <th scope="row" width="50" class="ta_l" valign="top"><a class="write_copy" hideFocus="1" href="javascript:void(0)" id="receiverCc" title="点击选择抄送地址">抄　送</a></th>
+        <td><div class="p_relative">
+             <div class="" id="ccContainer">
+            </div>
+          </div></td>
+      </tr>
+      <tr id="trBcc" style="display: none">
+        <th scope="row" width="50" class="ta_l" valign="top"><a class="write_blind" hideFocus="1" href="javascript:void(0)" id="receiverBcc" title="点击选择密送地址">密　送</a></th>
+        <td><div class="p_relative">
+           <div class="" id="bccContainer">
+            </div>
+          </div></td>
+      </tr>
+      <tr>
+        <th scope="row" width="50" class="ta_l">主　题</th>
+        <td><div class="p_relative" style="z-index:2;">
+			<div class="p_relative writeTable-txt" id="divSubject">
+				<div class="theme-input mt_2">
+					<input id="txtSubject" name="txtSubject" type="text" class="fl addrText-input" maxlength="200" tabindex="4"/>			
+				</div>
+				<div class="theme-select" title="主题文字的颜色，仅支持139域内往来的邮件">
+					<span id="subjectColorSelector" class="theme-i i_tag_c"></span><i class="i_triangle_d"></i>
+				</div>
+				<div class="theme-select-ul hide" id="subjectColor">
+					<ul>
+					</ul>
+				</div>
+			</div>
+			<a href="javascript:;" class="write-voice" id="btn_voiceSubject" style=""><i class="i_voice"></i></a>
+		</div>
+		</td>
+	  </tr>
+	  <tr>
+		<th scope="row" width="50" class="ta_r"></th>
+		<td>
+			<div id="composeUploadBar" class="prelativeZindex">
+				<a hideFocus="1" href="javascript:void(0);" class="addattra" id="realUploadButton"><i class="i_attachmentS"></i>添加附件</a>
+				<a href="javascript:void(0);" id="attachmentSwitchIcon" class="i_triangleBtn button_triangle"></a>
+				<span class="lineMlr">|</span>
+				<a hideFocus="1" class="addattra" href="javascript:void(0);" id="aLargeAttach"><i class="i_bigAttachmentS"></i>超大附件</a>
+				<span class="lineMlr">|</span>
+				<a hidefocus="1" class="addattra" href="javascript:void(0);" id="aInsertDoc"><i class="i-ipWord"></i>导入文档</a>
+				<span class="lineMlr">|</span>
+				<a hidefocus="1" class="addattra" href="javascript:void(0);" id="aInsertPic">
+					<i class="i_wImg"></i>图片<i class="i_triangleBtn button_triangle"></i>
+				</a>
+				<span class="lineMlr">|</span>
+				<a bh="compose_editor_screenshot" href="javascript:void(0);" title="截屏" hidefocus="1" class="addattra" id="aScreenShot"><i class="i_wCutImg"></i>截图</a>
+
+				<div id="floatDiv" style="padding:0 0 0 0;margin-top:-18px;height:18px;">
+					<form style="display: none" enctype="multipart/form-data" id="fromAttach" method="post" action="" target="frmAttachTarget">
+						<input style="height: 20px;" type="file" name="uploadInput" id="uploadInput" />
+					</form>
+					<iframe id="frmAttachTarget" style="display: none" name="frmAttachTarget"></iframe>
+					<!-- <div id="flashContainer"></div>-->
+				</div>
+				<div id="guideUpload" class="guideUpload" style="display: none;left:0;"><a href="javascript:void(0);" class="guideAddattra_close" onclick="this.parentNode.style.display='none';"></a></div>
+			</div>
+		</td>
+	  </tr>
+	  <tr>
+		<td colspan="2">
+			<table border="0" cellspacing="1" cellpadding="0" class="eidt-content-bottom">
+			<tbody>
+			<tr>
+				<th width="50" scope="row" class="ta_r"></th>
+				<td>
+					<div class="writeattrlist clearfix" style="display: none; border:none;">
+						<ul class="attrlistUl" id="attachContainer">
+						</ul>
+					</div>
+				</td>
+			 </tr>
+			</tbody>
+			</table>
+		</td>
+	  </tr>
+	  <tr style="display: none;" id="showMoreLargeAttach">
+		<th scope="row" width="50" class="ta_r"></th>
+		<td>
+			<ul>
+				<li style="padding-left:10px"><a href="###">查看其他附件</a></li>
+			</ul>	
+		</td>
+	  </tr>
+	  <tr>
+		<th class="ta_r" colspan="2"></th>
+	  </tr>
+	  <tr>
+		<td style="padding-top:0;" colspan="2">
+			<div id="htmlEdiorContainer">
+				<div style="height:400px;width:100%;"><!-- start 页面加载时显示，js加载完后会覆盖掉！ --></div>
+			</div>
+			<div>
+				<div id="moreOptions" style="display: none" class="mt_10 writeMore">
+					<label><input type="checkbox" id="chkUrgent" value="" class=" mr_5" name="">紧急</label>
+					<label><input type="checkbox" id="chkReceipt" value="" class="ml_10 mr_5 " name="">需要回执</label>
+					<label><input type="checkbox" checked="true" id="chkSaveToSentBox" value="" class="ml_10 mr_5 " name="">保存到已发送</label>
+					<a id="aMMSSend" title="邮件正文，通过彩信发送给对方" href="javascript:;">彩信发送正文</a>
+					<a id="aSMSSend" title="邮件正文，通过短信发送给对方" href="javascript:;">短信发送正文</a>
+					<label style="display: none;"><input type="checkbox" id="chkDefiniteTime" value="" class="ml_10 mr_5 " name="chkDefiniteTime">定时发送</label>
+				</div>
+				<div id="toobarBottom" class="bottombtn mt_10" style="float: left; width: 100%;">
+					<ul class="toolBarUl">
+						<!--<li class="mr_6"><a hideFocus="1" class="btnTb" href="javascript:void(0)" title="Ctrl+Enter快捷发送" id="bottomSend"><span class="r pr_25 fw_b two">发 送<span id="bottomTiming"><i class="i_triangle_d"></i></span></span></a></li> -->
+						<li class="mr_6"><a hidefocus="1" class="btnG" href="javascript:void(0)" title="Ctrl+Enter快捷发送" id="bottomSend"><span>发 送</span></a></li>
+						<li class="mr_6"><a hidefocus="1" class="btnTb" href="javascript:void(0)" id="bottomTiming"><span>定时发送</span></a></li>
+						<!--<li class="mr_6"><a hidefocus="1" class="btnTb" href="javascript:void(0)" id="bottomSave"><span>存草稿</span></a></li>
+						<li class="mr_6"><a hidefocus="1" class="btnTb" href="javascript:void(0)" id="cancelSend"><span>取 消</span></a></li>-->
+					</ul>
+					<div class="writePar p fr p_relative">
+						<div>
+							<span>发件人：</span>
+							<a hideFocus="1" href="javascript:void(0)" class="sendPsel"></a>
+							<span class="ml_5 mr_5">|</span>
+							<a hideFocus="1" href="javascript:void(0)" id="signs">签名 <i class="i_triangle_d ml_5"></i></a>
+							<span class="ml_5 mr_5" style="display: none;">|</span>
+							<label class="ml_10" style="display: none;"><input type="checkbox" class="mr_5" id="replyNotify"/>回信短信提醒</label>
+							<a hideFocus="1" href="javascript:void(0)" class="ml_10"><i class="i_2tridd" id="showMoreOptions"></i></a>
+							<div class="menuPop shadow" style="bottom:22px; left:62px; z-index: 9001; position: absolute; width:223px; display: none; " id="senders"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+<div class="contactSide p_relative">
+	<div class="tab">
+		<div class="tabTitle">
+			<ul>
+				<li class="li1 on" id="thContactFrame"><a hideFocus="1" href="javascript:void(0)"><span>联系人</span></a></li>
+				<li id="thLetterPaperFrame"><a hideFocus="1" href="javascript:void(0)"><span>信纸</span></a></li>
+			</ul>
+		</div>
+		<div class="tabMain">
+			<div class="tabContent show p_relative" id="divAddressList"></div>
+			<div class="tabContent p_relative" id="divLetterPaper"></div>
+		</div>
+	</div>
+</div>
+</div>
+</div>
+
+</body>
+    <script>
+        try {
+            top.m139LoadScript('libs.pack.js', document);
+            top.m139LoadScript('m139.core.pack.js', document);
+            top.m139LoadScript("m2012.ui.common.pack.js", document);
+            top.m139LoadScript("compose.html.pack.js", document);
+        } catch (e) { }
+    </script>
+    <script>
+        var LoadStatusCheck = {
+            isComplete: function () {
+                var ok = false;
+                try {
+                    ok = $Iframe.isAccessAble(htmlEditorView.editorView.editor.frame);
+                } catch (e) { }
+                return ok;
+            }
+        };
+
+        // 从手机上传新功能引导提示层
+        if($Cookie.get("mobileUploadGuider") !== "1" && (+new Date) < (+new Date(2014, 7, 15, 0, 0, 0))) {
+	        $("#guideUpload").css("left", $("#aInsertPic").offset().left - 60 + "px").show();
+	        $Cookie.set({name : "mobileUploadGuider", value: 1, expires: $Date.getDateByDays(new Date(), 15)});
+        }
+    </script>
+     <script>
+         var HeathCheck = {
+             name:"compose",
+             isSuccess: function () {
+                 if (window.$composeApp) {
+                     return true;
+                 }
+             },
+             checkLoadSuccess: function () {
+                 if (!this.isSuccess()) {
+                     this.reloadPage("&reload=true");
+                 }
+             },
+             reloadPage: function (query) {
+                 if (location.href.indexOf(query) == -1) {
+                     location.href = location.href + query;
+                 } else {//重试还是失败，上报日志
+                     //send log
+                     M139.Logger.sendClientLog({
+                         level: "ERROR",
+                         name: this.name+" js file load Error"
+                     });
+                 }
+             }
+
+         }
+         $(function () { HeathCheck.checkLoadSuccess(); });
+    </script>
+</html>

@@ -1,0 +1,800 @@
+; (function ($, _, M139, top) {
+    var superClass = M139.View.ViewBase;
+    var _class = "M2012.Calendar.View.Month";
+
+    M139.namespace(_class, superClass.extend({
+
+        name: _class,
+
+        logger: new M139.Logger({ name: _class }),
+
+        //日历视图主控
+        master: null,
+
+        //当前视图模型
+        model: null,
+
+        //当前视图名称
+        viewName: "month",
+
+        //月视图容器jQuery对象
+        container: null,
+
+        //日历单元格
+        tabCells: null,
+
+        //当月的周数
+        weekCount: 4,
+
+        messages: {
+            LOADING: "正在加载中..."
+        },
+
+        /**
+         * 月视图构造函数
+         * @param {Object} master 视图主控对象
+         * @param {Object} container 月视图容器
+        **/
+        initialize: function (args) {
+            var self = this;
+
+            args = args || {};
+            self.master = args.master;
+            superClass.prototype.initialize.apply(self, arguments);
+            //删除当前视图默认生成的父容器
+            self.$el.remove();
+
+            //注册页面创建事件
+            //视图首次创建时触发
+            self.master.bind(self.master.EVENTS.VIEW_CREATED, function (args) {
+                if (args.name === self.viewName) {
+                    self.master.unbind(self.master.EVENTS.VIEW_CREATED, arguments.callee);
+                    self.container = args.container;
+                    //初始化model
+                    self.model = new M2012.Calendar.Model.Month({
+                        master: self.master
+                    });
+                    self.render();
+                    if ($.isFunction(args.onshow)) {
+                        args.onshow();
+                    }
+                    self.initEvents();
+                    self.setViewEvents();
+                    //页面大小改变时重新计算月视图单元格大小
+                    $(window).resize(function () {
+                        self.adjustHeight();
+                    });
+                }
+            });
+
+            //注册视图展示时触发事件
+            //每次切换视图时都会触发，所以需要通过data.args.subview来判断是不是切换到了当前视图
+            //data.args.silent 表示是否忽略刷新视图数据，如果silent为ture则无需重新加载视图数据
+            self.master.bind(self.master.EVENTS.VIEW_SHOW, function (data) {
+
+                if (data && data.args && !data.args.silent && data.args.subview == self.viewName) {
+                    //选中当前月当天
+                    self.model.trigger(self.model.EVENTS.CHECK_MONTH_DAY);
+                    //只有当服务器端获取到了日历标签数据后我们才显示视图活动数据
+                    if (self.master.get("labelData")) {
+                        //初始化页面数据
+                        self.model.trigger(self.model.EVENTS.LOAD_VIEW_DATA);
+                        //记录行为日志
+                        if (window.isCaiyun) {
+                            self.master.capi.addBehavior("cal_caiyun_monthview_load");
+                            return;
+                        }
+                        self.master.capi.addBehavior("calendar_monthview_load");
+                    }
+                }
+            });
+        },
+
+        /**
+         *  注册页面事件   
+        **/
+        initEvents: function () {
+            var self = this;
+
+            //呈现月视图表格
+            self.model.on(self.model.EVENTS.LOAD_MONTH_VIEW, function () {
+                self.render();
+            });
+
+            //加载活动数据
+            self.model.on(self.model.EVENTS.LOAD_VIEW_DATA, function () {
+                // fix: 切换左侧视图栏时,弹窗的活动窗口无法关闭的问题
+                self.master.trigger(self.master.EVENTS.HIDE_ACTIVITY_POPS);
+                //能加载数据说明主视图已经加载完毕
+                self.master.set({
+                    first_load_completed: true
+                });
+                self.fillData();
+
+                //接口自定义事件上报
+                M2012.Calendar.Analytics.sendEvent('load', { api: 'load_view_data' });
+            });
+
+            //选中当前选择日期
+            self.model.on(self.model.EVENTS.CHECK_MONTH_DAY, function (args) {
+                self.checkDay(args);
+            });
+
+            self.master.on(self.master.EVENTS.HIDE_ACTIVITY_POPS, function () {
+                // 切换左侧菜单时也关闭弹出的TIP
+                M139.UI.Popup.close();
+            });
+
+        },
+
+        /**
+         * 设置月视图点击事件
+         */
+        setViewEvents: function () {
+            var self = this;
+            self.container.click(function (e) {
+                //自定义点击事件上报
+                M2012.Calendar.Analytics.sendClick(e);
+
+                var target = $(e.target);
+                var command = target.data('cmd');
+                var element = null;
+                var chkclass = "onCheck";
+                var hoverclass = "onHover";
+                //日历单元格
+                var cellEl = null;
+
+                if (command) {
+                    if (target[0].tagName == "TD")
+                        cellEl = target;
+                } else {
+                    var el = self.parent(target[0], 'A');
+                    if (el) {
+                        target = $(el);
+                        command = target.data('cmd');
+                    }
+                }
+                if (!command || !cellEl) {
+                    var el = self.parent(target[0], 'TD');
+                    if (el) {
+                        var cmd = $(el).data('cmd');
+                        if (cmd) {
+                            cellEl = $(el);
+                            if (!command) {
+                                command = cmd;
+                                target = $(el);
+                            }
+                        }
+                    }
+                }
+                //判断是否可以执行命令
+                if (command) {
+                    //是否是活动查看或查看更多活动操作
+                    var isLink = (target[0].tagName == "A");
+                    //不是点击超链接的情况下需要隐藏所有弹出层
+                    if (!isLink) {
+                        self.master.trigger(self.master.EVENTS.HIDE_ACTIVITY_POPS, {
+                            silent: false
+                        });
+                    }
+                    if (isLink || (cellEl && cellEl.hasClass(chkclass))) { // 活动添加
+                        if (!self.hasLocked(target)) {
+                            var handles = self.handlers();
+                            var func = handles[command];
+                            if (func) {
+                                func.call(self, target, e, $.extend({
+                                    height: target.height(),
+                                    width: target.width()
+                                }, target.offset()));
+                            }
+                        }
+                    }
+                }
+
+                ////设置单元格选中
+                if (cellEl) {
+                    if (!cellEl.hasClass(chkclass)) {
+                        self.master.set({
+                            year: cellEl.data("year")
+                        });
+                        self.master.set({
+                            month: cellEl.data("month")
+                        });
+                        self.master.set({
+                            day: cellEl.data("day")
+                        });
+                    }
+                }
+
+            });
+        },
+
+        /**
+         * 获取指定标签的父元素
+         */
+        parent: function (el, tagName) {
+            tagName = tagName.toUpperCase();
+            var element = el;
+            for (var i = 0xFF; i--;) {
+                if (element == null || "#document" === element.nodeName)
+                    return null;
+
+                if (element.nodeName === tagName)
+                    break;
+
+                element = element.parentNode;
+            }
+            return element;
+        },
+
+        /**
+       * 限制元素的点击频率
+       */
+        hasLocked: function (target) {
+            var key = "locked";
+            if (target.attr(key) == "1") {
+                return true;
+            }
+
+            target.attr(key, "1");
+
+            window.setTimeout(function () {
+                target.attr(key, "");
+
+            }, 1500);
+
+            return false;
+        },
+
+        handlers: function () {
+
+            var self = this;
+
+            return {
+                addschedule: function (element, eventArgs) {
+                    var date = self.master.capi.parse(element.data("date"));
+
+                    //公共日历则不让添加活动
+                    if (self.master.get("view_filter_flag") === "subscribe") {
+                        M139.UI.Popup.close();
+                        var popupTip = M139.UI.Popup.create({
+                            target: element,
+                            content: '此为公共日历，不能创建活动',
+                            direction: 'up',
+                            noClose: true
+                        });
+                        popupTip.render();
+
+                        if (M139.UI.Popup.calendarPopupTimer) {
+                            window.clearTimeout(M139.UI.Popup.calendarPopupTimer);
+                        }
+                        M139.UI.Popup.calendarPopupTimer = setTimeout(function () {
+                            popupTip && popupTip.close();
+                        }, 3000);
+                        window.setTimeout(function () {
+                            $(document.body).click(function () {
+                                popupTip && popupTip.close();
+                            });
+                        }, 0xff);
+
+                        return;
+                    }
+
+                    //弹出添加窗口
+                    self.master.trigger(self.master.EVENTS.ADD_POP_ACTIVILY, {
+                        //触发源和事件源
+                        //用于定位弹出框位置
+                        target: element,
+                        //  event: eventArgs,
+                        //指定日期
+                        date: date,
+                        //主控制器
+                        master: self.master,
+                        //保存成功后的回调处理
+                        callback: function () {
+                            //刷新月视图
+                            self.master.trigger(self.master.EVENTS.NAVIGATE, {
+                                path: "mainview/refresh"
+                            });
+                        }
+                    });
+
+                },
+
+                showschedule: function (element, event, srcRect) {
+
+                    //先尝试关闭所有弹出框
+                    if (!M2012.Calendar.View.Popup.Direction.tryClose()) {
+                        return;
+                    }
+
+                    var date = element.data('date'),
+                        id = element.data('id'),
+                        type = element.data('type');
+
+                    //判断下是否是当月的活动
+                    //非当月的活动本次不展示
+                    var dt = self.master.capi.parse(date);
+                    if (dt) {
+                        if (dt.getFullYear() != self.master.get("year") ||
+                            dt.getMonth() != self.master.get("month") - 1) {
+                            return;
+                        }
+                    }
+
+                    self.master.trigger(self.master.EVENTS.VIEW_POP_ACTIVILY, {
+                        seqNo: id,
+                        type: type,
+                        //  event: event,
+                        target: element,
+                        rect: srcRect,
+                        //回调函数
+                        callback: function (args) {
+                            //刷新月视图
+                            self.master.trigger(self.master.EVENTS.NAVIGATE, {
+                                path: "mainview/refresh"
+                            });
+                        },
+                        error: function (e) {
+                            top.M139.UI.TipMessage.show('操作失败，请稍后再试！', {
+                                delay: 2000,
+                                className: "msgRed"
+                            });
+                        }
+                    });
+                },
+
+                showmore: function (ele, event) {
+
+                    //防止触发body的click事件
+                    M139.Event.stopEvent(event);
+                    var date = ele.data('date');
+                    var td = ele.parents('td');
+                    td.siblings('td').removeClass('p_relative');
+                    ele.parents('.j_weekrow').siblings('.j_weekrow').find('td').removeClass('p_relative');
+                    //兼容360下显示更多浮层层级问题
+                    td.addClass('p_relative').css('z-index', '3');
+                    //隐藏所有弹出层
+                    self.master.trigger(self.master.EVENTS.HIDE_ACTIVITY_POPS);
+                    var date = self.master.capi.parse(date);
+
+                    M2012.Calendar.View.MoreList.show({
+                        date: date,
+                        master: self.master,
+                        labels: self.master.get("checklabels") || [],
+                        types: self.master.get("includeTypes") || []
+                    });
+                }
+            };
+        },
+
+        /**
+        * 自适应月视图高度
+        */
+        adjustHeight: function () {
+            var self = this;
+            var offset = 2, itemHeight = 0;
+            var height = document.body.clientHeight - self.container.offset().top;
+            var tabHeight = height - $("#divTableHead").height();
+
+            //IE下莫名其妙的会出现负值
+            if (height < 0 || tabHeight < 0) {
+                return;
+            }
+
+            //如果有当月有活动数据，则限制最小高度，
+            //以保证能显示每个日历下的最多4个活动
+            if (self.model.get("hasData")) {
+
+                //获取一个参考活动元素
+                var items = $("li[name='view-activily-items']");
+                if (items.length > 0) {
+                    //日历方格的最小高度必须为maxcount +2 个，
+                    //一个是为了保留一个活动身位的空白
+                    //另一个是日期显示占据了一定高度
+                    itemHeight = (items.get(0).offsetHeight + 1) * (self.model.get("showCount") + 2);
+                }
+            }
+            //计算日历方格的高度
+            var newHeight = Math.floor(tabHeight / self.weekCount) - offset;
+            if (itemHeight > 0 && newHeight < itemHeight) {
+                newHeight = itemHeight;
+            }
+
+            self.container.find(".tabCell").each(function (n) {
+                $(this).height(newHeight);
+            });
+
+            self.container.height(height);
+        },
+
+        /**
+         *  呈现视图
+        **/
+        render: function () {
+            var self = this;
+
+            //绘画月视图日历表格
+            self.drawTable();
+            self.drawTabCells();
+
+            //设置单元格鼠标滑动样式 
+            self.tabCells.hover(function () {
+                var me = $(this);
+                if (!me.hasClass("onCheck")) {
+                    me.addClass("onHover");
+                }
+            }, function () {
+                $(this).removeClass("onHover");
+            });
+
+            //自适应月视图高度
+            self.adjustHeight();
+
+            //显示天气预报
+            window.setTimeout(function () {
+                self.showWeather();
+            }, 0x10);
+        },
+
+        /**
+         * 绘画月历表格
+         */
+        drawTable: function () {
+            var self = this;
+            var container = self.container;
+            var html = [];
+            //清空容器内所有内容
+            self.container.empty();
+
+            for (var i = 6; i--;) {
+                html.unshift('</tr></tbody></table></div>');
+                for (var j = 7; j--;) {
+                    var klass = (j == 6 || j == 0) ? 'holiday' : ''; //klass读音class, 周六日显示灰色底色
+                    html.splice(0, 0, '<td data-cmd="addschedule" id="daycell_', i * 7 + j, '" class="' + klass + '">',
+                      '<div class="tabCell p-relative" onselectstart="return false;" style="-moz-user-select:none;">',
+                      '<div class="math_date">',
+                      '<p class="date">',
+                      '<span class="titleFr"></span>',
+                      '<b></b>',
+                      '<span id="lunar"></span>',
+                      '</p>',
+                      '<ul id="ul_action" class="notes show"></ul>',
+                      '</div>',
+                      '<div class="j_div_more hide"></div>',
+                      '</div>',
+                      '</td>');
+                }
+                html.unshift('<div class="j_weekrow"><table class="calender"><tbody><tr style="border:solid 1px #ffffff;">');
+            }
+
+            html.splice(0, 0, [
+					    '<div class="caml_table" name="dv_calendar_view_Container">',
+						    '<div id="divTableHead">',
+						        '<table class="calender" role="grid">',
+							        '<thead>',
+							            '<tr>',
+								            '<th>星期日</th>',
+								            '<th>星期一</th>',
+								            '<th>星期二</th>',
+								            '<th>星期三</th>',
+								            '<th>星期四</th>',
+								            '<th>星期五</th>',
+								            '<th>星期六</th>',
+							            '</tr>',
+							        '</thead>',
+						        '</table>',
+						    '</div>',
+						    '<div id="divMain" class="cal_m_content">',
+                                '<div id="divTable" class="table_content">'//,
+                                    //'<div id="divWaiting" class="hide">',
+                                    //    '<div class="bg-cover"></div>',
+                                    //    '<div class="noflashtips inboxloading loading-pop" id="">',
+                                    //        '<!--[if lte ie 7]><i></i><![endif]-->',
+                                    //        '<img src="../../images/global/load.gif" alt="" style="vertical-align:middle">正在载入中，请稍候......',
+                                    //    '</div>',
+                                    //'</div>'
+            ].join(""));
+            html.push(['</div></div></div>'].join(""));
+            container.append(html.join(''));
+        },
+
+        /**
+         * 绘画月历单元格
+         */
+        drawTabCells: function () {
+            var self = this;
+            var mCalendar = self.model.get("mCalendar");
+            var holidayTypes = self.master.CONST.holidayTypes;
+            var nowDate = self.master.capi.getCurrentServerTime();
+
+            nowDate = $Date.format("yyyy-MM-dd", nowDate);
+
+            //隐藏当月多余的周日期
+            var rows = self.container.find(".j_weekrow");
+            self.weekCount = mCalendar.weeks.length;
+            $.each([4, 5], function (i, n) {
+                if (n >= self.weekCount)
+                    rows.eq(n).addClass("hide");
+            });
+
+            self.tabCells = self.container.find("td");
+            $.each(self.model.get("days"), function (i, item) {
+                var tabCell = self.tabCells.eq(i)
+                tabCell.data("index", i);
+                tabCell.data("day", item.day);
+                tabCell.data("month", item.month);
+                tabCell.data("year", item.year);
+                tabCell.data("date", item.date);
+
+                //当前日历是今天
+                if (nowDate == item.date) {
+                    tabCell.addClass("today").addClass("onCheck");
+                }
+
+                //显示节假日放假安排
+                var holidayEl = tabCell.find(".j_div_more").attr("id", "div_more_" + item.date).parent();
+                switch (item.holidayType) {
+                    case holidayTypes.restday:
+                        holidayEl.append(self.template.restDay);
+                        break;
+                    case holidayTypes.workday:
+                        holidayEl.append(self.template.workDay);
+                        break;
+                }
+
+                //显示日期、节日、节气信息
+                var text = item.festival || item.lunarMonth || item.lunarText;
+                var lunarEl = tabCell.find("#lunar").html(text);
+                var dayTextEl = tabCell.find(".date > b");
+                dayTextEl.html(item.day)
+                //产品要求,节日颜色突出显示
+                if (item.festival && !(item.isLast || item.isNext)) {//张总要求说:啪啦啪啦啪啦啪啦啪啦...我说:好
+                    lunarEl.addClass("color_vacation");
+                    dayTextEl.addClass("color_vacation");
+                }
+
+                //不是当月的活动日期显示样式需要暗淡一点
+                if (item.isLast || item.isNext) {
+                    dayTextEl.addClass("lastGray");
+                }
+
+            });
+
+        },
+
+        /**
+         *  初始化页面数据
+        **/
+        fillData: function () {
+            var self = this;
+            //var waitEl = $("#divWaiting").removeClass("hide");
+            top.M139.UI.TipMessage.show(self.messages.LOADING);
+            var hasData = false;
+
+            //先清空掉视图上的所有活动
+            self.clear();
+
+            self.model.fetch(function (data) {
+
+                if (data && data.length > 0) {
+                    $.each(data, function (index, item) {
+                        //要处理这里的活动项，是当天全部的项，而列表只显示3项
+                        var activities = item.activities;
+                        var showCount = self.model.get("showCount");
+                        if (activities.length > showCount) {
+                            activities = _.first(item.activities, showCount);
+                        }
+
+                        if (activities.length == 0)
+                            return true;
+
+                        $.each(activities, function (_index, _item) {
+                            var icontype = "";
+                            var txtColor = "";
+
+                            _item.visible = 'none';
+                            if (_item.enable == 1) {
+                                icontype = self.master.CONST.activilyIconType.clock;
+                            }
+
+                            //只有是被邀请的未处理的活动才显示消息ICON
+                            if (_item.isInvitedCalendar && _item.status == 0) {
+                                _item.visible = 'block';
+                                if (_item.specialType == self.master.CONST.specialType.birth) {
+
+                                    txtColor = self.master.CONST.activilyTxtColor.blackColor;
+                                }
+                            }
+                                //该条是生日活动
+                            else if (_item.specialType == self.master.CONST.specialType.birth) {
+                                //生日提醒不显示闹钟
+                                icontype = "";
+                                txtColor = self.master.CONST.activilyTxtColor.blackColor;
+
+                            } else if (_item.operationFlag) {
+
+                                icontype = self.master.CONST.activilyIconType[_item.operationFlag];
+                                txtColor = self.master.CONST.activilyTxtColor.blackColor;
+                            }
+
+                            _item.icon = icontype;
+                            _item.date = item.date;
+                            _item.forecolor = txtColor;
+                            _item.backColor = _item.color;
+
+                            if (_item.backColor) {
+                                var className = self.master.CONST.activilyColors[_item.backColor] || "";
+                                _item.className = className;
+                                if (className) {
+                                    _item.backColor = "";
+                                }
+                            }
+
+                            //获取活动类型
+                            var type = "";
+                            if (_item.isInvitedCalendar) {
+                                type = self.master.CONST.activityType.invited;
+
+                            } else if (_item.isSharedCalendar) {
+                                type = self.master.CONST.activityType.shared;
+
+                            } else if (_item.isSubCalendar) {
+                                type = self.master.CONST.activityType.subscribed;
+                            } else {  //自己的活动
+                                type = self.master.CONST.activityType.myself;
+                            }
+
+                            _item.scheduleType = type;
+                        });
+
+
+                        //添加活动至视图上
+                        var cell = self.tabCells.eq(index);
+                        var template = _.template(self.template.activily);
+                        cell.find('#ul_action').html(template(activities));
+                        cell.find('.titleFr').children('a').remove();
+                        if (item.activities.isMore) {
+                            cell.find('.titleFr').prepend($T.format(self.template.hasmore, {
+                                date: item.date,
+                                day: item.day,
+                                month: item.month,
+                                year: item.year,
+                                total: item.activities.total
+                            }));
+                        }
+                    });
+
+                }
+
+                //隐藏加载中提示
+                //waitEl.addClass("hide");
+                top.M139.UI.TipMessage.hide();
+                //自适应月视图高度
+                self.adjustHeight();
+
+            }, function (e) {
+                //隐藏加载中提示
+                //waitEl.addClass("hide");
+                top.M139.UI.TipMessage.hide();
+                if (e && e.code == "FS_SESSION_ERROR") {
+                    //会话过期
+                    top.$App.trigger("change:sessionOut", {}, true);
+                }
+                top.M139.UI.TipMessage.show(self.model.TIPS.OPERATE_ERROR, {
+                    delay: 5000,
+                    className: "msgRed"
+                });
+
+                self.logger.error(self.model.TIPS.LOAD_DATA_ERROR, e);
+            });
+        },
+
+        /**
+         *  选中指定日期
+        **/
+        checkDay: function (args) {
+
+            var self = this;
+            var chkclass = "onCheck";
+            var hoverclass = "onHover";
+            var cellEl = args && args.el ? args.el : null;
+
+            if (!cellEl) {
+                var date = new Date(self.master.get("year"),
+                    self.master.get("month") - 1,
+                    self.master.get("day"));
+                cellEl = $("#div_more_" + $Date.format("yyyy-MM-dd", date)).parent().parent();
+            }
+            self.container.find("td." + chkclass).removeClass(chkclass);
+            cellEl.removeClass(hoverclass).addClass(chkclass);
+        },
+
+        /**
+         * 显示天气提醒
+         */
+        showWeather: function () {
+            var self = this;
+            var data = {
+                isShowWeather: false,
+                days: []
+            };
+            //SiteConfig.hideWeather=true时不显示,可以方便清理config.js中的配置
+            if (!window.ISOPEN_CAIYUN) {
+                var now = self.master.capi.getCurrentServerTime();
+                var mCalendar = self.model.get("mCalendar");
+                var serverYear = now.getFullYear(),
+                    serverMonth = now.getMonth(),
+                    serverDay = now.getDate();
+
+                //只显示3天天气预报
+                for (var i = 0; i < 3; i++) {
+                    var day = new Date(serverYear, serverMonth, serverDay + i);
+                    //if (day.getFullYear() == mCalendar.year && (day.getMonth() + 1) == mCalendar.month) {
+                    //计算跨月的日期
+                    var tmpDate = new Date(serverYear, serverMonth, serverDay + i);
+                    data.days.push({
+                        c: self.model.getDayIndex(tmpDate),
+                        i: i
+                    });
+                    data.isShowWeather = true;
+                    //}
+                }
+            }
+            //加载天气预报信息tab_calendar_Container
+            self.tabCells.find('.titleFr').children('i').remove();
+            if (data.isShowWeather) {
+                $.each(data.days, function (i, e) {
+                    var offset = e.c;
+                    if (offset < 0) return; //匹配不到会返回-1
+
+                    var bar = self.tabCells.eq(offset).find('.titleFr');
+                    bar.children('i').remove();
+
+                    bar.append($T.format(self.template.weather, {
+                        target: "daycell_" + offset, //用于插入天气详情元素
+                        index: e.i
+                    }));
+                });
+                new M2012.Calendar.View.Weather({ master: self.master });
+            }
+        },
+
+        /**
+       * 清空视图中的活动
+       */
+        clear: function () {
+            //移除活动
+            $("li[name='view-activily-items']").remove();
+            //移除更多标记
+            $("a[name='view-activily-more']").remove();
+            //隐藏更多活动弹出层, id以"div_more_"开头的div, 修复IE6中弹出层不会隐藏的问题
+            $('div[id^=div_more_]').empty();
+        },
+
+        template: {
+            // 活动信息模板
+            activily: ['<% _.each(obj, function(i){ %>',
+                 '<li name="view-activily-items" class="<%= i.className %>" style="background-color:<%= i.backColor %>;cursor: pointer; " data-cmd="showschedule" data-type="<%= i.scheduleType %>" data-id="<%= i.seqNo %>" data-date="<%= i.date %>">',
+                     '<a href="javascript:void(0);" title="<%= _.escape(i.title) %>" style="color:<%= i.forecolor %>" data-cmd="showschedule" data-type="<%= i.scheduleType %>" data-id="<%= i.seqNo %>" data-date="<%= i.date %>">',
+                        '<i class="<%= i.icon %> IconPosion"></i><%= _.escape(i.title) %><%= i.specialType == 1 ? "生日":"" %>',
+                    '</a>',
+                    '<a style="display:<%= i.visible %>;" data-cmd="showschedule" data-type="<%= i.scheduleType %>" data-id="<%= i.seqNo %>" data-date="<%= i.date %>" class="noteMessage" href="javascript:void(0);"><i class="i_message"></i></a>',
+                 '</li>',
+             '<% }) %>'].join(""),
+
+            // 查看更多活动
+            hasmore: '<a href="javascript:void(0);" name="view-activily-more" class="grN" title="查看更多" data-cmd="showmore" data-date="{date}" data-day="{day}" data-month="{month}" data-year="{item.year}" >{total}</a>',
+
+            // 天气预报
+            weather: '<i style="display:none;" rel="{index}" after-item="{target}" tag-for="weather"></i>',
+
+            //休息日,调休日,不写成css的类选择器了.拼接更耗性能
+            restDay: '<span class="i_c_vacation"></span>',
+            workDay: '<span class="i_c_work"></span>'
+        }
+
+    }));
+
+
+})(jQuery, _, M139, window._top || window.top);

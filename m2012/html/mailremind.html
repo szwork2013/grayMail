@@ -1,0 +1,113 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>139邮箱-邮件提醒</title>
+<script type="text/javascript">
+document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+</script>
+<script>
+	top.loadScript('libs.pack.js',document);
+	top.loadScript('m139.core.pack.js',document);
+	top.loadScript('m2012.ui.common.pack.js',document);
+	top.loadScript('mailremind.html.pack.js',document);
+	top.loadCSS(["common/global.css","common/frame.css", "module/calendar.css"], document);
+</script>
+</head>
+<body>
+<!-- 邮件列表标为代办任务弹出层 -->
+<div class="boxIframe gtasks-setbox">
+    <div class="boxIframeMain">
+        <fieldset class="boxIframeText">
+            <dl class="form">
+                <dt class="formlinetitle pl_20">邮件处理日期计划在：</dt>
+                <dd class="formLine pl_20">
+                    <input type="radio" id="day_01" name="date" value="today"/>
+                    <label for="day_01">今天</label>
+                    <!-- 时间提示区域用添加class="v-hide"隐藏，去掉即可显示   下面是示例 -->
+                    <!-- <input type="text" id="tb_today" class="v-hide" value="00:00" style="width:46px;"> -->
+                </dd>
+                <dd class="formLine pl_20">
+                    <input type="radio" id="day_02" name="date" value="tomorrow"/>
+                    <label for="day_02">明天</label>
+                    <!-- <input type="text" id="tb_tomorrow"   value="09:00" style="width:46px;"> -->
+                </dd>
+                <dd class="formLine  pl_20">
+                    <input type="radio" id="day_03" name="date" value="aftertomorrow">
+                    <label for="day_03">后天</label>
+                </dd>
+                <dd class="formLine pl_20 clearfix" id="dd_select">
+                    <input type="radio" id="day_04" name="date" value="other"/>
+                    <label for="day_04" id="sp_selectedDate">指定时间</label>
+                    <!-- <input type="text"   id="tb_selectedDate" value="09:00" style="width:46px;display:none"> -->
+                    <!-- 此标签控制日历组件 --><a class="i_ymd" href="javascript:" id="calendarPicker"></a>
+                    <!--<span id="sp_selectedDate"></span>-->
+                    
+                </dd>
+            </dl>
+            <!-- 添加 class="hide"隐藏，去掉即可显示 -->
+            <div class="gtasksboxmainwarp" id="div_sms" style="display:none">
+                    <div class="formLine">
+                        <label class="label">提醒时间：</label>
+                        <div id="view35_start_time" class="element">
+                            <div class="element">
+                                <div id="view41_tips" data-type="tips" class="tips meet-tips" style="display: none;">
+                                    <div class="tips-text">开始时间不能晚于结束时间</div>
+                                    <div class="tipsBottom diamond" style="left:10px;"></div>
+                                </div>
+
+
+                                <div class="dropDown dropDown-ydm" id="smsCalendarPicker"><div class="dropDownText fl" name="day4sms">2014-08-15</div><a hidefocus="1" href="javascript:void(0)" class="i_ymd fl"></a></div>
+                                <div class="dropDown dropDown-month" id="hourMenu"><div class="dropDownA" href="javascript:void(0)"><i class="i_triangle_d"></i></div><div class="dropDownText" name="hour4sms"></div></div>
+                                <div class="ydmtext">时</div>
+                                <div class="dropDown dropDown-month" id="miniuteMenu"><div class="dropDownA" href="javascript:void(0)"><i class="i_triangle_d"></i></div><div class="dropDownText" name="minute4sms"></div></div>
+                                <div class="ydmtext">分</div>
+                                <!--
+                                <div id="smsCalendarPicker" class="dropDown fl" style="width:124px;">
+                                    <div name="day4sms" class="dropDownText" style="text-align: center; padding-left: 0px;"></div>
+                                </div>
+                                <div id="view41_time" class="fl" style="width:80px;">
+                                    <span class="textTimeOther ml_5">
+                                        <input name="hour4sms" id="hourMenu" type="text" value="00" maxlength="2" class="">
+                                         : 
+                                        <input name="minute4sms" id="miniuteMenu" type="text" value="00" maxlength="2" class="">
+                                    </span>
+                                </div>-->
+                            </div>
+                        </div>
+                    </div>   
+            <p class="tips-title">
+                <span>短信提醒内容</span><span>（<!-- 此标签控制字数提醒 --><span id="countTips">0/100</span>）</span>：
+            </p>
+            <textarea class="remidText inShadow" id="tb_content"></textarea>
+            </div>             
+        </fieldset>
+        <div class="boxIframeBtn" id="checkboxCon">
+            <span class="bibText"></span>
+            <span class="bibText ml_15 mr_10" id="sp_sms">
+                <input type="checkbox" class="grask-checkbox" id="ck_sms" value="">
+                <label for="ck_sms">短信提醒我处理邮件</label>
+            </span>
+            <span class="bibBtn"></span>
+            <span class="bibText" id="sp_canlendar">
+                <input class="grask-checkbox" type="checkbox" id="ck_canlendar" value="">
+                <label for="ck_canlendar">添加到日历</label>
+            </span>
+            <span class="bibBtn">
+                <a class="btnSure"  id="btn_save" href="javascript:void(0)"><span>确 定</span></a>&nbsp;
+                <a class="btnNormal" id="btn_cancel" href="javascript:void(0)"><span>取 消</span></a>
+            </span>
+        </div>
+        <script type="text/javascript">
+            if (top.$User.isNotChinaMobileUser()) {
+                document.getElementById('sp_sms').style.display = 'none';
+                document.getElementById('sp_canlendar').style.display = 'none';
+            }
+        </script>
+    </div>
+</div>
+<!-- 邮件列表标为代办任务弹出层 -->
+
+
+</body>
+</html>

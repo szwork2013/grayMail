@@ -1,0 +1,123 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="Keywords" content=""/>
+    <meta name="Description" content=""/>
+    <title>记事本-139邮箱</title>
+
+<script type="text/javascript">
+    //设域
+    document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+function loadScript(path, _doc, charset) {
+    if (path.indexOf(".js") > -1) {
+        var base = "/m2012/js";
+		var jsVersion = "20130106";
+        if (path.indexOf("pack.js") > -1) {
+            base += "/packs";
+        }
+        path = base + "/" + path;
+		if (path.indexOf("?") == -1) {
+            path += "?v=" + jsVersion;
+        }
+    }
+    (_doc || document).write("<script charset=\"" + (charset || "") + "\" type=\"text/javascript\" src=\"" + path + "\"></" + "script>");
+}
+function loadCSS(path, _doc) {
+    if (typeof path == "string") path = [path];
+	var jsVersion = "20130106";
+    for (var i = 0; i < path.length; i++) {
+        var item = path[i];
+		
+        item = "/m2012/css/" + item+"?v="+jsVersion;
+        (_doc || document).write('<link rel="stylesheet" href="' + item + '" type="text/css" />');
+    }
+	jsVersion = null;
+}</script>
+<script>loadScript('libs.pack.js',document);loadScript('m139.core.pack.js',document);loadScript('m2012.ui.common.pack.js',document)</script>
+<script>loadCSS(["common/global.css","module/not/not.css"],document)</script></head>
+
+
+<body>
+<div class="inboxHeader"><a href="#" class="fr mr_10" style="display:none"><i class="i_notnew mr_5"></i><span class="bl"> 安装139小工具，右键将网页保存到记事本</span></a><strong>和笔记</strong><span class="bl" id="sp_totalCount">(共 <b>-</b>个笔记)</span>
+    <span class="fr mr_10">
+            <span class="bl">
+                 <span class="red">New!</span>   
+                手机电脑自动同步，随时记录笔记！试用和笔记
+                <a href="http://mnote.weibo.10086.cn/MobileNote.apk" title="Android版">Android版</a>
+                <a href="https://itunes.apple.com/us/app/cai-yun-bi-ji/id577725854?ls=1&amp;mt=8" target="_blank" title="IOS版">IOS版</a>
+                <a href="http://mnote.weibo.10086.cn/MobileNote.exe" title="Windows版">Windows版</a>
+            </span>
+        </span>
+</div>
+<div class="notleft fl" style="width:355px;" id="slideBar_left">
+    <div class="toolBar">
+        <div class="p_relative fl" style="z-index:999;">
+            <a class="aHoversel" href="javascript:void(0)" id="btn_order"><span><em>创建时间 由新到旧</em><i class="i_triangle_d ml_5"></i></span></a>
+            <div class="curPop shadow" style="top:26px;left:0;z-index:999;display:none"><!--show\hide显示隐藏-->
+				<a href="#" class="db on"><i class="i_b_right"></i><span class="text">按更新时间倒序排列</span></a>
+				<a href="#" class="db"><i class="i_b_right"></i><span class="text">按更新时间顺序排列</span></a> 
+				<a href="#" class="db"><i class="i_b_right"></i><span class="text">按创建时间顺序排列</span></a>                   
+				<a href="#" class="db"><i class="i_b_right"></i><span class="text">按创建时间顺序排列</span></a> 
+            </div>
+        </div>
+        <div class="minsearch fr">
+            <div class="p_relative"><input type="text" id="tb_search" value="" placeholder1="搜索笔记"/>
+                <a href="javascript:top.addBehaviorExt({actionId:103860})" demobak="搜索" id="btn_search" class="minsearch-but" title="搜索"></a></div>
+        </div>
+
+    </div>
+    <div class="notlist" style="height:500px;" id="div_notelist"></div>
+    <textarea style="display:none" id="template_notelist">
+    
+        <!--item start-->
+        <div class="notli" noteId="$noteid">
+			<!--input type="checkbox" class="notliCheck" value="" /-->
+            <div class="notlititle">@getTitle()</div>
+            <p><span class="time">@getTime(updatetime)</span>@getSummary()</p>
+        </div>
+        <!--item end-->
+    
+    </textarea>
+</div>
+<div class="wrapMiddleMiddle fl" style="height:100%;left:356px" id="slideBar">
+    <div class="slHvalign">
+        <div class="slHvalignCnt">
+            <div class="slHvalignCntInner"><span class="i_leftr"></span></div>
+        </div>
+    </div>
+</div>
+<div class="notright fl" style="width:auto;"  id="slideBar_right">
+    <div class="toolBar">
+        <ul class="toolBarUl">            
+			<li class="mr_10"><a class="btnTb" demobak="新建记事" href="javascript:top.addBehaviorExt({actionId:103854})" id="btn_create"><span>新建笔记</span></a></li>	
+            <li class="mr_10"><a class="btnTb" demobak="删除" href="javascript:top.addBehaviorExt({actionId:103857})" id="btn_delete"><span>删 除</span></a></li>        
+            <li class="mr_10"><a class="btnTb" demobak="邮件发送" href="javascript:top.addBehaviorExt({actionId:103858})" id="btn_send"><span>邮件分享</span></a></li>       
+        </ul>
+        <div class="fr"><a class="btnTb" href="javascript:top.addBehaviorExt({actionId:103855})" id="btn_save"><span>保存</span></a></div>
+    </div>
+    <div class="notbody">
+        <div class="notitlebody "><!-- 展开时加上 notitlebody-on -->
+            <div class="nottitle"><!-- 获取焦点时加上 nottitle-on  -->
+                <a href="javascript:void(0)" class="pushon" title="展开" id="toggleTime"><i class="i_2trid"></i></a>
+                <input type="text" id="tb_title" value="" placeholder1="点击输入标题" maxlength="65" />
+            </div>
+            <div class="titletime" id="note_time" style="display:none">
+                <div class="fl" style="line-height:33px;"><span class="mr_10" id="sp_createTime">创建时间：</span>
+                <span id="sp_updateTime">更新时间：</span> </div>             
+            </div>
+        </div>
+        <div class="notearea">
+			<textarea class="notwrite" id="text_noteContent" placeholder1="记事从这里开始"></textarea>
+           
+        </div>
+    </div>
+</div>
+
+</body>
+
+<script type="text/javascript">
+loadScript("mnote.html.pack.js",document);
+</script>    
+</script>
+</html>

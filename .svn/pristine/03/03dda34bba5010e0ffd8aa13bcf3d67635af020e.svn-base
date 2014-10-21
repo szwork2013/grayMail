@@ -1,0 +1,1004 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" class="box">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>视图</title>
+
+    <script type="text/javascript">
+        //设域
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+
+        //获得资源路径
+        var resourcePath = window.top.resourcePath;
+        var calendarResourcePath = resourcePath.replace("coremail", "calendar");
+        var htmlCode = "";
+        htmlCode += getLinkTag("");
+        htmlCode += getLinkTag(calendarResourcePath + "/css/calendar.css?v=20120720");
+
+        top.loadScript('jquery.js', document);
+        top.loadScript("m2011.utilscontrols.pack.js", document);
+
+        top.loadScript("/m2012/js/service/calendar/m2011.calendar.MyCalendar.js", document);
+        top.loadScript("/m2012/js/service/calendar/m2011.calendar.calendar.js", document);
+
+        document.write(htmlCode);
+
+        function getJsTag(path, charset) {
+            var html = "<script charset='gb2312' src='" + path + "' type='text/javascript'></" + "script>";
+            if (charset) html = html.replace("gb2312", charset);
+            return html;
+        }
+        function getLinkTag(path) {
+            var text = "";
+            if (path) text = "href='" + path + "'";
+            return "<link rel='stylesheet' type='text/css' " + text + " />";
+        }
+    </script>
+
+    <link rel="stylesheet" type="text/css" />
+
+    <script type="text/javascript">
+        Utils.loadSkinCss(null, document, "calendar");
+    </script>
+
+</head>
+<body>
+    <div class="aside">
+        <ul class="tag">
+            <li><a id="allCalendar" href="javascript:"><i class="allcalendar"></i><span id="spanCount1">
+                全部日程</span></a></li>
+            <li><a id="aRecent" href="javascript:;"><i class="day7"></i><span id="spanCount2">最近7天日程</span></a></li>
+            <li><a id="aAgent" href="javascript:;"><i class="undo"></i><span id="">待办事项</span></a></li>
+            <li><a id="aHasDone" href="javascript:;"><i class="done"></i><span>已办事项</span></a></li>
+            <li class="line"></li>
+        </ul>
+        <ul class="category">
+
+            <script type="text/javascript" language="javascript">
+                richinfo.email.calendar.commonUI.category.addCategory("", "1");
+            </script>
+
+        </ul>
+        <b class="shadow"></b>
+    </div>
+    <div class="header">
+        <h1>
+            <i class="mycalendar"></i><span>我的日程</span></h1>
+        <p class="des">
+            (共<span id="allcount"></span>个，其中<span id="sevencount"></span>个<a href="javascript:"
+                id="sevendayt">最近7天日程</a>)</p>
+        <ul class="nav">
+            <li class="cur"><a href="javascript:void(0);">视 图</a></li>
+            <li><a href="calendar_list.html">列 表</a></li>
+        </ul>
+    </div>
+    <div class="main calendar">
+        <div class="optarea">
+            <div class="left">
+                <span class="addCalendar">
+                    <input class="btn" type="button" value="添加日程" id="btnAddInView" />
+                    <i class="drop"></i></span><a href="javascript:;" id="aSyncIphone">日程同步</a>
+            </div>
+            <div class="right">
+                <button class="btn arrow" title="上一月视图" onclick="objView.goPrevMonth();">
+                    <i class="prev"></i><span>&#9668;</span></button>
+                <button class="btn arrow" title="下一月视图" onclick="objView.goNextMonth();">
+                    <i class="next"></i><span>&#9658;</span></button>
+                <span class="date">
+                    <input type="text" style="width: 80px" id="currentDate" />
+                    <i class="drop" id="forCurrentDate" onclick="showMyCalendar(document.getElementById('currentDate'),objView.gotoSomeDay,{popuControl:this,date2StringPattern:'yyyy年MM月',showSelectDayColor:false});stopBubble();">
+                    </i></span>&nbsp;
+                <input type="button" value="今天" class="btn" id="goToday" />
+            </div>
+            <div id="addbyCategory" class="addbyCategory" onclick="stopBubble()">
+                <!--<ul >
+			    <li><a href="calendar_editcalendar.html?comefrom=1">常规日程</a></li>
+			    <li><a href="special/birthday.html?comefrom=1">生日提醒</a></li>
+			    <li><a href="special/specialday.html?comefrom=1">特殊日子</a></li>
+			    <li><a href="special/meet.html?comefrom=1">约会提醒</a></li>
+			    <li><a href="special/pay.html?comefrom=1">交费提醒</a></li>
+			    <li><a href="special/baby.html?comefrom=1">宝宝防疫</a></li>
+			    <li><a href="special/match.html?comefrom=1">赛事提醒</a></li>
+			</ul>-->
+            </div>
+        </div>
+        <div class="view">
+            <table cellspacing="0" cellpadding="0" class="thead">
+                <thead>
+                    <tr>
+                        <th>
+                            周日
+                        </th>
+                        <th>
+                            周一
+                        </th>
+                        <th>
+                            周二
+                        </th>
+                        <th>
+                            周三
+                        </th>
+                        <th>
+                            周四
+                        </th>
+                        <th>
+                            周五
+                        </th>
+                        <th>
+                            周六
+                        </th>
+                    </tr>
+                </thead>
+            </table>
+            <div class="rows" id="rows">
+                <div class="row" id="calendar_row1">
+                    <table cellpadding="0" cellspacing="0" class="bg" id="calendar_bg1">
+                        <tr>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                    </table>
+                    <table cellpadding="0" cellspacing="0" class="grid" id="calendar_grid1">
+                        <thead>
+                            <tr>
+                                <th>
+                                </th>
+                                <th>
+                                </th>
+                                <th>
+                                </th>
+                                <th>
+                                </th>
+                                <th>
+                                </th>
+                                <th>
+                                </th>
+                                <th>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="a">
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr class="b">
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr class="c">
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr class="d">
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr class="e">
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row" id="calendar_row2">
+                    <table cellpadding="0" cellspacing="0" class="bg" id="calendar_bg2">
+                        <tr>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                    </table>
+                    <table cellpadding="0" cellspacing="0" class="grid" id="calendar_grid2">
+                        <thead>
+                            <tr>
+                                <th>
+                                </th>
+                                <th>
+                                </th>
+                                <th>
+                                </th>
+                                <th>
+                                </th>
+                                <th>
+                                </th>
+                                <th>
+                                </th>
+                                <th>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="a">
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr class="b">
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr class="c">
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr class="d">
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr class="e">
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row" id="calendar_row3">
+                    <table cellpadding="0" cellspacing="0" class="bg" id="calendar_bg3">
+                        <tr>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                    </table>
+                    <table cellpadding="0" cellspacing="0" class="grid" id="calendar_grid3">
+                        <thead>
+                            <tr>
+                                <th>
+                                </th>
+                                <th>
+                                </th>
+                                <th>
+                                </th>
+                                <th>
+                                </th>
+                                <th>
+                                </th>
+                                <th>
+                                </th>
+                                <th>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="a">
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr class="b">
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr class="c">
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr class="d">
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr class="e">
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row" id="calendar_row4">
+                    <table cellpadding="0" cellspacing="0" class="bg" id="calendar_bg4">
+                        <tr>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                    </table>
+                    <table cellpadding="0" cellspacing="0" class="grid" id="calendar_grid4">
+                        <thead>
+                            <tr>
+                                <th>
+                                </th>
+                                <th>
+                                </th>
+                                <th>
+                                </th>
+                                <th>
+                                </th>
+                                <th>
+                                </th>
+                                <th>
+                                </th>
+                                <th>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="a">
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr class="b">
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr class="c">
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr class="d">
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr class="e">
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row" id="calendar_row5">
+                    <table cellpadding="0" cellspacing="0" class="bg" id="calendar_bg5">
+                        <tr>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                    </table>
+                    <table cellpadding="0" cellspacing="0" class="grid" id="calendar_grid5">
+                        <thead>
+                            <tr>
+                                <th>
+                                </th>
+                                <th>
+                                </th>
+                                <th>
+                                </th>
+                                <th>
+                                </th>
+                                <th>
+                                </th>
+                                <th>
+                                </th>
+                                <th>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="a">
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr class="b">
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr class="c">
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr class="d">
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr class="e">
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row" id="calendar_row6">
+                    <table cellpadding="0" cellspacing="0" class="bg" id="calendar_bg6">
+                        <tr>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                    </table>
+                    <table cellpadding="0" cellspacing="0" class="grid" id="calendar_grid6">
+                        <thead>
+                            <tr>
+                                <th>
+                                </th>
+                                <th>
+                                </th>
+                                <th>
+                                </th>
+                                <th>
+                                </th>
+                                <th>
+                                </th>
+                                <th>
+                                </th>
+                                <th>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="a">
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr class="b">
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr class="c">
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr class="d">
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr class="e">
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="item" id="item" style="display: none">
+                <div>
+                    <span></span>
+                    <label>
+                        <a href="javascript:" title="上页"><i class="prev"></i></a><a href="javascript:" title="下页">
+                            <i class="next"></i></a><a href="javascript:" title="关闭" id="hideitem"><i class="close">
+                            </i></a>
+                    </label>
+                </div>
+            </div>
+            <div class="dialog" id="detail" onclick="stopBubble();">
+                <div class="container">
+                    <a href="javascript:" id="closeViewDialog" title="关闭"><i class="close"></i></a>
+                    <div class="frmarea">
+                        <table cellpadding="0" cellspacing="0">
+                            <tr>
+                                <th>
+                                    时间：
+                                </th>
+                                <td>
+                                    <span id="spanDateDescript"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    内容：
+                                </th>
+                                <td>
+                                    <span class="detail-txt" id="spanDetailContent"></span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="opt">
+                        <input class="btn" type="button" id="editDetail" value="编 辑" />
+                        <input type="button" class="btn" id="deleteDetail" value="删 除" />
+                    </div>
+                </div>
+            </div>
+            <div class="dialog" id="append" onclick="stopBubble()">
+                <div class="container">
+                    <a href="javascript:" title="关闭" id="closeAddDialog"><i class="close"></i></a>
+                    <div class="frmarea">
+                        <p class="tips" style="display: none; width: 365px" id="pErrorMsg">
+                            <i class="error"></i>
+                            <label id="lblErrorMsg">
+                                错误提示信息！</label></p>
+                        <table cellpadding="0" cellspacing="0">
+                            <tr>
+                                <th>
+                                    时间：
+                                </th>
+                                <td>
+                                    <span id="spanDate"></span>
+                                    <select id="opSimpleStart">
+                                    </select><span>到</span>&nbsp;<select id="opSimpleEnd"></select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    内容：
+                                </th>
+                                <td>
+                                    <input class="txt normal" maxlength="200" id="txtContent" value="" onfocus="this.className='txt'" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <i class="alert"></i>
+                                </th>
+                                <td>
+                                    在事件前<select id="opAdvanc"></select>
+                                    <span>提醒我</span>
+                                </td>
+                            </tr>
+                            <!--<tr>
+							    <th></th>
+							    <td class="tg"><span>通过</span>
+								    <input type="checkbox" id="chkmsg" checked="checked"/><label for="chkmsg">发短信</label>
+								    <input type="checkbox" id="chkmail"/><label for="chkmail">发邮件</label></td>
+						    </tr>-->
+                            <tr id="trHelp">
+                                <th>
+                                </th>
+                                <td>
+                                    <p class="help" id="phelp" style="cursor: text; text-indent: 0;">
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="opt">
+                        <input class="btn" id="btnSave" type="button" value="保 存" />
+                        <a href="javascript:" id="goAddDetail">添加详细信息</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="bottomDiv">
+    </div>
+
+    <script type="text/javascript">
+        var objView;
+        function getBindData() {
+            objView.getMonthData();
+        }
+        $(document).ready(function() {
+            var objCurrentDate = $("#currentDate");
+            if (objCurrentDate) {
+                viewDate = top.UserData.ServerDateTime ? top.UserData.ServerDateTime : new Date();
+                if (Utils.queryString("curDate") && Utils.queryString("curDate") != "") {
+                    viewDate = new Date(Utils.queryString("curDate"));
+                    if (!viewDate)
+                        viewDate = top.UserData.ServerDateTime ? top.UserData.ServerDateTime : new Date();
+                }
+                objView = new richinfo.email.calendar.calendarView(viewDate.getFullYear(), viewDate.getMonth());
+                objView.resizeRows(false);
+                objView.initAdd();
+                objView.bindEvent();
+                $(".addCalendar .btn").click(function () { location.href = "calendar_editcalendar.html?comefrom=1&rnd=" + Math.random(); });
+                objCurrentDate.value = viewDate.format("yyyy年MM月");
+                objCurrentDate.realDate = viewDate.format("yyyy-MM-dd");
+                objView.update();
+                $("#btnAddInView").focus();
+                //日程同步
+                $("#aSyncIphone").attr("title", "实现你的手机与139邮箱日程提醒的双向同步").click(function() {
+ 	                if (top.$User && !top.$User.checkAvaibleForMobile()) {
+                        return ;
+                    }
+                    top.Links.show("addrsync", "&iptSys=Iphone");
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>

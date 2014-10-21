@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>文件属性</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <link type="text/css" rel="Stylesheet" />
+
+    <script>
+
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+
+        top.loadScript("/m2012/js/service/largeattach/m2011.largeattach.filesharing.js", document);
+
+    </script>
+
+    <script type="text/javascript">
+        fileSharing.initialize(function() {
+            fileSharing.loadCss(fileSharing.getResourcePath() + "/css/netdisk.css");
+        });         
+    </script>
+
+</head>
+<body>
+    <div class="dialog">
+        <div class="bd">
+            <table cellpadding="0" class="tbl-dialog-form dl-form-property">
+                <tr class="t-edition">
+                    <th>
+                        名称：
+                    </th>
+                    <td>
+                        <input class="text" type="text" maxlength="124" />
+                        <p class="dialog-input-tip">
+                            可直接重命名文件，点击确定按钮保存</p>
+                        <p class="dialog-error-tip" style="width: 240px;">
+                            <i class="i-warn"></i><span id="errorMsg">错误信息提示</span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        类型：
+                    </th>
+                    <td id="tdType">
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        大小：
+                    </th>
+                    <td id="tdSize">
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        上传时间：
+                    </th>
+                    <td id="tdUploadTime">
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="ft">
+            <ul class="dbtn-list">
+                <li><a class="btnNormal" id="aSumbit" href="">确 定</a></li>
+                <li><a class="btnNormal" id="aCancel" href="">取 消</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+    <script>
+        top.loadScript("/m2012/js/service/largeattach/m2011.largeattach.fileproperty.js", document);
+    </script>
+</html>

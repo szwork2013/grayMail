@@ -1,0 +1,176 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>无标题</title>
+<script type="text/javascript">
+     document.domain=window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1].split(":")[0];
+
+	var version = "20140817";
+    //获得资源路径
+    var resourcePath=window.top.resourcePath;
+    var mmsResourcePath=resourcePath.replace("coremail","suppermms");
+    var htmlCode="";    
+    htmlCode+=getLinkTag(mmsResourcePath+"/css/mms.css");
+    htmlCode+=getLinkTag("");
+
+    top.loadScript("jquery.js", document);
+    top.loadScript("m2011.utilscontrols.pack.js", document);
+    top.loadScript("/m2012/js/matrixvm/page/m2011.page.RichInputBox.js", document);
+    top.loadScript("/m2012/js/matrixvm/page/m2011.page.listByTemplate.js", document);
+    top.loadScript("/m2012/js/service/mms/m2011.mms.mms.js", document);
+    top.loadScript("/m2012/js/service/mms/m2011.mms.MMSDefFactory.js", document);
+
+    document.write(htmlCode);    
+    function getJsTag(path,charset){
+		return "<script charset='" + (charset || "utf-8") + "' src='" + path + "?v=" + version + "' type='text/javascript'></" + "script>";
+	}
+	function getLinkTag(path){
+		var text="";
+		if(path){
+			 text = "href='" + path + "?v" + version + "'";
+		}
+		return "<link rel='stylesheet' type='text/css' " + text + " />";
+	}
+    </script>
+
+<script type="text/javascript">
+    var coremailDomain=window.top.coremailDomain;
+    var uid=window.top.uid;    
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){        
+                     //初始化导航 
+        Utils.waitForReady("MMSCommonHelper",function(){
+			MMSCommonHelper.InitTools(); 
+			MMSDefFactory.DefInit();
+	   });
+	    //判断是否为简洁版预览
+	    var mmsInfo=Utils.queryString("mmsinfo");
+	   
+        if(mmsInfo!=null&&mmsInfo.length>0)
+	    {
+	        var mms=Utils.getCookie("tempPreMMS");
+	        if(mms.length>0)
+	        {
+	            //debugger;
+		        MMSPerview.Open(6,mmsInfo,1);
+		    }    
+	    }
+        });
+        Utils.loadSkinCss(null,document,"mms");
+
+        top.BH("mms_page_load");
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <ul class="nav clr">
+                <li class="curr_n"><a  id="aToolsFactory">彩信仓库</a></li>
+                <li><a  id="aToolsDIY">自制彩信</a></li>
+                <li><a  id="aToolsmmsSend">发彩字</a></li>
+                <li><a  id="aToolsmmsRecord">彩信记录</a></li>
+            </ul>
+            <em id="tipsLink" style="float:right;margin:0px 200px 0 0;"></em>
+            <!--<em style="right: 70px;"><a target="_blank" href="http://mms0.mail.10086.cn/ad.html?v=20110414">彩信升级公告</a></em> 
+            <em><a href="javascript:void(0);"   id="aSuggest">意见反馈</a></em>-->
+        </div>
+        <div class="wrap">
+            <div class="aside w204">
+                <div class="side_wrap" style="padding:4px;">
+                    <div class="side_box">
+                        <div class="panel">
+                            <!--菜单-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bd factory">
+                <div class="content">
+                    <div class="mms_box">
+                        <h1>
+                            <ul class="nav_bar">
+                                <li><a href="javascript:void(0);"><b id="nav_lfs" class="nav_lf"></b></a></li>
+								<li class="nav_bar_num"></li>
+                                <li><a href="javascript:void(0);"><b id="nav_rt_currs" class="nav_rt"></b></a></li>
+                            </ul>
+                        </h1>
+                    </div>
+                    <div class="mms_box">
+                        <h1>
+                            <ul class="nav_bar">
+                                <li><a href="javascript:void(0);"><b id="nav_lfs" class="nav_lf"></b></a></li>
+                                <li class="nav_bar_num"></li>
+                                <li><a href="javascript:void(0);"><b id="nav_rt_currs" class="nav_rt"></b></a></li>
+                            </ul>
+                        </h1>
+                    </div>
+                    <div class="mms_box">
+                        <h1>
+                            <ul class="nav_bar">
+                                <li><a href="javascript:void(0);"><b id="nav_lfs" class="nav_lf"></b></a></li>
+                                <li class="nav_bar_num"></li>
+                                <li><a href="javascript:void(0);"><b id="nav_rt_currs" class="nav_rt"></b></a></li>
+                            </ul>
+                        </h1>
+                    </div>
+                    <div class="mms_box">
+                        <h1>
+                            <ul class="nav_bar">
+                                <li><a href="javascript:void(0);"><b id="nav_lfs" class="nav_lf"></b></a></li>
+                                <li class="nav_bar_num"></li>
+                                <li><a href="javascript:void(0);"><b id="nav_rt_currs" class="nav_rt"></b></a></li>
+                            </ul>
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+    var isBirthdayPage = false;
+    var birthdayData;
+	$(function(){
+	    Utils.waitForReady('top.$App.getModel("contacts").get("data")',function(){
+            birthdayData = top.$App.getModel("contacts").get("data").birthdayContacts||[];
+            birthdayData = [{
+                MobilePhone : 1234567 ,
+                BirDay : "2014-7-1"
+            }];
+            console.log(birthdayData);
+            
+            if (birthdayData && parseInt(birthdayData.length) > 0)
+            {
+                //生日提醒
+                //@2014-7-1 modify by wn 删除好友生日提醒的动态链接（下图红框内）；
+                // new ListByTemplate({
+                //     "linkContainer":"tipsLink",
+                //     "dataSource":birthdayData,
+                //     explainMsg:"已发送祝福"
+                // });
+                $("#tipsLink").click(function(){
+                    //日志上报
+			        top.addBehaviorExt({
+				        actionId:30158,
+				        thingId:0,
+				        moduleId:14
+			        });
+                    window.location="mmsFactory_list.html?mmsid=38&birthday=1&first=1";
+                    return false;
+                });
+                $("#tipsLink").hide();
+            }
+	        else
+	        {
+                $("#tipsLink").hide();
+	        }
+	    });
+	});
+</script>
+<script>top.loadCSS(["module/fontbase.css"], document);</script>

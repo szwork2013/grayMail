@@ -1,0 +1,184 @@
+﻿<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>139个邮通讯录-本地文件导入</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <script type="text/javascript">
+            document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+            // function filltag(d, c, f) { var b, a, e = []; while (d.length) { a = d.shift(); switch (true) { case Object.prototype.toString.apply(a) === "[object Array]": b = "<script " + (a[1].length > 0 ? 'charset="' + a[1] + '" ' : "") + "src='" + (a[2] ? a[2] : c) + "/js/" + a[0] + "' type='text/javascript'><\/script>"; break; case a.indexOf(".js") > -1: b = "<script " + (f ? 'charset="' + f + '" ' : "") + "src='" + c + "/js/" + a + "' type='text/javascript'><\/script>"; break; case a.indexOf(".css") > -1: b = "<link rel='stylesheet' type='text/css' href='" + c + "/css/" + a + "' />"; break; case a.length == 0: b = "<link rel='stylesheet' type='text/css' />" } e.push(b) } document.write(e.join("")) }
+            // var resourcePath = top.resourcePath, addrsrc = resourcePath.replace('coremail', 'addr');
+            // filltag(['global2012.css', '', 'addr2012.css'], resourcePath);
+
+            try {
+                top.loadCSS(["common/global.css", "module/addr/addr.css"], document);
+                top.loadScript('libs.pack.js', document);
+                top.loadScript('m139.core.pack.js', document);
+                top.loadScript('/m2012/js/service/addr/i18n/zh_hans.js', document);
+                top.loadScript("/m2012/js/packs/addr/addr_import_file.html.pack.js", document);
+            } catch (ex) {
+            }
+        </script>
+
+        <!--
+        <script type="text/javascript">
+        Utils.loadSkinCss(null, document, "addr");
+        top.addBehavior("打开清理页面");
+        </script>
+        -->
+
+        <style>
+            .coll-one {
+                margin-right: 15px;
+            }
+            .force-hide {
+                display: none !important;
+            }
+            .select-group {
+                padding: 3px;
+                position: relative;
+                top: -2px
+            }
+            .setArea{overflow: hidden;}
+            .setArea h2{left: 20px;}
+            .setWrap .addr-nav{margin-left:0;}
+        </style>
+
+        <!--[if lt IE 8]>
+        <style>
+            #selectImportGroup, #newImportGroup {
+                padding: 0
+            }
+        </style>
+        <![endif]-->
+
+    </head>
+    <body>
+        <div class="setArea">
+                <h2><strong>导入通讯录</strong> | <a href="javascript:void(0);" class="fanghui to-addr-home" id="goBack">&lt;&lt;返回</a></h2>
+            </div>
+            <div class="addr-nav">
+                <ul>
+                    <li >
+                        <a bh="addr_importClone_label" href="addr_import_clone.html" target="_self">导入其他邮箱通讯录</a>
+                    </li>
+                    <li class="on">
+                        <a href="javascript:void(0);">导入本地联系人</a>
+                    </li>
+                    <li >
+                        <a bh="addr_importPim_label" href="addr_import_pim.html" target="_self">导入“和通讯录”</a>
+                    </li>
+                </ul>
+            </div>
+        <div class="setWrap">
+            
+            <div class="">
+                <form id="importFileContactsForm" action="about:_blank" name="frmInput" target="ifmInput" method="post" enctype="multipart/form-data">
+                    <ul class="form setForm">
+                        <li class="formLine">
+                            <label class="label">选择导入文件：</label>
+                            <div class="element">
+                                <div>
+                                    <input type="file" id="File1" name="File1"  />
+                                </div>
+                                <p class="gray">
+                                    支持 .CSV 和 .VCF 格式文件
+                                </p>
+                            </div>
+                        </li>
+                        <li class="formLine">
+                            <label class="label">保存联系人：</label>
+                            <div class="element">
+                                <div>
+                                    <input  id="groupType_0" type="radio" name="groupBy" value="0" class="mr_5" checked="checked" />
+                                    <label for="groupType_0">保留被导入文件分组</label>
+                                </div>
+                                <div>
+                                    <div class="fl mr_15">
+                                        <input id="groupType_1" type="radio" name="groupBy" value="1" class="mr_5" />
+                                        <label for="groupType_1">把所有联系人导入到</label>
+                                    </div>
+                                    <div class="fl mr_5">
+                                        <select id="selectImportGroup" class="select-group"></select>
+                                    </div>
+                                    <div class="fl">
+                                        <input id="newImportGroup" class="select-group" type="text" placeholder="输入新组名..." style="display: none;width:200px;" maxlength="16" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="pt_5 pb_5">
+                                        &nbsp;
+                                    </p>
+                                </div>
+                                <div>
+                                    <p class="pt_5 pb_5">
+                                        如遇相同的邮箱或手机号，则
+                                    </p>
+                                </div>
+                                <div>
+                                    <input id="repeatType_1" type="radio" name="repeat" value="1" class="mr_5"  checked="checked" />
+                                    <label for="repeatType_1">跳过</label><span class="gray">（保留邮箱联系人资料）</span>
+                                </div>
+                                <div>
+                                    <input id="repeatType_2" type="radio" name="repeat" value="2" class="mr_5" />
+                                    <label for="repeatType_2">替换</label><span class="gray">（待导入的重复联系人将替换邮箱对应的联系人）</span>
+                                </div>
+
+                                <!-- <input type="hidden" name="repeat" id="repeat2" value="1" /> -->
+                                <input type="hidden" name="GroupType" value="" />
+                                <input type="hidden" name="GroupName" value="" />
+                                <div class="pt_20">
+                                    <a id="submitContacts" href="javascript:void(0)" class="btnG mr_10"><span>导 入</span></a><a id="cancelImport" href="javascript:void(0)" class="btnTb to-addr-home"><span>取 消</span></a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </form>
+            </div>
+            <div id="exportFileExplanation">
+                <p class="gray fz_14 mt_20">
+                    导出和创建.CSV 、.VCF格式文件的方法：
+                </p>
+                <div class="addr-nav">
+                    <ul>
+                        <li id="_foxmailGuide" class="on">
+                            <a href="javascript://">Foxmail导出</a>
+                        </li>
+                        <li id="_outlookGuide">
+                            <a href="javascript://">Outlook导出</a>
+                        </li>
+                        <li id="_expressGuide">
+                            <a href="javascript://">Express导出</a>
+                        </li>
+                        <li id="_fileTemplateGuide">
+                            <a href="javascript://">模板文件</a>
+                        </li>
+                    </ul>
+                </div>
+                <div id="foxmailGuide" class="export-guide-detail addr-out-area ta_c">
+                    <img src="../../images/module/addr/foxmailo.jpg" widt="678" height="528" />
+                </div>
+                <div id="outlookGuide" class="export-guide-detail addr-out-area ta_c force-hide">
+                    <img src="../../images/module/addr/outlooko.jpg" widt="678" height="844" />
+                </div>
+                <div id="expressGuide" class="export-guide-detail addr-out-area ta_c force-hide">
+                    <img src="../../images/module/addr/expresso.jpg" widt="678" height="526" />
+                </div>
+                <div id="fileTemplateGuide" class="export-guide-detail addr-out-area force-hide">
+                    <p>
+                        下载通讯录模板自已创建CSV、VCF文件，按照模板格式填写后上传。
+                    </p>
+                    <P class="pb_20 pt_10"><img src="../../images/module/addr/mico.jpg" width="35" height="33" class="imgv" /><a id="btnDownloadTemplate" href="javascript:void(0)">[下载通讯录模板]</a>
+                    </P>
+                </div>
+            </div>
+        </div>
+
+        <div style="display:none">
+            <iframe name="ifmInput" id="ifmInput" style="width:0px;height:0px;"></iframe>
+        </div>
+        <div id="tipWrap" class="tipsOther" tabindex="0" hidefocus="true" style="position: absolute; outline: none; left: 141px; top: 81px; z-index: 9999; display:none;">
+            <div class="tips-text" id="tipContent"></div>
+            <div class="tipsBottom  diamond" style="left:10px"></div>
+        </div>
+    </body>
+</html>

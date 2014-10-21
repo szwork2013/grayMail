@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>正文</title>
+<script type="text/javascript">
+    if (/MSIE [5-8]/.test(navigator.userAgent) || /firefox|webkit|opera|safari/i.test(navigator.userAgent)) {
+        document.designMode = "on";
+    }
+    try{
+	    document.domain=window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+    }catch(e){}
+    if (document.attachEvent) {
+        document.attachEvent("onkeydown", keyDown);
+    }else{
+        document.addEventListener("keydown",keyDown,false);
+    }
+    
+    //top.loadCSS(["module/imgeditor.css"], document); //放在m2012.readmail.imgeditormenu.js中加载
+
+    function keyDown(e){
+        e = e || event;
+        try {
+	        if (window.top.globalKeyDownEvent) {
+		        return window.top.globalKeyDownEvent(e);
+	        }
+        } 
+        catch (e) {
+        }
+    }
+</script>
+    <style type="text/css">
+        html,body{ overflow-y:hidden; height:auto;  min-height:125px; _height:125px; *overflow:visible;}
+        body
+        {
+            padding: 0px 5px;
+            background: #fff;
+            padding-bottom: 0px;
+            margin: 0px;
+            /*font: 14px Verdana;*/
+            font: medium Verdana;
+            overflow: auto;
+            /*padding-top: 2px;*/
+            line-height: 150%;
+			word-break:break-all;
+        }				
+        p
+        {
+            line-height: 150%;
+        }
+        font
+        {
+            line-height: 150%;
+        }
+        div
+        {
+            line-height: 150%;
+        }
+        li
+        {
+            line-height: 150%;
+        }
+        .i
+        {
+            table-layout: fixed;
+            width: auto;
+        }
+        pre
+        {
+            word-wrap: break-word;
+        }
+
+
+.imp3,.imp4{background:url("/m2012/images/module/atta/redico.png") no-repeat;_background:url("/m2012/images/module/atta/redico_8.png") no-repeat;}
+
+/* 图片 */
+.ptitle .imp3{background-position: 0 0;padding-left: 20px;}
+.ptitle .imp4{background-position: 0 -24px;padding-left: 23px;}
+.pivPic{margin:10px 0 20px 0;}
+.pivPic img{margin-right: 15px;}
+.pivBrower{width: 600px;margin:10px 0 20px 0;background-color: #000;}
+.pivAudio{margin:10px 0 20px 0;width: 360px;}
+.ptitle{font-size: 13px;line-height: 23px;padding-top: 5px;}
+.ptitle p{line-height: 23px;height: 23px;}
+.ptitle span{color: gray;margin:0 8px;}
+.ptitle a{color: #014282;text-decoration: none;}
+.ptitle a:hover{text-decoration: none;}
+
+    </style>
+</head>
+<body contenteditable="true"></body>
+</html>
+<script>
+	top.$App.trigger('covEditPageLoaded', {win:window});
+</script>

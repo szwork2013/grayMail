@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<title>文件快递发送-139邮箱</title>
+
+
+    <script type="text/javascript">
+
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+        top.loadCSS(["common/global.css", "module/write.css", "module/btips/btips.css"], document);
+
+    </script>
+
+
+
+<body>
+	<div class="btips-body" style="margin:50px 100px">
+		<span class="lbg"></span>
+		<span class="rbg"></span>
+		<div class="top"></div>
+		<div class="content">
+			<div class="header">
+				<a href="#" title="关闭" class="close" id="closeWishWindow"></a>
+			</div>
+			<div class="htitle">今年生日，你的心愿是什么？最希望得到什么礼物？告诉TA吧...</div>
+			<div class="btipswrite">
+				<a href="javascript:void(0);" title="" id="contacts" class="i_peo"></a>
+				<table class="writeTable">
+					<tr>
+						<th scope="row" width="40" class="ta_r" valign="top">
+							<span class="fr mt_5">
+								<a hidefocus="1" id="receiverTo" style="text-decoration:none; cursor:default" >朋友</a>：
+							</span>
+						</th>
+						<td>
+
+								<div id="toContainer" style="position:relative">
+                                    <div id="toContainerInner" style="margin-right:25px; overflow-y:auto; overflow-x:hidden; position:relative;height:50px;*height:50px"></div>
+
+								</div>
+
+						</td>
+					</tr>
+
+				</table>
+			</div>
+			<div class="textlist" style="padding-bottom:5px">
+				<ul>
+					<li><input type="checkbox" name="" class="mr_5" value=""><label for="">为我唱首生日歌</label></li>
+					<li><input type="checkbox" name="" class="mr_5" value=""><label for="">甜蜜蛋糕送到手</label></li>
+					<li><input type="checkbox" name="" class="mr_5" value=""><label for="">平安健康伴一生</label></li>
+				</ul>
+				<p class="pt_15">其他愿望：</p>
+				<textarea class="textlist-area gray" id="otherWish">愿望不怕多，全部写来告诉TA</textarea><!-- 输入时去掉gray -->
+				<div style="height:50px; position:relative">
+                <input type="text" id="customName" style="bottom:8px; right:25px" class="iText mt_5 gray" name="" value="填写你的名字" /><!-- 输入时去掉gray -->
+				<a href="###" class="sendbtn" id="sendbtn" title="">立即发送</a>
+                </div>
+			</div>
+
+		</div>
+		<div class="bot"></div>
+	</div>
+    <script>
+
+        var v = "20130523";
+
+        top.loadScript('libs.pack.js', document);
+        top.loadScript('m139.core.pack.js', document);
+        top.loadScript("m2012.ui.common.pack.js", document);
+        top.loadScript('richinput.html.pack.js', document);
+        top.loadScript('m2012.product.birthdaywish.pack.js?v='+v, document);
+    </script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="Keywords" content="" />
+<meta name="Description" content="" />
+<title>139邮箱</title>
+<link rel="stylesheet" href="../../css/common/global.css" type="text/css" />
+<link rel="stylesheet" href="../../css/module/write.css" type="text/css" />
+
+
+<link rel="stylesheet" href="../../css/module/set.css" type="text/css" />
+
+    <script src="../libs.pack.js"></script>
+    <script src="../m139.core.pack.js"></script>
+    <script src="../m2012.ui.common.pack.js"></script>
+    <script src="../ui/picker/m2012.ui.picker.pickerbase.js" type="text/javascript"></script>
+    <script src="../ui/picker/m2012.ui.picker.timerange.js" type="text/javascript"></script>
+    <script src="../ui/picker/m2012.ui.picker.calendar.js" type="text/javascript"></script>
+    <script src="../ui/picker/m2012.ui.picker.range.js" type="text/javascript"></script>
+</head>
+<body class="bodycolor">
+    <div style="margin:100px;">
+        <p>
+            <h1>时间点</h1>
+            <input id="txtTime" type="text" />
+        </p>
+        <br /><br /><br /><br /><br />
+        <p>
+            <h1>时间范围</h1>
+            <input id="txtTime2" type="text" />
+        </p>
+        <br /><br /><br /><br /><br />
+        <div>
+            <h1>整点时间</h1>
+            <div id="divContainer"></div>
+        </div>
+        <br /><br /><br /><br /><br />
+        <div>
+            <h1>选分钟</h1>
+            <div id="divContainerMinutes"></div>
+        </div>
+
+        <br /><br /><br /><br /><br />
+        <div>
+        <p>
+            <h1>日历</h1>
+            <input id="txtCalendar" type="text" />
+        </p>
+        </div>
+
+        <br /><br />
+        <div id="divRange"></div>
+        <div id="divRangeResult"></div>
+
+
+        <div id="divRange2"></div>
+    </div>
+    <script>
+
+
+        var time = new M2012.UI.Picker.TimeRange({
+            bindInput:document.getElementById("txtTime"),
+            value:0,
+            showMinutes:true
+        });
+
+
+        time.on("select",function(e){
+            document.getElementById("txtTime").value = e.value.format("hh:mm");
+        });
+
+        var timeArea = new M2012.UI.Picker.TimeRange({
+            bindInput:document.getElementById("txtTime2"),
+            isArea:true,
+            value:{
+                start:1,
+                end:5
+            }
+        });
+        timeArea.on("select",function(e){
+            document.getElementById("txtTime2").value = e.value.start + "-" + e.value.end;
+        });
+
+        var time2 = new M2012.UI.Picker.TimeRange({
+            container:document.getElementById("divContainer"),
+            value:10
+        }).render();
+
+        var time3 = new M2012.UI.Picker.TimeRange({
+            container:document.getElementById("divContainerMinutes"),
+            value:0,
+            showMinutes:true
+        }).render();
+
+
+        var calendarPicker = new M2012.UI.Picker.Calendar({
+            bindInput: document.getElementById("txtCalendar"),
+            stopPassDate : true,
+            value:new Date()
+        });
+        calendarPicker.on("select",function(e){
+            document.getElementById("txtCalendar").value = e.value.format("yyyy-MM-dd");
+        });
+
+
+        var range1 = new M2012.UI.Picker.Range({
+            container:document.getElementById("divRange"),
+            items:[{
+                text:"不清理",
+                value:0
+            },{
+                text:"7天",
+                value:7
+            },{
+                text:"15天",
+                value:15
+            },
+            {
+                text:"30天",
+                value:30
+            }]
+        });
+        range1.render();
+        range1.on("select",function(e){
+            document.getElementById("divRangeResult").innerHTML = e.value;
+        });
+
+
+
+        var range2 = new M2012.UI.Picker.Range({
+            container:document.getElementById("divRange2"),
+            items:[{
+                text:"20封",
+                value:20
+            },{
+                text:"50封",
+                value:50
+            },{
+                text:"100封",
+                value:100
+            }],
+            value:50
+        });
+        range2.render();
+    </script>
+</body>
+</html>

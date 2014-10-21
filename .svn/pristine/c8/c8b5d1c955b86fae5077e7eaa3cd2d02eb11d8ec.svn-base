@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="Keywords" content="" />
+	<meta name="Description" content="" />
+	<title>收件箱-139邮箱</title>
+	<script type="text/javascript">
+	    document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+	    if (!top.m139LoadScript) {top.m139LoadScript = top.loadScript;}
+	    top.m139LoadScript('libs.pack.js', document); 
+	    top.m139LoadScript('m139.core.pack.js', document)
+	    top.loadCSS(["common/global.css", "module/write.css"], document)
+	</script>
+</head>
+<body>
+	<div class="writeOk_new clearfix">
+
+		<div class="writeOk_ico"><i class="i_ok"></i></div>
+		<div class="writeOk_info">
+			<h1 id="snedStatus"></span></h1>
+			<div class="writeOk_info_btn">
+				<a href="javascript:;" id="sendSMS"><i class="i_writeSMS"></i>短信通知收件人</a>
+				<a href="javascript:;" id="showDeliverStatus"><i class="i_writeMail"></i>查看发送状态</a>
+				<a href="javascript:;" id="showCompose"><i class="i_writeAgain"></i>再写一封</a>
+				<a href="javascript:;" id="showMailBox"><i class="i_writeCharge"></i>去收件箱</a>
+			</div>
+			<div class="writeOk_info_pic clearfix" id="integral">
+				<span>发邮件获得 <strong>2</strong> 积分</span>
+				<a href="javascript:;" class="i_writeBtnB"></a>
+				<a href="javascript:;" class="i_writeBtnA"></a>
+			</div>
+
+			<div class="writeOk_box" style="display:none" id="addContact"></div>
+			<div class="writeOk_box" style="display:none" id="randomModule"></div>
+		</div>
+	</div>
+
+	<div id="tipsBox" style="position: absolute;display:none;" class="tipsOther">
+		<div class="tips-text">
+			<i class="i_ok_min"></i>
+			<span class="tipsText">请勾选要添加的联系人</span>
+		</div>
+		<span class="tipsBottom diamond"></span>
+	</div>
+</body>
+    <script>top.m139LoadScript("write_ok_new.html.pack.js", document)</script>
+</html>

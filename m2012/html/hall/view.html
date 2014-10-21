@@ -1,0 +1,266 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="Keywords" content="" />
+    <meta name="Description" content="" />
+    <title>139邮箱-邮箱营业厅</title>
+
+    <script type="text/javascript">
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+
+        top.loadScript("libs.pack.js", document);
+        top.loadScript("m139.core.pack.js", document);
+        top.loadCSS(["common/global.css", "module/hall/hall.css"], document);
+    </script>
+</head>
+<body>
+    <div class="hall-title">
+        <a href="index.html">邮箱营业厅</a>  &gt; <strong>查看账单</strong>
+    </div>
+    <div id="loading" style="position:absolute; top:50%; left:50%; margin:-8px 0 0 -8px;">
+			<img src="../../images/global/load.gif">          
+		</div>
+    <div id="body" style="display:none" class="hall-body">
+        <div class="hall-browser clearfix" style="padding:0">
+            <ul class="hall-browser-ul" style="height: 482px" id="leftList">
+                <li class="on" style="cursor:pointer"><strong class="fs_14"><span class="mr_10">趋势图</span>历史话费趋势</strong></li>
+                <!--
+                <li><span class="mr_10">2013-02</span>总话费<strong class="c_009900">300.80</strong>元</li>
+                <li><span class="mr_10">2013-02</span>总话费<strong class="c_009900">401.00</strong>元</li>
+                <li>
+                    <span class="mr_10">2013-02</span>总话费<strong class="c_009900">300.80</strong>元
+                </li>
+                <li>
+                    <span class="mr_10">2013-02</span>总话费 <strong class="c_009900">401.00</strong>元
+                </li>
+                <li>
+                    <span class="mr_10">2013-02</span>总话费<strong class="c_009900">300.80</strong>元
+                </li>
+                <li>
+                    <span class="mr_10">2013-02</span>总话费<strong class="c_009900">401.00</strong>元
+                </li>-->
+            </ul>
+            <div class="tips tips-hall-browser" id="container">
+                <div class="tipsLeft diamond" style="top: 34px;" id="angle"></div>
+                <div class="tips-text" id="tips-text" style="display: none;">
+                    <!--
+                    <div class="hide">
+                        <p>
+                            5个月总话费： <strong class="c_009900">1596.70</strong>
+                            元
+                        </p>
+                        <p>
+                            月平均话费： <strong class="c_009900">319.70</strong>
+                            元
+                        </p>
+                        <div class="mt_10">
+                            <img width="443" height="280" src="http://bbs.html5cn.org/data/attachment/forum/201301/22/102932bpmlehhrrewd5dl4.jpg" />
+                        </div>
+                    </div>-->
+                    <div>
+                        <!-- 每月明细 -->
+                        <p class="mt_10" id="time_fee"></p>
+                        <div>
+                            <h2 class="mt_15">费用信息</h2>
+                            <table class="moth-view-table">
+                                <tbody id="detailFee">
+                                    <tr>
+                                        <td>总额</td>
+                                        <td class="td1"><strong class="c_009900">193.00</strong></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="hide">
+                        <!-- 无数据 -->
+                        <div class="hall-b-no">
+                            对不起，由于未到帐日或停机等原因，
+该月账单无数据显示
+                        </div>
+                    </div>
+                </div>
+                <!-- top值 下一个 加 68 -->
+                <div class="text-view" id="text-view1" style="display: none;">
+                    <p class="fz_14">
+                        <i class="i_warn"></i>
+                        对不起，由于您现在没有月账单，此页无数据显示					
+                    </p>
+                </div>
+                <div class="text-view" id="text-view" style="display: none;">
+                    <p class="fz_14">
+                        <i class="i_warn"></i>
+                        对不起，由于未到帐单日或手机停机等原因，该月账单无数据显示					
+                    </p>
+                </div>
+                <div class="list-view" id="list-view">
+                    <p id="allFee"></p>
+                    <p id="meanFee"></p>
+                    <div class="viewBox">
+                        <span class="charge"><a href="#" class="mr_15"><span class="purple"></span>其他费用</a><a href="#"><span class="blue"></span>月基本费用</a></span>
+                        <div class="list">
+                            <div class="point">300<span></span></div>
+                            <div class="point">200<span></span></div>
+                            <div class="point">100<span></span></div>
+                            <div class="point" id="rightPics">0<span style="*margin-left: 42px;"></span></div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <p class="ta_r gray pt_5">提供查询最近6个月的历史账单</p>
+    </div> 
+    <div class="hall-error" id="loadFail" style="display:none;position: absolute;left: 50%;top: 50%;width: 240px;height: 40px;margin-left: -120px;margin-top: -20px;"> <i class="i_warn mr_10"></i>
+            页面加载失败，<a href="javascript:document.location.reload()">点击重试</a>！
+        </div>
+    <script type="text/javascript">
+
+
+        //全局变量
+        var leftList = [],
+            rightPics = [],
+            rightTime = [],
+            detail = [],
+            allFee = 0,
+            month = 0,
+            dataList;
+
+        top.M139.UI.TipMessage.show("数据加载中....");
+        M139.RichMail.API.call("businessHall:queryBillInfo", {}, function (result) {
+            top.M139.UI.TipMessage.hide();
+            $('#loading').remove();
+            var dataList = result.responseData;
+            if (dataList && dataList.code === "S_OK") {
+                
+                $('#body').show();
+                dataList = dataList['var'].billList;
+                dataList = dataTrim(dataList);   //防后台误传，过滤数据
+                takeData(dataList);   //处理数据，组装HTML
+            } else {
+                $('#loadFail').show();
+            }
+        });
+
+        function dataTrim(list) {
+            for (var i = 0; i < list.length; i++) {
+                if (parseInt(list[i].fee) == 0) {
+                    list.splice(i--, 1);
+                }
+            }
+            return list.slice(0,6);
+        }
+
+        function takeData(dataList) {
+            if (dataList.length == 0) {
+                $('#list-view').hide();
+                $('#text-view1').show();
+                return;
+            }
+
+            month = dataList.length;
+            for (var i = 0 ; i < month; i++) {
+                leftList.push(listItemHtml(dataList[i]));  //左侧列表HTML
+                rightTime.push(dateItemHtml(dataList[i]));  //右侧时间刻度
+                rightPics.push(picsItemHtml(dataList[i], month - i));  //右侧柱状图
+                allFee += parseFloat(dataList[i].fee);    //总费用
+            }
+            rightTime.reverse();
+            $('#leftList').append(leftList.join(''));
+            $('#rightPics').append(rightTime.join('') + rightPics.join(''));
+            $('#allFee').text(month + '个月总话费：' + parseFloat(allFee).toFixed(2) + '元');
+            $('#meanFee').text('月平均话费：' + (allFee / month).toFixed(2) + '元');
+            $('#leftList li:gt(0)').click(function () {
+                $('#leftList li').removeClass('on');
+                $(this).addClass('on');
+                var angleTop = ($(this).index() * 69) + 34;
+                $('#angle').css('top', angleTop + 'px');
+                var i = ($(this).index()) - 1;
+                rightDetailHtml(dataList, i);
+            });
+            $('#leftList li').eq(0).click(function () {
+                $('#leftList li').removeClass('on');
+                $(this).addClass('on');
+                $('#container >div:gt(0)').hide();
+                $('#list-view').show();
+                $('#angle').css('top', '34px');
+            });
+
+
+        }
+        //右侧详情页展示
+        function rightDetailHtml(dataList, i) {
+            $('#container >div:gt(0)').hide();
+            if (dataList[i] && dataList[i].list) {
+                $('#tips-text').show();
+                var time = dataList[i].date;
+                time = $.trim(time);
+                time = time.slice(0, 4) + '年' + time.slice(4, 6) + '月';
+                var list = [];
+                $('#time_fee').html(time + '总话费： <strong class="c_009900">' + dataList[i].fee + '</strong>元');
+                for (var j = 0; j < dataList[i].list.length; j++) {
+                    var integrateItem = dataList[i].list[j].integrateItem;
+                    if (dataList[i].list[j].specialFlag == '2') {
+                        integrateItem = '&nbsp;&nbsp;·&nbsp;' + integrateItem;
+                    } else {
+                        integrateItem = '<b>' + integrateItem + '</b>'
+                    }
+                    list.push('<tr><td>' + integrateItem + '</td><td class="td1"><strong class="c_009900">' + dataList[i].list[j].integrateFee + '</strong></td></tr>')
+                }
+                $('#detailFee').html(list.join(''));
+            } else {
+                $('#text-view').show();
+            }
+        }
+
+
+
+        //左侧列表单条显示
+        function listItemHtml(dataList) {
+            var time = dataList.date;
+            time = $.trim(time);
+            time = time.slice(0, 4) + '-' + time.slice(4, 6);
+            return '<li style="cursor:pointer"><span class="mr_10">' + time + '</span>总话费<strong class="c_009900">' + dataList.fee + '</strong>元 </li>';
+        }
+
+        //右边时间刻度
+        function dateItemHtml(dataList) {
+            var date = $.trim(dataList.date);
+            return '<em>' + date.slice(0, 6) + '</em>';
+        }
+
+        //右侧柱状图
+        function picsItemHtml(dataList, j) {
+            
+            var fee = parseFloat(dataList.fee);
+            var baseFee = parseFloat(dataList.baseFee);
+            var otherFee = fee - baseFee;
+
+            //如果基本费用比总费用高，就取部费用高度，没有otherfee图
+            if (fee - baseFee > 0) {
+                var otherHeigth = parseInt(60 / 100 * (fee - baseFee));
+                var baseHeigt = parseInt(60 / 100 * baseFee);
+            } else {
+                var otherHeigth = 0;
+                var baseHeigt = parseInt(60 / 100 * fee);
+            }
+
+            if (baseHeigt > 180) {
+                baseHeigt = 180;
+                otherHeigth = 0;
+            } else {
+                if ((baseHeigt + otherHeigth) > 180) {
+                    otherHeigth = 180 - baseHeigt;
+                }
+            }
+            return ['<div class="yy yy' + j + '">',
+                '<div class="purple" style="height:' + otherHeigth + 'px"></div>',
+                '<div class="blue"   style="height:' + baseHeigt + 'px"></div>',
+                '</div>'].join('');
+        }
+
+    </script>
+</body>
+</html>

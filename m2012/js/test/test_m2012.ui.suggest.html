@@ -1,0 +1,46 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="Keywords" content="" />
+<meta name="Description" content="" />
+<title>139邮箱</title>
+<link rel="stylesheet" href="../../css/common/global.css" type="text/css" />
+<link rel="stylesheet" href="../../css/common/frame.css" type="text/css" />
+<link rel="stylesheet" href="../../css/skin/skin_lightblue.css" type="text/css" />
+    <script src="../packs/libs.pack.js" type="text/javascript"></script>
+    <script src="../core/m139.core.js" type="text/javascript"></script>
+    <script src="../core/m139.browser.js" type="text/javascript"></script>
+    <script src="../core/m139.json.js" type="text/javascript"></script>
+    <script src="../core/m139.text.js" type="text/javascript"></script>
+    <script src="../core/m139.date.js" type="text/javascript"></script>
+    <script src="../core/m139.dom.js" type="text/javascript"></script>
+    <script src="../core/m139.event.js" type="text/javascript"></script>
+    <script src="../core/m139.httpclient.js" type="text/javascript"></script>
+    <script src="../core/m139.exchangehttpclient.js" type="text/javascript"></script>
+    <script src="../core/m139.logger.js" type="text/javascript"></script>
+    <script src="../core/m139.view.viewbase.js" type="text/javascript"></script>
+    <script src="../contacts/m2012.contacts.contactsinfo.js" type="text/javascript"></script>
+    <script src="../contacts/m2012.contacts.model.js" type="text/javascript"></script>
+    <script src="../ui/suggest/m2012.ui.suggest.inputsuggest.js" type="text/javascript"></script>
+    <script src="../ui/suggest/m2012.ui.suggest.addrsuggest.js" type="text/javascript"></script>
+</head>
+<body class="bodycolor">
+    <div style="margin:100px;">
+        <input type="text" id="txt" />
+    </div>
+    <script>
+
+        M2012.Contacts.getModel().loadMainData({
+            testUrl:"html/contactsData.js"
+        },
+        function(){
+            var menu = M2012.UI.Suggest.AddrSuggest.create({
+                textbox:$("#txt")[0],
+                filter:"email"
+            });
+        });
+       
+    </script>
+</body>
+</html>

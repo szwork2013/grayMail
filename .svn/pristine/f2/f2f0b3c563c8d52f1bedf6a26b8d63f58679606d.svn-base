@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" id="page-mydisk">
+<head>
+    <title>彩云网盘</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <meta http-equiv="pragma" content="no-cache" />
+
+    <script type="text/javascript">    
+    //设域
+    document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1].replace(/:\d+/, "");
+    //加载CSS和JS,CommonInit(当前document,彩云最顶层window)
+    window.parent.CommonInit(document, window.parent, [{"dirName": "js/", fileName:"m2011.disk.listpager.js"},{"dirName": "js/", fileName:"m2011.disk.filelist.js"}]);
+    </script>
+
+    <script type="text/javascript">
+    //加载皮肤
+    Utils.loadSkinCss(null, document, "netdisk");
+    $(function(){
+        $("#aDefaultInstall").attr("href", top.ucDomain + "/LargeAttachments/html/control139.htm");      
+        DiskTool.AddListenScroll();
+    });
+    </script>
+</head>
+<body>
+<div id="container">
+        <div class="folderPath" style="position:relative;padding:3px 150px 8px 0;"><!--多个目录格式如下-->
+            <span id="spMapPath"></span>&nbsp;<span style="color:#333;" id="aFileInfo">(共0个文件)</span>
+            <a href="javascript:window.parent.DiskTool.SwichPageMode('friendshare');" id="aShareInfo" style="position:absolute;right:10px;top:3px;">好友最新共享0个文件</a>
+        </div> 
+        
+        <div class="rcd-hd">
+            <div class="page">
+                <a href="#" style="display:none">首页</a>
+                <a href="#">上一页</a>
+                <a href="#">下一页</a>
+                <a href="#" style="display:none">末页</a>
+                <select keyname="pagerSelect"></select>
+            </div>
+            
+            <div class="diskSortWrap">
+                <a class="diskSortTitle">排序</a>
+                <ul class="diskSort" style="display:none;">
+                    <li><a href="javascript:;" id="date-desc">时间从新到旧时</a></li>
+                    <li><a href="javascript:;" id="date-asc">时间从旧到新时</a></li>
+                    <li><a href="javascript:;" id="size-asc">文件从大到小</a></li>
+                    <li><a href="javascript:;" id="size-desc">文件从小到大</a></li>
+                    <li><a href="javascript:;" id="type-asc">按文件类型升序</a></li>
+                    <li><a href="javascript:;" id="type-desc">按文件类型降序</a></li>
+                    <li><a href="javascript:;" id="name-asc">按文件名升序</a></li>
+                    <li><a href="javascript:;" id="name-desc">按文件名降序</a></li>
+                </ul>
+            </div>
+
+            <div id="sendFileMenu" class="drop-menu sent-locker" style="display: none;">
+                <ul>
+                    <li><a id="aEmail" href="#">发送到邮箱</a></li>
+                    <li><a id="aWap" href="#">发送到手机(wap)</a></li>
+                    <li><a id="aMMS" href="#">发送到手机(彩信)</a></li>
+                </ul>
+            </div>
+            <div id="sendMove" class="drop-menu sent-locker" style="display: none;">
+                <ul id="ulDownList">
+                    <li><a href="#"></a></li>
+                </ul>
+            </div>
+            
+            <button id="aUpload" type="button" class="include-i">上传<i class="i-upload"></i></button>
+            <button id="aDown" type="button" class="include-i">下载<i class="i-download"></i></button>
+            <button id="aDel" type="button">删除</button>&nbsp;&nbsp;&nbsp;&nbsp;
+            <button id="aSendFile" class="include-i">发送<i class="i-list"></i></button>
+            <button id="aShare" type="button">共享</button>
+            <!--<button id="aSendWeibo" type="button">发布到微博</button>-->&nbsp;&nbsp;&nbsp;&nbsp;
+            <button id="aCreateDoc" type="button">新建文件夹</button>
+            <button id="aMove" type="button" class="include-i">移动到</button>
+            <button id="aClassify" type="button" style="display:none;"  title="一键分类可帮助你将文件归类到相应文件夹中">一键归类</button>
+
+        </div>
+        
+        <table cellpadding="0" class="tbl-list">
+            <thead>
+                <tr>
+                    <th class="t-check">
+                        <label id="lblSelectAllFile" for="cbSelectAllFile">全选</label><input style="position:absolute;left:-999px;top:-999px;" type="checkbox" id="cbSelectAllFile" /></th>
+                    <th class="t-type" title="点击按类型排序">
+                        类型<span class="t-arrow"></span></th>
+                    <th class="t-name" title="点击按名称排序">
+                        名称<span class="t-arrow"></span></th>
+                    <th class="t-date" title="点击按时间排序">
+                        时间<span class="t-arrow"></span></th>
+                    <th class="t-size" title="点击按大小排序">
+                        大小<span class="t-arrow"></span></th>
+                </tr>
+            </thead>
+        </table>
+        <div class="tbl-list-return">
+            <p>
+                <a href="javascript:void(0)" title="返回上级">返回上级</a></p>
+        </div>       
+        <div style="display: none" class="tbl-list-null">
+            <p>
+                该文件夹为空</p>
+        </div>
+        <table cellpadding="0" class="tbl-list">
+            <tbody id="tbl-fileList">
+            </tbody>
+        </table>
+        
+        <table cellpadding="0" class="tbl-list">
+				<tr class="tfoot">
+					<th class="t-check"><label id="lblSelectAllFile2" for="cbSelectAllFile">全选</label></th>
+					<th>
+					
+					</th>
+				</tr>
+	    </table>
+	    
+        <div class="rcd-hd" >
+            <div class="page">
+                <a href="#" style="display:none">首页</a>
+                <a href="#">上一页</a>
+                <a href="#">下一页</a>
+                <a href="#" style="display:none">末页</a>
+                <select></select>
+            </div>
+            <div id="sendFileMenu2" class="drop-menu sent-locker" style="display: none;">
+                <ul>
+                    <li><a id="aEmail2" href="#">发送到邮箱</a></li>
+                    <li><a id="aWap2" href="#">发送到手机(wap)</a></li>
+                    <li><a id="aMMS2" href="#">发送到手机(彩信)</a></li>
+                </ul>
+            </div>
+            <div id="sendMove2" class="drop-menu sent-locker" style="display: none;">
+                <ul id="ulDownList2">
+                    <li><a href="#"></a></li>
+                </ul>
+            </div>
+            
+            <button id="aUpload2" type="button" class="include-i">上传<i class="i-upload"></i></button>
+            <button id="aDown2" type="button" class="include-i">下载<i class="i-download"></i></button>
+            <button id="aDel2" type="button">删除</button>&nbsp;&nbsp;&nbsp;&nbsp;
+            <button id="aSendFile2" class="include-i">发送<i class="i-list"></i></button>
+            <button id="aShare2" type="button">共享</button>
+            <!--<button id="aSendWeibo2" type="button">发布到微博</button>-->&nbsp;&nbsp;&nbsp;&nbsp;
+            <button id="aCreateDoc2" type="button">新建文件夹</button>
+            <button id="aMove2" type="button" class="include-i">移动到</button>
+            <button id="aClassify2" type="Button"  style="display:none;" title="一键分类可帮助你将文件归类到相应文件夹中">一键归类</button>
+            
+        </div>
+    </div>
+    <iframe id="iframecgi" width="0" height="0" style="display: none"></iframe>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>mail.139.com</title>
+
+</head>
+<body>
+<style>
+body{background:#DFEBB6;}
+body,th, td {
+    margin: 0;
+    padding: 0;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+	font-size:12px;
+	table-layout:fixed;
+	 width:100%;
+}
+
+.header , .header td ,.midder ,.midder td{
+	vertical-align:top;
+}
+</style>
+<table width="100%" style="height:100%;min-width:660px;">
+	<tr>
+    	<td background="contentbg.png" style="background-repeat:repeat-y;background-position:12px top;" valign="top">
+        	<table background="contentbg-left-top.png" style="background-repeat:no-repeat; background-position:30px top;">
+            	<tr>
+                	<td valign="top" align="center" background="contentbg-right-top.png" style="background-repeat:no-repeat; background-position:right top;padding-top:75px">
+						<table style="width:92%">
+                            <tr>
+                                <td background="rowbg.png" class="content" id="content139" contentEditable=true
+                                style="color:#003300;
+                                font-size:12px;
+                                min-height:500px;
+                                line-height:30px;
+                                height:355px;
+                                _height:355px;
+                                _overflow:visible;
+                                vertical-align:top;">
+                                </td>
+                            </tr>
+                        </table>                    
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+    	<td valign="top">
+			<table>
+            	<tr>
+                    <td background="footer-l.png" style=" background-repeat:no-repeat; background-position:0 0;width:389px;height:143px;"></td>
+                    <td background="footer-r.png" style=" background-repeat:no-repeat; background-position:0 80px;width:90px;height:38px;"></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

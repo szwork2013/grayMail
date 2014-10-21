@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>skin</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Language" content="zh-CN"/>
+    <meta name="Keywords" content=""/>
+    <meta name="Description" content=""/>
+    <script type="text/javascript">
+		document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+	</script>
+	<script>
+	    try{
+	        top.loadScript('libs.pack.js', document);
+	        top.loadScript('m139.core.pack.js', document);
+	    } catch (e) { }
+	</script>
+	<script>
+        try{
+            top.loadScript("m2012.ui.common.pack.js", document);
+        } catch (e) { }
+    </script>
+    
+    <script>
+        try{
+            top.loadCSS(["common/global.css", "skin/skin.css"], document);
+        } catch (e) { }
+    </script>
+<body>
+    <div class="skin">
+        <div class="clearfix" id="freeSkins">
+            <h2>常用皮肤</h2>
+        </div>
+        <div class="clearfix mt_20" id="vipSkins">
+            <h2>收费皮肤</h2>
+        </div>
+    </div>
+</body>
+<script>
+    top.loadScript("/m2012/js/richmail/changeskin/m2012.changeskin.model.js",document);
+    top.loadScript("/m2012/js/richmail/changeskin/m2012.changeskin.view.js", document);
+</script>
+</html>

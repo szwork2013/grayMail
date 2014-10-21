@@ -1,0 +1,262 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="Keywords" content=""/>
+    <meta name="Description" content=""/>
+    <title>139邮箱-邮箱营业厅</title>
+    <link rel="stylesheet" href="../../css/common/global.css" type="text/css"/>
+    <link rel="stylesheet" href="../../css//module/hall/hall.css" type="text/css"/>
+</head>
+<body>
+    <div class="hall-title">
+        <a href="index.html">邮箱营业厅</a> &gt; <strong>办业务</strong>
+    </div>
+    <div class="hall-body">
+        <div class="tab tab-hall">
+            <div class="tabTitle">
+                <ul>
+                    <li>
+                        <a href="business.html">
+                            <span>基础套餐</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span>短信套餐</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span>上网套餐</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="appreciation.html">
+                            <span>增值业务</span>
+                        </a>
+                    </li>
+                    <li class="on">
+                        <a href="#">
+                            <span>创新联盟</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="mt_10">
+            <dl class="hall-dl-list hall-dl-on">
+                <!-- 点击展开时加上 hall-dl-on -->
+                <dt>
+                    <span class="dt-name fw_b">GPRS</span>
+                    <a href="#" class="i_2trid" title="展开"></a>
+                </dt>
+                <dd class="union-dd union-dd-on">
+                    <!-- 点击展开时加上 union-dd-on -->
+                    <div>
+                        <a href="javascript:void(0)" class="btnNormal">
+                            <span>办 理</span>
+                        </a>
+                        <div class="dt-num">
+                            <span class="c_009900 fw_n">5</span>
+                            /元月
+                        </div>
+                        <span class="dt-name">GPRS5元套餐</span>
+                    </div>
+                    <div class="tips union-tips">
+                        <div class="tips-text">
+                            <p>
+                                信(国内)：200 条
+                                <br />
+                                被叫免费范围：省内
+                                <br />
+                                赠送业务：赠送彩铃功能、彩铃音乐盒、无线音乐俱乐部高级会员资格
+                            </p>
+                            <div class="dd-line"></div>
+                            <p> <strong>19元音乐卡套餐超出外资费标准：</strong>
+                                <br />
+                                ·通话收费
+                                <br />
+                                &nbsp;&nbsp;本地闲时：
+                                <strong>0.13</strong>
+                                元/分钟
+                                <br />
+                                &nbsp;&nbsp;本地忙时：
+                                <strong>0.23</strong>
+                                元/分钟
+                                <br />
+                                &nbsp;&nbsp;本地主叫国内：
+                                <strong>0.29</strong>
+                                元/分钟
+                            </p>
+                        </div>
+                        <div class="tipsTop diamond"></div>
+                    </div>
+                </dd>
+                <dd class="union-dd">
+                    <div>
+                        <a href="javascript:void(0)" class="btnNormal">
+                            <span>办 理</span>
+                        </a>
+                        <div class="dt-num">
+                            <span class="c_009900 fw_n">10</span>
+                            /元月
+                        </div>
+                        <span class="dt-name">GPRS5元套餐</span>
+                    </div>
+                </dd>
+            </dl>
+            <dl class="hall-dl-list">
+                <dt>
+                    <span class="dt-name fw_b">短信套餐</span>
+                    <a href="#" class="i_2trid" title="展开"></a>
+                </dt>
+                <dd class="union-dd">
+                    <div>
+                        <a href="javascript:void(0)" class="btnNormal">
+                            <span>办 理</span>
+                        </a>
+                        <div class="dt-num">
+                            <span class="c_009900 fw_n">5</span>
+                            /元月
+                        </div>
+                        <span class="dt-name">GPRS5元套餐</span>
+                    </div>
+                </dd>
+                <dd class="union-dd">
+                    <div>
+                        <a href="javascript:void(0)" class="btnNormal">
+                            <span>办 理</span>
+                        </a>
+                        <div class="dt-num">
+                            <span class="c_009900 fw_n">10</span>
+                            /元月
+                        </div>
+                        <span class="dt-name">GPRS5元套餐</span>
+                    </div>
+                </dd>
+            </dl>
+            <dl class="hall-dl-list">
+                <dt>
+                    <span class="dt-name fw_b">通信助手</span>
+                    <a href="#" class="i_2trid" title="展开"></a>
+                </dt>
+                <dd class="union-dd">
+                    <div>
+                        <a href="javascript:void(0)" class="btnNormal">
+                            <span>办 理</span>
+                        </a>
+                        <div class="dt-num">
+                            <span class="c_009900 fw_n">5</span>
+                            /元月
+                        </div>
+                        <span class="dt-name">GPRS5元套餐</span>
+                    </div>
+                </dd>
+                <dd class="union-dd">
+                    <div>
+                        <a href="javascript:void(0)" class="btnNormal">
+                            <span>办 理</span>
+                        </a>
+                        <div class="dt-num">
+                            <span class="c_009900 fw_n">10</span>
+                            /元月
+                        </div>
+                        <span class="dt-name">GPRS5元套餐</span>
+                    </div>
+                </dd>
+            </dl>
+            <dl class="hall-dl-list">
+                <dt>
+                    <span class="dt-name fw_b">彩印</span>
+                    <a href="#" class="i_2trid" title="展开"></a>
+                </dt>
+                <dd class="union-dd">
+                    <div>
+                        <a href="javascript:void(0)" class="btnNormal">
+                            <span>办 理</span>
+                        </a>
+                        <div class="dt-num">
+                            <span class="c_009900 fw_n">5</span>
+                            /元月
+                        </div>
+                        <span class="dt-name">GPRS5元套餐</span>
+                    </div>
+                </dd>
+                <dd class="union-dd">
+                    <div>
+                        <a href="javascript:void(0)" class="btnNormal">
+                            <span>办 理</span>
+                        </a>
+                        <div class="dt-num">
+                            <span class="c_009900 fw_n">10</span>
+                            /元月
+                        </div>
+                        <span class="dt-name">GPRS5元套餐</span>
+                    </div>
+                </dd>
+            </dl>
+            <dl class="hall-dl-list">
+                <dt>
+                    <span class="dt-name fw_b">酷信</span>
+                    <a href="#" class="i_2trid" title="展开"></a>
+                </dt>
+                <dd class="union-dd">
+                    <div>
+                        <a href="javascript:void(0)" class="btnNormal">
+                            <span>办 理</span>
+                        </a>
+                        <div class="dt-num">
+                            <span class="c_009900 fw_n">5</span>
+                            /元月
+                        </div>
+                        <span class="dt-name">GPRS5元套餐</span>
+                    </div>
+                </dd>
+                <dd class="union-dd">
+                    <div>
+                        <a href="javascript:void(0)" class="btnNormal">
+                            <span>办 理</span>
+                        </a>
+                        <div class="dt-num">
+                            <span class="c_009900 fw_n">10</span>
+                            /元月
+                        </div>
+                        <span class="dt-name">GPRS5元套餐</span>
+                    </div>
+                </dd>
+            </dl>
+            <dl class="hall-dl-list">
+                <dt>
+                    <span class="dt-name fw_b">全能助手</span>
+                    <a href="#" class="i_2trid" title="展开"></a>
+                </dt>
+                <dd class="union-dd">
+                    <div>
+                        <a href="javascript:void(0)" class="btnNormal">
+                            <span>办 理</span>
+                        </a>
+                        <div class="dt-num">
+                            <span class="c_009900 fw_n">5</span>
+                            /元月
+                        </div>
+                        <span class="dt-name">GPRS5元套餐</span>
+                    </div>
+                </dd>
+                <dd class="union-dd">
+                    <div>
+                        <a href="javascript:void(0)" class="btnNormal">
+                            <span>办 理</span>
+                        </a>
+                        <div class="dt-num">
+                            <span class="c_009900 fw_n">10</span>
+                            /元月
+                        </div>
+                        <span class="dt-name">GPRS5元套餐</span>
+                    </div>
+                </dd>
+            </dl>
+        </div>
+    </div>
+</body>
+</html>

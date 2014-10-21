@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>发送验证</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<script type="text/javascript">
+document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+function filltag(d,c,f){var b,a,e=[];while(d.length){a=d.shift();switch(true){case Object.prototype.toString.apply(a)==="[object Array]":b="<script "+(a[1].length>0?'charset="'+a[1]+'" ':"")+"src='"+(a[2]?a[2]:c)+"/js/"+a[0]+"' type='text/javascript'><\/script>";break;case a.indexOf(".js")>-1:b="<script "+(f?'charset="'+f+'" ':"")+"src='"+c+"/js/"+a+"' type='text/javascript'><\/script>";break;case a.indexOf(".css")>-1:b="<link rel='stylesheet' type='text/css' href='"+c+"/css/"+a+"' />";break;case a.length==0:b="<link rel='stylesheet' type='text/css' />"}e.push(b)}document.write(e.join(""))}
+var R = top.$App.getResourcePath(), addrsrc = R.replace('coremail', 'addr'), g='GB2312';
+filltag(['addr.css',''],R);
+</script>
+
+<style type="text/css">
+body { padding: 0; margin: 0; }
+.wrap { padding: 15px 30px; }
+.wrap h1 { margin-bottom: 15px; }
+.wrap table th, .wrap table td { vertical-align: top; }
+.wrap table th { width: 60px; }
+.wrap .pic { border: 1px #dbdbdb solid; padding: 2px; float: left; background-color: #fff; }
+.wrap dt { font-weight: 700; }
+.wrap dd { margin: 7px 0; }
+.wrap textarea { width: 310px; height: 65px; border: 1px #c0c0c0 solid; }
+.wrap .group { border: 1px #c0c0c0 solid; width: 314px; height: 100px; margin-bottom: 8px; overflow: auto; }
+.wrap .group li { padding: 3px 7px; }
+.wrap .group li span { color: #999; }
+.wrap i.plus { background-position: -340px -86px; width: 12px; height: 12px; }
+.bottomBar { padding: 10px 30px 10px 0; overflow: hidden; zoom: 1; text-align: right; }
+a.but { display: inline-block; float: none; }
+.lf { float: left; }
+.rt { float: right; width: 320px; }
+img { display: block; width: 44px; height: 44px; }
+.wrap .group { height: auto }
+#lblName { word-break: break-all }
+</style>
+</head>
+<body>
+    <div class="wrap">
+        <h1>此请求需 <span id="lblName"></span> 验证，你才能添加TA为联系人</h1>
+        <div class="rt">
+            <dl>
+                <dt>验证信息</dt>
+                <dd>
+                    <textarea id="txtMessage"></textarea>
+                </dd>
+                <dt>选择分组</dt>
+                <dd id="chkGroup"></dd>
+            </dl>
+        </div>
+        <div class="lf">
+            <img id="imgContact" src="" class="pic" />
+        </div>
+        <br clear="all" />
+    </div>
+    <p class="bottomBar">
+        <a class="btnStrong" href="javascript:void(0)" id="btnOk">确&nbsp;定</a> &nbsp;
+        <a class="btnNormal" href="javascript:void(0)" id="cancel">取&nbsp;消</a>
+    </p>
+<script type="text/javascript">
+try {
+top.loadScript("libs.pack.js", document);
+top.loadScript('m139.core.pack.js', document);
+top.loadScript("m2012.ui.common.pack.js", document);
+top.loadScript("m2011.utilscontrols.pack.js", document);
+top.loadScript("../../js/packs/addr/addr_zh_hans.pack.js", document);
+top.loadScript("../../js/packs/addr/addr_onykeyaddsuc.html.pack.js", document);
+} catch (ex) {}
+</script>	
+<script type="text/javascript">
+Utils.loadSkinCss(null, document, "addr");
+$(function(){
+	var addr = top.document.getElementById(Pt.param("frame"));
+	$("#btnOk").click(function(){
+		sendRequest(addr.contentWindow.DealManager.multiAsk);
+	 });
+	$("#cancel").click(function(){
+		addr.contentWindow.DealManager.openNextAskPage();
+		/*
+		var askContacts = addr.contentWindow.DealManager.askOrForgetContacts;
+		var deal = addr.contentWindow.DealManager.dealCount;
+		if(askContacts && askContacts.length > deal){
+			top.FF.close();
+			addr.contentWindow.DealManager.openMultiAskPage(askContacts[deal].RelationId, askContacts[deal].name, askContacts[deal].img,askContacts[deal].DealStatus);
+		}else{
+			top.FF.close();
+			addr.contentWindow.outBindMore(); //一个界面所有操作完成-没有框弹出才刷新
+			addr.contentWindow.DealManager.dealCount = 0;
+		}*/
+
+	});
+});
+</script>
+</body>
+</html>

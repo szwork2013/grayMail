@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="pg-window" xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <title>短信存到珍藏记录</title>
+<script type="text/javascript">
+//设域
+document.domain=window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+//获得资源路径
+var resourcePath=window.top.resourcePath;
+var supermanResourcePath=resourcePath.replace("coremail","superman");
+var htmlCode="";
+htmlCode+=getLinkTag("");
+htmlCode+=getLinkTag(resourcePath+"/css/supersms.css?v=20101026");
+top.loadScript("jquery.js", document);
+top.loadScript("m2011.utilscontrols.pack.js", document);
+top.loadScript("/m2012/js/service/sms/m2011.sms.superman.js", document);
+document.write(htmlCode);
+function getJsTag(path,charset){
+    var html="<script charset='gb2312' src='"+path+"' type='text/javascript'></"+"script>";
+    if (charset) html = html.replace("gb2312",charset);
+    return html;
+}
+function getLinkTag(path){
+    var text="";
+    if(path)text="href='"+path+"'";
+    return "<link rel='stylesheet' type='text/css' "+text+" />";
+}
+</script>
+<link rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+Utils.loadSkinCss(null,document,"supersms");
+</script>
+</head>
+<body>
+<div class="dialog">
+	<div class="bd">
+		<div class="save-to-favorite">
+			<h3>该短信将保存到珍藏记录，请选择分类：</h3>
+			<ul class="box-list">
+			</ul>
+		</div>
+		<input type="text" id="txtClassInfo" style="display:none" />
+	</div>
+	<div class="ft">
+		<ul class="dbtn-list">
+			<li><a class="btnNormal" id="btnSave" href="javascript:void(0)">确 定</a></li>
+			<li><a class="btnNormal" id="btnCancel" href="javascript:void(0)">取 消</a></li>
+		</ul>
+	</div>
+</div>
+</body>
+<script language="javascript">
+var tiptext= "新建分类";
+$(function(){
+    top.$(".winTipC").css("padding","0px");
+    var marked = new Marked();
+    marked.bindSmsToBox();
+    $("#btnSave").click(function()
+    {
+       var selClassId;
+       var classInfo;
+       var  content = "";
+       selClassId = $("input[name=rbclassinfo][checked]").val(); 
+       var classname  =$("#txtClassName").attr("class");
+       var classinfoName = $.trim($("#txtClassName").val());//分类名称
+       if(selClassId=="undefined" || selClassId==undefined)
+       {
+            window.alert("请选择一个分类!"); 
+            return;       
+       }
+       else
+       {  
+            classInfo = $($("input[name=rbclassinfo][checked]").parent()).text();
+            if(selClassId=="-1")
+            {
+                if(classinfoName.length==0)
+                {
+                    window.alert("请输入新建分类名称!");
+                    return;
+                }
+                else
+                {
+                   
+                    if(classname.indexOf("input-default")!=-1 &&  classinfoName==tiptext)
+                    {
+                        window.alert("请输入新建分类名称!");
+                        return;
+                    }
+                    else
+                    {
+                       if(classinfoName=="所有")
+                       {
+                            window.alert("分类名称不能为\"所有\",请重新输入!");
+                            return;
+                       }
+                       var classinfos =  $("#txtClassInfo").val();
+                       if(!Common.isEmpty(classinfos))
+                       {
+                          var classnames = classinfos.split(",");
+                          for(i=0;i<classnames.length;i++)
+                          {
+                                if(classnames[i] == classinfoName)
+                                {
+                                    window.alert("分类名称重复!");
+                                    return;
+                                }
+                           }
+                       }
+                    }
+                }
+                classInfo =classinfoName;
+            }
+       }
+       if (top.SmsContent != undefined)
+          content = top.SmsContent
+       Common.saveSmsToBox(Common.getQueryString("type"),selClassId,Common.getQueryString("ids"),content,classInfo,"savebox");
+    });
+    $("#btnCancel").click(function()
+    {
+       top.FloatingFrame.close();
+    });
+});
+function removeCss(control)
+{
+   if ($.trim($(control).val()) == tiptext)
+    {
+        $(control).val("");
+        $(control).removeClass("input-default");
+    } 
+}
+function addCss(control)
+{
+    if ($.trim($(control).val()).length == 0)
+    {
+        $(control).val(tiptext);
+        $(control).addClass("input-default");
+    }
+}
+</script>
+</html>

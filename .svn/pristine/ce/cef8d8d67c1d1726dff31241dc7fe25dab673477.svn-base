@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="Keywords" content=""/>
+		<meta name="Description" content=""/>
+		<title>139邮箱-邮箱营业厅</title>
+		<script type="text/javascript">
+            document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+
+            top.loadScript("libs.pack.js", document);
+            top.loadScript("m139.core.pack.js", document);
+            top.loadScript("m2012.ui.common.pack.js", document);
+
+            top.loadScript("hall.points.html.pack.js", document);
+
+            top.loadCSS(["common/global.css", "module/hall/hall.css"], document);
+
+		</script>
+
+		<script src="../../js/mockdata/m139.api.mock.js"></script>
+		<script src="../../js/mockdata/hall.mockdata.js"></script>
+
+		<style type="text/css">
+			html, body {
+				height: 100%;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="hall-title" id="title">
+			<a href="index.html">邮箱营业厅</a> &gt; <strong>兑换话费</strong>
+		</div>
+		<div id="body" style="overflow:auto;position:relative;">
+			<div class="hall-body">
+				<div class="hall-fee ">
+					<h3>您的当前积分：<span id="points">0</span></h3>
+					<div id="fee_list" class="fee-liist clearfix">
+					</div>
+					<textarea id="template_fee" style="display:none;">
+						<!--item start-->
+						<div class="fee-li">
+							<div class="fee-li-face">
+								<span class="num">$quota</span>
+								元
+							</div>
+							<div class="fee-li-bot">
+								<span class="fl"> 兑换积分： <strong class="c_ff6600">$points</strong> </span>
+								<a href="###" name="$id" points="$points" quota="$quota" class="ui-button fr @getBtnStyle(points)">兑换</a>
+							</div>
+						</div>
+						<!--item end-->
+					</textarea>
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript">
+            new M2012.Hall.View.Points();
+		</script>
+	</body>
+</html>

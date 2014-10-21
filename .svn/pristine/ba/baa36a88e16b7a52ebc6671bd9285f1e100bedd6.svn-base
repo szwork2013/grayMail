@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<title>139音乐</title>
+
+<script type="text/javascript">
+
+	document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+
+	(function () {
+		var list = ["common/global.css"];
+		var skinPath = top.getCookie("SkinPath2");
+		if (!/^skin_\w+$/.test(skinPath) || skinPath == 'skin_mcloud') {
+			skinPath = "skin_lightblue";
+		}
+		list.push('packs/' + skinPath + '_index.html.pack.css');
+		top.loadCSS(list, document);
+	})();
+
+	function changeSkin(){
+		var skinPath = top.getCookie("SkinPath2");
+		$("#skinLink").attr("href", "/m2012/css/packs/" + skinPath + "_index.html.pack.css");
+	}
+
+</script>
+
+<style type="text/css">
+
+html, body{
+	margin:0;
+	padding:0;
+	overflow: hidden;
+}
+body{
+	width: 100%;
+	height: 100%;
+}
+
+a{
+	outline: none;
+}
+
+.music_listBox .list_ul::-webkit-scrollbar{
+    width:7px;
+}
+.music_listBox .list_ul::-webkit-scrollbar-thumb{
+	width:7px;
+	background: rgb(204, 204, 204);
+}
+
+.musicPop{
+	top:0;
+	border: none;
+}
+.music_listBox .list {
+	height: 120px;
+	margin-right: 5px;
+}
+
+/*.music_listBox li.cur .i-playSongS {
+	background-position: -154px -348px;
+}*/
+.music_playBox .m_toolBar .noPlay{
+	-moz-opacity: 0.4;
+	-webkit-opacity: 0.4;
+	opacity: 0.4;
+	filter:alpha(opacity=40);
+}
+
+.songName{
+	display: inline-block;
+	width: 165px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.volUnits{
+	margin-left: 0;
+}
+.i-volIcoMute{
+	width: 20px;
+}
+</style>
+
+</head>
+
+<body>
+<div class="musicPop shadow">
+	<dl class="music_playBox">
+		<dt id="songTitle">无媒体文件</dt>
+		<dd class="volBar">
+			<a href="javascript:;" id="volMute" class="i-volIco"></a>
+			<span class="volUnits">
+				<a href="javascript:;" class="i-volUnit volUnit1 volOn"></a><a
+				 href="javascript:;" class="i-volUnit volUnit2 volOn"></a><a
+				 href="javascript:;" class="i-volUnit volUnit3 volOn"></a><a
+				 href="javascript:;" class="i-volUnit volUnit4"></a><a
+				 href="javascript:;" class="i-volUnit volUnit5"></a>
+			</span>
+		</dd>
+		<dd class="m_progressBar">
+			<b class="progress" style="width:0%"></b>
+		</dd>
+		<dd class="m_toolBar ta_c">
+			<audio id="ela"></audio>
+			<a href="javascript:;" id="playPrev" class="i-preSong noMore"></a>
+			<a href="javascript:;" class="i-playSong pause"></a>
+			<a href="javascript:;" id="playNext" class="i-nxtSong noMore"></a>
+		</dd>
+	</dl>
+	<dl class="music_listBox">
+		<dt class="clearfix">
+			<span class="fl">播放列表</span>
+			<a id="clearPlayList" href="javascript:;" class="fr">清空列表</a>
+		</dt>
+		<dd class="list clearfix">
+			<ul id="box" class="list_ul"></ul>
+		</dd>
+	</dl>
+	<!-- IE6 console -->
+	<!--<div id="log" style="width:240px;height:280px;word-wrap: wrap;overflow:auto;"></div>-->
+</div>
+
+
+<script src="/m2012/js/packs/libs.pack.js"></script>
+
+<script src="/m2012/flash/swfobject2.js"></script>
+<script src="/m2012/js/plugin/player.js"></script>
+<script src="/m2012/js/plugin/playlist.js"></script>
+
+<script type="text/javascript">
+
+var songTitle = $("#songTitle");
+/**
+* 播放器实例
+*/
+var player = new AVPlayer(document.getElementById("ela"), {
+	settings: {
+		autoplay: true,
+		loop: false,
+		preload: "meta"
+	},
+	ui: {
+		wrapperClass: '.musicPop',
+		playPauseClass: '.i-playSong',
+		scrubberClass: '.m_progressBar',
+		progressClass: '.progress',
+		loadedClass: '',
+		timeClass: '',
+		durationClass: '',
+		playingClass: '.i-playSong',
+		pauseClass: '.pause',
+		playedClass: '.played',
+		playCurClass: '',
+		errorMessageClass: '.error',
+		loadingClass: '.loading',
+		errorClass: '.error'
+	},
+	callbacks: {
+		onTrackEnded: function() {
+			var next = pl.next();
+			if(next){
+				console.log("切换下一首：" + next.url);
+				playNextItem(next);
+			} else {
+				player.src = "";	// bug
+				player.callbacks.onLoadError("播放结束");
+				pl.setCurrent(-1);	// 这样结束时的那首歌点击可再次播放
+			}
+			checkPrevAndNext();
+		},
+		onFlashError: function() {
+		},
+		onLoadError: function(errMsg) {
+			songTitle.html(errMsg);
+		},
+		onLoad: function() {
+			songTitle.html("正在加载：" + this.wrapper.find(".cur").text());
+		},
+		onInit: function() {
+		},
+		onLoadStarted: function() {
+			songTitle.html("正在播放：" + this.wrapper.find(".cur").text());
+		},
+		onLoadProgress: function(percent) {
+		},
+		onPlay: function() {
+			var pauseClass = this.ui.pauseClass;
+			
+			this.wrapper.find(pauseClass).removeClass(pauseClass.substr(1)).attr("title", "暂停");
+			songTitle.html("正在播放：" + this.wrapper.find(".cur").text());
+			top.MusicBox.showPlayStatus(true);
+		},
+		onPause: function() {
+			var playingClass = this.ui.playingClass;
+			var pauseClass = this.ui.pauseClass;
+			
+			this.wrapper.find(playingClass).addClass(pauseClass.substr(1)).attr("title", "播放");
+			songTitle.html("已暂停：" + this.wrapper.find(".cur").text());
+			top.MusicBox.showPlayStatus(false);
+		},
+		onUpdatePlayhead: function(percent, currentTime) {
+			this.wrapper.find(this.ui.progressClass).css("width", (100 * percent) + '%');
+		}
+	}
+});
+
+
+/**
+* 播放列表实例
+*/
+
+var pl = new PlayList({
+	id: "box",
+	loop: false,
+	onAddRecord: function(o){
+		var li = document.createElement("li");
+		li.setAttribute("uid", o.id);
+		li.innerHTML = '<span class="songName">' + o.text + '</span><span class="controller hide"><a href="javascript:;" class="i-playSongS mr_10"></a><a href="javascript:;" class="i-delSongS mr_10"></a></span>';
+		this.box.appendChild(li);
+	},
+	onPlayChange: function(curr, prev){
+		var jBox = $(this.box);
+		var offsetTop, scrollTop;
+
+		if(curr/* && curr.url*/){
+			playNextItem(curr);
+		}
+
+		if(prev){
+			prev = jBox.find("li[uid='"+prev.id+"']");
+			prev.removeClass("cur");//.find(".i-playSongS").removeClass("pause");
+			prev.find(".i-playSongS").css("background-position", "-154px -329px");
+		}
+		if(curr){
+			curr = jBox.find("li[uid='"+curr.id+"']");
+			curr.addClass("cur");//.find(".i-playSongS").addClass("pause");
+
+			offsetTop = curr[0].offsetTop;
+			scrollTop = jBox.scrollTop();
+
+			if(offsetTop - scrollTop > 110) {
+				jBox.scrollTop(offsetTop);
+			} else if(offsetTop - scrollTop < 0) {
+				jBox.scrollTop(offsetTop - 110);
+			}
+		}
+		checkPrevAndNext();
+	},
+	onRemoveRecord: function(o, isCurrent){
+		var curr;
+		$(this.box).find("li[uid='"+o.id+"']").remove();
+
+		if(isCurrent){
+			curr = pl.getCurrent();
+			if(curr == undefined){
+				curr = pl.prev();	// 删除最后一首，则播放上一首
+			}
+			if(curr) {
+				playNextItem(curr);
+			} else {	// empty
+				resetPlayer();
+			}
+		}
+		top.MUSIC_BOX_LIST = pl._list;
+		checkPrevAndNext();
+	},
+	onUpdateRecord: function(obj, old){
+	},
+	onClearRecord: function(){
+		$(this.box).find("li").remove();
+		resetPlayer();
+	}
+});
+
+if(top.MUSIC_BOX_LIST && top.MUSIC_BOX_LIST.length > 0){
+	pl.addBatch(top.MUSIC_BOX_LIST);
+	$(".i-playSong").removeClass("noPlay");
+}
+
+
+var playPrev = $("#playPrev");
+var playNext = $("#playNext");
+
+playPrev.click(function(){ pl.prev(); });
+
+playNext.click(function(){ pl.next(); });
+
+$("#clearPlayList").click(function(){ pl.clear(); });
+
+function playNextItem(item) {
+	player.load(item.url, ".m4a");
+}
+
+// 外页调用
+//$(document).on("add-music", 
+function onAddMusic(curId, playList){
+	var item;
+	if(playList && playList.length > 0){
+		pl.addBatch(playList);
+		pl.setCurrentById(curId);
+		top.MUSIC_BOX_LIST = pl._list;
+		$(".i-playSong").removeClass("noPlay");
+	} else {	// 函数重构，参数含义(item, playNow) （后期更改，手动请求URL地址后再添加到播放列表）
+		item = curId;
+		pl.addItem(item);
+	}
+}
+//);
+
+function resetPlayer(){
+	player.src = "";
+	player.trackEnded();
+	//player.element.src = "";	// todo emptied 事件 ？
+	player.loadError("无媒体文件");
+	//player.element.removeAttribute("src");
+	$(".i-playSong").addClass("noPlay");
+	top.MUSIC_BOX_LIST = pl._list;
+}
+
+function checkPrevAndNext(){
+	var pos = pl.getPos();
+	var len = pl.length();
+
+	// 特殊情况 pos = -1, len = 0
+	if (pos <= 0) {
+		playPrev.addClass("noMore");
+	} else {
+		playPrev.removeClass("noMore");
+	}
+	
+	if (pos >= len - 1) {
+		playNext.addClass("noMore");
+	} else {
+		playNext.removeClass("noMore");
+	}
+}
+
+
+$("#box").on("mouseover", "li", function(){
+	var jThis = $(this);
+	jThis.addClass("odd").find(".controller").removeClass("hide");
+	if(jThis.hasClass("cur")) {
+		jThis.find(".i-playSongS").css("background-position", player.playing ? "-154px -348px" : "-154px -329px");
+	}
+}).on("mouseout", "li", function(){
+	var li = $(this);
+	//if(li.hasClass("cur") == false){
+		li.removeClass("odd").find(".controller").addClass("hide");
+	//}
+}).on("click", "li", function(e){
+	var uid = $(this).attr("uid");
+	var jTarget = $(e.target);
+
+	if(jTarget.hasClass("i-playSongS")){
+		if($(this).hasClass("cur")) {
+			player.playPause();
+		} else {
+			pl.setCurrentById(uid);
+		}
+		jTarget.css("background-position", player.playing ? "-154px -348px" : "-154px -329px");
+	} else if(jTarget.hasClass("i-delSongS")){
+		pl.removeById(uid);
+	}
+});
+
+var volUnits = $(".volUnits .i-volUnit");
+var volMute = $("#volMute");
+var lastVolume = volUnits.filter(".volOn").length * 0.2;
+player.lastVolume = lastVolume;
+
+$(".volUnits").on("click", ".i-volUnit", function(){
+	var index = parseInt($(this).attr("index")) + 1;
+	lastVolume = index * 0.2;
+
+	player.setVolume(lastVolume);
+	volUnits.filter(":lt("+index+")").addClass("volOn");
+	volUnits.filter(":gt("+(index-1)+")").removeClass("volOn");
+	volMute.removeClass("i-volIcoMute");
+}).find(".i-volUnit").each(function(i, el){
+	$(this).attr("index", i);
+});
+
+// 静音
+volMute.on("click", function(){
+	volUnits.removeClass("volOn");
+	if(volMute.hasClass("i-volIcoMute")){
+		player.setVolume(lastVolume);
+		volUnits.filter(":lt("+(lastVolume/0.2|0)+")").addClass("volOn");
+		volMute.removeClass("i-volIcoMute");
+	} else {
+		player.setVolume(0);
+		volMute.addClass("i-volIcoMute");
+	}
+});
+
+</script>
+
+</body>
+</html>

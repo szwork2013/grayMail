@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" class="box">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>编辑日程</title>
+<script type="text/javascript">
+//设域
+document.domain=window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+//获得资源路径
+var resourcePath=window.top.resourcePath;
+var calendarResourcePath=resourcePath.replace("coremail","calendar");
+var htmlCode="";
+htmlCode+=getLinkTag("");
+htmlCode+=getLinkTag(calendarResourcePath+"/css/calendar.css?v=20110617");
+
+top.loadScript("jquery.js", document);
+top.loadScript("m2011.utilscontrols.pack.js", document);
+top.loadScript("/m2012/js/matrixvm/page/m2011.page.RichInputBox.js", document);
+
+top.loadScript("/m2012/js/service/calendar/m2011.calendar.MyCalendar.js", document);
+top.loadScript("/m2012/js/service/calendar/m2011.calendar.edit.js", document);
+
+document.write(htmlCode);
+
+function getJsTag(path,charset){
+    var html="<script charset='gb2312' src='"+path+"' type='text/javascript'></"+"script>";
+    if (charset) html = html.replace("gb2312",charset);
+    return html;
+}
+function getLinkTag(path){
+    var text="";
+    if(path)text="href='"+path+"'";
+    return "<link rel='stylesheet' type='text/css' "+text+" />";
+}
+</script>
+<link rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+Utils.loadSkinCss(null,document,"calendar");
+</script>
+<!--[if lte IE 7]><script>iereset('content')</script><![endif]-->
+</head>
+<body>
+	<form class="content" id="content" style="height:400px;overflow:auto;">
+	    <p class="tips" style="display:none" id="pErrorMsg"><i class="error"></i><label id="lblErrorMsg">错误提示信息！</label></p>
+	    <dl class="form">
+			<dt>内容</dt>
+			<dd>
+				<textarea rows="4" cols="60" id="txtContent" class="normal"></textarea>
+				<p class="help" id="helpCount">您还可以输入<em>0</em>字，最多<em>200</em>字 </p>
+			</dd>
+			<dt>时间</dt>
+			<dd>
+				<div class="panel" id="divLunarContent"></div>
+			</dd>
+			
+            <script type="text/javascript">
+			    var objCalendarRemind=new richinfo.email.calendar.commonUI.remindBox(0);
+		    </script>
+		    
+			<dt>
+				&nbsp;
+			</dt>
+			<dd>
+			    <input type="hidden" id="HiddCalValue" value="0">
+				<input type="button" id="btnSave" value="保 存" class="btn">
+				<input type="button" id="btnCancel" class="btn" value="取 消">
+			</dd>
+		</dl>
+	</form>	
+</body>
+<script type="text/javascript">
+$(document).ready(function()
+{
+     var page = new SetCalPage(); 
+});
+</script>
+</html>

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<project name="build_pack" default="packFile">
+    <target name="packFile">
+        <concat destfile="./packs/disk_write.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+            <fileset dir="./ui/diskframeNew" includes="**/m2012.disk.model2.js"/>
+            <fileset dir="./ui/diskframeNew" includes="**/m2012.disk.view.statusbar2.js"/>
+            <fileset dir="./ui/diskframeNew" includes="**/m2012.disk.view.command2.js"/>
+            <fileset dir="./ui/diskframeNew" includes="**/m2012.disk.view.toolbar2.js"/>
+            <fileset dir="./ui/diskframeNew" includes="**/m2012.disk.view.filelist2.js"/>
+            <fileset dir="./ui/diskframeNew" includes="**/m2012.disk.view.main2.js"/>			
+            <fileset dir="./ui/diskframeNew" includes="**/m2012.disk.application2.js"/>
+        </concat>
+    </target>
+</project>

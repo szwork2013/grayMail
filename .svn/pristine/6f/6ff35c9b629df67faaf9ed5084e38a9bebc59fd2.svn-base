@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <title>彩云资源选择器</title>
+
+    <script type="text/javascript">
+        var v = "20120314";
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1].replace(/:\d+/, "");
+        //获取js html标签
+        function getJsTag(path, charset) {
+            var html = "<script charset='utf-8' src='" + path + "?v=" + v + "' type='text/javascript'></" + "script>";
+            if (charset) html = html.replace("utf-8", charset);
+            return html;
+        }
+        //获取css html标签
+        function getLinkTag(path) {
+            var text = "";
+            if (path) text = "href='" + path + "?v=" + v + "'";
+            return "<link rel='stylesheet' type='text/css' " + text + " />";
+        }
+        //获取url参数
+        function queryString(param, url) {
+            url = url ? url : location.search;
+            var svalue = url.match(new RegExp("[?&]" + param + "=([^&]*)", "i"));
+            return svalue ? unescape(svalue[1]) : null;
+        }
+        //加载样式和脚本
+        (function load(doc, res) {
+            var d = doc || document;
+            top.loadScript("jquery.js", d);
+            top.loadScript("m2011.utilscontrols.pack.js", d);
+
+            var html = "";
+            var path = getResource();
+            html += getLinkTag(""); //保留皮肤的css
+            var diskResourcePath = path[1];
+            html += getLinkTag(path[0] + "/css/disk_global.css");
+            html += getLinkTag(path[0] + "/css/netdisk.css");
+            html += getJsTag(diskResourcePath + "js/m2011.disk.diskconf.js");
+            html += getJsTag(diskResourcePath + "js/m2011.disk.diskcommon.js");
+            d.write(html);
+            html = "";
+            if (res && res.length > 0) {
+                for (var i = 0; i < res.length; i++) {
+                    if ((/\.js$/i).test(res[i])) { html += getJsTag(diskResourcePath + res[i]) };
+                    if ((/\.css$/i).test(res[i])) { html += getLinkTag(path + res[i]) };
+                }
+            }
+            d.write(html);
+        })(document, ["js/m2011.disk.selectdisk.js"]);
+        function getResource() {
+            var resourcePath = [];
+            if (top.isRichmail) {//rm环境,返回rm资源服务器路径
+                var path = window.top.rmResourcePath;
+                resourcePath.push(path);
+                resourcePath.push(path.replace("richmail", "newnetdisk4") + "/");
+            } else {
+                var path = window.top.resourcePath;
+                resourcePath.push(path);
+                resourcePath.push(path.replace("coremail", "newnetdisk4") + "/");
+            }
+            return resourcePath;
+        }
+    </script>
+
+</head>
+<body>
+    <div class="dialog">
+        <div id="div_Tab" style="display: none" class="diskMenubox diskTabborder">
+            <ul>
+                <li><a id="aLocalPhoto" href="#">本地图片</a></li>
+                <li><a id="aNetImage" href="#">网络图片</a></li>
+                <li class="hover"><a href="#">彩云相册</a></li>
+            </ul>
+        </div>
+        <div class="uploadTree" style="padding-top: 10px; padding-left: 10px;">
+            <div>
+            </div>
+            <ul id="file-tree" class="file-tree" style="display: none; top: 29px; left: 0px;
+                width: 205px; height: 100px;">
+                <li><i class="i-tree2"></i><span></span></li>
+            </ul>
+        </div>
+        <div class="dl-tip">
+            <em><a id="pageup" style="display: none;">上一页</a> <a id="pagedown" style="display: none;">
+                下一页</a>
+                <select id="pagelist" style="width: 60px">
+                    <option>1/1</option>
+                </select>
+            </em>
+            <p>
+                点击使用相应图片
+            </p>
+        </div>
+        <div class="listImg">
+        </div>
+        <div class="ft">
+            <ul class="dbtn-list">
+                <li><a class="btnNormal" onclick="top.FloatingFrame.close()">关 闭</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

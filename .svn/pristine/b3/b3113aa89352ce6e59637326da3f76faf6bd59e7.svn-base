@@ -1,0 +1,276 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="Keywords" content="" />
+<meta name="Description" content="" />
+<title>139邮箱收费版</title>
+<link href="css/global.css" rel="stylesheet" type="text/css" />
+<link href="css/css.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript">document.write('<script src="feature_meal_config.js?' + Math.random() + '"><\/script>')</script>
+<script type="text/javascript">
+document.domain=window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1].replace(/:\d+/,"");
+filltag([['jquery-1.7.1.min.js','',rmResourcePath], ['utils_controls.js','GB2312',rmResourcePath]], resourcePath);
+</script>
+<!--[if IE 6]><script>document.write('<script src="' + resourcePath + '/js/libs/DD_belatedPNG.js"><\/script>')</script><![endif]-->
+<script type="text/javascript">
+$(function(){
+    $.each($("img[data-src]"), function(i,o){
+        o.src = resourcePath + $(this).dataset("src");
+    });
+})
+
+String.prototype.format = function(array) {
+    if (!array) return str;
+    var str = this;
+    var tmp;
+    for (var i = 0; i < array.length; i++) {
+        tmp = String(array[i]).replace(/\$/g, "$$$$");
+        str = str.replace(eval("/\\{" + i + "\\}/g"), tmp);
+    }
+    return str;
+}
+var sid = Utils.queryString("sid");
+
+$(function(){
+    $(".buy20").click(function(){
+        report("102339");
+        setTimeout(function(){
+            location.assign("feature_meal_upgrade1.html?sid=" + sid + "&to=0017");
+        },0);
+    });
+
+    $(".buy5").click(function(){
+        report("102338");
+        setTimeout(function(){
+            location.assign("feature_meal_upgrade1.html?sid=" + sid + "&to=0016");
+        },0);
+    });
+
+    var data = '<object><int name="fromType">1</int></object>';
+    proxyready("mealInfo", data, function(rs){
+        if (rs.code == "S_FALSE" || rs.code == "FS_UNKNOWN") {
+            alert("离开太久啦，请重新登录！");
+            location.assign(MAINDOMAIN);
+            return;
+        }
+
+        if (rs.code == "S_OK") {
+            $("#serviceName").text(rs.serviceName);
+
+            switch(rs.serviceItem){
+                case "0017":
+                    $(".buy5").parents('.til_com').text('5元版邮箱');
+                    $(".buy20").parents('.til_com').text('20元版邮箱');
+                    $(".recommendIco24").hide();
+                case "0016":
+                    var _div = $(".buy5").parents('.til_com');
+                    _div.find('h3').replaceWith('5元版邮箱');
+                    _div.find('.btn').remove();                    
+            }            
+
+            var meal = ["0015", "0016", "0017"];
+
+            var hidekey = ["#th_aliasCount", "#th_aliasLength"];
+
+            var key = [
+                "volume",
+                "diskVolume",
+                "largeattachVolume",
+                "attachSize",
+                "maxRecipients",
+                "freeSms",
+                "freeMms",
+                "maxContactCount",                
+                "maxSmsRecipients",
+                "maxMmsRecipients",
+                "diskShareCount",
+                "largeattachExpire",
+                "largeattachMaxFileCount",
+                "diskSingleFileSize",
+                "letterPapper"];
+
+
+            $(".item_con").append(new Array(key.length+1).join("<p></p>")).find('p:last').addClass('last');
+            $(hidekey.join(',')).hide();
+
+            //按键值显示
+            rs['0016'].letterPapper = rs['0017'].letterPapper = '有，35套'
+            for (var j=0; j < meal.length; j++) {
+                var info = rs[meal[j]];
+
+                var label = $("#col" + meal[j] +" p");
+                for (var i=0; i < key.length; i++) {
+                    if (info[key[i]]) {
+                        label.eq(i).text(info[key[i]].format(info[key[i]+"Value"]) + "");
+                    } else {
+                        label.eq(i).hide();
+                        $(".item_til p").eq(i).hide();
+                    }
+                }
+            }
+
+            //生成免费版基准值
+            var freeVolume = [];
+            var info = rs[meal[0]];
+            for (var i=0; i < key.length; i++) {
+                var value = info[key[i]+"Value"];
+                freeVolume.push(value && value.length > 0 ? value[0] : 1);
+            }
+
+            //计算高级版倍数
+            for (var j=1; j < meal.length; j++) {
+                var label = $("#col" + meal[j] +" p");
+                var info = rs[meal[j]];
+                for (var i=0; i < key.length; i++) {
+                    var value = info[key[i]+"Value"];
+                    value = value && value.length > 0 ? value[0] : 1;
+                    var scale = value / freeVolume[i];
+
+                    if (!isNaN(scale)) {
+                        if (scale < 2) continue;
+
+                        if (scale == Infinity) {
+                            scale = "_special";
+                        } else if (scale > 10) {
+                            scale = "n";
+                        } else {
+                            scale = Math.floor(scale);
+                        }
+
+                        label.eq(i).append("<i class=\"upgrade_btn times" + scale + "\"></i>");
+                    } else {
+                        label.eq(i).append("<i class=\"upgrade_btn times_special\"></i>");
+                    }
+                }
+            }
+
+            //如果附件值为50，则指的是附件
+            if (rs[meal[0]]["attachSizeValue"] >= 50 ) {
+                $(".item_til p").eq(3).text("附件");
+            }
+        }
+    });
+});
+
+$(function(){
+    report("104190");
+});
+</script>
+
+</head>
+
+<body>
+<div id="header">
+ <div class="wrapper m_clearfix">
+  <h1 id="logo"><a href="http://mail.10086.cn/">139邮箱收费版</a></h1>
+  <p class="top_right"><a href="http://mail.10086.cn/">邮箱首页</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="http://help.mail.10086.cn/statichtml/0/index.html">帮助中心</a></p>
+ </div> 
+</div><!--header-->
+
+<div id="main">
+  <div class="banner"><span>升级邮箱，做与众不同的自己！高性能  个性化  专业级的个人邮箱</span></div><!--banner-->
+  
+  <div class="wrapper" id="uptop">
+    <div class="mailinfo">
+
+      
+      <div class="mailinfo_body">
+        <ul class="frame_ul m_clearfix">
+          <li class="item_til">
+            <div class="first">
+            <div class="text">您当前正在使用</div>
+            <a id="serviceName" class="version_mail">邮箱</a></div>
+            <p>邮箱容量</p>
+            <p>彩云网盘容量</p>
+            <p>暂存柜容量</p>
+            <p>超大附件</p>
+            <p>单次邮件群发人数</p>
+            <p>自写短信</p>
+            <p>自写彩信</p>
+            <p>通讯录条数</p>
+            <p>单次自写短信群发人数</p>
+            <p>单次自写彩信群发人数</p>
+            <p>网盘共享人数</p>
+            <p>文件快递保存天数</p>
+            <p>文件快递发送单次文件个数</p>
+            <p>网盘单个文件大小</p>
+            <p>VIP贺卡、明信片、皮肤、<br>信纸素材</p>
+          </li>
+          <li class="item_con"  id="col0015" >
+            <div class="til_com">免费邮箱</div>          
+          </li>
+          <li class="item_con recommended"  id="col0016" >
+            <div class="til_com">
+              <h3>5元版邮箱</h3>
+              <div class="btn"><a href="javascript:;" class="buy5">立即开通</a></div>
+              <img src="images/recommend.png" alt="" width="62" height="63" class="recommendIco24">
+            </div>           
+          </li>
+          <li class="item_con"  id="col0017" >
+            <div class="til_com">
+              <h3>20元版邮箱</h3>
+              <div class="btn"><a href="javascript:;" class="buy20">立即开通</a></div>
+            </div>           
+          </li>
+        </ul>
+      </div><!--mailinfo_body-->
+      
+
+    </div><!--mailinfo-->
+    
+  
+    
+  </div><!--wrapper-->
+</div><!--main-->
+
+<div class="bottomText">
+  <div class="inner">
+    <div class="text">
+      <strong>邮件到达通知</strong>
+      <p>有新邮件到达，免费通知到手机！<br>短信、彩信、WAP邮件到达通知！</p>
+    </div>
+
+    <div class="text" style="left:297px;">
+      <strong>电子账单服务</strong>
+      <p>邮箱接收每月话费、水电煤、信<br>用卡等账单，环保低碳！</p>
+    </div>
+
+
+    <div class="text" style="left:558px;">
+      <strong>自写短彩</strong>
+      <p>邮箱就能发短彩，比手机快10倍！</p>
+    </div>
+
+
+    <div class="text" style="left:810px;">
+      <strong>手机管理邮箱</strong>
+      <p>可用短信、WAP等多种方式收发<br>邮件，解决移动办公烦恼！</p>
+    </div>
+  </div>
+</div>
+
+<div id="footer">
+  <div class="wrapper m_clearfix">
+    <p class="fl">
+      <a href="http://help.mail.10086.cn/statichtml/1/Content/1013.html">版权声明</a> | 
+      <a href="http://www.10086.cn/service/advise/index.htm">客服受理</a> | 
+      <a href="http://www.10086.cn/aboutus/index_4450.htm">关于移动</a> | 
+      <a href="http://open.mail.10086.cn/">开放平台</a>
+    </p>
+    <p class="fr footer_ico">
+      <a target="icp" href="http://www.miibeian.gov.cn/">京ICP备05002571号</a> 
+      &nbsp; |&nbsp; 
+      <a style="color:#999999;" href="http://www.10086.cn/" target="_blank"  title="中国移动通信">中国移动通信版权所有</a>
+    </p>
+  </div>
+</div><!--footer-->
+<!--[if IE 6]>
+    <script type="text/javascript" src="js/DD_belatedPNG.js"></script>  
+    <script type="text/javascript">
+     DD_belatedPNG.fix('.recommendIco24');
+    </script>
+<![endif]-->
+</body>
+</html>

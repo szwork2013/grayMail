@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>audio.js</title>
+    <script src="./audiojs/audio.min.js"></script>
+    <link rel="stylesheet" href="./includes/index.css" media="screen">
+    <script src="../m139.component.mediaplayer.js"></script>
+</head>
+<body>
+    <script>
+        var playerSettings = M139.Component.MediaPlayer.Utils.getParamsFromUrl();
+        document.write('<audio id="player" autoplay="' + playerSettings.autoplay + '" preload="' + playerSettings.preload + '" src="' + playerSettings.sources + '"></audio>')
+        audiojs.events.ready(function () {
+            audiojs.createAll();
+        });
+    </script>
+</body>
+</html>

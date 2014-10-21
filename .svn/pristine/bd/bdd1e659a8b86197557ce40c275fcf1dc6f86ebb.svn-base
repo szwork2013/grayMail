@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<project name="build_pack" default="packFile">
+    <target name="packFile">
+        <concat destfile="./packs/selectfile.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+        	<fileset dir="./ui/upload" includes="**/md5.min.js"/>
+        	<fileset dir="./ui/upload" includes="**/upload.facade.js"/>
+        	<fileset dir="./ui/upload" includes="**/upload.html5.js"/>
+        	<fileset dir="./ui/upload" includes="**/upload.flash.js"/>
+        	<fileset dir="./ui/upload" includes="**/swfobject.js"/>
+        	<fileset dir="./ui/upload" includes="**/upload.activex.js"/>
+        	<fileset dir="./ui/selectfile" includes="**/m2012.fileexpress.upload.model.js"/>
+            <fileset dir="./ui/selectfile" includes="**/m2012.ui.selectfile.model.js"/>
+            <fileset dir="./ui/selectfile" includes="**/m2012.ui.selectfile.veiw.upload.js"/>
+            <fileset dir="./ui/selectfile" includes="**/m2012.ui.selectfile.view.main.js"/>
+            <fileset dir="./ui/selectfile" includes="**/m2012.ui.selectfile.application.js"/>
+        </concat>
+    </target>
+</project>

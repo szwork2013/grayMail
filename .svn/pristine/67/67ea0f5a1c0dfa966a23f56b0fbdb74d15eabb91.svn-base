@@ -1,0 +1,25 @@
+﻿<project default="m2012.ui.common.pack">
+    <!-- 如果配置文件不在当前目录，修改此变量即可 -->
+    <property name="basePath" location="./ui"/>
+    <target name="m2012.ui.common.pack">
+        <!-- 创建临时文件夹 -->
+        <concat destfile="./packs/m2012.ui.common.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+            <fileset dir="./ui" includes="**/m139.ui.repeater.js" />
+            <fileset dir="./ui" includes="**/m2012.ui.dialogbase.js" />
+            <fileset dir="./ui" includes="**/m2012.ui.popmenu.js" />
+            <fileset dir="./ui" includes="**/m2012.ui.menubutton.js" />
+            <fileset dir="./ui" includes="**/m2012.ui.dropmenu.js" />
+            <fileset dir="./ui" includes="**/m139.ui.popup.js" />
+            <fileset dir="./ui" includes="**/m139.ui.tabpage.js" />
+            <fileset dir="./ui" includes="**/m139.ui.tabnav.js" />
+            <fileset dir="./ui" includes="**/m139.ui.richhint.js" />
+            <fileset dir="./ui" includes="**/m139.ui.tipmessage.js" />
+            <fileset dir="./ui" includes="**/m2012.ui.pageturning.js" />
+            <fileset dir="./ui" includes="**/m2012.ui.listmenu.js" />
+            <fileset dir="./ui" includes="**/m2012.ui.picker.pickerbase.js"/>
+            <fileset dir="./ui" includes="**/m2012.ui.picker.calendar.js"/>
+            <fileset dir="./ui" includes="**/placeholder.js" />
+            <fileset dir="./ui" includes="**/m2012.ui.widget.voiceinput.js" />
+        </concat>
+    </target>
+</project>

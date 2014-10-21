@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="page-adv-search" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <title>高级搜索</title>
+
+    <script type="text/javascript">
+        //设域
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1].replace(/:\d+/, "");
+        window.parent.CommonInit(document, window.parent
+        , [{ "dirName": "js/", fileName:"m2011.disk.advsearch.js"}]);
+    </script>
+
+    <script type="text/javascript">
+        //加载皮肤
+        Utils.loadSkinCss(null, document, "netdisk");
+    </script>
+
+</head>
+<body>
+    <div id="container">
+        <div class="crumb">
+            <!--您的位置：<a href="disk_default.html">彩云网盘</a> &gt; <strong>高级搜索</strong>-->
+            &nbsp;&nbsp;&nbsp;&nbsp;<strong>高级搜索</strong>
+        </div>
+        <div class="adv-search-form">
+            <fieldset>
+                <table cellpadding="0" class="tbl-form">
+                    <tr>
+                        <th>
+                            关键字：
+                        </th>
+                        <td>
+                            <input class="text" type="text" id="txtKey" /><input type="checkbox" id="cbMatchCase" /><label>区分大小写</label>
+                        </td>
+                    </tr>
+                    <tr class="search-range">
+                        <th>
+                            搜索范围：
+                        </th>
+                        <td>
+                            <select id="docPosition">
+                                <option>彩云网盘</option>
+                            </select>
+                            <input type="checkbox" id="cbInclude" checked="checked" /><label>包含子目录</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            文件上传时间：
+                        </th>
+                        <td>
+                            <ul>
+                                <li>
+                                    <input type="radio" value="0" name="uploadDate" checked="checked" /><label>任意时间</label></li>
+                                <li>
+                                    <input type="radio" value="1" name="uploadDate" /><label>最近一周</label></li>
+                                <li>
+                                    <input type="radio" value="2" name="uploadDate" /><label>最近一个月</label></li>
+                                <li>
+                                    <input type="radio" value="3" name="uploadDate" /><label>最近一年</label></li>
+                                <li>
+                                    <input type="radio" value="4" name="uploadDate" /><label>指定日期范围:</label>
+                                    <div class="time-range">
+                                        <select id="sYear">
+                                            <option>2009</option>
+                                        </select>
+                                        -
+                                        <select id="sMonth">
+                                            <option>10</option>
+                                        </select>
+                                        -
+                                        <select id="sDay">
+                                            <option>11</option>
+                                        </select>
+                                        至
+                                        <select id="eYear">
+                                            <option>2009</option>
+                                        </select>
+                                        -
+                                        <select id="eMonth">
+                                            <option>10</option>
+                                        </select>
+                                        -
+                                        <select id="eDay">
+                                            <option>11</option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li></li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr class="search-size">
+                        <th>
+                            文件大小：
+                        </th>
+                        <td>
+                            <ul>
+                                <li class="li1">
+                                    <input type="radio" value="0" name="size" checked="checked" /><label>任意大小</label></li>
+                                <li class="li2">
+                                    <input type="radio" value="1" name="size" /><label>100KB以下</label></li>
+                                <li class="li3">
+                                    <input type="radio" value="2" name="size" /><label>100KB以上</label></li>
+                                <li class="li4">
+                                    <input type="radio" value="3" name="size" /><label>1MB以下</label></li>
+                                <li class="li5">
+                                    <input type="radio" value="4" name="size" /><label>1MB以上</label></li>
+                                <li class="li6">
+                                    <input type="radio" value="5" name="size" /><label>指定文件大小：</label>
+                                    <span class="size-range">
+                                        <select>
+                                            <option>至少有</option>
+                                            <option>最多有</option>
+                                        </select>
+                                        <input class="text" type="text" rel="KB" />
+                                        KB</span></li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr id="trDoctype">
+                        <th>
+                            文件类型：
+                        </th>
+                        <td>
+                            <ul>
+                                <li>
+                                    <input type="radio" value="0" name="doctype" checked="checked" /><label>所有文件类型
+                                    </label>
+                                </li>
+                                <li>
+                                    <input type="radio" value="1" name="doctype" /><label>指定文件类型:
+                                    </label>
+                                    <input type="checkbox" id="cbImage" value="0" /><label>图像</label><input type="checkbox"
+                                        id="cbMusic" value="1" /><label>音乐</label><input type="checkbox" id="cbVideo" value="2" /><label>视频</label></li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                        </th>
+                        <td>
+                            <ul class="btn-list">
+                                <li>
+                                    <button id="btnSearch">
+                                        开始搜索</button></li>
+                                <li>
+                                    <button id="btnBack">
+                                        返回</button></li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+        </div>
+    </div>
+</body>
+</html>

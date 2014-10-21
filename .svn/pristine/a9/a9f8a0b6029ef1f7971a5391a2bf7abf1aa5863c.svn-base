@@ -1,0 +1,1597 @@
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="generator" content="JsDoc Toolkit" />
+		<title>M2012.UI.DialogBase | JsDoc Reference</title>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+		<meta name="mobileoptimized" content="0" />
+	
+		<link rel="stylesheet" href="../css/all.css" media="all" />
+		<link rel="stylesheet" href="../css/handheld.css" media="only screen and (max-width: 660px)" />
+		<link rel="stylesheet" href="../css/handheld.css" media="handheld" />
+		<link rel="stylesheet" href="../css/screen.css" media="screen and (min-width: 661px)" />
+
+		<script src="../javascript/all.js"></script>
+		<!--[if lt IE 9]>
+			<script src="../javascript/html5.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+<div class="index">
+	<div class="menu">
+		<div class="indexLinks">
+			<a href="../index.html">Classes</a>
+			<a href="../files.html">Files</a>
+		</div>
+	
+		<h2 class="heading1">类</h2>
+		
+		<input type="text" name="classFilter" class="classFilter" id="ClassFilter" placeholder="Filter"></input>
+		
+		<nav>
+			<ul class="classList" id="ClassList">
+				
+					<li><a href="../symbols/_global_.html">_global_</a></li>
+				
+					<li><a href="../symbols/Array.html">Array</a></li>
+				
+					<li><a href="../symbols/Date.html">Date</a></li>
+				
+					<li><a href="../symbols/M139.Browser.html">M139<span class='break'> </span>.<span class='break'> </span>Browser</a></li>
+				
+					<li><a href="../symbols/M139.Browser.is.html">M139<span class='break'> </span>.<span class='break'> </span>Browser<span class='break'> </span>.<span class='break'> </span>is</a></li>
+				
+					<li><a href="../symbols/M139.Browser.support.html">M139<span class='break'> </span>.<span class='break'> </span>Browser<span class='break'> </span>.<span class='break'> </span>support</a></li>
+				
+					<li><a href="../symbols/M139.ConfigManager.html">M139<span class='break'> </span>.<span class='break'> </span>ConfigManager</a></li>
+				
+					<li><a href="../symbols/M139.Core.html">M139<span class='break'> </span>.<span class='break'> </span>Core</a></li>
+				
+					<li><a href="../symbols/M139.Date.html">M139<span class='break'> </span>.<span class='break'> </span>Date</a></li>
+				
+					<li><a href="../symbols/M139.Dom.html">M139<span class='break'> </span>.<span class='break'> </span>Dom</a></li>
+				
+					<li><a href="../symbols/M139.Event.html">M139<span class='break'> </span>.<span class='break'> </span>Event</a></li>
+				
+					<li><a href="../symbols/M139.Event.GlobalEventManager.html">M139<span class='break'> </span>.<span class='break'> </span>Event<span class='break'> </span>.<span class='break'> </span>GlobalEventManager</a></li>
+				
+					<li><a href="../symbols/M139.ExchangeHttpClient.html">M139<span class='break'> </span>.<span class='break'> </span>ExchangeHttpClient</a></li>
+				
+					<li><a href="../symbols/M139.HTTPClient.html">M139<span class='break'> </span>.<span class='break'> </span>HTTPClient</a></li>
+				
+					<li><a href="../symbols/M139.Iframe.html">M139<span class='break'> </span>.<span class='break'> </span>Iframe</a></li>
+				
+					<li><a href="../symbols/M139.JSON.html">M139<span class='break'> </span>.<span class='break'> </span>JSON</a></li>
+				
+					<li><a href="../symbols/M139.Logger.html">M139<span class='break'> </span>.<span class='break'> </span>Logger</a></li>
+				
+					<li><a href="../symbols/M139.Model.html">M139<span class='break'> </span>.<span class='break'> </span>Model</a></li>
+				
+					<li><a href="../symbols/M139.Model.ModelBase.html">M139<span class='break'> </span>.<span class='break'> </span>Model<span class='break'> </span>.<span class='break'> </span>ModelBase</a></li>
+				
+					<li><a href="../symbols/M139.PageApplication.html">M139<span class='break'> </span>.<span class='break'> </span>PageApplication</a></li>
+				
+					<li><a href="../symbols/M139.Plugin.Flash.html">M139<span class='break'> </span>.<span class='break'> </span>Plugin<span class='break'> </span>.<span class='break'> </span>Flash</a></li>
+				
+					<li><a href="../symbols/M139.RichMail.html">M139<span class='break'> </span>.<span class='break'> </span>RichMail</a></li>
+				
+					<li><a href="../symbols/M139.RichMail.API.html">M139<span class='break'> </span>.<span class='break'> </span>RichMail<span class='break'> </span>.<span class='break'> </span>API</a></li>
+				
+					<li><a href="../symbols/M139.RichMail.RichMailHttpClient.html">M139<span class='break'> </span>.<span class='break'> </span>RichMail<span class='break'> </span>.<span class='break'> </span>RichMailHttpClient</a></li>
+				
+					<li><a href="../symbols/M139.Testing.LoginHelper.html">M139<span class='break'> </span>.<span class='break'> </span>Testing<span class='break'> </span>.<span class='break'> </span>LoginHelper</a></li>
+				
+					<li><a href="../symbols/M139.Text.Cookie.html">M139<span class='break'> </span>.<span class='break'> </span>Text<span class='break'> </span>.<span class='break'> </span>Cookie</a></li>
+				
+					<li><a href="../symbols/M139.Text.Email.html">M139<span class='break'> </span>.<span class='break'> </span>Text<span class='break'> </span>.<span class='break'> </span>Email</a></li>
+				
+					<li><a href="../symbols/M139.Text.Html.html">M139<span class='break'> </span>.<span class='break'> </span>Text<span class='break'> </span>.<span class='break'> </span>Html</a></li>
+				
+					<li><a href="../symbols/M139.Text.Mobile.html">M139<span class='break'> </span>.<span class='break'> </span>Text<span class='break'> </span>.<span class='break'> </span>Mobile</a></li>
+				
+					<li><a href="../symbols/M139.Text.Url.html">M139<span class='break'> </span>.<span class='break'> </span>Text<span class='break'> </span>.<span class='break'> </span>Url</a></li>
+				
+					<li><a href="../symbols/M139.Text.Utils.html">M139<span class='break'> </span>.<span class='break'> </span>Text<span class='break'> </span>.<span class='break'> </span>Utils</a></li>
+				
+					<li><a href="../symbols/M139.Text.Xml.html">M139<span class='break'> </span>.<span class='break'> </span>Text<span class='break'> </span>.<span class='break'> </span>Xml</a></li>
+				
+					<li><a href="../symbols/M139.Timing.html">M139<span class='break'> </span>.<span class='break'> </span>Timing</a></li>
+				
+					<li><a href="../symbols/M139.UserModel.html">M139<span class='break'> </span>.<span class='break'> </span>UserModel</a></li>
+				
+					<li><a href="../symbols/M139.View.html">M139<span class='break'> </span>.<span class='break'> </span>View</a></li>
+				
+					<li><a href="../symbols/M139.View.ViewBase.html">M139<span class='break'> </span>.<span class='break'> </span>View<span class='break'> </span>.<span class='break'> </span>ViewBase</a></li>
+				
+					<li><a href="../symbols/M139.VipTool.levelEnum.html">M139<span class='break'> </span>.<span class='break'> </span>VipTool<span class='break'> </span>.<span class='break'> </span>levelEnum</a></li>
+				
+					<li><a href="../symbols/M2011.UI.Dialog.RecentMail.html">M2011<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Dialog<span class='break'> </span>.<span class='break'> </span>RecentMail</a></li>
+				
+					<li><a href="../symbols/M2012.Contacts.API.html">M2012<span class='break'> </span>.<span class='break'> </span>Contacts<span class='break'> </span>.<span class='break'> </span>API</a></li>
+				
+					<li><a href="../symbols/M2012.Contacts.ContactsInfo.html">M2012<span class='break'> </span>.<span class='break'> </span>Contacts<span class='break'> </span>.<span class='break'> </span>ContactsInfo</a></li>
+				
+					<li><a href="../symbols/M2012.Contacts.HttpClient.html">M2012<span class='break'> </span>.<span class='break'> </span>Contacts<span class='break'> </span>.<span class='break'> </span>HttpClient</a></li>
+				
+					<li><a href="../symbols/M2012.Contacts.Model.html">M2012<span class='break'> </span>.<span class='break'> </span>Contacts<span class='break'> </span>.<span class='break'> </span>Model</a></li>
+				
+					<li><a href="../symbols/M2012.MainApplication.html">M2012<span class='break'> </span>.<span class='break'> </span>MainApplication</a></li>
+				
+					<li><a href="../symbols/M2012.MatrixVM.html">M2012<span class='break'> </span>.<span class='break'> </span>MatrixVM</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Dialog.AddressBook.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Dialog<span class='break'> </span>.<span class='break'> </span>AddressBook</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Dialog.ContactsEditor.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Dialog<span class='break'> </span>.<span class='break'> </span>ContactsEditor</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Dialog.ExceptNotify.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Dialog<span class='break'> </span>.<span class='break'> </span>ExceptNotify</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Dialog.LargeAttach.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Dialog<span class='break'> </span>.<span class='break'> </span>LargeAttach</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Dialog.RecentMail.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Dialog<span class='break'> </span>.<span class='break'> </span>RecentMail</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Dialog.SaveToDisk.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Dialog<span class='break'> </span>.<span class='break'> </span>SaveToDisk</a></li>
+				
+					<li><a href="../symbols/M2012.UI.DialogBase.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>DialogBase</a></li>
+				
+					<li><a href="../symbols/M2012.UI.DropMenu.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>DropMenu</a></li>
+				
+					<li><a href="../symbols/M2012.UI.HTMLEditor.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>HTMLEditor</a></li>
+				
+					<li><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>HTMLEditor<span class='break'> </span>.<span class='break'> </span>Model<span class='break'> </span>.<span class='break'> </span>Editor</a></li>
+				
+					<li><a href="../symbols/M2012.UI.HTMLEditor.View.Editor.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>HTMLEditor<span class='break'> </span>.<span class='break'> </span>View<span class='break'> </span>.<span class='break'> </span>Editor</a></li>
+				
+					<li><a href="../symbols/M2012.UI.HTMLEditor.View.FaceMenu.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>HTMLEditor<span class='break'> </span>.<span class='break'> </span>View<span class='break'> </span>.<span class='break'> </span>FaceMenu</a></li>
+				
+					<li><a href="../symbols/M2012.UI.HTMLEditor.View.Menu.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>HTMLEditor<span class='break'> </span>.<span class='break'> </span>View<span class='break'> </span>.<span class='break'> </span>Menu</a></li>
+				
+					<li><a href="../symbols/M2012.UI.MenuButton.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>MenuButton</a></li>
+				
+					<li><a href="../symbols/M2012.UI.PageTurning.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>PageTurning</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Picker.Calendar.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Picker<span class='break'> </span>.<span class='break'> </span>Calendar</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Picker.PickerBase.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Picker<span class='break'> </span>.<span class='break'> </span>PickerBase</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Picker.Range.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Picker<span class='break'> </span>.<span class='break'> </span>Range</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Picker.TimeRange.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Picker<span class='break'> </span>.<span class='break'> </span>TimeRange</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Picker.Week.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Picker<span class='break'> </span>.<span class='break'> </span>Week</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Picker.Weekday.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Picker<span class='break'> </span>.<span class='break'> </span>Weekday</a></li>
+				
+					<li><a href="../symbols/M2012.UI.PopMenu.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>PopMenu</a></li>
+				
+					<li><a href="../symbols/M2012.UI.RichInput.ItemView.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>RichInput<span class='break'> </span>.<span class='break'> </span>ItemView</a></li>
+				
+					<li><a href="../symbols/M2012.UI.RichInput.TextBoxView.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>RichInput<span class='break'> </span>.<span class='break'> </span>TextBoxView</a></li>
+				
+					<li><a href="../symbols/M2012.UI.RichInput.View.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>RichInput<span class='break'> </span>.<span class='break'> </span>View</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Widget.Contacts.Model.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Widget<span class='break'> </span>.<span class='break'> </span>Contacts<span class='break'> </span>.<span class='break'> </span>Model</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Widget.Contacts.View.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Widget<span class='break'> </span>.<span class='break'> </span>Contacts<span class='break'> </span>.<span class='break'> </span>View</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Widget.ContactsAutoSave.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Widget<span class='break'> </span>.<span class='break'> </span>ContactsAutoSave</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Widget.ContactsCard.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Widget<span class='break'> </span>.<span class='break'> </span>ContactsCard</a></li>
+				
+					<li><a href="../symbols/String.html">String</a></li>
+				
+			</ul>
+		</nav>
+	</div>
+	<div class="fineprint" style="clear:both">
+		<footer>
+			
+			Documentation generator: <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0<br />
+			Template: <a href="http://www.thebrightlines.com/2010/05/06/new-template-for-jsdoctoolkit-codeview/" target="_blank">Codeview</a> 1.2<br />
+			Generated on:
+			<time datetime='2012-11-21' pubdate>2012-11-21 17:10</time>
+		</footer>
+	</div>
+</div>
+
+<div class="index indexStatic"></div>
+
+<div class="content">
+	<div class="innerContent">
+		<article>
+			<header>
+				<h1 class="classTitle">
+					
+					Class <span>M2012.UI.DialogBase</span>
+				</h1>
+				
+				<div class="intro">
+					<p class="description summary">
+						
+					</p>
+						
+					
+						<ul class="summary">
+							
+							
+							
+								<li>Defined in: <a href="../symbols/src/G__Work_SVN_Mail139_M2012(rebuild2012)_trunk_src_jsdoc_doc_template_m2012.ui.dialogbase.js.html">m2012.ui.dialogbase.js</a></li>
+							
+							<li>Extends <span class="fixedFont">
+								<a href="../symbols/M139.View.ViewBase.html">M139.View.ViewBase</a></span></li>
+							
+						</ul>
+					
+				</div>
+			</header>
+			
+			
+				<section>
+					<div class="props">
+						<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class M2012.UI.DialogBase.">
+							<caption class="sectionTitle">Class Summary</caption>
+							<thead>
+								<tr>
+									<th scope="col">Constructor Attributes</th>
+									<th scope="col">Constructor Name and Description</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="attributes">&nbsp;</td>
+									<td class="nameDescription" >
+										<div class="fixedFont">
+											<b><a href="../symbols/M2012.UI.DialogBase.html#constructor">M2012.UI.DialogBase</a></b>(options)
+										</div>
+										<div class="description">对话框组件基类</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</section>
+			
+			
+			
+				
+				<section>
+					
+					
+					
+						<nav>
+							<dl class="inheritsList">
+							<dt>Fields borrowed from class <a href="../symbols/M139.View.ViewBase.html">M139.View.ViewBase</a>: </dt><dd><a href="../symbols/M139.View.ViewBase.html#isRemoved">isRemoved</a>, <a href="../symbols/M139.View.ViewBase.html#logger">logger</a></dd>
+							</dl>
+						</nav>
+					
+				</section>
+			
+	<!--
+	#### METHODS SUMMARY
+	-->
+			
+				<section>
+					
+					
+					<div class="props">
+						<h2 class="sectionTitle">方法列表</h2>
+						
+						
+							<nav>
+								<table class="summaryTable" id="MethodsList" cellspacing="0" summary="A summary of the methods documented in the class M2012.UI.DialogBase.">
+									<thead>
+										<tr>
+											<th scope="col">方法类型</th>
+											<th scope="col">方法描述</th>
+										</tr>
+									</thead>
+									
+									<tbody>
+										
+										
+											<tr
+												 class='item0'
+											>
+												<td class="attributes">&lt;static&gt; &nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">M2012.UI.DialogBase.<b><a href="../symbols/M2012.UI.DialogBase.html#.alert">alert</a></b>(msg, options)
+													</div>
+													<div class="description">提示对话框，相当于window.alert()，只有一个确认按钮</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item1'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.DialogBase.html#cancelMiniSize">cancelMiniSize</a></b>()
+													</div>
+													<div class="description"></div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item2'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.DialogBase.html#close">close</a></b>(e)
+													</div>
+													<div class="description">关闭对话框</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item3'
+											>
+												<td class="attributes">&lt;static&gt; &nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">M2012.UI.DialogBase.<b><a href="../symbols/M2012.UI.DialogBase.html#.confirm">confirm</a></b>(msg, btn1OnClick, btn2OnClick, btn3OnClick, options)
+													</div>
+													<div class="description">确认对话框，有确认和取消两个按钮，可以定制按钮的文本</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item4'
+											>
+												<td class="attributes">&lt;static&gt; &nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">M2012.UI.DialogBase.<b><a href="../symbols/M2012.UI.DialogBase.html#.getDialog">getDialog</a></b>(target)
+													</div>
+													<div class="description">静态方法，在使用$Msg.open()打开的iframe中使用，根据window对象得到弹出的对话框实例</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item5'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.DialogBase.html#minisize">minisize</a></b>()
+													</div>
+													<div class="description">最小化，不使用hide</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item6'
+											>
+												<td class="attributes">&lt;static&gt; &nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">M2012.UI.DialogBase.<b><a href="../symbols/M2012.UI.DialogBase.html#.open">open</a></b>(options)
+													</div>
+													<div class="description">打开一个iframe对话框</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item7'
+											>
+												<td class="attributes">&lt;static&gt; &nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">M2012.UI.DialogBase.<b><a href="../symbols/M2012.UI.DialogBase.html#.prompt">prompt</a></b>(msg, yesOnClick, cancelOnClick)
+													</div>
+													<div class="description">输入对话框</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item8'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.DialogBase.html#render">render</a></b>()
+													</div>
+													<div class="description"></div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item9'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.DialogBase.html#setBottomTip">setBottomTip</a></b>(html)
+													</div>
+													<div class="description">设置左下角按钮栏提示文本</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item10'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.DialogBase.html#setButtonDisable">setButtonDisable</a></b>(index, value)
+													</div>
+													<div class="description">设置按钮灰显，不可用</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item11'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.DialogBase.html#setButtonText">setButtonText</a></b>(index, text)
+													</div>
+													<div class="description">设置按钮文本</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item12'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.DialogBase.html#setDialogTitle">setDialogTitle</a></b>(title)
+													</div>
+													<div class="description">设置对话框标题</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item13'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.DialogBase.html#setMiddle">setMiddle</a></b>()
+													</div>
+													<div class="description">设置对话框居中显示</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item14'
+											>
+												<td class="attributes">&lt;static&gt; &nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">M2012.UI.DialogBase.<b><a href="../symbols/M2012.UI.DialogBase.html#.showHTML">showHTML</a></b>(html, btn1OnClick, btn2OnClick, btn3OnClick, options)
+													</div>
+													<div class="description">弹出对话框，定制html内容，可以选择显示或者不显示按钮</div>
+												</td>
+											</tr>
+										
+									</tbody>
+								</table>
+							</nav>
+						
+					
+						
+							<nav>
+								<dl class="inheritsList" id="MethodsListInherited">
+								<dt>Methods borrowed from class <span class='fixedFont'><a href="../symbols/M139.View.ViewBase.html">M139.View.ViewBase</a></span>: </dt><dd><span class='fixedFont'><a href="../symbols/M139.View.ViewBase.html#get$El">get$El</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/M139.View.ViewBase.html#getEl">getEl</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/M139.View.ViewBase.html#getHeight">getHeight</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/M139.View.ViewBase.html#getId">getId</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/M139.View.ViewBase.html#getRandomId">getRandomId</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/M139.View.ViewBase.html#getWidth">getWidth</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/M139.View.ViewBase.html#hide">hide</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/M139.View.ViewBase.html#isHide">isHide</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/M139.View.ViewBase.html#onUpdate">onUpdate</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/M139.View.ViewBase.html#remove">remove</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/M139.View.ViewBase.html#setHeight">setHeight</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/M139.View.ViewBase.html#setHtml">setHtml</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/M139.View.ViewBase.html#setPosition">setPosition</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/M139.View.ViewBase.html#setSize">setSize</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/M139.View.ViewBase.html#setWidth">setWidth</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/M139.View.ViewBase.html#show">show</a></span></dd>
+								</dl>
+							</nav>
+						
+					</div>
+				</section>
+			
+			
+	<!--
+	#### EVENTS SUMMARY
+	-->
+			
+				
+				<section>
+					
+					
+					
+						<nav>
+							<dl class="inheritsList">
+							<dt>Events borrowed from class <a href="../symbols/M139.View.ViewBase.html">M139.View.ViewBase</a>: </dt><dd><a href="../symbols/M139.View.ViewBase.html#event:hide">hide</a>, <a href="../symbols/M139.View.ViewBase.html#event:move">move</a>, <a href="../symbols/M139.View.ViewBase.html#event:print">print</a>, <a href="../symbols/M139.View.ViewBase.html#event:remove">remove</a>, <a href="../symbols/M139.View.ViewBase.html#event:render">render</a>, <a href="../symbols/M139.View.ViewBase.html#event:resize">resize</a>, <a href="../symbols/M139.View.ViewBase.html#event:show">show</a>, <a href="../symbols/M139.View.ViewBase.html#event:update">update</a></dd>
+							</dl>
+						</nav>
+					
+				</section>
+			
+	<!--
+	#### CONSTRUCTOR DETAILS
+	-->
+			
+				<section>
+					<div class="details props">
+						<div class="innerProps">
+							<h2 class="sectionTitle" id="constructor">
+								Class Detail
+							</h2>
+							
+							<div class="fixedFont">
+								<b>M2012.UI.DialogBase</b>(options)
+							</div>
+							
+							<div class="description">
+								对话框组件基类
+								
+							</div>
+							
+							
+								
+									<pre class="code"></pre>
+								
+							
+						
+							
+								<dl class="detailList params">
+									<dt class="heading">Parameters:</dt>
+									
+										<dt>
+											<span class="light fixedFont">{Object}</span>  <b>options</b>
+											
+										</dt>
+										<dd>初始化参数集</dd>
+									
+										<dt>
+											<span class="light fixedFont">{<a href="../symbols/String.html">String</a>}</span>  <b>options.template</b>
+											
+										</dt>
+										<dd>对话框组件的html代码</dd>
+									
+										<dt>
+											<span class="light fixedFont">{<a href="../symbols/String.html">String</a>}</span>  <b>options.dialogTitle</b>
+											
+										</dt>
+										<dd>定义标题栏文本</dd>
+									
+										<dt>
+											<span class="light fixedFont">{<a href="../symbols/String.html">String</a>}</span>  <b>options.dialogTitlePath</b>
+											
+										</dt>
+										<dd>定义标题栏的路径</dd>
+									
+										<dt>
+											<span class="light fixedFont">{<a href="../symbols/String.html">String</a>}</span>  <b>options.titlePath</b>
+											
+										</dt>
+										<dd>定义标题栏容器的路径</dd>
+									
+										<dt>
+											<span class="light fixedFont">{<a href="../symbols/String.html">String</a>}</span>  <b>options.title</b>
+											
+										</dt>
+										<dd>定义正文标题文本</dd>
+									
+										<dt>
+											<span class="light fixedFont">{<a href="../symbols/String.html">String</a>}</span>  <b>options.contentPath</b>
+											
+										</dt>
+										<dd>定义内容容器的路径</dd>
+									
+										<dt>
+											<span class="light fixedFont">{<a href="../symbols/String.html">String</a>}</span>  <b>options.contentButtonPath</b>
+											
+										</dt>
+										<dd>所有功能按钮路径</dd>
+									
+										<dt>
+											<span class="light fixedFont">{<a href="../symbols/String.html">String</a>}</span>  <b>options.closeButPath</b>
+											
+										</dt>
+										<dd>标题栏上的关闭按钮路径</dd>
+									
+										<dt>
+											<span class="light fixedFont">{<a href="../symbols/String.html">String</a>}</span>  <b>options.minisizeButPath</b>
+											
+										</dt>
+										<dd>标题栏上的最小化按钮路径</dd>
+									
+										<dt>
+											<span class="light fixedFont">{Boolean}</span>  <b>options.hideTitleBar</b>
+											
+										</dt>
+										<dd>是否隐藏标题栏</dd>
+									
+										<dt>
+											<span class="light fixedFont">{<a href="../symbols/String.html">String</a>}</span>  <b>options.bottomTip</b>
+											
+										</dt>
+										<dd>左下角按钮栏的提示文本</dd>
+									
+								</dl>
+							
+							
+							
+						</div>
+					</div>
+				</section>
+			
+	<!--
+	#### FIELD DETAILS
+	-->
+			
+	<!--
+	#### METHOD DETAILS
+	-->		
+			
+				<section>
+					<div class="details props">
+						<div class="innerProps">
+							<h2 class="sectionTitle">
+								方法详细说明
+							</h2>
+							
+							<ul class="methodDetail" id="MethodDetail">
+								
+								
+									<li 
+										 class='item0'
+									>
+										<div class="fixedFont heading" id=".alert">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											<span class="light">{<a href="../symbols/M2012.UI.DialogBase.html">M2012.UI.DialogBase</a>}</span>
+											
+											<span class="light">M2012.UI.DialogBase.</span><b>alert</b>(msg, options)
+										</div>
+										
+										<div class="description">
+											提示对话框，相当于window.alert()，只有一个确认按钮
+											
+											
+											
+											
+										</div>
+										
+										
+											
+												<pre class="code">
+        $Msg.alert("hello world",{
+            onClose:function(e){
+                e.cancel = true;//撤销关闭
+            }
+        });</pre>
+											
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<span class="light fixedFont">{<a href="../symbols/String.html">String</a>}</span> <b>msg</b>
+														
+													</dt>
+													<dd>提示的内容文本，默认是纯文本，当options.isHtml为真时才不做encode</dd>
+												
+													<dt>
+														<span class="light fixedFont">{Object}</span> <b>options</b>
+														
+													</dt>
+													<dd>参数集合</dd>
+												
+													<dt>
+														<span class="light fixedFont">{<a href="../symbols/String.html">String</a>}</span> <b>options.title</b>
+														
+													</dt>
+													<dd>可选参数，定义正文标题文本</dd>
+												
+													<dt>
+														<span class="light fixedFont">{<a href="../symbols/String.html">String</a>}</span> <b>options.dialogTitle</b>
+														
+													</dt>
+													<dd>可选参数，定义标题栏文本</dd>
+												
+													<dt>
+														<span class="light fixedFont">{<a href="../symbols/String.html">String</a>}</span> <b>options.icon</b>
+														
+													</dt>
+													<dd>可选参数，定义左侧提示图标，默认为warn，目前内建支持ok,fail,warn(如果没有内建，可以直接传图标的class)</dd>
+												
+													<dt>
+														<span class="light fixedFont">{Function}</span> <b>options.onClose</b>
+														
+													</dt>
+													<dd>关闭对话框时的回调</dd>
+												
+													<dt>
+														<span class="light fixedFont">{Boolean}</span> <b>options.isHtml</b>
+														
+													</dt>
+													<dd>标注msg字段为html，不做encode</dd>
+												
+											</dl>
+										
+										
+										
+											<dl class="detailList nomargin">
+											
+												
+												
+												
+												
+												
+												
+												
+													<dt class="heading">Returns:</dt>
+													
+														<dd><span class="light fixedFont">{<a href="../symbols/M2012.UI.DialogBase.html">M2012.UI.DialogBase</a>}</span> 返回对话框实例</dd>
+													
+												
+												
+												
+												
+												
+											
+											</dl>
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item1'
+									>
+										<div class="fixedFont heading" id="cancelMiniSize">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>cancelMiniSize</b>()
+										</div>
+										
+										<div class="description">
+											
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item2'
+									>
+										<div class="fixedFont heading" id="close">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>close</b>(e)
+										</div>
+										
+										<div class="description">
+											关闭对话框
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>e</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item3'
+									>
+										<div class="fixedFont heading" id=".confirm">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											<span class="light">{<a href="../symbols/M2012.UI.DialogBase.html">M2012.UI.DialogBase</a>}</span>
+											
+											<span class="light">M2012.UI.DialogBase.</span><b>confirm</b>(msg, btn1OnClick, btn2OnClick, btn3OnClick, options)
+										</div>
+										
+										<div class="description">
+											确认对话框，有确认和取消两个按钮，可以定制按钮的文本
+											
+											
+											
+											
+										</div>
+										
+										
+											
+												<pre class="code">
+        $Msg.confirm(
+            "Are you sure?",
+            function(){
+                //click sure
+            },
+            function(){
+                //click cancel
+            },
+            {
+                buttons:["是","否"],//按钮文本，支持3个按钮，默认为2个按钮，即["确定","取消"]
+                title:"对话框标题"
+            }
+        );
+    
+        $Msg.confirm(
+            "您还可以手动选择要归档的邮件，移动到指定文件夹",
+            function(){
+                alert("您点击了确定");
+            },
+            {
+                title:"邮件归档失败",
+                dialogTitle:"邮件清理",
+                icon:"fail"
+            }
+        );</pre>
+											
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<span class="light fixedFont">{<a href="../symbols/String.html">String</a>}</span> <b>msg</b>
+														
+													</dt>
+													<dd>提示的内容文本，默认是纯文本，当options.isHtml为真时才不做encode</dd>
+												
+													<dt>
+														<span class="light fixedFont">{Function}</span> <b>btn1OnClick</b>
+														
+													</dt>
+													<dd>可选参数，点击第一个按钮</dd>
+												
+													<dt>
+														<span class="light fixedFont">{Function}</span> <b>btn2OnClick</b>
+														
+													</dt>
+													<dd>可选参数，点击第二个按钮</dd>
+												
+													<dt>
+														<span class="light fixedFont">{Function}</span> <b>btn3OnClick</b>
+														
+													</dt>
+													<dd>可选参数，点击第三个按钮</dd>
+												
+													<dt>
+														<span class="light fixedFont">{Object}</span> <b>options</b>
+														
+													</dt>
+													<dd>参数集合</dd>
+												
+													<dt>
+														<span class="light fixedFont">{Function}</span> <b>options.onClose</b>
+														
+													</dt>
+													<dd>关闭对话框时的回调</dd>
+												
+													<dt>
+														<span class="light fixedFont">{<a href="../symbols/String.html">String</a>}</span> <b>options.title</b>
+														
+													</dt>
+													<dd>可选参数，定义正文标题文本</dd>
+												
+													<dt>
+														<span class="light fixedFont">{<a href="../symbols/String.html">String</a>}</span> <b>options.dialogTitle</b>
+														
+													</dt>
+													<dd>可选参数，定义标题栏文本</dd>
+												
+													<dt>
+														<span class="light fixedFont">{<a href="../symbols/String.html">String</a>}</span> <b>options.icon</b>
+														
+													</dt>
+													<dd>可选参数，定义左侧提示图标，目前支持ok,fail(或者直接传图标的class)</dd>
+												
+													<dt>
+														<span class="light fixedFont">{<a href="../symbols/Array.html">Array</a>}</span> <b>options.buttons</b>
+														
+													</dt>
+													<dd>显示几个按钮，以及按钮的文本</dd>
+												
+													<dt>
+														<span class="light fixedFont">{Boolean}</span> <b>options.isHtml</b>
+														
+													</dt>
+													<dd>标注msg字段为html，不做encode</dd>
+												
+											</dl>
+										
+										
+										
+											<dl class="detailList nomargin">
+											
+												
+												
+												
+												
+												
+												
+												
+													<dt class="heading">Returns:</dt>
+													
+														<dd><span class="light fixedFont">{<a href="../symbols/M2012.UI.DialogBase.html">M2012.UI.DialogBase</a>}</span> 返回对话框实例</dd>
+													
+												
+												
+												
+												
+												
+											
+											</dl>
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item4'
+									>
+										<div class="fixedFont heading" id=".getDialog">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											<span class="light">{<a href="../symbols/M2012.UI.DialogBase.html">M2012.UI.DialogBase</a>}</span>
+											
+											<span class="light">M2012.UI.DialogBase.</span><b>getDialog</b>(target)
+										</div>
+										
+										<div class="description">
+											静态方法，在使用$Msg.open()打开的iframe中使用，根据window对象得到弹出的对话框实例
+											
+											
+											
+											
+										</div>
+										
+										
+											
+												<pre class="code">
+        var dialog = window.parent.$Msg.getDialog(window);
+        dialog.close();</pre>
+											
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<span class="light fixedFont">{Window}</span> <b>target</b>
+														
+													</dt>
+													<dd>对话框中iframe的window对象</dd>
+												
+											</dl>
+										
+										
+										
+											<dl class="detailList nomargin">
+											
+												
+												
+												
+												
+												
+												
+												
+													<dt class="heading">Returns:</dt>
+													
+														<dd><span class="light fixedFont">{<a href="../symbols/M2012.UI.DialogBase.html">M2012.UI.DialogBase</a>}</span> 返回对话框实例</dd>
+													
+												
+												
+												
+												
+												
+											
+											</dl>
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item5'
+									>
+										<div class="fixedFont heading" id="minisize">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>minisize</b>()
+										</div>
+										
+										<div class="description">
+											最小化，不使用hide
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item6'
+									>
+										<div class="fixedFont heading" id=".open">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											<span class="light">{<a href="../symbols/M2012.UI.DialogBase.html">M2012.UI.DialogBase</a>}</span>
+											
+											<span class="light">M2012.UI.DialogBase.</span><b>open</b>(options)
+										</div>
+										
+										<div class="description">
+											打开一个iframe对话框
+											
+											
+											
+											
+										</div>
+										
+										
+											
+												<pre class="code">
+        $Msg.open({
+            dialogTitle:"对话框标题",
+            url:"http://www.baidu.com",
+            width:400,
+            height:400
+        });</pre>
+											
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<span class="light fixedFont">{Object}</span> <b>options</b>
+														
+													</dt>
+													<dd>参数集合</dd>
+												
+													<dt>
+														<span class="light fixedFont">{<a href="../symbols/String.html">String</a>}</span> <b>options.title</b>
+														
+													</dt>
+													<dd>对话框标题</dd>
+												
+													<dt>
+														<span class="light fixedFont">{<a href="../symbols/String.html">String</a>}</span> <b>options.url</b>
+														
+													</dt>
+													<dd>iframe的页面地址</dd>
+												
+													<dt>
+														<span class="light fixedFont">{<a href="../symbols/String.html">String</a>|Number}</span> <b>options.height</b>
+														
+													</dt>
+													<dd>对话框高度</dd>
+												
+													<dt>
+														<span class="light fixedFont">{<a href="../symbols/String.html">String</a>|Number}</span> <b>options.width</b>
+														
+													</dt>
+													<dd>对话框宽度</dd>
+												
+											</dl>
+										
+										
+										
+											<dl class="detailList nomargin">
+											
+												
+												
+												
+												
+												
+												
+												
+													<dt class="heading">Returns:</dt>
+													
+														<dd><span class="light fixedFont">{<a href="../symbols/M2012.UI.DialogBase.html">M2012.UI.DialogBase</a>}</span> 返回对话框实例</dd>
+													
+												
+												
+												
+												
+												
+											
+											</dl>
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item7'
+									>
+										<div class="fixedFont heading" id=".prompt">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											<span class="light">{<a href="../symbols/M2012.UI.DialogBase.html">M2012.UI.DialogBase</a>}</span>
+											
+											<span class="light">M2012.UI.DialogBase.</span><b>prompt</b>(msg, yesOnClick, cancelOnClick)
+										</div>
+										
+										<div class="description">
+											输入对话框
+											
+											
+											
+											
+										</div>
+										
+										
+											
+												<pre class="code">
+        $Msg.prompt(
+            "请输入你的名字",
+            function(value,e){
+                if(value !="lifula"){
+                    e.cancel = true;//取消关闭
+                }
+            },
+            {
+                title:"对话框标题"
+            }
+        );</pre>
+											
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<span class="light fixedFont">{<a href="../symbols/String.html">String</a>}</span> <b>msg</b>
+														
+													</dt>
+													<dd>提示的内容文本</dd>
+												
+													<dt>
+														<span class="light fixedFont">{Function}</span> <b>yesOnClick</b>
+														
+													</dt>
+													<dd>可选参数，点击确认按钮</dd>
+												
+													<dt>
+														<span class="light fixedFont">{Function}</span> <b>cancelOnClick</b>
+														
+													</dt>
+													<dd>可选参数，点击取消按钮</dd>
+												
+													<dt>
+														<span class="light fixedFont">{Object}</span> <b>options.title</b>
+														
+													</dt>
+													<dd>可选参数，对话框的标题</dd>
+												
+													<dt>
+														<span class="light fixedFont">{Object}</span> <b>options.maxLength</b>
+														
+													</dt>
+													<dd>可选参数，文本框最大输入字符数</dd>
+												
+													<dt>
+														<span class="light fixedFont">{Object}</span> <b>options.defaultValue</b>
+														
+													</dt>
+													<dd>可选参数，文本框默认值</dd>
+												
+													<dt>
+														<span class="light fixedFont">{Boolean}</span> <b>options.isPassword</b>
+														
+													</dt>
+													<dd>输入框为密码框</dd>
+												
+											</dl>
+										
+										
+										
+											<dl class="detailList nomargin">
+											
+												
+												
+												
+												
+												
+												
+												
+													<dt class="heading">Returns:</dt>
+													
+														<dd><span class="light fixedFont">{<a href="../symbols/M2012.UI.DialogBase.html">M2012.UI.DialogBase</a>}</span> 返回对话框实例</dd>
+													
+												
+												
+												
+												
+												
+											
+											</dl>
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item8'
+									>
+										<div class="fixedFont heading" id="render">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>render</b>()
+										</div>
+										
+										<div class="description">
+											
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item9'
+									>
+										<div class="fixedFont heading" id="setBottomTip">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>setBottomTip</b>(html)
+										</div>
+										
+										<div class="description">
+											设置左下角按钮栏提示文本
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<span class="light fixedFont">{<a href="../symbols/String.html">String</a>}</span> <b>html</b>
+														
+													</dt>
+													<dd>按钮文本html</dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item10'
+									>
+										<div class="fixedFont heading" id="setButtonDisable">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>setButtonDisable</b>(index, value)
+										</div>
+										
+										<div class="description">
+											设置按钮灰显，不可用
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<span class="light fixedFont">{Number}</span> <b>index</b>
+														
+													</dt>
+													<dd>按钮下标</dd>
+												
+													<dt>
+														<span class="light fixedFont">{Boolean}</span> <b>value</b>
+														
+													</dt>
+													<dd>是否不可用，true为不可用</dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item11'
+									>
+										<div class="fixedFont heading" id="setButtonText">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>setButtonText</b>(index, text)
+										</div>
+										
+										<div class="description">
+											设置按钮文本
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<span class="light fixedFont">{Number}</span> <b>index</b>
+														
+													</dt>
+													<dd>按钮下标</dd>
+												
+													<dt>
+														<span class="light fixedFont">{<a href="../symbols/String.html">String</a>}</span> <b>text</b>
+														
+													</dt>
+													<dd>按钮文本</dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item12'
+									>
+										<div class="fixedFont heading" id="setDialogTitle">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>setDialogTitle</b>(title)
+										</div>
+										
+										<div class="description">
+											设置对话框标题
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<span class="light fixedFont">{Stirng}</span> <b>title</b>
+														
+													</dt>
+													<dd>标题文本</dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item13'
+									>
+										<div class="fixedFont heading" id="setMiddle">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>setMiddle</b>()
+										</div>
+										
+										<div class="description">
+											设置对话框居中显示
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item14'
+									>
+										<div class="fixedFont heading" id=".showHTML">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											<span class="light">{<a href="../symbols/M2012.UI.DialogBase.html">M2012.UI.DialogBase</a>}</span>
+											
+											<span class="light">M2012.UI.DialogBase.</span><b>showHTML</b>(html, btn1OnClick, btn2OnClick, btn3OnClick, options)
+										</div>
+										
+										<div class="description">
+											弹出对话框，定制html内容，可以选择显示或者不显示按钮
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<span class="light fixedFont">{<a href="../symbols/String.html">String</a>}</span> <b>html</b>
+														
+													</dt>
+													<dd>对话框的html内容标题</dd>
+												
+													<dt>
+														<span class="light fixedFont">{Function}</span> <b>btn1OnClick</b>
+														
+													</dt>
+													<dd>可选参数，在有按钮的情况下，点击第一个按钮</dd>
+												
+													<dt>
+														<span class="light fixedFont">{Function}</span> <b>btn2OnClick</b>
+														
+													</dt>
+													<dd>可选参数，在有按钮的情况下，点击第二个按钮</dd>
+												
+													<dt>
+														<span class="light fixedFont">{Function}</span> <b>btn3OnClick</b>
+														
+													</dt>
+													<dd>可选参数，在有按钮的情况下，点击第三个按钮</dd>
+												
+													<dt>
+														<span class="light fixedFont">{Object}</span> <b>options</b>
+														
+													</dt>
+													<dd>设置参数集合</dd>
+												
+													<dt>
+														<span class="light fixedFont">{<a href="../symbols/String.html">String</a>}</span> <b>options.title</b>
+														
+													</dt>
+													<dd>对话框标题</dd>
+												
+													<dt>
+														<span class="light fixedFont">{<a href="../symbols/Array.html">Array</a>}</span> <b>options.buttons</b>
+														
+													</dt>
+													<dd>定制按钮,如：["按钮1","按钮2"]，如果没有按钮，则不显示按钮栏</dd>
+												
+											</dl>
+										
+										
+										
+											<dl class="detailList nomargin">
+											
+												
+												
+												
+												
+												
+												
+												
+													<dt class="heading">Returns:</dt>
+													
+														<dd><span class="light fixedFont">{<a href="../symbols/M2012.UI.DialogBase.html">M2012.UI.DialogBase</a>}</span> 返回对话框实例</dd>
+													
+												
+												
+												
+												
+												
+											
+											</dl>
+										
+										
+									</li>
+								
+							</ul>
+						</div>
+					</div>
+				</section>
+			
+			
+	<!--
+	#### EVENT DETAILS
+	-->		
+			
+		</article>
+	</div>
+</div>
+
+		<script type="text/javascript">
+			wbos.CssTools.MediaQueryFallBack.LoadCss('../css/screen.css', '../css/handheld.css', 660)
+			codeview.classFilter.Init()
+		</script>
+	</body>
+</html>
+

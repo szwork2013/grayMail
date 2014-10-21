@@ -1,0 +1,100 @@
+﻿<project default="m2012_pack">
+    <target name="m2012_pack" >
+        <property name="base" location="./" />
+        <property name="out" location="./target" />
+        <property name="resource_m2012" location="${out}/images.139cm.com/m2012" />
+
+        <!-- 创建文件夹 -->
+        <mkdir dir="${out}"></mkdir>
+
+        <!-- 执行合并js -->
+        <antcall target="pack_js"></antcall>
+
+        <!-- 执行合并css -->
+        <subant target="">
+          <fileset dir="./" includes="concatcss.xml"/>
+        </subant>
+
+        <!-- 执行提取文件版本号 -->
+        <subant target="">
+          <fileset dir="./" includes="createFileVersion.xml"/>
+        </subant>
+
+         <!-- 复制js文件 -->
+         <copydir src="${base}/js/"
+           dest="${resource_m2012}/js/"
+           includes="**/**.js"
+           excludes=""
+         />
+
+         <!-- 复制css/image/html/flash文件 -->
+         <copydir src="${base}/css/"
+           dest="${resource_m2012}/css/"
+           includes="**/**.css,"
+           excludes=""
+         />
+         <copydir src="${base}/images/"
+           dest="${resource_m2012}/images/"
+           excludes=""
+         />
+		 <!--
+		 小工具文件夹包删除
+		 <copydir src="${base}/controlupdate/"
+           dest="${resource_m2012}/controlupdate/"
+           excludes=""
+         />
+		 -->
+         <copydir src="${base}/component/"
+           dest="${resource_m2012}/component/"
+           excludes=""
+         />
+         <copydir src="${base}/flash/"
+           dest="${resource_m2012}/flash/"
+           includes="**/**"
+           excludes=""
+         />
+         <!-- 信纸文件夹有图片 -->
+         <copydir src="${base}/html/"
+           dest="${resource_m2012}/html/"
+           excludes=""
+         />
+
+	<delete file="${resource_m2012}/html/set/feature_meal_config.js" />
+	<delete file="${resource_m2012}/js/config.*.js" />
+
+         <!-- 复制conf文件 -->
+         <copydir src="${base}/conf/"
+           dest="${resource_m2012}/conf/"
+           excludes=""
+         />
+
+        <!-- 压缩js -->
+        <echo>开始压缩脚本</echo>
+        <antcall target="min_js"></antcall>
+
+        <echo>生成样式引用图片的版本号</echo>
+        <antcall target="replace_image_version"></antcall>
+    </target>
+
+    <!-- 子任务：合并js -->
+     <target name="pack_js">
+        <subant target="">
+            <fileset dir="./js/" includes="**.pack.js.xml"/>
+        </subant>
+     </target>
+
+    <!-- 子任务：压缩js -->
+    <target name="min_js">
+        <subant target="">
+            <fileset dir="./" includes="jsmin.xml"/>
+        </subant>
+    </target>
+
+    <!-- 子任务：替换css里的图片文件版本号 -->
+    <target name="replace_image_version">
+      <exec executable="node">
+        <arg value="${base}/build/lib/replaceCSSImageVersion.js" />
+        <arg value="--csspath=${resource_m2012}/css" />
+      </exec>
+    </target>
+</project>

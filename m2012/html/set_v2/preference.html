@@ -1,0 +1,401 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>139邮箱设置</title>
+<script>
+
+document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+
+top.loadScript('libs.pack.js',document);
+top.loadScript('m139.core.pack.js',document);
+top.loadScript("m2012.ui.common.pack.js",document);
+top.loadCSS(["common/global.css","module/write.css","module/set_v2.css"],document);
+</script>
+<style>
+.edit-btn,.eidt-bar .eidt-bar-li .line,.eidt-bar .pushon{display:none;}
+#ED_Bold,#ED_FontFamily,#ED_FontSize,#ED_FontColor,#ED_Italic{display:inline-block;}
+</style>
+</head>
+<body>
+    <div class="setWrap">
+        <div class="setArea">
+            <h2>邮件列表</h2>
+            <div class="setArea-content">
+                <ul class="form setForm set-group">
+                    <li class="set-unit">
+                      <label class="label">邮件列表分栏展示：</label>
+                          <div class="unit-wrap">
+                              <ul id="ListLayouts" class="element viewSet">
+                                <li id="oneWindow" class="mr_20">
+                                    <label for="radioBox_01"><i class="subfield subfieldDefault"></i></label>
+                                  <input type="radio" name="radio" checked id="radioBox_01" value="" class="mr_5"/>
+                                  <label for="radioBox_01">
+                                      没有分栏
+                                  </label>
+                                </li>
+                                <li id="TBwindow" class="mr_20">
+                                    <label for="radioBox_02"><i class="subfield subFieldTwo"></i></label>
+                                  <input type="radio" name="radio" id="radioBox_02" value="" class="mr_5"/>
+                                  <label for="radioBox_02">
+                                      上下分栏
+                                  </label>
+                                </li>
+                                <li id="LRwindow" class="mr_20">
+                                    <label for="radioBox_03"><i class="subfield subFieldThree"></i></label>
+                                  <input type="radio" name="radio" id="radioBox_03" value="" class="mr_5"/>
+                                  <label for="radioBox_03">
+                                      左右分栏
+                                  </label>
+                                </li>  
+                              </ul>
+                            </li>
+
+                            <li class="set-unit">
+                                <label class="label">邮件列表中：</label>
+                                <div class="element">
+                                    <div class="clearfix">
+                                        <label for="" class="fl mr_10">每页显示</label>
+                                        <div id="preferenceLetters" class="dropDown-mailset"></div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="set-unit">
+                                <label class="label">邮件密度：</label>
+                                <div class="element">
+                                    <div class="clearfix">
+                                        <label for="" class="fl mr_10">列表高度</label>
+                                        <div class="dropDown dropDown-mailset" style="width:auto;">
+                                            <a class="dropDownA" href="javascript:void(0)">
+                                                <i class="i_triangle_d"></i>
+                                            </a>
+
+                                            <div class="dropDownText">
+                                                适中
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="set-unit">
+                                <label class="label"> </label>
+                                <div class="element">
+                                    <label for="cbxMailContentDisplay">
+                                        <input type="checkbox" id="cbxMailContentDisplay" value="" class="mr_5">
+                                        显示“正文摘要”
+                                    </label>
+                                    <br>
+                                    <label for="cbxMailSizeDisplay">
+                                        <input type="checkbox" id="cbxMailSizeDisplay" value="" class="mr_5">
+                                        显示“邮件大小”
+                                    </label>
+                                </div>
+                            </li>
+                            <li class="set-unit">
+                                <label class="label">邮件列表视图：</label>
+                                <div class="element">
+                                    <label>
+                                        <input type="checkbox" id="cbxSessionMode" value="" class="mr_5">
+                                        会话模式
+                                    </label>
+                                    <a href="javascript:;" class="ml_20">什么是会话模式？</a>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+</div>
+</div>
+
+<div class="setArea">
+<h2>读信设置</h2>
+
+<div class="setArea-content">
+    <ul class="form set-group">
+        <li class="set-unit">
+            <label class="label">对方要求回执时：</label>
+            <div class="unit-wrap">
+                <div class="element">
+	                <div id="setReceipt" class="dropDown-mailset"></div>
+                </div>
+            </div>
+        </li>
+
+    </ul>
+</div>
+</div>
+
+
+<div class="setArea">
+<h2>回复与转发</h2>
+
+<div class="setArea-content">
+    <ul class="form set-group">
+        <li class="set-unit">
+            <label class="label">回邮件时：</label>
+            <div class="unit-wrap">
+                <div class="element">
+                    <div class="dropDown dropDown-mailset" style="width:auto;">
+                        <a class="dropDownA" href="javascript:void(0)">
+                            <i class="i_triangle_d"></i>
+                        </a>
+
+                        <div class="dropDownText">
+                            附带原邮件 <i class="i_tuij"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li class="set-unit">
+            <label class="label">回复时主题显示：</label>
+            <div class="unit-wrap">
+                <div class="element">
+                    <div class="dropDown dropDown-mailset" style="width:auto;">
+                        <a class="dropDownA" href="javascript:void(0)">
+                            <i class="i_triangle_d"></i>
+                        </a>
+
+                        <div class="dropDownText">
+                            Re:  <i class="i_tuij"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+
+        <li class="set-unit formLineDotted pb_20">
+            <label class="label">自动回复：</label>
+            <div class="unit-wrap">
+                <div class="element">
+                    <label><input type="checkbox" value="" class="mr_5"> 开启</label>
+                </div>
+            </div>
+            <div id="autoReplyDetail" class="setDetailBox" style="display:none">
+                <i class="i-arrowUp"></i>
+                <div class="inner">
+                    <div class="former clearfix">
+                        <label for="" class="fl lbl">时间段：</label>
+                        <div class="dropDown dropDown-mailset" style="width:152px;">
+                            <a class="dropDownA" href="javascript:void(0)">
+                                <i class="i_triangle_d"></i>
+                            </a>
+
+                            <div class="dropDownText">
+                                2014-07-29 今
+                            </div>
+                        </div>
+                        <div class="fl ta_c" style="line-height: 23px;width:29px;">至</div>
+                        <div class="dropDown dropDown-mailset" style="width:152px;">
+                            <a class="dropDownA" href="javascript:void(0)">
+                                <i class="i_triangle_d"></i>
+                            </a>
+
+                            <div class="dropDownText">
+                                2014-07-29 今
+                            </div>
+                        </div>
+                    </div>
+                    <div class="former mt_10">
+                        <textarea name="" id="" cols="30" rows="10">您的来信已收到，我会尽快回信。</textarea>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li class="setDetailBox-li">
+
+        <li class="set-unit">
+            <label class="label">自动转发：</label>
+            <div class="unit-wrap">
+                <div class="element">
+                    <label>
+                        <input type="checkbox" id="cbxAutoForwardAddr" value="" class="mr_5">
+                        开启
+                    </label>
+                </div>
+            </div>
+            <div id="autoForwardAddrDetail" class="setDetailBox" style="display:none">
+                <i class="i-arrowUp"></i>
+                <div class="inner">
+                    <div class="former clearfix">
+                        <label for="" class="fl lbl">转发到：</label>
+                        <input type="text" class="iText fl" value="" style="margin-top: -1px;">
+                    </div>
+                    <div class="former mt_10">
+                        <label>
+                            <input type="checkbox" id="txtAutoForwardAddr" value="" class="mr_5">
+                            本账号保存邮件
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+</div>
+
+
+
+<div class="setArea">
+<h2>提醒</h2>
+
+<div class="setArea-content">
+    <ul class="form set-group">
+        <li class="set-unit">
+            <label class="label">在线联系人提醒 ：</label>
+            <div class="unit-wrap">
+                <div class="element">
+                    <div class="dropDown dropDown-mailset" style="width:auto;">
+                        <a class="dropDownA" href="javascript:void(0)">
+                            <i class="i_triangle_d"></i>
+                        </a>
+
+                        <div class="dropDownText">
+                            提醒我
+                        </div>
+                    </div>
+
+                    <span class="gray ml_10 fl">登录后，提醒我有谁在线，还可以向他们打招呼</span>
+                </div>
+            </div>
+        </li>
+
+        <li class="set-unit">
+            <label class="label">联系人上线提醒：</label>
+            <div class="unit-wrap">
+                <div class="element">
+                    <div class="dropDown dropDown-mailset" style="width:auto;">
+                        <a class="dropDownA" href="javascript:void(0)">
+                            <i class="i_triangle_d"></i>
+                        </a>
+
+                        <div class="dropDownText">
+                            提醒我
+                        </div>
+                    </div>
+
+                    <span class="gray ml_10 fl">联系人登录邮箱时提醒我</span>
+                </div>
+            </div>
+        </li>
+
+        <li class="set-unit">
+            <label class="label">新邮件提醒：</label>
+            <div class="unit-wrap">
+                <div class="element">
+                    <div class="dropDown dropDown-mailset" style="width:auto;">
+                        <a class="dropDownA" href="javascript:void(0)">
+                            <i class="i_triangle_d"></i>
+                        </a>
+
+                        <div class="dropDownText">
+                            提醒我
+                        </div>
+                    </div>
+
+                    <span class="gray ml_10 fl">有新邮件时提醒我</span>
+                </div>
+            </div>
+        </li>
+
+        <li class="set-unit">
+            <label class="label">新功能提醒：</label>
+            <div class="unit-wrap">
+                <div class="element">
+                    <div class="dropDown dropDown-mailset" style="width:auto;">
+                        <a class="dropDownA" href="javascript:void(0)">
+                            <i class="i_triangle_d"></i>
+                        </a>
+                        <div class="dropDownText">
+                            提醒我
+                        </div>
+                    </div>
+                    <span class="gray ml_10 fl">邮箱新功能，抢先知道快速体验</span>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+</div>
+
+
+<div class="setArea">
+<h2>邮箱协议设置 <span class="fw_n gray fz_12">(支持POP3/IMAP/SMTP/Exchange/CardDAV/CalDAV)</span></h2>
+
+<div class="setArea-content">
+    <ul class="form set-group">
+        <li class="set-unit">
+            <label class="label">收取选项：</label>
+            <div class="unit-wrap">
+                <div class="element">
+                    <div id="mailDuration" class="fl"></div>
+                    <div style="clear:left;" class="pt_10">
+                        <label><input type="checkbox" value="" class="mr_5">收取“收件箱”的邮件</label>
+                        <br>
+                        <label><input type="checkbox" value="" class="mr_5">收取“我的文件夹”的邮件</label>
+                        <br>
+                        <label><input type="checkbox" value="" class="mr_5">收取“广告文件夹”的邮件</label>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li class="set-unit">
+            <label class="label">同步选项：</label>
+            <div class="unit-wrap">
+                <div class="element">
+                    <label>
+                        <input type="checkbox" id="cbxForbidDel" value="" class="mr_5">
+                        禁止客户端删信
+                    </label>
+                    <a href="javascript:;" class="ml_20">为什么会有客户端删信?</a>
+                </div>
+                <div class="element">
+                    <label>
+                        <input type="checkbox" id="notChange" value="" class="mr_5">
+                        未读邮件状态不变
+                    </label>
+                    <span class="fw_n gray fz_12">以上收取选项仅对POP3有效</span>
+                </div>
+                <div class="element">
+                    <label>
+                        <input type="checkbox" id="notChange" value="" class="mr_5">
+                        STMP发信后保存到“已发送”文件夹
+                    </label>
+                    <span class="fw_n gray fz_12">若您的“已发送”文件夹内存在2封相同邮件，请重新配置IMAP</span>
+                </div>
+            </div>
+        </li>
+
+        <li class="set-unit">
+            <label class="label"></label>
+            <div class="unit-wrap">
+                <div class="element">
+                    139邮箱支持 Exchange / CardDAV / CalDAV，还可以下载
+                    <a href="javascript:;" class="ml_20">139手机客户端</a>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+</div>
+
+</div>
+<div class="setBtn ml_14">
+	<a href="javascript:void(0)" class="fr def">还原默认设置</a>
+	<a href="javascript:void(0)" class="btnSetG"><span>保 存</span></a>
+	<a href="javascript:void(0)" class="btnSet"><span>取 消</span></a>
+</div>
+<script>top.loadScript("preference.html.pack.js", document);</script>
+<script>
+
+window.preferenceView = new M2012.Settings.Preference.View();
+preferenceView.render("preference");
+
+$(function(){
+	preferenceView.getAnchorPositon();
+});
+
+</script>
+</body>
+</html>

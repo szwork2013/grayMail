@@ -1,0 +1,269 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="Keywords" content="" />
+<meta name="Description" content="" />
+<title>139邮箱-设置-代收邮件</title>
+
+<style>
+b,i{font-style:normal; font-weight:normal;}
+</style>
+<script type="text/javascript">
+    //设域
+    document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+</script>
+<script>    top.loadScript('libs.pack.js', document); top.loadScript('m139.core.pack.js', document)</script><script>                                                                                                                top.loadScript("m2012.ui.common.pack.js", document)</script><script>             top.loadCSS(["common/global.css", "module/set.css"], document)</script></head>
+<body class="setbody"> 
+<div class="setWrap" id="moreMail" style="display:none;">
+    <a href="#" class="fr pt_10 pb_10" style="visibility:hidden;">从foxmail 7.0导入过滤器规则</a>
+	<div class="sortindexfl">
+		<div class="he100"><p class="fz_16 a1">您有 <span class="col mailCounts"></span> 封邮件</p>
+		<p class="fz_14 a2">对邮件进行专业管理</p>
+		</div>
+		<a href="javascript:;" class="btnSetB w130 createSort" name="normalMail" bh="set_sort_create"><span>创建收信规则</span></a>
+		<p >邮件将按规则收取到指定文件夹、自动标记等处理</p>
+	</div>
+	<div class="sortindexfr">
+		<p class="a3">邮件排行</p>
+		<div class="fl ta_c">	
+		<div class="he100" id="sortphtab">
+        <textarea id="sortTemplate" style="display:none">
+		<table class="sortphtab">
+        <!--item start-->
+			<tr>
+				<td class="td1"><div>@getName()</div></td>
+				<td class="td2">					
+					<div class="phli">
+						<div class="phlib"></div>
+						<div class="phlii" style="width:@getPercentage()%"></div>
+					</div>
+				</td>
+				<td class="td3">$total封</td>				
+			</tr>
+        <!--item end-->
+		</table>
+		</textarea>	
+		</div>
+		<a href="javascript:;" class="btnSetB w130 fastCreateSort" bh="set_sort_create"><span>快速创建收信规则</span></a>
+		<p >邮件收取到指定文件夹</p>
+		</div>
+		
+	</div>
+
+</div>
+<div class="setWrap" id="fewMail" style="display:none;">
+		<div class="sort-normal">
+		<p>您现在有 <span class="col mailCounts"></span> 封邮件</p>
+		<p>你想过你的邮件超过 <span class="col">1000</span> 封时的可怕景象么</p>
+		<p class="a1">让未来更简单，开始创建收信规则吧！</p>
+		<a class="btnSetB w100 mr_10 createSort" href="javascript:void(0)" name="workMail" bh="set_sort_create"><span>公司圈邮件</span></a>
+		<a class="btnSetB w100 mr_10 createSort" href="javascript:void(0)" name="friendMail" bh="set_sort_create"><span>朋友圈邮件</span></a>
+		<a class="btnSetB w100 mr_10 createSort" href="javascript:void(0)" name="normalMail" bh="set_sort_create"><span>其他邮件</span></a>
+		</div>
+	
+</div>
+<div class="setWrap" id="hasData" style="display:none;">
+	<div class="setArea ">
+		<h2>收信规则</h2>
+		<div class="setArea-content sort-beg">
+			<p class="pt_10" id="sortCount" style="display:none;"><span class="col mr_5 mailCounts"></span><span class="gray">封还未分类，</span><a href="javascript:;" hidefocus="true" id="showRank">查看排行</a></p>
+			<div class="creattabbody clearfix" style="display:none;" id="rankList">
+				<a class="i_u_close" href="javascript:;" id="rankClose"></a>			
+				<div class="sort-begtab">
+                    <div id="sortphtabHasData"></div> 
+                    <textarea id="sortTemplateHasData" style="display:none">
+		            <table class="sortphtab">
+                    <!--item start-->
+			            <tr>
+				            <td class="td1"><div>@getName()</div></td>
+				            <td class="td2">					
+					            <div class="phli">
+						            <div class="phlib"></div>
+						            <div class="phlii" style="width:@getPercentage()%"></div>
+					            </div>
+				            </td>
+				            <td class="td3">$total封</td>				
+			            </tr>
+                    <!--item end-->
+		            </table>
+		            </textarea>	
+				</div>
+				<div class="creattabbody-btn">
+					<a class="btnNormal fastCreateSort" href="javascript:void(0)" bh="set_sort_create"><span>快速创建收信规则</span></a>
+				</div>
+			</div>
+			<a class="btnSet w130 fz_14 mt_10 createSort" href="javascript:void(0);" bh="set_sort_create" name="normalMail"><span>创建收信规则</span></a>
+		
+	
+
+		</div>
+		<div class="setArea-content" id="setArea-content">
+		</div>
+        <textarea id="setAreaContentTemplate1" style="display:none">
+        <!--item start-->
+		<table class="mysorttab" id="mySortTab_@getFilterId()">
+			<tbody><tr>
+				<th class="td1">我的收信规则$num </th>
+				<th class="td2" index=@getIndex() filterId=@getFilterId() sortId=@getSortId()><a hidefocus="true" href="javascript:;" class="editRule" bh="set_sort_edit">修改</a><span class="gray mr_5 ml_5">|</span><a hidefocus="true" href="javascript:;" class="deleteRule" bh="set_sort_del">删除</a></th>				
+			</tr>
+			<tr>
+				<td class="td1 td3" colspan="2"><div class="brline" style="width:730px;">如果：$ruleText</div></td>
+			</tr>
+			
+			<tr class="on">
+				<td class="td1 td2" colspan="2"><div class="tddiv">则执行：<br/>$result</div></td>
+			</tr>
+		</tbody></table>
+        <!--item end-->
+        </textarea>	
+        <span id="autoReplyCon" class="hide"></span>
+		<!--
+		<table class="sorttable" >
+                    <tbody>
+                        <tr>
+                            <th class="td1">分类说明</th>
+                            <th class="td2">目前状态</th>
+                            <th class="td3">管理</th>
+                        </tr>
+		-->
+		
+						<textarea id="setAreaContentTemplate" style="display:none">
+						<!--item start-->
+                        <tr id="mySortTab_@getFilterId()" filterId=@getFilterId() sortId=@getSortId()>
+                            <td class="td1">
+                                <div class="dragdiv">
+                                    <span class="dragBar" name="dragBar"></span>
+                                    <p class="brline">如果:$ruleText</p>
+                                    <p>则执行：<br/>$result</p>
+                                </div>
+                            </td>
+                            <td class="td2" filterId=@getFilterId() sortId=@getSortId()>
+								@onOrOff()
+                            </td>
+                            <td class="td3" index=@getIndex() filterId=@getFilterId() sortId=@getSortId()>
+                                <a hidefocus="true" href="javascript:void(0);" class="editRule" bh="set_sort_edit">修改</a>
+                                |
+                                <a hidefocus="true" href="javascript:void(0);" class="deleteRule" bh="set_sort_del">删除</a>
+                            </td>
+                        </tr>
+						<!--item end-->
+						</textarea>
+						<!--
+						<tr>
+                            <td class="td1 hover">
+                                <div class="dragdiv">
+                                    <span class="dragBar"></span>
+                                    <p class="brline">
+                                        如果："发件人包括 15013484410@139.com;huanglong@richinfo.cn;motowz@139.com;confidencew@gmail.com;731303596@139.com;tiexg@richinfo.cn;15002080767@139.com;lihaitaohust@139.com;caiguanmian@richinfo.cn;zhaoli@richinfo.cn 等"
+                                    </p>
+                                    <p>则：“放入文件夹 无需要回复”</p>
+                                </div>
+                            </td>
+                            <td class="td2">
+                                <span class="sort-w">已关闭</span>
+                                <a href="javascript:void(0);">开启</a>
+                            </td>
+                            <td class="td3">
+                                <a href="javascript:void(0);">修改</a>
+                                |
+                                <a href="javascript:void(0);">删除</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td1">
+                                <div class="dragdiv">
+                                    <span class="dragBar"></span>
+                                    <p class="brline">如果:"主题包括 请忽回复"</p>
+                                    <p>则：“放入文件夹 无需要回复”</p>
+                                </div>
+                            </td>
+                            <td class="td2">
+                                <span class="sort-r">已开启</span>
+                                <a href="javascript:void(0);">关闭</a>
+                            </td>
+                            <td class="td3">
+                                <a href="javascript:void(0);">修改</a>
+                                |
+                                <a href="javascript:void(0);">删除</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+						-->
+                        
+				<!--
+				<table class="sorttable" >
+                    <tbody>
+                        <tr>
+                            <th class="td1">分类说明</th>
+                            <th class="td2">目前状态</th>
+                            <th class="td3">管理</th>
+                        </tr>
+                        <tr>
+                            <td class="td1">
+                                <div class="dragdiv">
+                                    <span class="dragBar"></span>
+                                    <p class="brline">如果:"主题包括 请忽回复"</p>
+                                    <p>则：“放入文件夹 无需要回复”</p>
+                                </div>
+                            </td>
+                            <td class="td2">
+                                <span class="sort-r">已开启</span>
+                                <a href="javascript:void(0);">关闭</a>
+                            </td>
+                            <td class="td3">
+                                <a href="javascript:void(0);">修改</a>
+                                |
+                                <a href="javascript:void(0);">删除</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td1 hover">
+                                <div class="dragdiv">
+                                    <span class="dragBar"></span>
+                                    <p class="brline">
+                                        如果："发件人包括 15013484410@139.com;huanglong@richinfo.cn;motowz@139.com;confidencew@gmail.com;731303596@139.com;tiexg@richinfo.cn;15002080767@139.com;lihaitaohust@139.com;caiguanmian@richinfo.cn;zhaoli@richinfo.cn 等"
+                                    </p>
+                                    <p>则：“放入文件夹 无需要回复”</p>
+                                </div>
+                            </td>
+                            <td class="td2">
+                                <span class="sort-w">已关闭</span>
+                                <a href="javascript:void(0);">开启</a>
+                            </td>
+                            <td class="td3">
+                                <a href="javascript:void(0);">修改</a>
+                                |
+                                <a href="javascript:void(0);">删除</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td1">
+                                <div class="dragdiv">
+                                    <span class="dragBar"></span>
+                                    <p class="brline">如果:"主题包括 请忽回复"</p>
+                                    <p>则：“放入文件夹 无需要回复”</p>
+                                </div>
+                            </td>
+                            <td class="td2">
+                                <span class="sort-r">已开启</span>
+                                <a href="javascript:void(0);">关闭</a>
+                            </td>
+                            <td class="td3">
+                                <a href="javascript:void(0);">修改</a>
+                                |
+                                <a href="javascript:void(0);">删除</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+				-->
+				
+	</div>
+</div>
+<script>top.loadScript("sort.html.pack.js?v=6", document)</script>
+</body>
+</html>
+
+                

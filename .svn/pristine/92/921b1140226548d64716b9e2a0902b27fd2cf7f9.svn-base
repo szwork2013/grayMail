@@ -1,0 +1,28 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="Keywords" content=""/>
+	<meta name="Description" content=""/>
+	<title>温馨提示</title>
+	<link rel="stylesheet" href="css/reset.css" type="text/css"/>
+</head>
+    <script type="text/javascript">document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];</script>
+<body>
+	<div class="errorWindow_one" style="position:absolute; left:50%; top:50%; margin-left:-271px; margin-top:-132px">
+		<em class="title">温馨提示</em>
+		<div class="errorWindow_one_con">
+			<h2>对不起，您不能参与本次抽奖活动</h2>
+			<span>造成该结果的原因可能是：</span>
+			<ul>
+				<li>1、您本次抽奖机会已使用；</li>
+				<li>2、您本次邮件或贺卡投递不成功；</li>
+				<li>3、您长时间未点击抽奖链接，抽奖机会已失效；</li>
+				<li>4、您的操作太频繁。</li>
+			</ul>
+			<p>感谢您的支持！</p>
+		</div>
+	</div>
+	
+</body>
+</html>

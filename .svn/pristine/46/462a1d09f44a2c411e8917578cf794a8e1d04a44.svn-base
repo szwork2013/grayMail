@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="pageOutput" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <title>导出通讯录</title>
+
+    <script type="text/javascript">
+    //设域
+    document.domain=window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+    //获得资源路径
+    var resourcePath=window.top.resourcePath;
+    var addrResourcePath=resourcePath.replace("coremail","addr");
+    var htmlCode="";
+    htmlCode+=getLinkTag(resourcePath+"/css/addr.css");
+    htmlCode+=getLinkTag("");
+    htmlCode+=getJsTag(resourcePath+"/js/jquery.js");
+    //htmlCode+=getJsTag(resourcePath+"/js/utils.js");
+    htmlCode+=getJsTag(top.resourcePath+"/js/controls.js");
+    htmlCode += getJsTag(addrResourcePath + "/js/contactsselectlist.js");
+    top.loadScript("m2011.utilscontrols.pack.js", document);
+    document.write(htmlCode);
+    function getJsTag(path){
+        return "<script charset='gb2312' src='"+path+"' type='text/javascript'></"+"script>";
+    }
+    function getLinkTag(path){
+        var text="";
+        if(path)text="href='"+path+"'";
+        return "<link rel='stylesheet' type='text/css' "+text+" />";
+    }
+    </script>
+</head>
+<body class="page msyhv2">
+    <div id="container">
+        <div class="singTitle">
+            <strong><span>导出通讯录</span></strong> | <a id="btnGoBack" href="javascript:void(0);">&lt;&lt;返回</a> 
+        </div>
+        <div class="formSelect" id="divContactsList">
+            <fieldset>
+                <legend><span>选择要导出的联系人</span></legend>
+                <dl class="checkContact">
+                    <dt>您的139邮箱中，共有<strong class="numberStrong" id="labelCount"></strong>个联系人</dt>
+                    <dd>
+                    </dd>
+                </dl>
+                <p class="checkAction">
+                    选择：<a href="javascript:;" id="aSelectAll">全部</a> | <a href="javascript:;" id="aCancelAll">
+                        清空</a> | <a href="javascript:;" id="aSelectOthers">反选</a></p>
+            </fieldset>
+        </div>
+    </div>
+    <ul class="formAction">
+        <li><a class="btn btnGreen" href="javascript:;" id="btnOutputCommon"><em>导出CSV格式</em></a></li>
+        <li><a class="btn btnGreen" href="javascript:;" id="btnOutputVCARD"><em>导出VCARD格式</em></a></li>
+    </ul>
+<iframe id="ifrmReturnInfo" name="ifrmReturnInfo" scrolling="no" height="0" width="0" frameborder="0" src="empty.html"></iframe>
+</body>
+</html>
+
+<script type="text/javascript">
+$("#btnGoBack").click(function(){
+    setTimeout(function() {
+        if(top.$Addr){                
+            var master = top.$Addr;
+            master.trigger(master.EVENTS.LOAD_MAIN);
+        }else{
+			top.$('#addr').attr({'src': 'addr_v2/addr_index.html'});
+		}
+    }, 0xff);
+    return false;
+});
+
+$(function(){
+    window.top.Contacts.ready(init);
+    top.BH('addr_pageLoad_export');    
+});
+
+function init(){
+    ContactsSelectList.fill(document.getElementById("divContactsList"),"选择要导出的联系人");
+    $("#btnOutputCommon,#btnOutputVCARD").click(function(){
+        var contacts=ContactsSelectList.getSelectedContacts();
+        if(contacts.length==0){
+            FloatingFrame.alert("请选择联系人");
+            return;
+        }
+        var outputUrl=top.ucDomain+"/addr/APIServer/GetOutputData.aspx?windowid="+ frameElement.id +"&failcallback=failcallback&sid="+ top.$App.getSid();
+        var serialId=contacts.toString();
+        var outType=this.id=="btnOutputCommon"?"csv":"vcf";
+
+        if (serialId && serialId.length > 1800) { //get限制，必须改为post
+            postByFrame(outputUrl, outType, serialId);
+            return;
+        }
+
+        document.getElementById("ifrmReturnInfo").src = outputUrl + '&outtype=' + outType + '&serialid=' + serialId;
+        top.BH("addr_export_success");
+
+        if(outType == 'csv'){
+            top.BH('addr_export_excel');
+        }else{
+            top.BH('addr_export_vcard');
+        }
+    });
+
+    //如果搜索功能开关为关闭状态，则隐藏搜索输入框
+    if (top.SiteConfig && top.SiteConfig["addrOutputSearch"] == false) { 
+        $(".search").hide(); 
+    } 
+}
+
+function postByFrame(outputUrl, outType, serialId) {
+    var doc = document.getElementById("ifrmReturnInfo").contentWindow.document;
+
+    if (doc.frm1) {
+        doc.frm1.serialid.value = serialId;
+        doc.frm1.outtype.value = outType;
+        doc.frm1.submit();
+        return;
+    }
+
+    var warp = doc.createElement("DIV");
+    warp.innerHTML = [
+        '<form name="frm1" method="post" action="', outputUrl,
+        '"><input name="serialid" value="', serialId,
+        '" /><input name="outtype" value="', outType, '"/></form>'].join('');
+    doc.body.appendChild(warp);
+    doc.frm1.submit();
+    top.BH("addr_export_success");
+}
+
+function failcallback(msg)
+{
+    top.FF.alert(msg);
+}
+</script>
+

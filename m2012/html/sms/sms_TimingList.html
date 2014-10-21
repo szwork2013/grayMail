@@ -1,0 +1,212 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="pg-record" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <title>短信记录</title>
+    <!--   <link href="../Superman/css/supersmses.css" rel="stylesheet" type="text/css" />-->
+
+    <script type="text/javascript">
+        //设域
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+        //获得资源路径
+        var resourcePath = window.top.resourcePath;
+        var supermanResourcePath = resourcePath.replace("coremail", "superman");
+        var htmlCode = "";
+        htmlCode += getLinkTag("");
+        htmlCode += getLinkTag(resourcePath + "/css/supersms.css?v=20110617");
+        top.loadScript("jquery.js", document);
+        top.loadScript("m2011.utilscontrols.pack.js", document);
+        top.loadScript("/m2012/js/service/sms/m2011.sms.superman.js", document);
+        document.write(htmlCode);
+        function getJsTag(path, charset) {
+            var html = "<script charset='gb2312' src='" + path + "' type='text/javascript'></" + "script>";
+            if (charset) html = html.replace("gb2312", charset);
+            return html;
+        }
+        function getLinkTag(path) {
+            var text = "";
+            if (path) text = "href='" + path + "'";
+            return "<link rel='stylesheet' type='text/css' " + text + " />";
+        }
+    </script>
+
+    <link rel="stylesheet" type="text/css" />
+
+    <script type="text/javascript">
+        Utils.loadSkinCss(null, document, "supersms");
+    </script>
+
+</head>
+<body>
+    <div id="container">
+        <div id="header">
+            <ul class="nav-hd">
+                <li><a href="sms_send.html">发短信</a></li>
+                <li class="current"><a href="sms_Record.html">短信记录</a><a href="sms_setting.html"><i class="i-lock"
+                    id="lock" style="display: none;"></i></a></li>
+                <li><a href="javascript:;" onclick="top.Links.show('mms');return false;">发彩信</a></li>
+                <li><a href="javascript:;" onclick="top.Links.show('greetingcard');return false;">发贺卡</a></li>
+            </ul>
+            <p style="display: none;">
+                <a href="javascript:void(0)" id="aOpenCalendar" onclick="javascript:Common.openCalendar();return false;"
+                    behavior="日程提醒" ext="5" title="如您设置了约会、生日或备忘提醒，系统会在您指定的时间点，通过短信或邮件提醒您。">日程提醒</a>&nbsp;&nbsp;
+                <a id="aFileUpload" behavior="短信超人-文件快递" href="javascript:void(0)">快速把文件发送到手机&gt;&gt;</a></p>
+        </div>
+        <div class="wrapper ">
+            <div class="content">
+                <div class="pg-record" id="dfs" style="visibility: hidden;">
+                    <div class="record-hd"><p class="search fr">
+                    <input type="text" id="txtSearch" class="input-default" maxlength="20" style="padding-bottom: 3px;"
+                        onkeydown="if(event.keyCode==13) return Common.searchByKeyWord('sended');" value="查找定时短信" />
+                    <button id="btnSearchByKeyWord" type="button"></button>
+					</p>
+                        <strong>定时短信</strong>共<span id="pagecount"></span>条短信
+                    </div>
+                    <div class="rcd-hd record">
+                        <button class="btnDel" style="display: none;">
+                            删除</button>
+                        <div class="pager paging" style="display: none;">
+                            每页显示<select id="showpagesizes" class="showpagesize t">
+                                <option>10</option>
+                                <option>15</option>
+                                <option selected="selected">20</option>
+                            </select>
+                            <a href="javascript:void(0);" class="prev">上一页</a><a href="javascript:void(0);" class="nexts">下一页</a>
+                            <select class="countes selepage">
+                                <option>1/1</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="no-note" style="display: none;">
+                        暂无任何定时短信记录。<a href="sms_send.html?settime=1"> 设置定时短信>></a>
+                    </div>
+                    <table cellpadding="0" class="rcd-table" id="tableSmsList">
+                    </table>
+                    <table cellpadding="0" class="rcd-table" style="display: none;">
+                        <tr class="tfoot">
+                            <th class="t-check chkSelectAllDown">
+                                全选
+                            </th>
+                            <th>
+                            </th>
+                        </tr>
+                    </table>
+                    <div class="rcd-hd record">
+                        <button class="btnDel" style="display: none;">
+                            删除</button>
+                        <div class="pager paging" style="display: none;">
+                            每页显示<select id="Select1" class="showpagesize t">
+                                <option>10</option>
+                                <option>15</option>
+                                <option selected="selected">20</option>
+                            </select>
+                            <a href="javascript:void(0);" class="prev">上一页</a><a href="javascript:void(0);" class="nexts">下一页</a>
+                            <select class="countes selepage">
+                                <option>1/1</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sider">
+            <div class="sider-bd">
+                <ul class="siderNav">
+                    <li onclick="Common.openRecord(1,'sms_Record.html')"><i class="i-SN1"></i>往来记录</li>
+                    <li onclick="Common.openRecord(1,'sms_marked.html')"><i class="i-SN2"></i>珍藏记录</li>
+                    <li onclick="Common.openRecord(1,'sms_lover.html')"><i class="i-SN3"></i>情侣记录</li>
+                    <li onclick="Common.openRecord(1,'sms_TimingList.html')"><i class="i-SN4"></i>定时短信</li>
+                    <li onclick="Common.openRecord(1,'sms_setting.html')" class="nav-rdset"><i class="i-SN5">
+                    </i>记录设置</li>
+                </ul>
+                <div class="ddl-link siderSearchF" id="divDateType">
+                    <dl id="dlDateFilter" timeinfo="">
+                        <dt>·按时间查看</dt>
+                        <dd>
+                            <ul class="haveBg">
+                                <li class="hover">所有</li>
+                                <li class="checked">一月内发送</li>
+                                <li>一周内发送</li>
+                                <li>今天内发送</li>
+                            </ul>
+                        </dd>
+                    </dl>
+                </div>
+                <div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script type="text/javascript">
+
+    var tooltiptextSearch = "查找定时短信";
+    $(function() {
+
+        $(".siderNav li:eq(3)").addClass("current");
+        Common.initPage("timing");
+        $(".btnDel").click(function() {
+            Common.delSms(Common.getChkvalue(), "timing");
+        });
+        //选择时间段
+        $("#dlDateFilter dt").click(function() {
+            $("#dlDateFilter").addClass("show-drowpdownlist");
+            $(document).bind("mouseup", function() {
+                $("#dlDateFilter").removeClass("show-drowpdownlist");
+                $(document).unbind("mouseup");
+            });
+        });
+        $("#dlDateFilter dd ul li").hover(
+		function() {
+		    $(this).addClass("hover");
+		},
+		function() {
+		    $(this).removeClass("hover");
+		}
+	);
+
+        $(".siderNav li").hover(function() {
+            $(this).addClass("hover");
+        }, function() {
+            $(this).removeClass("hover");
+        });
+
+        //搜索输入框
+        $("#txtSearch").focus(function() {
+            if ($.trim($(this).val()) == tooltiptextSearch) {
+                $(this).val("");
+                $(this).removeClass("input-default");
+            }
+        }).blur(function() {
+            if ($.trim($(this).val()).length == 0) {
+                $(this).val(tooltiptextSearch);
+                $(this).addClass("input-default");
+            }
+        });
+        $("#divDateType  ul li").click(function() {
+
+            $("#divDateType ul li").removeClass("current");
+            $(this).addClass("current");
+            // var dateTypeOld = $("#divDateType dt").text();
+            //var dateTypeNew = $(this).text();
+            $("#dlDateFilter").attr("timeinfo", $(this).text());
+            var index = $("#divDateType .dropdownlist ul li").index(this);
+            // $("#divDateType dt").html(dateTypeNew+"<i class=\"i-down\"></i>");
+            //        if(dateTypeOld.indexOf("时间")==-1)
+            //        {
+            //            $(this).text(dateTypeOld);
+            //        }
+            //        else
+            //        {
+            //            $("#divDateType .dropdownlist ul li:eq("+index+")").remove();
+            //        }
+            Common.searchByDate("timing");
+        });
+        $("#btnSearchByKeyWord").click(function() {
+            Common.searchByKeyWord("timing");
+        });
+    });
+</script>
+<script type="text/javascript">top.loadCSS(["module/fontbase.css"], document);</script>
+</html>

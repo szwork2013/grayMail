@@ -1,0 +1,1515 @@
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="generator" content="JsDoc Toolkit" />
+		<title>M139.Dom | JsDoc Reference</title>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+		<meta name="mobileoptimized" content="0" />
+	
+		<link rel="stylesheet" href="../css/all.css" media="all" />
+		<link rel="stylesheet" href="../css/handheld.css" media="only screen and (max-width: 660px)" />
+		<link rel="stylesheet" href="../css/handheld.css" media="handheld" />
+		<link rel="stylesheet" href="../css/screen.css" media="screen and (min-width: 661px)" />
+
+		<script src="../javascript/all.js"></script>
+		<!--[if lt IE 9]>
+			<script src="../javascript/html5.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+<div class="index">
+	<div class="menu">
+		<div class="indexLinks">
+			<a href="../index.html">Classes</a>
+			<a href="../files.html">Files</a>
+		</div>
+	
+		<h2 class="heading1">类</h2>
+		
+		<input type="text" name="classFilter" class="classFilter" id="ClassFilter" placeholder="Filter"></input>
+		
+		<nav>
+			<ul class="classList" id="ClassList">
+				
+					<li><a href="../symbols/_global_.html">_global_</a></li>
+				
+					<li><a href="../symbols/Array.html">Array</a></li>
+				
+					<li><a href="../symbols/Date.html">Date</a></li>
+				
+					<li><a href="../symbols/M139.Browser.html">M139<span class='break'> </span>.<span class='break'> </span>Browser</a></li>
+				
+					<li><a href="../symbols/M139.Browser.is.html">M139<span class='break'> </span>.<span class='break'> </span>Browser<span class='break'> </span>.<span class='break'> </span>is</a></li>
+				
+					<li><a href="../symbols/M139.Browser.support.html">M139<span class='break'> </span>.<span class='break'> </span>Browser<span class='break'> </span>.<span class='break'> </span>support</a></li>
+				
+					<li><a href="../symbols/M139.ConfigManager.html">M139<span class='break'> </span>.<span class='break'> </span>ConfigManager</a></li>
+				
+					<li><a href="../symbols/M139.Core.html">M139<span class='break'> </span>.<span class='break'> </span>Core</a></li>
+				
+					<li><a href="../symbols/M139.Date.html">M139<span class='break'> </span>.<span class='break'> </span>Date</a></li>
+				
+					<li><a href="../symbols/M139.Dom.html">M139<span class='break'> </span>.<span class='break'> </span>Dom</a></li>
+				
+					<li><a href="../symbols/M139.Event.html">M139<span class='break'> </span>.<span class='break'> </span>Event</a></li>
+				
+					<li><a href="../symbols/M139.Event.GlobalEventManager.html">M139<span class='break'> </span>.<span class='break'> </span>Event<span class='break'> </span>.<span class='break'> </span>GlobalEventManager</a></li>
+				
+					<li><a href="../symbols/M139.ExchangeHttpClient.html">M139<span class='break'> </span>.<span class='break'> </span>ExchangeHttpClient</a></li>
+				
+					<li><a href="../symbols/M139.HTTPClient.html">M139<span class='break'> </span>.<span class='break'> </span>HTTPClient</a></li>
+				
+					<li><a href="../symbols/M139.Iframe.html">M139<span class='break'> </span>.<span class='break'> </span>Iframe</a></li>
+				
+					<li><a href="../symbols/M139.JSON.html">M139<span class='break'> </span>.<span class='break'> </span>JSON</a></li>
+				
+					<li><a href="../symbols/M139.Logger.html">M139<span class='break'> </span>.<span class='break'> </span>Logger</a></li>
+				
+					<li><a href="../symbols/M139.Model.html">M139<span class='break'> </span>.<span class='break'> </span>Model</a></li>
+				
+					<li><a href="../symbols/M139.Model.ModelBase.html">M139<span class='break'> </span>.<span class='break'> </span>Model<span class='break'> </span>.<span class='break'> </span>ModelBase</a></li>
+				
+					<li><a href="../symbols/M139.PageApplication.html">M139<span class='break'> </span>.<span class='break'> </span>PageApplication</a></li>
+				
+					<li><a href="../symbols/M139.Plugin.Flash.html">M139<span class='break'> </span>.<span class='break'> </span>Plugin<span class='break'> </span>.<span class='break'> </span>Flash</a></li>
+				
+					<li><a href="../symbols/M139.RichMail.html">M139<span class='break'> </span>.<span class='break'> </span>RichMail</a></li>
+				
+					<li><a href="../symbols/M139.RichMail.API.html">M139<span class='break'> </span>.<span class='break'> </span>RichMail<span class='break'> </span>.<span class='break'> </span>API</a></li>
+				
+					<li><a href="../symbols/M139.RichMail.RichMailHttpClient.html">M139<span class='break'> </span>.<span class='break'> </span>RichMail<span class='break'> </span>.<span class='break'> </span>RichMailHttpClient</a></li>
+				
+					<li><a href="../symbols/M139.Testing.LoginHelper.html">M139<span class='break'> </span>.<span class='break'> </span>Testing<span class='break'> </span>.<span class='break'> </span>LoginHelper</a></li>
+				
+					<li><a href="../symbols/M139.Text.Cookie.html">M139<span class='break'> </span>.<span class='break'> </span>Text<span class='break'> </span>.<span class='break'> </span>Cookie</a></li>
+				
+					<li><a href="../symbols/M139.Text.Email.html">M139<span class='break'> </span>.<span class='break'> </span>Text<span class='break'> </span>.<span class='break'> </span>Email</a></li>
+				
+					<li><a href="../symbols/M139.Text.Html.html">M139<span class='break'> </span>.<span class='break'> </span>Text<span class='break'> </span>.<span class='break'> </span>Html</a></li>
+				
+					<li><a href="../symbols/M139.Text.Mobile.html">M139<span class='break'> </span>.<span class='break'> </span>Text<span class='break'> </span>.<span class='break'> </span>Mobile</a></li>
+				
+					<li><a href="../symbols/M139.Text.Url.html">M139<span class='break'> </span>.<span class='break'> </span>Text<span class='break'> </span>.<span class='break'> </span>Url</a></li>
+				
+					<li><a href="../symbols/M139.Text.Utils.html">M139<span class='break'> </span>.<span class='break'> </span>Text<span class='break'> </span>.<span class='break'> </span>Utils</a></li>
+				
+					<li><a href="../symbols/M139.Text.Xml.html">M139<span class='break'> </span>.<span class='break'> </span>Text<span class='break'> </span>.<span class='break'> </span>Xml</a></li>
+				
+					<li><a href="../symbols/M139.Timing.html">M139<span class='break'> </span>.<span class='break'> </span>Timing</a></li>
+				
+					<li><a href="../symbols/M139.UserModel.html">M139<span class='break'> </span>.<span class='break'> </span>UserModel</a></li>
+				
+					<li><a href="../symbols/M139.View.html">M139<span class='break'> </span>.<span class='break'> </span>View</a></li>
+				
+					<li><a href="../symbols/M139.View.ViewBase.html">M139<span class='break'> </span>.<span class='break'> </span>View<span class='break'> </span>.<span class='break'> </span>ViewBase</a></li>
+				
+					<li><a href="../symbols/M139.VipTool.levelEnum.html">M139<span class='break'> </span>.<span class='break'> </span>VipTool<span class='break'> </span>.<span class='break'> </span>levelEnum</a></li>
+				
+					<li><a href="../symbols/M2011.UI.Dialog.RecentMail.html">M2011<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Dialog<span class='break'> </span>.<span class='break'> </span>RecentMail</a></li>
+				
+					<li><a href="../symbols/M2012.Contacts.API.html">M2012<span class='break'> </span>.<span class='break'> </span>Contacts<span class='break'> </span>.<span class='break'> </span>API</a></li>
+				
+					<li><a href="../symbols/M2012.Contacts.ContactsInfo.html">M2012<span class='break'> </span>.<span class='break'> </span>Contacts<span class='break'> </span>.<span class='break'> </span>ContactsInfo</a></li>
+				
+					<li><a href="../symbols/M2012.Contacts.HttpClient.html">M2012<span class='break'> </span>.<span class='break'> </span>Contacts<span class='break'> </span>.<span class='break'> </span>HttpClient</a></li>
+				
+					<li><a href="../symbols/M2012.Contacts.Model.html">M2012<span class='break'> </span>.<span class='break'> </span>Contacts<span class='break'> </span>.<span class='break'> </span>Model</a></li>
+				
+					<li><a href="../symbols/M2012.MainApplication.html">M2012<span class='break'> </span>.<span class='break'> </span>MainApplication</a></li>
+				
+					<li><a href="../symbols/M2012.MatrixVM.html">M2012<span class='break'> </span>.<span class='break'> </span>MatrixVM</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Dialog.AddressBook.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Dialog<span class='break'> </span>.<span class='break'> </span>AddressBook</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Dialog.ContactsEditor.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Dialog<span class='break'> </span>.<span class='break'> </span>ContactsEditor</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Dialog.ExceptNotify.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Dialog<span class='break'> </span>.<span class='break'> </span>ExceptNotify</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Dialog.LargeAttach.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Dialog<span class='break'> </span>.<span class='break'> </span>LargeAttach</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Dialog.RecentMail.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Dialog<span class='break'> </span>.<span class='break'> </span>RecentMail</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Dialog.SaveToDisk.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Dialog<span class='break'> </span>.<span class='break'> </span>SaveToDisk</a></li>
+				
+					<li><a href="../symbols/M2012.UI.DialogBase.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>DialogBase</a></li>
+				
+					<li><a href="../symbols/M2012.UI.DropMenu.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>DropMenu</a></li>
+				
+					<li><a href="../symbols/M2012.UI.HTMLEditor.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>HTMLEditor</a></li>
+				
+					<li><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>HTMLEditor<span class='break'> </span>.<span class='break'> </span>Model<span class='break'> </span>.<span class='break'> </span>Editor</a></li>
+				
+					<li><a href="../symbols/M2012.UI.HTMLEditor.View.Editor.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>HTMLEditor<span class='break'> </span>.<span class='break'> </span>View<span class='break'> </span>.<span class='break'> </span>Editor</a></li>
+				
+					<li><a href="../symbols/M2012.UI.HTMLEditor.View.FaceMenu.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>HTMLEditor<span class='break'> </span>.<span class='break'> </span>View<span class='break'> </span>.<span class='break'> </span>FaceMenu</a></li>
+				
+					<li><a href="../symbols/M2012.UI.HTMLEditor.View.Menu.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>HTMLEditor<span class='break'> </span>.<span class='break'> </span>View<span class='break'> </span>.<span class='break'> </span>Menu</a></li>
+				
+					<li><a href="../symbols/M2012.UI.MenuButton.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>MenuButton</a></li>
+				
+					<li><a href="../symbols/M2012.UI.PageTurning.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>PageTurning</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Picker.Calendar.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Picker<span class='break'> </span>.<span class='break'> </span>Calendar</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Picker.PickerBase.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Picker<span class='break'> </span>.<span class='break'> </span>PickerBase</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Picker.Range.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Picker<span class='break'> </span>.<span class='break'> </span>Range</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Picker.TimeRange.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Picker<span class='break'> </span>.<span class='break'> </span>TimeRange</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Picker.Week.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Picker<span class='break'> </span>.<span class='break'> </span>Week</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Picker.Weekday.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Picker<span class='break'> </span>.<span class='break'> </span>Weekday</a></li>
+				
+					<li><a href="../symbols/M2012.UI.PopMenu.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>PopMenu</a></li>
+				
+					<li><a href="../symbols/M2012.UI.RichInput.ItemView.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>RichInput<span class='break'> </span>.<span class='break'> </span>ItemView</a></li>
+				
+					<li><a href="../symbols/M2012.UI.RichInput.TextBoxView.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>RichInput<span class='break'> </span>.<span class='break'> </span>TextBoxView</a></li>
+				
+					<li><a href="../symbols/M2012.UI.RichInput.View.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>RichInput<span class='break'> </span>.<span class='break'> </span>View</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Widget.Contacts.Model.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Widget<span class='break'> </span>.<span class='break'> </span>Contacts<span class='break'> </span>.<span class='break'> </span>Model</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Widget.Contacts.View.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Widget<span class='break'> </span>.<span class='break'> </span>Contacts<span class='break'> </span>.<span class='break'> </span>View</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Widget.ContactsAutoSave.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Widget<span class='break'> </span>.<span class='break'> </span>ContactsAutoSave</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Widget.ContactsCard.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Widget<span class='break'> </span>.<span class='break'> </span>ContactsCard</a></li>
+				
+					<li><a href="../symbols/String.html">String</a></li>
+				
+			</ul>
+		</nav>
+	</div>
+	<div class="fineprint" style="clear:both">
+		<footer>
+			
+			Documentation generator: <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0<br />
+			Template: <a href="http://www.thebrightlines.com/2010/05/06/new-template-for-jsdoctoolkit-codeview/" target="_blank">Codeview</a> 1.2<br />
+			Generated on:
+			<time datetime='2012-11-21' pubdate>2012-11-21 17:10</time>
+		</footer>
+	</div>
+</div>
+
+<div class="index indexStatic"></div>
+
+<div class="content">
+	<div class="innerContent">
+		<article>
+			<header>
+				<h1 class="classTitle">
+					
+					Namespace <span>M139.Dom</span>
+				</h1>
+				
+				<div class="intro">
+					<p class="description summary">
+						
+					</p>
+						
+					
+						<ul class="summary">
+							
+							
+							
+								<li>Defined in: <a href="../symbols/src/G__Work_SVN_Mail139_M2012(rebuild2012)_trunk_src_jsdoc_doc_template_m139.dom.js.html">m139.dom.js</a></li>
+							
+							
+						</ul>
+					
+				</div>
+			</header>
+			
+			
+			
+			
+	<!--
+	#### METHODS SUMMARY
+	-->
+			
+				<section>
+					
+					
+					<div class="props">
+						<h2 class="sectionTitle">方法列表</h2>
+						
+						
+							<nav>
+								<table class="summaryTable" id="MethodsList" cellspacing="0" summary="A summary of the methods documented in the class M139.Dom.">
+									<thead>
+										<tr>
+											<th scope="col">方法类型</th>
+											<th scope="col">方法描述</th>
+										</tr>
+									</thead>
+									
+									<tbody>
+										
+										
+											<tr
+												 class='item0'
+											>
+												<td class="attributes">&lt;static&gt; &nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">M139.Dom.<b><a href="../symbols/M139.Dom.html#.bindAutoHide">bindAutoHide</a></b>(options)
+													</div>
+													<div class="description">让弹出菜单自动消失的一个工具函数，目前只支持点击其它区域自动关闭菜单，鼠标移出的话需要另外扩展</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item1'
+											>
+												<td class="attributes">&lt;static&gt; &nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">M139.Dom.<b><a href="../symbols/M139.Dom.html#.containElement">containElement</a></b>(container, element)
+													</div>
+													<div class="description">判断element是否在某容器里，如果container等于element，返回true</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item2'
+											>
+												<td class="attributes">&lt;static&gt; &nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">M139.Dom.<b><a href="../symbols/M139.Dom.html#.dockElement">dockElement</a></b>(targetElement, dockElement, options)
+													</div>
+													<div class="description">将元素根据坐标停靠在目标元素边,比如弹出菜单(默认定位在正下方,可优化)</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item3'
+											>
+												<td class="attributes">&lt;static&gt; &nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">M139.Dom.<b><a href="../symbols/M139.Dom.html#.findParent">findParent</a></b>(target, parentTagName)
+													</div>
+													<div class="description">得到目标元素的父元素</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item4'
+											>
+												<td class="attributes">&lt;static&gt; &nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">M139.Dom.<b><a href="../symbols/M139.Dom.html#.flashElement">flashElement</a></b>(element, options)
+													</div>
+													<div class="description">使元素闪烁，通常用在文本框上，比如提示用户文本框需要填值，联系人重复等</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item5'
+											>
+												<td class="attributes">&lt;static&gt; &nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">M139.Dom.<b><a href="../symbols/M139.Dom.html#.focusTextBox">focusTextBox</a></b>(objTextBox)
+													</div>
+													<div class="description">文本框获得焦点并定位光标到末尾<pre>示例：<br><br>Utils.focusTextBox(document.getElementById("text"));</pre></div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item6'
+											>
+												<td class="attributes">&lt;static&gt; &nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">M139.Dom.<b><a href="../symbols/M139.Dom.html#.getCurrentCSS">getCurrentCSS</a></b>(element, cssName)
+													</div>
+													<div class="description">获得元素的实际样式值  todo jQuery.curCss</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item7'
+											>
+												<td class="attributes">&lt;static&gt; &nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">M139.Dom.<b><a href="../symbols/M139.Dom.html#.getElementHeight">getElementHeight</a></b>(el)
+													</div>
+													<div class="description">获取html对象的高度，与jQuery.height()不同的是会增加padding的计算</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item8'
+											>
+												<td class="attributes">&lt;static&gt; &nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">M139.Dom.<b><a href="../symbols/M139.Dom.html#.getNextZIndex">getNextZIndex</a></b>()
+													</div>
+													<div class="description">获得从10000开始，自增的下一个zIndex</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item9'
+											>
+												<td class="attributes">&lt;static&gt; &nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">M139.Dom.<b><a href="../symbols/M139.Dom.html#.getQuadrant">getQuadrant</a></b>(elem)
+													</div>
+													<div class="description">工具函数，根据坐标，判断一个dom元素或一个点在屏幕中所处的方位（象限）example
+        $D.getDirection(documentElementById("div1"))
+        $D.getDirection({left:100,top:100})</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item10'
+											>
+												<td class="attributes">&lt;static&gt; &nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">M139.Dom.<b><a href="../symbols/M139.Dom.html#.hitTest">hitTest</a></b>(o, l)
+													</div>
+													<div class="description"></div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item11'
+											>
+												<td class="attributes">&lt;static&gt; &nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">M139.Dom.<b><a href="../symbols/M139.Dom.html#.inBounds">inBounds</a></b>(elem, bounds)
+													</div>
+													<div class="description">判断元素是否在指定的矩形区域内</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item12'
+											>
+												<td class="attributes">&lt;static&gt; &nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">M139.Dom.<b><a href="../symbols/M139.Dom.html#.isHide">isHide</a></b>(element, bubblingParent)
+													</div>
+													<div class="description">判断view是否隐藏掉了，即display:none</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item13'
+											>
+												<td class="attributes">&lt;static&gt; &nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">M139.Dom.<b><a href="../symbols/M139.Dom.html#.isHTMLElement">isHTMLElement</a></b>(el)
+													</div>
+													<div class="description">判断是否原生的html元素，非jq托管对象</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item14'
+											>
+												<td class="attributes">&lt;static&gt; &nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">M139.Dom.<b><a href="../symbols/M139.Dom.html#.isRemove">isRemove</a></b>(element)
+													</div>
+													<div class="description">判断元素是否已被移除</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item15'
+											>
+												<td class="attributes">&lt;static&gt; &nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">M139.Dom.<b><a href="../symbols/M139.Dom.html#.preloadImages">preloadImages</a></b>(images)
+													</div>
+													<div class="description">图片预加载</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item16'
+											>
+												<td class="attributes">&lt;static&gt; &nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">M139.Dom.<b><a href="../symbols/M139.Dom.html#.selectTextBox">selectTextBox</a></b>(objTextBox, options)
+													</div>
+													<div class="description">与input.focus()的区别是，这里捕获异常，并且获得焦点后光标默认在文本最后</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item17'
+											>
+												<td class="attributes">&lt;static&gt; &nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">M139.Dom.<b><a href="../symbols/M139.Dom.html#.setDragAble">setDragAble</a></b>(o, options)
+													</div>
+													<div class="description">设置对象可拖拽</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item18'
+											>
+												<td class="attributes">&lt;static&gt; &nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">M139.Dom.<b><a href="../symbols/M139.Dom.html#.setTextNode">setTextNode</a></b>(el, text)
+													</div>
+													<div class="description">当一个html元素里面有多个节点的时候，使用innerText会覆盖掉其它子元素，此函数可以只设置子文本节点的文字</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item19'
+											>
+												<td class="attributes">&lt;static&gt; &nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">M139.Dom.<b><a href="../symbols/M139.Dom.html#.unBindAutoHide">unBindAutoHide</a></b>(options)
+													</div>
+													<div class="description">取消绑定点击空白自动消失</div>
+												</td>
+											</tr>
+										
+									</tbody>
+								</table>
+							</nav>
+						
+					
+						
+					</div>
+				</section>
+			
+			
+	<!--
+	#### EVENTS SUMMARY
+	-->
+			
+	<!--
+	#### CONSTRUCTOR DETAILS
+	-->
+			
+	<!--
+	#### FIELD DETAILS
+	-->
+			
+	<!--
+	#### METHOD DETAILS
+	-->		
+			
+				<section>
+					<div class="details props">
+						<div class="innerProps">
+							<h2 class="sectionTitle">
+								方法详细说明
+							</h2>
+							
+							<ul class="methodDetail" id="MethodDetail">
+								
+								
+									<li 
+										 class='item0'
+									>
+										<div class="fixedFont heading" id=".bindAutoHide">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											
+											
+											<span class="light">M139.Dom.</span><b>bindAutoHide</b>(options)
+										</div>
+										
+										<div class="description">
+											让弹出菜单自动消失的一个工具函数，目前只支持点击其它区域自动关闭菜单，鼠标移出的话需要另外扩展
+											
+											
+											
+											
+										</div>
+										
+										
+											
+												<pre class="code">
+        var menu = createSomeMenu();
+        M2012.UI.PopMenu.bindAutoHide({
+            action:"click",
+            element:menu.el,
+            callback:function(){
+                menu.remove();
+            }
+        });</pre>
+											
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<span class="light fixedFont">{Object}</span> <b>options</b>
+														
+													</dt>
+													<dd>参数集合</dd>
+												
+													<dt>
+														<span class="light fixedFont">{<a href="../symbols/String.html">String</a>}</span> <b>options.action</b>
+														
+													</dt>
+													<dd>执行什么行为自动关闭菜单，可以是click|mouseout(注意这里是全局的)，默认是click</dd>
+												
+													<dt>
+														<span class="light fixedFont">{Function}</span> <b>options.callback</b>
+														
+													</dt>
+													<dd>可选参数，譬如：点击菜单以外的地区触发的回调</dd>
+												
+													<dt>
+														<span class="light fixedFont">{HTMLElement}</span> <b>options.element</b>
+														
+													</dt>
+													<dd>菜单元素节点</dd>
+												
+													<dt>
+														<span class="light fixedFont">{Boolean}</span> <b>options.stopEvent</b>
+														
+													</dt>
+													<dd>当action为click的时候，是否点击菜单自身不触发关闭菜单动作</dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item1'
+									>
+										<div class="fixedFont heading" id=".containElement">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											
+											
+											<span class="light">M139.Dom.</span><b>containElement</b>(container, element)
+										</div>
+										
+										<div class="description">
+											判断element是否在某容器里，如果container等于element，返回true
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<span class="light fixedFont">{HTMLElement}</span> <b>container</b>
+														
+													</dt>
+													<dd>容器</dd>
+												
+													<dt>
+														<span class="light fixedFont">{HTMLElement}</span> <b>element</b>
+														
+													</dt>
+													<dd>子元素</dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item2'
+									>
+										<div class="fixedFont heading" id=".dockElement">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											
+											
+											<span class="light">M139.Dom.</span><b>dockElement</b>(targetElement, dockElement, options)
+										</div>
+										
+										<div class="description">
+											将元素根据坐标停靠在目标元素边,比如弹出菜单(默认定位在正下方,可优化)
+											
+											
+											
+											
+										</div>
+										
+										
+											
+												<pre class="code">
+         $D.dockElement($("#div1")[0],$("#div2")[0],{direction:"auto",margin:10})</pre>
+											
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<span class="light fixedFont">{HTMLElement}</span> <b>targetElement</b>
+														
+													</dt>
+													<dd>目标元素（固定）</dd>
+												
+													<dt>
+														<span class="light fixedFont">{HTMLElement}</span> <b>dockElement</b>
+														
+													</dt>
+													<dd>要定位的元素</dd>
+												
+													<dt>
+														<span class="light fixedFont">{Object}</span> <b>options</b>
+														
+													</dt>
+													<dd>预留选项</dd>
+												
+													<dt>
+														<span class="light fixedFont">{<a href="../symbols/String.html">String</a>}</span> <b>options.direction</b>
+														
+													</dt>
+													<dd>方向 取值范围 auto:四个方向自适应,leftRight:左右自适应,upDown：上下自适应（默认值）,up:固定向上，down:固定向下,left:固定向左,right:固定向右</dd>
+												
+													<dt>
+														<span class="light fixedFont">{Number}</span> <b>options.margin</b>
+														
+													</dt>
+													<dd>空白边距，默认为0</dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item3'
+									>
+										<div class="fixedFont heading" id=".findParent">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											
+											
+											<span class="light">M139.Dom.</span><b>findParent</b>(target, parentTagName)
+										</div>
+										
+										<div class="description">
+											得到目标元素的父元素
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<span class="light fixedFont">{HTMLElement}</span> <b>target</b>
+														
+													</dt>
+													<dd>目标元素</dd>
+												
+													<dt>
+														<span class="light fixedFont">{<a href="../symbols/String.html">String</a>}</span> <b>parentTagName</b>
+														
+													</dt>
+													<dd>父元素的标签</dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item4'
+									>
+										<div class="fixedFont heading" id=".flashElement">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											
+											
+											<span class="light">M139.Dom.</span><b>flashElement</b>(element, options)
+										</div>
+										
+										<div class="description">
+											使元素闪烁，通常用在文本框上，比如提示用户文本框需要填值，联系人重复等
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>element</b>
+														
+													</dt>
+													<dd></dd>
+												
+													<dt>
+														<b>options</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item5'
+									>
+										<div class="fixedFont heading" id=".focusTextBox">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											
+											
+											<span class="light">M139.Dom.</span><b>focusTextBox</b>(objTextBox)
+										</div>
+										
+										<div class="description">
+											文本框获得焦点并定位光标到末尾<pre>示例：<br><br>Utils.focusTextBox(document.getElementById("text"));</pre>
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<span class="light fixedFont">{Object}</span> <b>objTextBox</b>
+														
+													</dt>
+													<dd>必选参数，文档框对象。</dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item6'
+									>
+										<div class="fixedFont heading" id=".getCurrentCSS">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											
+											
+											<span class="light">M139.Dom.</span><b>getCurrentCSS</b>(element, cssName)
+										</div>
+										
+										<div class="description">
+											获得元素的实际样式值  todo jQuery.curCss
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>element</b>
+														
+													</dt>
+													<dd></dd>
+												
+													<dt>
+														<b>cssName</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item7'
+									>
+										<div class="fixedFont heading" id=".getElementHeight">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											
+											
+											<span class="light">M139.Dom.</span><b>getElementHeight</b>(el)
+										</div>
+										
+										<div class="description">
+											获取html对象的高度，与jQuery.height()不同的是会增加padding的计算
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>el</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item8'
+									>
+										<div class="fixedFont heading" id=".getNextZIndex">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											
+											
+											<span class="light">M139.Dom.</span><b>getNextZIndex</b>()
+										</div>
+										
+										<div class="description">
+											获得从10000开始，自增的下一个zIndex
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item9'
+									>
+										<div class="fixedFont heading" id=".getQuadrant">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											
+											
+											<span class="light">M139.Dom.</span><b>getQuadrant</b>(elem)
+										</div>
+										
+										<div class="description">
+											工具函数，根据坐标，判断一个dom元素或一个点在屏幕中所处的方位（象限）example
+        $D.getDirection(documentElementById("div1"))
+        $D.getDirection({left:100,top:100})
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>elem</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item10'
+									>
+										<div class="fixedFont heading" id=".hitTest">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											
+											
+											<span class="light">M139.Dom.</span><b>hitTest</b>(o, l)
+										</div>
+										
+										<div class="description">
+											
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>o</b>
+														
+													</dt>
+													<dd></dd>
+												
+													<dt>
+														<b>l</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item11'
+									>
+										<div class="fixedFont heading" id=".inBounds">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											
+											
+											<span class="light">M139.Dom.</span><b>inBounds</b>(elem, bounds)
+										</div>
+										
+										<div class="description">
+											判断元素是否在指定的矩形区域内
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>elem</b>
+														
+													</dt>
+													<dd></dd>
+												
+													<dt>
+														<b>bounds</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item12'
+									>
+										<div class="fixedFont heading" id=".isHide">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											
+											
+											<span class="light">M139.Dom.</span><b>isHide</b>(element, bubblingParent)
+										</div>
+										
+										<div class="description">
+											判断view是否隐藏掉了，即display:none
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<span class="light fixedFont">{HTMLElement}</span> <b>element</b>
+														
+													</dt>
+													<dd>判断的元素</dd>
+												
+													<dt>
+														<span class="light fixedFont">{Boolean}</span> <b>bubblingParent</b>
+														
+													</dt>
+													<dd>此参数为true的话则判断节点所在父元素是否可见</dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item13'
+									>
+										<div class="fixedFont heading" id=".isHTMLElement">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											
+											
+											<span class="light">M139.Dom.</span><b>isHTMLElement</b>(el)
+										</div>
+										
+										<div class="description">
+											判断是否原生的html元素，非jq托管对象
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>el</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item14'
+									>
+										<div class="fixedFont heading" id=".isRemove">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											
+											
+											<span class="light">M139.Dom.</span><b>isRemove</b>(element)
+										</div>
+										
+										<div class="description">
+											判断元素是否已被移除
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<span class="light fixedFont">{HTMLElement}</span> <b>element</b>
+														
+													</dt>
+													<dd>判断的元素</dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item15'
+									>
+										<div class="fixedFont heading" id=".preloadImages">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											
+											
+											<span class="light">M139.Dom.</span><b>preloadImages</b>(images)
+										</div>
+										
+										<div class="description">
+											图片预加载
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<span class="light fixedFont">{<a href="../symbols/Array.html">Array</a>}</span> <b>images</b>
+														
+													</dt>
+													<dd>图片地址列表</dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item16'
+									>
+										<div class="fixedFont heading" id=".selectTextBox">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											
+											
+											<span class="light">M139.Dom.</span><b>selectTextBox</b>(objTextBox, options)
+										</div>
+										
+										<div class="description">
+											与input.focus()的区别是，这里捕获异常，并且获得焦点后光标默认在文本最后
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<span class="light fixedFont">{HTMLElement}</span> <b>objTextBox</b>
+														
+													</dt>
+													<dd>获得焦点的文本框</dd>
+												
+													<dt>
+														<span class="light fixedFont">{Object}</span> <b>options</b>
+														
+													</dt>
+													<dd>扩展参数集合</dd>
+												
+													<dt>
+														<span class="light fixedFont">{Number}</span> <b>options.pointerAt</b>
+														
+													</dt>
+													<dd>光标的位置 0:最前,1:选中所有文本,2:最后,默认为2</dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item17'
+									>
+										<div class="fixedFont heading" id=".setDragAble">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											
+											
+											<span class="light">M139.Dom.</span><b>setDragAble</b>(o, options)
+										</div>
+										
+										<div class="description">
+											设置对象可拖拽
+											
+											
+											
+											
+										</div>
+										
+										
+											
+												<pre class="code">
+        $D.setDragAble(myDiv,{
+            handleElement:".titleBar",
+            onDragStart:function(e){
+                //
+            },
+            onDragMove:function(e){
+                //
+            },
+            onDragEnd:function(e){
+                //
+            }
+        });</pre>
+											
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<span class="light fixedFont">{HTMLElement}</span> <b>o</b>
+														
+													</dt>
+													<dd>拖拽移动的对象</dd>
+												
+													<dt>
+														<span class="light fixedFont">{Object}</span> <b>options</b>
+														
+													</dt>
+													<dd>选项集合参数</dd>
+												
+													<dt>
+														<span class="light fixedFont">{<a href="../symbols/String.html">String</a>}</span> <b>options.handleElement</b>
+														
+													</dt>
+													<dd>拖拽的热区元素的路径，如: .titleBar</dd>
+												
+													<dt>
+														<span class="light fixedFont">{Function}</span> <b>options.onDragStart</b>
+														
+													</dt>
+													<dd>拖拽开始的回调</dd>
+												
+													<dt>
+														<span class="light fixedFont">{Function}</span> <b>options.onDragMove</b>
+														
+													</dt>
+													<dd>拖拽移动的回调</dd>
+												
+													<dt>
+														<span class="light fixedFont">{Function}</span> <b>options.onDragEnd</b>
+														
+													</dt>
+													<dd>拖拽结束的回调</dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item18'
+									>
+										<div class="fixedFont heading" id=".setTextNode">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											
+											
+											<span class="light">M139.Dom.</span><b>setTextNode</b>(el, text)
+										</div>
+										
+										<div class="description">
+											当一个html元素里面有多个节点的时候，使用innerText会覆盖掉其它子元素，此函数可以只设置子文本节点的文字
+											
+											
+											
+											
+										</div>
+										
+										
+											
+												<pre class="code">
+         &lt;a&gt;&lt;i /&gt;text&lt;/a&gt;
+         M139.Dom.setTextNode(obj,"hehe");
+         &lt;a&gt;&lt;i /&gt;text&lt;/a&gt;</pre>
+											
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>el</b>
+														
+													</dt>
+													<dd></dd>
+												
+													<dt>
+														<b>text</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item19'
+									>
+										<div class="fixedFont heading" id=".unBindAutoHide">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											
+											
+											<span class="light">M139.Dom.</span><b>unBindAutoHide</b>(options)
+										</div>
+										
+										<div class="description">
+											取消绑定点击空白自动消失
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<span class="light fixedFont">{Object}</span> <b>options</b>
+														
+													</dt>
+													<dd>参数集合</dd>
+												
+													<dt>
+														<span class="light fixedFont">{<a href="../symbols/String.html">String</a>}</span> <b>options.action</b>
+														
+													</dt>
+													<dd>执行什么行为自动关闭菜单，可以是click|mouseout(注意这里是全局的)，默认是click</dd>
+												
+													<dt>
+														<span class="light fixedFont">{HTMLElement}</span> <b>options.element</b>
+														
+													</dt>
+													<dd>菜单元素节点</dd>
+												
+											</dl>
+										
+										
+										
+										
+									</li>
+								
+							</ul>
+						</div>
+					</div>
+				</section>
+			
+			
+	<!--
+	#### EVENT DETAILS
+	-->		
+			
+		</article>
+	</div>
+</div>
+
+		<script type="text/javascript">
+			wbos.CssTools.MediaQueryFallBack.LoadCss('../css/screen.css', '../css/handheld.css', 660)
+			codeview.classFilter.Init()
+		</script>
+	</body>
+</html>
+

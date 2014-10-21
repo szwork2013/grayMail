@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="pg-send-card" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>发贺卡</title>
+<script type="text/javascript" src="http://images.139cm.com/rm/richmail/js/jquery.js?v=20120302"></script>
+<script type="text/javascript" src="http://images.139cm.com/rm/richmail/js/utils_controls.js?v=20120323"></script>
+<script type="text/javascript">
+//设域
+document.domain=window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+var Domain = location.host,
+	IsRichmail = /g0|g1/.test(Domain) ? false : true;
+
+//配置文件
+var CardConfig = {
+	cardHost: IsRichmail ? location.href.match(/^http:\/\/[^/]+\/[^/]+\//)[0] : "http://" + Domain + "/",
+
+	/*
+	 * 获取接口URL
+	 * @param {string} param 接口参数名称
+	 * @return {string} url
+	 */
+	getInterfaceUrl: function (param) {
+		//接口名称
+		var interFace = "func=card:",
+		//主机配置
+		hostConfig = {
+			"rm": location.href.match(/^http:\/\/[^/]+\/[^/]+\//)[0]
+		};
+		/**
+		 * 按版本得到URL
+		 * @param {string} theDomain 域名
+		 * @param {string} config 配置，当前作用域的hostConfig
+		 * @param {string} interFace 接口名称
+		 * @param {string} param 接口参数名称
+		 */
+		var getUrlByVersion = function (theDomain, config, interFace, param) {
+			
+			var versionUrl = "",//按版本输出路径
+
+				sidRandom = "&rnd=" + Math.random();//参数
+			if ("string" == typeof theDomain) {
+                versionUrl = config["rm"]+"cardsvr";
+				//组合URL
+				versionUrl = versionUrl + "?" + interFace + param + sidRandom;
+			}
+
+			return versionUrl;
+		};
+		
+		return (function(host,config,interFace,param){
+			//按版本得到URL,取大域host.match(/[^.]+\.[^.]+$/)[0]
+			return host && config && interFace && param && getUrlByVersion(host.match(/[^.]+\.[^.]+$/)[0],config,interFace,param)||"";
+		})(window.location.host,hostConfig,interFace,param);
+	}
+};
+
+var WriteBehavior = {
+	init: function(){
+		this.behaviorRequest();
+		this.turnPage();
+	},
+
+	behaviorRequest: function(){
+		var dataJson = {type: 1},
+			dataXml = namedVarToXML("", dataJson, "\r\n");
+
+		$.ajax({
+			type: "POST",
+			url: CardConfig.getInterfaceUrl("writeBehavior"),
+			dataType: "json",
+			cache: false,
+			contentType: "application/xml;charset:utf-8",
+			data: dataXml,
+			success: function(data){
+				//成功处理
+			}
+		});		
+	},
+	queryString:function(key, url){
+
+	        url = (url === undefined ? location.search : url);
+	        url = url.split(/&|\?/);
+	        var result = null;
+	        key = String(key).toLowerCase();
+	        for (var i = 0; i < url.length; i++) {
+	            var keyValue = url[i];
+	            var part = keyValue.split("=");
+	            if (part[0].toLowerCase() == key) {
+	                result = part[1];
+	                break;
+	            }
+	        }
+	        if (result) {
+	            try {
+	                result = M139.Text.Encoding.tryDecode(result);
+	            } catch (e) { }
+	        }
+	        return result;
+	    
+	},
+
+	turnPage: function () {//页面跳转
+	    var toEmail = '';
+	    if (this.queryString("to")) {
+	        toEmail = '&to=' + this.queryString("to");
+	    }
+	    setTimeout(function () {
+	        
+	        location.href = "http://mail.10086.cn/?id=greetingcard" + toEmail;
+		}, 1000);
+	}
+};
+
+WriteBehavior.init();
+</script>
+</head>
+<body>	
+
+</body>
+</html>

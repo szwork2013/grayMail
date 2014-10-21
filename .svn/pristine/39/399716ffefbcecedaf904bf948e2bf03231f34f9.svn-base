@@ -1,0 +1,344 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="Keywords" content="" />
+    <meta name="Description" content="" />
+    <title>懒人贺卡</title>
+    <script type="text/javascript">
+        //设域
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+        function loadScript(path, _doc, charset) {
+            if (path.indexOf(".js") > -1) {
+                var base = "/m2012/js";
+                var jsVersion = "20130106";
+                if (path.indexOf("pack.js") > -1) {
+                    base += "/packs";
+                }
+                path = base + "/" + path;
+                if (path.indexOf("?") == -1) {
+                    path += "?v=" + jsVersion;
+                }
+            }
+            (_doc || document).write("<script charset=\"" + (charset || "") + "\" type=\"text/javascript\" src=\"" + path + "\"></" + "script>");
+        }
+    </script>
+    <script type="text/javascript">
+        loadScript('libs.pack.js', document);
+        loadScript('m139.core.pack.js', document);
+    </script>
+    <style>
+        .sleeper * {
+            margin: 0;
+            padding: 0;
+            font-family: '微软雅黑';
+            font-size: 12px;
+        }
+
+        .sleeper {
+            width: 494px;
+            background: url(images/bg.png) repeat-y;
+            position: relative;
+            margin-top: 100px;
+            margin-left: 0px;
+            padding: 10px;
+			height:370px;
+        }
+
+            .sleeper .horse {
+                position: absolute;
+                right:40px;
+                top: -100px;
+                z-index: 1;
+            }
+
+            .sleeper .sleeperTop {
+                width: 514px;
+                height: 14px;
+                background: url(images/topBg.png) no-repeat;
+                position: absolute;
+                top: -8px;
+                left: 0;
+            }
+
+            .sleeper .sleeperBtm {
+                width: 514px;
+                height: 14px;
+                background: url(images/btmBg.png) no-repeat;
+                position: absolute;
+                bottom: -8px;
+                left: 0;
+            }
+
+            .sleeper .logo {
+                margin: 10px;
+                position: relative;
+                top: 5px;
+                left: 10px;
+                z-index:2;
+            }
+
+                .sleeper .logo p {
+                    color: #fff;
+                    margin: 0;
+                    padding: 0;
+                }
+
+                    .sleeper .logo p span {
+                        color: #fcff00;
+                        margin: 0 5px;
+                    }
+
+            .sleeper .userAddr {
+                background: #F0C5F4;
+                margin: 25px 10px 0px 12px;
+                position:relative;
+            }
+
+            .sleeper .addrMore {
+                height: 213px;
+                overflow-y: auto;
+                overflow-x: hidden;
+            }
+
+            .sleeper .userAddr table {
+                width:443px;
+                margin: 5px 0 0 10px;
+                list-style: none;
+            }
+
+                .sleeper .userAddr table td {
+                    width: 80px;
+                    height: 25px;
+                    line-height: 25px;
+                }
+
+                    .sleeper .userAddr table td input {
+                        margin-right: 5px;
+                        position: relative;
+                        top: 2px;
+                    }
+
+            .more {
+                width: 472px;
+                height: 16px;
+                background: url(images/more.jpg) no-repeat center bottom;
+                display: block;
+            }
+                .more.on {
+                   background: url(images/more_on.png) no-repeat center bottom;
+                }
+
+        .btnBig, .colse, .btnSml, .tips {
+            display: block;
+            background: url(images/icon.png) no-repeat;
+        }
+
+        .sleeper .btnBig {
+            width: 110px;
+            height: 34px;
+            line-height: 34px;
+            background-position: 0 -64px;
+            margin: 0 auto;
+            text-align: center;
+            color: #333333;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+            .sleeper .btnBig:hover {
+                background-position: 0 -104px;
+            }
+
+        .colse {
+            width: 34px;
+            height: 34px;
+            background-position: -117px -77px;
+            position: absolute;
+            right: -10px;
+            top: -10px;
+        }
+
+            .colse:hover {
+                background-position: -117px -39px;
+            }
+
+        .btnSml {
+            width: 90px;
+            height: 24px;
+            line-height: 24px;
+            background-position: 0 0;
+            margin: 0 auto;
+            color: #333333;
+            text-decoration: none;
+            font-size: 12px;
+            text-align: center;
+            display: inline-block;
+        }
+
+            .btnSml:hover {
+                background-position: 0 -32px;
+            }
+
+        .tips {
+            width: 36px;
+            height: 36px;
+            display: inline-block;
+            background-position: -113px 0;
+            position: relative;
+            top: 10px;
+            right: 15px;
+        }
+
+        .sleeper .sleeperCard {
+            background: #F0C5F4;
+            border: 1px solid #981201;
+            margin: 10px 0 10px 12px;
+            width: 470px;
+            height: 176px;
+            overflow-y: auto;
+        }
+
+            .sleeper .sleeperCard .spCardShow {
+                background: #FBF0FC;
+                float: left;
+                margin-right: 25px;
+            }
+
+                .sleeper .sleeperCard .spCardShow .cardImg {
+                    margin: 5px 5px 2px 5px;
+                    display: block;
+                }
+
+                .sleeper .sleeperCard .spCardShow .aChang {
+                    display: block;
+                    padding-bottom: 5px;
+                    font-size: 12px;
+                    color: #3884ca;
+                    text-decoration: none;
+                    text-align: center;
+                }
+
+        .sleeper .cardWord {
+            font-size: 12px;
+        }
+
+            .sleeper .cardWord h2 {
+                color: #b41500;
+                font-size: 14px;
+                margin: 15px 0 0;
+                padding: 0;
+            }
+
+            .sleeper .cardWord ul li {
+                list-style: none;
+                line-height: 22px;
+                margin-top: 10px;
+            }
+
+        .sleeper .sendTips {
+            padding: 0 0 35px 80px;
+            border-bottom: 1px solid #b85447;
+        }
+
+            .sleeper .sendTips div {
+                margin-bottom: 15px;
+            }
+
+            .sleeper .sendTips .p1 span {
+                font-size: 16px;
+                color: #fff;
+            }
+
+            .sleeper .sendTips .p2 {
+                margin: 10px 0 0 37px;
+                color: #fff;
+            }
+
+            .sleeper .sendTips .p3 {
+                margin-left: 30px;
+                color: #fdbbb3;
+            }
+
+        .sleeper .sendMore {
+            color: #feea8c;
+            font-size: 14px;
+            margin-left: 15px;
+            text-decoration: none;
+        }
+
+        .sleeper .sendTips .p4 {
+            margin-left: 30px;
+        }
+
+        .sleeper .p5 {
+            padding: 10px 12px 0 12px;
+            color: #fdbbb3;
+        }
+    </style>
+</head>
+<body>
+        <div class="sleeper">
+            <!-- <div class="sleeperTop"></div> -->
+            <a href="javascript:" class="colse" title="关闭" id="close"></a>
+            <img class="horse" src="images/horse.png">
+            <div class="logo">
+                <a>
+                    <img src="images/newCard.jpg" style="border: none;"></a>
+                <p>笑是最好的礼物，为您的 <span id="friendNum">4</span> 个好友送去愚人节笑弹！</p>
+            </div>
+            <div class="userAddr">
+                <div style="position:relative;*zoom:1;">
+                <table cellspacing="0" cellpadding="0" id="receiver">
+                </table>
+                    </div>
+                <a href="javascript:" class="more" id="btn_more" title="更多"></a>
+            </div>
+            <div class="seeMore"></div>
+            <div class="sleeperCard">
+                <div class="spCardShow">
+                    <div id="cardFlash"></div>
+                    <a href="javascript:" class="aChang" id="changeCard">换一张</a>
+                </div>
+                <div class="cardWord">
+                    <h2>祝福语：</h2>
+                    <textarea id="blessing" style="margin: 0px; outline: 0; resize: none; width: 195px; margin-top: 5px; height: 110px; border: none; padding: 10px; background: #FBF0FC; line-height: 20px;">  
+
+                    </textarea>
+                </div>
+            </div>
+            <div style="margin-top: 15px;">
+                <a href="javascript:;" class="btnBig" id="sendCard">立即发送</a>
+            </div>
+            <!-- <div class="sleeperBtm"></div> -->
+        </div>
+
+
+
+
+            <div class="sleeper" id="sendComplete" style="display: none">
+                <div class="sleeperTop"></div>
+                <a href="#" class="colse" title="关闭"></a>
+                <div class="sendTips">
+                    <div>
+                        <p class="p1"><i class="tips"></i><span>贺卡发送完成</span></p>
+                        <p class="p2">恭喜您获得一次抽奖机会！</p>
+                        <p class="p3">（抽奖机会不累计，离开此页面视为自动放弃本次抽奖）</p>
+                    </div>
+
+                    <p class="p4">
+                        <a href="javascript:;" class="btnSml">马上抽奖</a><a class="sendMore" href="#">继续发贺卡</a>
+                    </p>
+                </div>
+                <p class="p5">
+                    马年第一炮新春福利打响！凡于活动期间每使用邮件、发贺卡，或创建日历，即可获得
+一次抽奖机会，每天最多可获得30次抽奖机会，丰厚好礼马上“邮”！<a href="#" class="sendMore" style="font-size: 12px; margin-left: 0;">活动详情&gt;&gt;</a>
+                </p>
+                <div class="sleeperBtm"></div>
+            </div>
+
+            <script type="text/javascript">
+                loadScript('lazycard.html.pack.js', document);
+            </script>
+</body>
+</html>

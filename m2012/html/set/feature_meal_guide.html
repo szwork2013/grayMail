@@ -1,0 +1,304 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" " http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns=" http://www.w3.org/1999/xhtml">
+<head>
+<title>139邮箱</title>
+<meta charset="utf-8">
+<script type="text/javascript">document.write('<script src="feature_meal_config.js?' + Math.random() + '"><\/script>')</script>
+<script type="text/javascript">
+document.domain=window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1].replace(/:\d+/,"");
+filltag(['module/set/feature_meal_guide.css', ['jquery-1.7.1.min.js','',rmResourcePath], ['utils_controls.js','GB2312',rmResourcePath]], resourcePath);
+</script>
+<style>
+.item_con p { text-align: left;}
+</style>
+<!--[if IE 6]><script>document.write('<script src="' + resourcePath + '/js/libs/DD_belatedPNG.js"><\/script>')</script><![endif]-->
+<script type="text/javascript">
+$(function(){
+    $.each($("img[data-src]"), function(i,o){
+        o.src = resourcePath + $(this).dataset("src");
+    });
+})
+
+String.prototype.format = function(array) {
+    if (!array) return str;
+    var str = this;
+    var tmp;
+    for (var i = 0; i < array.length; i++) {
+        tmp = String(array[i]).replace(/\$/g, "$$$$");
+        str = str.replace(eval("/\\{" + i + "\\}/g"), tmp);
+    }
+    return str;
+}
+
+var sid = Utils.queryString("sid");
+
+$(function(){
+
+    $(".buy20").click(function(){
+        report("102339");
+        setTimeout(function(){
+            location.assign("feature_meal_upgrade1.html?sid=" + sid + "&to=0017");
+        },0);
+    });
+
+    $(".buy5").click(function(){
+        report("102338");
+        setTimeout(function(){
+            location.assign("feature_meal_upgrade1.html?sid=" + sid + "&to=0016");
+        },0);
+    });
+
+    var data = '<object><int name="fromType">1</int></object>';
+    proxyready("mealInfo", data, function(rs){
+        if (rs.code == "S_FALSE" || rs.code == "FS_UNKNOWN") {
+            alert("离开太久啦，请重新登录！");
+            location.assign(MAINDOMAIN);
+            return;
+        }
+
+        if (rs.code == "S_OK") {
+            $("#serviceName").text(rs.serviceName);
+            
+            if (rs.serviceItem == "0017") {
+                $(".buy5, .buy20").hide();
+            } else if (rs.serviceItem != "0016") {
+                $(".buy5").css("display", "inline-block");
+                $(".buy20").addClass("ml148");
+            }
+            $(".buy20").css("visibility", "visible");
+
+            var meal = ["0015", "0016", "0017"];
+
+//别名个数            aliasCount
+//别名设置(字数多少)  aliasLength
+//邮箱容量
+//超大附件
+//群发邮件人数
+//单次自写短信群发人数    maxSmsRecipients
+//单次自写彩信群发人数    maxMmsRecipients
+//日封顶（短信、彩信）    maxSmsDayLimit
+//月封顶（短信、彩信）    maxSmsDayLimit
+//通讯录条数              maxContactCount
+//彩云容量
+//暂存柜容量
+//彩云单个文件大小
+//彩云共享人数            diskShareCount
+//文件快递发送人数        largeattachMaxRecipients
+//文件快递发送单次文件数  largeattachMaxFileCount
+//文件快递文件保存天数    
+//视频邮件
+//PushEmail
+
+            var hidekey = ["#th_aliasCount", "#th_aliasLength"];
+
+            var key = [
+                //"aliasCount",
+                //"aliasLength",
+                "volume",
+                "attachSize",
+                "maxRecipients",
+                "maxSmsRecipients",
+                "maxMmsRecipients",
+                "maxSmsDayLimit",
+                "maxSmsDayLimit",
+                "maxContactCount",
+                "diskVolume",
+                "largeattachVolume",
+                "diskSingleFileSize",
+                "diskShareCount",
+                "largeattachMaxRecipients",
+                "largeattachMaxFileCount",
+                "largeattachExpire",
+                "videomailRecordLimit",
+                "pushemail"];
+
+            $(".item_con").append(new Array(key.length+1).join("<p></p>"));
+            $(hidekey.join(',')).hide();
+
+            //按键值显示
+            for (var j=0; j < meal.length; j++) {
+                var info = rs[meal[j]];
+
+                var label = $("#col" + meal[j] +" p");
+                for (var i=0; i < key.length; i++) {
+                    if (info[key[i]]) {
+                        label.eq(i).text(info[key[i]].format(info[key[i]+"Value"]) + "");
+                    } else {
+                        label.eq(i).hide();
+                        $(".item_til p").eq(i).hide();
+                    }
+                }
+            }
+
+            //生成免费版基准值
+            var freeVolume = [];
+            var info = rs[meal[0]];
+            for (var i=0; i < key.length; i++) {
+                var value = info[key[i]+"Value"];
+                freeVolume.push(value && value.length > 0 ? value[0] : 1);
+            }
+
+            //计算高级版倍数
+            for (var j=1; j < meal.length; j++) {
+                var label = $("#col" + meal[j] +" p");
+                var info = rs[meal[j]];
+                for (var i=0; i < key.length; i++) {
+                    var value = info[key[i]+"Value"];
+                    value = value && value.length > 0 ? value[0] : 1;
+                    var scale = value / freeVolume[i];
+
+                    if (!isNaN(scale)) {
+                        if (scale < 2) continue;
+
+                        if (scale == Infinity) {
+                            scale = "_special";
+                        } else if (scale > 10) {
+                            scale = "n";
+                        } else {
+                            scale = Math.floor(scale);
+                        }
+
+                        label.eq(i).append("<i class=\"upgrade_btn times" + scale + "\"></i>");
+                    } else {
+                        label.eq(i).append("<i class=\"upgrade_btn times_special\"></i>");
+                    }
+                }
+            }
+
+            //这几个字段内容较多，则需要左移3字。
+            $("#col0016 p:eq(12), #col0017 p:eq(12)").css("padding-right", "3em")
+
+            //如果附件值为50，则指的是附件
+            if (rs[meal[0]]["attachSizeValue"] >= 50 ) {
+                $(".item_til p").eq(3).text("附件");
+            }
+        }
+    });
+});
+
+$(function(){
+    report("104190");
+});
+</script>
+</head>
+
+<body class="setbody">
+<div id="header">
+ <div class="wrapper m_clearfix">
+  <h1 id="logo"><a href="http://mail.10086.cn/">139邮箱收费版</a></h1>
+  <p class="top_right"><a href="http://mail.10086.cn/">邮箱首页</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="http://help.mail.10086.cn/statichtml/0/index.html">帮助中心</a></p>
+ </div> 
+</div>
+
+<div id="main">
+  <div class="banner"><span>升级邮箱，做与众不同的自己！高性能  个性化  专业级的个人邮箱</span></div><!--banner-->
+  
+  <div class="wrapper" id="uptop">
+    <div class="mailinfo">
+      <div class="mailinfo_top">
+        <ul class="tabletop_ul m_clearfix">
+          <li class="first"><a class="version_mail"><span><span><em id="serviceName"></em>邮箱</span></span></a></li>
+          <li class="til_com double_border">免费版邮箱</li>
+          <li class="til_com double_border">5元版邮箱</li>
+          <li class="til_com">20元版邮箱</li>
+        </ul>
+      </div><!--mailinfo_top-->
+      
+      <div class="mailinfo_body">
+        <ul class="frame_ul m_clearfix">
+          <li class="item_til">
+            <p id="th_aliasCount">别名个数</p>
+            <p id="th_aliasLength">别名设置</p>
+            <p>邮箱容量</p>
+            <p>超大附件</p>
+            <p>群发邮件人数</p>
+            <p>单次自写短信群发人数</p>
+            <p>单次自写彩信群发人数</p>
+            <p>日封顶（短信、彩信）</p>
+            <p>月封顶（短信、彩信）</p>
+            <p>通讯录条数</p>
+            <p>彩云网盘容量</p>
+            <p>暂存柜容量</p>
+            <p>彩云网盘单个文件大小</p>
+            <p>彩云网盘分享人数</p>
+            <p>文件快递发送人数</p>
+            <p>文件快递发送单次文件数</p>
+            <p>文件快递文件保存天数</p>
+            <p>视频邮件</p>
+            <p>139邮箱手机客户端</p>
+          </li>
+          <li id="col0015" class="item_con">
+          </li>
+          <li id="col0016" class="item_con">
+          </li>
+          <li id="col0017" class="item_con">
+          </li>
+        </ul>
+      </div>
+
+      <div class="mailinfo_btm">
+        <a href="javascript:void(0)" class="buy5">变更为5元版邮箱</a>
+        <a href="javascript:void(0)" class="buy20">变更为20元版邮箱</a>
+      </div>
+    </div>
+
+    <div class="white_top">
+    <div class="white_box">
+      <h2>邮箱基础性能保障</h2>
+      <div class="white_box_body">
+        <ul class="white_box_ul m_clearfix">
+          <li>
+            <div class="holder m_clearfix">
+              <img class="fl" data-src="/images/module/set/feature_meal_guide/b1.jpg" alt="邮件到达通知"/>
+              <div class="holder_r">
+                <h3>邮件到达通知</h3>
+                <p>有新邮件到达，免费通知到手机！短信、彩信、WAP邮件到达通知</p>
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <div class="holder m_clearfix">
+              <img class="fl" data-src="/images/module/set/feature_meal_guide/b2.jpg" alt="电子账单服务"/>
+              <div class="holder_r">
+                <h3>电子账单服务</h3>
+                <p>邮箱接收每月话费、水电煤、信用卡等账单，环保低碳！</p>
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <div class="holder m_clearfix">
+              <img class="fl" data-src="/images/module/set/feature_meal_guide/b3.jpg" alt="自写短彩"/>
+              <div class="holder_r">
+                <h3>自写短彩</h3>
+                <p>邮箱就能发短彩，比手机快10倍！</p>
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <div class="holder m_clearfix">
+              <img class="fl" data-src="/images/module/set/feature_meal_guide/b4.jpg" alt="手机管理邮箱"/>
+              <div class="holder_r">
+                <h3>手机管理邮箱</h3>
+                <p>可用短信、WAP等多种方式收发邮件，解决移动办公烦恼！</p>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+<div id="footer">
+  <div class="wrapper m_clearfix">
+    <p class="fl"><a href="http://help.mail.10086.cn/statichtml/1/Content/1013.html">版权声明</a> | <a href="http://www.10086.cn/service/advise/index.htm">客服受理</a> | <a href="http://www.10086.cn/aboutus/index_4450.htm">关于移动</a> | <a href="http://open.mail.10086.cn/">开放平台</a></p>
+    <p class="fr footer_ico"><a target="icp" href="http://www.miibeian.gov.cn/">京ICP备05002571号</a> <span style="color:#999999; padding:0 5px; float:none;">|</span> <a style="color:#999999;" href="http://www.10086.cn/" target="_blank"  title="中国移动通信">中国移动通信版权所有</a></p>
+  </div>
+</div>
+<!--[if IE 6]><script type="text/javascript">DD_belatedPNG.fix('.png,.white_box,.white_top,.banner,.buy5,.buy20');</script><![endif]-->
+</body>
+</html>

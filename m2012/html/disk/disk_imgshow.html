@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+    <title>139邮箱原图预览</title>
+    <style type="text/css">
+    body{
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+	<script>
+		var domain="10086.cn";
+		if(document.domain.indexOf("rd")>-1){
+			domain="10086rd.cn";
+		}
+		else if(document.domain.indexOf("ts")>-1){
+			domain="10086ts.cn";
+		}
+	</script>
+	<script>
+		//设域
+	document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1].replace(/:\d+/, "");
+	var resourcePath = GetQueryString('res');
+    var netDiskResourcePath = GetQueryString('jsRes');
+    function GetQueryString(name) {  
+         var  reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)","i");  
+         var  r = window.location.search.substr(1).match(reg);  
+         if   (r != null)   return r[2];   return   null;  
+    }
+
+    function getLinkTag(path) {
+        var text = "";
+        if(path)text = "href='"+ path +"'";
+        return "<link rel='stylesheet' type='text/css' "+text+" />";
+    }
+	</script>
+	<script>
+		var htmlCode="";
+		htmlCode += getJsTag(resourcePath + "/js/jquery.js");
+		htmlCode += getJsTag(resourcePath + "/js/utils.js");
+		htmlCode += getJsTag(netDiskResourcePath + "/js/m2011.disk.diskconf.js");
+		htmlCode += getJsTag(netDiskResourcePath + "/js/m2011.disk.diskcommon.js");
+		document.write(htmlCode);
+		function getJsTag(path,charset){
+			var html="<script charset='utf-8' src='"+ path +"' type='text/javascript'></"+"script>";
+			if (charset) html = html.replace("utf-8", charset);
+			return html;
+		}
+		//获取url参数
+        function queryString(param, url) {
+            url = url ? url : location.search;
+            var svalue = url.match(new RegExp("[?&]" + param + "=([^&]*)", "i"));
+            return svalue ? unescape(svalue[1]) : null;
+        }
+		//未加载until,需自己实现string.format
+		String.prototype.format = function() {
+			var str = this;
+			var tmp;
+			for (var i = 0; i < arguments.length; i++) {
+				tmp = String(arguments[i]).replace(/\$/g, "$$$$");
+				str = str.replace(eval("/\\{" + i + "\\}/g"), tmp);
+			}
+			return str;
+		}
+	</script>
+	<script>
+		//初始化
+		window.onload = function() {
+			//设定访问中间件的iframe的代理src
+			$("#iframeserver").attr("src", DiskConf.proxyInterIp + "proxy.htm");
+			Utils.waitForReady("document.getElementById('iframeserver').contentWindow.$.ajax", function() {
+				//接口地址
+				var posturl = DiskTool.resolveUrl("download", false, true);
+				posturl += "&sid="+ queryString("sid");
+				document.getElementById("iframeserver").contentWindow.$.ajax({
+					type: "POST",
+					contentType: "text/xml",
+					dataType: "text",
+					url: posturl,
+					data: XmlUtility.parseJson2Xml({
+						fileid: queryString("fileid"),
+						downname: queryString("filename")
+					}),
+					async: false,
+					success: function(result) {
+						try {
+							var data = eval("(" + result + ")");
+						} catch (ex) {
+							var data = {
+								code: "S_Error",
+								summary: "请求服务器出错"
+							};
+						}
+						if(data.code == 'S_OK') {
+							result = data['var'].url;
+							$('#aashow').attr('src', result);
+						}
+					}
+				});
+			});
+		}
+	</script>
+</head>
+<body>
+    <div>
+		<img id="aashow" />
+    </div>
+	<iframe id="iframeserver" width="0" height="0" style="border: none"></iframe>
+</body>
+</html>

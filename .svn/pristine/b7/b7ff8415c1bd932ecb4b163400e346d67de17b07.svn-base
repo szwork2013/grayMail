@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="Keywords" content="" />
+<meta name="Description" content="" />
+<title>收件箱-139邮箱</title>
+
+
+<style>
+caption{
+display: table-caption;
+text-align: -webkit-left;
+}
+
+.mail-tdzt{width:100%;}
+.mail-tdzt td,.mail-tdzt th{height:30px;border:1px solid #dfdfe1;text-align:left;padding-left:5px;background-color:#FFFFFF;}
+.mail-tdzt th{background: url(../../images/skin/normal/bg_x.png) repeat-x  0 -138px;}
+</style>
+    <script type="text/javascript">
+		document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+
+	</script>
+	<script>
+		top.loadScript('libs.pack.js',document);
+		top.loadScript('m139.core.pack.js',document);
+		top.loadScript("m2012.ui.common.pack.js", document);
+	</script>
+	<script>top.loadCSS(["common/global.css","module/write.css"],document)</script>
+</head>
+<body>
+<div class="writeOk">
+	<div class="norTips norTips-writeOk" style="padding-bottom:10px;">
+		<span class="norTipsIco"><i class="i_ok"></i></span>
+		<div class="norTipsContent">
+			<div class="norTipsTitle" id="tipWords">文件已发送</div>
+			<div class="norTipsLine" id="stati"></div>
+			<div class="norTipsLine gray bline" id="saveMail" style="width:500px;">您上传的本地文件已保存至彩云暂存柜，文件保存期限15天。</div>
+			<div class="norTipsLine">
+
+
+
+
+			</div>
+			
+			<div class="norTipsLine" id="divDetailStatus" style="display: none"></div>
+			<!-- <div id="divSaveToAddr" style="display:none"></div>-->
+			<div style="padding-bottom:10px;" id="shengji"><a href="javascript:;">升级邮箱，延长保存期限</a></div>
+			<div class="norTipsLine">
+				<a hideFocus="1" href="javascript:void(0)" class="btnTb mr_10" id="showMailBox"><span>继续发送</span></a><a hideFocus="1" href="javascript:void(0)" class="btnTb" id="showCompose"><span>去暂存柜管理文件</span></a>
+			</div>
+				
+				
+		</div>
+		
+	</div>
+	<div class="writeOk-li" id=""><div id="tixing"></div></div>
+	<div class="writeOk-li" style="display: none">
+		<h2>邮件到达通知</h2>
+		<p class="pb_5"><span class="gray mr_10 ">有新邮件时，免费短信通知</span><a hideFocus="1" href="javascript:void(0)" name="showSetting">详细设置</a></p>
+		<a hideFocus="1" href="javascript:void(0)" class="btnTb mr_10" id="openMailNotify"><span>立即开启</span></a>
+	</div>
+	<div class="writeOk-li" id="openMailNotifySuc" style="display: none">
+		<div class="norTips norTips-min">
+			<span class="norTipsIco"><i class="i_ok_min"></i></span>
+			<div class="norTipsContent">
+				<div class="norTipsTitle">开启成功</div>
+				<div class="norTipsLine"><span class="gray mr_10">有新邮件时，免费短信通知</span><a hideFocus="1" href="javascript:void(0)" name="showSetting">详细设置</a></div>
+			</div>
+		</div>
+	</div>
+	<div class="writeOk-li" id="divSaveSendContacts" style="display:none;"></div>
+</div>
+</body>
+	<script src="../../js/ui/widget/m2012.ui.widget.contactsautosave.js"></script>
+    <script src="../../js/service/fileexpress/m2012.fileexpress.success.model.js"></script>
+    <script src="../../js/service/fileexpress/m2012.fileexpress.success.view.js"></script>
+</html>

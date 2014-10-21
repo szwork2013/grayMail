@@ -1,0 +1,1755 @@
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="generator" content="JsDoc Toolkit" />
+		<title>M139.RichMail.API | JsDoc Reference</title>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+		<meta name="mobileoptimized" content="0" />
+	
+		<link rel="stylesheet" href="../css/all.css" media="all" />
+		<link rel="stylesheet" href="../css/handheld.css" media="only screen and (max-width: 660px)" />
+		<link rel="stylesheet" href="../css/handheld.css" media="handheld" />
+		<link rel="stylesheet" href="../css/screen.css" media="screen and (min-width: 661px)" />
+
+		<script src="../javascript/all.js"></script>
+		<!--[if lt IE 9]>
+			<script src="../javascript/html5.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+<div class="index">
+	<div class="menu">
+		<div class="indexLinks">
+			<a href="../index.html">Classes</a>
+			<a href="../files.html">Files</a>
+		</div>
+	
+		<h2 class="heading1">类</h2>
+		
+		<input type="text" name="classFilter" class="classFilter" id="ClassFilter" placeholder="Filter"></input>
+		
+		<nav>
+			<ul class="classList" id="ClassList">
+				
+					<li><a href="../symbols/_global_.html">_global_</a></li>
+				
+					<li><a href="../symbols/Array.html">Array</a></li>
+				
+					<li><a href="../symbols/Date.html">Date</a></li>
+				
+					<li><a href="../symbols/M139.Browser.html">M139<span class='break'> </span>.<span class='break'> </span>Browser</a></li>
+				
+					<li><a href="../symbols/M139.Browser.is.html">M139<span class='break'> </span>.<span class='break'> </span>Browser<span class='break'> </span>.<span class='break'> </span>is</a></li>
+				
+					<li><a href="../symbols/M139.Browser.support.html">M139<span class='break'> </span>.<span class='break'> </span>Browser<span class='break'> </span>.<span class='break'> </span>support</a></li>
+				
+					<li><a href="../symbols/M139.ConfigManager.html">M139<span class='break'> </span>.<span class='break'> </span>ConfigManager</a></li>
+				
+					<li><a href="../symbols/M139.Core.html">M139<span class='break'> </span>.<span class='break'> </span>Core</a></li>
+				
+					<li><a href="../symbols/M139.Date.html">M139<span class='break'> </span>.<span class='break'> </span>Date</a></li>
+				
+					<li><a href="../symbols/M139.Dom.html">M139<span class='break'> </span>.<span class='break'> </span>Dom</a></li>
+				
+					<li><a href="../symbols/M139.Event.html">M139<span class='break'> </span>.<span class='break'> </span>Event</a></li>
+				
+					<li><a href="../symbols/M139.Event.GlobalEventManager.html">M139<span class='break'> </span>.<span class='break'> </span>Event<span class='break'> </span>.<span class='break'> </span>GlobalEventManager</a></li>
+				
+					<li><a href="../symbols/M139.ExchangeHttpClient.html">M139<span class='break'> </span>.<span class='break'> </span>ExchangeHttpClient</a></li>
+				
+					<li><a href="../symbols/M139.HTTPClient.html">M139<span class='break'> </span>.<span class='break'> </span>HTTPClient</a></li>
+				
+					<li><a href="../symbols/M139.Iframe.html">M139<span class='break'> </span>.<span class='break'> </span>Iframe</a></li>
+				
+					<li><a href="../symbols/M139.JSON.html">M139<span class='break'> </span>.<span class='break'> </span>JSON</a></li>
+				
+					<li><a href="../symbols/M139.Logger.html">M139<span class='break'> </span>.<span class='break'> </span>Logger</a></li>
+				
+					<li><a href="../symbols/M139.Model.html">M139<span class='break'> </span>.<span class='break'> </span>Model</a></li>
+				
+					<li><a href="../symbols/M139.Model.ModelBase.html">M139<span class='break'> </span>.<span class='break'> </span>Model<span class='break'> </span>.<span class='break'> </span>ModelBase</a></li>
+				
+					<li><a href="../symbols/M139.PageApplication.html">M139<span class='break'> </span>.<span class='break'> </span>PageApplication</a></li>
+				
+					<li><a href="../symbols/M139.Plugin.Flash.html">M139<span class='break'> </span>.<span class='break'> </span>Plugin<span class='break'> </span>.<span class='break'> </span>Flash</a></li>
+				
+					<li><a href="../symbols/M139.RichMail.html">M139<span class='break'> </span>.<span class='break'> </span>RichMail</a></li>
+				
+					<li><a href="../symbols/M139.RichMail.API.html">M139<span class='break'> </span>.<span class='break'> </span>RichMail<span class='break'> </span>.<span class='break'> </span>API</a></li>
+				
+					<li><a href="../symbols/M139.RichMail.RichMailHttpClient.html">M139<span class='break'> </span>.<span class='break'> </span>RichMail<span class='break'> </span>.<span class='break'> </span>RichMailHttpClient</a></li>
+				
+					<li><a href="../symbols/M139.Testing.LoginHelper.html">M139<span class='break'> </span>.<span class='break'> </span>Testing<span class='break'> </span>.<span class='break'> </span>LoginHelper</a></li>
+				
+					<li><a href="../symbols/M139.Text.Cookie.html">M139<span class='break'> </span>.<span class='break'> </span>Text<span class='break'> </span>.<span class='break'> </span>Cookie</a></li>
+				
+					<li><a href="../symbols/M139.Text.Email.html">M139<span class='break'> </span>.<span class='break'> </span>Text<span class='break'> </span>.<span class='break'> </span>Email</a></li>
+				
+					<li><a href="../symbols/M139.Text.Html.html">M139<span class='break'> </span>.<span class='break'> </span>Text<span class='break'> </span>.<span class='break'> </span>Html</a></li>
+				
+					<li><a href="../symbols/M139.Text.Mobile.html">M139<span class='break'> </span>.<span class='break'> </span>Text<span class='break'> </span>.<span class='break'> </span>Mobile</a></li>
+				
+					<li><a href="../symbols/M139.Text.Url.html">M139<span class='break'> </span>.<span class='break'> </span>Text<span class='break'> </span>.<span class='break'> </span>Url</a></li>
+				
+					<li><a href="../symbols/M139.Text.Utils.html">M139<span class='break'> </span>.<span class='break'> </span>Text<span class='break'> </span>.<span class='break'> </span>Utils</a></li>
+				
+					<li><a href="../symbols/M139.Text.Xml.html">M139<span class='break'> </span>.<span class='break'> </span>Text<span class='break'> </span>.<span class='break'> </span>Xml</a></li>
+				
+					<li><a href="../symbols/M139.Timing.html">M139<span class='break'> </span>.<span class='break'> </span>Timing</a></li>
+				
+					<li><a href="../symbols/M139.UserModel.html">M139<span class='break'> </span>.<span class='break'> </span>UserModel</a></li>
+				
+					<li><a href="../symbols/M139.View.html">M139<span class='break'> </span>.<span class='break'> </span>View</a></li>
+				
+					<li><a href="../symbols/M139.View.ViewBase.html">M139<span class='break'> </span>.<span class='break'> </span>View<span class='break'> </span>.<span class='break'> </span>ViewBase</a></li>
+				
+					<li><a href="../symbols/M139.VipTool.levelEnum.html">M139<span class='break'> </span>.<span class='break'> </span>VipTool<span class='break'> </span>.<span class='break'> </span>levelEnum</a></li>
+				
+					<li><a href="../symbols/M2011.UI.Dialog.RecentMail.html">M2011<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Dialog<span class='break'> </span>.<span class='break'> </span>RecentMail</a></li>
+				
+					<li><a href="../symbols/M2012.Contacts.API.html">M2012<span class='break'> </span>.<span class='break'> </span>Contacts<span class='break'> </span>.<span class='break'> </span>API</a></li>
+				
+					<li><a href="../symbols/M2012.Contacts.ContactsInfo.html">M2012<span class='break'> </span>.<span class='break'> </span>Contacts<span class='break'> </span>.<span class='break'> </span>ContactsInfo</a></li>
+				
+					<li><a href="../symbols/M2012.Contacts.HttpClient.html">M2012<span class='break'> </span>.<span class='break'> </span>Contacts<span class='break'> </span>.<span class='break'> </span>HttpClient</a></li>
+				
+					<li><a href="../symbols/M2012.Contacts.Model.html">M2012<span class='break'> </span>.<span class='break'> </span>Contacts<span class='break'> </span>.<span class='break'> </span>Model</a></li>
+				
+					<li><a href="../symbols/M2012.MainApplication.html">M2012<span class='break'> </span>.<span class='break'> </span>MainApplication</a></li>
+				
+					<li><a href="../symbols/M2012.MatrixVM.html">M2012<span class='break'> </span>.<span class='break'> </span>MatrixVM</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Dialog.AddressBook.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Dialog<span class='break'> </span>.<span class='break'> </span>AddressBook</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Dialog.ContactsEditor.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Dialog<span class='break'> </span>.<span class='break'> </span>ContactsEditor</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Dialog.ExceptNotify.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Dialog<span class='break'> </span>.<span class='break'> </span>ExceptNotify</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Dialog.LargeAttach.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Dialog<span class='break'> </span>.<span class='break'> </span>LargeAttach</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Dialog.RecentMail.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Dialog<span class='break'> </span>.<span class='break'> </span>RecentMail</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Dialog.SaveToDisk.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Dialog<span class='break'> </span>.<span class='break'> </span>SaveToDisk</a></li>
+				
+					<li><a href="../symbols/M2012.UI.DialogBase.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>DialogBase</a></li>
+				
+					<li><a href="../symbols/M2012.UI.DropMenu.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>DropMenu</a></li>
+				
+					<li><a href="../symbols/M2012.UI.HTMLEditor.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>HTMLEditor</a></li>
+				
+					<li><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>HTMLEditor<span class='break'> </span>.<span class='break'> </span>Model<span class='break'> </span>.<span class='break'> </span>Editor</a></li>
+				
+					<li><a href="../symbols/M2012.UI.HTMLEditor.View.Editor.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>HTMLEditor<span class='break'> </span>.<span class='break'> </span>View<span class='break'> </span>.<span class='break'> </span>Editor</a></li>
+				
+					<li><a href="../symbols/M2012.UI.HTMLEditor.View.FaceMenu.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>HTMLEditor<span class='break'> </span>.<span class='break'> </span>View<span class='break'> </span>.<span class='break'> </span>FaceMenu</a></li>
+				
+					<li><a href="../symbols/M2012.UI.HTMLEditor.View.Menu.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>HTMLEditor<span class='break'> </span>.<span class='break'> </span>View<span class='break'> </span>.<span class='break'> </span>Menu</a></li>
+				
+					<li><a href="../symbols/M2012.UI.MenuButton.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>MenuButton</a></li>
+				
+					<li><a href="../symbols/M2012.UI.PageTurning.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>PageTurning</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Picker.Calendar.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Picker<span class='break'> </span>.<span class='break'> </span>Calendar</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Picker.PickerBase.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Picker<span class='break'> </span>.<span class='break'> </span>PickerBase</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Picker.Range.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Picker<span class='break'> </span>.<span class='break'> </span>Range</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Picker.TimeRange.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Picker<span class='break'> </span>.<span class='break'> </span>TimeRange</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Picker.Week.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Picker<span class='break'> </span>.<span class='break'> </span>Week</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Picker.Weekday.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Picker<span class='break'> </span>.<span class='break'> </span>Weekday</a></li>
+				
+					<li><a href="../symbols/M2012.UI.PopMenu.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>PopMenu</a></li>
+				
+					<li><a href="../symbols/M2012.UI.RichInput.ItemView.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>RichInput<span class='break'> </span>.<span class='break'> </span>ItemView</a></li>
+				
+					<li><a href="../symbols/M2012.UI.RichInput.TextBoxView.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>RichInput<span class='break'> </span>.<span class='break'> </span>TextBoxView</a></li>
+				
+					<li><a href="../symbols/M2012.UI.RichInput.View.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>RichInput<span class='break'> </span>.<span class='break'> </span>View</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Widget.Contacts.Model.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Widget<span class='break'> </span>.<span class='break'> </span>Contacts<span class='break'> </span>.<span class='break'> </span>Model</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Widget.Contacts.View.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Widget<span class='break'> </span>.<span class='break'> </span>Contacts<span class='break'> </span>.<span class='break'> </span>View</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Widget.ContactsAutoSave.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Widget<span class='break'> </span>.<span class='break'> </span>ContactsAutoSave</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Widget.ContactsCard.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Widget<span class='break'> </span>.<span class='break'> </span>ContactsCard</a></li>
+				
+					<li><a href="../symbols/String.html">String</a></li>
+				
+			</ul>
+		</nav>
+	</div>
+	<div class="fineprint" style="clear:both">
+		<footer>
+			
+			Documentation generator: <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0<br />
+			Template: <a href="http://www.thebrightlines.com/2010/05/06/new-template-for-jsdoctoolkit-codeview/" target="_blank">Codeview</a> 1.2<br />
+			Generated on:
+			<time datetime='2012-11-21' pubdate>2012-11-21 17:10</time>
+		</footer>
+	</div>
+</div>
+
+<div class="index indexStatic"></div>
+
+<div class="content">
+	<div class="innerContent">
+		<article>
+			<header>
+				<h1 class="classTitle">
+					
+					Namespace <span>M139.RichMail.API</span>
+				</h1>
+				
+				<div class="intro">
+					<p class="description summary">
+						
+					</p>
+						
+					
+						<ul class="summary">
+							
+							
+							
+								<li>Defined in: <a href="../symbols/src/G__Work_SVN_Mail139_M2012(rebuild2012)_trunk_src_jsdoc_doc_template_m139.richmail.richmailhttpclient.js.html">m139.richmail.richmailhttpclient.js</a></li>
+							
+							
+						</ul>
+					
+				</div>
+			</header>
+			
+			
+			
+			
+	<!--
+	#### METHODS SUMMARY
+	-->
+			
+				<section>
+					
+					
+					<div class="props">
+						<h2 class="sectionTitle">方法列表</h2>
+						
+						
+							<nav>
+								<table class="summaryTable" id="MethodsList" cellspacing="0" summary="A summary of the methods documented in the class M139.RichMail.API.">
+									<thead>
+										<tr>
+											<th scope="col">方法类型</th>
+											<th scope="col">方法描述</th>
+										</tr>
+									</thead>
+									
+									<tbody>
+										
+										
+											<tr
+												 class='item0'
+											>
+												<td class="attributes">&lt;static&gt; &nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">M139.RichMail.API.<b><a href="../symbols/M139.RichMail.API.html#.call">call</a></b>(api, options, callback, onfail)
+													</div>
+													<div class="description"></div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item1'
+											>
+												<td class="attributes">&lt;static&gt; &nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">M139.RichMail.API.<b><a href="../symbols/M139.RichMail.API.html#.deleteFolders">deleteFolders</a></b>(options, callback)
+													</div>
+													<div class="description"></div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item2'
+											>
+												<td class="attributes">&lt;static&gt; &nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">M139.RichMail.API.<b><a href="../symbols/M139.RichMail.API.html#.filterHistoryMail">filterHistoryMail</a></b>(options, callback)
+													</div>
+													<div class="description"></div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item3'
+											>
+												<td class="attributes">&lt;static&gt; &nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">M139.RichMail.API.<b><a href="../symbols/M139.RichMail.API.html#.getAttrs">getAttrs</a></b>(options, callback)
+													</div>
+													<div class="description"></div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item4'
+											>
+												<td class="attributes">&lt;static&gt; &nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">M139.RichMail.API.<b><a href="../symbols/M139.RichMail.API.html#.getFilter">getFilter</a></b>(callback)
+													</div>
+													<div class="description"></div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item5'
+											>
+												<td class="attributes">&lt;static&gt; &nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">M139.RichMail.API.<b><a href="../symbols/M139.RichMail.API.html#.getFilter_New">getFilter_New</a></b>(callback)
+													</div>
+													<div class="description"></div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item6'
+											>
+												<td class="attributes">&lt;static&gt; &nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">M139.RichMail.API.<b><a href="../symbols/M139.RichMail.API.html#.getFolderList">getFolderList</a></b>(options)
+													</div>
+													<div class="description">读取文件夹列表数据</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item7'
+											>
+												<td class="attributes">&lt;static&gt; &nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">M139.RichMail.API.<b><a href="../symbols/M139.RichMail.API.html#.getMailList">getMailList</a></b>(options)
+													</div>
+													<div class="description">读取指定文件夹邮件列表</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item8'
+											>
+												<td class="attributes">&lt;static&gt; &nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">M139.RichMail.API.<b><a href="../symbols/M139.RichMail.API.html#.getPOPAccounts">getPOPAccounts</a></b>(options, callback)
+													</div>
+													<div class="description"></div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item9'
+											>
+												<td class="attributes">&lt;static&gt; &nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">M139.RichMail.API.<b><a href="../symbols/M139.RichMail.API.html#.getSignatures">getSignatures</a></b>(callback)
+													</div>
+													<div class="description"></div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item10'
+											>
+												<td class="attributes">&lt;static&gt; &nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">M139.RichMail.API.<b><a href="../symbols/M139.RichMail.API.html#.getWhiteBlackList">getWhiteBlackList</a></b>(options, callback)
+													</div>
+													<div class="description"></div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item11'
+											>
+												<td class="attributes">&lt;static&gt; &nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">M139.RichMail.API.<b><a href="../symbols/M139.RichMail.API.html#.moveMessages">moveMessages</a></b>(options, callback)
+													</div>
+													<div class="description"></div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item12'
+											>
+												<td class="attributes">&lt;static&gt; &nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">M139.RichMail.API.<b><a href="../symbols/M139.RichMail.API.html#.readMail">readMail</a></b>(options, callback)
+													</div>
+													<div class="description"></div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item13'
+											>
+												<td class="attributes">&lt;static&gt; &nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">M139.RichMail.API.<b><a href="../symbols/M139.RichMail.API.html#.readSessionMail">readSessionMail</a></b>(options, callback)
+													</div>
+													<div class="description"></div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item14'
+											>
+												<td class="attributes">&lt;static&gt; &nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">M139.RichMail.API.<b><a href="../symbols/M139.RichMail.API.html#.setAttrs">setAttrs</a></b>(options, callback)
+													</div>
+													<div class="description"></div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item15'
+											>
+												<td class="attributes">&lt;static&gt; &nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">M139.RichMail.API.<b><a href="../symbols/M139.RichMail.API.html#.setFilter">setFilter</a></b>(options, callback)
+													</div>
+													<div class="description"></div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item16'
+											>
+												<td class="attributes">&lt;static&gt; &nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">M139.RichMail.API.<b><a href="../symbols/M139.RichMail.API.html#.setFilter_New">setFilter_New</a></b>(options, callback)
+													</div>
+													<div class="description"></div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item17'
+											>
+												<td class="attributes">&lt;static&gt; &nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">M139.RichMail.API.<b><a href="../symbols/M139.RichMail.API.html#.setFolderPass">setFolderPass</a></b>(options, callback)
+													</div>
+													<div class="description"></div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item18'
+											>
+												<td class="attributes">&lt;static&gt; &nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">M139.RichMail.API.<b><a href="../symbols/M139.RichMail.API.html#.setPOPAccount">setPOPAccount</a></b>(options, callback)
+													</div>
+													<div class="description"></div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item19'
+											>
+												<td class="attributes">&lt;static&gt; &nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">M139.RichMail.API.<b><a href="../symbols/M139.RichMail.API.html#.setSessionModel">setSessionModel</a></b>(options, callback)
+													</div>
+													<div class="description"></div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item20'
+											>
+												<td class="attributes">&lt;static&gt; &nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">M139.RichMail.API.<b><a href="../symbols/M139.RichMail.API.html#.setSignatures">setSignatures</a></b>(options, callback)
+													</div>
+													<div class="description"></div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item21'
+											>
+												<td class="attributes">&lt;static&gt; &nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">M139.RichMail.API.<b><a href="../symbols/M139.RichMail.API.html#.setWhiteBlackList">setWhiteBlackList</a></b>(options, callback)
+													</div>
+													<div class="description"></div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item22'
+											>
+												<td class="attributes">&lt;static&gt; &nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">M139.RichMail.API.<b><a href="../symbols/M139.RichMail.API.html#.statMessages">statMessages</a></b>(options, callback)
+													</div>
+													<div class="description"></div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item23'
+											>
+												<td class="attributes">&lt;static&gt; &nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">M139.RichMail.API.<b><a href="../symbols/M139.RichMail.API.html#.syncPOPAccount">syncPOPAccount</a></b>(options, callback)
+													</div>
+													<div class="description"></div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item24'
+											>
+												<td class="attributes">&lt;static&gt; &nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">M139.RichMail.API.<b><a href="../symbols/M139.RichMail.API.html#.updateFolders">updateFolders</a></b>(options, callback)
+													</div>
+													<div class="description"></div>
+												</td>
+											</tr>
+										
+									</tbody>
+								</table>
+							</nav>
+						
+					
+						
+					</div>
+				</section>
+			
+			
+	<!--
+	#### EVENTS SUMMARY
+	-->
+			
+	<!--
+	#### CONSTRUCTOR DETAILS
+	-->
+			
+	<!--
+	#### FIELD DETAILS
+	-->
+			
+	<!--
+	#### METHOD DETAILS
+	-->		
+			
+				<section>
+					<div class="details props">
+						<div class="innerProps">
+							<h2 class="sectionTitle">
+								方法详细说明
+							</h2>
+							
+							<ul class="methodDetail" id="MethodDetail">
+								
+								
+									<li 
+										 class='item0'
+									>
+										<div class="fixedFont heading" id=".call">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											
+											
+											<span class="light">M139.RichMail.API.</span><b>call</b>(api, options, callback, onfail)
+										</div>
+										
+										<div class="description">
+											
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>api</b>
+														
+													</dt>
+													<dd></dd>
+												
+													<dt>
+														<b>options</b>
+														
+													</dt>
+													<dd></dd>
+												
+													<dt>
+														<b>callback</b>
+														
+													</dt>
+													<dd></dd>
+												
+													<dt>
+														<b>onfail</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item1'
+									>
+										<div class="fixedFont heading" id=".deleteFolders">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											
+											
+											<span class="light">M139.RichMail.API.</span><b>deleteFolders</b>(options, callback)
+										</div>
+										
+										<div class="description">
+											
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>options</b>
+														
+													</dt>
+													<dd></dd>
+												
+													<dt>
+														<b>callback</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item2'
+									>
+										<div class="fixedFont heading" id=".filterHistoryMail">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											
+											
+											<span class="light">M139.RichMail.API.</span><b>filterHistoryMail</b>(options, callback)
+										</div>
+										
+										<div class="description">
+											
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>options</b>
+														
+													</dt>
+													<dd></dd>
+												
+													<dt>
+														<b>callback</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item3'
+									>
+										<div class="fixedFont heading" id=".getAttrs">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											
+											
+											<span class="light">M139.RichMail.API.</span><b>getAttrs</b>(options, callback)
+										</div>
+										
+										<div class="description">
+											
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>options</b>
+														
+													</dt>
+													<dd></dd>
+												
+													<dt>
+														<b>callback</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item4'
+									>
+										<div class="fixedFont heading" id=".getFilter">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											
+											
+											<span class="light">M139.RichMail.API.</span><b>getFilter</b>(callback)
+										</div>
+										
+										<div class="description">
+											
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>callback</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item5'
+									>
+										<div class="fixedFont heading" id=".getFilter_New">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											
+											
+											<span class="light">M139.RichMail.API.</span><b>getFilter_New</b>(callback)
+										</div>
+										
+										<div class="description">
+											
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>callback</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item6'
+									>
+										<div class="fixedFont heading" id=".getFolderList">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											
+											
+											<span class="light">M139.RichMail.API.</span><b>getFolderList</b>(options)
+										</div>
+										
+										<div class="description">
+											读取文件夹列表数据
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<span class="light fixedFont">{Object}</span> <b>options</b>
+														
+													</dt>
+													<dd>请求的参数</dd>
+												
+													<dt>
+														<span class="light fixedFont">{Number}</span> <b>options.fid</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item7'
+									>
+										<div class="fixedFont heading" id=".getMailList">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											
+											
+											<span class="light">M139.RichMail.API.</span><b>getMailList</b>(options)
+										</div>
+										
+										<div class="description">
+											读取指定文件夹邮件列表
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<span class="light fixedFont">{Object}</span> <b>options</b>
+														
+													</dt>
+													<dd>请求的参数</dd>
+												
+													<dt>
+														<span class="light fixedFont">{int}</span> <b>options.fid</b>
+														
+													</dt>
+													<dd>文件夹ID</dd>
+												
+													<dt>
+														<span class="light fixedFont">{<a href="../symbols/String.html">String</a>}</span> <b>options.order</b>
+														
+													</dt>
+													<dd>排序字段，默认值为receiveDate</dd>
+												
+													<dt>
+														<span class="light fixedFont">{int}</span> <b>options.desc</b>
+														
+													</dt>
+													<dd>是否降序排序，默认值为1</dd>
+												
+													<dt>
+														<span class="light fixedFont">{int}</span> <b>options.pageIndex</b>
+														
+													</dt>
+													<dd>第几页 (这里也可以使用start、total字段，但是不推荐)</dd>
+												
+													<dt>
+														<span class="light fixedFont">{int}</span> <b>options.pageSize</b>
+														
+													</dt>
+													<dd>一页取几封邮件</dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item8'
+									>
+										<div class="fixedFont heading" id=".getPOPAccounts">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											
+											
+											<span class="light">M139.RichMail.API.</span><b>getPOPAccounts</b>(options, callback)
+										</div>
+										
+										<div class="description">
+											
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>options</b>
+														
+													</dt>
+													<dd></dd>
+												
+													<dt>
+														<b>callback</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item9'
+									>
+										<div class="fixedFont heading" id=".getSignatures">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											
+											
+											<span class="light">M139.RichMail.API.</span><b>getSignatures</b>(callback)
+										</div>
+										
+										<div class="description">
+											
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>callback</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item10'
+									>
+										<div class="fixedFont heading" id=".getWhiteBlackList">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											
+											
+											<span class="light">M139.RichMail.API.</span><b>getWhiteBlackList</b>(options, callback)
+										</div>
+										
+										<div class="description">
+											
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>options</b>
+														
+													</dt>
+													<dd></dd>
+												
+													<dt>
+														<b>callback</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item11'
+									>
+										<div class="fixedFont heading" id=".moveMessages">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											
+											
+											<span class="light">M139.RichMail.API.</span><b>moveMessages</b>(options, callback)
+										</div>
+										
+										<div class="description">
+											
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>options</b>
+														
+													</dt>
+													<dd></dd>
+												
+													<dt>
+														<b>callback</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item12'
+									>
+										<div class="fixedFont heading" id=".readMail">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											
+											
+											<span class="light">M139.RichMail.API.</span><b>readMail</b>(options, callback)
+										</div>
+										
+										<div class="description">
+											
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>options</b>
+														
+													</dt>
+													<dd></dd>
+												
+													<dt>
+														<b>callback</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item13'
+									>
+										<div class="fixedFont heading" id=".readSessionMail">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											
+											
+											<span class="light">M139.RichMail.API.</span><b>readSessionMail</b>(options, callback)
+										</div>
+										
+										<div class="description">
+											
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>options</b>
+														
+													</dt>
+													<dd></dd>
+												
+													<dt>
+														<b>callback</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item14'
+									>
+										<div class="fixedFont heading" id=".setAttrs">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											
+											
+											<span class="light">M139.RichMail.API.</span><b>setAttrs</b>(options, callback)
+										</div>
+										
+										<div class="description">
+											
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>options</b>
+														
+													</dt>
+													<dd></dd>
+												
+													<dt>
+														<b>callback</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item15'
+									>
+										<div class="fixedFont heading" id=".setFilter">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											
+											
+											<span class="light">M139.RichMail.API.</span><b>setFilter</b>(options, callback)
+										</div>
+										
+										<div class="description">
+											
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>options</b>
+														
+													</dt>
+													<dd></dd>
+												
+													<dt>
+														<b>callback</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item16'
+									>
+										<div class="fixedFont heading" id=".setFilter_New">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											
+											
+											<span class="light">M139.RichMail.API.</span><b>setFilter_New</b>(options, callback)
+										</div>
+										
+										<div class="description">
+											
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>options</b>
+														
+													</dt>
+													<dd></dd>
+												
+													<dt>
+														<b>callback</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item17'
+									>
+										<div class="fixedFont heading" id=".setFolderPass">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											
+											
+											<span class="light">M139.RichMail.API.</span><b>setFolderPass</b>(options, callback)
+										</div>
+										
+										<div class="description">
+											
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>options</b>
+														
+													</dt>
+													<dd></dd>
+												
+													<dt>
+														<b>callback</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item18'
+									>
+										<div class="fixedFont heading" id=".setPOPAccount">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											
+											
+											<span class="light">M139.RichMail.API.</span><b>setPOPAccount</b>(options, callback)
+										</div>
+										
+										<div class="description">
+											
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>options</b>
+														
+													</dt>
+													<dd></dd>
+												
+													<dt>
+														<b>callback</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item19'
+									>
+										<div class="fixedFont heading" id=".setSessionModel">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											
+											
+											<span class="light">M139.RichMail.API.</span><b>setSessionModel</b>(options, callback)
+										</div>
+										
+										<div class="description">
+											
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>options</b>
+														
+													</dt>
+													<dd></dd>
+												
+													<dt>
+														<b>callback</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item20'
+									>
+										<div class="fixedFont heading" id=".setSignatures">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											
+											
+											<span class="light">M139.RichMail.API.</span><b>setSignatures</b>(options, callback)
+										</div>
+										
+										<div class="description">
+											
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>options</b>
+														
+													</dt>
+													<dd></dd>
+												
+													<dt>
+														<b>callback</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item21'
+									>
+										<div class="fixedFont heading" id=".setWhiteBlackList">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											
+											
+											<span class="light">M139.RichMail.API.</span><b>setWhiteBlackList</b>(options, callback)
+										</div>
+										
+										<div class="description">
+											
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>options</b>
+														
+													</dt>
+													<dd></dd>
+												
+													<dt>
+														<b>callback</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item22'
+									>
+										<div class="fixedFont heading" id=".statMessages">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											
+											
+											<span class="light">M139.RichMail.API.</span><b>statMessages</b>(options, callback)
+										</div>
+										
+										<div class="description">
+											
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>options</b>
+														
+													</dt>
+													<dd></dd>
+												
+													<dt>
+														<b>callback</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item23'
+									>
+										<div class="fixedFont heading" id=".syncPOPAccount">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											
+											
+											<span class="light">M139.RichMail.API.</span><b>syncPOPAccount</b>(options, callback)
+										</div>
+										
+										<div class="description">
+											
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>options</b>
+														
+													</dt>
+													<dd></dd>
+												
+													<dt>
+														<b>callback</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item24'
+									>
+										<div class="fixedFont heading" id=".updateFolders">
+											<span class='lighter'>
+											&lt;static&gt; 
+											</span>
+											
+											
+											
+											<span class="light">M139.RichMail.API.</span><b>updateFolders</b>(options, callback)
+										</div>
+										
+										<div class="description">
+											
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>options</b>
+														
+													</dt>
+													<dd></dd>
+												
+													<dt>
+														<b>callback</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										
+									</li>
+								
+							</ul>
+						</div>
+					</div>
+				</section>
+			
+			
+	<!--
+	#### EVENT DETAILS
+	-->		
+			
+		</article>
+	</div>
+</div>
+
+		<script type="text/javascript">
+			wbos.CssTools.MediaQueryFallBack.LoadCss('../css/screen.css', '../css/handheld.css', 660)
+			codeview.classFilter.Init()
+		</script>
+	</body>
+</html>
+

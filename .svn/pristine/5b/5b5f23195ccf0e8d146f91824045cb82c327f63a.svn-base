@@ -1,0 +1,55 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="Keywords" content="" />
+<meta name="Description" content="" />
+<title>139邮箱</title>
+<link rel="stylesheet" href="../../css/common/global.css" type="text/css" />
+<link rel="stylesheet" href="../../css/module/inbox.css" type="text/css" />
+<link rel="stylesheet" href="../../css/module/set.css" type="text/css" />
+    <script src="../packs/libs.pack.js"></script>
+    <script src="../packs/m139.core.pack.js"></script>
+    <script src="../packs/m2012.ui.common.pack.js"></script>
+</head>
+<body class="bodycolor">
+    <div id="ddd">
+    
+    </div>
+    <br /><br />
+     <div id="ddd2">
+    
+    </div>
+    <script>
+    var pt = M2012.UI.PageTurning.create({
+        container:$("#ddd"),
+        pageIndex:1,
+        maxPageButtonShow:5,
+        pageCount:18
+    });
+    pt.on("pagechange",function(index){
+        alert(index);
+    });
+
+    pt.update(3,4,true);
+
+    </script>
+
+
+        <script>
+            var pt2 = M2012.UI.PageTurning.create({
+                container: $("#ddd2"),
+                pageIndex: 1,
+                maxPageButtonShow: 5,
+                pageCount: 18,
+                styleTemplate:2
+            });
+            pt2.on("pagechange", function (index) {
+                alert(index);
+            });
+
+            pt2.update(3, 4, true);
+
+    </script>
+</body>
+</html>

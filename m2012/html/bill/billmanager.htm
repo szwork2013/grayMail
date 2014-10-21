@@ -1,0 +1,580 @@
+﻿<!DOCTYPE html>
+<html class="ifm">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>账单管理首页</title>
+
+<script type="text/javascript">
+//设域
+document.domain=window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+//获得资源路径
+var resourcePath = top.domainList.global.rmResourcePath;
+
+//写加载资源
+top.loadCSS([ resourcePath + "/css/bill.css",resourcePath + "/css/bill_skin_snow.css"], document); //加载旧版样式
+top.loadScript('libs.pack.js', document);
+top.loadScript('m139.core.pack.js', document);
+top.loadScript("m2012.ui.common.pack.js", document);
+
+
+</script>
+
+<script type="text/javascript">
+
+//Utils.loadSkinCss(null,null,"bill");
+
+var mailboxModel = new top.M2012.Mailbox.Model.Mailbox();
+
+function showMyBill(){	//账单中心
+	top.$App.showMailbox(mailboxModel.get('specialFolderId').myBill);
+	top.$App.closeTab('billManager');	
+	top.$App.closeTab('billLife');
+}
+var sid = top.M139.Text.Url.queryString('sid');
+</script>
+
+<style>
+.t-type i{ width: 12px;}
+#header{height: 40px;
+	border-bottom: 1px solid #a5a5a5;background:white;
+/*	
+background:#F5F5F5;
+background: -webkit-gradient(linear, left 70%, left bottom, from(#ffffff), to(#ebebeb));
+background: -moz-linear-gradient(top,  #ffffff,  #ebebeb);
+background: -o-linear-gradient(left, #ffffff, #ebebeb);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ebebeb');
+background: linear-gradient(left, #ffffff, #ebebeb);
+-moz-box-shadow:1px 1px 5px rgba(0, 0, 0, 0);-webkit-box-shadow:1px 1px 5px rgba(0, 0, 0, 0);box-shadow:1px 1px 5px rgba(0, 0, 0, 0);
+*/
+}
+.nav-hd li{height: 33px;line-height: 33px;padding:0 15px;}
+.nav-hd li.current{height: 33px;line-height: 33px;}
+.nav-hd li.current{border-top: 1px solid #a5a5a5;border-left: 1px solid #a5a5a5;border-right: 1px solid #a5a5a5;}
+.nav-hd li a{color:#000;font-size: 12px;font-weight: 400; }
+body{font:12px/1.5 "Microsoft YaHei",Verdana;}
+
+.bill_li{ height: 172px;}
+
+/* ==== 选项卡 ====   */
+.tab, .tabTitle{zoom:1;}
+.tab{position:relative;border:1px solid #dfdfe2;}
+.tabTitle{zoom:1;position:relative;width:100%;height:25px;border-bottom:1px solid #dfdfe2;}
+.tabTitle ul:after{content:".";clear:both;display:block;height:0;visibility:hidden;}
+.tabTitle ul{zoom:1;position:absolute;left:0;top:0;width:100%;height:26px;}
+.tabTitle li{display:inline;float:left;width:20%;text-align:center;height:26px;}
+.tabTitle li{border-right:1px solid #dfdfe2;border-bottom:none;}
+.tabTitle li a, .tabMore{height:25px;line-height:25px;}
+.tabTitle li a{text-align:center;text-decoration:none;}
+.tabTitle li a:hover{text-decoration:none;}
+.tabTitle li span{cursor:pointer;}
+.tabTitle li.on{position:relative;background-color:#fff;}
+.tabTitle li.on a, .tabTitle li.on span{cursor:default;}
+.tabMain{overflow:hidden;}
+.tabContent{display:none;}
+.tabContent h2{position:absolute;left:-9999px;top:-9999px;}
+
+.setTab{border:0;}
+.biitab{height:41px;
+/*
+background-image:-webkit-gradient(linear, left 70%, left 100%, from(#fff), to(#ebebeb));
+background-image:-webkit-linear-gradient(top, #fff 70%, #ebebeb 100%);
+background-image:-moz-linear-gradient(top, #fff 70%, #ebebeb 100%);
+background-image:linear-gradient(to bottom, #fff 70%, #ebebeb 100%);
+filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffebebeb', GradientType=0);
+-moz-box-shadow:1px 1px 5px rgba(0, 0, 0, 0);-webkit-box-shadow:1px 1px 5px rgba(0, 0, 0, 0);box-shadow:1px 1px 5px rgba(0, 0, 0, 0);
+*/
+}
+.setTab li{width:auto;padding-left:15px;padding-right:15px;height:34px;line-height:34px;border-right:none;}
+.setTab li.on{/*border-right:1px solid #a5a5a5;border-left:1px solid #a5a5a5;border-top:1px solid #a5a5a5*/}
+.setTab li a{color:#666666;height:34px;line-height:34px;display:inline-block;font-size:12px;}
+.setTab li.on a{color:#000000;}
+.setTab .tabTitle{border-bottom:1px solid #a5a5a5;height:33px;padding-top:7px;}
+.setTab .tabTitle ul{height:34px;top:6px;left:10px;width:auto;}
+
+
+/* 设置页tab */
+.setTab{border:0;}
+#main_toolbar,.biitab{height:41px;/*background-image:-webkit-gradient(linear, left 70%, left 100%, from(#fff), to(#ebebeb));
+background-image:-webkit-linear-gradient(top, #fff 70%, #ebebeb 100%);
+background-image:-moz-linear-gradient(top, #fff 70%, #ebebeb 100%);
+background-image:linear-gradient(to bottom, #fff 70%, #ebebeb 100%);
+filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffebebeb', GradientType=0);
+-moz-box-shadow:1px 1px 5px rgba(0, 0, 0, 0);-webkit-box-shadow:1px 1px 5px rgba(0, 0, 0, 0);box-shadow:1px 1px 5px rgba(0, 0, 0, 0);*/
+}
+.setTab li{width:auto;padding-left:15px;padding-right:15px;height:34px;line-height:34px;border-right:none;}
+.setTab li.on{border-bottom:3px solid #636363; height:32px;}
+.setTab li a{color:#666666;height:34px;line-height:34px;display:inline-block;font-size:12px;}
+.setTab li.on a{color:#444;}
+.setTab .tabTitle{border-bottom:1px solid #e8e8e8;height:33px;padding-top:7px;}
+.setTab .tabTitle ul{height:34px;top:6px;left:24px;width:auto;}
+.setTab .tab-more{position:absolute;right:10px;height:34px;line-height:34px;display:inline-block;top:7px;color:#666666;}
+.setTab .tabMain{display:none;}
+.setTab .tab-more li{display:inline;padding:0;}
+.setTab .tab-more li a{display:inline;}
+.bgPadding{padding:0 24px;}
+</style>
+
+</head>
+<body class="bgPadding">
+<div id="container">
+	<div id="header">
+		<div class="biitab">
+			<div class="tab setTab">
+				<div class="tabTitle">
+					<ul>
+						<li><a href="javascript:top.$App.showBill(2)">我的账单</a></li>
+						<li><a href="javascript:top.$App.showBill(1)">我的服务</a></li>
+						<li class="on"><a href="javascript:;">账单管理</a></li>
+						<li id="myAccountLife"> <a hidefocus="1" tabid="billManage2" href="javascript:top.$App.show('billLife');"> <span>账单生活</span> </a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<ul class="nav-hd" style="display:none;">
+            <li><a href="javascript:top.$App.showBill(2)">我的账单</a></li>
+            <li><a href="javascript:top.$App.showBill(1)">我的服务</a></li>
+			<li class="current"><a href="javascript:;">账单管理</a></li>
+			<li id="myAccountLife"> <a hidefocus="1" tabid="billManage2" href="javascript:top.$App.show('billLife');"> <span>账单生活</span> </a></li>
+		</ul>
+		<p id="adVdTool" style="display:none"><a href="javascript:;" title="">已开通账单</a><span class="line">|</span><a href="#" target="_blank">可开通账单</a></p>
+	</div>
+
+    <div class="ads_new">
+        <div class="li fr">
+            <span><i class="i_bill_save"></i>方便保存</span>
+            <span><i class="i_bill_time"></i>及时便利</span>
+            <span><i class="i_bill_env"></i>低碳环保</span>
+            <span><i class="i_bill_safe"></i>安全可靠</span>
+        </div>
+        <i class="i_bill_ads fl"></i>
+        <p class="pt15"><strong>139邮箱账单服务</strong></p>
+        <p class="pt5 c666">每月接收各种账单，消费明细一键掌握！</p>
+        <a href="javascript:;" title="" class="close" onclick="closeBillAds(this)"></a>
+	</div>
+	
+	<div class="billc_content">
+        <div id="billContent">
+		    <dl class="bill_li" style="display: none;">
+			    <dt>移动账单</dt>
+			    <dd></dd>
+		    </dl>
+		    <dl class="bill_li" style="display: none;">
+			    <dt>民生账单</dt>
+			    <dd></dd>
+		    </dl>
+		    <dl class="bill_li" style="display: none;">
+			    <dt>金融账单</dt>
+			    <dd></dd>
+		    </dl>
+            <dl class="bill_li" style="display: none;">
+			    <dt>生活账单</dt>
+			    <dd></dd>
+            </dl>
+        </div>
+		<div class="bill_info">
+			<h2><span class="b_ico b_ico_sun"></span>开通账单说明：</h2>
+			<ul>
+				<li>开通账单全部免费。</li>
+				<li>开通后，账单将以邮件形式发送至您的139邮箱“账单中心/我的账单”文件夹中。</li>
+                <li>广东非全球通品牌用户，江苏用户暂无法在线开通移动话费账单。</li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+</body>
+<script>
+	/*
+    var middleServer="http://mw.mail.10086rd.cn/";
+	if(!middleServer){
+		top.$Msg.alert("服务器地址配置不正确");
+	}*/
+	
+    var description = {//账单的描述信息，数字表示账单的columnId,唯一
+        "1": "为您提供每月的移动话费电子账单，让您足不出户就能了解话费明细。", //移动话费账单
+        "101": "为您提供每月的移动话费电子账单，让您足不出户就能了解话费明细。",
+        "102": "为您提供每月的移动话费电子账单，让您足不出户就能了解话费明细。",
+        "41": "为您提供每月的移动话费电子账单，让您足不出户就能了解话费明细。",
+        "108": "为您提供每月的移动话费电子账单，让您足不出户就能了解话费明细。",
+        "4": "免费提供全国车牌在深圳地区的交通违章信息提醒及交警便民月刊服务。"
+    }
+    var logoClass = {//账单的LOGO，数字表示账单的columnId,唯一
+        "1": "b_ico_huaf", //移动话费账单
+        "101": "b_ico_water", //温州水费
+        "102": " b_ico_electricity", //温州电费
+        "41": "b_ico_electricity", //广东电费
+        "108": "b_ico_electricity", //广东电费
+        "4": "b_ico_traffic" //交通违章账单
+        //"xx":"b_ico_pay"//移动支付账单
+    }
+	function pageInit(){
+		/*
+		var frm=document.createElement("iframe");
+		frm.id="frmProxy";
+		frm.name="frmProxy";
+		frm.style.display="none";
+		document.body.appendChild(frm);
+		frm.style.display="none";
+		frm.contentWindow.location.href=middleServer+"/proxy.htm";
+		$(frm).load(function(){
+			loadBillType();
+		});
+		*/
+		loadBillType();
+	}
+	function sortBy(result) {//JSON数组排序
+	    var sort_by = function (field, reverse, primer) {
+	        reverse = (reverse) ? -1 : 1;
+	        return function (a, b) {
+	            a = a[field];
+	            b = b[field];
+	            if (typeof (primer) != 'undefined') {
+	                a = primer(a);
+	                b = primer(b);
+	            }
+	            if (a < b) return reverse * -1;
+	            if (a > b) return reverse * 1;
+	            return 0;
+	        }
+	    }
+	    result.sort(sort_by('businessType', false, parseInt));//按businessType的值排序，区分各大类账单，固定值10，11，12，13分别表示移动、民生、支付、其他
+	}
+	/*
+	function getTypeList(callback) {
+	    var url = middleServer + "/billsvr?func=bill:getTypeList&sid=" + top.sid;
+	    var data = {};
+	    data.targetServer = url;
+	    data.ajax = window.frames["frmProxy"]._ajax;
+	    RequestBuilder.call("", data, function (result) {
+	        callback(result);
+	    });
+	}*/
+	
+	function loadBillType(){
+		//getTypeList(function (result) {
+		mailboxModel.getBillTypeList(function (result) {
+		    if (result["var"]) {
+                var bills=result["var"]; 
+		        sortBy(bills);
+		        for (var i = 0, m = bills.length; i < m; i++) {
+                    var bill = bills[i];
+		            var initBusinessType = bill.businessType;
+		            var initStatus = bill.status;
+		            var initBusinessName = bill.businessName;
+		            var initColumnId = bill.columnId;
+		            var htmlOpen = '<a class="btn139" href="javascript:;" onclick="subscribeBill(' + initBusinessType + ',' + initColumnId + ',1,' + i + ',\'' + initBusinessName + '\')"><i class="l_border"></i>免费开通<i class="r_border"></i></a><a href="javascript:;" onclick="showPreview(\'' + initBusinessName + '\')">预览</a>';
+		            var htmlClose = '<span class="b_ico b_ico_ok"></span>已开通 <a class="no_a" href="javascript:void(0)" onclick="unsubscribeBill(' + initBusinessType + ',' + initColumnId + ',2,' + i + ',\'' + initBusinessName + '\');">关闭</a>';
+		            var html = initStatus == 1 ? htmlClose : htmlOpen;
+		            var appendHtml = '<div class="bill_list"><i class="b_ico ' + logoClass[initColumnId] + '"></i><div class="b_right"><h2 class="b_title">' + initBusinessName + '</h2><p>' + description[initColumnId] + '</p><div class="normal_a">' + html + '</div></div></div>';
+                    var billLi=$("#billContent").find(".bill_li");
+		            if (initBusinessType == 10) {//移动账单
+		                billLi.eq(0).show();
+		                billLi.eq(0).find("dd").append(appendHtml);
+		                $("#billContent").find(".normal_a").eq(i).find("a").eq(0).attr("behavior", "账单开通");
+		                if (initStatus == 1) {
+		                    $("#billContent").find(".normal_a").eq(i).find("a").eq(0).attr("behavior", "账单退订");
+		                }
+						//比较挫但是耦合度低的方法
+						var bill = $("#billContent").find(".b_right").find(".b_title:contains('移动话费账单')");
+						if(initStatus == 1){
+							bill.parent(".b_right").append('<p id="weishoudao">未收到话费账单？<a href="javascript:void(0);">申请补投</a></p>');
+							$("#weishoudao a").bind("click", alertCallback);
+						}
+		            }
+		            if (initBusinessType == 11) {//民生账单
+		                billLi.eq(1).show();
+		                billLi.eq(1).find("dd").append(appendHtml);
+		                if (initStatus == 1) {
+		                    $("#billContent").find(".normal_a").eq(i).html('<span class="b_ico b_ico_ok"></span>已开通 <a class="no_a" href="javascript:void(0)" onclick="showBill(\'' + initBusinessName + '\',\'' + initBusinessType + '\',' + i + ')">账单管理</a>');
+		                }
+		                $("#billContent").find(".normal_a").eq(i).find("a").eq(1).remove();
+		            }
+                    if(initBusinessType == 13){  //交通违章信息
+                        billLi.eq(3).show();
+		                billLi.eq(3).find("dd").append(appendHtml);
+		                $("#billContent").find(".normal_a").eq(i).find("a").eq(0).attr("behavior", "账单开通");
+                        top.traficBillData = [];
+		                if (initStatus == 1) {
+                            var traficHtml = '<span class="b_ico b_ico_ok"></span>已开通 '
+                                           + '<a class="no_a" href="javascript:void(0);" onclick="showBill(\'' + initBusinessName + '\',\'' + initBusinessType + '\',' + i + ');">账单管理</a> '
+                                           + '<a href="javascript:void(0);" onclick="subscribeBill(' + initBusinessType + ',' + initColumnId + ',1,' + i + ',\'' + initBusinessName + '\');">添加新车牌</a>';
+		                    $("#billContent").find(".normal_a").eq(i).html(traficHtml);
+                            top.traficBillData = bill.listdata;
+                            /*var attrs = bill.attrs;
+                            top.traficBillData = [{
+                                "cxbd_id"        : attrs[0].dictvalue,
+                                "car_num"        : attrs[1].dictvalue,
+                                "models"         : attrs[2].dictvalue,
+                                "create_time"    : attrs[3].dictvalue
+                            }];*/
+                        }
+                    }
+		        }
+		    }
+		    if (!bills || bills.length == 0) {//没有数据返回或者返回的数据为空
+		        $("#billContent").html("<div class='waiting'>你号码所在的区域尚未开通账单定制服务，敬请期待。</div>");
+		    }
+		});
+	}
+    function subscribeBill(businessType,columnId,status,num,businessName){//账单开通
+        var provCode= top.$User.getProvCode(); //top.UserData.provCode;
+        if (provCode == 19) { //江苏
+            top.FF.alert("对不起，江苏用户暂未开通此服务。");
+            return ;
+        }else if (provCode == 1 && top.UserData.cardType!="1" && 13 != businessType) {
+            top.FF.alert("对不起，广东省仅全球通用户才能开通此服务。");
+            return ;
+        }
+        
+		/* 
+		var url = middleServer+"/billsvr?func=bill:setBill&sid="+top.sid;
+        var data = {
+            "columnId": columnId,
+            "status": status
+        }
+        data.targetServer=url;
+        data.ajax=window.frames["frmProxy"]._ajax;
+		*/
+        if (11 == businessType) {
+            //top.FloatingFrame.open("开通"+businessName, top.wmsvrPath2+"/billopen.htm?num="+num, 670, 250);
+			top.$Msg.open({
+				dialogTitle:"开通" + businessName,
+				url:"/m2012/html/bill/billopen.htm",
+				width:670,
+				height:250
+			});
+		}else if (10 == businessType) {
+			/*
+            RequestBuilder.call("", data, function (result) {
+                if(result["code"]=="S_OK"){
+                    switchStatus(businessType,columnId, status,num,businessName);
+                    top.addBehavior("账单开通成功");
+                }
+            });*/
+			var data = {
+				"columnId": columnId,
+				"status": status
+			}
+			mailboxModel.setBill('bill:openBill',data, function(result){
+                if(result["code"]=="S_OK"){
+                    switchStatus(businessType,columnId, status,num,businessName);
+                    top.BH('openbillsuccess');
+					top.M139.UI.TipMessage.show("账单开通成功", { delay:2000 });
+                }
+			});
+			
+        }else if(13 == businessType){
+            //var url = '/RmWeb/billopen_trafic.htm?type=trafic_open&num='+ num +'&sid='+ top.sid;
+            //FF.open('开通' + businessName,url,650,330,true);
+            var title = "开通" + businessName;
+            var type = 'trafic_open';
+            if(top.traficBillData && top.traficBillData.length > 0){ //已开通
+                title = "添加新车牌";
+                type = 'trafic_more'
+            }
+			var url = '/m2012/html/bill/billopentrafic.htm?type='+ type +'&num='+ num;
+            top.$Msg.open({
+				dialogTitle: title,
+				url:url,
+				width:650,
+				height:330
+			});
+		}
+    }
+    function unsubscribeBill(businessType,columnId,status,num,businessName){//账单退订
+        
+		/*
+		var url = middleServer + "/billsvr?func=bill:setBill&sid=" + top.sid;
+        var data = {
+            "columnId": columnId,
+            "status": 2
+        }
+        data.targetServer=url;
+        data.ajax=window.frames["frmProxy"]._ajax;
+        RequestBuilder.call("", data, function (result) {
+            if(result["code"]=="S_OK"){
+                switchStatus(businessType,columnId, status,num,businessName);
+                top.addBehavior("账单退订成功");
+            }
+        });*/
+		var data = {
+		    "columnId": columnId,
+            "status": 2
+		};
+		mailboxModel.setBill('bill:closeBill', data, function(result){
+			if(result["code"]=="S_OK"){
+			switchStatus(businessType,columnId, status,num,businessName);
+				top.BH('cancelbillsuccess');
+				top.M139.UI.TipMessage.show("账单退订成功", { delay:2000 });
+			}
+		});
+		
+    }
+    
+    function switchStatus(businessType,columnId,status,num,businessName) {//切换订购状态显示
+        var normalA = $(".normal_a")[num];
+        if (status == 2) { //关闭状态，显示开通
+            normalA.innerHTML = '<a behavior="账单开通" class="btn139" href="javascript:;" onclick="subscribeBill(' + businessType + ',' + columnId + ',1,' + num + ',\'' + businessName + '\',this)"><i class="l_border"></i>免费开通<i class="r_border"></i></a><a href="javascript:;" onclick="showPreview(\'' + businessName + '\')">预览</a>';
+			$("#weishoudao a").unbind("click", alertCallback);
+			$("#weishoudao").remove();
+        } else {
+            if(businessType == 13){
+                var traficHtml = '<span class="b_ico b_ico_ok"></span>已开通 '
+                               + '<a class="no_a" href="javascript:void(0);" onclick="showBill(\'' + businessName + '\',\'' + businessType + '\',' + num + ');">账单管理</a> '
+                               + '<a href="javascript:void(0);" onclick="subscribeBill(' + businessType + ',' + columnId + ',1,' + num + ',\'' + businessName + '\');">添加新车牌</a>';
+                normalA.innerHTML = traficHtml;
+            }else{
+                normalA.innerHTML = '<span class="b_ico b_ico_ok"></span>已开通 <a behavior="账单退订" class="no_a" href="javascript:void(0)" onclick="unsubscribeBill(' + businessType + ',' + columnId + ',2,' + num + ',\'' + businessName + '\',this);">关闭</a>';
+				if($("#weishoudao").length == 0){
+					var bill = $("#billContent").find(".b_right").find(".b_title:contains('移动话费账单')");
+					bill.parent(".b_right").append('<p id="weishoudao">未收到话费账单？<a href="javascript:void(0);">申请补投</a></p>');
+					$("#weishoudao a").bind("click", alertCallback);
+				}	
+            }
+        }
+    }
+    function showBill(text, businessType, num) { //帐单管理
+        var width = 500, height = 80, url = '';
+        switch(businessType){
+            case "11"://民生账单
+                width = 600;
+                height = 100;
+                //url = top.wmsvrPath2 + "/billDelAdd.htm?num=" + num;
+                url = "/m2012/html/bill/billdeladd.htm?num=" + num;
+                break;
+            case "13"://交通账单
+                url = '/m2012/html/bill/billopentrafic.htm?type=trafic_unsubscribe&num='+ num;
+                break;
+        }
+        //FloatingFrame.open(text, url, width, height);
+		top.$Msg.open({
+			dialogTitle:text,
+			url:url,
+			width:width,
+			height:height
+		});
+    }
+    function showPreview(businessName) { //预览
+        var type;
+        if (businessName.indexOf("话费") != -1) {
+            type = "_calls";
+        }
+        if (businessName.indexOf("支付") != -1) {
+            type = "_pay";
+        }
+        if (businessName.indexOf("交通") != -1) {
+            type = "_trafic";
+        }
+        //FloatingFrame.show("<img width='545' height='436' src='"+ top.rmResourcePath+"/images/bill_preview"+type+".jpg'>","预览",588,446);
+		top.$Msg.showHTML("<img width='545' height='436' src='"+ resourcePath +"/images/bill_preview"+type+".jpg'>", null, null, null, {
+			dialogTitle: "账单预览",
+			width:547
+        });
+	}
+    function closeBillAds(thisId) {//关闭banner
+        thisId.parentNode.style.display="none";
+    }
+    pageInit();
+//账单补投
+var alertCallback =null;
+(function(){
+	function getDate(){
+		var toDate = new Date();
+		var FullYear = toDate.getFullYear(); //取当前年份
+		var toMonth = toDate.getMonth() + 1; //取当前月份
+		var toHao = toDate.getDate(); //取当前是几号
+		var months = [];
+		var years = [];
+	//	var toMonth = 4 ; 测试用
+		years = [FullYear, FullYear, FullYear];
+		if(toHao < 20){
+			months = [toMonth - 4,toMonth - 3,toMonth - 2];
+		}else{
+			months = [toMonth - 3,toMonth - 2,toMonth - 1];
+		}
+		for(var i =0; i < 3; i++){
+			if(months[i] < 1){
+				months[i] = months[i] + 12;
+				years[i] = years[i] - 1;
+			}
+		}
+		
+		return {year: years, months: months};
+	}
+	
+	function transDate(month){
+		return month < 10 ? '0' + month : '' + month;
+	}
+	
+	function getHtmlContent(callback2){
+		var date = getDate();
+		var years = date.year;
+		var months = date.months;
+		var html = "";
+		getWhichHasOrder(function(res){
+			for(var len = months.length - 1, i = len; i >= 0; i--){
+				var check= "";
+				if(i == 2){
+					check = "checked='checked'";
+				}
+				var disabled = "";
+				var dateValue = years[i] + transDate(months[i]);
+				if($.inArray(dateValue, res) > -1){
+					disabled = "disabled='disabled' checked='checked'";
+				}
+				html +='<span class="mr_10"><input type="checkbox" value='+ dateValue +' name="month" id="month'+ i +'" '+ check + disabled +' class="mr_5"  /><label for="month'+ i +'">'+ years[i] +'年'+ months[i] +'月</label></span>\n';
+			}
+			callback2 && callback2(html);
+		});
+	}
+	alertCallback = function(){
+		getHtmlContent(function(html){
+			var htmlAlter = "<div id='htmlAlter' style='margin: 18px'><p style='font-size: 14px;'>请选择需要补投话费账单的月份：</p><div style='padding: 10px 0px'>"+html+"</div></div>";
+			top.$Msg.showHTML(htmlAlter,
+			function(e){
+				var checklist = top.$("#htmlAlter input[name='month']:checked:not(':disabled')");//选中的未被禁用的复选框
+				var checklistValue =[];
+				for(var i = 0; i < checklist.length; i++){
+					checklistValue.push(checklist.eq(i).val());
+				}
+				if(checklistValue.length == 0){
+					top.$Msg.alert("请至少选择一个补投月份。");
+					e.cancel = true;
+					return false;
+				}
+				top.$RM.call("bill:batterypitcherBill",{ billDate: checklistValue.join(",") },function(res){
+					if(res["responseData"]["code"] == "S_OK"){
+					//	for(var j = 0; j < checklistValue.length; j++){
+						//	top.$Cookie.set({name : checklistValue[j], value: checklistValue[j], expires: $Date.getDateByDays(new Date(), 7)});
+					//	}
+						top.$Msg.alert("您的话费账单补投申请已受理。我们会尽快为您安排补投，届时请留意“我的账单”新邮件。");
+					}else{
+						top.$Msg.alert("补投申请提交失败，请稍候再试。");
+					}
+				});
+			},
+			function(){
+			console.log("do nothing!");
+			},
+			{
+				dialogTitle:'话费账单补投申请',
+				buttons:['确定','取消'],
+				width: 400,
+				height: 80
+			});
+		});
+	}
+	function getWhichHasOrder(callback){
+		$RM.call("bill:getBatterypitcherBill",null,function(res){
+		//	console.log(res);
+			if(res["responseData"]["code"] == "S_OK"){
+				callback && callback(res["responseData"]["billDates"]);
+			}else{
+				callback && callback([]);
+			}
+		});
+	}
+	
+})();
+</script>
+</html>

@@ -1,0 +1,187 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="pg-sign" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <title>签名设置</title>
+
+    <script type="text/javascript">
+//Utils.setDomain();
+//设域
+document.domain=window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+//获得资源路径
+var resourcePath=window.top.resourcePath;
+var supermanResourcePath=resourcePath.replace("coremail","superman");
+var htmlCode="";
+htmlCode+=getLinkTag("");
+
+htmlCode += getLinkTag(resourcePath + "/css/supersms.css?v=20101026");
+
+top.loadScript("jquery.js", document);
+top.loadScript("m2011.utilscontrols.pack.js", document);
+top.loadScript("/m2012/js/service/sms/m2011.sms.superman.js", document);
+
+
+document.write(htmlCode);
+function getJsTag(path,charset){
+    var html="<script charset='gb2312' src='"+path+"' type='text/javascript'></"+"script>";
+    if (charset) html = html.replace("gb2312",charset);
+    return html;
+}
+function getLinkTag(path){
+    var text="";
+    if(path)text="href='"+path+"'";
+    return "<link rel='stylesheet' type='text/css' "+text+" />";
+}
+
+top.WaitPannel.hide();
+top.WaitPannel.show("页面加载中...");
+    </script>
+
+    <link rel="stylesheet" type="text/css" />
+
+    <script type="text/javascript">
+Utils.loadSkinCss(null,document,"supersms");
+    </script>
+
+    <style type="text/css">
+        #container
+        {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="header">
+            <ul class="nav-hd">
+                <li class="current"><a href="sms_send.html">发短信</a></li>
+                <li><a href="sms_Record.html">短信记录</a><a href="setting.html"><i class="i-lock" id="lock"
+                    style="display: none;"></i></a></li>
+                <li><a href="javascript:;" onclick="top.Links.show('mms');return false;">发彩信</a></li>
+                <li><a href="javascript:;" onclick="top.Links.show('greetingcard');return false;">发贺卡</a></li>
+            </ul>
+            <p style="display: none">
+                <a href="javascript:void(0)" id="aOpenCalendar" onclick="javascript:Common.openCalendar();return false;"
+                    behavior="日程提醒" ext="5" title="如您设置了约会、生日或备忘提醒，系统会在您指定的时间点，通过短信或邮件提醒您。">日程提醒</a>&nbsp;&nbsp;
+                <a id="aFileUpload" behavior="短信超人-文件快递" href="javascript:void(0)">快速把文件发送到手机&gt;&gt;</a></p>
+            </p>
+        </div>
+        <div class="wrapper">
+            <div class="sign">
+                <div class="hd">
+                    <h1>
+                        短信签名设置</h1>
+                    <a class="back" href="sms_send.html">&lt;&lt;返回</a>
+                </div>
+                <div class="bd">
+                    <div class="sign-thead">
+                        <a class="btnNm" href="javascript:;" id="btnAddIdiograph"><i class="but_lIco"></i><span
+                            class="but_bg-x">添加签名</span><i class="but_rIco"></i></a>
+                        <!-- <button id="btnAddIdiograph">
+                            添加签名</button> -->
+                        <p>
+                            总共可设置10个签名档 ，每个签名最多30个字。</p>
+                    </div>
+                    <table id="tbIdiograph" cellpadding="0" class="rcd-table">
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script type="text/javascript">
+var page = new IdiographPage();
+page.htmlIdiographHeader = '<tr>\
+						<th class="t-sign-title">签名标题</th>\
+						<th class="t-content">签名内容</th>\
+						<th class="t-action">操作</th>\
+					</tr>';
+page.templeIdiographItem = '<tr id="{0}">\
+						<td class="t-sign-title">{1}</td>\
+						<td class="t-content">{2}</td>\
+						<td class="t-action">\
+						<ul>\
+							<li><a class="t-action-edit" href="javascript:void(0)">编辑</a></li>\
+							<li><a class="t-action-del" href="javascript:void(0)">删除</a></li>\
+						</ul>\
+						</td>\
+					</tr>';
+page.htmlEditIdiograph = '<div id="pg-window">\
+<link href="'+resourcePath+'/css/supersms.css" rel="stylesheet" />\
+<link rel="stylesheet" type="text/css" />\
+<div class="dialog">\
+	<div class="bd">\
+		<table cellpadding="0">\
+			<tr>\
+				<th>签名标题：</th>\
+				<td><span class="input-text"><input id="txtTitle" class="text" type="text" maxlength="32" value="{0}" /></span></td>\
+			</tr>\
+			<tr>\
+				<th>签名内容：</th>\
+				<td>\
+				<div class="textarea">\
+					<textarea id="txtContent">{1}</textarea></div>\
+				</td>\
+			</tr>\
+		</table>\
+	</div>\
+	<div class="ft">\
+		<ul class="dbtn-list">\
+			<li><a id="aOK" class="btnNormal" href="javascript:void(0)">确 定</a></li>\
+			<li><a id="aCancel" class="btnNormal" href="javascript:void(0)">取 消</a></li>\
+		</ul>\
+	</div>\
+</div>\
+</div>\
+<script>\
+$("#aOK").click(function(){\
+    top.document.getElementById("sms").contentWindow.saveIdiograph({2},$("#txtTitle").val(),$("#txtContent").val());\
+    top.FloatingFrame.close();\
+});\
+$("#aCancel").click(function(){\
+    top.FloatingFrame.close();\
+});'
++"<"+"/script>";
+page.htmlDeleteIdiograph = '<div id="pg-window">\
+<link href="'+resourcePath+'/css/supersms.css" rel="stylesheet" />\
+<link rel="stylesheet" type="text/css" />\
+<div class="dialog">\
+	<div class="bd">\
+		<h3>您确定要删除此条短信签名吗？ </h3>\
+	</div>\
+	<div class="ft">\
+		<ul class="dbtn-list">\
+			<li><a id="aOK" class="btnNormal" href="javascript:void(0)">确 定</a></li>\
+			<li><a id="aCancel" class="btnNormal" href="javascript:void(0)">取 消</a></li>\
+		</ul>\
+	</div>\
+	</div>\
+</div>\
+<script>\
+$("#aOK").click(function(){\
+     top.document.getElementById("sms").contentWindow.deleteIdiograph({0});\
+    top.FloatingFrame.close();\
+});\
+$("#aCancel").click(function(){\
+    top.FloatingFrame.close();\
+});'
++"<"+"/script>";
+$(function(){
+
+page.load();
+
+});
+
+
+function saveIdiograph(id,title,content){
+    page.saveIdiograph(id,title,content);
+}
+
+function deleteIdiograph(id){
+    page.deleteIdiograph(id);
+}
+
+</script>
+
+</html>

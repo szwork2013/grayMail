@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="pg-window" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>文件共享</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+    <script type="text/javascript">
+        //设域
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1].replace(/:\d+/, "");
+        var diskWinow = top.$("iframe#diskDev")[0].contentWindow;
+        diskWinow.CommonInit(document, diskWinow, [{ dirName: "js/", fileName:"m2011.disk.sharefile.js"}]);
+           
+    </script>
+	<script>
+		//加载皮肤
+        Utils.loadSkinCss(null, document, "netdisk");
+        //加载CSS
+		if (top.isRichmail) {
+			var path = window.top.rmResourcePath;
+		} else {
+			var path = window.top.resourcePath;
+		}
+        document.write(window.diskWinow.getLinkTag(path, "/css/", "netdisk_icon"));
+	</script>
+	<script>
+		$(function() {
+			//页面加载
+			shareFile.action.pageLoad();
+		});
+	</script>
+    <style type="text/css">
+        .tbl-dialog-form th
+        {
+            width: 80px;
+        }
+        #pg-window .addressList .search
+        {
+            padding-top: 0;
+        }
+        .addressList
+        {
+            padding: 0;
+            left: 0;
+        }
+        html, body
+        {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div style="display: block; width: 550px; margin: 0; overflow: visible;" class="addressListContent1">
+        <div class="addressList addressListDisk">
+            <h2>
+                通讯录联系人</h2>
+            <div id="addressList" class="addressListContent1">
+            </div>
+        </div>
+        <div class="pg_shareTabWrap">
+            <!--新增右栏外框-->
+            <ul class="pg_shareTab">
+                <!--新增TAB-->
+                <li class="current" id="spanAddDisplay"><a href="javascript:void(0)">分享给&nbsp;<span
+                    class="nubC">(<span id="spAdd">0</span>/<span id="spMaxShareNum">0</span>)</span></a></li>
+                <li id="spanAddedDisplay"><a href="javascript:void(0)">已分享&nbsp;<span class="nubC">(<span
+                    id="spAdded">0</span>)</span></a></li>
+            </ul>
+            <div class="pg_shareTab_mes" style="display: block">
+                <!--共享给内容-->
+                <div class="addedShare">
+                    <ul id="ulReceve">
+                    </ul>
+                    <ul id="ulReceveAdded" style="display: none">
+                    </ul>
+                    <p style="line-height: 25px; padding-right: 20px; text-align: right;" id="pAllClear">
+                        <a title="全部清空" href="javascript:void(0)" id="allClear">全部清空</a></p>
+                    <div class="addPhone">
+                        <p id="divMsgMobile" class="dialog-error-tip" style="display: none;">
+                            <span id="errorMsgMobile">接收人手机号码必须为中国移动用户！</span></p>
+                        <input type="text" id="txtRecName" onfocus="if(this.value=='输入手机号，以逗号“,”隔开')this.value=''"
+                            onblur="if(this.value=='')this.value='输入手机号，以逗号“,”隔开';" value="输入手机号，以逗号“,”隔开" />
+                        <input type="hidden" id="hidReciver" value="" />
+                        <a href="javascript:void(0)" id="aAddRec" class="btnNormal">新 增</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="addressList shareCon">
+            <h2>
+                分享内容(<span id="spFilecnt">0</span>)</h2>
+            <ul class="file-list">
+            </ul>
+        </div>
+        <div class="ft">
+			<p style="float:left;" id="disk_AddShareNum"><a href="javascript:top.$App.showOrderinfo();top.$Msg.getCurrent().close() ">升级邮箱,增加彩云网盘单次分享人数</a></p>
+            <ul class="dbtn-list">
+                <li><a href="" id="aSumbit" class="btnNormal">确 定</a></li>
+                <li><a href="" id="aCancel" class="btnNormal">取 消</a></li>
+            </ul>
+        </div>
+        <p class="dialog-error-tip" id="pMsgShare" style="display: none; position: absolute;
+            z-index: 1000; width: 200px; top: 140px; left: 200px; color: #fb3600; padding: 4px 5px;">
+            <span id="msgShare">共享过于频繁，请30分钟后再试!</span>
+        </p>
+        <p class="dialog-error-tip" id="pDoing" style="display: none; position: absolute;
+            z-index: 1001; width: 120px; top: 140px; left: 200px; color: #fb3600; padding: 4px 5px;">
+            <span id="Span1">操作中,请稍等...</span>
+        </p>
+    </div>
+</body>
+</html>

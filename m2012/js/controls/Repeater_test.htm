@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>repeater</title>
+<script type="text/javascript" src="repeater.js"></script>
+    <script type="text/javascript" src="repeater_data.js"></script>
+    <script type="text/javascript">
+	function bodyLoad(){
+		var rp=new Repeater(document.getElementById("repeater1"));
+		rp.Functions = {
+		    getTitle: function (sub, fid) {
+		        var t = this;
+		        var fname = { 1: "收件箱", 2: "草稿箱"}[fid];
+		        return "[" + fname + "]" + sub;
+		    },
+		    showColumn1: function () {
+		        return "none";
+		    },
+		    getIndex: function () {
+		        return 1;
+		    },
+		    getSectionName: function () {
+		        if (this.DataRow["index"] < 2) {
+		            return "今天";
+		        } else {
+		            return "明天";
+		        }
+
+		    }
+		}
+		rp.DataBind(mailData);
+	}
+	
+	
+	
+
+
+
+    </script>
+</head>
+<body onload="bodyLoad();">
+
+    <div id="repeater1">
+    	<!--section start-->
+    	<div>分组@getSectionName</div>
+    	<table>
+    		<tr><td>标题</td><td>发件人</td><td>发送日期</td></tr>
+			<!--item start-->
+			<tr name="item">
+				<td><a href="javascript:void()">$index:$flags.read</a>-@getTitle(subject,fid)</td>
+				<td>$from</td><td>				
+					<!--display start-->
+					<div style="display:none">
+						12中文3
+					</div>
+					<!--display end-->
+					$sentDate
+					<!--display start-->
+					<div style="display:@showColumn1">
+						123
+					</div>
+					<!--display end-->
+					</td>
+			
+			</tr>
+			<!--item end-->
+    	</table>
+    	<!--section end-->
+    </div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="Keywords" content=""/>
+	<meta name="Description" content=""/>
+	<title>亮点功能-139邮箱</title>
+	<link rel="stylesheet" href="../../css/module/newfunction/css.css" type="text/css"/>
+    <script type="text/javascript">
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+        top.loadScript('libs.pack.js', document);
+        top.loadScript('m139.core.pack.js', document);
+    </script>
+</head>
+<body>
+
+
+<script type="text/javascript">    
+$(function () {
+    $('body').append(top.shiningIntro[0].content);
+    //焦点图效果
+	var sWidth = $(".new-action-div").width();
+	var len = $("div.new-action-li div").length; 
+
+	$("ul.new-a-tab li").click(function () {
+	    index = $("ul.new-a-tab li").index(this);
+	    showPics(index);
+	});
+	$("div.new-action-li").css("width", sWidth * (len)); 
+
+	function showPics(index) { 
+	    var nowLeft = -index * sWidth; 
+	    $("div.new-action-li").stop(true, false).animate({ "left": nowLeft }, 500); 
+	    $("ul.new-a-tab li").removeClass('on').eq(index).addClass('on'); 
+	}
+});
+</script>
+
+
+</body>
+
+</html>

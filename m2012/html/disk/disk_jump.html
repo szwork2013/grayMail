@@ -1,0 +1,205 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>彩云跳转页面</title>
+
+    <script type="text/javascript">
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1].replace(/:\d+/, "");
+
+        //去空格
+        String.prototype.trim = function() {
+            return this.replace(/^\s+|\s+$/g, "");
+        };
+        //格式化字符串
+        String.prototype.format = function() {
+            var str = this;
+            var tmp;
+            for (var i = 0; i < arguments.length; i++) {
+                tmp = String(arguments[i]).replace(/\$/g, "$$$$");
+                str = str.replace(eval("/\\{" + i + "\\}/g"), tmp);
+            }
+            return str;
+        }
+        //获取传递的参数
+        function queryString(param, isescape, url) {
+            url = url ? url : location.search;
+            var regx = new RegExp("[?&]" + param + "=([^&]*)", "i");
+            var svalue = url.match(regx);
+            if (isescape) {
+                svalue = svalue ? svalue[1] : "";
+            } else {
+                svalue = svalue ? unescape(svalue[1]) : "";
+            }
+            return svalue.trim();
+        };
+        function isAllowHost(_aUrl){
+			//var _allowHostList	= [ "*.139cm.com", "*.rd139cm.com", "*.139.com", "*.rd139.com" ];原139域名
+			var _allowHostList = ["*.10086.cn", "*.10086rd.cn", "*.10086ts.cn", "*.139cm.com", "*.rd139cm.com", "*.139.com", "*.rd139.com"];
+			var _urlHost = _aUrl.split( "://" ).pop().split( "/" )[0];
+			if(!_urlHost) {
+				return false;
+			}
+		
+			var _urlHostItems = _urlHost.split(".");
+			var _urlHostItemsLen = _urlHostItems.length;
+			for(var i = _allowHostList.length - 1; i >= 0; i--) {
+				var _allowHostItem = _allowHostList[i].split(".");
+				var _allowHostItemLen = _allowHostItem.length;
+				var _pos = 1;
+		
+				for(; _pos <= _urlHostItemsLen && _pos <= _allowHostItemLen; _pos++) {
+					if(_allowHostItem[_allowHostItemLen - _pos] != "*" && _allowHostItem[_allowHostItemLen - _pos] != _urlHostItems[_urlHostItemsLen - _pos])
+						break;
+				}
+				if(_pos - 1 == _allowHostItemLen && (_allowHostItem[0] == "*" || _allowHostItemLen == _urlHostItemsLen ))
+					return true;
+			}
+			return false;
+		}
+     
+    </script>
+
+    <script type="text/javascript">
+        var diskJump = {
+            //跳转页参数
+            args: {
+                thingId: 4002,
+                reqId: "",
+                //要跳转的url
+                gotoUrl: "",
+                //错误页面
+                errorUrl: "",
+                ssoSid: ""
+            },
+            action: {
+                pageLoad: function() {
+                    //设置url请求参数
+                    diskJump.action.setRequestParams();
+                    var returnUrl = "";
+                    try {
+                        //判断是否超时
+                        if (top.Utils.PageisTimeOut()) {
+                            throw "登录超时";
+                        }
+                        //判断是否有传递sid
+                        if (!diskJump.args.ssoSid) {
+                            throw "SSO登录失败";
+                        }
+                        //检测移动用户
+                        if (!diskJump.tool.checkMobile()) {
+                            throw "检测移动用户失败";
+                        }
+                        switch (diskJump.args.reqId) {
+                            //写信页选择彩云文件
+                            case "7":
+                                returnUrl = diskJump.args.errorUrl;
+                                break;
+                            //邮件附件保存                                                                                                              
+                            case "10":
+                                var fileName = queryString("filename", true);
+                                var fileUrl = queryString("url", true);
+                                // add by tkh XSS漏洞
+                                if(fileUrl && !isAllowHost(fileUrl)){
+                                	fileUrl = '';
+                                }
+                                
+                                returnUrl = "/m2012/html/disk/disk_dialogsavemailattach.html?sid={0}&id={1}&filename={2}&tourl={3}";
+                                returnUrl = returnUrl.format(diskJump.args.ssoSid, diskJump.args.reqId, fileName, escape(fileUrl));
+                                break;
+                            //文件快递保存                                                                    
+                            case "11":
+                                var shareFileId = queryString("sharefileid");
+                                var fileName = queryString("shareFileName");
+                                returnUrl = "/m2012/html/disk/disk_dialogsavesharefile.html?sid={0}&id={1}&shareFileId={2}&shareFileName={3}";
+                                returnUrl = returnUrl.format(diskJump.args.ssoSid, diskJump.args.reqId, shareFileId, escape(fileName));
+                                break;
+                            //邮件正文图片保存                                                            
+                            case "101":
+                                var fileName = queryString("filename");
+                                var fileUrl = queryString("url");
+                                // add by tkh XSS漏洞
+                                if(fileUrl && !isAllowHost(fileUrl)){
+                                	fileUrl = '';
+                                }
+                                
+                                returnUrl = "/m2012/html/disk/disk_dialogsavemailattachtoalbum.html?sid={0}&id={1}&filename={2}&tourl={3}";
+                                returnUrl = returnUrl.format(diskJump.args.ssoSid, diskJump.args.reqId, escape(fileName), escape(fileUrl));
+                                break;
+                            //文件快递           
+                            case "9000":
+                                var path = top.ucDomain;
+                                if (top.SiteConfig.largeAttachRebuildUrl) {
+                                    path = top.SiteConfig.largeAttachRebuildUrl;
+                                }
+                                returnUrl = "/m2012/html/largeattach/largeattach_filelist.html?sid=" + diskJump.args.ssoSid;
+                                break;
+                            default:
+                                var goId = queryString("goid");
+                                //附件管理
+                                if (goId == "9001") {
+                                    var host = "http://" + top.location.host;
+                                    host += top.isRichmail ? "" : "/m";
+                                    returnUrl = "/m2012/html/mailattach/mailattach_attachlist.html?sid={1}&keyword={2}".format(host, diskJump.args.ssoSid, diskJump.args.keyword);
+                                } else {
+                                    //来自foxmail客户端链接，直接进入打开文件共享
+                                    if (goId == "12") {
+                                        var fileId = queryString("fileid");
+                                        goId = "{0}&fileid={1}".format(goId, fileId);
+                                    }
+                                    returnUrl = "disk_main.html?sid={0}&id={1}&goId={2}&keyword={3}".format(diskJump.args.ssoSid, diskJump.args.reqId, goId, diskJump.args.keyword);
+                                }
+                                break;
+                        }
+                    } catch (ex) {
+                        returnUrl = diskJump.args.errorUrl;
+                    }
+                    //跳转到指定url
+                    window.location.href = returnUrl;
+                },
+                //设置参数
+                setRequestParams: function() {
+                    //thingId
+                    var param = queryString("clientid");
+                    var value = diskJump.tool.getInt(param);
+                    if (value.flag === true) {
+                        diskJump.args.thingId = value;
+                    }
+                    //设置跳转页
+                    diskJump.args.gotoUrl = queryString("goto");
+                    //设置错误跳转页url
+                    diskJump.args.errorUrl = top.ucDomain + "/error/systemtip4.html";
+                    //reqUrlId
+                    diskJump.args.reqId = queryString("id");
+                    //用户登录标识
+                    diskJump.args.ssoSid = queryString("sid");
+					//搜索关键字，触发自动搜索
+					diskJump.args.keyword = queryString("keyword", 1);
+                }
+            },
+            tool: {
+                //检测用户
+                checkMobile: function() {
+                    return true;
+                },
+                getInt: function(s) {
+                    var result = { flag: false, value: null };
+                    if (!s) { return result; }
+                    var value = parseInt(s);
+                    if (isNaN(value)) {
+                        return result;
+                    }
+                    result.flag = true;
+                    result.value = value;
+                    return result;
+                }
+            }
+        };
+        //页面加载
+        diskJump.action.pageLoad();
+    </script>
+
+</head>
+<body>
+</body>
+</html>

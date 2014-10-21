@@ -1,0 +1,99 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="Keywords" content="" />
+<meta name="Description" content="" />
+<title>139邮箱</title>
+
+
+<script type="text/javascript">
+    //设域
+    document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+</script>
+<script>top.loadScript('libs.pack.js',document);top.loadScript('m139.core.pack.js',document)</script><script>top.loadScript("account_lock_success.html.pack.js",document)</script><script>top.loadCSS(["common/global.css","module/set.css"],document)</script></head>
+<body class="setbody"> 
+<div class="setWrap">		
+	<div class="setArea">	
+		<h2>安全锁 <span class="line">|</span> <a href="account.html" class="fanghui">&lt;&lt;返回</a></h2>
+		<ul class="form" id="folderPassword">			
+<textarea id="setUserTdTemplate" style="display:none">
+    <!--item start--><td width="33%">$name</td><!--item end-->	
+</textarea>
+<textarea id="setPopTdTemplate" style="display:none">
+    <!--item start--><td width="33%">$name <span class="gray">$folderPassFlag</span></td><!--item end-->	
+</textarea>
+<textarea id="setUserTemplate" style="display:none">
+								<table id="userTable">
+									<tr>
+										<th colspan="3">我的文件夹</th>										
+									</tr>
+                                    <!--item start--> 
+									<tr class="userTr">
+										<td></td>
+                                    </tr>
+                                    <!--item end-->						
+								</table>
+</textarea>
+<textarea id="setPopTemplate" style="display:none">
+								<table id="popTable">
+									<tr>
+										<th colspan="3">代收邮箱</th>										
+									</tr>
+                                    <!--item start--> 
+                                    <tr class="popTr">
+                                        <td width="33%"></td>
+                                    </tr>	
+                                    <!--item end-->
+								</table>
+</textarea>
+<textarea id="setLockTemplate" style="display:none">			
+                
+                    <li class="formLine">
+						<label class="label">已加锁范围</label>
+						<div class="element">
+							<div class="safelockTab">
+                                <div id="safelockTab"></div>
+								<a href="javascript:void(0)" class="btnNormal" id="editLockArea"><span>修改加锁范围</span></a> <a href="javascript:void(0)" class="btnNormal" id="editPassword"><span>修改密码</span></a> <a href="javascript:void(0)" class="btnNormal" id="unLock"><span>解锁</span></a>
+							</div>
+						</div>
+					</li>
+				
+</textarea>
+		</ul>	
+	</div>	
+</div>
+
+
+
+</body>
+
+
+
+
+
+
+
+      
+      
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+
+
+
+
+
+
+
+
+</html>

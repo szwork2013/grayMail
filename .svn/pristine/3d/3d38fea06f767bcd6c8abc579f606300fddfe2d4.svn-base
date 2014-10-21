@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="pg-window" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <title>dialog</title>
+
+    <script type="text/javascript">
+        //设域
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1].replace(/:\d+/, "");
+        var diskWindow = top.$("iframe#diskDev")[0].contentWindow;
+        var scripts = [];
+        scripts.push({ dirName: "js/", fileName:"m2011.disk.newupload_control.js" });
+        scripts.push({ dirName: "js/", fileName:"m2011.disk.upload.js" });
+        scripts.push({ dirName: "js/", fileName:"m2011.disk.newupload_server.js" });
+        scripts.push({ dirName: "js/", fileName:"m2011.disk.newupload_module.js" });
+        diskWindow.CommonInit(document, diskWindow, scripts);
+        UploadType = "control";
+    </script>
+
+    <script type="text/javascript">
+        //加载皮肤
+        Utils.loadSkinCss(null, document, "netdisk");
+        $().ready(FastUploadPageInit);
+    </script>
+
+</head>
+<body>
+    <div class="dialog" id="fastUpload">
+        <div class="bd">
+            <table cellpadding="0" class="tbl-dialog-form dl-form-upload">
+                <tr>
+                    <th>
+                        上传位置：
+                    </th>
+                    <td style="display: none">
+                        <select id="stPosition">
+                        </select>
+                    </td>
+                    <td class="uploadTree">
+                        <div id="file-tree" style="width:235px">
+                        </div>
+                        <ul class="file-tree" id="file-tree2">
+                        </ul>
+                    </td>
+                    <td>
+                        <p style="margin: 0 0 0 5px;" id="pTips">
+                        </p>
+                    </td>
+                </tr>
+            </table>
+            <div class="addon-upload">
+                <a class="btnNormal" id="aUploadFastBtn" href="javascript:;">添加文件</a>
+            </div>
+        </div>
+        <div class="addon-upload-bd" id="fastUploadProgress">
+        </div>
+        <div class="dl-tip">
+            <p id="pFileInfoSub" style="display: none">
+            </p>
+            <p>
+                <a style="display: none" href="javascript:;" id="aCancelAll">全部取消</a></p>
+        </div>
+        <div class="all-rf" id="divFileInfo" style="display: none">
+            <span id="spanFileInfo"></span>
+        </div>
+        <div class="ft addon-upload-ft">
+            <ul class="dbtn-list">
+                <li><a class="btnNormal" id="aUploadCloseBtn" href="javascript:;">关 闭</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="pg-default" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <title>发短信</title>
+    <link rel="stylesheet" href="/m2012/css/common/global.css" type="text/css"/>
+    <link rel="stylesheet" href="/m2012/css/common/frame.css" type="text/css"/>
+<style type="text/css" media="screen">
+
+html, body{
+	overflow:visible;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="pl_20 pt_10">
+<p class="pt_10 pb_15">
+	支持 <span class="red">txt、csv、excel</span> 三种格式文件。<br />    
+	文件内容请使用<span class="red">姓名+手机号</span> 或 <span class="red">纯手机号</span> 格式，每条数据独立一行。（如下图所示）
+</p>
+<img src="/m2012/images/global/mssi.jpg" width="463" height="371" />
+<div style="position: relative;text-align: center;margin-top:5px;width:482px;">
+	<a href="javascript:void(0)" class="btnSetG">
+		<span id="choose_btn">选择文件</span>
+	</a>
+	<div id="flash_button" style="position:absolute;left:197px;top:0;width:90px;height:29px;">
+			<object codebase="//download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,0,0" width="100%" height="100%" id="flash_import" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000">
+				<param name="allowScriptAccess" value="always" />
+				<param name="movie" value="/m2012/flash/Richinfo_import.swf" />
+				<param name="quality" value="high" />
+				<param name="wmode" value="transparent" />
+				<embed src="/m2012/flash/Richinfo_import.swf" quality="high" width="100%" height="100%" wmode="transparent" type="application/x-shockwave-flash" pluginspage="//www.macromedia.com/go/getflashplayer" name="flash_import" swLiveConnect="true" allowScriptAccess="always"></embed>
+			</object>
+	</div>
+</div>
+
+<script type="text/javascript">
+
+document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+
+var importSmsContactDlg = top.document.getElementById("sms").contentWindow.importSmsContactDlg;
+
+String.format = function () {
+    if (arguments.length == 0) return "";
+    if (arguments.length == 1) return arguments[0];
+    var newArgs = [];
+    for (var i = 1; i < arguments.length; i++) {
+        newArgs.push(arguments[i]);
+    }
+    return top.String.prototype.format.apply(arguments[0], newArgs)
+}
+
+function tryEval(a) {
+	var b = null;
+	try {
+		/^\s*\{/.test(a) && (a = "(" + a + ")"), b = eval(a)
+	}catch(e) {
+		//console.log(e);
+	}
+	return b;
+}
+
+window.JSForFlashUpload = {
+	// 获取上传路径
+	getUploadUrl : function() {
+		// 测试
+		//var uploadUrl = "/mw2/sms/sms?func=sms:batchContacts&type={0}&sid={1}&rnd="+Math.random();
+		// 全网
+		//var uploadUrl = "http://smsrebuild1.mail.10086.cn/sms/sms?func=sms:batchContacts&type={0}&sid={1}&rnd="+Math.random();
+		// 灰度
+		var uploadUrl = "http://smsrebuild0.mail.10086.cn/sms/sms?func=sms:batchContacts&type={0}&sid={1}&rnd="+Math.random();
+		return String.format(uploadUrl, importSmsContactDlg.type, top.$App.getSid());
+	},
+	onload : function(options) {
+		options["filter"] = ["自定义文件(*.TXT;*.CSV;*.XLS;*.XLSX)"];
+		return options;
+	},
+	onselect : function(xmlFileList, jsonFileList) {
+		var ext = /\.(txt|csv|xls|xlsx)$/i.exec(jsonFileList[0].fileName);
+		//console.log(JSON.stringify(jsonFileList));
+
+		if(ext){
+			importSmsContactDlg.type = {".txt":1, ".csv":2, ".xls":3, ".xlsx":3}[ext[0].toLowerCase()];
+			if(importSmsContactDlg.isImporting == false) {
+				setTimeout(function(){
+					document["flash_import"].uploadAll();
+				}, 200);
+				importSmsContactDlg.isImporting = true;
+				//showLoading();
+				return [jsonFileList[0]];
+			} else {
+				importSmsContactDlg.showWaitingDlg();
+			}
+		} else {
+			importSmsContactDlg.showFailFormatDlg();
+		}
+		return [];
+	},
+	onprogress : function(taskId, sendedSize, uploadSpeed) {
+	},
+	oncomplete : function(taskId, responseText) {
+		importSmsContactDlg.isImporting = false;
+
+		var data = tryEval(responseText);
+
+		if(!data) {
+			importSmsContactDlg.showFailContentDlg();
+			return ;
+		}
+
+		if(data.code === 'FS_VALID_ERROR'){
+			top.$App.showSessionOutDialog();
+			importSmsContactDlg.dialog.close();
+			return ;
+		}
+
+		data = data["var"];
+
+		if(data && data.totalCount > 0) {
+			importSmsContactDlg.showSuccessDlg(data);
+		} else {	// 返回数据解析异常
+			switch(importSmsContactDlg.type)
+			{
+			case 1: importSmsContactDlg.showFailTxtDlg();break;
+			case 2: importSmsContactDlg.showFailCSVDlg();break;
+			case 3: importSmsContactDlg.showFailExcelDlg();break;
+			}
+		}
+		importSmsContactDlg.dialog.close();	// 这个会销毁自身页面，不可提前！
+	},
+	onerror : function(taskId, errorCode, errorMsg) {
+		importSmsContactDlg.isImporting = false;
+		
+		if(errorCode === 'FS_VALID_ERROR'){
+			top.$App.showSessionOutDialog();
+			importSmsContactDlg.dialog.close();
+			return ;
+		}
+
+		switch(importSmsContactDlg.type)
+		{
+		case 1: importSmsContactDlg.showFailTxtDlg();break;
+		case 2: importSmsContactDlg.showFailCSVDlg();break;
+		case 3: importSmsContactDlg.showFailExcelDlg();break;
+		}
+		importSmsContactDlg.dialog.close();
+	},
+	onclick : function() {
+		return true;
+	}
+};
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>139个邮通讯录-合并联系人</title>
+<meta content="text/html;" http-equiv="Content-Type" />
+<script type="text/javascript">
+	document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+	function filltag(d,c,f){var b,a,e=[];while(d.length){a=d.shift();switch(true){case Object.prototype.toString.apply(a)==="[object Array]":b="<script "+(a[1].length>0?'charset="'+a[1]+'" ':"")+"src='"+(a[2]?a[2]:c)+"/js/"+a[0]+"' type='text/javascript'><\/script>";break;case a.indexOf(".js")>-1:b="<script "+(f?'charset="'+f+'" ':"")+"src='"+c+"/js/"+a+"' type='text/javascript'><\/script>";break;case a.indexOf(".css")>-1:b="<link rel='stylesheet' type='text/css' href='"+c+"/css/"+a+"' />";break;case a.length==0:b="<link rel='stylesheet' type='text/css' />"}e.push(b)}document.write(e.join(""))}
+	var resourcePath = top.resourcePath;
+	var addrPath = resourcePath.replace('coremail', 'addr');
+
+	filltag(["global2012.css?v=20120620","","addr2012.css"],resourcePath);
+	try {
+	top.loadScript("libs.pack.js", document);
+	top.loadScript('m139.core.pack.js', document);
+	top.loadScript("m2012.ui.common.pack.js", document);
+	top.loadScript("m2011.utilscontrols.pack.js", document);
+	top.loadScript("../../js/packs/addr/addr_zh_hans.pack.js", document);
+	top.loadScript("../../js/packs/addr/addr_merge.html.pack.js", document);
+	} catch (ex) {}
+</script>
+	
+<script type="text/javascript">
+    //Utils.loadSkinCss(null, document, "addr");
+	$(function() { MergeContactsModule.initPage();});
+</script>
+<style type="text/css">
+	.btn span a{border:none; color:#666 !important;}
+	.btn span{border:none;}
+	.card-cts .l .box h4{width: 98px;}
+	.gray-disbg, .gray-disbg:hover{background-color: #aeaeae;}
+	.gray-disbg .gray-dis{color:#fff !important;}
+	.card-cts .l .box h4{height: 24px;}
+</style>
+
+    <!--[if lt IE 9]><script>document.write('<script src="' + resourcePath + '/js/html5.js"><\/script>')</script><![endif]-->
+<base target="_self" />
+</head>
+<body class="ml3P-contacts">
+    <header id="header"></header>
+    <article class="g-s5m0">
+    <div class="col-main-s5">
+        <div>
+        	<div class="singTitle">
+				<strong><span>合并重复的联系人</span></strong> |	<a  id="aBack_Up" href="javascript:void(0);">&lt;&lt;返回</a>	
+			</div>	
+			    <div style="padding-left:20px;">
+					<div class="tab-title" style="display:none;">
+					    <div style="display:none;margin-right:60px;float:right;" id="divOtherMessage"></div>
+						<div style="margin-right:60px;float:right;display:none" id="divUndoMessage">
+						    <span id="spanMessage">您已选择暂不合并<span id="spanUndoCount">1</span>个联系人 <a id="aUndoAll">全部撤消</a>&nbsp;<a id="aUndoPrev">撤消上一次</a></span>
+						</div>
+						<h4>合并重复的联系人</h4>
+					</div>
+
+<div class="toolBar139">
+	<div class="btn_normal clear" style="display:block">
+		<a id="aMergeAll_Up" hidefocus="1" href="javascript:void(0)"class="btn ml_10"><em>全部合并</em></a>
+	</div>
+</div>
+
+					<div class="mail-bd">
+						<div class="contacts-main">
+							<div class="top-y-tips">您现在有<span id="spanGroupCount">0</span>组（<span id="spanRepeatCount">0</span>个）可能重复的联系人，您正在处理第<span id="spanGroupIndex">1</span>组联系人</div>
+							<div class="card-cts">
+								<div class="top-con clear">
+								<div class="l" id="divRepeatContactList">
+													
+								</div>
+								<!--   l   end   -->
+								<div class="r">
+									<div class="box" id="divMergedContactInfo">
+										
+									</div>
+								</div>	
+									<!--    r  end   -->
+								<div></div><!--  空div必要   解决浮动元素和绝对定位元素相邻时绝对定位元素在IE6下不显示的BUG   -->
+								<!--
+								<div class="b-lt br-lt"></div>
+								<div class="b-lb br-lb"></div>
+								<div class="b-rt br-rt"></div>
+								<div class="b-rb br-rb"></div>
+								<div class="b-bx br-bx"></div>-->
+								</div>
+								<div class="btm-con">
+                                    <div class="btn_normal clear" style="display:block;padding-left:1px;">
+                                    	<a href="javascript:void(0);" id="aMergeAndGoToNext"  hidefocus="1" class="btn ml_10"><em id="labelMergeAndGoToNext">合并，处理下一组</em></a><a href="javascript:void(0);" title="跳过" id="aGoToNext">跳过</a>
+                                    </div>
+									<h5>温馨提示：</h5>
+									<p>合并后，左侧可能重复的联系人将被删除</p>
+								</div>
+							</div>
+						</div>
+						<!--  contacts-main    end   -->
+					</div>
+					<!--  mail-bd    end   -->
+                    <!--
+                    <div class="toolBar139">
+	                    <div class="btn_normal clear" style="display:block">
+		                    <ul class="btn_main">
+			                    <li class="mr_10"><a id="aBack_Down" hidefocus="1" href="javascript:void(0)"><i class="l_border"></i><em>&lt;&lt;</em> 返回<i class="r_border"></i></a></li>
+			                    <li class="mr_10"><a id="aMergeAll_Down" hidefocus="1" href="javascript:void(0)"><i class="l_border"></i>全部合并<i class="r_border"></i></a></li>
+		                    </ul>
+	                    </div>
+                    </div>-->
+				</div>
+            <footer id="footer"></footer>
+            </div>
+		</div>
+	<aside class="col-side-s5 mainSideBar" id="sidebar"></aside>
+</article>
+</body>
+</html>

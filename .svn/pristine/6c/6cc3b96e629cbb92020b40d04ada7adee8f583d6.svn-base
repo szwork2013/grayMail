@@ -1,0 +1,204 @@
+
+/**/
+.inboxHeader{height:26px;border-bottom:1px solid #cbcbcb; color:#666666; padding-left:10px;padding-top:6px;
+background:#F5F5F5;
+background: -webkit-gradient(linear, left 70%, left bottom, from(#ffffff), to(#f8f8f8));
+background: -moz-linear-gradient(top,  #ffffff,  #f8f8f8);
+background: -o-linear-gradient(left, #ffffff, #f8f8f8);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f8f8f8');
+background: linear-gradient(left, #ffffff, #f8f8f8);
+font-family:tahoma;
+}
+.inboxHeader .i_triangle_d{margin-left:5px;}
+.line{margin:0 5px;}
+span.line{color:#939fae;}/*全局竖线样式*/
+.inboxHeader strong{font-size:14px;font-weight:bold;color:#000;margin-right:5px;}
+.inboxHeader span.bl{}
+.inboxHeader .inboxHeaderfr{margin-right:10px;float:right;_display:inline;}
+.inboxHeader .inboxHeaderfr .i_set{vertical-align:middle;*margin-top:4px;}
+.tableTitle{width:100%;border-bottom:1px solid #cbcbcb;}
+.tableTitle td{height:30px;border-right:1px solid #e6e6e6;background-color:#f8f8f8;}
+.tableTitle td a{display:block;line-height:30px;padding-left:10px;background-color:#f8f8f8;}
+.tableTitle td a span{display:inline-block;line-height:30px;height:30px;vertical-align:middle;}
+.tableTitle td a:hover{display:block;text-decoration:none;
+	 background:#f3f3f3;
+      background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#f9f9f9));
+      background: -moz-linear-gradient(top,  #ffffff,  #f9f9f9);
+      background: -o-linear-gradient(top,  #ffffff,  #f9f9f9);
+      background: linear-gradient(left, #ffffff, #f9f9f9);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f9f9f9');
+} 
+
+.tableTitle td a .i_th0,.tableTitle td a .i_th1{margin-left:5px;}
+.tableTitle td.td1{width:56px;padding-left:10px;}
+.tableTitle td span.tdsel{border:1px solid #F8F8F8;padding:1px 3px 3px 3px;background-color:#F8F8F8;height:15px;line-height:15px;margin-left:-3px;_display:inline;overflow:hidden;}
+.tableTitle td a:hover span.tdsel{border:1px solid #dedede;background-color:#FFFFFF;}
+.tableTitle td .tdsel a:hover{text-decoration:none;}
+.tableTitle td.td1 .i_triangle_d{width:12px;height:12px;background-position:-372px -18px;cursor:pointer;}
+.tableTitle td.td2{width:152px;}
+.tableTitle td.td3{width:150px;}
+.tableTitle td.td4{width:80px;}
+.tableTitle td.td5{width:70px;border-right:none;text-align:right;}
+.tableTitle td.td5 a{display: inline-block;padding-left: 0;margin-right: 7px;}
+
+.tableTitle td.td6{width:115px;border-right:none;}
+.tableTitle a{color:#333;}
+
+/* 导航 */
+.setTab2{border:none;
+background:#F5F5F5;
+background: -webkit-gradient(linear, left 70%, left bottom, from(#ffffff), to(#ebebeb));
+background: -moz-linear-gradient(top,  #ffffff,  #ebebeb);
+background: -o-linear-gradient(left, #ffffff, #ebebeb);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ebebeb');
+background: linear-gradient(left, #ffffff, #ebebeb);
+-moz-box-shadow:1px 1px 5px rgba(0, 0, 0, 0);-webkit-box-shadow:1px 1px 5px rgba(0, 0, 0, 0);box-shadow:1px 1px 5px rgba(0, 0, 0, 0);
+}
+.setTab2 li{width:auto;padding-left:15px;padding-right:15px;height:34px;line-height:34px;border-right:none;}
+.setTab2 li.on{border-right:1px solid #a5a5a5;border-left:1px solid #a5a5a5;border-top:1px solid #a5a5a5}
+.setTab2 li a{color:#666666;height:26px;line-height:26px;display:inline-block;font-size:12px;padding-top:4px;}
+.setTab2 li.on a{color:#000000;font-weight:bold;}
+.setTab2 .tabTitle{border-bottom:1px solid #cbcbcb;height:33px;padding-top:7px;}
+.setTab2 .tabTitle ul{height:34px;top:6px;left:10px;width:auto;}
+.setTab2 .tab-more{position:absolute;right:10px;height:34px;line-height:34px;display:inline-block;top:7px;color:#666666;}
+.setTab2 .tab-more .diskDown{color:#333;}
+/* 上一页 下一页 */
+/* .toolBarPaging:after{visibility:hidden;display:block;font-size:0;content:" ";clear:both;height:0;}
+.toolBarPaging{zoom:1;height:21px;} */
+.toolBarPaging a.up,.toolBarPaging a.down,
+.toolBarArray a.one,.toolBarArray a.two,
+.toolBarArray a.rdCl,
+.pagenum,.pagenum:hover .pagenumtext
+{display:inline-block;background:url(../../../images/global/global.png) no-repeat;}
+
+.toolBarPaging a.up,.toolBarPaging a.down{width:28px;height:21px;overflow:hidden;float:left;}
+.toolBarPaging a.up{background-position:-74px -38px;margin-right:5px;}
+.toolBarPaging a.up:hover{background-position:-74px -61px;}
+.toolBarPaging a.down{background-position:-102px -38px;}
+.toolBarPaging a.down:hover{background-position:-102px -61px;}
+.toolBarPaging a.up-gray{background-position:-74px -84px;cursor:default;}
+.toolBarPaging a.up-gray:hover{background-position:-74px -84px;}
+.toolBarPaging a.down-gray{background-position:-102px -84px;cursor:default;}
+.toolBarPaging a.down-gray:hover{background-position:-102px -84px;}
+.pagenum{margin-right:5px;float:left;color:#333;height:21px;line-height:21px;display:block;background-position:right -116px;padding-right:15px;cursor:pointer;}
+.pagenum:hover{text-decoration:none; background-position:right -139px;}
+.pagenum .pagenumtext{padding-left:5px;}
+.pagenum:hover .pagenumtext{background-position:-425px -162px;}
+.viewTipPic a{display:inline-block;}
+.downRinking{font-size: 12px;font-family: "宋体";padding-left: 10px;}
+
+/*赞存柜xx*/
+.extractTitle li.on span{font-weight:normal;}
+.progressBarGreen{position:relative; top:1px; display:inline-block;width:80px; height:9px; border:1px solid #76a011;}
+.progressBarGreen em{background:#a3de15; width:35%; display:inline-block; position: absolute; display:inline-block;height:9px;}
+.upgrade a{color:#0066cc;}
+/*disk icon*/
+.diskPc,.upLoad,.downLoad,.i_list,.i_view,.i_done,.i_upload{ background:url(../../../images/module/FileExtract/exctract_icon.png) no-repeat; display: inline-block; overflow: hidden;}
+.diskPc{ width:22px; height: 11px; background-position: 0 0;}
+.upLoad{width:9px;  height:10px;  background-position:-23px 0;}
+.downLoad{width:9px;  height:10px; background-position:-33px 0;}
+.i_list{width:19px;  height:19px; background-position:0px -13px;}
+.i_view{width:19px;  height:19px; background-position:-23px -13px;}
+.i_done{width:10px;  height:10px; background-position:-44px 0px;}
+.i_upload{width:17px; height:19px; background-position:-44px -13px;}
+/*search*/
+.fileSearchBar input.text{width:170px; padding-left:4px; outline:none; height: 20px; line-height: 20px; margin-top:-1px; margin-right:-1px;border: 1px solid #ccc;border-right: 0;background: #ffffff; *margin-top:-8px;}
+.fileSearchBtn{height:20px; padding: 0 7px; display:inline-block;border: 1px solid #ccc;border-radius: 3px; }
+.fileSearchBtn i{*position:relative; *top:2px;}
+/*附件上传提示框*/
+.imgAttch{margin: 42px 10px 0 10px;}
+.attrchUp dt{margin: 15px 15px 0 0;}
+.attrchUp dd{padding:10px 0 0 0;}
+/*绿色按钮*/
+.smallGreenBtn,.smallBtnLeft,.smallBtnRight{width:3px; background:url(../../../images/module/FileExtract/greent_btn.png); display:inline-block;}
+.smallGreenBtn {padding:0 10px; background-repeat:repeat-x; background-position:0 -132px;}
+.smallBtnLeft{background-position: 0 0;}
+.smallBtnRight{background-position: 0 -34px;}
+/*exectrs list*/
+.diskTableList{background:#f7f7f7; border-bottom: 1px solid #dbdbdb;}
+.listHead{width:100%;}
+.onScollTable .listHead{width:99.2%;}/*当出现滚动条的时候调用该样式*/
+.listHead th{font-weight:normal; background-color:#f7f7f7; border-right:1px solid #dbdbdb; height:35px; line-height:35px;}
+.listHead th,.listHead td{ text-align:left; padding-left:10px;}
+.listHead th a{display: block; color: #333; text-decoration: none;}
+.listHead td{border-bottom:1px solid #e6e6e6; padding: 8px 0 8px 10px;}
+.onScollTable th.bdRightNone{border-right:none;}
+.listHead td a:hover{text-decoration:none;}
+.listHead .wh1{width:36px;}
+.listHead .wh3{width:158px;}
+.listHead .wh4{width:78px;}
+.listHead .wh5{width:70px;}
+.listHead .wh6{width:94px;}
+.appendixList{overflow-y:auto; overflow-x:auto;}
+.appendixList .listHead{width:100%;}
+.attchName{color:#333; display:block;}
+.attchName span{padding:3px;}
+.changeAttchName{border:1px solid #c5c5c5;}
+.changeAttchName em{background:#3268c3; color:#fff;}
+.attachment{padding-left:20px;}
+.attachment a{color:#014282;}
+/*view list*/
+.listView{margin:10px;}
+.listItem{float:left; margin:2px; border:1px solid #ffffff; width:165px; height: 173px;text-align:center;overflow: hidden; }
+.listItem .checkView{position: relative;top: 2px;left: 6px;}
+.listViewHover{ border:1px solid #d8dee7; border-radius:5px; -webkit-border-radius:5px;}
+.listViewChecked{background:#f4f5f9;}
+.listItem .viewPic{ width: 88px; height: 98px; border:1px solid #e6e6e6; display:inline-block; margin: 5px 35px; background:#fff;}
+.listItem .viewPic img{ padding: 3px 0 0 1px;}
+.listItem .chackPbar{height:20px; text-align:left;}
+.listItem .itemN span{padding:3px;}
+.listItem .itemN span.itemSuffix,.listItem .itemN span.itemName{ background:#dddddd; border:1px solid #c5c5c5;}
+.listItem .itemN span.itemName{ background:#fff;border-right:0;}
+.listItem .itemN span.itemName em{background:#3268c3; color:#fff;}
+.listItem  .viewtProgressBar{width:110px;}
+
+/*弹出层*/
+.addFilesTips{text-align: center; margin-top:100px;}
+.checkFiles .tabTitle li{width:150px;}
+.topBtn{border-bottom:1px solid #a2b0c6;padding:10px 0 10px 10px;height:22px;}
+.attaList{height:225px;overflow-x:hidden;overflow-y:auto;position:relative;_height:229px;}
+.attaList .attaListLi:after{visibility:hidden;display:block;font-size:0;content:" ";clear:both;height:0;}
+.attaList .attaListLi{border-bottom:1px dotted #e0e0e0;padding:10px 0;position:relative;zoom:1;height:35px;}
+.attaList .attaListLi .i_file{float:left;margin-left:10px;margin-top:4px;}
+.attaList .attaListLi .attaListLiText{float:left;margin-left:10px;}
+.attaList .attaListLi .attaListLiText2{float:right;margin-right:10px;text-align:right;_display:inline; margin-top:20px;}
+.attaList .attaListLi .progressBarDiv{width:240px;} 
+.attaList .attaListLi .progressBar{_width:238px;} 
+.attaList .attaListLi .progressBarCur{_width:238px;} 
+.loadTip{background:#ffffe1; padding:7px 10px;}
+.rept5{position: relative; top: 5px;}
+
+.savediskDrop{width:204px;float:left;margin:5px;}
+.savediskDrop .dropDownText{_width:120px;}
+.savefile-search{position:relative;padding:5px;float:left;}
+.savefile-search .i_c-search{position:absolute;background-position:-475px -0px;left:200px;top:11px;width:14px;height:14px;}
+.savefile-search-on .i_c-search{display:inline-block;background-position:-400px -54px;}
+.savefile-search .iText{width:203px;}
+.savefile-search2{width:373px;}
+.savefile-search2 .iText{width:300px;}
+.savefile-search2 .i_c-search{left:300px;}
+.savefiletabtitle{width:100%;border-top:1px solid #a5a5a5;border-bottom:1px solid #cbcbcb;clear:both;}
+.savefiletabtitle td{height:28px;border-right:1px solid #e6e6e6;background-color:#f8f8f8;}
+.savefiletabtitle td a{display:block;line-height:28px;background-color:#f8f8f8;}
+.savefiletabtitle td a span{display:inline-block;line-height:28px;height:28px;vertical-align:middle;}
+.savefiletabtitle td a:hover{display:block;text-decoration:none;
+	 background:#f3f3f3;
+      background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#f9f9f9));
+      background: -moz-linear-gradient(top,  #ffffff,  #f9f9f9);
+      background: -o-linear-gradient(top,  #ffffff,  #f9f9f9);
+      background: linear-gradient(left, #ffffff, #f9f9f9);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f9f9f9');
+} 
+.savefiletabtitle td a .i_th0,.tableTitle td a .i_th1{margin-left:5px;}
+.savefiletabtitle td.td1{width:35px;text-align:center;}
+.savefiletabtitle td.td2{padding-left:10px;width:178px;}
+.savefiletabtitle td.td3{width:65px;text-align:center;}
+.savefiletabtitle td.td4{width:92px;text-align:center;}
+.savefiletabtitle a{color:#333;}
+.savefiletabdiv{height:224px;overflow-y:auto;overflow-x:hidden;}
+.savefiletab{border-top:none;border-bottom:1px solid #cbcbcb;width:100%;}
+.savefiletab td{height:28px;border-top:1px solid #e6e6e6;background-color:#FFFFFF;}
+.savefiletab td.td1{width:44px;text-align:center;}
+.savefiletab td.td2{padding-left:10px;}
+.savefiletab td.td3{width:120px;text-align:center;}
+.savefiletab td.td4{text-align:center;width:92px;}

@@ -1,0 +1,165 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" class="box">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title>列表</title>
+<script type="text/javascript">
+//Utils.setDomain();
+//设域
+document.domain=window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+//获得资源路径
+var resourcePath=window.top.resourcePath;
+var calendarResourcePath=resourcePath.replace("coremail","calendar");
+var htmlCode="";
+htmlCode+=getLinkTag("");
+htmlCode+=getLinkTag(calendarResourcePath+"/css/calendar.css?v=20110617");
+
+top.loadScript("jquery.js", document);
+top.loadScript("m2011.utilscontrols.pack.js", document);
+top.loadScript("/m2012/js/service/calendar/m2011.calendar.calendar.js", document);
+
+document.write(htmlCode);
+function getJsTag(path,charset){
+    var html="<script charset='gb2312' src='"+path+"' type='text/javascript'></"+"script>";
+    if (charset) html = html.replace("gb2312",charset);
+    return html;
+}
+function getLinkTag(path){
+    var text="";
+    if(path)text="href='"+path+"'";
+    return "<link rel='stylesheet' type='text/css' "+text+" />";
+}
+
+function addbyCategory()
+{
+	document.getElementById('addbyCategory').style.visibility='visible';
+	Utils.stopEvent();
+}
+top.WaitPannel.hide();
+</script>
+<!--[if lte IE 7]><script>iereset('list',42)</script><![endif]-->
+<link rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+Utils.loadSkinCss(null,document,"calendar");
+</script>
+</head>
+<body>
+<div class="aside">
+    <ul class="tag">
+	    <li><a id="allCalendar" href="javascript:"><i class="allcalendar"></i><span id="spanCount1">全部日程</span></a></li>
+	    <li><a id="aRecent" href="javascript:;"><i class="day7"></i><span id="spanCount2">最近7天日程</span></a></li>
+	    <li><a id="aAgent" href="javascript:;"><i class="undo"></i><span>待办事项</span></a></li>
+	    <li><a id="aHasDone" href="javascript:;"><i class="done"></i><span>已办事项</span></a></li>
+	    <li class="line"></li>
+	</ul>
+	<ul class="category">
+		<script type="text/javascript" language="javascript">
+		    richinfo.email.calendar.commonUI.category.addCategory("listtype="+Utils.queryString("listtype"),Utils.queryString("comefrom"));
+		</script>
+	</ul>
+	<b class="shadow"></b> </div>
+<script>
+</script>
+<div class="header">
+	<h1 id="leftCurCont"></h1>
+	<p class="des">| <a href="javascript:" id="goView"> 返回日程首页</a></p>
+	<ul class="nav">
+		<li><a href="calendar_view.html">视 图</a></li>
+		<li class="cur"><a href="javascript:void();" id="all">列 表</a></li>
+	</ul>
+</div>
+<div class="main calendar">
+	<div class="optarea">
+		<div class="left"><span class="addCalendar">
+			<input class="btn" type="button" value="添加日程" id="btnAddInList">
+			<i onclick="addbyCategory(event);" class="drop"></i></span>
+			<input id="btnSMSCancel" class="btn"  type="button" value="取消提醒">
+			<input id="btnCalendarDel" class="btn"  type="button" value="删除日程">
+		</div>
+		<div class="right pager" style="display:none;" id="pager"><a href="javascript:void(0);" id="aPrev">上一页</a><span id="pagerSeparator">|</span><a href="javascript:void(0);" id="aNext">下一页</a>
+			<select id="sltPager">
+				<option value="2">2/3</option>
+			</select>
+		</div>
+		<div id="addbyCategory" class="addbyCategory" onclick="stopBubble()">
+			<!--<ul >
+				<li><a href="EditCalendar.html?comefrom=2">常规日程</a></li>
+				<li><a href="Game/GameList.html?comefrom=2">2010南非足球赛程</a></li>
+				<li><a href="Special/birthday.html?comefrom=2">生日提醒</a></li>
+				<li><a href="Special/specialday.html?comefrom=2">特殊日子</a></li>
+				<li><a href="Special/meet.html?comefrom=2">约会提醒</a></li>
+				<li><a href="Special/pay.html?comefrom=2">交费提醒</a></li>
+				<li><a href="Special/baby.html?comefrom=2">宝宝防疫</a></li>
+				<li><a href="Special/match.html?comefrom=2">赛事提醒</a></li>
+				
+			</ul>-->
+		</div>
+	</div>
+	<div class="list" id="list">
+		<div id="listtable">
+		    <div class="hd">
+		        <a href="javascript:;" id="chkSelectAll">全选</a>
+                <span class="t1">事项</span>
+                <span class="t2">提醒</span>
+            </div>
+            <ul id="tableCalendarList">
+            </ul>
+		</div>
+		<p class="empty" id="empty" style="display:none;">没有日程内容，<a href="javascript:;" id="aEdit">添加一个日程</a></p>
+		<div class="empty" id="empty1" style="width:365px;display:none;">
+            <b class="meet"></b>
+            <div class="msg row2">
+            下一个会议几点开？朋友的派对在哪办？<br>
+			约会再多也不怕！<a href="javascript:;" id="aEdit1">添加约会提醒</a>，提前提醒您和大家。
+            </div>
+        </div>
+		<div class="empty" id="empty2" style="display:none;">
+        	<b class="pay"></b>
+            <div class="msg">
+            信用卡太多，还款的日子经常搞混……<br>
+			水电费太杂，交费的日子老是忘记……<br>
+			<a href="javascript:;" id="aEdit2">添加交费提醒</a>，助您轻轻松松按时交费！
+            </div>
+        </div>
+        <div class="empty" id="empty3" style="width:375px;display:none;">
+        	<b class="special"></b>
+            <div class="msg">
+            结婚十年纪念日，这一天，要是忘了，要再等一个十年。<br>
+            纪念日、节假日、例假……<br>
+            特殊日子记不住？<a href="javascript:;" id="aEdit3">添加特殊日子提醒</a>
+            </div>
+        </div>
+        <div class="empty" id="empty5" style="width:290px;display:none;">
+        	<b class="match"></b>
+            <div class="msg row2">
+            精彩赛事不想错过，事情一多转眼就忘？<br>
+			<a href="javascript:;" id="aEdit5">添加赛事提醒</a>，提醒哥们和您一起看球！
+            </div>
+        </div>
+        <div class="empty" id="empty6" style="width:410px;display:none;">
+        	<b class="birthday"></b>
+            <div class="msg row2">
+            每次亲朋好友生日，总是送上迟到的祝福，总是寿星来提醒您？<br>
+			<a href="javascript:;" id="aEdit6">添加生日提醒</a>，从现在开始第一个跟TA说“生日快乐”！
+            </div>
+        </div>
+        <div class="empty" id="empty11" style="width:460px;display:none;">
+        	<b class="luck"></b>
+            <div class="msg">
+            星座运势是根据一个人出生日期所属的星座，来论定该星座在每一个流年甚至月份上发生事情的吉凶。其中，好运、顺运为吉，灾运、败运为凶。<br/>
+			想知道自己的星座运势？
+            <a href="javascript:;" id="aEdit11">立即设置</a>
+            </div>
+        </div>
+	</div>
+</div>
+</body>
+<script type="text/javascript">
+var page = new ListPage();
+$(page.load);
+function getBindData()
+{
+    $(page.load);
+}
+</script>
+</html>

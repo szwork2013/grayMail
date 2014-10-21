@@ -1,0 +1,30 @@
+﻿<project default="m_pack">
+    <property name="closure.path" location="../../build/lib/compiler.jar" />
+
+    <target name="m_pack">
+        <concat destfile="libs.pack.js" encoding="gbk" outputencoding="utf8" fixlastline="yes">
+            <fileset dir="./" includes="jquery-1.7.2.js"/>
+            <fileset dir="./" includes="underscore.js" />
+            <fileset dir="./" includes="backbone-1.0.0.m139.js"/>
+        </concat>
+
+        <copy file="libs.pack.js" tofile="libs.pack.source.js"/>
+        <echo>${closure.path}</echo>
+
+        <apply executable="java" verbose="true" dest="./" failonerror="true" parallel="false">
+            <fileset dir="./" includes="libs.pack.source.js" />
+            <arg line="-jar"/>
+            <arg path="${closure.path}"/>
+            <arg line="--charset utf8"/>
+            <arg value="--warning_level"/>
+            <arg value="QUIET"/>
+            <arg value="--formatting" />
+            <arg value="PRETTY_PRINT"/>
+            <arg value="--js"/>
+            <srcfile/>
+            <arg value="--js_output_file"/>
+            <targetfile/>
+            <mapper type="regexp" from="^(.*)\.source\.js$" to="\1.js"/>
+        </apply>
+    </target>
+</project>

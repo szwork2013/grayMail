@@ -1,0 +1,41 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>139邮箱-正在跳转</title>
+<script type="text/javascript">
+document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+</script>
+<script>
+    //短地址跳转页
+    (function(){
+        var ud = getCookie("UserData");
+        var partId = getCookie("cookiepartid");
+        var url = "/m2012/html/index.html" + location.search;
+        if (ud && partId && location.search.indexOf("sid=") >= 1) {
+            if (partId == 1 && document.domain == "10086.cn") {
+                //跳到灰度
+                location.replace("http://appmail3.mail.10086.cn" + url);
+            } else {
+                //当前域跳转即可,不区分生产线测试线还是研发线
+                location.replace(url);
+            }
+        } else {
+            gotoLoginPage();
+        }
+    })();
+
+
+    function gotoLoginPage(){
+        location.replace("http://mail." + document.domain + "/" + location.search);
+    }
+
+    function getCookie(name) {
+        var arr = document.cookie.match(new RegExp("(^|\\W)" + name + "=([^;]*)(;|$)"));
+        if (arr != null) return unescape(arr[2]);
+        return "";
+    }
+</script>
+</head>
+<body></body>
+</html>

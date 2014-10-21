@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<project name="build_pack" default="packFile">
+<target name="packFile">
+	<concat destfile="./packs/groupmail/groupmail.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+		<fileset dir="./" includes="**/m2012.groupmail.app.js"/>
+		<fileset dir="./" includes="**/m2012.groupmail.model.base.js"/>
+		<fileset dir="./" includes="**/m2012.groupmail.model.list.js"/>
+		<fileset dir="./" includes="**/m2012.groupmail.model.album.js"/>
+		<fileset dir="./" includes="**/m2012.groupmail.view.main.js"/>
+		<fileset dir="./" includes="**/m2012.groupmail.view.grouplist.js"/>
+		<fileset dir="./" includes="**/m2012.groupmail.view.msglist.js"/>
+		<fileset dir="./" includes="**/m2012.groupmail.view.msgPager.js"/>
+		<fileset dir="./" includes="**/m2012.groupmail.view.album.js"/>
+		<fileset dir="./" includes="**/m2012.groupmail.model.session.memberlist.js"/>
+		<fileset dir="./" includes="**/m2012.groupmail.view.session.memberlist.js"/>
+	</concat>
+
+    <!-- 写信弹出窗口需要加载的JS -->
+	<concat destfile="./packs/groupmail/groupmail.evocation.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+	  <fileset dir="./" includes="**/evocation.main.model.js" /> <!--
+	  <fileset dir="./" includes="**/evocation.compose.view.js" />
+	  <fileset dir="./" includes="**/evocation.sms.view.js" />
+	  <fileset dir="./" includes="**/evocation.mms.view.js" />
+	  <fileset dir="./" includes="**/evocation.greetingcard.view.js" />
+	  <fileset dir="./" includes="**/evocation.setAliasName.view.js" />
+	  <fileset dir="./" includes="**/evocation.main.view.js" />-->
+	  <fileset dir="./" includes="**/m2012.groupmail.evocation.compose.view.js"/>
+	  <fileset dir="./" includes="**/m2012.ui.htmleditor.model.editor.js"/>
+	  <fileset dir="./" includes="**/m2012.ui.htmleditor.view.menu.js"/>
+	  <fileset dir="./" includes="**/m2012.ui.htmleditor.view.editor.js"/>
+	</concat>
+
+    <!-- 快捷写信页需要加载的JS -->
+	<concat destfile="./packs/groupmail/groupmail.compose.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+		<fileset dir="./" includes="**/m2012.ui.htmleditor.model.editor.js"/>
+		<fileset dir="./" includes="**/m2012.groupmail.ui.htmleditor.view.menu.js"/>
+		<fileset dir="./" includes="**/m2012.groupmail.ui.htmleditor.view.editor.js"/>
+
+		<!--
+		<fileset dir="./" includes="**/m2012.contacts.contactsinfo.js"/>
+		<fileset dir="./" includes="**/m2012.contacts.model.js"/>
+		<fileset dir="./" includes="**/m2012.ui.widget.contacts.model.js"/>
+		<fileset dir="./" includes="**/m2012.ui.widget.contacts.view.js"/>
+		<fileset dir="./" includes="**/m2012.ui.dialog.addressbook.js"/>
+		<fileset dir="./ui/" includes="**/m2012.ui.suggest.inputsuggest.js"/>
+		<fileset dir="./" includes="**/m2012.ui.suggest.addrsuggest.js"/>
+		<fileset dir="./" includes="**/m2012.ui.suggest.inputassociate.js"/>
+		<fileset dir="./" includes="**/m2012.ui.suggest.inputcorrect.js"/>
+		<fileset dir="./ui/" includes="**/m2012.ui.richinput.view.js"/>
+		<fileset dir="./ui/" includes="**/m2012.ui.richinput.itemview.js"/>
+		<fileset dir="./ui/" includes="**/m2012.ui.richinput.textboxview.js"/>
+		<fileset dir="./ui/" includes="**/m2012.ui.richinput.documentview.js"/>
+		<fileset dir="./ui/" includes="**/m2012.ui.richinput.plugin.js"/>-->
+
+		<!--
+		<fileset dir="./" includes="**/m2012.ui.largeattach.model.js"/>
+		<fileset dir="./" includes="**/m139.plugin.screencontrol.js"/>
+		<fileset dir="./" includes="**/composeMessages.js"/>-->
+		 <!--after
+		<fileset dir="./" includes="**/upload_module.js"/>
+		<fileset dir="./" includes="**/upload_tool.js"/>
+		<fileset dir="./" includes="**/upload_module_common.js"/>-->
+
+        <!--after
+		<fileset dir="./" includes="**/attachFrame.js"/>-->
+
+		<!--<fileset dir="./" includes="richmail/compose/swfobject.js"/>-->
+
+		<!--after
+		<fileset dir="./" includes="**/upload_module_flash.js"/>
+		<fileset dir="./" includes="**/upload_module_multiThread.js"/>
+		<fileset dir="./" includes="**/upload_module_screenshot.js"/>-->
+
+        <!--after
+		<fileset dir="./" includes="**/upload_module_ajax.js"/>
+
+
+		<fileset dir="./" includes="**/uploadForm.js"/>
+		<fileset dir="./" includes="**/largeAttach.js"/>-->
+		<!--after
+		<fileset dir="./" includes="**/compose_upload_2010.js"/>-->
+		<!--<fileset dir="./" includes="**/compose_render_2010.js"/>-->
+
+        <!-- after-->
+		<fileset dir="./" includes="**/m2012.compose.model.js"/>
+
+		<!--
+		<fileset dir="./" includes="**/m2012.compose.view.main.js"/>
+		<fileset dir="./" includes="**/m2012.compose.view.subject.js"/>
+		<fileset dir="./" includes="**/m2012.compose.view.littles.js"/>
+		<fileset dir="./" includes="**/m2012.compose.view.addrinput.js"/>
+		<fileset dir="./" includes="**/m2012.compose.view.attachlist.js"/>-->
+		<!--<fileset dir="./" includes="**/m2012.compose.view.upload.js"/>-->
+		<fileset dir="./" includes="**/m2012.groupmail.compose.view.htmleditor.js"/>
+		<!--
+		<fileset dir="./" includes="**/m2012.compose.view.timing.js"/>
+		<fileset dir="./" includes="**/m2012.compose.view.sender.js"/>
+		<fileset dir="./" includes="**/m2012.compose.view.signmenu.js"/>
+		<fileset dir="./" includes="**/m2012.compose.view.addressbook.js"/>
+		<fileset dir="./" includes="**/m2012.compose.view.settruename.js"/>
+		<fileset dir="./" includes="**/m2012.groupmail.compose.application.js"/>	-->		
+	</concat>
+</target>
+</project>

@@ -1,0 +1,93 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="Keywords" content="" />
+<meta name="Description" content="" />
+<title>139邮箱</title>
+
+
+<script type="text/javascript">
+    //设域
+    document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+</script>
+<script>top.loadScript('libs.pack.js',document);top.loadScript('m139.core.pack.js',document)</script><script>top.loadScript("m2012.ui.common.pack.js",document)</script><script>top.loadCSS(["common/global.css","module/set.css"],document)</script></head>
+<body class="setbody"> 
+<div class="setWrap">		
+	<div class="setArea" id="setEditPassword">	
+		<h2>修改安全锁密码 <span class="line">|</span> <a class="fanghui" href="javascript:void(0)" id="goBack">&lt;&lt;返回</a></h2>		
+			<ul class="form ">		
+				<li class="formLine">
+					<label class="label">输入旧密码：</label>
+					<div class="element">
+                    <div>
+					    <input id="oldPassword" type="password" value="" class="iText">
+                    </div>
+                    <a href="javascript:;" hidefocus=true id="useSmsPass">使用短信验证码</a>
+					</div>
+				</li>			
+				<li class="formLine">
+					<label class="label">设置新密码：</label>
+					<div class="element">
+					<input id="setPass" type="password" value="" class="iText"> <span class="formError v-visible hide"><!-- 报错显示 v-visible --></span>
+					</div>
+				</li>
+				<li class="formLine">
+					<label class="label">确认新密码：</label>
+					<div class="element">
+					<input id="comfirmPass" type="password" value="" class="iText"> <span class="formError v-visible hide"><!-- 报错显示 v-visible --></span>
+					</div>
+				</li>
+			</ul>	
+	</div>			
+
+
+</div>
+<div class="setBtn fixed-bottom" id="setBtn">
+<span class="pl_20"><a class="btnSetG" href="javascript:void(0)" id="doOk"><span>确 定</span></a> <a class="btnSet" id="doCancel" href="javascript:void(0)"><span>取 消</span></a></span>
+</div>
+<script>    top.loadScript("account_lock_edit_password.html.pack.js", document)</script>
+</body>
+
+
+
+
+
+
+
+      
+      
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+
+
+</html>

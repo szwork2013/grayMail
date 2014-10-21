@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="ifr-preview" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <title>图片预览</title>
+    <style type="text/css">
+	.img-pre{cursor : url('/m2012/images/module/disk/pre.cur'),auto;}
+	.img-next{cursor : url('/m2012/images/module/disk/next.cur'),auto;}
+    </style>
+    <script type="text/javascript">
+        //设域
+		document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1].replace(/:\d+/, "");
+        top.$("iframe#diskDev")[0].contentWindow.CommonInit(document, top.$("iframe#diskDev")[0].contentWindow
+            ,[{"dirName": "js/", fileName:"m2011.disk.preview.js"}]);
+		//获取资源服务器
+		var diskResource = top.$("iframe#diskDev")[0].contentWindow.getResource();
+        </script>
+    <script  type="text/javascript">
+        //加载皮肤
+        Utils.loadSkinCss(null,document,"netdisk");  
+    </script>
+</head>
+<body>
+<div class="overlay"></div>
+<div class="pre-windows">
+	<div class="img-cont">
+		<img id="imgPreview" onload="DrawImage(this,500,400)"/>
+	</div>
+	<h3 id="imgname"></h3>
+	<p><a href="javascript:;" id="aPrev">上一张</a><a href="javascript:;" id="aNext">下一张</a><em><a href="#" target="_blank" id="aRaw">查看原图</a></em></p>
+</div>
+
+</body>
+
+</html>

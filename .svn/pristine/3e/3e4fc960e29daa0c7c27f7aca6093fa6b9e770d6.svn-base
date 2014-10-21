@@ -1,0 +1,338 @@
+﻿<?xml version="1.0"?>
+<project name="build_pack" default="build_addr">
+    <property name="SolutionPath" value="." />
+
+    <target name="build_addr">
+        <antcall target="master_pack"></antcall>
+        <antcall target="home_pack"></antcall>
+        <antcall target="detail_pack"></antcall>
+        <antcall target="share_pack"></antcall>
+        <antcall target="language_pack"></antcall>
+        <antcall target="import_home_pack"></antcall>
+        <antcall target="import_client_pack"></antcall>
+        <antcall target="merge_pack"></antcall>
+        <antcall target="clean_pack"></antcall>
+        <antcall target="request_pack"></antcall>
+        <antcall target="maybeknown_pack"></antcall>        
+        <antcall target="maybeknowndialog_pack"></antcall>
+		<antcall target="update_pack"></antcall>
+        <antcall target="importresult_pack"></antcall>
+        <antcall target="mailtofriends_pack"></antcall>        
+		
+		
+		<antcall target="component_pack"></antcall>
+
+        <!-- 编辑我的资料 -->
+		<antcall target="personinfo_pack"></antcall>
+
+        <!-- 导入 -->
+        <antcall target="import_pim"></antcall>
+        <antcall target="import_file"></antcall>
+        <antcall target="import_clone"></antcall>
+
+        <!-- 主页2.3 -->
+        <antcall target="home_base_pack"></antcall>
+        <antcall target="home_main_pack"></antcall>
+        <antcall target="home_index_pack"></antcall>
+        <antcall target="home_andAddr_pack"></antcall>
+		<antcall target="detail_andAddr_pack"></antcall>
+		
+		<!--群组-->
+		<antcall target="home_team_pack"></antcall>	
+		<antcall target="addr_team_detail_pack"></antcall>		
+		<antcall target="addr_team_notify_pack"></antcall>
+    </target>
+
+    <target name="master_pack">
+		<concat destfile="./packs/addr/addr_master.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+			<path path="${SolutionPath}/service/addr/home/toolbar/m2012.addr.model.linkhelper.js" />
+			<path path="${SolutionPath}/service/addr/home/toolbar/m2012.addr.model.common.js" />			
+			<path path="${SolutionPath}/service/addr/home/toolbar/m2012.addr.model.contacts.js" />
+			<path path="${SolutionPath}/service/addr/home/toolbar/m2012.addr.view.tool.js" />
+			<path path="${SolutionPath}/service/addr/home/toolbar/m2012.addr.view.events.js" />
+			<path path="${SolutionPath}/service/addr/home/toolbar/m2012.addr.view.contacts.js" />
+			<path path="${SolutionPath}/service/addr/home/toolbar/m2012.addr.view.check.js" />
+			<path path="${SolutionPath}/service/addr/home/toolbar/m2012.addr.view.remind.js" />
+			<path path="${SolutionPath}/service/addr/home/toolbar/m2012.addr.view.toolbar.js" />
+			<path path="${SolutionPath}/service/addr/home/pimToolbar/m2012.addr.view.pimtoolbar.js" />
+		</concat>
+    </target>	
+
+    <target name="home_pack">
+        <concat destfile="./packs/addr/addr_index.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+            <path path="${SolutionPath}/service/addr/home/filter.js" />
+            <path path="${SolutionPath}/service/addr/home/render.js" />
+            <path path="${SolutionPath}/service/addr/home/view.js" />
+            <path path="${SolutionPath}/service/addr/home/tool.js" />
+            <path path="${SolutionPath}/service/addr/home/vCardContentJoin.js" />
+            <path path="${SolutionPath}/service/addr/home/home.js" />
+            <path path="${SolutionPath}/service/addr/home/sendsms.js" />
+        </concat>
+    </target>
+    
+	<target name="component_pack">
+        <concat destfile="./packs/addr/addr_component.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+            <path path="${SolutionPath}/service/addr_v2/component/m2012.addr.imageupload.js" />
+			<path path="${SolutionPath}/service/addr_v2/component/m2012.addr.view.calenderchoose.js" />
+			<path path="${SolutionPath}/service/addr_v2/component/m2012.addr.groupwidget.js" />
+			<path path="${SolutionPath}/service/addr_v2/component/m2012.addr.address.js" />
+			<path path="${SolutionPath}/service/addr_v2/component/m2012.addr.view.kit.js" />			
+			<path path="${SolutionPath}/service/addr_v2/component/m2012.addr.model.contactssingle.js" />
+        </concat>
+    </target>
+    
+	<target name="detail_pack">
+        <concat destfile="./packs/addr/addr_detail.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+			<path path="${SolutionPath}/service/addr_v2/component/m2012.addr.toolbar.js" />
+            <path path="${SolutionPath}/service/addr_v2/src/m2012.addr.model.detail.js" />
+            <path path="${SolutionPath}/service/addr_v2/src/m2012.addr.view.detail.js" />
+        </concat>
+    </target>
+	
+	<target name="personinfo_pack">
+        <concat destfile="./packs/addr/addr_personinfo.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+			<path path="${SolutionPath}/service/addr_v2/component/m2012.addr.view.kit.js" />
+			<path path="${SolutionPath}/service/addr_v2/component/m2012.addr.imageupload.js" />
+			<path path="${SolutionPath}/service/addr_v2/component/m2012.addr.view.calenderchoose.js" />
+            <path path="${SolutionPath}/service/addr_v2/src/m2012.addr.model.personinfo.js" />
+            <path path="${SolutionPath}/service/addr_v2/src/m2012.addr.view.personinfo.js" />
+        </concat>
+    </target>
+
+    <target name="share_pack">
+        <concat destfile="./packs/addr/addr_share_home.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+            <path path="${SolutionPath}/service/addr/m2011.addr.ui.contactselectlist.js" />
+            <path path="${SolutionPath}/service/addr/m2011.addr.view.share.js" />
+        </concat>
+    </target>
+
+    <target name="language_pack">
+        <copy file="${SolutionPath}/service/addr/i18n/zh_hans.js" tofile="./packs/addr/addr_zh_hans.pack.js"/>
+    </target>
+
+    <target name="import_home_pack">
+        <copy file="${SolutionPath}/service/addr/m2011.addr.view.import.home.js" tofile="./packs/addr/addr_importhome.html.pack.js"/>
+    </target>
+
+    <target name="import_client_pack">
+        <concat destfile="./packs/addr/addr_importclient.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+            <path path="${SolutionPath}/service/addr/clone/cvshelper.js" />
+            <path path="${SolutionPath}/service/addr/clone/importclient.js" />
+        </concat>
+    </target>
+
+    <target name="merge_pack">
+        <concat destfile="./packs/addr/addr_merge.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+            <path path="${SolutionPath}/service/addr_v2/src/m2012.addr.model.merge.js" />
+            <path path="${SolutionPath}/service/addr_v2/src/m2012.addr.view.merge.js" />
+        </concat>
+    </target>
+
+    <target name="clean_pack">
+        <copy file="${SolutionPath}/service/addr/m2012.addr.view.clean.js" tofile="./packs/addr/addr_clean.html.pack.js"/>
+    </target>
+
+    <target name="request_pack">
+        <copy file="${SolutionPath}/service/addr/m2011.addr.view.request.js" tofile="./packs/addr/addr_request.html.pack.js"/>
+    </target>	
+	
+	<target name="maybeknowndialog_pack">
+		<concat destfile="./packs/addr/addr_maybeknown_dialog.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+            <path path="${SolutionPath}/service/addr_v2/component/m2012.addr.groupwidget.js" />
+            <path path="${SolutionPath}/service/addr_v2/component/m2012.addr.view.maybeknowndialog.js" />
+        </concat>
+	</target>
+	
+    <target name="maybeknown_pack">
+		<concat destfile="./packs/addr/addr_maybeknown.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+            <path path="${SolutionPath}/service/addr_v2/src/m2012.addr.model.maybeknown.js" />
+            <path path="${SolutionPath}/service/addr_v2/src/m2012.addr.view.maybeknown.js" />
+        </concat>
+    </target>
+
+    <target name="update_pack">
+        <concat destfile="./packs/addr/addr_updatecontactinfo.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+            <path path="${SolutionPath}/service/addr/home/UpdateContactInterface.js" />
+            <path path="${SolutionPath}/service/addr/m2011.addr.ui.datecontrol.js" />
+            <path path="${SolutionPath}/service/addr/m2011.addr.view.updatecontacts.js" />
+        </concat>
+    </target>
+	
+    <target name="importresult_pack">
+        <copy file="${SolutionPath}/service/addr/m2012.addr.view.import.result.js" tofile="./packs/addr/addr_importresult.html.pack.js"/>
+    </target>
+    <target name="mailtofriends_pack">
+      <copy file="${SolutionPath}/service/addr/m2012.addr.view.import.notify.js" tofile="./packs/addr/addr_mailtofriends.html.pack.js"/>
+    </target>
+    
+    <!-- 编辑我的资料 -->
+    <target name="basicinfo_pack">
+        <concat destfile="./packs/addr/addr_basicinfo.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+            <path path="${SolutionPath}/ui/menu/m2012.ui.dropmenu.js" />
+            <path path="${SolutionPath}/ui/menu/m2012.ui.popmenu.js" />
+            <path path="${SolutionPath}/richmail/settings/m2012.settings.view.birthday.js" />
+            <path path="${SolutionPath}/service/addr/m2012.addr.model.personinfo.js" />
+            <path path="${SolutionPath}/service/addr/m2012.addr.view.personinfo.basic.js" />
+        </concat>
+    </target>
+    <target name="businessinfo_pack">
+        <concat destfile="./packs/addr/addr_businessinfo.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+            <path path="${SolutionPath}/service/addr/m2012.addr.model.personinfo.js" />
+            <path path="${SolutionPath}/service/addr/m2012.addr.view.personinfo.business.js" />
+        </concat>
+    </target>
+    <target name="contact_pack">
+        <concat destfile="./packs/addr/addr_contact.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+            <path path="${SolutionPath}/service/addr/m2012.addr.model.personinfo.js" />
+            <path path="${SolutionPath}/service/addr/m2012.addr.view.personinfo.contact.js" />
+        </concat>
+    </target>
+    <target name="mypicture_pack">
+        <concat destfile="./packs/addr/addr_mypicture.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+            <path path="${SolutionPath}/service/addr/m2012.addr.model.personinfo.js" />
+            <path path="${SolutionPath}/service/addr/m2012.addr.view.personinfo.photo.js" />
+        </concat>
+    </target>
+    <target name="personalcir_pack">
+        <concat destfile="./packs/addr/addr_personalcir.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+            <path path="${SolutionPath}/service/addr/m2012.addr.model.personinfo.js" />
+            <path path="${SolutionPath}/service/addr/m2012.addr.view.personinfo.favorites.js" />
+        </concat>
+    </target>
+
+  <target name="import_file">
+    <concat destfile="./packs/addr/addr_import_file.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+      <path path="${SolutionPath}/service/addr/m2012.addr.model.import.common.js" />
+      <path path="${SolutionPath}/service/addr/m2012.addr.model.import.file.js" />
+      <path path="${SolutionPath}/service/addr/m2012.addr.view.import.file.js" />
+    </concat>
+  </target>
+
+  <target name="import_pim">
+    <concat destfile="./packs/addr/addr_import_pim.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+      <path path="${SolutionPath}/service/addr/m2012.addr.model.import.common.js" />
+      <path path="${SolutionPath}/service/addr/m2012.addr.model.import.pim.js" />
+      <path path="${SolutionPath}/service/addr/m2012.addr.view.import.pim.js" />
+    </concat>
+  </target>
+
+  <target name="import_clone">
+    <concat destfile="./packs/addr/addr_import_clone.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+      <path path="${SolutionPath}/service/addr/clone/cvshelper.js" />
+      <path path="${SolutionPath}/service/addr/m2012.addr.model.import.common.js" />
+      <path path="${SolutionPath}/service/addr/m2012.addr.model.import.clone.js" />
+      <path path="${SolutionPath}/service/addr/m2012.addr.view.import.clone.js" />
+    </concat>
+  </target>
+  
+  <target name="home_base_pack">
+        <concat destfile="./packs/addr/addr_home_base.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+            <path path="${SolutionPath}/service/addr/home/base/config/m2012.addr.base.config.global.js" />
+            <path path="${SolutionPath}/service/addr/home/base/utils/m2012.addr.base.utils.global.js" />
+            <path path="${SolutionPath}/service/addr/home/base/m2012.addr.collection.base.js" />
+            <path path="${SolutionPath}/service/addr/home/base/eventsAggr/m2012.addr.event.contacts.list.js" />
+            <path path="${SolutionPath}/service/addr/home/base/eventsAggr/m2012.addr.event.groups.list.js" />
+        </concat>
+    </target>
+    <target name="home_main_pack">
+        <concat destfile="./packs/addr/addr_home_main.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+            <path path="${SolutionPath}/service/addr/home/contactsList/m2012.addr.model.contacts.item.js" />
+            <path path="${SolutionPath}/service/addr/home/contactsList/m2012.addr.collection.contacts.list.js" />
+            <path path="${SolutionPath}/service/addr/home/contactsList/m2012.addr.view.contacts.item.js" />
+            <path path="${SolutionPath}/service/addr/home/contactsList/m2012.addr.view.contacts.list.js" />
+            
+            <path path="${SolutionPath}/service/addr/home/contactsList/listController/m2012.addr.model.contacts.filter.initialLetter.js" />
+            <path path="${SolutionPath}/service/addr/home/contactsList/listController/m2012.addr.model.contacts.paging.js" />
+            <path path="${SolutionPath}/service/addr/home/contactsList/listController/m2012.addr.model.contacts.selector.js" />
+            <path path="${SolutionPath}/service/addr/home/contactsList/listController/m2012.addr.model.contacts.sort.js" />
+            <path path="${SolutionPath}/service/addr/home/contactsList/listController/m2012.addr.model.contacts.search.js" />
+            <path path="${SolutionPath}/service/addr/home/contactsList/listController/m2012.addr.view.contacts.filter.initialLetter.js" />
+            <path path="${SolutionPath}/service/addr/home/contactsList/listController/m2012.addr.view.contacts.paging.js" />
+            <path path="${SolutionPath}/service/addr/home/contactsList/listController/m2012.addr.view.contacts.selector.js" />
+            <path path="${SolutionPath}/service/addr/home/contactsList/listController/m2012.addr.view.contacts.search.js" />
+            
+            <path path="${SolutionPath}/service/addr/home/contactsList/noContacts/m2012.addr.view.contacts.noContacts.js" />
+            <path path="${SolutionPath}/service/addr/home/contactsList/noContacts/m2012.addr.view.contacts.noGroupContacts.js" />
+            <path path="${SolutionPath}/service/addr/home/contactsList/noContacts/m2012.addr.view.contacts.noSearchContacts.js" />
+            <path path="${SolutionPath}/service/addr/home/contactsList/noContacts/m2012.addr.view.contacts.noFilterContacts.js" />
+            <path path="${SolutionPath}/service/addr/home/contactsList/noContacts/m2012.addr.view.contacts.noVipContacts.js" />
+            
+            <path path="${SolutionPath}/service/addr/home/groupsList/m2012.addr.model.groups.item.js" />
+            <path path="${SolutionPath}/service/addr/home/groupsList/m2012.addr.collection.groups.list.js" />
+            <path path="${SolutionPath}/service/addr/home/groupsList/m2012.addr.view.groups.item.js" />
+            <path path="${SolutionPath}/service/addr/home/groupsList/m2012.addr.view.groups.list.js" />
+
+            <path path="${SolutionPath}/service/addr/home/groupsList/m2012.addr.model.groupsManager.js" />
+            <path path="${SolutionPath}/service/addr/home/groupsList/m2012.addr.view.groupsManager.js" />
+            
+            <path path="${SolutionPath}/service/addr/home/contactsList/actions/m2012.addr.model.dragdrop.js" />
+            <path path="${SolutionPath}/service/addr/home/contactsList/actions/m2012.addr.view.dragdrop.js" />
+        </concat>
+    </target>
+    <target name="home_index_pack">
+        <concat destfile="./packs/addr/addr_home_index.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+            <path path="${SolutionPath}/service/addr/home/init/cache/m2012.addr.cache.contacts.js" />
+            <path path="${SolutionPath}/service/addr/home/init/cache/m2012.addr.cache.groups.js" />
+            <path path="${SolutionPath}/service/addr/home/init/cache/m2012.addr.cache.mapGC.js" />
+            <path path="${SolutionPath}/service/addr/home/init/m2012.addr.tool.data.builder.js" />
+            <path path="${SolutionPath}/service/addr/home/init/m2012.addr.router.index.js" />
+            <path path="${SolutionPath}/service/addr/home/test/m2012.addr.test.data.synGC.js" />
+            <path path="${SolutionPath}/service/addr/home/umcUser/m2012.addr.model.umcUser.js" />
+            <path path="${SolutionPath}/service/addr/home/init/m2012.addr.app.index.js" />
+        </concat>
+    </target>
+    <target name="home_andAddr_pack">
+        <concat destfile="./packs/addr/addr_home_andAddr.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+            <path path="${SolutionPath}/service/addr/home/andAddr/eventsAggr/m2012.andAddr.event.contacts.list.js" />
+            <path path="${SolutionPath}/service/addr/home/andAddr/eventsAggr/m2012.andAddr.event.groups.list.js" />
+
+            <path path="${SolutionPath}/service/addr/home/andAddr/groupsList/m2012.andAddr.model.groups.item.js" />
+            <path path="${SolutionPath}/service/addr/home/andAddr/groupsList/m2012.andAddr.collection.groups.list.js" />
+            <path path="${SolutionPath}/service/addr/home/andAddr/groupsList/m2012.andAddr.view.groups.item.js" />
+            <path path="${SolutionPath}/service/addr/home/andAddr/groupsList/m2012.andAddr.view.groups.list.js" />
+
+            <path path="${SolutionPath}/service/addr/home/andAddr/contactsList/listController/m2012.andAddr.model.contacts.paging.js" />
+            <path path="${SolutionPath}/service/addr/home/andAddr/contactsList/listController/m2012.andAddr.view.contacts.paging.js" />
+            <path path="${SolutionPath}/service/addr/home/andAddr/contactsList/listController/m2012.andAddr.model.contacts.selector.js" />
+            <path path="${SolutionPath}/service/addr/home/andAddr/contactsList/listController/m2012.andAddr.view.contacts.selector.js" />
+
+            <path path="${SolutionPath}/service/addr/home/andAddr/contactsList/noContacts/m2012.andAddr.view.contacts.noContacts.js" />
+
+            <path path="${SolutionPath}/service/addr/home/andAddr/contactsList/m2012.andAddr.model.contacts.item.js" />
+            <path path="${SolutionPath}/service/addr/home/andAddr/contactsList/m2012.andAddr.collection.contacts.list.js" />
+            <path path="${SolutionPath}/service/addr/home/andAddr/contactsList/m2012.andAddr.view.contacts.item.js" />
+            <path path="${SolutionPath}/service/addr/home/andAddr/contactsList/m2012.andAddr.view.contacts.list.js" />
+        </concat>
+    </target>
+    <target name="detail_andAddr_pack">
+        <concat destfile="./packs/addr/detail_andAddr.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+			 <path path="${SolutionPath}/service/addr/andAddr/m2012.andAddr.model.contactInfo.js" />
+			 <path path="${SolutionPath}/service/addr/andAddr/m2012.andAddr.view.contactInfo.js" />
+		</concat>
+    </target>
+	<!--群组-->
+	<target name="home_team_pack">
+        <concat destfile="./packs/addr/addr_home_team.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+            <path path="${SolutionPath}/service/groupmail_v2/common/m2012.groupmail.app.js" />
+			<path path="${SolutionPath}/service/groupmail_v2/common/m2012.groupmail.model.base.js" />
+			<path path="${SolutionPath}/service/groupmail_v2/common/m2012.groupmail.command.js" />
+			<path path="${SolutionPath}/service/groupmail_v2/manage/m2012.groupmail.model.manage.js" />
+			<path path="${SolutionPath}/service/groupmail_v2/manage/m2012.groupmail.view.manage.main.js" />
+			<path path="${SolutionPath}/service/groupmail_v2/manage/m2012.groupmail.view.memberlist.js" />
+			<path path="${SolutionPath}/service/groupmail_v2/manage/m2012.groupmail.view.grouppanel.js" />			
+			<path path="${SolutionPath}/service/groupmail_v2/manage/m2012.groupmail.view.nogroup.js" />												
+        </concat>
+    </target>
+	<!--群组详情页-->
+	<target name="addr_team_detail_pack">
+        <concat destfile="./packs/addr/addr_home_team_detail.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">           
+			<path path="${SolutionPath}/service/groupmail_v2/manage/m2012.groupmail.view.groupedit.js" />			
+        </concat>
+    </target>
+	<!--群组消息页-->
+	<target name="addr_team_notify_pack">
+        <concat destfile="./packs/addr/addr_home_team_notify.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">           
+			<path path="${SolutionPath}/service/groupmail_v2/manage/m2012.groupmail.view.invitelist.js" />			
+        </concat>
+    </target>
+</project>

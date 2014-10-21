@@ -1,0 +1,21 @@
+﻿<?xml version="1.0"?>
+<project name="build_pack" default="packFile">
+    <property name="SolutionPath" value="." />
+
+    <target name="packFile">
+        <antcall target="contact_async"></antcall>
+        <antcall target="inboxmail_async"></antcall>
+    </target>
+
+    <target name="contact_async">
+        <concat destfile="./packs/m2012_contacts_async.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+            <path path="${SolutionPath}/matrixvm/m2011.matrixvm.contacts.async.js" />
+        </concat>
+    </target>
+
+    <target name="inboxmail_async">
+        <concat destfile="./packs/m2012_contacts_saveinbox_async.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+            <path path="${SolutionPath}/contacts/m2012.contacts.model.saveinbox.async.js" />
+        </concat>
+    </target>
+</project>

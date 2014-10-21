@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html style="background: transparent;">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <meta content="IE=EmulateIE7" http-equiv="X-UA-Compatible">
+    <title>移动到</title>
+    <script type="text/javascript">
+    try{
+        //设域
+		document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1].replace(/:\d+/, "");
+        top.$("iframe#diskDev")[0].contentWindow.CommonInit(document, top.$("iframe#diskDev")[0].contentWindow
+            ,[{"dirName": "js/", fileName:"m2011.disk.move.js"},{"dirName": "js/", fileName:"m2011.disk.diskmain.js"},{"dirName": "js/", fileName:"m2011.disk.diskcommon.js"}]);
+    }catch(ex){}
+    </script>
+    <script type="text/javascript">
+    try{
+        //加载皮肤
+        Utils.loadSkinCss(null, document, "netdisk");
+    }catch(ex){}
+    </script>
+</head>
+<body>
+    <div class="moveGoWrap">
+	<div class="moveTreeWrap">
+    	<ul class="moveTreeMenu" level="1">
+        <li class="select" id="liRootNode" ftype="0" ><a href="javascript:void(0)" class="current">彩云网盘</a>
+        	<ul id="ulRootNode" level="2">
+            </ul>
+        </li>
+        </ul>
+        <p class="moveTreeN_tip" style="display:none;"><i class="ico_sigh"></i>&nbsp;文件夹不能超过五层！</p>
+    </div>
+    <p class="moveTreeBtn">
+    <span>
+    <a class="btnNormal" id="btnSure" href="javascript:;" style="display:none;">确 定</a>&nbsp;&nbsp;
+    <a class="btnNormal" id="btnMove" href="javascript:;">移 动</a>&nbsp;&nbsp;
+    <a class="btnNormal" id="btnCancel" href="javascript:;">取 消</a>
+    </span>
+    <a class="btnNormal" id="btnNew" href="javascript:;">新建文件夹</a>
+    </p>
+</div>
+</body>   
+</html>

@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>139个邮通讯录-更新联系人</title>
+	
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Content-Language" content="zh-CN" />
+	<meta name="Keywords" content="" />
+	<meta name="Description" content="" />		
+	<script type="text/javascript">
+document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+function filltag(d, c, f) { var b, a, e = []; while (d.length) { a = d.shift(); switch (true) { case Object.prototype.toString.apply(a) === "[object Array]": b = "<script " + (a[1].length > 0 ? 'charset="' + a[1] + '" ' : "") + "src='" + (a[2] ? a[2] : c) + "/js/" + a[0] + "' type='text/javascript'><\/script>"; break; case a.indexOf(".js") > -1: b = "<script " + (f ? 'charset="' + f + '" ' : "") + "src='" + c + "/js/" + a + "' type='text/javascript'><\/script>"; break; case a.indexOf(".css") > -1: b = "<link rel='stylesheet' type='text/css' href='" + c + "/css/" + a + "' />"; break; case a.length == 0: b = "<link rel='stylesheet' type='text/css' />" } e.push(b) } document.write(e.join("")) }
+var resourcePath = top.resourcePath, addrsrc = resourcePath.replace('coremail', 'addr'), verifyImageUrl = '', AddressBookType = {}, g = 'GB2312';
+filltag(['global2012.css','addr2012.css',''],resourcePath);
+try {
+top.loadScript("libs.pack.js", document);
+top.loadScript('m139.core.pack.js', document);
+top.loadScript("m2012.ui.common.pack.js", document);
+top.loadScript("m2011.utilscontrols.pack.js", document);
+top.loadScript("../../js/packs/addr/addr_zh_hans.pack.js", document);
+top.loadScript("../../js/packs/addr/addr_updatecontactinfo.html.pack.js", document);
+} catch (ex) {}
+</script>
+<style text="text/css">
+#UserSex li{float:left;margin-right:5px;}
+.btn_main .nobg a {color:#014282}
+.btn_main .nobg a:hover{color:#014282;text-decoration: underline;}
+.mySLinfo dl dt{font-size:14px;font-weight:bold;margin-bottom:6px;padding-left:8px;}
+#bYear{width:54px;}
+#neverPrompt,#reportImg{font-weight:100;}
+#reportImg,#isReported{margin-left:37px;margin-top:5px;}
+#isReported{margin-left:35px;cursor:default;}
+.main-wrap{width: auto;}
+.mySLinfo .mySlinfoF{width:50px; height: 50px;border-width:0px}
+</style>
+<!--[if lt IE 9]><script>document.write('<script src="' + resourcePath + '/js/html5.js"><\/script>')</script><![endif]-->
+</head>
+<body class="ml3P-contacts">
+  <header id="header"></header>
+  <article class="g-s5m0">
+    <div class="col-main-s5">
+     <div>
+     	<div class="singTitle">
+			<strong style="font-weight:normal;">更新联系人<em style="color:#999;">(<span id="nowupdateCount" style="margin:0;"></span>/<span id="updateCount" style="margin:0;"></span>)</em></strong> | <a id="aBack_Up" href="javascript:void(0);">&lt;&lt;返回</a>
+		</div>
+		<div class="main-wrap" id="UpdateContacts" style="display:none;">
+			<div class="tab-title" style="display:none;">
+				<div style="display:none;margin-right:60px;float:right;" id="divOtherMessage"></div>
+				<h4 style="display:none;">最近更新的联系人</h4>
+			</div>
+		<div class="toolBar139">			
+			<a href="javascript:void(0);" id="aMergeAndGoToNext" role="button" hidefocus="1" class="btn btnGreen"><em>更新</em></a>
+            <a href="javascript:void(0);" id="aGoToNext" role="button" hidefocus="1" class="btn ml_10"><em>跳过</em></a>
+            <a href="javascript:void(0);" id="neverPrompt" role="button" hidefocus="1" class="btn ml_10"><em>不再提示</em></a>
+            <a href="javascript:void(0);" id="aMergeAll_Up" role="button" hidefocus="1" class="btn ml_10"><em>全部更新</em><span id="updateCountOnBtn" style="border:none; padding:0 10px 0 0; margin-left:-10px; color:#999;"></span></a>
+		</div>
+		<div class="card-cts ">
+			<div class="mySLinfobg">
+				<div class="xuline"><span>更新前</span></div>
+				<div class="mySLinfo">
+					<div class="mySlinfoF"><img id="oldUserImg" width="50" height="50" alt="" style="display:none;"/>
+					</div>
+					<dl>
+						<dt id="oldName"></dt>
+						<dd>
+							<table id="oldInfoTable">
+							</table>
+						</dd>
+					</dl>
+				</div>	
+			</div>
+			<div class="mySLinfobg" id="newArea">
+				<div class="xuline"><span>更新后</span></div>
+					<div class="mySLinfo">
+					<form name="newInfoForm" id="newInfoForm">
+						<div style="width:60px;float:left;">
+							<div class="mySlinfoF">
+								<img id="newUserImg"width="50" height="50" alt="" style="display:none;padding-bottom:3px;"/>
+								<input type="hidden" value="" id="newImgVal">
+							</div>	
+							<a href="javascript:void(0);"  id="reportImg" style="display:none;" >举报</a>
+							<a href="javascript:void(0);"  id="isReported" style="display:none;color:gray;text-decoration:none;" >已举报</a>
+						</div>
+						<dl>
+							<dt><input id="AddrFirstName" class="text" type="text" value="" style="font-size:14px;font-weight:bold;display:none;" maxlength="12" /><input type="hidden" id="SerialId" value=""></dt>
+							<dd>
+								<table id="newInfoTable">
+									<tr style="display:none" >
+										<td class="td1">电子邮箱：</td><td><input class="text long" id="FamilyEmail" type="text" maxlength="90" /></td>
+									</tr>
+									<tr style="display:none" >
+										<td class="td1">商务邮箱：</td><td><input class="text iblue" id="BusinessEmail" type="text" maxlength="90" /><i class="card"></td>
+									</tr>
+									<tr style="display:none" >
+										<td class="td1">手机号码：</td><td><input class="text iblue" id="MobilePhone" type="text"  maxlength="20" /></td>
+									</tr>
+									<tr style="display:none" >
+										<td class="td1">商务手机：</td><td><input class="text iblue" id="BusinessMobile" type="text" maxlength="20" /></td>
+									</tr>
+									<tr style="display:none" >
+										<td class="td1">常用固话：</td><td><input class="text iblue" id="FamilyPhone" type="text" maxlength="30"  /></td>
+									</tr>
+									<tr style="display:none" >
+										<td class="td1">公司固话：</td><td><input class="text iblue" id="BusinessPhone" type="text" maxlength="30" /></td>
+									</tr>
+									<tr style="display:none" >
+										<td class="td1">性别：</td>
+										<td >
+											<ul id ="UserSex">
+											<li><label for="UserSex0"><input type="radio" id="UserSex0" name="UserSex" value="0" />男</label></li>
+											<li><label for="UserSex1"><input type="radio" id="UserSex1" name="UserSex" value="1" />女</label></li>
+											<li><label for="UserSex2"><input type="radio" id="UserSex2" name="UserSex" value="2" />保密</label></li>
+										</ul>
+									 </td>
+									</tr>
+									<tr style="display:none" >
+										<td class="td1">公司名称：</td><td><input class="text iblue" id="CPName" type="text" maxlength="30" /></td>
+									</tr>
+									<tr style="display:none" >
+										<td class="td1">职务：</td><td><input class="text iblue" id="UserJob" type="text" maxlength="10" /></td>
+									</tr>
+									<tr style="display:none" >
+										<td class="td1">家庭地址：</td><td><input class="text iblue" id="HomeAddress" type="text" maxlength="50"  /></td>
+									</tr>
+									<tr style="display:none" >
+										<td class="td1">公司地址：</td><td><input class="text iblue" id="CPAddress" type="text" maxlength="50" /></td>
+									</tr>
+									<tr style="display:none" >
+										<td class="td1">公司邮编：</td><td><input class="text iblue" id="CPZipCode" type="text" maxlength="10" /></td>
+									</tr>
+									<tr style="display:none" >
+										<td class="td1">生日：</td>
+										<td>
+										<ul id="birthDay"><li class="birthday" id="dateWrap"><select name="bYear" id="bYear" class="dateForYear"></select>年<select name="bMonth" id="bMonth"class="dateForMonth"></select>月<select name="bDay" id="bDay" class="dateForDay"></select>日
+										</li>
+									</td>
+									</tr>
+									<tr style="display:none" >
+										<td class="td1">飞信号：</td><td><input class="text iblue" id="OtherIm" type="text" maxlength="10" /></td>
+									</tr>
+								</table>
+							</dd>
+						</dl>
+					</form>	
+					</div>
+				</div>	
+			<!--<div class="btm-con">
+				<div id="updateIgnoreBtn" style="display:none;">
+					<a href="javascript:void(0);" id="aMergeAndGoToNext" role="button" hidefocus="1" class="btn ml_10"><em id="labelMergeAndGoToNext">更新，下一个</em></a>
+
+					<a href="javascript:void(0);" id="neverPrompt">不再提示此人本次更新</a>
+					<a href="javascript:void(0);" id="aGoToNext" style="margin-left:50px;">查看下一个</a>
+				</div>				
+			</div>-->
+		</div>
+	</div>
+	<div class="main-wrap" id="noUpdateContacts"  style="display:none;">
+		<div class="tab-title">
+				<div style="display:none;margin-right:60px;float:right;" ></div>
+				<h4>最近更新的联系人</h4>
+			</div>
+		<div class="toolBar139">
+			<div class="btn_normal clear" style="display:block">
+				<ul class="btn_main">
+					<li class="mr_10"><a id="aBack0" hidefocus="1" href="javascript:void(0);"><i class="l_border"></i><em>&lt;&lt;</em> 返回<i class="r_border"></i></a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="top-y-tips" style="height:277px;line-height:277px;color:#969696; font-size:14px;font-weight: bold; background:#FFF;vertical-align: middle;">联系人资料已更新</div> 
+		<div class="toolBar139" >
+	       <div class="btn_normal clear" style="display:block">
+		     <ul class="btn_main" >
+				<li class="mr_10"><a id="aBack1" hidefocus="1" href="javascript:void(0);"><i class="l_border"></i><em>&lt;&lt;</em> 返回<i class="r_border"></i></a></li>
+			</ul>
+	      </div>
+        </div>
+	</div>
+    <footer id="footer"></footer>
+    </div>
+</div>
+<aside class="col-side-s5 mainSideBar" id="sidebar"></aside>
+</article>
+</body>
+<script type="text/javascript">
+$(function (){
+    UpdateContacts.initPage();
+});
+</script>
+
+</html>

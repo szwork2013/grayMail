@@ -1,0 +1,192 @@
+﻿<!DOCTYPE html>
+<html class="ifm">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>账单管理首页</title>
+
+<script type="text/javascript">
+    //设域
+    document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+    //获得资源路径
+    var resourcePath = window.top.rmResourcePath;
+    //写加载资源
+    var filePath = ('<link rel="stylesheet" rev="stylesheet" type="text/css" />\
+<link href="#resourcePath#/css/bill.css" rel="stylesheet" type="text/css" />\
+<script type="text/javascript" src="#resourcePath#/js/utils_controls.js" charset="gb2312"></' + 'script>\
+<script type="text/javascript" src="#resourcePath#/js/jquery.js" charset="gb2312"></' + 'script>').replace(/\#resourcePath\#/g, resourcePath);
+    document.write(filePath);
+</script>
+<script type="text/javascript">
+    Utils.loadSkinCss(null, null, "bill");
+
+    function showMyBill() {
+        top.MB.show(top.FM.folderID.myBill);
+        top.MM.close("billmanager");
+    }
+</script>
+</head>
+<body>
+                              <table width="100%" class="zd_mag">
+								<thead id="thead">
+									
+								</thead>
+								<tbody id="tbody">
+									
+								</tbody>	
+                                    <tr>
+										<td colspan="5" class="b_top"><div class="zd_mag_f"><a class="btn139" href="###" onclick="addCounts()"><i class="l_border"></i>新增账号<i class="r_border"></i></a><span>还可增加<em></em>个账号</span></div></td>
+									</tr>							
+							</table>
+<script>
+    //var middleServer="http://mw.mail.10086rd.cn/";
+    var middleServer = top.SiteConfig["billMiddleware"]; 
+    var donHtml = parent.window.$(".doN").html();
+    switch (donHtml) {
+        case '中国移动话费电子账单':
+            var billNum = 0;
+            var _billNum = billNum + 1;
+            break;
+        case '中国移动手机支付账单':
+            var billNum = 1;
+            var _billNum = billNum + 1;
+            break;
+        case '水费帐单':
+            var billNum = 2;
+            var _billNum = billNum + 1;
+            break;
+        case '电费帐单':
+            var billNum = 3;
+            var _billNum = billNum + 1;
+            break;
+    }
+    if (!middleServer) {
+        alert("服务器地址配置不正确");
+    }
+    function pageInit() {
+
+        var frm = document.createElement("iframe");
+        frm.id = "frmProxy";
+        frm.name = "frmProxy";
+        frm.style.display = "none";
+        document.body.appendChild(frm);
+        frm.style.display = "none";
+        frm.contentWindow.location.href = middleServer + "/proxy.htm";
+        var frm1 = document.createElement("iframe");
+        frm1.id = "frmProxy1";
+        frm1.name = "frmProxy1";
+        frm1.style.display = "none";
+        document.body.appendChild(frm1);
+        frm1.style.display = "none";
+        frm1.contentWindow.location.href = middleServer + "/proxy.htm";
+        $(frm).load(function () {
+            loadBillType();
+        });
+    }
+    function loadBillType() {
+        var url = middleServer + "/billsvr?func=bill:getTypeList&sid=" + top.sid;
+        var data = {};
+        data.targetServer = url;
+        data.ajax = window.frames["frmProxy"]._ajax;
+        RequestBuilder.call("", data, function (result) {
+            var len = result["var"][billNum].attrs.length + 1;
+            for (var i = 1; i < len; i++) {
+                var time = "a" + i + "Time";
+                var id = "a" + i + "Id";
+                var phone = "a" + i + "Phone";
+                var company = "a" + i + "Company";
+                var resultId = result["var"][i].columnId;
+                var resultAttrs = result["var"][billNum].attrs[i - 1];
+                if (resultId==1) {
+                    $("#thead").html('<tr><th width="60%">手机号</th><th width="40%">开通时间</th></tr>');
+                    $("#tbody").html('<tr><td>' + result["var"][billNum].attrs[0].a1Phone + '</td><td>' + result["var"][billNum].attrs[0].a1Time + '</td></tr><tr><td colspan="2" class="b_top"><div class="zd_mag_f"><a class="btn139" href="javascript:;" onclick="subscribeBill(' + _billNum + ',2,this)"><i class="l_border"></i>关闭账单<i class="r_border"></i></a></div></td></tr>');
+                }
+                if (resultId == 2) {
+                    $("#thead").html('<tr><th width="120">用户编号</th><th width="80">用户名</th><th width="150">服务商</th><th width="65">开通时间</th><th width="60">操作</th></tr>');
+                    $("#tbody").append('<tr><td>' + resultAttrs["a1Time"] + '</td><td>' + resultAttrs["a1Id"] + '</td><td>' + resultAttrs["a1Phone"] + '</td><td>' + resultAttrs["a1Company"] + '</td><td><a href="javascript:;" onclick="delCounts(' + _billNum + ',2,' + i + ')" title="关闭账单">关闭账单</a></td></tr>');
+                    var trLen = $("#tbody").children().length;
+                    if (trLen == 5) {
+                        $(".btn139").addClass("gray").attr("onclick", "");
+                    } 
+                }
+            }
+            $(".zd_mag_f em").html(String(6 - len));
+            FF.setHeight((i - 1) * 31 + 72 + "px");
+        });
+    }
+
+
+    function delCounts(billType, status, thisId) {
+        var url1 = middleServer + "/billsvr?func=bill:getTypeList&sid=" + top.sid;
+        var data1 = {};
+        var attrs = [];
+        data1.targetServer = url1;
+        data1.ajax = window.frames["frmProxy"]._ajax;
+        RequestBuilder.call("", data1, function (result) {
+            attrs = result["var"][billNum].attrs;
+            var url = middleServer + "/billsvr?func=bill:setBill&sid=" + top.sid;
+            var data = {
+                "deliverType": "C",
+                "billType": billType,
+                "status": status,
+                'attrs': attrs
+            }
+            data.targetServer = url;
+            data.ajax = window.frames["frmProxy1"]._ajax;
+            var trLen = $("#tbody").children().length;
+            if (trLen == 1) {
+                data.attrs = [];
+                RequestBuilder.call("", data, function (result) {
+                    switchStatus(billType, status);
+                    FloatingFrame.close();
+                });
+            }
+            else {
+                var emHtml = $(".zd_mag_f em").html();
+                data.attrs.splice(thisId-1, 1);
+                $("#tbody tr").eq(thisId - 1).css("display", "none");
+                data.status = 1;
+                RequestBuilder.call("", data, function (result) {
+                });
+                $(".zd_mag_f em").html(parseInt(emHtml) + 1);
+                $(".btn139").removeClass("gray").attr("onclick", "addCounts()");
+                   
+
+            }
+        })
+        
+    }
+    function addCounts() {
+        var FF = top.FloatingFrame;
+        FF.close();
+        FF.open("开通水费帐单", "/billwater.htm", 670, 250);
+        
+    }
+    function subscribeBill(billType, status, button) {
+
+        var url = middleServer + "/billsvr?func=bill:setBill&sid=" + top.sid;
+        //var status=$(this).attr("status");
+        //var updateStatus=status==2?1:2;
+
+        var data = {
+            "deliverType": "C",
+            "billType": billType,
+            "status": status
+        }
+        data.targetServer = url;
+        data.ajax = window.frames["frmProxy"]._ajax;
+        RequestBuilder.call("", data, function (result) {
+            switchStatus(billType, status);
+            FloatingFrame.close();
+        });
+
+    }
+    function switchStatus(billType, status) {//切换订购状态显示
+        parent.window.document.getElementById("billmanager").contentWindow.$(".normal_a")[billNum].innerHTML = '<a class="btn139" href="###" onclick="subscribeBill(' + _billNum + ',1,this)"><i class="l_border"></i>免费开通<i class="r_border"></i></a><a href=\"javascript:showPreview()\">预览</a>';
+
+    }
+    pageInit();
+  
+</script>
+</body>
+
+</html>

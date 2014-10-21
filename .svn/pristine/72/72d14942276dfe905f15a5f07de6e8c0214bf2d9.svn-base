@@ -1,0 +1,391 @@
+﻿/**
+ * @fileOverview 定义弹出菜单组件
+ */
+
+ (function (jQuery,_,M139){
+ var $ = jQuery;
+ var superClass = M139.View.ViewBase;
+M139.namespace("M2012.UI.PopMenu",superClass.extend(
+ /**
+  *@lends M2012.UI.PopMenu.prototype
+  */
+{
+    /** 弹出菜单组件
+    *@constructs M2012.UI.PopMenu
+    *@extends M139.View.ViewBase
+    *@param {Object} options 初始化参数集
+    *@param {String} options.template 组件的html代码
+    *@param {Array} options.itemsContainerPath 定义子项的容器路径
+    *@param {Array} options.items 定义子项内容
+    *@param {String} options.itemsPath 定义子项节点路径
+    *@param {String} options.itemsTemplate 定义子项html模板
+    *@param {String} options.itemsContentPath 定义内dock容显示的位置
+    *@param {String} options.splitLineTemplate 定义分割线的html模板
+    *@param {String} options.subMenuIconTemplate 子菜单箭头图标
+    *@param {String} options.subMenuIconInsertPath 子菜单箭头插入的位置
+    *@param {String} options.subMenuInsertPath 定义子菜单插入的父元素的位置
+    *@param {Number} options.scrollCount 定义最多到几个菜单项的时候出现滚动条，默认为15
+    *@param {Number} options.maxHeight 定义菜单最多到多少像素高的时候出现垂直滚动条，默认240
+    *@example
+    */
+    initialize: function (options) {
+        var customClass = options.customClass || "";
+        var customStyle = options.customStyle || "";
+        options.template = options.template.replace("{customClass}", customClass);
+        options.template = options.template.replace("{customStyle}", customStyle);
+        var $el = jQuery(options.template);
+        this.setElement($el);
+        return superClass.prototype.initialize.apply(this, arguments);
+    },
+    name: "M2012.UI.PopMenu",
+    /**构建dom函数*/
+    render:function(){
+        var This = this;
+        var options = this.options;
+        var items = options.items;
+
+        var itemContainer = options.itemsContainerPath ? this.$el.find(options.itemsContainerPath):this.$el;
+        var itemCount = 0;
+
+        if (options.selectMode) {
+            this.$el.addClass(options.selectModeClass);
+        }
+
+        for(var i=0;i<items.length;i++){
+            var item = items[i];
+            if(item.isLine){
+                itemContainer.append(options.splitLineTemplate);
+            }else{
+                var node = jQuery(options.itemsTemplate).appendTo(itemContainer);
+
+                if(item.text){
+                    node.find(options.itemsContentPath).text(item.text);
+                } else if (item.html) {
+                    if (item.highlight == false) { //非高亮状态，不生成a:hover样式
+                        node.html(item.html);
+                    } else {
+                        node.find(options.itemsContentPath).html(item.html);
+                    }
+                }
+
+                if (options.selectMode) {
+                    node.find(options.subMenuIconInsertPath).prepend(options.selectIconTemplate);
+                }
+
+                if(item.items && item.items.length){
+                    //插入有子菜单的右箭头
+                    node.find(options.subMenuIconInsertPath).append(options.subMenuIconTemplate);
+                    node.attr("submenu","1");
+                }
+                node.attr("index",i);
+                itemCount ++ ;
+            }
+        }
+
+        this.on("print",function(){
+            //判断是否要出滚动条
+            if(itemCount > (options.scrollCount || 15) || this.getHeight() > options.maxHeight){
+                this.$el.css({
+                    "overflow-x":"hidden",
+                    "overflow-y":"scroll",
+                    "height":(options.maxHeight || 310)
+                });
+            }
+            //处理溢出界面
+            if (this.options.parentMenu) {
+                var offset = this.$el.offset();
+                var bottom = offset.top + M139.Dom.getElementHeight(this.$el);
+                var moreTop = bottom - $(document.body).height()+10;
+                if (moreTop > 0) {
+                    this.$el.css("top", -moreTop + "px");
+                }
+            }
+        });
+
+        this.$el.find(options.itemsPath).mouseover(function(){
+            This.onMenuItemMouseOver(this);
+        }).click(function (e) {
+            var obj = e.target;
+            var isThisMenu = M139.Dom.containElement(This.el, obj);
+            //子菜单的容器在菜单项里，这里要排除子菜单的点击
+            if (isThisMenu) {
+                This.$el.find("ul div *").each(function () {
+                    if (this == obj) {
+                        isThisMenu = false;
+                    }
+                });
+            }
+            if (isThisMenu) {
+                This.onMenuItemClick(this);
+            }
+
+            e.stopPropagation();
+            if ($.browser.msie && $.browser.version <= 7) { // update by tkh IE67 阻止浏览器的默认行为，解决bug：回复转发打开空白写信页
+                e.preventDefault();
+            }
+
+        });
+
+        this.on("itemclick", function () {
+            this.remove();
+        });
+
+        return superClass.prototype.render.apply(this, arguments);
+    },
+    /**@inner*/
+    getItemByNode:function(node){
+        return this.options.items[node.getAttribute("index")];
+    },
+    /**@inner*/
+    onMenuItemClick:function(node){
+        var index = node.getAttribute("index");
+        if(!index)return;
+        index = index * 1;
+        var item = this.getItemByNode(node);
+        if (jQuery.isFunction(item.onClick)) {
+            try{
+                item.onClick(item);
+            } catch (e) {
+                //防止报错没关掉菜单
+                this.trigger("itemclick", item, index);
+                throw e;
+                return;
+            }
+        }
+        try{
+            if (jQuery.isFunction(this.options.onItemClick)) {
+                this.options.onItemClick(item,index);
+            }
+        } catch (e) {
+            //防止报错没关掉菜单
+            this.trigger("itemclick", item, index);
+            throw e;
+            return;
+        }
+        this.trigger("itemclick", item, index);
+    },
+
+    /**移除菜单*/
+    remove:function(){
+        this.removeSubMenu();
+        superClass.prototype.remove.apply(this,arguments);
+    },
+
+    selectItem:function(index){
+        this.$(this.options.itemsPath).eq(index).addClass(this.options.selectedClass);
+    },
+    unSelectItem: function (index) {
+        this.$(this.options.itemsPath).eq(index).removeClass(this.options.selectedClass);
+    },
+
+    /**
+     *鼠标移动到菜单项上面，需要显示子菜单
+     *@inner
+     */
+    onMenuItemMouseOver: function (node) {
+        var This = this;
+        if (node.getAttribute("submenu")) {
+            var item = this.getItemByNode(node);
+            this.trigger("itemMouseOver", item);
+            //创建子菜单
+            if (item.menu && this.subMenu == item.menu) {
+                return;
+            } else {
+                var op = jQuery.extend({}, this.options);
+                op.items = item.items;
+                op.parentMenu = this;
+                
+                var left = op.width ?  parseInt(op.width) : 150;
+                var _top = -5;
+
+                if (op.width2) { op.width = op.width2;} //二级菜单支持独立宽度
+                item.menu = new M2012.UI.PopMenu(op);
+                /*
+                if (menu.$el.height() + top > $(document.body).height()) {
+                    options.top = top - menu.$el.height();
+                }
+                if (menu.$el.width() + left > $(document.body).width()) {
+                    options.left = left - menu.$el.width();
+                }*/
+
+
+                this.trigger("subItemCreate", item);
+                var $el = item.menu.render().get$El();
+                var offset = this.$el.offset();
+                if (offset.left > $(document.body).width() / 2) {
+                    left = -$el.width();
+                }
+
+                $el.appendTo(node).css({
+                    left: left+"px",
+                    top: _top+"px"
+                });
+
+                item.menu.on("remove", function () {
+                    item.menu = null;
+                }).on("itemclick", function () {
+                    This.remove();
+                });
+            }
+            //一个菜单只能同时显示一个子菜单
+            this.removeSubMenu();
+            this.subMenu = item.menu;
+        } else {
+            this.removeSubMenu();
+        }
+    },
+
+    hide: function(){
+	    $D.unBindAutoHide({element: this.el});
+	    superClass.prototype.hide.apply(this, arguments);
+    },
+    
+    /**
+     *移除子菜单
+     *@inner
+     */
+    removeSubMenu:function(){
+        if(this.subMenu){
+            try {
+                this.subMenu.remove();
+                this.subMenu = null;
+            }catch(e){}
+        }
+    }
+}
+));
+
+var DefaultMenuStyle = {
+    template: ['<div class="menuPop shadow {customClass} show" style="top:0;left:0;z-index:9001;{customStyle}">',
+       '<ul>',
+       '</ul>',
+    '</div>'].join(""),
+    splitLineTemplate:'<li class="line"></li>',
+    itemsContainerPath:"ul",
+    itemsPath:"ul > li",
+    itemsTemplate: '<li><a href="javascript:;"><span class="text"></span></a></li>',
+    itemsContentPath: 'a > span',
+    subMenuIconTemplate: '<i class="i_triangle_h"></i>',
+    selectModeClass: "menuPops",
+    selectedClass: "cur",
+    selectIconTemplate: '<i class="i_b_right"></i>',
+    subMenuIconInsertPath:'a'
+};
+
+
+jQuery.extend(M2012.UI.PopMenu,
+ /**
+  *@lends M2012.UI.PopMenu
+  */
+{
+    /**
+    *使用常规的样式创建一个菜单实例
+    *@param {Object} options 参数集合
+    *@param {Array} options.items 菜单项列表
+    *@param {HTMLElement} options.container 可选参数，父元素，默认是添加到body中
+    *@param {String} options.top 坐标
+    *@param {String} options.left 坐标
+    *@example
+    M2012.UI.PopMenu.create({
+        items:[
+            {
+                text:"标已读",
+                onClick:function(){
+                    alert("标已读");
+                }
+            },
+            {
+                text:"标未读",
+                onClick:function(){}
+            },
+            {
+                isLine:true
+            },
+            {
+                text:"标签",
+                items:[
+                    {
+                        html:'&lt;span class=&quot;tagMin&quot;&gt;&lt;span class=&quot;tagBody&quot; style=&quot;background-color:#369;&quot;&gt;&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;tagText&quot;&gt;标签1&lt;/span&gt;',
+                        onClick:function(){}
+                    },
+                    {
+                        html:'&lt;span class=&quot;tagMin&quot;&gt;&lt;span class=&quot;tagBody&quot; style=&quot;background-color:#F60;&quot;&gt;&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;tagText&quot;&gt;标签2&lt;/span&gt;',
+                        onClick:function(){}
+                    }
+                ]
+            },
+        ],
+        onItemClick:function(item){
+            alert("子项点击");
+        }
+    });
+    */
+    create:function(options){
+        if(!options || !options.items){
+            throw "M2012.UI.PopMenu.create:参数非法";
+        }
+        options = _.defaults(options,DefaultMenuStyle);
+        var menu = new M2012.UI.PopMenu(options);
+        menu.render().$el.appendTo(options.container || document.body).css("visibility","hidden");
+        if (options.dockElement) {
+            setTimeout(function () {
+                M139.Dom.dockElement(options.dockElement, menu.$el, { direction: options.direction, dx: options.dx, dy: options.dy });
+                menu.$el.css("visibility", "");
+            }, 0);
+        } else {
+            var top = parseInt(options.top);
+            var left = parseInt(options.left);
+            if (menu.$el.height() + top > $(document.body).height()) {
+                options.top = top - menu.$el.height();
+            }
+            if (menu.$el.width() + left > $(document.body).width()) {
+                options.left = left - menu.$el.width();
+            }
+            menu.$el.css({
+                left: options.left || 0,
+                top: options.top || 0
+            });
+            menu.$el.css("visibility", "");
+        }
+
+        //点击页面其它地方自动隐藏
+        this.bindAutoHide({
+            stopEvent:true,
+            action:"click",
+            element:menu.el,
+            callback: options.hideInsteadOfRemove ? function(){menu.hide()} : function(){menu.remove()}
+        });
+
+        return menu;
+    },
+    /**当点击时自动创建菜单
+    */
+    createWhenClick: function (options,createCallback) {
+        if (!options || !options.target) {
+            throw "必须包含options.target，表示被点击的元素";
+        }
+        $(options.target).click(function (e) {
+            if (!options.dockElement) {
+                options.dockElement = $(options.target);
+            }
+            var menu = M2012.UI.PopMenu.create(options);
+            if (createCallback) {
+                createCallback(menu);
+            }
+        });
+            
+        
+    },
+
+
+    bindAutoHide:function(options){
+        return $D.bindAutoHide(options);
+    },
+
+    unBindAutoHide: function (options) {
+        return $D.unBindAutoHide(options);
+    }
+    
+});
+
+})(jQuery,_,M139);

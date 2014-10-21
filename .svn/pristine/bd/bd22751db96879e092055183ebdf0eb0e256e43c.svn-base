@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>中转</title>
+
+    <script type="text/javascript">
+        //设域
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+        top.loadScript("jquery.js", document);
+        top.loadScript("m2011.utilscontrols.pack.js", document);
+    </script>
+
+</head>
+<body>
+ <script type="text/javascript">
+    $(document).ready(function()
+    {       
+        //日志上报
+        top.addBehaviorExt({
+            actionId:10001,
+            thingId:0,
+            moduleId:20
+        });       
+        function goCalendarPage()
+        {
+            var gourl = "";
+            if(location.search.indexOf("userName") > 0&&location.search.indexOf("birthday")>0)
+            {
+                gourl = "/m2012/html/calendar/special/birthday.html?username="+escape(Utils.queryString("username"))+"&birthday="+Utils.queryString("birthday");
+                window.location.href = gourl+"&sid=" + top.UserData.ssoSid + "&rnd=" + Math.random();
+                return ;           
+            }            
+            else if (location.search.indexOf("content") > 0) {
+                var cont=Utils.queryString("content");
+                var d=top.UserData.ServerDateTime.format("yyyy-MM-dd");
+                gourl = "/m2012/html/calendar/calendar_editcalendar.html?cont=" + escape(cont) + "&type=0&sms=1&mail=0&time=15&d=" + d;
+                window.location.href = gourl+"&sid=" + top.UserData.ssoSid + "&rnd=" + Math.random();
+                return ;
+            }          
+            /**********for运维推广******************************/
+            //javascript:top.Links.show("calendar","&source=InfoZone&ywextend=ywextend&ywtext=abcd&startDate=2011-5-20&startTime=8:00&endDate=2011-5-21&endTime=8:30&remind=1");
+            else if(location.search.indexOf("ywextend")>0)
+            {
+                //获取内容
+                var ywextend=Utils.queryString("ywextend");//ywextend
+                var con=Utils.queryString("ywtext");      //文本
+                var startDate=Utils.queryString("startDate");//2010-11-25
+                var startTime=Utils.queryString("startTime");//5,20
+                var endDate=Utils.queryString("endDate");//2010-11-30
+                var endTime=Utils.queryString("endTime");//6,20
+                var remind=Utils.queryString("remind");//是否提醒好友 0|1
+                var rept=Utils.queryString("rept");//0：不重复 3：每天 4：每周 5：每月 6：每年
+                gourl = "/m2012/html/calendar/calendar_editcalendar.html?source=InfoZone&content=" + escape(con) + "&ywextend=" + ywextend + "&startDate=" + startDate + "&startTime=" + startTime + "&endDate=" + endDate + "&endTime=" + endTime + "&remind=" + remind + "&rept=" + rept;
+                window.location.href = gourl+"&sid=" + top.UserData.ssoSid + "&rnd=" + Math.random();
+                return ;
+            }
+            else if(location.search.indexOf("addnew") > 0)
+            {
+                switch(Utils.queryString("addnew"))
+                {
+                    case "0":
+                        gourl = "/m2012/html/calendar/calendar_editcalendar.html";
+                        break;
+                    case "1":
+                        gourl = "/m2012/html/calendar/special/meet.html";
+                        break;
+                    case "2":
+                        gourl = "/m2012/html/calendar/special/pay.html";
+                        break;
+                    case "3":
+                        gourl = "/m2012/html/calendar/special/specialday.html";
+                        break;
+                    case "5":
+                        gourl = "/m2012/html/calendar/special/match.html";
+                        break;
+                    case "6":
+                        gourl = "/m2012/html/calendar/special/birthday.html";
+                        break;
+                    case "8":
+                        gourl = "/m2012/html/calendar/special/baby.html";
+                        break;
+                    case "9":
+                        gourl = "/m2012/html/calendar/game/gameindex.html";
+                        break;
+                        //运营推广
+                    case "10":
+                        gourl = "/m2012/html/calendar/calendar_editcalendar.html";
+                        break;
+                    case "11":
+                        gourl = "/m2012/html/calendar/special/astro.html";
+                        break;
+                    case "12":
+                        gourl = "/m2012/html/calendar/game/olympicgames2012/gameindex.html";
+                        break;
+                    default:
+                        gourl = "/m2012/html/calendar/calendar_editcalendar.html";
+                        break;
+                }
+            }
+            else {
+                gourl = "/m2012/html/calendar/calendar_view.html";
+            }
+              window.location.href = gourl+"?sid=" + top.UserData.ssoSid + "&rnd=" + Math.random();
+        }
+        goCalendarPage();
+    });
+    </script>
+</body>
+</html>

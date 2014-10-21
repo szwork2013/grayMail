@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="M2012" default="packServer" basedir=".">
+    <property file="build.properties"/>
+    <target name="packServer">
+      <echo>复制m2012server服务代码</echo>
+      <copydir src="${M2012.src.serverDir}/" dest="${M2012.file.dir}/m2012server/home/m2012server/">
+        <include name="**/**" />
+        <exclude name="log/*.*" />
+      </copydir>
+    </target>
+</project>

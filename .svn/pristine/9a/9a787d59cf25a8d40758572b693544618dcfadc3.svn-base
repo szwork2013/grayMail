@@ -1,0 +1,247 @@
+.sleeper * {
+	margin: 0;
+	padding: 0;
+	font-family: '微软雅黑';
+	font-size: 12px;
+}
+
+.sleeper {
+	width: 494px;
+	height:370px;
+	background: url(../images/bg.png) no-repeat;
+	position: relative;
+	margin-top: 60px;
+	margin-left: 0px;
+	padding: 10px;
+}
+
+.sleeper .horse {
+	position: absolute;
+	right: 26px;
+	top: -57px;
+	z-index: 1;
+}
+
+.sleeper .sleeperTop {
+	width: 514px;
+	height: 14px;
+	background: url(../images/topBg.png) no-repeat;
+	position: absolute;
+	top: -8px;
+	left: 0;
+}
+
+.sleeper .sleeperBtm {
+	width: 514px;
+	height: 14px;
+	background: url(../images/btmBg.png) no-repeat;
+	position: absolute;
+	bottom: -8px;
+	left: 0;
+}
+
+.sleeper .logo {
+	margin: 10px;
+	position: relative;
+	top: 3px;
+	left: 10px;
+	z-index:2;
+}
+
+	.sleeper .logo p {
+		color: #fdbbb3;
+		margin: 0;
+		padding: 0;
+	}
+
+		.sleeper .logo p span {
+			color: #fcff00;
+			margin: 0 5px;
+		}
+
+.sleeper .userAddr {
+	background: #faecea;
+	margin: 25px 10px 0px 12px;
+	position:relative;
+}
+
+.sleeper .addrMore {
+	height: 213px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.sleeper .userAddr table {
+	width:443px;
+	margin: 5px 0 0 10px;
+	list-style: none;
+}
+
+	.sleeper .userAddr table td {
+		width: 80px;
+		height: 25px;
+		line-height: 25px;
+	}
+
+		.sleeper .userAddr table td input {
+			margin-right: 5px;
+			position: relative;
+			top: 2px;
+		}
+
+.more {
+	width: 472px;
+	height: 16px;
+	background: url(../images/more.jpg) no-repeat center bottom;
+	display: block;
+}
+	.more.on {
+	   background: url(../images/more_on.png) no-repeat center bottom;
+	}
+
+.btnBig, .colse, .btnSml, .tips {
+display: block;
+background: url(../images/icon.png) no-repeat;
+}
+
+.sleeper .btnBig {
+width: 110px;
+height: 34px;
+line-height: 34px;
+background-position: 0 -64px;
+margin: 0 auto;
+text-align: center;
+color: #333333;
+text-decoration: none;
+font-size: 14px;
+}
+
+.sleeper .btnBig:hover {
+	background-position: 0 -104px;
+}
+
+.colse {
+width: 34px;
+height: 34px;
+background-position: -117px -77px;
+position: absolute;
+right: -8px;
+top: -8px;
+}
+
+.colse:hover {
+	background-position: -117px -39px;
+}
+
+.btnSml {
+width: 90px;
+height: 24px;
+line-height: 24px;
+background-position: 0 0;
+margin: 0 auto;
+color: #333333;
+text-decoration: none;
+font-size: 12px;
+text-align: center;
+display: inline-block;
+}
+
+.btnSml:hover {
+	background-position: 0 -32px;
+}
+
+.tips {
+width: 36px;
+height: 36px;
+display: inline-block;
+background-position: -113px 0;
+position: relative;
+top: 10px;
+right: 15px;
+}
+
+.sleeper .sleeperCard {
+background: #faecea;
+border: 1px solid #981201;
+margin: 10px 0 10px 12px;
+width: 470px;
+height: 176px;
+overflow-y: auto;
+}
+
+.sleeper .sleeperCard .spCardShow {
+	background: #f6d3ce;
+	float: left;
+	margin-right: 25px;
+}
+
+	.sleeper .sleeperCard .spCardShow .cardImg {
+		margin: 5px 5px 2px 5px;
+		display: block;
+	}
+
+	.sleeper .sleeperCard .spCardShow .aChang {
+		display: block;
+		padding-bottom: 5px;
+		font-size: 12px;
+		color: #3884ca;
+		text-decoration: none;
+		text-align: center;
+	}
+
+.sleeper .cardWord {
+font-size: 12px;
+}
+
+.sleeper .cardWord h2 {
+	color: #b41500;
+	font-size: 14px;
+	margin: 15px 0 0;
+	padding: 0;
+}
+
+.sleeper .cardWord ul li {
+	list-style: none;
+	line-height: 22px;
+	margin-top: 10px;
+}
+
+.sleeper .sendTips {
+padding: 0 0 35px 80px;
+border-bottom: 1px solid #b85447;
+}
+
+.sleeper .sendTips div {
+	margin-bottom: 15px;
+}
+
+.sleeper .sendTips .p1 span {
+	font-size: 16px;
+	color: #fff;
+}
+
+.sleeper .sendTips .p2 {
+	margin: 10px 0 0 37px;
+	color: #fff;
+}
+
+.sleeper .sendTips .p3 {
+	margin-left: 30px;
+	color: #fdbbb3;
+}
+
+.sleeper .sendMore {
+color: #feea8c;
+font-size: 14px;
+margin-left: 15px;
+text-decoration: none;
+}
+
+.sleeper .sendTips .p4 {
+margin-left: 30px;
+}
+
+.sleeper .p5 {
+padding: 10px 12px 0 12px;
+color: #fdbbb3;
+}

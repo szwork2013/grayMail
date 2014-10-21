@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"  id="pg-window">
+<head>
+    <title>�ʼ��������浽����</title>
+    <meta content="text/html; charset=gb2312" http-equiv="Content-Type" />
+    <script type="text/javascript">
+    var v="20120613";
+	function GetQueryString(name) {
+	   var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)","i");
+	   var r = window.location.search.substr(1).match(reg);
+	   if (r!=null) return unescape(r[2]); return null;
+	};
+	
+	function isAllowHost(_aUrl){
+		//var _allowHostList	= [ "*.139cm.com", "*.rd139cm.com", "*.139.com", "*.rd139.com" ];原139域名
+		var _allowHostList = ["*.10086.cn", "*.10086rd.cn", "*.10086ts.cn", "*.139cm.com", "*.rd139cm.com", "*.139.com", "*.rd139.com"];
+		var _urlHost = _aUrl.split( "://" ).pop().split( "/" )[0];
+		if(!_urlHost) {
+			return false;
+		}
+	
+		var _urlHostItems = _urlHost.split(".");
+		var _urlHostItemsLen = _urlHostItems.length;
+		for(var i = _allowHostList.length - 1; i >= 0; i--) {
+			var _allowHostItem = _allowHostList[i].split(".");
+			var _allowHostItemLen = _allowHostItem.length;
+			var _pos = 1;
+	
+			for(; _pos <= _urlHostItemsLen && _pos <= _allowHostItemLen; _pos++) {
+				if(_allowHostItem[_allowHostItemLen - _pos] != "*" && _allowHostItem[_allowHostItemLen - _pos] != _urlHostItems[_urlHostItemsLen - _pos])
+					break;
+			}
+			if(_pos - 1 == _allowHostItemLen && (_allowHostItem[0] == "*" || _allowHostItemLen == _urlHostItemsLen ))
+				return true;
+		}
+		return false;
+	};
+	
+	top.isRichmail = true;
+	
+	// add by tkh xss漏洞
+	var respathParam = GetQueryString("respath");
+	if(respathParam && isAllowHost(respathParam)){
+		window.top.resourcePath = respathParam;
+	}else{
+		window.top.resourcePath = '';
+	}
+	
+	//window.top.resourcePath = GetQueryString("respath");
+	window.top.rmResourcePath = window.top.resourcePath;
+	window.top.UserConfig = new Object();
+	window.top.UserConfig.skinPath = GetQueryString("skin");
+	window.top.UserData = new Object();
+	window.top.UserData.ssoSid = GetQueryString("sid");
+	window.top.UserData.userNumber = GetQueryString("userNumber");
+	window.top.SiteConfig = new Object();
+	window.top.SiteConfig.diskInterface = GetQueryString("diskservice");
+	window.top.FloatingFrame = new Object();
+	window.top.FloatingFrame.close = function() {
+		window.close();
+	}
+	window.top.loadScripts=function(arr,_doc){
+		for(var i=0;i<arr.length;i++){
+		top.loadScript(arr[i],_doc);
+		}
+	}
+	window.top.loadScript = function(key,_doc,charset) {
+		var path=null;
+		
+		path=top.resourcePath+"/js/"+key;
+		
+		(_doc||document).write("<script charset=\""+(charset||"utf-8")+"\" type=\"text/javascript\" src=\"" + path + "\"></" + "script>");
+	}
+
+	//����
+	document.domain=window.location.hostname.match(/[^.]+\.[^.]+$/)[0];
+	CommonInit(document,["js/m2011.disk.upload.js", "js/m2011.disk.savemailattach.js"]);
+    
+	function CommonInit(docCur, diskResJs, dCssaAble) {
+		var doc = docCur || document;
+		//�����Դ·��
+		var resourcePath = window.top.resourcePath;
+		var diskResourcePath = resourcePath.replace("richmail", "newnetdisk4")+"/";
+		var htmlCode="";
+		if(dCssaAble == undefined || dCssaAble == true) {
+		   htmlCode += getLinkTag(resourcePath + "/css/netdisk.css");
+		}
+		htmlCode+=getLinkTag("");   //����Ƥ���css
+		top.loadScript("jquery.js", doc);
+		top.loadScript("m2011.utilscontrols.pack.js", doc);
+		htmlCode+=getJsTag(diskResourcePath + "js/m2011.disk.diskconf.js");
+		htmlCode+=getJsTag(diskResourcePath+"/js/m2011.disk.diskcommon.js");
+		
+		if(diskResJs && diskResJs.length > 0){
+			for(var i=0;i<diskResJs.length ;i++){
+			   if((/\.js$/i).test(diskResJs[i])){htmlCode += getJsTag(diskResourcePath + diskResJs[i])};
+			   if((/\.css$/i).test(diskResJs[i])){htmlCode += getLinkTag(resourcePath + diskResJs[i])};
+			}
+		}
+		
+		doc.write(htmlCode);
+	}
+	function getJsTag(path,charset){
+		var html="<script charset='utf-8' src='"+path+"?v="+v+"' type='text/javascript'></"+"script>";
+		if (charset) html = html.replace("utf-8",charset);
+		return html;
+	}
+	function getLinkTag(path){
+		var text="";
+		if(path)text="href='"+ path +"?v="+v+"'";
+		return "<link rel='stylesheet' type='text/css' "+text+" />";
+	}
+    </script>
+
+
+    <script type="text/javascript">
+    //����Ƥ��
+    Utils.loadSkinCss(null,document, "netdisk");
+    $().ready(PageInit);
+    </script>
+
+</head>
+<body>
+<div class="dialog" id="dialog1">
+	<div class="dl-tip">
+		<p>��ѡ���ļ������λ�ã�<p style="display:none"><select id="stPosition">
+				</select></p></p>
+	</div>
+	<div class="bd">
+		<ul class="file-tree"  id="file-tree2">
+		</ul>
+	</div>
+	<div class="ft">
+		<ul class="dbtn-list">
+			<li><a class="btnNormal" href="javascript:;" id="aSaveAttach">ȷ ��</a></li>
+			<li><a class="btnNormal" onclick="javascript:window.close();" href="#" id="aCancel">ȡ ��</a></li>
+		</ul>
+	</div>
+</div>
+<div class="dialog" style="display:none" id="dialogOK">
+	<div class="bd">
+		<h3 id="h3Name"></h3>
+		<p><a href="javascript:;" id="aOpenDisk"></a></p>
+		<i class="i-dialog-warn"></i></div>
+	<div class="ft">
+		<ul class="dbtn-list">
+			<li><a class="btnNormal" onclick="javascript:window.close();" href="#" id="aSaveOK">�� ��</a></li>
+		</ul>
+	</div>
+</div>
+</body>
+</html>

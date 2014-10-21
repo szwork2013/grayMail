@@ -1,0 +1,205 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="Keywords" content="彩云,网络硬盘,彩云搜索,免费彩云,移动彩云,免费网络硬盘,彩云哪个好,网
+盘下载,网络硬盘哪个好,免费大容量网络硬盘,免费大容量网络硬盘,免费的网络硬盘,最好的彩云,最大的网络硬
+盘,网络U盘,最好的网络U盘,上传文件,文件共享,上传文件,文件共享,上传,上传空间,云存储"/>
+<meta name="Description" content="国内领先的网络硬盘(彩云)服务商，快速稳定功能强大。彩云，空间最
+大、上传最快，最好的免费彩云，拥有10G空间的免费网络硬盘！多台电脑同步网络文件！高速上传下载彩云文件
+、稳定，超大容量，无忧存储，便捷同步，快速稳定支持断点续传，拥有出色的文件共享功能，可直接发文件到
+手机中！" />
+<title>139邮箱彩云|移动硬盘|上传最快的免费彩云<</title>
+<link href="NetdiskToolDownload.css" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+<div id="container" class="container" style="height: 100%;">
+	<div class="w960">
+        <div class="top">
+            <div class="fLeft">
+                <a title="中国移动通信" href="http://www.10086.cn/" class="a1"></a>
+                <a title="139邮箱" href="http://mail.10086.cn/" class="a2"></a>
+            </div>
+            <div class="fRight">
+            <a href="http://10086.cn/service" target="_blank" title="网上营业厅">网上营业厅</a>
+            |
+            <a href="http://www.10086.cn/index_sitemap_3137.htm" target="_blank" title="站点导航" rel="3260">站点导航</a>
+            |
+            <a href="http://jf.10086.cn/" target="_blank" rel="1470" title="帮助">积分商城</a>
+            |
+            <a href="http://www.10086.cn/" target="_blank" rel="1470" title="帮助">中国移动</a>
+            </div>
+        </div>
+        <div class="banner">
+            <img width="937" height="325" src="images/banner.jpg">
+            <a target="_blank" id="a_download" href=""></a>
+            <p>
+                支持操作系统 XP、Vista、Win7 <br>
+                版本：1.0.0.8
+            </p>
+			<!--
+            <p id="download-versions" style="display: block; color:#333; position: absolute; top: 310px; left: 239px;">
+			<label><input type="radio" onclick="selectPlatform()" name="version" id="version-standard" checked>32位</label>
+			<label><input type="radio" onclick="selectPlatform(true)" name="version" id="version-classic">64位</label>
+			</p>-->
+        </div>
+
+        <div class="info">
+            <div>
+                <h3 class="t1"></h3>
+                <p>·<span>无需登录邮箱</span>，在"我的电脑"中直接使用</p>
+                <p>·右键菜单、键盘<span>快捷键管理</span>文件，操作简便</p>
+            </div>
+            <div>
+                <h3 class="t2"></h3>
+                <p>·自动扫描病毒，<span>超强容灾</span>系统，不怕硬盘损坏</p>
+                <p>·虚拟盘、本地<span>双重备份</span>，多渠道存储文件</p>
+            </div>
+            <div>
+                <h3 class="t3"></h3>
+                <p>·上传过程意外中断，可进行<span>断点续传</span></p>
+                <p>·支持右键复制粘贴、直接拖拽<span>上传文件</span></p>
+            </div>
+            <div>
+                <h3 class="t4"></h3>
+                <p>·PC端、web端或手机上传的文件，各处均<span>同步显示</span></p>
+                <p>·系统智能分析反馈，文件上传<span>瞬间完成</span></p>
+            </div>
+        </div>
+    </div>
+    <div class="foot">
+    	<div class="f-w960">
+            <div class="ftLeft">
+                <a href="http://www.10086.cn/index_law_3134.htm" title="法律声明" target="_blank">版权声明</a>|<a href="http://www.10086.cn/service/advise/index.htm" title="客服受理" target="_blank">客服受理</a>|<a href="http://www.10086.cn/aboutus/index_4450.htm" target="_blank" title="网站地图">关于移动</a>
+            </div>
+            <div class="ftRight">
+                <a target="icp" href="http://www.miibeian.gov.cn/">京ICP备05002571号</a>|<a href="http://www.10086.cn/" target="_blank" title="中国移动通信">中国移动通信版权所有</a>
+            </div>
+        </div>
+	</div>
+</div>
+<script>
+function GetQueryString(name) {  
+    var  reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)","i");  
+    var  r = window.location.search.substr(1).match(reg);  
+    if   (r != null)   return r[2];   return   null;  
+}
+function getJsTag(path, charset){
+	var html="<script charset='utf-8' src='"+ path +"' type='text/javascript'></"+"script>";
+	if (charset) html = html.replace("utf-8", charset);
+	return html;
+}
+
+function isAllowHost(_aUrl){
+	//var _allowHostList	= [ "*.139cm.com", "*.rd139cm.com", "*.139.com", "*.rd139.com" ];原139域名
+	var _allowHostList = ["*.10086.cn", "*.10086rd.cn", "*.10086ts.cn", "*.139cm.com", "*.rd139cm.com", "*.139.com", "*.rd139.com"];
+	var _urlHost = _aUrl.split( "://" ).pop().split( "/" )[0];
+	if(!_urlHost) {
+		return false;
+	}
+
+	var _urlHostItems = _urlHost.split(".");
+	var _urlHostItemsLen = _urlHostItems.length;
+	for(var i = _allowHostList.length - 1; i >= 0; i--) {
+		var _allowHostItem = _allowHostList[i].split(".");
+		var _allowHostItemLen = _allowHostItem.length;
+		var _pos = 1;
+
+		for(; _pos <= _urlHostItemsLen && _pos <= _allowHostItemLen; _pos++) {
+			if(_allowHostItem[_allowHostItemLen - _pos] != "*" && _allowHostItem[_allowHostItemLen - _pos] != _urlHostItems[_urlHostItemsLen - _pos])
+				break;
+		}
+		if(_pos - 1 == _allowHostItemLen && (_allowHostItem[0] == "*" || _allowHostItemLen == _urlHostItemsLen ))
+			return true;
+	}
+	return false;
+}
+
+var Utils = {
+	getCookie: function(_) {
+		 var $ = document.cookie.match(new RegExp("(^|\\W)"+_+"=([^;]*)(;|$)"));
+		  if($!=null){
+			return unescape($[2]);
+		  }
+		  return "";
+	},
+	htmlEncode : function($){
+	    if(typeof $=="undefined"){
+	      return "";
+	    }
+	    $=$.replace(/&/g,"&amp;");
+	    $=$.replace(/</g,"&lt;");
+	    $=$.replace(/>/g,"&gt;");
+	    $=$.replace(/\"/g,"&quot;");
+	    $=$.replace(/ /g,"&nbsp;");
+	    $=$.replace(/&amp;#([^\;]+);/ig,"&#$1;");
+	    return $;
+	}
+};
+String.prototype.format=function(){
+  var str=this,tmp;
+  for(var i=0;i<arguments.length;i++){
+    tmp=String(arguments[i]).replace(/\$/g,"$$$$");
+    str=str.replace(eval("/\\{"+i+"\\}/g"),tmp);
+  }
+  return str;
+};
+//获取资源服务器路径
+
+var resourcePath = '';
+var netDiskResourcePath = '';
+
+// add by tkh XSS漏洞 
+var resourcePathParam = GetQueryString("res");
+var netDiskResourcePathParam = GetQueryString("jsres");
+if(resourcePathParam && isAllowHost(resourcePathParam)){
+	resourcePath = Utils.htmlEncode(unescape(resourcePathParam));
+}else{
+	resourcePath = 'http://images.139cm.com/rm/richmail';
+}
+if(netDiskResourcePathParam && netDiskResourcePathParam.indexOf('139') != -1){
+	netDiskResourcePath = Utils.htmlEncode(unescape(netDiskResourcePathParam));
+}else{
+	netDiskResourcePath = 'http://images.139cm.com/rm/newnetdisk4/';
+}
+
+var htmlCode="";
+htmlCode += getJsTag(resourcePath + "/js/jquery.js");
+
+htmlCode += getJsTag(netDiskResourcePath + "/js/m2011.disk.diskconf.js");
+htmlCode += getJsTag(netDiskResourcePath + "/js/m2011.disk.diskcommon.js");
+document.write(htmlCode);
+</script>
+<script>
+//下载地址
+function selectPlatform(is64){
+    if(is64){
+        document.getElementById("version-classic").checked = true;
+        var url = DiskTool.getDownLoadVdUrl(false, "64");
+    }else{
+        document.getElementById("version-standard").checked = true;
+        var url = DiskTool.getDownLoadVdUrl(false);
+    }
+	url = url.substr(1, url.length);
+    document.getElementById("a_download").href = url;
+}
+var isWin64 = navigator.platform && navigator.platform.indexOf("64")>-1;
+selectPlatform(isWin64);
+</script>
+<script>
+	function mainIfrChange(){
+		var seeH = document.documentElement.clientHeight;
+		var topH = document.getElementById("container").clientHeight;
+		if(topH < seeH){
+				document.getElementById("container").style.height = "100%" ;
+			}
+	}
+	mainIfrChange();
+	window.onresize = mainIfrChange;
+</script>
+
+
+</body>
+</html>

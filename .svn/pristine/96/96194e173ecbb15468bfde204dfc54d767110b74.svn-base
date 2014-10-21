@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript">
+//设域
+document.domain=window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+
+//获得资源路径
+var resourcePath=window.top.resourcePath;
+var calendarResourcePath=resourcePath.replace("coremail","calendar");
+var htmlCode="";
+htmlCode+=getLinkTag("");
+htmlCode+=getLinkTag(calendarResourcePath+"/css/calendar.css?v=20110617");
+
+top.loadScript("jquery.js", document);
+top.loadScript("m2011.utilscontrols.pack.js", document);
+
+top.loadScript("/m2012/js/service/calendar/m2011.calendar.MyCalendar.js", document);
+top.loadScript("/m2012/js/service/calendar/m2011.calendar.edit.js", document);
+document.write(htmlCode);
+
+function getJsTag(path,charset){
+    var html="<script charset='gb2312' src='"+path+"' type='text/javascript'></"+"script>";
+    if (charset) html = html.replace("gb2312",charset);
+    return html;
+}
+function getLinkTag(path){
+    var text="";
+    if(path)text="href='"+path+"'";
+    return "<link rel='stylesheet' type='text/css' "+text+" />";
+}
+</script>
+<link rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+Utils.loadSkinCss(null,document,"calendar");
+</script>
+<title>提醒设置</title>
+</head>
+<body> 
+	<!--添加提醒-->
+   <div class="panel" id="babySetPanel">
+        <p class="tips" style="display:none;width:415px" id="pErrorMsg"><i class="error"></i><label id="lblErrorMsg">错误提示信息！</label></p>
+		<table cellpadding="0" cellspacing="0">
+		    <tr id="trTime">
+				<th>注射时间</th>
+				<td style="padding-left:7px"><span class="date"></span>
+				<select id="dropYear" style="width:55px"></select>年
+				<select id="dropMonth" style="width:40px"></select>月
+				<select id="dropDay" style="width:40px"></select>日
+				<select id="dropTime" style="width:65px"></select>
+				</td>
+			</tr>
+            <tr>
+				<th><i class="alert"></i></th>
+				<td>
+                	<select id="ddlBeforeDays" style="width:80px;"></select> <label>提醒我</label>(下发提醒时间以当天上午8点为基准)
+                </td>
+			</tr>
+			<tr>
+				<th>通过</th>
+				<td><input type="checkbox" id="tmemsg"/><label for="tmemsg">发短信</label>
+					 <input type="checkbox" id="tmemail"/><label for="tmemail">发邮件</label>
+					 <p class="help" id="phelp" style="display:none;"></p>
+					 </td>
+			</tr>
+		</table>
+		<div class="opr-bar" style="text-align:center"><a href="javascript:" class="abtn" id="btnSave">保 存</a><a class="abtn" href="javascript:" id="btnCancel">取 消</a></div>
+	</div>
+	<script type="text/javascript">
+	    $(document).ready(function()
+	    {
+	         top.$(".winTipC").css("padding","0px");         
+             top.$(".wTipCont").css("padding","0px");
+	         new richinfo.email.calendar.babyset();
+	         
+	    });
+	</script>
+</body>
+</html>

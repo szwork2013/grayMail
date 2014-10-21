@@ -1,0 +1,97 @@
+﻿/**
+* @fileOverview 信纸成功页视图层--发件人改名设置
+* @namespace 
+*/
+(function (jQuery, _, M139) {
+    var $ = jQuery;
+    var superClass = M139.View.ViewBase;
+    M139.namespace('M2012.Compose.View.Success.TrueName', superClass.extend(
+    {
+        elModule: $("#randomModule"),
+        trueNameTemple: [ '<strong class="writeOk_box_title">设置发件人姓名，让TA一眼认出我</strong>',
+                    '<ul class="writeOk_box_ul clearfix">',
+                        '<li class="clearfix">',
+                            '<span class="writeOk_label">姓名：</span>',
+                            '<div class="writeOk_element">',
+                                '<p>',
+                                    '<input type="text" name="" first="true" maxlength="12" class="iText gray" value="例如：zhangsan">',
+                                '</p>',
+                                '<p class="writeOk_element_p">最多12个字符</p>',
+                                '<p class="clearfix writeOk_element_btn"><a class="btnSetG" href="javascript:;"><span>保 存</span></a></p>',
+                            '</div>',
+                        '</li>',
+                    '</ul>'].join(""),
+        trueNameSucTemple:[ '<div class="writeOk_boxOther clearfix">',
+                    '<i class="i_ok_min"></i>',
+                    '<div class="writeOk_boxOther_right">',
+                        '<strong>设置成功</strong>',
+                        '<p>发件人姓名：{name}</p>',
+                    '</div>',
+                    '</div>'].join(""),
+        trueNameFailTemple: [ '<div class="writeOk_boxOther clearfix">',
+                    '<i class="i_warn_min"></i>',
+                    '<div class="writeOk_boxOther_right">',
+                        '<strong>网页君开小差啦，保存不成功</strong>',
+                        '<p class="mt_10"><a href="javascript:;" class="btnSetG"><span>重新保存</span></a></p>',
+                    '</div>',
+                    '</div>'].join(""),
+        initialize: function () {
+            this.render();
+            return superClass.prototype.initialize.apply(this, arguments);
+        }, 
+        render:function(){ //别名设置          
+            var self = this;  
+            self.elModule.html(self.trueNameTemple).show();
+            self.elModule.find('a').click(function(){
+                var name = self.elModule.find('input').val();
+                if(self.isSeting){
+                    return;
+                }
+                if($.trim(name)==""){
+                    var p = self.elModule.find('.writeOk_element_p');
+                    p.text('请输入发件人姓名').addClass('red');
+                    setTimeout(function(){
+                        p.text('最多12个字符').removeClass('red');
+                    },3000)
+                    return;
+                }
+                self.isSeting = true;
+                var AddrFirstName = top.$TextUtils.htmlEncode(name);
+                var postStr = '<ModUserInfo><AddrFirstName>'+AddrFirstName+'</AddrFirstName></ModUserInfo>'
+                M139.RichMail.API.call("ModUserInfo", postStr, function (response) {
+                    self.isSeting = false;
+                    var res = response.responseData;
+                    if(res && res.ResultCode == '0'){
+                        top.BH('send_email_trueNameSet');
+                        top.$App.trigger("userAttrChange", {trueName: AddrFirstName});
+                        self.sucRender(AddrFirstName);
+                    }else{
+                        self.failRender();
+                    }
+                });
+            });
+            
+            self.eventInit();
+        },
+        sucRender:function(name){
+            var self = this;
+            var html = top.$T.format(self.trueNameSucTemple,{name:name});
+            self.elModule.html(html);
+        },
+
+        failRender:function(){
+            var self = this;
+            self.elModule.html(self.trueNameFailTemple).find('a').click(function(){
+                self.render();
+            })
+        },
+        eventInit:function(){
+            this.elModule.find('input').click(function(){
+                if($(this).attr('first')){
+                    $(this).val('')
+                }
+            })
+        }
+    }));
+})(jQuery, _, M139);
+

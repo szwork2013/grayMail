@@ -1,0 +1,382 @@
+﻿
+/**
+* @fileOverview 我的应用
+*/
+
+(function (jQuery, _, M139) {
+    var $ = jQuery;
+    var superClass = M139.View.ViewBase;
+
+    /**
+    * @namespace 
+    * 我的应用
+    */
+
+    M139.namespace('M2012.Myapp.View', superClass.extend({
+
+        /**
+        *@lends M2012.Myapp.View.prototype
+        */
+        el: '#myapp',
+
+        template: {
+            link: '<a href="{linkShow}" {target} bh="{behavior}" id="{id}" hidefocus="true" title="{title}">{name}</a>',
+            //staticlink : '<li><a href="javascript:appView.jumpTo(\'attachlist\')"  bh="left_attach" style="display:block;" >附件夹</a></li>',
+            //line: '<span class="line">|</span>',
+            popitem: ['<li><i class="{icon}"></i><span class="appListName ml_5">{text}</span><a class="appListBtn" {btnDisplay} href="javascript:void(0)" hidefocus="true" rel="{rel}" key="{key}">{btn}</a><span class="appListHave">{gray}</span>',
+            '<div class="singleApp hide" style="left:208px;top:{top}px;">',
+            '<span class="rightDiv" style="z-index:1;"></span>',
+            '<div class="dRound" style="position:relative;zoom:1;top:-{singleTop}px">',
+            '<div class="dRoundBody">',
+            '<div class="top">',
+            '<h3>{text}</h3>',
+            '<p class="info">{desc}</p>',
+            '</div>',
+            '<div class="bot hide">',
+            '<a class="sl-rc">',
+            '<span class="sl-rc-cnt appListBtn" rel="{rel}" key="{key}">',
+            '{descbtn}',
+            '</span>',
+            '</a>',
+            '</div>',
+            '</div>',
+            '</div>	',
+            '</div></li>'].join(''),
+            popdiv: ['<div class="dRound adminMyApp" id="adminMyApp" style="{0}">',
+            '<h2>特色应用</h2>',
+            '<div class="dRoundBody adminMyAppList">',
+            '<ul>',
+            '{1}',
+            '</ul>',
+            '</div>',
+            //'<i class="i_set"></i>',
+            '</div>'].join('')
+        },
+
+        initialize: function () {
+            var self = this;
+            this.model = new M2012.Myapp.Model();
+            return superClass.prototype.initialize.apply(this, arguments);
+        },
+
+        initEvents: function () {
+            var self = this;
+            $("#setapp").click(function () {
+                self.showPopDiv();
+                M139.Event.stopEvent();
+            });
+
+            //切换“特色应用”展开/折叠显示		
+			function showAppList(){
+			    $('#listAppsSwitchIcon').removeClass('t_blackRight').addClass('t_blackDown');
+                $('#myappList').show();
+			}
+			function hideAppList(){
+			    $('#listAppsSwitchIcon').removeClass('t_blackDown').addClass('t_blackRight');
+                $('#myappList').hide();
+			}
+			
+			$('#listAppsSwitch').click(function () {
+			    if ($('#listAppsSwitchIcon').hasClass('t_blackRight')) {
+                    showAppList();
+                } else {
+					hideAppList();
+                }
+            });
+
+			self.model.on("change:showListState", function (model, value) {
+				if(self.model.get('showListState')){
+					showAppList();
+				}else{
+					hideAppList();
+				}
+			});
+			
+			//监听tab设置事件，取消固定标签（精品订阅，日历和通讯录要在特色应用添加）
+			$App.on('setMyApp',function(data){
+				var thisapps = [];
+				var keys = data.keys || null;
+				var ids = [];
+				if($.isArray(keys) && keys[0]){
+					$.each(keys,function(i,val){
+						var appid = $User.getMyAppIdByKey(val);
+						ids.push(appid);
+						thisapps.push({
+							id:appid,
+							state:'1' 
+						});
+					});
+					var options = { apps: thisapps};
+					self.model.setMyApp(options,function(result){
+						$.each(ids,function(i,val){
+							self.model.changeState(val, '1');
+						});
+						self.render("");
+					});
+				}
+			});
+			
+        },
+
+        /**
+        * 定义弹出层事件
+        */
+        initPopEvent: function () {
+            var self = this;
+            $('#adminMyApp li').live('mouseover', function () {
+                $(this).addClass("current").find(".singleApp").removeClass("hide");
+            })
+            $('#adminMyApp li').live('mouseleave', function () {
+                $(this).removeClass("current").find(".singleApp").addClass("hide");
+            });
+            $('#adminMyApp').live('mouseleave', function () {
+                self.removePopDiv();
+            });
+            $('.adminMyAppList li .appListBtn').bind('click', function () {
+                var id = $(this).attr('key');
+                var state = $(this).attr('rel');
+                var setState = state == "0" ? "1" : "0";
+                var options = { apps: [] };
+                var _this = this;
+                var thisbtn = $(this).text();
+                options.apps.push({
+                    id: id,
+                    state: setState
+                });
+                self.model.setMyApp(options, function (result) {
+                    if (result.code === 'S_OK') {
+                        self.model.changeState(id, setState, function () {
+                            var parentsLi = $(_this).parents('li');
+                            if (thisbtn.indexOf('添加') > -1) {
+                                var obj = parentsLi.find('.appListBtn');
+                                var len = obj.length;
+                                for (var i = 0; i < len; i++) {
+                                    var text = obj[i].innerHTML;
+                                    text = text.replace('添加', '取消');
+                                    obj[i].innerHTML = '取消';
+                                }
+                                obj.attr("rel", 1);
+                                parentsLi.find('.appListHave').text('已添加');
+                            } else if (thisbtn.indexOf('取消') > -1) {
+                                var obj = parentsLi.find('.appListBtn');
+                                var len = obj.length;
+                                for (var i = 0; i < len; i++) {
+                                    var text = obj[i].innerHTML;
+                                    text = text.replace('取消', '添加');
+                                    obj[i].innerHTML = text;
+                                    if (!obj[i].getAttribute("hidefocus")) {
+                                        obj[i].innerHTML = "立即添加";
+                                    }
+                                }
+                                obj.attr("rel", 0);
+                                parentsLi.find('.appListHave').text("");
+                            }
+                            self.render("", function () {
+                                $("#appmorelink").html('<span>更多</span><i class="i_xiax" style="display: inline-block;"></i><i class="i_xias" style="display: none;"></i>');
+                            });
+                        });
+
+                    }
+                })
+            });
+        },
+
+
+
+        /**
+        * 调整弹出层位置
+        */
+        getOffsetTop: function () {
+            var self = this;
+            var offsettop = $('#setapp').offset().top;
+            var conHeight = $('.adminMyApp').height();
+			var height = offsettop - conHeight + 8;
+            return height > 10 ? height : 10;
+        },
+
+        /**
+        * 管理弹出层
+        */
+        showPopDiv: function () {
+            var self = this;
+            self.removePopDiv();
+            var html = self.template.popdiv;
+            var style = 'z-index:999;left:200px; display:none';
+
+            var itemData = self.model.loadCustomApp(true, 2);
+            var itemTemp = self.template.popitem;
+
+            var itemHtml = [];
+            var len = itemData.length;
+            for (var i = 0; i < len; i++) {
+                var state = itemData[i].state;
+                var btn = '';
+                var gray = '';
+                var descbtn = '';
+                /*state == 0 ? btn = '添加' : btn = '取消';
+                state == 0 ? descbtn = '立即添加' : descbtn = '取消';
+                state == 0 ? gray = '' : gray = '已添加';*/
+                if (state == 0) {
+                    btn = '添加';
+                    descbtn = '立即添加';
+                    gray = '';
+                } else {
+                    btn = '取消';
+                    descbtn = '取消';
+                    gray = '已添加';
+                }
+
+                var singleTop = "";
+				var fixh = 29;
+				if(itemData[i].id === 'music_link'){ fixh = 20; }
+                if (i > len-3) {//最后2个特殊处理，以防止滑动菜单下面有部分界面被浏览器遮盖
+                    singleTop = (3-len+i) * fixh;
+                }
+                itemHtml.push($T.Utils.format(itemTemp, {
+                    rel: state,
+                    btn: btn,
+                    gray: gray,
+                    descbtn: descbtn,
+                    btnDisplay:itemData[i].alwaysShow?"style='display:none'":"",
+                    text: itemData[i].text,
+                    key: itemData[i].key,
+                    icon: itemData[i].icon,
+                    desc: itemData[i].desc,
+                    top: i * 28 + 23,
+                    singleTop: singleTop
+                }));
+            }
+
+            html = $T.Utils.format(html, [style, itemHtml.join('')]);
+
+            $('#adminMyApp').length < 1 && $('body').append(html);
+
+            var top = self.getOffsetTop();
+            $('.adminMyApp').css('top', top);
+            $('#adminMyApp').show();
+
+            self.initPopEvent();
+        },
+
+        /**
+        * 清除弹出层
+        */
+        removePopDiv: function () {
+            $('#adminMyApp').remove();
+        },
+
+
+        /**
+        * 左则导航我的应用列表
+        * @param bollean {showAll} 是否显示所有
+        */
+        render: function (showAll, callback) {
+            var self = this;
+			
+            function response(hasload) {
+                var myapp = $User.getMyApp();
+                if (!self.hasAddDefault) {
+                    self.hasAddDefault = true;
+                    myapp.push({ id: 1, key: "1", state: "1", name: "短信" });//短信，后台没加数据，暂时写死
+                    myapp.push({ id: 0, key: "21", state: "1", name: "群邮件" });//群邮件，后台没加数据，暂时写死
+                    if ($.grep(myapp, function (n, i) { return n.key == "22" }).length == 0) {
+                        myapp.push({ id: 3, key: "22", state: "1", name: "语音信箱" });//群邮件，后台没加数据，暂时写死
+                    }
+                }
+                
+                self.model.set({ userData: null,loadData:hasload ? true : false}); //标志已加载
+                var linkTemp = self.template.link;
+                //var staticLinkTemp = self.template.staticlink;
+                //var lineTemp = self.template.line;
+                //var showMore = false;
+                //var hideMore = false;
+                //hideList = self.model.loadCustomApp(true, 0);
+                var showList = self.model.loadCustomApp(true, 1);
+                var allList = self.model.loadCustomApp(true);
+				var showListState = true;
+                
+				//所有不显示
+				if(showList.length == 0){
+					showListState = false;
+				}
+				
+                //合并数据
+                if (showAll) {
+                    showList = allList;
+                    self.model.set({ joinList: true });
+                }
+				
+				//保存状态到model
+				self.model.set({showListState:showListState});
+
+				
+                //还要添加未设置显示的
+                var html = [];
+                var isSmsMmsBothExisted = false;
+                var urlTemp = 'javascript:$App.jumpTo(\'{0}\')';
+                for (var i = 0; i < showList.length; i++) {
+                    var text = showList[i].text;
+                    var class_ = '';
+                    var linkShow = '';
+
+                    //链接处理
+                    var link = showList[i].link;
+                    if (/javascript/i.test(link) || showList[i].target) {
+                        linkShow = link;
+                    } else {
+                        linkShow = $T.Utils.format(urlTemp, [showList[i].link]);
+                    }
+                    
+                    if (i % 2 == 0) {//奇数行，开始li
+                        html.push('<li class="bottomLi_first clearfix">'); 
+                    } else if (i % 2 == 1) { //&& link == 'mms'
+                        html.push('<span>|</span>');
+                        isSmsMmsBothExisted = true;// 因为特色应用顺序固定，所以当彩信再第二位的时候可以判断短彩信都存在
+                        
+                    } 
+                    
+                    html.push($T.Utils.format(linkTemp, {
+                        linkShow: linkShow,
+                        behavior: showList[i].behavior ? showList[i].behavior : '',
+                        target: showList[i].target ? 'target="_blank"' : '',
+                        id: showList[i].id ? showList[i].id : '',
+                        css: class_,
+                        title: showList[i].desc ? showList[i].desc : '',
+                        name: text
+                    }));
+
+                    if (i % 2 == 1) { //偶数行，闭合li
+                        html.push('</li>');
+                    }
+                }
+
+                // 因为最后印个标签没有关闭，所以在循环后补上
+                html.push('</li>');				
+                $("#myappList").html(html.join(''));
+                
+                // 短彩共存时需要调整样式
+                //isSmsMmsBothExisted && $("#myappList li:first").addClass('bottomLi_first clearfix');
+                
+                $('#appmorelink').hide();
+
+                if (callback) { callback() }
+                $App.getView("folder").resizeSideBar();//重新计算左侧高度
+			}
+			
+			//response(); //第一次输出默认数据,避免空白
+            M139.Timing.waitForReady("$User.getMyApp()",function(){
+				setTimeout(function(){
+					response(true); //第二次输出加载数据
+				},50);				
+			});
+        }
+
+    }));
+
+    $(function () {
+        var myappView = new M2012.Myapp.View();
+		    myappView.render();
+            myappView.initEvents();
+	})
+
+})(jQuery, _, M139);

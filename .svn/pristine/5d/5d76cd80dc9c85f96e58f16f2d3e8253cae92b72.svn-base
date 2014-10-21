@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>发彩信</title>
+    <script type="text/javascript">
+        //设域
+        document.domain=window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1].split(":")[0];
+
+        top.loadScript("jquery.js", document);
+        top.loadScript("m2011.utilscontrols.pack.js", document);
+    </script>
+</head>
+<body>
+	<script type="text/javascript">
+        (function(){
+	        //日志上报
+			Utils.logReports({
+			mouduleId: 15,
+			action: 19001,
+			thing: "sendMmsTab"
+			});
+			//默认跳转的URL，打开彩信仓库
+			var urlRedirect="mmsFactory.html?rnd=" + Math.random(),
+			//sid及随机数
+			sidRandom="?sid=" + top.UserData.ssoSid + "&rnd=" + Math.random(),
+			//取当前页面的参数，注意没有top哦 2011-5-5 by lifl....取自拉拉的，但还是不太明白说的是什么
+			qsmmsType=Utils.queryString("mmstype"), 
+			//读信页过来（运营邮件）参数
+			qsType=Utils.queryString("type"),
+			//判断是否为简洁版跳转过来的DIY参数
+			qsId=Utils.queryString("id"),
+            //判断是否为彩云跳转过来的
+            ext = Utils.queryString("ext"),
+            strSize = Utils.queryString("size"),
+			qsFileId=Utils.queryString("fileid"); 
+            //start 取当前页面的参数，注意没有top哦 2011-5-5 by lifl
+            if (qsmmsType== "diy") {
+                urlRedirect = "mmsDIY.html"+sidRandom;
+                var initDataKey = Utils.queryString("initData");
+                initDataKey && (urlRedirect += "&initData=" + initDataKey);
+                //判断是否是从电子名片页转过来
+                var vCard = Utils.queryString("vCard");
+                vCard && (urlRedirect += "&vCard=" + vCard);
+                window.location.href=urlRedirect;
+            }
+            //彩信记录
+            if (qsmmsType== "record") {
+                urlRedirect = "mmsRecord.html"+sidRandom;
+                window.location.href = urlRedirect;
+            }
+            //读信页过来（运营邮件）
+            if (qsType == "yyextend") {
+                urlRedirect = "mmsDIY.html"+sidRandom;
+                var mmsId = Utils.queryString("yymmsid");
+                mmsId && (urlRedirect += "&yymmsid=" + mmsId + "&yyextend=" + qsType);
+                window.location.href = urlRedirect;
+            }
+            
+            //debugger; //判断是否为简洁版跳转过来的DIY
+            if (qsId != null && qsId == "mms" && qsmmsType == "diy") {
+                urlRedirect = "mmsDIY.html"+sidRandom;
+                window.location.href = urlRedirect;
+            }
+            //彩仓预览
+            if (qsId!= null && qsId == "mms" && qsmmsType == "factory") {
+                urlRedirect = "mmsFactory.html" + sidRandom + "&mmsinfo=" + Utils.queryString("mmsinfo");
+                window.location.href = urlRedirect;
+            }
+            //生日彩信
+            if (qsId != null && qsmmsType == "birthday") {
+               urlRedirect = "mmsFactory_list.html" + sidRandom + "&mmsid=" + Utils.queryString("id") + "&birthday=1";
+               location.href = urlRedirect;
+            }            
+            //var sizeFlt=0;
+            //if(strSize!=
+            // =ParseFloat(strSize);
+            // MMSDIY.RecordEditting=true;
+            //top._MMSDIYEditFromSource;
+            if (ext != null && ext.length > 0) {
+                //跳转到DIY 
+                var mms = {
+                    destNumber: "",
+                    subject: "",
+                    frameList: [],
+                    validCode: ""
+                };
+				var tempFrame = {
+					content: "",
+					contentPath: "",
+					contentName: Math.random() + "." + ext,
+					contentSize: -1,
+					contentType: 1,
+					frame: 0,
+					playTime: 4,
+					width: -1,
+					height: -1
+				};
+                tempFrame.contentSize = strSize;
+                switch (ext.toString().toLowerCase()) {
+                    case "jpg":
+                        tempFrame.contentType = 1;
+                        break;
+                    case "gif":
+                        tempFrame.contentType = 1;
+                        break;
+                    case "jpeg":
+                        tempFrame.contentType = 1;
+                        break;
+                    case "mid":
+                        tempFrame.contentType = 3;
+                        break;
+                    case "midi":
+                        tempFrame.contentType = 3;
+                        break;
+					case "wav":
+                        tempFrame.contentType = 3;
+                        break;
+                    case "txt":
+                        tempFrame.contentType = 2;
+                        break;
+                }
+
+				if(tempFrame.contentType == 2){
+					tempFrame.content = qsFileId == null ? "" : qsFileId;
+				}else{
+					tempFrame.contentPath = qsFileId == null ? "" : qsFileId;
+				}
+
+                mms.frameList.push(tempFrame);
+                top._MMSDIYEditFromSource = mms;
+                urlRedirect = "mmsDIY.html"+sidRandom+"&type=1";
+                window.location.href = urlRedirect;
+            }
+            window.location.href = urlRedirect;
+        })();
+ </script>
+</body>
+</html>

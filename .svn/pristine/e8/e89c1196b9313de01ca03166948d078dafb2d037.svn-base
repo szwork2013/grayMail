@@ -1,0 +1,111 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="Keywords" content="" />
+<meta name="Description" content="" />
+<title>139邮箱</title>
+
+
+
+<script type="text/javascript">
+    //设域
+    document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+</script>
+<script>top.loadScript('libs.pack.js',document);top.loadScript('m139.core.pack.js',document);top.loadScript('m2012.ui.common.pack.js',document)</script>
+<script>top.loadCSS(["common/global.css","common/frame.css","skin/skin_lightblue.css"],document)</script></head>
+<body style="padding:0px;">
+
+	<div class="advSearchpop">
+	<fieldset>
+	 <legend class="hide">高级搜索</legend>
+      <ul class="form">
+        <li class="formLine">
+          <label class="label">所在文件夹：</label>
+          <div class="element">
+            <div id="drop_folder">
+	
+            </div>
+            
+          </div>
+        </li>
+        <li class="formLine" style="display: none;" id="li_lock">
+            <label class="label">安全锁密码：</label>
+            <div class="element">
+                <input type="password" class="iText" id="tb_password" value="" style="width:120px;" />
+                <a id="tb_forgotpassword" href="javascript:void(0)">忘记密码</a>
+            </div>
+        </li>
+        <li class="formLine">
+			<label class="label">标签：</label>
+			<div class="element" id="drop_tag">
+				
+			</div>
+		</li>  
+		<li class="formLine">
+			<label class="label">主题：</label>
+			<div class="element">
+			<input type="text" class="iText" id="tb_subject" maxlength="32" value="" />
+			</div>
+		</li>  
+		<li class="formLine">
+			<label class="label">发件人：</label>
+			<div class="element">
+			<input type="text" class="iText" id="tb_from" maxlength="32" value="" />
+			</div>
+		</li>  
+		<li class="formLine">
+			<label class="label">收件人：</label>
+			<div class="element">
+			<input type="text" class="iText" id="tb_to" maxlength="32" value="" />
+			</div>
+		</li>  
+		<li class="formLine" id="li_content">
+			<label class="label">正文：</label>
+			<div class="element">
+			<input type="text" class="iText" id="tb_content" maxlength="32" value="" />
+			</div>
+		</li>  
+		<li class="formLine" id="li_attachName">
+			<label class="label">附件名：</label>
+			<div class="element">
+			<input type="text" class="iText" id="tb_attachName" maxlength="32" value="" />
+			</div>
+		</li>  
+		<li class="formLine">
+			<label class="label">时间范围：</label>
+			<div class="element" id="drop_date">
+			</div>
+		</li>  
+		<li class="formLine">
+			<label class="label">已读/未读：</label>
+			<div class="element" id="drop_read">
+				
+			</div>
+		</li>  
+		<li class="formLine">
+			<label class="label">&nbsp;</label>
+			<div class="element">
+			 <label><input type="checkbox" id="chk_attach" class="mr5" /> 带有附件</label>
+			</div>
+		</li> 
+		<li class="formLine">
+			<label class="label">&nbsp;</label>
+			<div class="element">
+			<a href="javascript:void(0)" class="btnSure" id="btn_search"><span>确 定</span></a>&nbsp;
+			<a href="javascript:void(0)" class="btnNormal" id="btn_cancel"><span>取 消</span></a>
+			</div>
+		</li> 
+
+<li style="padding-top:10px"><span style="font-size:12px;color:gray">温馨提示：如果要搜索加锁文件夹的邮件，请先解锁。</span></li>
+      </ul>
+    </fieldset>
+	</div>
+
+</body>
+
+ <script>
+     top.loadScript("/m2012/js/richmail/mailbox/m2012.mailbox.view.searchadvance.js", document);
+ </script>
+    
+</html>

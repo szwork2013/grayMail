@@ -1,0 +1,64 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="Keywords" content="" />
+<meta name="Description" content="" />
+<title>139邮箱-设置-代收邮件</title>
+
+
+<script type="text/javascript">
+document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+</script>
+<script>top.loadCSS(["common/global.css", "module/set.css"], document)</script>       
+<script>top.loadScript('libs.pack.js', document); top.loadScript('m139.core.pack.js', document)</script>
+<script>top.loadScript("m2012.ui.common.pack.js", document)</script>
+</head>
+<body class="setbody">  
+<div class="setWrap" id="setPopMail">
+	<div class="collection-head" id="popNoData" style="display:none;">
+		<h2>代收邮件的好处！</h2>
+		<p>1.一次登录处理所有其他邮箱的邮件。<br /><span> &nbsp;&nbsp;163，QQ，YAHOO，Sina，其他邮箱</span></p>
+		<p>2.设置轻松，收发都是原邮件地址。</p>
+		<a href="javascript:;" class="btnSetB" id="btn_addpop1" bh="set_pop_add"><span>添加代收邮箱</span></a>
+	</div>	
+	<div class="collection-have" id="popHasData" style="display:none; position:relative;">
+        
+	</div>	
+    <textarea id="popMailTemplate" style="display:none">
+		<a href="javascript:;" class="btnSet" id="btn_addpop2" bh="set_pop_add"><span>添加代收邮箱</span></a>
+        <span class="allGet" style="position:absolute; right:0px;"><a href="javascript:;" id="getAll">全部收取</a> | <a href="javascript:;" id="getRecords">代收记录查询</a></span>
+		    <table class="cellectiontab">
+				<tr>
+					<th class="td1">代收邮箱</th>
+					<th class="td2">文件夹名称</th>
+					<th class="td3 ">目前状态</th>
+					<th class="td4 ">管理</th>
+				
+				</tr>
+                <!--item start-->
+                <tr id="popTr_$fid">
+					<td class="td1">$email</td>
+					<td class="td2"><div class="folderName">$name</div><span class="folderInput" style="display: none"><input id="folderName_$fid" class="folderNameInput iText" maxlength="16" value="" type="text" /></span></td>
+					<td class="td3">邮件:<span id="messageCount_$fid"><span class="c_ff6600">$unreadMessageCount</span>/$messageCount　占用:$messageSize</span></td>
+					<td popId="$id" class="td4" num="$num">
+						 <span class="getPopMail" id="getPopMail_$fid"><a bh="set_pop_sync" href="javascript:;">收取</a></span> | <a href="javascript:;" bh="set_pop_edit" class="popEdit">修改设置</a> |  <a folderPassFlag="$folderPassFlag" id="popDelete_$fid" email="$email" class="popDelete" bh="set_pop_del" href="javascript:;">删除</a> 	
+					</td>			
+				</tr>
+                <!--item end-->	
+						
+					
+				
+			</table>
+    </textarea>
+</div>
+<!--<script src="m2012.folder.model.foldermodel.js"></script>
+<script src="m2012.settings.pop.model.js"></script>
+<script src="m2012.settings.pop.view.home.js"></script>-->
+<script>top.loadScript("/m2012/js/richmail/settings/rsa.js",document);</script>
+<script type="text/javascript">
+setMaxDigits(131);
+</script>
+<script>top.loadScript("pop.html.pack.js", document)</script>
+</body>
+</html>

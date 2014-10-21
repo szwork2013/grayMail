@@ -1,0 +1,189 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <title>139邮箱</title>
+
+    <script>
+
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+
+        top.loadScript("/m2012/js/service/largeattach/m2011.largeattach.filesharing.js", document);
+
+    </script>
+
+    <script type="text/javascript">
+        fileSharing.initialize(function() {
+            fileSharing.loadCss(fileSharing.getResourcePath() + "/css/netdisk.css");
+            document.write('<link type="text/css" rel="Stylesheet" />');
+
+            top.loadScript("/m2012/js/service/largeattach/m2011.largeattach.filelist.js", document);
+        }, true);        
+    </script>
+    <style>
+    /*fixed bug*/
+    .search button.butClose{
+         background-position: -380px -209px;
+    }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="header">
+            <ul class="nav-hd">
+                <li><a id="aToDisk" href="javascript:;">彩云网盘</a></li>
+                <li class="current"><a id="aToShare" href="javascript:;">我的暂存柜</a></li>
+                <li><a id="aToAttach" href="javascript:;">我的附件</a></li>
+            </ul>
+            <p id="adVdTool">
+            </p>
+        </div>
+        <div id="wrapper">
+            <div id="content" style="height: 300px;">
+                <div class="crumb">
+                    <strong>暂存文件</strong>(共<span id="spanFileCount">0</span>个文件)
+                </div>
+                <div class="rcd-hd">
+                    <div class="page" id="divPageBar">
+                    </div>
+                    <button class="include-i" id="aUploadFile">
+                        上传<i class="i-upload"></i></button>
+                    <button class="include-i" id="aDownloadFile">
+                        下载<i class="i-download"></i></button>
+                    <button id="aSendEmail">
+                        发送到邮箱</button>
+                    <button id="aSendMobile">
+                        发送到手机</button>
+                    <button id="aSaveToDisk">
+                        移动到彩云</button>
+                    <button id="aRenew">
+                        续期</button>
+                    <button id="aDelete">
+                        删除</button>
+                </div>
+                <table cellpadding="0" class="tbl-list">
+                    <tr id="tabTableHeader">
+                        <th class="t-check" id="thSelectAll" title="全选/取消全选">
+                            全选
+                        </th>
+                        <th rel="fileName" class="t-name">
+                            文件名
+                        </th>
+                        <!--
+                        <th rel="remainTimes" class="t-fast" style="cursor: pointer;">
+                            可发送人数
+                        </th>-->
+                        <th rel="fileSize" class="t-size">
+                            大小
+                        </th>
+                        <th rel="downloadTimes" class="t-size" style="width: 60px">
+                            下载人次
+                        </th>
+                        <th rel="state" class="t-size" style="width: 60px">
+                            进度
+                        </th>
+                        <th rel="expiryDate" class="t-size">
+                            有效时间
+                        </th>
+                    </tr>
+                </table>
+                <div style="display: none" id="dvNoInfo">
+                </div>
+                <table cellpadding="0" class="tbl-list" id="tabFileList">
+                </table>
+                <table cellpadding="0" class="tbl-list">
+                    <tr class="tfoot">
+                        <th class="t-check" id="thSelectAll2" title="全选/取消全选">
+                            全选
+                        </th>
+                        <th>
+                        </th>
+                    </tr>
+                </table>
+                <div class="rcd-hd">
+                    <div class="page" id="divPageBar2">
+                    </div>
+                    <button class="include-i" id="aUploadFile2">
+                        上传<i class="i-upload"></i></button>
+                    <button class="include-i" id="aDownloadFile2">
+                        下载<i class="i-download"></i></button>
+                    <button id="aSendEmail2">
+                        发送到邮箱</button>
+                    <button id="aSendMobile2">
+                        发送到手机</button>
+                    <button id="aSaveToDisk2">
+                        移动到彩云</button>
+                    <button id="aRenew2">
+                        续期</button>
+                    <button id="aDelete2">
+                        删除</button>
+                </div>
+            </div>
+        </div>
+        <div id="aside">
+            <div class="aside-bd">
+                <div class="hd">
+                    <p class="search">
+                        <input class="input-fileS" id="txtSearch" defaultvalue="查找文件..." type="text" value="查找文件..." />
+                        <span class="button">
+                            <button type="button" id="btnSearch">
+                            </button>
+                        </span>
+                    </p>
+                </div>
+                <div class="adc-bd fileTemp">
+                    <div class="nd-tip" id="divFolderMessage">
+                        <h2>
+                            我的暂存柜信息
+                        </h2>
+                        <div class="progress">
+                            <div style="width: 0%;" class="pg-bg">
+                            </div>
+                            <span>0%</span>
+                        </div>
+                        <p>
+                            容 量：<span></span></p>
+                        <p>
+                            剩 余：<span></span></p>
+                        <p>
+                            存放期<span>：</span></p>
+                    </div>
+                    <div class="nd-tip">
+                        <h2>
+                            过期提醒</h2>
+                        <p>
+                            您将在文件到期的前2天收到提醒。</p>
+                        <p>
+                            <a href="javascript:;" class="setReming" id="aChangeRemind">设置提醒方式</a></p>
+                        <ul class="setRemind" id="divSaveSuccess" style="display: none">
+                            <b class="fileExpOk">保存成功</b>
+                        </ul>
+                        <ul class="setRemind" id="divRemindSetting" style="display: none">
+                            <li>
+                                <input name="tip1" type="checkbox" id="chkEmailTip" />邮件提醒</li>
+                            <li>
+                                <input name="tip2" type="checkbox" id="chkMobileTip" />短信提醒</li>
+                            <li>
+                                <input id="btnRemindSettingYes" type="button" value="确定" />&nbsp;&nbsp;<input id="btnRemindSettingCancel"
+                                    type="button" value="取消" /></li>
+                        </ul>
+                    </div>
+                    <div class="nd-tip">
+                        <h2>
+                            139邮箱小工具</h2>
+                        <p id="liToolAd">
+                            安装后，电脑、网页上的文件可直接通过鼠标右键快速发送到任意邮箱和中国移动手机，可上传最大1G的单个文件，支持断点续传。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="dvOrderTips" class="tips_show" style="width: 200px;">
+           暂存柜容量即将超过上限：<span>1G</span>，<a href="javascript:void(0)" style="color: Blue;">升级邮箱</a>扩充容量。
+        </div>
+        <div id="dvAddKeepDay" class="tips_show" style="width: 170px;">
+            <a href="javascript:void(0)" style="color: Blue;">升级邮箱</a>可增加保存天数。
+        </div>
+    </div>
+</body>
+</html>

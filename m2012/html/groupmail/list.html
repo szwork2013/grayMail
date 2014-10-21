@@ -1,0 +1,310 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="Keywords" content="">
+    <meta name="Description" content="">
+    <title>群邮件</title>
+     <script type="text/javascript">
+         document.domain = window.location.host.match(/[^.]+\.[^.]+$/)[0];
+ 	</script>
+
+	<script>top.loadCSS(["common/global.css", "common/frame.css", "module/addr/addrnew.css","module/addr/addr.css","module/addr/group.css","module/addr/groupAlbum.css"], document);</script>
+	<!-- 解决IE11下正文斜体无法显示的问题, 覆盖global.css中的em样式 -->
+	<style>
+	   .mainContain em,
+       .mainContain i{font-style:italic;}
+
+	</style>
+<body>
+
+<!-- 非引导主视图 start -->
+<div id ='main_wrapper' class="outArticle">
+    <div class="outArticleMain writeMainOff" role="main" id = "msg_status_wrapper">
+        <!--
+        <iframe width="100%" frameborder="no" style="height:1000px;" src="session.html"></iframe>-->
+        <div class="groupAlbumBox">
+            <div class="groupAlbumBoxCon" id="groupAlbumBoxCon">
+                <div class="groupAlbumTabs" id="groupAlbumTabs">
+                    <div class="groupAlbum_title" id="groupAlbum_title">
+
+                    </div>
+                    <ul class="clearfix">
+                        <li class="groupOn" data-target="groupSession" data-tid="group_mail_tab_session">会话</li>
+                        <li data-target="groupAlbum" data-tid="group_mail_tab_album">群相册</li>
+                    </ul>
+                </div>
+                <div class="groupSession" id="groupSession">
+                    <div class="allScrollCon mt_14" id="mainMsgListWrapper" style="overflow-x: hidden;">
+                        <div class="groupTextarea iText " id="htmlEdiorContainer" style="box-shadow:none;padding:0;">
+                            <!--<textarea id="send_msg"></textarea>-->
+                            <div style="height:400px;width:100%;"></div>
+                        </div>
+
+                        <div class="groupTextarea_btn">
+                            <a id="i_groupIco_picture" class="i_groupIco_pic" href="javascript:;" data-tid="group_mail_session_uploadPic"></a>
+                            <a id="i_groupIco_face" class="i_groupIco_phiz" href="javascript:;" data-tid="group_mail_session_icon"></a>
+                            <div id="send_mask" style="position:absolute; top:0; width:100%; height:40px; z-index:1000;" class="blackbanner hide"></div>
+                            <a href="javascript:" class="btnBan" id="send_btn" data-tid="group_mail_session_send"><span>发 送</span></a>
+                        </div>
+
+                        <!-- 如果有新消息, 则显示消息条提醒用户 -->
+                        <div class="tipsBlue" id="newMsgContainer" style="display:none;cursor: pointer;z-index: 9999"></div>
+                        <!-- 有消息时显示的列表区域 -->
+                        <div class="groupInfoReply" id="groupInfoReply">
+                            <!-- 消息列表显示区域 -->
+                            <ul class="groupMailUl" id="ul_msg_list"></ul>
+
+                            <!-- 显示分页条区域 -->
+                            <div class="mb_10">
+                                <div class="group_pageination">
+                                    <div id="msg_pager_bottom" class="group_pageination" style="display: none;">
+                                        <!-- 隐藏先??
+                                        <div class="toolBarPaging fr" id="view_0.709167732245109">
+                                            <a class="pagenum" href="javascript:;" data-tid="group_mail_pager_pop_click" rel="selector"><span class="pagenumtext">1/2</span></a>
+                                            <a class="up up-gray" href="javascript:;" title="上一页" data-tid="group_mail_pager_click" rel="prev"></a>
+                                            <a class="down " href="javascript:;" title="下一页" data-tid="group_mail_pager_click" rel="next"></a>
+                                        </div>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 无群消息时的引导页面 -->
+                        <div class="groupInfoReplyNot" id="empty_msg_list_wrapper" style="display:none;">
+                            <img src="../../images/201312/groupAlbum_02.png">
+                        </div>
+                    </div>
+                </div>
+                <div class="groupSession" id="groupAlbum" style="display:none;">
+                    <div class="groupAlbum_btn groupAlbum_btnNo" id="albumToolbar" style="display:none">
+                        <ul class="clearfix">
+                            <li><a class="btnSure" href="javascript:void(0)" id="uploadBtn"><span>上传图片</span></a></li>
+                            <li><a class="btnNormal groupAlbum_btnNo" href="javascript:;" id="downloadBtn"><span>下 载</span></a></li>
+                            <li><a class="btnNormal groupAlbum_btnNo" href="javascript:;" id="deleteBtn"><span>删 除</span></a></li>
+                            <li><a class="btnNormal groupAlbum_btnNo" href="javascript:;" id="sendBtn"><span>发 送</span></a></li>                            
+                            <li><a class="btnNormal groupAlbum_btnNo" href="javascript:;" id="saveBtn"><span>存彩云</span></a></li>
+                        </ul>
+                        <span class="groupAlbum_num" id="spaceContainer"></span>
+                    </div>
+                    <div id="groupAlbum_time" style="height:500px;" class="groupSession_time allScrollCon mt_14">
+                        <ul class="groupSession_timeList" id="uploadList">
+                            
+                        </ul>
+                    </div>
+                </div>
+                <!--群相册列表为空-->
+                <div class="groupSessionNot" style="display:none;">
+                    <img src="../../images/201312/groupAlbum_01.png">
+                    <div class="groupSessionNot_por">
+                        <a class="btnSetB" href="javascript:;" id="btnNil">
+                            <span>上传图片</span>
+                        </a>
+                    </div>
+                    <p>立即上传图片，与群友共分享</p>
+                </div>
+            </div>
+        </div>
+        <div class="groupAlbumContacts" id="groupAlbumContacts">
+            <div class="groupAlbumContacts_title" id="groupAlbumContacts_title">
+                <strong>群成员<span id="memberAccount">（人）</span></strong>
+                <!-- 先隐藏伸缩按钮
+                <a class="i_groupIco_add" href="javascript:;" id="i_groupIco_add"></a>-->
+                <!-- <a class="i_groupIco_out" href="javascript:;"></a>-->
+            </div>
+            <ul style="height:500px;" class="groupAlbumContacts_list" id="groupAlbumContacts_list"></ul>
+        </div>
+
+        <a href="javascript:;" class="switchOn2 hide" id="switchOn"></a>
+        <!--
+        <div class="outArticleMain" id = "msg_list_wrapper" style='display:none;' >
+            <div class='group_pageination' id='msg_pager_top'></div>
+            <div class="addr-list-body" id="mainMsgList">
+                <div class="new-mail new_mail_warning"  style="display:none;" >
+                    <span class="tip-box" data-action="page_num" data-page = "1"   ><span data-tid="group_mail_new_tips_click" >有  封新邮件</span><a href="javascript:;"  data-action = "close" data-tid="group_mail_new_tips_close_click" data-aim="new_mail_warning" class="close"></a></span>
+                </div>
+
+                <div class="groupMail-list-body" id = "mainMsgListWrapper" style="overflow:auto; position: relative;">
+                    <div class="groupMail-list-wrap">
+                        <ul class="groupMailUl" id = "ul_msg_list" ></ul>
+                        <div class="mb_10">
+                            <div class="group_pageination" >
+                                <div class="group_pageination" id="msg_pager_bottom"></div>
+                            </div>
+                        </div>
+                     </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="outArticleMain empty-list-body"  id = "empty_msg_list_wrapper" style="display: none;">
+            <div class="new-mail new_mail_warning"  style="display:none;top:0px;left:60px;" >
+                <span class="tip-box" data-action="page_num" data-page = "1"   ><span data-tid="group_mail_new_tips_click" >有  封新邮件</span><a href="javascript:;"  data-action = "close" data-tid="group_mail_new_tips_close_click" data-aim="new_mail_warning" class="close"></a></span>
+            </div>
+              <div class="addr-list-body">
+                <div class="p_relative emptyGroup emptyGroupMail">
+                    <h3>高效沟通的利器——群邮件</h3>
+                    <p class="fz_12 c_666 empty_sub">使用群邮件，更好地进行 <strong>项目讨论、小组会议、流程沟通</strong>····</p>
+                    <div class="ta_c" style="padding-top: 330px">
+                        <a href="javascript:void(0);" class="btnSetG" data-tid="group_mail_write_click" hidefocus=""><span>写群邮件</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+
+        <iframe id="albumDownloadFrame" src="" style="display: none;"></iframe>
+    </div>
+</div>
+<div class="inAside">
+    <!-- 第二期需求
+    <div class="addr-left-btn group-left-btn ta_c">
+        <a href="javascript:;" role="button" data-tid="group_mail_write_click" hidefocus="" class="btn btnGreen bigBtn"><span>写群邮件</span></a>
+    </div>
+    <div class="addr-p" role="tabpanel">
+            <div class="addr-p-list sweb menuScroll" id="groupWrapper" role="tabpanel" style="height:352px; overflow-y:auto;">
+            <div class="addr-ul-list group-ul-list groupMessage-ul-list sweb">
+                <ul id = "ul_grouplist">
+                </ul>
+            </div>
+            <a href="javascript:" data-tid="group_create_click" class="newa ml_20" id="createGroupLink">新建群组</a>
+        </div>
+     </div>-->
+    <div class="groupAlbum_menu" id="groupWrapper">
+        <!-- 群消息列表展示 -->
+        <ul class="groupAlbum_list" id="ul_grouplist"></ul>
+        <!-- 新建群组入口 -->
+        <p class="groupAlbum_list_bottom">
+            <a href="javascript:;" id="createGroupLink" data-tid="group_create_click">新建群组</a>
+        </p>
+    </div>
+</div>
+<!-- 非引导主视图 end -->
+
+<!-- 引导视图 start-->
+<div class="addr-list-body" id = "group_empty_wrapper" style="display: none;">
+    <div class="p_relative emptyGroup">
+        <h3>高效沟通的利器——群邮件</h3>
+        <p class="fz_12 c_666 empty_sub">使用群邮件，更好地进行 项目讨论、小组会议、流程沟通····</p>
+        <div class="ta_c" style="padding-top: 330px">
+            <a href="javascript:void(0);" class="btnSetG" hidefocus=""><span>新建群组</span></a>
+        </div>
+    </div>
+</div>
+<!-- 引导视图 end -->
+
+
+</body>
+
+<script type="text/template" id="template_group_list">
+        <% _.each(data, function(obj) { %>
+            <li  <% if(obj["current"]) {%>
+                 class = "groupFocus"
+                 <% }%>
+                 data-gn="<%= obj["groupNumber"] %>"
+                 data-tid="group_list_click"
+            >
+                <!--
+            <% if( parseInt( obj["unreadCount"], 10 ) > 0 ){ %>
+
+            <span class="unread"  >
+            <%= parseInt(obj["unreadCount"], 10 ) > 99 ? 99 : obj["unreadCount"]  %></span>
+            <% }else{ %>
+
+            <% } %>-->
+                <a class="clearfix" href="javascript:;"><%
+                    if(parseInt(obj["owner"]) === 1){%>
+                        <i class="i_groupAdd"></i><%
+                    }else{%>
+                       <i class="i_groupIco"></i><%
+                    }%>
+
+                    <span class="groupAlbum_listCon"><%= $T.Html.encode(obj["groupName"]) %></span>
+                    <!--todo 超过99条, 只显示99, 此处msg-topredtips样式代码中有用到,谨慎修改-->
+                    <% if( parseInt( obj["unreadCount"], 10 ) > 0 ){ %>
+                        <span class="msg-topredtips"><%= parseInt(obj["unreadCount"], 10 ) > 99 ? 99 : obj["unreadCount"] %></span>
+                    <% } %>
+                </a>
+            </li>
+
+            <!--
+            <em class="clearfix"  ><%
+                if(parseInt(obj["owner"]) === 1){
+                %><i class="groupIco1"></i><%
+                }else{
+                %><i class="groupIco2"></i><% } %><span class="numN"   ><%= $T.Html.encode(obj["groupName"]) %></span></em></li>-->
+        <% }); %>
+</script>
+
+<!-- 消息模板-->
+<script type="text/template" id="template_msg_list">
+    <% _.each(data["message"] , function(obj){%>
+    <li data-msgid="<%= obj['messageId'] %>" data-img='<%= obj["user"]["imageUrl"]%>'>
+        <div class="groupInfoReply_box">
+            <!-- 发件人信息 -->
+            <div class="groupInfoReply_title clearfix">
+                <% if(obj["user"]["imageUrl"]){ %>
+                    <a href="javascript:;" style="cursor:pointer;" data-tid="group_mail_head_click"><img title="<%= obj['user']['userEmail']%>" height='50' width='50' class="bd_e8" src="<%= new top.M2012.Contacts.ContactsInfo({ ImageUrl: obj['user']['imageUrl'] }).ImageUrl %>"></a>
+                <% }else if($App.regularName(obj["user"]["userName"]) ){ %>
+                    <a href="javascript:;" class="groupInfoReply_tou" data-tid="group_mail_head_click"><i title="<%= obj['user']['userEmail']%>"><%= $App.regularName(obj["user"]["userName"]) %></i></a>
+                <% }else{%>
+                    <a href="javascript:;" style="cursor:pointer;" data-tid="group_mail_head_click"><img title="<%= obj['user']['userEmail']%>" height='50' width='50' class="bd_e8" src="/m2012/images/global/avatar/avatar_s_01.png"  ></a>
+                <%}%>
+                <strong class="author"><a href="javascript:;" style="cursor:default;outline:none" hidefocus><span data-tid="group_mail_contacts_click" style="cursor: pointer;" id="author" title="<%= obj["user"]["userEmail"]%>" ><%= $T.Html.encode(obj["user"]["userName"])  %></span></a></strong>
+                <span class="spanA">
+                    <!-- 根据不同的创建时间(时间规则)转换成不同的时间格式显示-->
+                    <% var msgCreateDate = new Date(obj["createDate"].replace(/-/g, "/"));%>
+                    <% if($Date.format( "yyyy-MM-dd" , msgCreateDate) === $Date.format( "yyyy-MM-dd", M139.Date.getServerTime() ) ){%>
+                        <%=$Date.format( "hh:mm" , msgCreateDate) %>
+                    <% }else if($Date.format( "yyyy" , msgCreateDate) !== $Date.format( "yyyy", M139.Date.getServerTime() ) ){ %>
+                        <%=$Date.format( "yyyy-MM-dd hh:mm" , msgCreateDate) %>
+                    <% }else{ %>
+                        <%=$Date.format( "MM-dd hh:mm" , msgCreateDate) %>
+                    <% } %>
+                </span>
+            </div>
+
+            <!-- 如果有引文的话显示, 如果没有引文的话, 不会显示 -->
+            <% _.each( obj["reply"] , function(reply_msg){%>
+            <div class="groupInfoReply_reply" data-action="expand" data-tid="group_mail_quote_click" data-uid="<%= reply_msg['user']['userId'] %>" data-mid="<%= reply_msg['messageId'] %>">
+                <span class="groupInfoReply_top"></span>
+                <span class="groupInfoReply_bottom"></span>
+                <p class="clearfix groupInfoReply_time">
+                    <span class="fl"><%= $T.Html.encode(reply_msg["user"]["userName"])%></span>
+                    <span class="fr"><%= reply_msg["createDate"].replace(/\:\d{2}$/,"") %></span>
+                </p>
+                <p><%= $T.Html.encode(reply_msg["contentThum"]) %></p>
+            </div>
+            <% }) %>
+
+            <!-- 发表的评论显示区域 -->
+            <p class="groupInfoReply_con"><%= obj["content"] %></p>
+            <p class="groupInfoReply_btn" id="replyMsg">
+                <a href="javascript:;">回复</a>
+            </p>
+        </div>
+    </li>
+    <%})%>
+</script>
+<!--
+<script type="text/javascript" src="../../js/mockdata/m139.api.mock.js"></script>
+<script type="text/javascript" src="../../js/mockdata/test.mockdata.groupmail.js"></script>-->
+<script>
+    try {
+        top.loadScript('libs.pack.js', document);
+        top.loadScript('m139.core.pack.js', document);
+        top.loadScript("m2012.ui.common.pack.js", document);
+        top.loadScript("../../js/ui/upload/swfobject.js", document);
+        top.loadScript("../../js/ui/upload/upload.js", document);
+        top.loadScript("/m2012/js/packs/groupmail/groupmail.compose.html.pack.js", document);
+        top.loadScript("/m2012/js/packs/groupmail/groupmail.html.pack.js", document);
+    } catch (e) { }
+</script>
+<!--<script type="text/javascript" src="../../js/mockdata/m139.api.mock.js"></script>
+<script type="text/javascript" src="../../js/mockdata/test.mockdata.groupmail.js"></script>-->
+<!--<script type="text/javascript" src="../../js/ui/upload/swfobject.js"></script>
+<script type="text/javascript" src="../../js/ui/upload/upload.js"></script>-->
+<script>
+    top.$App.setModuleSkinCSS && top.$App.setModuleSkinCSS(document);
+    new M2012.GroupMail.View.Main().render();
+</script>
+</html>

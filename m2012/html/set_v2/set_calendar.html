@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>139邮箱日历设置</title>
+<script>
+document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+
+top.loadScript('libs.pack.js', document);
+top.loadScript('m139.core.pack.js', document);
+top.loadScript("m2012.ui.common.pack.js", document);
+top.loadCSS(["common/global.css", "module/set.css"], document);
+</script>
+
+</head>
+<body>
+<br />
+<div class="setWrap">
+	<div class="setArea setForm">
+		<!--<div class="btnTop">
+			<a class="btnSet" role="button" href="javascript:void(0)"><span class="p_relative">日历设置</span></a>
+		</div>-->
+		<h2 class="">日历黑白名单</h2>
+		<div class="setArea-content">
+			<ul class="form setForm">
+				<li class="formLine">
+					<label class="label">日历黑名单：</label>
+					<div class="element">
+						<a id="btnAddBlack" class="btnNormal verMiddle" href="javascript:void(0)"><span>添加黑名单</span></a><span class="gray ml_10">拒收TA的所有日历消息请求</span>
+						<table id="blackList" class="setTableNew mt_10">
+							<tr style="display:none;webkit-user-select:none;user-select:none;">
+								<th width="85%"><label><input type="checkbox" id="blackSelectAll" name="" class="checkbox cbxSelectAll" />全选</label><a id="blackRemoveSelected" href="javascript:;" class="ml_20">删 除</a></th>
+								<td></td>
+							</tr>
+						</table>
+					</div>
+				</li>
+				<li class="formLine noLine">
+					<label class="label">日历白名单：</label>
+					<div class="element">
+						<a id="btnAddWhite" class="btnNormal verMiddle" href="javascript:;"><span>添加白名单</span></a><span class="gray ml_10">自动接受TA的所有日历消息请求</span>
+						<table id="whiteList" class="setTableNew mt_10">
+							<tr style="display:none;webkit-user-select:none;user-select:none;">
+								<th width="85%"><label><input type="checkbox" id="whiteSelectAll" name="" class="checkbox cbxSelectAll" />全选</label><a id="whiteRemoveSelected" href="javascript:;" class="ml_20">删 除</a></th>
+								<td></td>
+							</tr>
+						</table>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div id="addViewer" style="width:394px;display:none;" class="tips delmailTips"><a id="viewerClose" class="delmailTipsClose" href="javascript:;"><i class="i_u_close"></i></a>
+	<div class="tips-text">
+		<div class="norTips">
+			<ul class="form">
+				<li class="formLine">
+					<label class="label">联系人：</label>
+					<div class="element">
+						<div class="mb_5">
+							<input id="addInput" type="text" style="width:170px;" class="iText" value="">
+						</div>
+						<div class="mb_5 gray">仅支持添加139邮箱地址</div>
+						<div class="errorTips red" style="visibility: hidden;">邮件地址格式错误，如abc@139.com</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="delmailTipsBtn">
+			<span class="delmailTipsBtntext"> </span>
+			<a id="addBtnOK" class="btnSure" href="javascript:void(0)"><span>确 定</span></a>
+			<a id="addBtnCancel" class="btnNormal" href="javascript:void(0)"><span>取消</span></a>
+		</div>
+	</div>
+	<span class="tipsTop3 diamond" style="left:35px;"></span>
+</div>
+
+<div id="selTips" class="tips meet-tips" style="display:none">
+	<div class="tips-text">请先选择</div>
+	<div class="tipsTop diamond"></div>
+</div>
+
+<script> top.loadScript("m2012.settings_v2.calendar.pack.js", document); </script>
+<script>
+
+	window.calendarSetView = new M2012.Settings.Calendar.View();
+	calendarSetView.render();
+
+</script>
+</body>
+</html>

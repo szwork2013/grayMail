@@ -1,0 +1,11 @@
+﻿<project default="card_sendcard">
+    <target name="card_sendcard">
+        <!-- 创建临时文件夹 -->
+        <concat destfile="./packs/card_sendcard.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+            <fileset dir="./matrixvm/page" includes="**/m2011.page.RichInputBox.js" />
+            <fileset dir="./matrixvm/page" includes="**/m2011.page.listByTemplate.js" />
+            <fileset dir="./matrixvm/page" includes="**/m2011.page.floatTips.js" />
+            <fileset dir="./service/card" includes="**/m2011.card.greetingcard.js" />
+        </concat>
+    </target>
+</project>

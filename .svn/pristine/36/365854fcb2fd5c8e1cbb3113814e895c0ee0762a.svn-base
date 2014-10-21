@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html class="ifm">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>mail.139.com</title>
+<link rel="stylesheet" href="http://image0.139cm.com/m/coremail/css/skin_g1.css" type="text/css" />
+<link rel="stylesheet" href="http://image0.139cm.com/m/coremail/css/global.css" type="text/css" />
+<style>
+body{font-family:"Microsoft YaHei",Verdana;}
+td.wtTCD{background:url(img/topbg.png) repeat-x left top; width:98%;}
+td.wtTRD{
+    background:url(img/topRightbg.png) no-repeat right top;
+    height: 121px;
+    overflow: hidden;
+    width:6px;
+}
+td.wtTel{
+    background:url(img/topleftbg.png) no-repeat right top;
+    height: 121px;
+    overflow: hidden;
+    width:6px;
+}
+.doNs{
+    margin:20px 0;color: #f3ff8e; font-size:20px; text-align:center;}
+.wtTCD p{color:#fff; font-size:14px;  color:#fff; text-indent:20px; line-height:25px;}
+a.clRs {
+    background:url(img/close.png) no-repeat left top;
+    height: 9px;
+    position: absolute;
+    right:17px;
+    top: 17px;
+    width: 9px;
+}
+a{
+    outline: medium none;
+    text-decoration: underline;
+}
+.btn{color:#e0e0e0;margin-left:289px; margin-bottom:15px; font-size:16px; background:url(img/greenBth.png) no-repeat left top; border:none; width:86px; height:34px; display:block; cursor:pointer;}
+</style>
+    <script type="text/javascript">
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+        top.loadScript('libs.pack.js', document);
+        top.loadScript('m139.core.pack.js', document);
+        function close1() {
+            top.top.selfBir_mask.remove();
+            $("#birwishtoself", parent.document).remove();
+        }
+    </script>
+</head>
+<body  >
+  <div style=" border-left:1px solid #d0d0d0; border-right:1px solid #d0d0d0; height:202px; border-bottom:1px solid #d0d0d0; " >
+  <table width="101%" cellspacing="0" cellpadding="0" border="0" style="margin-left:-2px;">
+    <tbody>
+      <tr>
+        <td class="wtTel" style="width:6px;"></td>
+        <td class="wtTCD">
+			<a href="#" class="clRs" onclick="close1()"></a>
+		   <h2 class="doNs">寄去2014年的愿望</h2>
+		   <p><strong>您的愿望正在飞往2014年......</strong></p>
+		   <p>一年之后的今天请您准时来收信。祝愿我们来年快乐，愿望实现！</p>
+		</td>
+        <td class="wtTRD"  style="width:6px;"></td>
+      </tr>
+      <tr>
+        <td colspan="3" height="14"></td>      
+      </tr>
+      <tr>
+        <td style="padding-right: 2px; " colspan="3">
+            <div style="width:380px; margin-left:37px; ">				
+              	<div>
+				
+				<span class="wcDot1" style="color:#666666; font-size:12px;">
+                 <button class="btn" onclick="close1()">确 定</button>
+                </span>
+				</div>
+            </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</body>
+</html>

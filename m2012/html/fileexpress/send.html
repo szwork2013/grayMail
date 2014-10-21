@@ -1,0 +1,248 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<title>文件快递发送-139邮箱</title>
+<script type="text/javascript">
+	(function(){
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+
+        window.FileExpressUtils = {
+            version: "20131211",
+            loadScript: function (path, charset, notPacks){
+                var jsResourcePath = notPacks ? "/m2012/js/" : "/m2012/js/packs/";
+
+                document.write("<script charset='" + (charset || "utf-8") + "' src='" + jsResourcePath + path + "?v=" + this.version + "' type='text/javascript'></" + "script>");
+            },
+            loadCSS: function (path){
+                document.write("<link rel='stylesheet' type='text/css' " + "href='/m2012/css/" + path + "?v" + this.version + "'" + " />");
+            },
+            isLocal: function(){
+                return top == window;
+            }
+        };
+
+        // 邮箱中打开
+        if (!FileExpressUtils.isLocal()) {
+            top.loadScript('libs.pack.js',document);
+            top.loadScript('m139.core.pack.js',document);
+            top.loadScript("m2012.ui.common.pack.js", document);
+            top.loadCSS(["common/global.css","module/write.css", "module/FileExtract/send.css"], document);
+
+            return;
+        }
+
+        // 右键发送文件打开文件快递页面
+        FileExpressUtils.loadScript("libs.pack.js");
+        FileExpressUtils.loadScript("m139.core.pack.js");
+        FileExpressUtils.loadScript("m2012.ui.common.pack.js");
+        FileExpressUtils.loadCSS("common/global.css");
+        FileExpressUtils.loadCSS("module/write.css");
+        FileExpressUtils.loadCSS("module/FileExtract/send.css");
+    })();
+</script>
+</head>
+
+<body>
+	<div class="senddiv">
+		 <h2 class="stepd"><span class="mlj">1</span>选择文件</h2>
+		<p class="gray mb_5">发送到邮箱：支持2G的单个文件，一次最多可发送<span id="maxMail"></span>个文件
+			<br />发送到手机：最大支持5M，一次最多可发送<span id="maxMobile"></span>个文件</p>
+		<a hideFocus="1" id="selectFile" class="btnSetB" href="javascript:void(0)"> <span>选择文件</span>
+		</a>
+		<p class="pt_10 pb_5">
+			<span style="float:right;"><a href="javascript:;" id="clearall">清空全部</a></span>
+			已选 <strong class="c_ff6600" id="total_num"></strong> 个文件，共 <strong class="c_ff6600" id="total_size"></strong>
+		</p>
+		<p class="pt_10 pb_5 red" id="promptDelAfterTen"></p>
+		<div class="writeattrlist clearfix"></div>
+		 <h2 class="stepd"><span class="mlj">2</span>选择快递方式</h2>
+		<div class="tab tab-send" style="margin-bottom: 30px;">
+			<div class="tabTitle">
+				<ul>
+					<li class="on">
+						<a href="javascript:void(0);" id="btn_sendmail"> <span>发送到邮箱</span>
+						</a>
+					</li>
+					<li>
+						<a href="javascript:void(0);" id="btn_sendmobile"> <span>发送到手机</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="tabMain">
+				<div class="tabContent show" id="sendToMail">
+					 <h2>发送到邮箱</h2>
+					<div class="form-sendmail">
+						<form>
+							<fieldset class="boxIframeText">
+								<p class="pt_10 pb_10 pl_20 gray">文件以链接的方式发送到邮箱，接收方可在139邮箱文件提取中心下载</p>
+								<table class="writeTable">
+									<tbody>
+										<tr>
+											<th scope="row" width="60" class="ta_r" valign="top">
+												<span class="fr mt_5"><label class="label">收件人：</label></span>
+											</th>
+											<td>
+												<div class="p_relative" style="z-index:3;">
+													<div id="toContainer"></div>
+													<p id="allToOneOperator" style="display: none">
+														<span class="gray">每个收件人只看到自己的地址。</span>
+														<a hidefocus="1" href="javascript:void(0)" id="cancelAllToOne">取消群发单显</a>
+													</p>
+													<div id="addrContainer" style="display:none;"></div>
+													<a href="javascript:void(0);" id="addbtn" title="" class="i_peo"></a>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th scope="row" width="60" class="ta_r">
+												<label class="label">主题：</label>
+											</th>
+											<td>
+												<div class="element">
+													<input type="text" class="iText w100" id="mailtitle" maxlength="200" value="" style="width:98.5%;" />
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th scope="row" width="60" class="ta_r">
+												<label class="label">附言：</label>
+											</th>
+											<td>
+												<div class="element">
+													<div class="tagarea-div">
+														<textarea name="" class="iText tagarea w100" maxlength="500" id="tagarea2" style="width:98.5%;"></textarea> <span class="tagarea-num gray" style="right:5px;"><span id="a500">500</span>/500</span>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<th>
+												<label class="label"></label>
+											</th>
+											<td>
+												<div class="element">
+													<a class="btnSetG" href="javascript:void(0)" id="sendtomail"><span>发 送</span></a>
+													&nbsp;
+													<a class="btnSet" href="javascript:void(0)" id="sendcancelmail"><span>取消</span></a>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</fieldset>
+						</form>
+					</div>
+				</div>
+				<div class="tabContent" id="sendToMobile">
+					 <h2>发送到手机</h2>
+					<div class="form-sendmail">
+						<div class="form-sendmail">
+							<form>
+								<fieldset class="boxIframeText">
+								<legend class="hide">发送到手机</legend>
+								<p class="pt_10 pb_10 pl_20 gray">文件以短信链接方式发送到手机，接收方可直接下载最大5M的文件，所有文件可到139邮箱文件提取中心下载</p>
+								<table class="writeTable">
+								<tbody>
+									<tr>
+										<th scope="row" width="100" class="ta_r" valign="top"><span class="fr mt_5">
+                                        <label class="label">收件人：</label></span>
+										</th>
+										<td>
+											<div class="p_relative" style="z-index:3;">
+												<div id="toContainer2"></div>
+												<div id="addrContainer2" style="display:none;"></div>
+												<a href="javascript:void(0);" id="addbtn2" title="" class="i_peo"></a>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th width="100">
+											<label class="label"></label>
+										</th>
+										<td>
+											<div class="element">
+												<a class="btnSetG" href="javascript:void(0)" id="sendtomobile"><span>发送</span></a>
+												&nbsp;
+												<a class="btnSet" href="javascript:void(0)" id="sendcancelmobile"><span>取消</span></a>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+								</table>
+								</fieldset>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		function ismaxlength(obj){
+			var mlength=obj.getAttribute? parseInt(obj.getAttribute("maxlength")) : "";
+			if (obj.getAttribute && obj.value.length > mlength){
+			    obj.value=obj.value.substring(0,mlength);
+			}
+		}
+		function doPaste(element){ 
+	        var maxLength = element.getAttribute("maxLength"); 
+	        if (maxLength !== "") { 
+	            var text = window.clipboardData.getData("Text"); 
+	            var subStr = text.substr(0, maxLength - element.value.length); 
+	            window.clipboardData.setData("Text", subStr); 
+	        } 
+	 	}
+	//		top.$App.setTitle('文件快递');
+	</script>
+	<script>
+			if (!FileExpressUtils.isLocal()) {
+	            top.loadScript("cabinet_send.html.pack.js", document);
+	        } else { // 右键发送文件打开文件快递页面
+	            FileExpressUtils.loadScript("cabinet_send.html.pack.js");
+	        }
+	</script>
+		<!--
+	<script src="../../js/contacts/m2012.contacts.contactsinfo.js"></script>
+
+    <script src="../../js/contacts/m2012.contacts.model.js"></script>
+	
+
+	<script src="../../js/ui/richinput/m2012.ui.richinput.documentview.js"></script>
+
+	<script src="../../js/ui/richinput/m2012.ui.richinput.itemview.js"></script>
+
+	<script src="../../js/ui/richinput/m2012.ui.richinput.plugin.js"></script>
+
+	<script src="../../js/ui/richinput/m2012.ui.richinput.textboxview.js"></script>
+
+	<script src="../../js/ui/richinput/m2012.ui.richinput.view.js"></script>
+
+
+	<script src="../../js/ui/suggest/m2012.ui.suggest.inputsuggest.js"></script>
+
+	<script src="../../js/ui/suggest/m2012.ui.suggest.addrsuggest.js"></script>
+
+	<script src="../../js/ui/suggest/m2012.ui.suggest.inputassociate.js"></script>
+
+
+	<script src="../../js/ui/widget/contacts/m2012.ui.widget.contacts.model.js"></script>
+
+	<script src="../../js/ui/widget/contacts/m2012.ui.widget.contacts.view.js"></script>
+
+	
+    <script src="../../js/service/fileexpress/m2012.fileexpress.send.model.js"></script>
+
+    <script src="../../js/service/fileexpress/m2012.fileexpress.send.view.filelist.js"></script>
+
+    <script src="../../js/service/fileexpress/m2012.fileexpress.send.view.sendmail.js"></script>
+
+    <script src="../../js/service/fileexpress/m2012.fileexpress.send.view.sendmobile.js"></script>
+
+	<script src="../../js/service/fileexpress/m2012.fileexpress.send.view.main.js"></script>
+		-->
+</body>
+</html>

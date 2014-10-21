@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>系统提示</title>
+    <script type="text/javascript">
+//设域
+document.domain=window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+//获得资源路径
+var resourcePath=window.top.resourcePath;
+var supermanResourcePath=resourcePath.replace("coremail","sms");
+top.loadScript("jquery.js",document);
+</script>
+    <style type="text/css">
+    <!--
+    body{margin-top:90px;}
+    #divTips {width:460px;height:185px;margin:0 auto;padding:120px 100px 0 40px;line-height:33px;font-size:14px;color:#6D6D6D;}
+    div b {font-size:16px;color:#FF4E00;}
+    div a {float:right;margin-right:30px;color:#0465CE;font-size:14px;text-decoration:underline;}
+    div a:hover {text-decoration:underline;}
+    -->
+    </style>
+</head>  
+<body>
+    <form id="form1">
+        <div id="divTips">
+        <div id="divCuo"></div>
+        <b>很抱歉,出错了！</b><br />
+           你暂时无权发送免费短信。<br />
+           欢迎您使用139邮箱其它服务，谢谢！
+           <a href="javascript:window.close();void(0);">关闭&gt;&gt;</a>
+        </div>
+    </form>
+</body>
+    <script type="text/javascript">
+        $("#divTips").attr("style","background:url("+supermanResourcePath+"/images/systemTipBg.gif) center top no-repeat;");
+        $("#divCuo").attr("style","background:url("+supermanResourcePath+"/images/system_cuo.gif) center center no-repeat;width:135px;height:105px;float:left;margin-right:35px;");
+    </script>
+</html>

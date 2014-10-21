@@ -1,0 +1,268 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="Keywords" content="" />
+    <meta name="Description" content="" />
+    <title>139邮箱</title>
+    <script type="text/javascript">
+        document.domain = window.location.host.match(/[^.]+\.[^.]+$/)[0];
+        try{
+            top.loadCSS(["common/global.css", "common/frame.css", "module/health.css"], document);
+        } catch (e) { }
+    </script>
+</head>
+<body>
+<div class="bgMargin" style="*zoom:1;">
+    <div class="tab setTab">
+        <div class="tabTitle">
+            <ul id="mailTesting">
+                <li class="on"><a href="javascript: changeTab('health');" bh="health_tab_health"><span>邮箱体检</span></a></li>
+                <li><a href="javascript:changeTab('update');" bh="health_tab_update"><span>一键优化</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="pb_20"  id="healthTab">
+        <div class="mailTestingBox">
+            <div class="mailTestingBox_head clearfix" id="healthyHistory"></div>
+            <div class="mailTestingBox_head clearfix none" id="healthTexting">
+                <div class="stateImg i-mtReding fl"><var>0</var></div><!--根据分值不同，分别调用不动的等级样式，i-mtReding\i-mtYellowing\i-mtGreening-->
+                <dl class="fl ml_20 pt_20">
+                    <dt class="pt_10">正在进行邮箱体检···</dt>
+                    <dd class="clearfix mt_20">
+                        <div class="mailTestingBox_head_state fl">
+                            <div class="percentageEd" style="width:0%"></div>
+                        </div>
+                        <a id="cancelTest" href="javascript:;" class="fl ml_20" style="margin-top:-2px;">取消</a>
+                        <ul class="mailTestingBox_head_options"><!--i-mtNotPass i-mtPass i-mtPassing-->
+                            <li style="width:65px;"><i class="i-mtNotPass"></i><br /><span>安全检测</span></li>
+                            <li style="width:155px;"><i class="i-mtPassing"></i><br />风险检测</li>
+                            <li style="width:72px;"><i class="i-mtPassing"></i><br />存储检测</li>
+                            <li style="width:88px;" class="ta_r"><i class="i-mtPassing"></i><br /><span style="margin-right:-24px;*zoom:1;">个人资料检测</span></li>
+                        </ul>
+                    </dd>
+                </dl>
+            </div>
+            <div class="mailTestingBox_table none" id="HealthyInfo">
+                <table class="mtTitle">
+                    <thead>
+                    <tr>
+                        <th>
+                            共扫描<var class="ml_5 mr_5">0</var>项，其中<var class="ml_5 mr_5 c_ff5907">0</var>项有问题
+                            <a class="none ml_20" href="javascript:toAnchor('health_safety');"><i class=""></i>安全检测</a>
+                            <a class="none ml_10" href="javascript:toAnchor('health_danger');"><i class=""></i>风险检测</a>
+                            <a class="none ml_10" href="javascript:toAnchor('health_save');"><i class=""></i>存储检测</a>
+                            <a class="none ml_10" href="javascript:toAnchor('health_privacy');"><i class=""></i>个人资料检测</a>
+                        </th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="pb_20 none" id="updateTab">
+        <div class="mailTestingBox">
+            <div class="mailTestingBox_head clearfix">
+                <div class="stateImg i-mtGreenYhing fl"></div>
+                <dl class="fl ml_20 pt_20">
+                    <dt>一键优化<span class="fz_12 c_999 ml_15">将各项设置调整到最佳状态，提升整体体验，使邮箱君变得更厉害。</span></dt>
+                    <dd class="mt_20">
+                        <p class="c_999">正在检测优化项...</p>
+                        <div class="mailTestingBox_head_state fl">
+                            <div class="percentageEd" style="width:0%"></div>
+                        </div>
+                    </dd>
+                    <dd class="none">
+                    </dd>
+                </dl>
+            </div>
+            <div class="mailTestingBox_table">
+                <table class="mtTitle">
+                    <thead>
+                    <tr>
+                        <th width="17"><input type="checkbox" id="allTest" checked="checked" /></th>
+                        <th class="pl_5"><label for="allTest">可优化项</label></th>
+                        <th width="20%">当前选项</th>
+                        <th width="20%">建议选项</th>
+                        <th width="85" class="ta_c">操作</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/template" id="health_table_template">
+    <table class="mtMain">
+        <thead>
+        <tr>
+            <th width="160" class="fz_14"><a id="health_safety"></a>安全检测</th>
+            <th class="fw_n">共4项</th>
+            <th width="180" class="ta_r"><a href="javascript:;" class="mr_10 cArare"><i class="i-mtUp"></i></a></th><!--展示i-mtDown、收缩i-mtUp-->
+        </tr>
+        </thead>
+        <tbody>
+        <tr tid="passwordStrength" got="0">
+            <td width="160" valign="top">密码强度</td>
+            <td class=""><i class=""></i></td>
+            <td width="180" valign="top" class="ta_r"><a href="javascript:;" class="btnNormal mr_10 none"></a></td>
+        </tr>
+        <tr tid="passwdProtect" got="0">
+            <td valign="top">密保问答</td>
+            <td class=""><i class=""></i></td>
+            <td width="180" valign="top" class="ta_r"><a href="javascript:;" class="btnNormal mr_10 none"></a></td>
+        </tr>
+        <tr tid="loginException" got="0">
+            <td valign="top">登录情况</td>
+            <td class=""><i class=""></i></td>
+            <td width="180" valign="top" class="ta_r"><a href="javascript:;" class="btnNormal mr_10 none"></a></td>
+        </tr>
+        <tr tid="pilferDate" got="0">
+            <td valign="top">是否存在被盗号的风险</td>
+            <td class=""><i class=""></i></td>
+            <td width="180" valign="top" class="ta_r"><a href="javascript:;" class="btnNormal mr_10 none"></a></td>
+        </tr>
+        </tbody>
+    </table>
+    <table class="mtMain">
+        <thead>
+        <tr>
+            <th width="160" class="fz_14"><a id="health_danger"></a>风险检测</th>
+            <th class="fw_n">共4项</th>
+            <th width="180" class="ta_r"><a href="javascript:;" class="mr_10 cArare"><i class="i-mtUp"></i></a></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr tid="forwardMail" got="0">
+            <td width="160" valign="top">转发邮件设置</td>
+            <td class=""><i class=""></i><p class="c_999 mt_5 pl_15">开启后本邮箱来信将自动转发到指定邮箱，该设置具有一定风险。</p></td>
+            <td width="180" valign="top" align="right" class="ta_r"><a href="javascript:;" class="btnNormal mr_10 none"></a></td>
+        </tr>
+        <tr tid="virusScan" got="0">
+            <td width="160" valign="top">扫描来信病毒设置</td>
+            <td class=""><i class=""></i></td>
+            <td width="180" valign="top" align="right" class="ta_r"><a href="javascript:;" class="btnNormal mr_10 none"></a></td>
+        </tr>
+        <tr tid="autoLogin" got="0">
+            <td width="160" valign="top">是否勾选两周内自动登录</td>
+            <td class=""><i class=""></i><p class="c_999 mt_5 pl_15">如果在公用电脑上勾选该项，可能会存在安全风险。</p></td>
+            <td width="180" valign="top" align="right" class="ta_r"><a href="javascript:;" class="btnNormal mr_10 none"></a></td>
+        </tr>
+        <tr tid="umcUser" got="0">
+            <td width="160" valign="top">是否升级通行证</td>
+            <td class=""><i class=""></i></td>
+            <td width="180" valign="top" align="right" class="ta_r"><a href="javascript:;" class="btnNormal mr_10 none"></a></td>
+        </tr>
+        </tbody>
+    </table>
+    <table class="mtMain">
+        <thead>
+        <tr>
+            <th width="160" class="fz_14"><a id="health_save"></a>存储检测</th>
+            <th class="fw_n">共6项</th>
+            <th width="180" class="ta_r"><a href="javascript:;" class="mr_10 cArare"><i class="i-mtUp"></i></a></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr tid="limitAllMail" got="0">
+            <td width="160">收件箱邮件封数</td>
+            <td class=""><i class=""></i></td>
+            <td width="180" class="ta_r"><a href="javascript:;" class="btnNormal mr_10 none"></a></td>
+        </tr>
+        <tr tid="limitUnread" got="0">
+            <td width="160">未读邮件</td>
+            <td class=""><i class=""></i></td>
+            <td width="180" class="ta_r"><a href="javascript:;" class="btnNormal mr_10 none"></a></td>
+        </tr>
+        <tr tid="limitAdvert" got="0">
+            <td width="160">广告邮件</td>
+            <td class=""><i class=""></i></td>
+            <td width="180" class="ta_r"><a href="javascript:;" class="btnNormal mr_10 none"></a></td>
+        </tr>
+        <tr tid="limitDraft" got="0">
+            <td width="160">草稿箱</td>
+            <td class=""><i class=""></i></td>
+            <td width="180" class="ta_r"><a href="javascript:;" class="btnNormal mr_10 none"></a></td>
+        </tr>
+        <tr tid="limitDiskCapacity" got="0">
+            <td width="160">彩云网盘容量</td>
+            <td class=""><i class=""></i></td>
+            <td width="180" class="ta_r"><a href="javascript:;" class="btnNormal mr_10 none"></a></td>
+        </tr>
+        <tr tid="expireLargeattach" got="0">
+            <td width="160">暂存柜</td>
+            <td class=""><i class=""></i></td>
+            <td width="180" class="ta_r"><a href="javascript:;" class="btnNormal mr_10 none"></a></td>
+        </tr>
+        </tbody>
+    </table>
+    <table class="mtMain">
+        <thead>
+        <tr>
+            <th width="160" class="fz_14"><a id="health_privacy"></a>个人资料检测</th>
+            <th class="fw_n">共5项</th>
+            <th width="180" class="ta_r"><a href="javascript:;" class="mr_10 cArare"><i class="i-mtUp"></i></a></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr tid="setAlias" got="0">
+            <td width="160">邮箱帐号别名</td>
+            <td class=""><i class=""></i></td>
+            <td width="180" class="ta_r"><a href="javascript:;" class="btnNormal mr_10 none"></a></td>
+        </tr>
+        <tr tid="setSendName" got="0">
+            <td width="160">发件人姓名</td>
+            <td class=""><i class=""></i><p class="c_999 mt_5 pl_15">设置姓名让联系人更容易认识您。</p></td>
+            <td width="180" class="ta_r"><a href="javascript:;" class="btnNormal mr_10 none"></a></td>
+        </tr>
+        <tr tid="setBirthday" got="0">
+            <td width="160">生日</td>
+            <td class=""><i class=""></i><p class="c_999 mt_5 pl_15">设置生日让联系人更容易认识您，且会得到来自邮箱和好友的生日祝福。</p></td>
+            <td width="180" class="ta_r"><a href="javascript:;" class="btnNormal mr_10 none"></a></td>
+        </tr>
+        <tr tid="setImage" got="0">
+            <td width="160">头像</td>
+            <td class=""><i class=""></i><p class="c_999 mt_5 pl_15">设置头像让联系人更容易认识您。</p></td>
+            <td width="180" class="ta_r"><a href="javascript:;" class="btnNormal mr_10 none"></a></td>
+        </tr>
+        <tr tid="bindingPhone" got="0">
+            <td width="160">是否绑定手机号</td>
+            <td class=""><i class=""></i></td>
+            <td width="180" class="ta_r"><a href="javascript:;" class="btnNormal mr_10 none"></a></td>
+        </tr>
+        </tbody>
+    </table>
+</script>
+
+</body>
+<script type="text/javascript">
+    try {
+        top.loadScript("libs.pack.js", document);
+        top.loadScript('m139.core.pack.js', document);
+        top.loadScript("/m2012/js/packs/health.html.pack.js", document);
+    } catch (ex) { }
+    function toAnchor(anchor){
+        if($("#"+anchor)[0]){
+            var _scrollTop = $("#"+anchor).offset().top;
+            $(window).scrollTop(_scrollTop);
+            if($("#"+anchor).parents('tr').find('.i-mtDown')[0]){
+                $("#"+anchor).parents('tr').find('.cArare').click();
+            }
+        }
+    }
+    function changeTab(tab){
+        if(($('#mailTesting .on').is('#mailTesting li:eq(0)') && tab == 'health') ||
+                ($('#mailTesting .on').is('#mailTesting li:eq(1)') && tab == 'update')){
+            return;
+        }
+        $('#healthTab, #updateTab').addClass('none');
+        $('#' + tab + 'Tab').removeClass('none');
+        $('#mailTesting li').removeClass().eq(tab =='update' ? 1 : 0).addClass('on');
+        if(tab == 'update'){
+            updateView.checking();
+        }else{
+            updateView.unload();
+        }
+    }
+</script>
+</html>

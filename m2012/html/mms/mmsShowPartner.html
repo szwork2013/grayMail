@@ -1,0 +1,201 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head id="Head1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>免费条数已超出</title>
+<script language="javascript">
+    document.domain=window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1].split(":")[0];
+    var versionStr="?v=20110329";
+    var resourcePath=window.top.resourcePath;
+    top.loadScript("jquery.js", document);
+    top.loadScript("m2011.utilscontrols.pack.js", document);
+    var mmsResourcePath=resourcePath.replace("coremail","suppermms");
+    var htmlCode=getLinkTag(mmsResourcePath+"/css/mms.css");
+    document.write(htmlCode);
+    function getJsTag(path,charset){
+        var html="<script charset='gb2312' src='"+path+versionStr+"' type='text/javascript'></"+"script>";
+        if (charset) html = html.replace("gb2312",charset);
+        return html;
+    }
+    function getLinkTag(path){
+        var text="";
+        if(path)text="href='"+path+versionStr+"'";
+        return "<link rel='stylesheet' type='text/css' "+text+" />";
+    }
+    function SetNoShowPartner()
+    {
+        $.ajax({
+            method: "post",
+            url: Utils.getAddedSiteUrl("setPartner"),
+            data: { ms: "hello" },//无内容的时候，随便加个参数，防止程序接收异常数据
+            success: function () {
+                showFlashContent();
+                top.FloatingFrame.close();
+            }
+        });
+    }
+ 
+ function selectProcodePop()
+ {
+    if(window.top!=null && window.top.UserData!=null && window.top.UserData.provCode!=null)
+    {
+       if(window.top.UserData.provCode==1)
+       {
+          showDivGd(true);
+          showDivLn(false);
+       }
+       else if(window.top.UserData.provCode==7)
+       {
+          showDivGd(false);
+          showDivLn(true);
+       }
+    }
+ }
+ 
+ function showDivGd(flag)
+ {
+    var divIdGd = document.getElementById("gd");
+    if(flag)
+    {
+        divIdGd.style.display =""
+    }
+    else
+    {
+        divIdGd.style.display ="none"
+    }
+ }
+ 
+ function showDivLn(flag)
+ {
+    var divIdLn = document.getElementById("ln");
+    if(flag)
+    {
+        divIdLn.style.display =""
+    }
+    else
+    {
+        divIdLn.style.display ="none"
+    }
+ }
+ function showFlashContent()
+ {
+     var swfcontent=top.document.getElementById("mms").contentWindow.document.getElementById("swfcontent");
+	 $(swfcontent).css("visibility","visible");
+ }
+ function isShowPartnerPage(flag)
+ {
+    showFlashContent();
+    if(flag)
+    {
+        setTimeout(function(){window.top.Links.show('partner');top.FloatingFrame.close();},100);
+    }
+    else
+    {
+        top.FloatingFrame.close();
+    }
+    return false;
+ }
+ 
+</script>
+</head>
+<body class="fee" style="margin:20px;">
+ <form name="form1" method="post" action="ShowPartner.aspx" id="form1">
+<div>
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUJOTU4MjMyMzI1ZGQ=" />
+</div>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="3">
+  <tr>
+    <td width="80" rowspan="3" align="center" valign="top"><div class="big_tips"></div></td>
+    <td style="font-size:14px; font-weight:bold;">您的自写彩信免费条数已经用完！</td>
+
+  </tr>
+  <tr>
+    <td style="color:#999999; height: 25px;">
+        超出的彩信为<span id="mmsMoney"></span>/条</td>
+
+  </tr>
+  <tr>
+    <td><a href="javascript:void(0);" style="margin-left:15px" class="green" onclick="return isShowPartnerPage(false);"> &lt;&lt;继续发送</a>
+
+	<a href="javascript:void(0);" style="margin-left:15px" class="green"  onclick="SetNoShowPartner();return isShowPartnerPage(false);"> 我知道了，不再提醒&gt;&gt;</a></td>
+  </tr>
+</table>
+
+<div id="gd" style="display:none">
+<table width="400" border="0" cellspacing="0" cellpadding="2" style="margin-top:20px">
+  <tr>
+    <td style="font-size:14px;"><span style="font-weight:bold;color:#444;">您想获取更多优惠的自写彩信吗？</span><a class="green" href="javascript:" onclick="return isShowPartnerPage(true);"/>使用邮箱伴侣吧！</a></td>
+  </tr>
+
+  <tr>
+    <td height="23" valign="top" style="color:#999">开通6元/月的邮箱伴侣，即可获得超值的移动增值服务大礼包哦！</td>
+  </tr>
+
+  <tr>
+    <td height="77" style="background-color:#ebf4d9; border:1px solid #87a34c; padding:5px; line-height:34px">
+	<ul style="margin-left:10px">
+    <li>赠送150条自写短信</li>
+	<li>赠送10页同城传真</li>
+    </ul>
+	<ul>
+    <li>赠送40条自写彩信</li>
+
+	<li>手机彩云容量增加2G</li>
+    </ul>
+	</td>
+  </tr>
+  <tr>
+    <td height="60" align="center">
+      <label>
+          <input name="Submit" type="button" class="sub"  onclick="return isShowPartnerPage(true);"/>
+
+      </label>
+     </td>
+  </tr>
+</table>
+
+</div>
+
+<div id="ln" style="display:none">
+<table width="400" border="0" cellspacing="0" cellpadding="2" style="margin-top:20px">
+  <tr>
+    <td style="font-size:14px;"><b style="font-weight:bold;color:#444444;">您想获取更多优惠的自写彩信吗？</b><a class="green" href="javascript:" onclick="showFlashContent();setTimeout(function(){window.top.Links.show('partner');top.FloatingFrame.close();},100);return false;">使用邮箱伴侣吧！</a></td>
+  </tr>
+   <tr>
+    <td height="23" valign="top" style="color:#999999">开通5元/月的邮箱伴侣，即可获得超值的移动增值服务大礼包哦！</td>
+  </tr>
+  <tr>
+    <td height="77" style="background-color:#ebf4d9; border:1px solid #87a34c; padding:5px; line-height:34px">
+    <ul style="margin-left:10px">
+        <li>赠送60条自写短信</li>
+	    <li>赠送10条自写彩信</li>
+    </ul>
+	<ul>
+	    <li>手机彩云容量增加到10G</li>
+    </ul>
+	</td>
+  </tr>
+  <tr>
+    <td height="60" align="center">
+      <label>
+          <input name="Submit" type="button" class="sub" onclick="return isShowPartnerPage(true);"/>
+          </label>
+     </td>
+  </tr>
+</table>
+</div>
+
+<script>
+ $(document).ready(function()
+ {
+    selectProcodePop();
+ });
+ 
+//从url中获取单条彩信的资费
+var mmsMoney = Utils.queryString("mmsCharge"); 
+$("#mmsMoney").text(mmsMoney);
+</script>
+</form>
+</body>
+</html>

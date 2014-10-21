@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="Keywords" content="" />
+<meta name="Description" content="" />
+<title>收件箱-139邮箱</title>
+
+
+<style>
+caption{
+display: table-caption;
+text-align: -webkit-left;
+}
+
+.mail-tdzt{width:100%;}
+.mail-tdzt td,.mail-tdzt th{height:30px;border:1px solid #dfdfe1;text-align:left;padding-left:5px;background-color:#FFFFFF;}
+.mail-tdzt th{background: url(../../images/skin/normal/bg_x.png) repeat-x  0 -138px;}
+</style>
+<script type="text/javascript">
+    document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+    if (!top.m139LoadScript) {
+        top.m139LoadScript = top.loadScript;
+    }
+</script>
+<script>top.m139LoadScript('libs.pack.js', document); top.m139LoadScript('m139.core.pack.js', document)</script><script>    top.loadCSS(["common/global.css", "module/write.css"], document)</script></head>
+<body>
+<div class="writeOk">
+	<div class="norTips norTips-writeOk">
+		<span class="norTipsIco"><i class="i_ok"></i></span>
+		<div class="norTipsContent">
+			<div class="norTipsTitle" id="tipWords">邮件已经发送</div>
+            <div class="raffleTips" id="gotoUserCenter" style="display:none">
+				<i class="add_integral mr_5"></i>成功获得<strong class="fz_14"> 2 </strong>积分
+				<a href="javascript:;" class="rafBtn ml_10">去抽大奖</a>
+				<a href="javascript:;" class="rafBtn ml_10">去做任务</a>
+			</div>
+			<div class="norTipsLine gray bline" id="saveMail">此邮件已保存到“已发送”文件夹</div>
+			<div class="norTipsLine gray bline" id="saveLargeAttach" style="display:none"></div>
+			<div class="norTipsLine">
+				<a hideFocus="1" href="javascript:void(0)" class="mr_10" id="sendSMS">短信提醒收件人</a>
+				<a hideFocus="1" href="javascript:void(0)" class="mr_10" id="showSendedBox">查看此邮件</a>
+				<a hideFocus="1" href="javascript:void(0)" class="mr_10" id="showDeliverStatus">查看发送状态</a>
+			</div>
+			
+			<div class="norTipsLine" id="divDetailStatus" style="display: none"></div>
+			<!-- <div id="divSaveToAddr" style="display:none"></div>-->
+				
+			<div class="norTipsLine">
+				<a hideFocus="1" href="javascript:void(0)" class="btnTb mr_10" id="showMailBox"><span>去收件箱</span></a>
+				<a hideFocus="1" href="javascript:void(0)" class="btnTb mr_10" id="showCompose"><span>继续写信</span></a>
+				<a hideFocus="1" href="javascript:void(0)" class="btnG" id="closeWin" style="display: none;"><span>关闭窗口</span></a>
+			</div>		
+            <div id="aliasSet" style="display:none"></div>
+            <div id="subRender"></div>	
+
+		</div>
+	</div>
+	<div class="writeOk-li" style="display: none" id="mailNotify">
+		<h2>邮件到达通知</h2>
+		<p class="pb_5"><span class="gray mr_10 ">有新邮件时，免费短信通知。让您第一时间收到邮件！</span>
+			<a hideFocus="1" href="javascript:top.$App.show('notice');" name="showSetting">详细设置</a></p>
+		<a hideFocus="1" href="javascript:void(0);" class="btnTb mr_10" id="openMailNotify"><span>立即开启</span></a>
+	</div>
+	<div class="writeOk-li" id="openMailNotifySuc" style="display: none">
+		<div class="norTips norTips-min">
+			<span class="norTipsIco"><i class="i_ok_min"></i></span>
+			<div class="norTipsContent">
+				<div class="norTipsTitle">开启成功</div>
+				<div class="norTipsLine"><span class="gray mr_10">有新邮件时，免费短信通知</span><a hideFocus="1" href="javascript:top.$App.show('notice');" name="showSetting">详细设置</a></div>
+			</div>
+		</div>
+	</div>
+	<div class="writeOk-li" id="divSaveSendContacts" style="display:none;"></div>
+	<div class="writeOk-li" id="divAddVipContacts" style="display:none;"></div>
+</div>
+</body>
+    <script>top.m139LoadScript("write_ok.html.pack.js", document)</script>
+</html>

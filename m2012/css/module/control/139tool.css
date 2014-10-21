@@ -1,0 +1,71 @@
+@charset "utf-8";
+/*================================================
+Version:1.0 Date:2012/06/01
+Compatible Kernel:Trident\WebKit\Gecko\Presto
+Author:交互体验室-前端重构组
+================================================*/
+/* ================================================ Reset ================================================ */
+html{-webkit-text-size-adjust: none;}
+html,body,p,ul,ol,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,form,fieldset,legend,input,select,textarea,button,th,td,blockquote,address,var,pre{margin:0;padding:0;}
+h1,h2,h3,h4,h5,h6,input,textarea,select,button,label{font-size:100%;}
+body{background-color:#fff;color:#333;font:12px/1.5 "lucida Grande",Verdana;} 
+button,select,textarea,input{vertical-align:middle;color:#333;font-family:"lucida Grande",Verdana;}
+input[type=button],input[type=submit],input[type=reset],input[type=file],button{cursor:pointer;overflow:visible;width:auto}
+button{padding:3px 5px 2px;}
+textarea{resize:vertical;}  /* word-wrap for opera, resize for webkit */
+a{color:#014282;text-decoration:none;}
+a:hover{text-decoration:underline;}
+a:focus{outline:none;}
+ul,ol{list-style:none outside none;}
+img,fieldset{border:none;}
+img{overflow:hidden;vertical-align:top;}
+em,address,var{font-style:normal;}
+sup,sub{vertical-align:baseline;}
+table{border-collapse:collapse;border-spacing:0;}
+i{display:inline-block;} /*用于修饰性小图标*/
+.addiv{text-align: center;background-color:#FFF;padding-bottom: 20px; }
+/*float*/
+.fl{float:left;display:inline;}
+.fr{float:right;display:inline;}
+/* clear float */
+.clearfix:after{visibility:hidden;display:block;font-size:0;content:" ";clear:both;height:0;}
+.clearfix{zoom:1;}
+body{background-color:  #f9f9f9; }
+.header,.header .logo,.iico1,.iico2,.iico3,.iico4,.downcont h1,.downbtn,.icoba,.header2{background:url(../../../images/module/control/bgico.png) no-repeat;}
+.header{width:100%;height:41px;line-height:41px;background-repeat:repeat-x;}
+.header2{background-repeat:repeat-x;}
+.header .logo{ background-position:0 -43px;width:213px;height:41px;display:block;}
+.header .logo .logoa{display:block;float:left;width:115px;height:41px;}
+.header,.header a{color:#FFF;}
+.main{width:100%;background:url(../../../images/module/control/bg.jpg) no-repeat top center #FFF;padding-top:59px;}
+.main2{background:url(../../../images/module/control/bg.jpg) no-repeat -258px -59px;margin-top:0px;width:980px;margin-left:auto;margin-right:auto;}
+.inwrap{width:980px;margin:0 auto;}
+.footer{border-top:1px solid #e8e8e8;background-color:#f9f9f9;padding-top:19px;height:81px;}
+.footer,.footer a{color:#7f7f7f;}
+
+.iico1,.iico2,.iico3,.iico4{width:64px;height:64px;overflow:hidden;display:inline-block;}
+.iico1{background-position:0 -200px;}
+.iico2{background-position:-64px -200px;}
+.iico3{background-position:-128px -205px;}
+.iico4{background-position:-192px -200px;}
+
+.downcont{width:315px;height:367px;margin:0 0 64px 0;padding-left:661px;padding-top:15px;}
+.downcont h1{width:265px;height:43px;background-position:0 -268px;margin:0 auto 8px auto;overflow:hidden;}
+.downcont p{color:#999;border-top:1px solid #e9e9e9;width:256px;margin:0 auto;padding:10px 16px 60px 16px;line-height:25px;}
+.botbtn p{text-align:center;padding-bottom:20px;}
+.downbtn{ background-position:0 -86px;width:235px;height:51px;display:block;overflow:hidden;margin:0 auto;}
+.downbtn:hover{background-position:0 -139px;}
+.icoba{background-position:-238px -46px;width:18px;height:22px;display:inline-block;vertical-align:middle;margin-right:5px;}
+/* ==== 图片文字左右结构 ====   */
+.imgInfo:after{content:".";clear:both;display:block;height:0;visibility:hidden;}
+.imgInfo{zoom:1;}
+.imgInfo .imgLink{float:left;margin-right:7px;}
+.imgInfo dl{overflow:hidden;zoom:1;}
+.imgInfo dt{font-weight:bold;font-size:14px;color:#333;}
+.imgInfo dd{color:#999;}
+
+.toolinfo{padding:0 0 45px 30px;}
+.toolinfo .imgInfo{float:left;width:460px;margin:45px 0 0 0;}
+.toolinfo .imgInfo .imgLink{margin-right:25px;}
+.toolinfo .imgInfo dt{padding-bottom:5px;}
+.toolinfo .imgInfo dd{width:308px;}

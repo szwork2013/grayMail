@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<project name="build_pack" default="packFile">
+    <target name="packFile">
+        <concat destfile="./packs/onlinetips.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+            <fileset dir="./prod" includes="**/m2012.ui.tip.remindmodel.js" />
+			<fileset dir="./prod" includes="**/m2012.ui.tip.loginview.js" />
+			<fileset dir="./prod" includes="**/m2012.ui.tip.mailview.js" />
+			<fileset dir="./prod" includes="**/m2012.ui.tip.onlineview.js" />
+        	<fileset dir="./prod" includes="**/m2012.ui.tip.activeview.js" />
+		</concat>
+    </target>
+</project>

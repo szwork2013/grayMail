@@ -1,0 +1,3 @@
+@charset "utf-8";
+/*会话邮件读信*/
+#isForwardContent,#isReplyContent,#mailcontent,#origbody,#reply139content,#oriMsgHtmlSeperator,div.gmail_extra,div.gmail_quote,div.yahoo_quoted{display:none}

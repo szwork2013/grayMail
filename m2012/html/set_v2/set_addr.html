@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>139邮箱设置</title>
+<script>
+document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+
+top.loadScript('libs.pack.js', document);
+top.loadScript('m139.core.pack.js', document);
+top.loadScript("m2012.ui.common.pack.js", document);
+top.loadCSS(["common/global.css", "module/set.css"], document);
+</script>
+</head>
+<body>
+
+<div class="setWrap">
+	<div id="accountSet" class="setArea setForm">
+		<h2 class="mt_20">自动保存联系人</h2>
+		<div class="setArea-content">
+			<ul class="form setForm">
+				<li class="formLine">
+					<label class="label">发信成功时：</label>
+					<div class="element">
+						<div id="composeAutosaveFlag"></div>
+						<span class="gray">（包括从Foxmail、Outlook等客户端发信）</span>
+					</div>
+				</li>
+				<li class="formLine noLine">
+					<label class="label">阅读邮件时：</label>
+					<div class="element">
+						<div id="readAutosaveFlag"></div>
+						<span class="gray">（默认保存至“读信联系人”分组）</span>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<script> top.loadScript("m2012.settings_v2.addr.pack.js", document); </script>
+<script>
+
+	window.addrSetView = new M2012.Settings.Addr.View();
+	addrSetView.render();
+
+</script>
+</body>
+</html>

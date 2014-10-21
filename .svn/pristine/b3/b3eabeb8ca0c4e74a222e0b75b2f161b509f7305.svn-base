@@ -1,0 +1,294 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>139邮箱-设置-手机通知</title>
+<script type="text/template" id="recentmail_template">
+<style>
+.add-zj-tbdiv{height:200px;overflow-x:hidden;overflow-y:auto;}
+.add-zj-tb{margin:10px;table-layout: fixed;}
+.add-zj-tb td{border-bottom:1px dotted #dfdfe1;height:30px;padding-left:10px;}
+.add-zj-tb .td1{width:120px;}
+.add-zj-tb .td1 div{width:120px;overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+.add-zj-tb .td4{width:130px;text-align:left;padding:3px 0;}
+.add-zj-tb .td3{text-align:left;padding:3px 0;}
+.add-zj-tb th{border-bottom:1px solid #dfdfe1;font-weight:400;}
+</style>
+<div class="add-zj-tbdiv">
+<!--[if lt ie 8]><div style="+zoom:1;"><![endif]-->
+<table class="add-zj-tb">
+<% _.each(maillist, function(mail) { %>
+    <tr>
+        <td class="td1"><div title="<%= mail.from %>"><input type="checkbox" value="<%= mail.mid %>" class="mr_5"/><%= mail.from %></div></td>
+        <td class="td2"><%= $TextUtils.htmlEncode(mail.subject) %></td>
+    </tr>
+<% }); %>
+</table>
+<!--[if lt ie 8]></div><![endif]-->
+</div>
+</script>
+
+<script type="text/template" id="exceptlist_template">
+<table class="notifylisttab">
+    <tr>
+        <th class="td1">发件人</th>
+        <th class="td2">接收方式</th>
+        <th>接收时段</th>
+        <th class="td3"></th>
+    </tr>
+<% _.each(exceptlist, function(except) { %>
+    <tr id="nid_<%= except.notifyid %>">
+        <td class="td1"><div title="<%= $TextUtils.htmlEncode(except.emaillist[0]) %>"><%= $TextUtils.htmlEncode(except.emaillist[0]) %></div></td>
+        <td class="j_notifytype td2">
+            <%= top.SiteConfig.mailNotice?["不接收通知", "短信到达通知", "彩信到达通知", "wap链接", "短信邮件", "免提短信"][except.notifytype]:["不接收通知", "普通短信", "彩信", "wap链接", "长短信", "免提短信"][except.notifytype] %>
+        </td>
+        <td class="j_discription">
+        <% if (except.notifytype != 0 && except.enable) { %>
+            <%= except.timerange[0].discription %><%= except.timerange.length > 1 ? "等" : "" %><%= except.supply ? "；补发" : "" %>
+        <% } %>
+        </td>
+        <td class="td3">
+            <a class="hide" data-cmd="delete" data-nid="<%= except.notifyid %>" href="javascript:void(0)" bh="set_notice_except_delete">删除</a>
+            <a class="hide">|</a>
+            <a class="hide" data-cmd="modify" data-nid="<%= except.notifyid %>" href="javascript:void(0)" bh="set_notice_except_modify">修改</a>
+        </td>
+    </tr>
+<% }); %>
+</table>
+<a id="more" data-cmd="more" href="javascript:void(0)" class="ml_5 <%= showmore ? "" : "hide" %>">更多</a>
+</script>
+<script type="text/javascript">
+document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];//设域
+top.loadCSS(["common/global.css", "module/set.css", "module/write.css"], document, "/m2012/css/");
+top.loadScript('libs.pack.js', document, "utf-8", "/m2012/js/packs/");
+top.loadScript('m139.core.pack.js', document, "utf-8", "/m2012/js/packs/");
+top.loadScript("m2012.ui.common.pack.js", document, "utf-8", "/m2012/js/packs/");
+top.loadScript("notice.html.pack.js", document, "utf-8", "/m2012/js/packs/");
+</script>
+</head>
+
+<body class="setbody">
+    <div class="setWrap">
+        <div class="setArea">
+            <h2>登录短信通知</h2>
+            <div class="setArea-content p_relative">
+            <ul class="form ">
+                <li class="formLine">
+                    <label class="label">登录短信通知：</label>
+                    <div id="loginNotice" class="element ">
+                        <div>
+                            <label class="mr_10">
+                                <input type="radio" name="notice" value="2" class="mr_5" />异常时发送</label>
+                            <span class="gray">在其他城市（不是您经常登录的城市）登录139邮箱时，前5次会发送登录安全提醒短信给您。</span></div>
+                        <div>
+                            <label class="mr_10">
+                                <input type="radio" name="notice" value="0" class="mr_5" />每次都发送</label>
+                            <span class="gray">每次登录139邮箱，都发送登录安全提醒短信。为免打扰，同一IP段每4小时最多发送一条。</span></div>
+                        <div>
+                            <label class="mr_10">
+                                <input type="radio" name="notice" value="1" class="mr_5" />不发送</label>
+                            <span class="gray">登录139邮箱，不发送登录安全提醒短信给您。</span></div>
+                    </div>
+                </li>
+                <li class="formLine" style="position:relative;">
+                    <label class="label">上次登录时间：</label>
+                    <div id="lastLogin" class="element ">-</div><a href="javascript:;" class="ml_10" id="record2" style="position:absolute; top:2px; left:300px;">登录记录查询</a>
+                </li>
+            </ul>
+            </div>
+        </div>
+
+        <div class="setArea">
+            <h2>邮件到达通知</h2>
+            <div class="setArea-content p_relative" style="z-index:9">
+                <ul class="form setForm mt_15">
+                    <li class="formLine bgfa">
+                        <label class="label">邮件到达通知：</label>
+                        <div id="majorswitch" class="element">
+                            <label><input type="radio" name="mailnotice" value="open" class="mr_5">开启</label><br>
+                            <label><input type="radio" name="mailnotice" value="close" class="mr_5">关闭</label>
+                        </div>
+                    </li>       
+                    <li class="formLine j_disablepanel">
+                        <label class="label"></label>
+                        <div class="element">
+                            <input id="popnotice" type="checkbox" value="open" class="mr_5" /><label for="popnotice">接收代收邮箱的到达通知</label>
+                        </div>
+                    </li>
+                    <li class="formLine p_relative" id="li_conversation" style="border-top:none;padding:0;">
+                        <label class="label">显示方式：</label>
+                        <div id="div_conversation" class="element">
+                            <label name="c1"><input type="radio" name="conversation" value="close" class="mr_5" checked="checked">短信分开显示<span class="gray">（支持回复短信处理邮件）</span></label><br>
+                            <label name="c2"><input type="radio" name="conversation" value="open" class="mr_5" >短信聚合显示<span class="gray">（不支持回复短信处理邮件）</span></label>
+                        </div>
+                        <div class="mailTipArrived" style="display:none;position: absolute; left: 460px;z-index: 9">
+                            <img src="/m2012/images/201312/yjddtz_02.png" width="257" height="360" alt="">
+                        </div>
+                       
+                    </li>
+                </ul>
+            </div>
+
+			<div class="setArea-content p_relative">
+              <div id="MajorTimeRangePanel" class="j_disablepanel">
+                <ul class="form setForm">        
+                    <li class="formLine bgfa">
+                        <label class="label">接收时段：</label>
+                        <div class="element">
+                            <table class="setnotifytb" id="MajorTimeRangeAddtion">
+                                <tr>
+                                    <td><a id="btnAddMajorRange" href="javascript:void(0)">添加</a></td>
+                                </tr>
+                                <tr class="hide">
+                                    <td id="majorRangeField" style="padding-left:0"></td>
+                                </tr>
+                            </table>
+                            <table class="setnotifytb" id="MajorTimeRange" style="margin-top:-1px">
+                            </table>
+                            <div>
+                                <label class="mr_5"><input id="mailnotice_supply" type="checkbox" value="" class="mr_5" bh="set_notice_supply"/>补发</label>
+                                <span class="gray">(如上述时段外有来信，在下一接收时间补发通知)</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="formLine formLineNone j_disablepanel" style="display: list-item;">
+                        <label class="label"></label>
+                        <div class="element">
+                            <input id="mpostnotice" type="checkbox" value="" class="mr_5"><label for="popnotice">订阅邮件到达通知遵循上述时段设置</label>
+                        </div>
+                    </li>
+                </ul>
+              </div>
+            </div>
+
+			<div class="setArea-content p_relative">
+              <div class="j_disablepanel">
+                <ul class="form">        
+                    <li class="formLine">
+                        <label class="label">接收方式：</label>
+                        <div class="element">
+                            <table id="majorNoticeType" class="setnotifytb notifytab">
+                                <tr>
+                                    <td>
+                                        <div class="clearfix pb_5">
+                                            <span class="fl mr_5">发件人在通讯录时&nbsp;&nbsp;&nbsp;</span>
+                                            <div id="notifyTypeMenuContact"></div>
+                                        </div>
+                                        <div>
+                                            <span class="fl mr_5">发件人不在通讯录时</span>
+                                            <div id="notifyTypeMenuNoContact"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </li>
+                </ul>
+              </div>
+            </div>
+
+			<div class="setArea-content p_relative">
+            <div class="j_disablepanel">
+                <ul class="form">        
+                    <li class="formLine">
+                        <label class="label">例外情况：</label>
+                        <div class="element">
+
+<div class="noticfyadd">
+        <p class="pb_5"><a id="addExceptLink" href="javascript:void(0)" bh="set_notice_except_add">添加</a></p>
+
+        <div id="addExcept" class="tips notify-tips hide">
+            <div class="tips-text">
+                <div class="content-text">
+                    <ul class="form form-notify ">
+                        <li class="formLine">
+                            <label class="label">发&nbsp;件&nbsp;人&nbsp;：</label>
+                            <div class="element">
+								<div class="clearfix">
+									<div class="peoinput fl mr_10">
+										<input id="richExcept" type="text" class="iText" value=""/><a id="inputcontactExcept" href="javascript:void(0)" class="i_peo" bh="set_notice_except_address"></a>
+									</div>
+									<a id="recentExcept" href="javascript:void(0)" bh="set_notice_except_recent">最近收信</a>
+									| <a id="contactExcept" href="javascript:void(0)" bh="set_notice_except_address">通迅录</a>
+								</div>
+								<div class="gray">请输入Email地址或域名，"example@139.com"或"@139.com"</div>
+                            </div>
+ 
+                        </li>
+                        <li class="formLine">
+                            <label class="label">是否接收通知：</label>
+                            <div class="element" id="addEnableType">
+                                <label for="exceptEnable" class="mr_10"><input id="exceptEnable" name="enableExcept" type="radio" class="mr_5" value="1" checked="checked">接收</label>
+                                <label for="exceptDisable" class="mr_10"><input id="exceptDisable" name="enableExcept" type="radio" class="mr_5" value="0">不接收</label>
+                            </div>
+                        </li>
+                        <li class="formLine j_disablefield">
+                            <label class="label">接收方式：</label>
+                            <div class="element" id="notifyType">
+                            </div>
+                        </li>
+                        <li class="formLine j_disablefield">
+                            <label class="label">接收时段：</label>
+                            <div id="addExceptRangeModify" data-range='{"weekday":"1,2,3,4,5,6,7","begin":8,"end":22}' class="element">
+                                <span>每天，8：00~22：00</span>
+                                <a href="javascript:void(0)" bh="set_notice_except_range">修改</a>
+                            </div>
+                            <div class="element hide">
+                                <div id="addExceptRangePanel" style="border: 1px solid #DFDFE1;margin-right:10px;">
+                                </div>
+                            </div>
+                        </li>
+                        <li class="formLine j_disablefield">
+                            <label class="label" style="width:185px"><input type="checkbox" class="mr_5" bh="set_notice_supply" />补发</label>
+                            <span class="gray">(如上述时段外有来信，在下一接收时间补发通知)</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tips-btn tips-btn2">
+                    <a id="btnAddExcept" href="javascript:void(0)" class="btnNormal "><span>确 定</span></a>
+                    <a id="btnCancelExcept" href="javascript:void(0)" class="btnNormal "><span>取 消</span></a>
+                </div>
+            </div>
+            <a id="closeExcept" class="i_u_close" href="javascript:void(0)" title="关闭"></a>
+            <div class="tipsTop diamond"></div>
+        </div>
+
+        <div id="listExcept"><!--例外情况列表--></div>
+
+</div>  
+
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            </div>
+</div>
+
+</div>
+
+<p class="gray pt_10 pl_15 pb_15"></p>
+
+
+    <!--</div>-->
+    <div class="setBtn fixed-bottom">
+        <span class="pl_20">
+            <a id="btnSubmit" href="javascript:void(0)" class="btnSetG" bh="set_notice_save"><span>保 存</span></a>
+            <a id="btnCancel" href="javascript:void(0)" class="btnSet"><span>取 消</span></a>
+        </span>
+    </div>
+
+</body>
+<script>
+ // add by zhangsixue
+
+    $("#record2").bind("click", function () {
+		//增加一个1.0版本的控制，因为两个版本共用一个页面
+		if(!top.$App){
+			top.Links.show('loginSearch');
+			return;
+		}
+        BH({ key: 'set_pop_loginquery' });
+        top.$App.show('selfSearch', { type: '0' })
+    })
+</script>
+</html>

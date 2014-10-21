@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" class="box">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>交费提醒</title>
+<script type="text/javascript">
+//设域
+document.domain=window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+//获得资源路径
+var resourcePath=window.top.resourcePath;
+var calendarResourcePath=resourcePath.replace("coremail","calendar");
+var htmlCode="";
+htmlCode+=getLinkTag("");
+htmlCode+=getLinkTag(calendarResourcePath+"/css/calendar.css?v=20110617");
+
+top.loadScript("jquery.js", document);
+top.loadScript("m2011.utilscontrols.pack.js", document);
+top.loadScript("/m2012/js/matrixvm/page/m2011.page.RichInputBox.js", document);
+top.loadScript("/m2012/js/service/calendar/m2011.calendar.MyCalendar.js", document);
+top.loadScript("/m2012/js/service/calendar/m2011.calendar.edit.js", document);
+
+document.write(htmlCode);
+
+function getJsTag(path,charset){
+    var html="<script charset='gb2312' src='"+path+"' type='text/javascript'></"+"script>";
+    if (charset) html = html.replace("gb2312",charset);
+    return html;
+}
+function getLinkTag(path){
+    var text="";
+    if(path)text="href='"+path+"'";
+    return "<link rel='stylesheet' type='text/css' "+text+" />";
+}
+</script>
+<link rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+Utils.loadSkinCss(null,document,"calendar");
+</script>
+<!--[if lte IE 7]><script>iereset('content')</script><![endif]-->
+</head>
+<body>
+	<div class="aside">
+		<ul class="tag">
+		    <li><a href="../calendar_list.html"><i class="allcalendar"></i><span id="spanCount1">全部日程</span></a></li>
+		    <li><a id="aRecent" href="../calendar_list.html?type=1"><i class="day7"></i><span id="spanCount2">最近7天日程</span></a></li>
+		    <li><a id="aAgent" href="../calendar_list.html?type=2"><i class="undo"></i><span>待办事项</span></a></li>
+		    <li><a id="aHasDone" href="../calendar_list.html?type=3"><i class="done"></i><span>已办事项</span></a></li>
+		    <li class="line"></li>
+		</ul>
+		<ul class="category">
+		<script type="text/javascript" language="javascript">
+		    richinfo.email.calendar.commonUI.category.addCategory("listtype=2",Utils.queryString("comefrom"));
+		</script>
+		</ul>
+		<b class="shadow"></b>
+	</div>
+	<div class="header">
+		<h1><i class="setcalendar"></i><span id="aTitle"></span></h1>
+	</div>
+	<form class="content" id="content">
+	    <p class="tips" style="display:none" id="pErrorMsg"><i class="error"></i><label id="lblErrorMsg">您的输入有误，请重新输入。</label></p>
+	    <dl class="form">
+			<dt>交费种类</dt>
+			<dd>
+				<select id="sltPayType" style="width:100px"><option value=0>选择种类</option></select> 
+                    <span class="fbc333 indent5">备注 <input class="txt bz-pay" id="txtContent" maxlength="100"/></span>
+			</dd>
+            <dt>金额</dt>
+			<dd>
+				<input class="txt amount" id="txtFee" maxlength="12"><label> 元</label>
+            </dd>
+			<dt>每月</dt>
+			<dd>
+			    <select id="sltDay"></select><label> 交费</label>
+			</dd>			
+			<script type="text/javascript">
+		        var obj=new richinfo.email.calendar.commonUI.remindBox(2);
+		    </script>
+			<dt>
+				<!--submit button-->
+			</dt>
+			<dd>
+				<input type="button" id="btnSave" value="保 存" class="btn">
+				<input type="button" id="btnCancel" class="btn" value="取 消">
+			</dd>
+		</dl>
+	</form>
+</body>
+<script type="text/javascript">
+var page = new PayPage();
+$(document).ready(function(){page.getData();});
+</script>
+</html>

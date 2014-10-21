@@ -1,0 +1,159 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+	<title>新手引导</title>
+	<meta charset="utf-8" />
+    <script type="text/javascript">
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1]; var m2012ResourceDomain = "http://" + location.host;
+        if (document.domain == "10086.cn") {
+            m2012ResourceDomain = /appmail3/.test(location.host) ? "http://image0.139cm.com" : "http://images.139cm.com";
+        }
+</script>
+
+    <script>
+        function loadScript(path, _doc, charset) {
+            if (path.indexOf(".js") > -1) {
+                var base = "/m2012";
+                var jsVersion = Math.random();
+                if (path.indexOf("pack.js") > -1) {
+                    base += "/js/packs";
+                }
+                if (path.indexOf("config") > -1) {
+                    base += "/conf";
+                }
+                path = base + "/" + path;
+                if (path.indexOf("?") == -1) {
+                    path += "?v=" + jsVersion;
+                }
+            }
+            (_doc || document).write("<script charset=\"" + (charset || "") + "\" type=\"text/javascript\" src=\"" + path + "\"></" + "script>");
+        }
+        function loadCSS(path, _doc) {
+            if (typeof path == "string") path = [path];
+            var jsVersion = Math.random();
+            for (var i = 0; i < path.length; i++) {
+                var item = path[i];
+
+                item = "/m2012/css/" + item + "?v=" + jsVersion;
+                (_doc || document).write('<link rel="stylesheet" href="' + item + '" type="text/css" />');
+            }
+            jsVersion = null;
+        }
+        (function () {
+
+            var match = location.href.match(/sid=([^&]+)/);
+            if (match) {
+                window.sid = match[1];
+            } else {
+                window.sid = "none";
+            }
+        })();
+        top.loadScript("config." + document.domain + ".js?sid=" + sid, document);
+    </script>
+<script>    top.loadCSS(["module/set/initset.css"], document); top.loadCSS(["common/global.css"], document);</script>
+<script>    top.loadScript('libs.pack.js', document); top.loadScript('m139.core.pack.js', document); top.loadScript('m2012.ui.common.pack.js', document); top.loadScript('initset.html.pack.js', document)</script>
+</head>
+
+<body>
+
+<iframe name="upiframe" id="upiframe" style="display:none"></iframe>
+
+	<div class="top">
+		<div class="title">
+			<h1>感谢您选择139邮箱！</h1>
+			<p>您还可以在<i class="i_trio_icon i_android"></i>Android、<i class="i_trio_icon i_ios"></i>iOS、<i class="i_trio_icon i_win8"></i>Windows&nbsp;8&nbsp;等平台上使用139邮箱</p>
+			<img src="/m2012/images/module/set/handLine.jpg" />
+			<p>现在，只需30秒，让你的邮箱更加好用！</p>
+		</div>
+	</div>
+	<div class="main clearfix">
+		<div class="firstStep" style="width: 340px;">
+			<h2><i class="i_trio_icon i_num"></i><span class="num">1</span>完善收发设置，更好的使用邮箱</h2>
+			<from action="" method="post">
+				<div class="mail_setting">
+					<p class="mailLogin">
+						<label>@139.com</label>
+						<span>邮箱别名：</span>
+						<input type="text" maxlength="15" id="mailAlias" value="例:bieming" class="text"/><br/>
+						<em id="aliasTip">以字母开头，5-15个字符。<font color="#3333">设置后不可修改删除</font></em>
+					</p>
+					<p class="mailLogin">
+						<span>发件人姓名：</span>
+						<input type="text" maxlength="12" id="sendName" class="text sendMan"/>
+						<em id="sendNameTip">让收件人知道我是谁</em>
+					</p>
+				</div>
+			</from>
+		</div>
+		<div class="firstStep secondStep">
+			<h2><i class="i_trio_icon i_num"></i><span class="num">2</span>除了邮箱，我们还提供更多</h2>
+				<div class="mail_setting"> 
+                    <form id="upPhoto" class="upPhoto" name="upphoto" target="upiframe" method="post" enctype="multipart/form-data" action="">
+						<input type="file" name="photopart" id="photoart" />
+					</form>
+                    <img class="load_images hide" id="loadImages" src="/m2012/images/global/loading.gif" width="16" height="16" />
+					<p class="mailLogin">
+						<span class="faceSpan">头像：</span>
+						<a href="javascript:;" class="face"><img id="ininImg" width="64" height="64" src="/m2012/images/global/face.png" /></a>
+
+						<em style="margin-left:0;">支持小于1M的jpg、jpeg、gif、bmp、png图片</em>
+					</p>
+					<div class="mailLogin clearfix">
+						<span style="float:left;">生日：</span>
+                        <div id="getBirthday"></div>
+                        <!--
+						<div class="birthday">
+							<a href="javascript:;" class="down_checked"><i class="i_trio_icon i_down"></i></a>
+							<em class="dateDefault" id="birthdayYear">年</em>
+							<ul class="birList hide">
+								<li><a href="javascript:;">1985</a></li>
+								<li><a href="javascript:;">1986</a></li>
+							</ul>
+						</div>
+						<div class="birthday birthdayShow">
+							<a href="javascript:;" class="down_checked"><i class="i_trio_icon i_down"></i></a>
+							<em class="dateDefault" id="birthdayMonth">月</em>
+							<ul class="birList hide">
+								<li><a href="javascript:;">1</a></li>
+								<li><a href="javascript:;">2</a></li>
+							</ul>
+						</div>
+						<div class="birthday birthdayShow">
+							<a href="javascript:;" class="down_checked"><i class="i_trio_icon i_down"></i></a>
+							<em class="dateDefault" id="birthdayDay">日</em>
+							<ul class="birList hide">
+								<li><a href="javascript:;">15</a></li>
+								<li><a href="javascript:;">30</a></li>
+							</ul>
+						</div>
+                        -->
+					</div>
+					<div class="red birthWarning hide" id="birthWarning">生日设置未完成</div>
+					<p class="sex" id="initSex">
+						<span>性别：</span>
+						<input type="radio" data-sex="0" name="sex" id="sexMan"><label for="sexMan">男</label>
+						<input type="radio" data-sex="1" name="sex" id="sexWoman"><label for="sexWoman">女</label>
+						<input type="radio" data-sex="2" name="sex" id="sexSecrit"><label for="sexSecrit">保密</label>
+					</p>
+					<p class="sex" id="initColumns">
+						<span id="rssRead">资讯订阅：</span>
+					</p>
+				</div>
+		</div>
+	</div>
+	<div class="footer">
+		<a href="javascript:;" class="i_trio_icon i_btn" id="btnSave">保存，并进入139邮箱</a><a href="javascript:;" class="enter" id="skipStep">直接进入邮箱&gt;&gt;</a>
+	</div>
+<!--tips-->
+<div id="successTips" class="hide">
+<div class="gray_layer"></div>
+	<div class="tips">
+		<dl class="clearfix">
+			<dt><i class="i_trio_icon i_sucess"></i></dt>
+			<dd class="mt10"><strong class="sucessTitle">您的信息已保存！</strong></dd>
+			<dd>可在"设置"中修改，您即将进入139邮箱...</dd>
+		</dl>
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html id="pageDefault">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>可能认识的人</title>
+<script type="text/javascript">
+document.domain=window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+function filltag(d,c,f){var b,a,e=[];while(d.length){a=d.shift();switch(true){case Object.prototype.toString.apply(a)==="[object Array]":b="<script "+(a[1].length>0?'charset="'+a[1]+'" ':"")+"src='"+(a[2]?a[2]:c)+"/js/"+a[0]+"' type='text/javascript'><\/script>";break;case a.indexOf(".js")>-1:b="<script "+(f?'charset="'+f+'" ':"")+"src='"+c+"/js/"+a+"' type='text/javascript'><\/script>";break;case a.indexOf(".css")>-1:b="<link rel='stylesheet' type='text/css' href='"+c+"/css/"+a+"' />";break;case a.length==0:b="<link rel='stylesheet' type='text/css' />"}e.push(b)}document.write(e.join(""))}
+var R = top.$App.getResourcePath(), addrsrc = R.replace('coremail', 'addr'), g='GB2312';
+filltag(['addr_v2.css?v=20140516', ''], R);
+</script>
+<style type="text/css">
+.gaybg{background-color:#d2d2d3;}
+#pageDefault{overflow-y:auto;}
+</style>
+
+<script type="text/template" id="contactField">
+<li class="<%= RelationId %> clearfix rel_item <%= SecondUIN %>">
+    <div class="box selected">
+        <dl class="clearfix">
+            <dt>
+                <input type="checkbox"  style="display:none;" checked="checked" class="box-input" value="" rname="<%= showName %>" rel="<%= RelationId %>" req="<%= WhoAddMeSetting %>" rev="<%= UserNumber %>|<%= Email %>|<%= securityName %>">
+            </dt>
+            <dt class="a_parent">
+                <a req="<%= WhoAddMeSetting %>" rel="<%= RelationId %>" rev="<%= UserNumber %>|<%= Email %>|<%= securityName %>" behavior="19_26008_1WhoKnowU添加" href="javascript:void(0)">
+                    <img src="<%= ImageUrl %>" class="pic" style="height:48px;width:48px;">
+                </a>
+            </dt>
+            <dd><strong title="<%= showName %>"><%= showName %></strong></dd>
+            <dd><%= showRelation %></dd>
+        </dl>
+        <div class="boxBtDiv" style="border-top:1px solid #EBEBEB">
+            <span class="addRegister a_parent">
+                <i class="plus" style="display:none;"></i>
+                <a req ="<%= WhoAddMeSetting %>" data-uin="<%= SecondUIN %>" uin="<%= SecondUIN %>" data-status="<%= DealStatus %>"  rel="<%= RelationId %>" rev="<%= UserNumber %>|<%= Email %>|<%= securityName %>" href="javascript:void(0)" behavior="19_26008_1WhoKnowU添加">添加到通讯录</a>
+            </span>					
+            <a href="javascript:void(0);" class="yellowh" confirmset="0" style="display:<%= WhoAddMeSettingStyle %>" confirmSet="<%= WhoAddMeSetting %>">需验证</a>
+        </div>
+        <div class="funbox" style="display:none;"><a rel="<%= RelationId %>" href="javascript:void(0)" class="close"></a></div>
+    </div>
+</li>
+</script>
+
+<script type="text/javascript">
+try {
+top.loadScript("libs.pack.js", document);
+top.loadScript('m139.core.pack.js', document);
+top.loadScript("m2012.ui.common.pack.js", document);
+top.loadScript("m2011.utilscontrols.pack.js", document);
+top.loadScript("../../js/packs/addr/addr_zh_hans.pack.js", document);
+top.loadScript("../../js/packs/addr/addr_maybeknown.html.pack.js", document);
+} catch (ex) {}
+</script>
+<script type="text/javascript">
+$("#addr",top.window.document).css("overflow-y","auto");
+function goHomePage(){
+    setTimeout(function() {
+        if(top.$Addr){                
+            var master = top.$Addr;
+            master.trigger(master.EVENTS.LOAD_MAIN);
+        }else{
+			top.$('#addr').attr({'src': 'addr_v2/addr_index.html'});
+		}
+    }, 0xff);
+}
+</script>
+</head>
+<body class="msyhv2">
+<div id="container">
+<div class="header">
+    <div class="singTitle">
+        <h4><strong>可能认识的人</strong> | <a href="javascript:goHomePage();">&lt;&lt;返回</a></h4>
+    </div>    
+</div>
+<div class="addr-nav" style="display:none;">
+    <ul>
+        <li class="on"><a href="javascript:void(0);">可能认识的人</a></li>
+        <li><a href="addr_request.html" bh="addr_remind_resLabel" onclick="this.href+='?r='+Math.random()" style="padding:0 40px;">请求</a></li>
+    </ul>
+</div>
+<div class="grid">
+    <div class="toolBar139 btn_normal clear lxrtollBar tool_bar_box" style="display: block;">
+        <input type="checkbox" checked="checked" value="" id="chooseAllRelations" class="fl mt10" style="display:none;" /> 
+        <ul class="btn_main fl" style="margin:5px 0 0 10px; display:none;" >
+            <li class="mr_10"><a id="btnAddNew" hidefocus="1" href="javascript:void(0)"><i class="l_border"></i>批量添加到通讯录<i class="r_border"></i></a></li>                                           
+        </ul>
+        <a href="javascript:void(0);" id="lblMore" role="button" hidefocus="1" class="btn ml_10" style="width:60px;"><em style="display:block;">换一批</em></a>       
+    </div>
+    <ul id="lstContact" class="contactlist">
+    </ul>
+</div>
+</div>
+</body>
+</html>

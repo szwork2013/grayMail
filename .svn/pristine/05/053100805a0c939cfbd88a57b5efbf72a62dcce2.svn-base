@@ -1,0 +1,219 @@
+﻿/**
+ * @fileOverview 定义下拉框组件，仿原生的select控件
+ */
+
+(function(jQuery, _, M139) {
+	var $ = jQuery;
+	var superClass = M139.View.ViewBase;
+	M139.namespace("M2012.UI.DropMenu", superClass.extend(
+		/**
+		 *@lends M2012.UI.DropMenu.prototype
+		 */
+		{
+			/** 下拉框组件
+			 *@constructs M2012.UI.DropMenu
+			 *@extends M139.View.ViewBase
+			 *@param {Object} options 初始化参数集
+			 *@param {String} options.template 组件的html代码
+			 *@param {String} options.contentPath 定义子项的容器路径
+			 *@param {Number} options.selectedIndex 初始化下标（选中的项）
+			 *@example
+			 */
+			initialize: function(options) {
+				var $el = $(options.template);
+				this.setElement($el);
+				return superClass.prototype.initialize.apply(this, arguments);
+			},
+			name: "M2012.UI.DropMenu",
+
+			/**构建dom函数*/
+			render: function() {
+				var This = this;
+				var options = this.options;
+
+				if (options.contentPath) {
+					var initText = options.defaultText || "";
+					if (typeof options.selectedIndex == "number") {
+						initText = options.menuItems[options.selectedIndex].text || options.menuItems[options.selectedIndex].html;
+						this.selectedIndex = options.selectedIndex;
+					}
+					this.setText(initText);
+				}
+
+				/*防止事件重复绑定*/
+				this.$el.off('click').on("click", function() {
+					if (This.quiet) {
+						return;
+					}
+					This.showMenu();
+				});
+
+				return superClass.prototype.render.apply(this, arguments);
+			},
+
+			defaults: {
+				selectedIndex: -1
+			},
+
+			/**@inner*/
+			setText: function(text) {
+				this.$el.find(this.options.contentPath).html(text);
+			},
+
+			disable: function() {
+				this.quiet = true;
+			},
+
+			enable: function() {
+				this.quiet = false;
+			},
+
+			/**@inner*/
+			showMenu: function() {
+				var This = this;
+				var menu = this.menu;
+				var options = this.options;
+
+				if (menu === undefined) {
+					var menuOptions = {
+						onItemClick: function(item, index) {
+							This.onMenuItemClick(item, index);
+						},
+						container: document.body,	// todo 很搓
+						items: options.menuItems,
+						dockElement: this.$el,
+						width: this.getWidth(),
+						maxHeight: options.maxHeight,
+						customClass: options.customClass,
+						selectMode: options.selectMode,
+						hideInsteadOfRemove: true
+					};
+					this.menu = M2012.UI.PopMenu.create(menuOptions);
+					this.menu.on("subItemCreate", function(item) {
+						This.trigger("subItemCreate", item);
+					});
+					This.trigger("menuCreate", this.menu);
+				} else {
+					menu.isHide() ? menu.show() : menu.hide();
+				}
+			},
+
+			/**inner*/
+			onMenuItemClick: function(item, index) {
+				this.setText(item.text || item.html);
+				this.selectedIndex = index;
+				/**
+				 *选中值发生变化
+				 *@event
+				 *@name M2012.UI.DropMenu#change
+				 *@param {Object} item 原来的menuItem数据
+				 *@param {Number} index 选中的下标
+				 */
+				this.trigger("change", item, index);
+			},
+			/**
+			 *得到选中的值
+			 *@returns {Object}
+			 */
+			getSelectedItem: function() {
+				return this.options.menuItems[this.selectedIndex] || null;
+			},
+			/***
+			设置当前选中项
+			*/
+			setSelectedIndex: function(idx) {
+				this.selectedIndex = idx;
+				this.options.selectedIndex = idx;
+				var item = this.getSelectedItem();
+				this.setText(item.text || item.html);
+			},
+			setSelectedText: function(text) {
+				this.setSelectedValue(text, "text");
+			},
+			setSelectedValue: function(val, type) {
+				for (var i = 0; i < this.options.menuItems.length; i++) {
+					if (this.options.menuItems[i].value == val || (type == "text" && this.options.menuItems[i].text == val)) {
+						this.setSelectedIndex(i);
+						return;
+					}
+				}
+			},
+			/**
+			* 获取数量
+			*/
+			getCount: function() {
+				return this.options.menuItems.length;
+			},
+			/**
+			* 在指定的位置添加一项，默认在尾部追加
+			*/
+			addItem: function(item, position) {
+				if (position == undefined) {
+					this.options.menuItems.push(item);
+				} else {
+					this.options.menuItems.splice(position, 0, item);
+				}
+				this.render();
+			}
+		}
+	));
+
+	var DefaultStyle = {
+		template: [
+			'<div class="dropDown">',
+			'<div class="dropDownA" href="javascript:void(0)"><i class="i_triangle_d"></i></div>',
+			'<div class="dropDownText"></div>',
+			'</div>'
+		].join(""),
+		contentPath: ".dropDownText",
+		dropButtonPath: ".dropDownA"
+	};
+
+
+	jQuery.extend(M2012.UI.DropMenu,
+		/**
+		 *@lends M2012.UI.DropMenu
+		 */
+		{
+			/**
+			*使用常规的样式创建一个菜单实例
+			*@param {Object} options 参数集合
+			*@param {String} options.defaultText 初始化时按钮的默认文本（如果有selectedIndex属性，则此属性无效）
+			*@param {Array} options.menuItems 菜单项列表
+			*@param {Number} options.selectedIndex 初始化下标
+			*@param {HTMLElement} options.container 按钮的容器
+			*@example
+			var dropMenu = M2012.UI.DropMenu.create({
+			    defaultText:"默认文本",
+			    //selectedIndex:1,
+			    menuItems:[
+			        {
+			            text:"选项一",
+			            myData:1
+			        },
+			        {
+			            text:"选项二",
+			            myData:2
+			        }
+			    ],
+			    container:$("div")
+			});
+			dropMenu.on("change",function(item){
+			    alert(item.myData);
+			});
+
+			alert(dropMenu.getSelectedItem());//如果默认没有选中值，则返回null
+			*/
+			create: function(options) {
+				if (!options || !options.container) {
+					throw "M2012.UI.DropMenu.create:参数非法";
+				}
+				options = _.defaults(options, DefaultStyle);
+				var button = new M2012.UI.DropMenu(options);
+				options.container.html(button.render().$el);
+
+				return button;
+			}
+		});
+
+})(jQuery, _, M139);

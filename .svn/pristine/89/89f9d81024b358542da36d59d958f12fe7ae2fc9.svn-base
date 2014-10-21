@@ -1,0 +1,125 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<title>个人简历</title>
+	<style type="text/css">
+	 body, div, h1, h2, h3, h4, h5, h6, p, em, img, ol, ul, li{margin: 0;padding: 0;}
+	 ol, ul {list-style: none;}
+	 .resume-head{
+	 	text-align: center;
+	 }
+	.letter-resume{margin:0 6%;font-family:"Microsoft yahei";}
+	.letter-resume .editable{color:#999999;}
+	.letter-resume .editable:hover{color:#999999;background:#cdecff;}
+	.letter-resume .resume-warp{ margin:0px;background:#eaeaea;}
+	.letter-resume .resume-min{ margin:0px 4px 4px 0; border:1px #d3d3d3 solid; background:#fff;}
+	.letter-resume .head-top{padding-top:12px;background:url(resume-bg.png);
+		background-repeat: repeat-x ;}
+	.letter-resume .head-logo{margin:-12px auto 0 auto;display:inline;
+	 line-height: 94px;
+	 padding-top: 56px; 
+	 padding-left:120px;
+	 background:url(letter-uploade.png) 0 -191px no-repeat;
+	 *zoom:1;
+	}
+	.letter-resume .resume-min .resume-cont{padding:0px 29px 29px 29px;}
+	.letter-resume .resume-min .resume-cont h2{font-size:20px;font-weight:100;}
+	.letter-resume .resume-photo{float:right; display:block; width:110px;height:140px;background:url(letter-uploade.png) 0 -51px no-repeat;*zoom:1;}
+	.letter-resume .resume-photo:hover{background-position:-111px -51px;}
+	.letter-resume .resume-min .resume-cont .msg-resume{margin-top:20px;padding-bottom:10px;*margin-top:0px;}
+	.letter-resume .resume-min .resume-cont .msg-resume table tr{line-height:24px;}
+	.letter-resume .resume-min .resume-cont .msg-resume table td{margin-right:25px; font-size:14px;line-height:24px;color:#444444;white-space:nowrap;padding:0px;margin:0px;}
+
+	.letter-resume .email{clear:both;font-size:14px;line-height:35px;color:#444444;white-space:nowrap; }
+	.letter-resume .experience-warp{clear:both;}
+	.letter-resume .experience-warp .experience-head{background:#f0f0f0;}
+	.letter-resume .experience-warp .experience-head .experience-title{font-size:16px;line-height: 30px; border-left:5px #ec7566 solid;color:#ec7566;padding-left:10px;}
+	.letter-resume .experience-warp .experience-min{
+		padding:16px 14px;
+		margin-bottom:20px; 
+		border:1px #e8e8e8 solid;
+		border-top:none;
+		font:14px;color:#444;
+		line-height:26px;
+	}
+	.msg-warp-left{
+		margin-right: 50%;
+	}
+	table{
+		width: 100%;
+	}
+	.editable > .tpl-black{ color:#333;}
+	</style>
+</head>
+<body  contenteditable="true" >
+	<div class="letter-resume">
+		<div class="resume-warp">
+			<div class="resume-min">
+				<div class="resume-head">
+					<div class="head-top"></div>
+					<div class="head-logo" unselectable="on" ></div><!-- onselectstart = "return false;" -->
+				</div>
+				<div class="resume-cont">
+					<h2><span class="editable">您的姓名</span></h2>
+
+					<div class="msg-resume">
+					<table  cellpadding="0" cellspacing="0" border="0">
+						<tr>
+							<td><span style='word-spacing: 2em;' >性 别：</span><span class="editable">xx</span></td>
+							<td>出生年月：<span class="editable">yy-mm-dd</span></td>
+							<td><span style='word-spacing: 2em;' >学 历：</span><span class="editable">xx</span></td>
+							<td rowspan="4" >
+								<a data-action="upload" style='cursor: pointer;' class="resume-photo" >
+								<img width="110" style='cursor: pointer;' data-action="upload" height="140" src=""  border="0">
+								</a>				
+							</td>
+						</tr>
+						<tr>
+							<td>工作经验：<span class="editable">xx 年</span></td>
+							<td>婚姻状况：<span class="editable">xx</span></td>
+							<td>政治面貌：<span class="editable">xx</span></td>
+						</tr>
+						<tr>
+							<td><span style='word-spacing: 2em;' >手 机：</span><span class="editable">xxxxxx</span></td>
+							<td colspan="2"  >E-mail：<span class="editable">xx@xx.xx</span></td>
+						</tr>	
+					</table>
+					</div>
+					<div class="experience-warp">
+						<div class="experience-head">
+							<h3 class="experience-title">求职意向</h3>
+						</div>
+						<div class="experience-min">
+							<ul>
+								<li>期望职业：<span class="editable">xx</span></li>
+								<li>工作地点：<span class="editable">xx</span></li>
+								<li>期望月薪：<span class="editable">xx</span></li>
+							</ul>
+						</div>
+					</div>
+					<div class="experience-warp">
+						<div class="experience-head">
+							<h3 class="experience-title">工作经历</h3>
+						</div>
+						<div class="experience-min">
+							<p><span class="editable">请填写您的工作经历</span></p>
+						</div>
+					</div>
+					<div class="experience-warp">
+						<div class="experience-head">
+							<h3 class="experience-title">教育经历</h3>
+						</div>
+						<div class="experience-min">
+							<p><span class="editable">请填写您的教育经历</span></p>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>mail.139.com</title>
+
+</head>
+<body>
+<style>
+body{background:#911813;}
+body,th, td {
+    margin: 0;
+    padding: 0;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+	font-size:12px;
+	table-layout:fixed;
+	 width:100%;
+}
+
+.header , .header td ,.midder ,.midder td{
+	vertical-align:top;
+}
+</style>
+<table width="100%" style="height:100%;min-width:660px;">
+	<tr>
+    	<td background="headerbg.png" style="background-repeat:repeat-x;height:62px">
+        	<table height="100%">
+            	<tr>
+                	<td background="headerbg-left-top.png" style="background-repeat:no-repeat;background-position:0 0;height:62px;"></td>
+                	<td background="headerbg-r.png" style="background-repeat:no-repeat;background-position:0 0;width:244px;height:62px;"></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+    	<td style="background:#fff">
+        	<table height="100%">
+            	<tr>
+                	<td background="contentbg-left.png" style="background-repeat:repeat-y;width:16px"></td>
+                    <td valign="top" background="contentbg-right.png" style="background-repeat:repeat-y;background-position:right top;">
+                        <table background="contentbg-right-top.png" style="background-repeat:no-repeat;background-position:right top;">
+                        	<tr>
+                            	<td>
+                                	<table style="width:96%;">
+                                    <tr>
+                                        <td background="rowbg.png" class="content" id="content139" contentEditable=true
+                                        style="color:#000;
+                                        font-size:12px;
+                                        min-height:300px;
+                                        line-height:30px;
+                                        height:300px;
+                                        _height:300px;
+                                        _overflow:visible;
+                                        vertical-align:top;">
+                                        </td>
+                                    </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+    	<td valign="top" background="footerbg.png" style="background-repeat:repeat-x">
+        	<table>
+            	<tr>
+                    <td background="footer-l.png" style=" background-repeat:no-repeat; background-position:0 0;height:134px;"></td>
+                    <td background="footer-r.png" style=" background-repeat:no-repeat; background-position:right 0;width:356px;height:134px;"></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

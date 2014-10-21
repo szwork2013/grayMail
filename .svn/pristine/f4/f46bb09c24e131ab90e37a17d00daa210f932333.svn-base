@@ -1,0 +1,77 @@
+﻿<!DOCTYPE HTML>
+<html><head>
+<title>139个邮通讯录-清理联系人</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript">
+document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+
+try {
+top.loadCSS('common/global.css', document);
+top.loadCSS('module/addr/addr.css', document);
+top.loadScript('libs.pack.js', document);
+top.loadScript('m139.core.pack.js', document);
+top.loadScript("m2012.ui.common.pack.js", document);
+top.loadScript("/m2012/js/packs/addr/addr_zh_hans.pack.js?v=1.5.7", document);
+top.loadScript("/m2012/js/packs/addr/addr_import_clone.html.pack.js", document);
+} catch (ex) {}
+</script>
+<style>
+.coll-one {
+    margin-right: 15px;
+}
+.setArea{overflow: hidden;}
+.setArea h2{left: 20px;}
+</style>
+</head>
+
+<body>
+    <form name="frmClone"  id="pnlclone">
+        <div class="setArea">           
+            <h2><strong>导入通讯录</strong> |  <a id="goBack" href="javascript:void(0);" class="fanghui" >&lt;&lt;返回</a></h2>
+        </div>
+        <div class="addr-nav">
+            <ul>
+                <li class="on"><a href="javascript:void(0)">导入其他邮箱通讯录</a></li>
+                <li ><a bh="addr_importFile_label" href="addr_import_file.html">导入本地联系人</a></li>
+                <li ><a bh="addr_importPim_label" href="addr_import_pim.html">导入“和通讯录”</a></li>
+            </ul>
+        </div>
+    <div class="setWrap">        
+        <div class="">
+            <ul class="form setForm">
+                <li class="formLine">
+                    <label class="label">邮箱帐号：</label>
+                    <div class="element">
+                        <div>
+                            <input id="account" name="account" class="iText mr_10 fl" type="text" /><div id="domainlist"></div>
+                        </div>                        
+                    </div>
+                </li>
+                <li class="formLine">
+                    <label class="label">邮箱密码：</label>
+                    <div class="element">
+                        <div>
+                            <input id="password" name="password" class="iText mr_10" type="password" />
+                        </div>                       
+                    </div>
+                </li>
+                 <li class="formLine">
+                    <label class="label">&nbsp;</label>
+                    <div class="element">
+                         <p class="pt_5 pb_5">如遇相同的邮箱或手机号，则</p>
+                       <div><input name="repeatmodel" value="1" id="repeatmodel_1" type="radio" class="mr_5" checked /><label for="repeatmodel_1">跳过</label><span class="gray">（保留邮箱联系人资料）</span></div>
+                       <div><input name="repeatmodel" value="2" id="repeatmodel_2" type="radio" class="mr_5" /><label for="repeatmodel_2">替换</label><span class="gray">（待导入的重复联系人将替换邮箱对应的联系人）</span></div> 
+                       <div class="pt_20"><a id="btnClone" href="javascript:void(0)" class="btnG mr_10"><span>导 入</span></a><a id="btnCancel" href="javascript:void(0)" class="btnTb"><span>取 消</span></a></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        
+        <div id="tipWrap" class="tipsOther" tabindex="0" hidefocus="true" style="position: absolute; outline: none; left: 141px; top: 81px; z-index: 9999; display:none;">
+            <div class="tips-text" id="tipContent"></div>
+            <div class="tipsBottom  diamond" style="left:10px"></div>
+        </div>
+    </div>
+    </form>
+</body>
+</html>

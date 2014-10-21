@@ -1,0 +1,112 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="page-ablum-img" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <title>我的相册</title>
+
+    <script type="text/javascript">
+        //设域
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1].replace(/:\d+/, "");
+        //加载CSS和JS,CommonInit(当前document,彩云最顶层window)
+        window.parent.CommonInit(document, window.parent, [{ dirName: "js/", fileName:"m2011.disk.album.js"}]);
+    </script>
+
+</head>
+<body onresize="onresizewidth()">
+    <div id="container">
+        <div class="folderPath">
+            您的位置：<a href="disk_default.html">彩云网盘</a>><a href="disk_myalbum.html">我的相册</a>&nbsp;
+            <label id="lblAlbumCount">
+            </label>
+        </div>
+        <div class="rcd-hd">
+            <button class="include-i" id="ablumUpload">
+                上传照片<i class="i-upload"></i></button>
+            <button class="include-i" id="ablumDown">
+                下载<i class="i-download"></i></button>
+            <button id="ablumDel">
+                删除</button>&nbsp;&nbsp;&nbsp;&nbsp;
+            <!--<button id="aSendWeibo" type="button" style="display: none;">
+                发布到微博</button>-->&nbsp;&nbsp;&nbsp;&nbsp;
+            <button id="ablumAdd">
+                新建相册</button>
+            <button class="fline">
+                &nbsp;</button>
+            <button class="include-i" id="aMove" style="display: none;">
+                移动到<i class="i-list"></i></button>
+            <div class="page" style="display: none">
+                <select>
+                    <option>1</option>
+                    <option>2</option>
+                </select>
+                <a href="#">上一页</a><a href="#">下一页</a>
+                <select>
+                    <option>1/2页</option>
+                    <option>2/2页</option>
+                </select>
+            </div>
+        </div>
+        <table cellpadding="0" class="tbl-list">
+            <tr class="tfoot">
+                <th class="t-check">
+                    <label id="lblSelectAllFile" for="cbSelectAllFile">
+                        全选</label>
+                    <input style="position: absolute; left: -999px; top: -999px;" type="checkbox" id="cbSelectAllFile" />
+                </th>
+                <th class="align-r">
+                    <a id="slide" href="javascript:void(0);">放映幻灯片</a>
+                </th>
+            </tr>
+        </table>
+        <div class="tbl-list-return" style="">
+            <p>
+                <a href="disk_default.html" title="返回上级">返回上级</a></p>
+        </div>
+        <div class="album-list after" id="album-list">
+            <ul id="tbl-fileList">
+            </ul>
+        </div>
+        <table cellpadding="0" class="tbl-list">
+            <tr class="tfoot">
+                <th class="t-check">
+                    <label id="lblSelectAllFile2" for="cbSelectAllFile">
+                        全选</label>
+                </th>
+                <th class="align-r">
+                    <a id="slide1" href="javascript:void(0);">放映幻灯片</a>
+                </th>
+            </tr>
+        </table>
+        <div class="rcd-hd">
+            <button class="include-i" id="ablumUpload1">
+                上传照片<i class="i-upload"></i></button>
+            <button class="include-i" id="ablumDown1">
+                下载<i class="i-download"></i></button>
+            <button id="ablumDel1">
+                删除</button>&nbsp;&nbsp;&nbsp;&nbsp;
+            <!--<button id="aSendWeibo1" type="button" style="display: none;">
+                发布到微博</button>-->&nbsp;&nbsp;&nbsp;&nbsp;
+            <button id="ablumAdd1">
+                新建相册</button>
+            <button class="fline">
+                &nbsp;</button>
+            <button class="include-i" id="aMove1" style="display: none;">
+                移动到<i class="i-list"></i></button>
+            <div class="page" style="display: none">
+                <select>
+                    <option>1</option>
+                    <option>2</option>
+                </select>
+                <a href="#">上一页</a><a href="#">下一页</a>
+                <select>
+                    <option>1/2页</option>
+                    <option>2/2页</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <iframe id="iframecgi" width="0" height="0"></iframe>
+    <input id="hidrow" type="hidden" />
+    <input id="path" type="hidden" value="" />
+</body>
+</html>

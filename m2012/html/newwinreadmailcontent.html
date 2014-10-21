@@ -1,0 +1,212 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="pageLoading" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta content="IE=EmulateIE7" http-equiv="X-UA-Compatible" />
+<title>139邮箱</title>
+
+<script type="text/javascript">
+document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];//设域
+top.$W.loadScript('libs.pack.js',document);
+</script>
+
+
+<script type="text/javascript">
+
+    
+    var from = '';
+    var subject = '';
+    
+    /* 读信页面跳转处理特殊业务[没有重构的] */
+    var jumpToKey = {
+        partid:top.$W.$User.getPartid(),
+        source:'jumpto',
+        mid:top.$W.$App.getCurrMailMid()
+    }
+    
+    //对应邮件读信
+    function jumpToReadMail(){
+        var url = createJumpUrl({
+            id:'15',
+            source:'interface'
+        });
+        window.open(url+'&mid='+top.$W.$App.getCurrMailMid());
+    }
+
+    /** 运营邮件打开新页面处理 */
+    function createJumpUrl(options){
+        //http://appmail.mail.10086.cn/m2012/html/index.html?func=global:execTemp&sid=MTM1Nzg3MTg1NzAwMDAyMzQ4MjE5OAAA000008&goto=&id=15&partid=12&source=interface&mid=13061b0f686690b400000003&rnd=831
+        var url = 'http://' + location.host + '/m2012/html/index.html';
+        var obj = {
+            sid:top.$W.$App.getSid()
+        };
+        if(options.id){obj.id = options.id}
+        if(options.source){obj.source = options.source}
+        if(options.to){obj.to = options.to}
+        var jumpUrl = top.$W.$T.Url.makeUrl(url,obj);
+        return jumpUrl;       
+    }
+    
+
+	function writeScript(id,url){
+	    var script = document.createElement('script');
+	    script.type = 'text/javascript';
+	    script.charset = 'utf-8';
+	    script.id = id;
+	    script.src = url + '?sid=' + top.$W.$App.getSid();
+	    document.getElementsByTagName('body')[0].appendChild(script);
+	}
+    
+    function init(dataSource) {
+        if (dataSource && dataSource.omid) {
+            var mid = dataSource.omid;
+            var letterScriptLoad = false;
+            subject = dataSource.subject;
+            from = top.$W.$Email.getEmail(dataSource.account);
+            var subjectMatch = [new RegExp("\u8fd9\u662f[\\s\\S]+?\u7684\u901a\u8baf\u5f55"), new RegExp("\u80fd\u628a\u901a\u8baf\u5f55\u5171\u4eab\u7ed9\u6211\u5417"), new RegExp("\u7684\u7535\u5b50\u540d\u7247"), new RegExp("\u66F4\u65B0\u4E86\u4E2A\u4EBA\u8D44\u6599")];
+            var idMatch = ["139command_flash", "mail139command", "aPostcard139", "139CommandQuickShare", "139Command_LinksShow", "addr_whoaddme","welcome_alias","welcome_mailnotify","welcome_sms","welcome_phoneFeixin","welcome_pcFeixin","welcome_foxmail","welcome_collection","welcome_mailList","welcome_phoneToMail","welcome_more","139mailtobirthRemind","birthRemind2","checkin_go","readmail","quickHeadImg","139olympic","139jiayoly"];
+        }
+       
+        checkMarketingMail();
+        checkReadMark();
+        checkSubscribeMail();
+
+        if (isSubjectMatch() || isIdMatch()) {
+            letterScriptLoad = true;
+            var scriptPath = "/m2012/js/richmail/readmail/m2012.readmail.newwin.letterscript.js";
+            writeScript('letterscript', scriptPath);
+        }
+        
+        var allLinks = document.links;
+        parent.$.each(allLinks,function(i){
+            var link = parent.$(allLinks[i],document);
+            var href = link.attr('href');
+            if (/^http/i.test(href)) {
+                link.attr('target',"_blank"); //是否每个a标签都加 _blank
+            } else if (/^mailto:/i.test(href)) {
+                link.attr('href',createJumpUrl({
+                    id:'2',
+                    to:href.replace(/^mailto:/i, "")
+                })).attr('target',"_blank");                            
+            }
+            if(link.attr("clicklog")=="true"){
+                var thingId = link.attr("thingid");
+                if(thingId && /^\d+$/.test(thingId)){
+                    link.click(function() {
+                        top.$W.BH({
+                            key:"readmail_adclick",
+                            thingId:link.attr('thingid')
+                        });
+                        top.$W.addBehavior("邮件正文点击统计", this.getAttribute("thingid"));
+                    });
+                }
+            }
+        
+        });
+      
+        if (frameElement.style.visibility == "hidden") {
+            frameElement.style.visibility = "";
+        }
+
+        function isSubjectMatch() {
+            var result = false;
+            try {
+                parent.$.each(subjectMatch, function () {
+                    if (this.test(subject)) {
+                        result = true;
+                    }
+                });
+                return result;
+            } catch (e) {
+                
+            }
+        }
+
+        function isIdMatch() {
+            var result = false;
+            try {
+                parent.$.each(idMatch, function (n) {
+                    if (document.getElementById(idMatch[n])) {
+                        result = true;
+                    }
+                });
+                return result;
+            } catch (e) {
+                //console.log(e);
+            }
+            return result;
+        }
+
+        function checkMarketingMail() {
+            var tag = document.getElementById("139Command_MarketingMail");
+            if (!tag) return;
+            var id = tag.getAttribute("rel");
+            if (id && /^\d+$/.test(id)) {
+                //top.$W.addBehavior("打开运营邮件", id);
+                top.$W.BH({
+                    key:"readmail_adclick",
+                    thingId:id
+                });
+            }
+        }
+
+        function checkSubscribeMail() {
+            var subscribeAccount = ['subscribe@139.com','subscribe-service@139.com','subscribe-topic@139.com'];
+            var accountFlag = false;
+            parent.$.each(subscribeAccount,function(n,val){
+                if(dataSource.account && dataSource.account.indexOf(val)>=0){
+                    accountFlag = true;
+                    return false; //退出循环
+                }
+            });
+            if (dataSource.headers && dataSource.headers["X-RICHINFO"] && accountFlag) {
+                var scriptPath = "/m2012/js/richmail/readmail/m2012.readmail.subscribeaction.js";
+                //writeScript('subscribeaction', scriptPath);
+            }
+        }
+
+        function checkReadMark() {
+            var element = document.getElementById("139Command_ReadMark");
+            if (element) {
+                var actionId = element.getAttribute("actionid");
+                var thingId = element.getAttribute("thingid");
+                var moduleId = element.getAttribute("moduleid");
+                top.$W.BH({
+                    key:"readmail_adclick",
+                    thingId:thingId
+                });
+                //if (actionId && top.$W.addBehaviorExt) top.$W.addBehaviorExt({ actionId: actionId, thingId: thingId, moduleId:moduleId});
+            }
+        }
+    }
+
+    function onload() {
+        document.body.setAttribute('rel', 1);
+    }
+</script>
+<style type="text/css">
+html,body,p,ul,ol,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,form,fieldset,legend,input,select,textarea,button,th,td,blockquote,address,var,pre{margin:0;padding:0;}
+body{color:#666666; line-height:1.6}
+</style>
+
+<script type="text/javascript">
+   var callback = callback || null;
+   function writeContent(dataSource) {
+        top.$W.$App.writeContent(dataSource,window);
+        init(dataSource); 
+    }
+    var match = location.href.match(/mid=([^&]+)/);
+    if(match && match[1]){
+        var mid = match[1];
+        var dataSource = top.$W.M139.PageApplication.getTopApp().print[mid];
+        if(dataSource){
+            writeContent(dataSource);
+        }
+    }
+
+</script>
+
+</head>
+<body style="overflow:hidden;word-break:break-all;word-wrap:break-word;hasLayout:-1">
+</body>
+</html>

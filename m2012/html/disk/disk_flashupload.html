@@ -1,0 +1,171 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>添加文件</title>
+
+    <script type="text/javascript">        //设域
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1].replace(/:\d+/, "");
+        function flashOnload() {
+            if ($.browser.firefox) {
+                top.FF.current.jContainer.css({ position: "relative" });
+                setTimeout(function() {
+                    top.FF.current.jContainer.css({ position: "absolute" });
+                }, 0);
+            }
+            flashOnload = function() { };
+            return selComefrom;
+        }
+        //制作明信片
+        function makePostCard(fileId) {
+            return DiskTool.showPostCard(fileId);
+        }
+        function OpenMailSetting() {
+            top._diskUploadWindow.jContainer.find("a[title=最小化窗口]").click();
+            top.Links.show('upgradeGuide');
+        }
+        //取得回调地址所需3个参数
+        function GetDirectory() {
+            SelectDirectory();
+            var obj = {};
+            obj.dirId = selDirId;
+            obj.bitemId = selItemId;
+            obj.comeFrom = selComefrom;
+            if (selComefrom == 1) {
+                obj.filtr = acceptPhotoExtend.replace(/,$/, "");
+            } else if (selComefrom == 2) {
+                obj.filtr = acceptMusicExtend.replace(/,$/, "");
+            } else {
+                obj.filtr = "";
+            }
+            return obj;
+        }
+        var diskWindow = top.$("iframe#diskDev")[0].contentWindow;
+        diskWindow.CommonInit(document, diskWindow, [
+            { "dirName": "js/", fileName:"m2011.disk.upload.js" },
+            { "dirName": "js/", fileName:"m2011.disk.uploadcommon.js"}]);
+        UploadType = "flash";
+    </script>
+
+    <script type="text/javascript">
+        Utils.loadSkinCss(null, document, "netdisk");
+        function init() {
+            upcom.init();
+            FlashUploadInit();
+        }
+        $().ready(init);
+        $(function() {
+            $("#aUploadCloseBtn").click(function() {
+                if (isFlashUploading()) {
+                    if (window.confirm("正在上传文件,是否取消上传")) {
+                        closeWin();
+                    }
+                } else {
+                    closeWin();
+                }
+            });
+            $("#ainstall").click(function() {
+                Utils.openControlDownload();
+            });
+        })
+        function onFloatingFrameClose() {
+            if (isFlashUploading()) {
+                if (!window.confirm("正在上传文件,是否取消上传")) {
+                    return false;
+                } else {
+                    try {
+                        if (upcom.isUploaded) {
+                            DiskTool.getDiskWindow().Toolbar.refreshList();
+                            DiskTool.getDiskWindow().FileList.Render.renderParent();
+                        }
+                    } catch (e) { }
+                }
+            } else {
+                try {
+                    if (upcom.isUploaded) {
+                        var win = DiskTool.getDiskWindow();
+                        if (win.Toolbar) win.Toolbar.refreshList();
+                        if (win.FileList) win.FileList.Render.renderParent();
+                    }
+                } catch (e) { }
+            }
+        }
+        function closeWin() {
+            try {
+                if (upcom.isUploaded) {
+                    var win = DiskTool.getDiskWindow();
+                    if (win.Toolbar) {
+                        win.Toolbar.refreshList();
+                    } else if (win.FileList && win.FileList.Render.renderParent) {
+                        win.FileList.Render.renderParent();
+                    }
+                }
+                window.setTimeout(function() { DiskTool.FF.close(); }, 0);
+            } catch (e) { }
+        }
+        function GetUploadSpeed() {
+            if (upcom.State) return upcom.State.speedTotal;
+            return 0;
+        }
+        function GetUploadFileCount() {
+            if (upcom.State) return upcom.State.fileTotal;
+            return 0;
+        }
+        function GetUploadProgress() {
+            if (upcom.State) return upcom.State.progressTotal;
+            return 0;
+        }
+        function isFlashUploading() {
+            if (upcom.State) return upcom.State.isUploading;
+            return false;
+        }
+        function flashuploadend() {
+            if (upcom.State && !upcom.State.isUploading) {
+                $("#aUploadCloseBtn").html("完 成");
+            }
+        }
+        setInterval("flashuploadend()", 2000);
+</script>
+
+</head>
+<body>
+    <div class="dialog" id="commonUpload">
+        <div class="bd">
+            <table cellpadding="0" class="tbl-dialog-form dl-form-upload">
+                <tr>
+                    <th>
+                        上传位置：
+                    </th>
+                    <td style="display: none">
+                        <select id="stPosition">
+                        </select>
+                    </td>
+                    <td class="uploadTree">
+                        <div id="file-tree" style="width:255px">
+                        </div>
+                        <ul class="file-tree" id="file-tree2">
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="divFlashLayer" style="visibility: hidden">
+    </div>
+    <div class="dl-tip">
+        <h4>
+            需要上传更稳定更快速吗？</h4>
+        <p id="pinstall">
+            安装139邮箱小工具上传更稳定，速度更快，并支持选择多个文件和断点续传。<a href="javascript:;" id="ainstall">立即安装</a></p>
+        <p>
+            上传时可以最小化本窗口，进行其它操作。</p>
+        <p>
+            请遵守国家相关法律，严禁上传包括反动、暴力、色情、违法及侵权内容的文件。</p>
+    </div>
+    <div class="ft addon-upload-ft">
+        <ul class="dbtn-list">
+            <li><a class="btnNormal" id="aUploadCloseBtn" href="javascript:;">关 闭</a></li>
+        </ul>
+    </div>
+</body>
+</html>

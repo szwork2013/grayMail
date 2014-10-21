@@ -1,0 +1,72 @@
+body,div,p,ul,h1,h2,h3,h4,h5,form,label,img,span,em,ul,li,dl,dt,dd{margin:0;padding:0;}
+html{overflow-x:hidden;}
+body{background-color:#fff;color:#333;font:12px/1.5 Tahoma, Arial,"\5b8b\4f53";}  /* 宋体 */
+button,select,textarea,input{vertical-align:middle;color:#333;font-family:,"\5b8b\4f53";}
+input[type=button],input[type=submit],input[type=reset],input[type=file],button{cursor:pointer;}
+button{padding:3px 5px 2px;overflow:visible;}
+ul{list-style: none;}
+.hide{display: none;}
+/* clear float */
+.clearfix:after{visibility:hidden;display:block;font-size:0;content:" ";clear:both;height:0;}
+.clearfix{zoom:1;}
+.clearAll{overflow:hidden;_zoom:1;}
+/*错误提示*/
+.mailLogin em.red{color:#c00;}
+textarea{word-wrap:break-word;resize:vertical;}  /* word-wrap for opera, resize for webkit */
+.top{height: 160px;width: 100%; background-color: #0062ae; margin-bottom: 20px;}
+.title{width:635px; margin:0 auto; text-align: center; color: #fff;}
+.title h1{font-size: 32px; font-family: Microsoft YaHei; padding-top:35px;}
+.title p{color: #88cbff; height: 20px;}
+.title img{margin-top:13px;}
+.i_trio_icon{background:url(../../../images/module/set/tiro.png) no-repeat; display: inline-block; position: relative; top: 3px; margin:0 2px;}
+.i_android{background-position: -6px -42px; width: 16px; height: 19px;}
+.i_ios{background-position: -28px -40px; width: 17px; height: 21px;}
+.i_win8{background-position: -50px -45px; width: 17px; height: 16px;}
+.i_num{background-position: 0 0; width: 27px; height: 31px; top:10px;}
+.i_down{background-position: -32px 0; width: 7px; height: 4px; top:1px; *top:10px; left: 6px}
+.i_btn{background-position: 0px -64px; width: 193px; height: 36px; line-height: 36px; color: #fff;top:1px; _top:18px; font-weight: bold; text-decoration: none;}
+.i_gray_btn{background-position: 0px -102px; width: 193px; height: 36px; line-height: 36px; color: #d4d4d4; cursor:default;top:1px;_top:18px; font-weight: bold; text-decoration: none;}
+.i_sucess{background-position: -74px 0px; width: 60px; height: 60px; }
+
+.main{width: 835px; margin:0 auto;}
+.firstStep{width: 318px; float: left;}
+.num{position: relative; top: -2px; left:-21px; color: #fff;}
+.load_images{ position:absolute; left:103px; top: 24px; z-index:99;}
+.firstStep h2{color: #1e8000; font-size:16px;background: url(../../../images/module/set/hBg.jpg) no-repeat 20px bottom; padding-bottom: 10px;}
+.mail_setting p{margin:20px 0 ; }
+.mailLogin{position: relative;}
+.mailLogin label{position: absolute; left: 215px; *top:1px; _top:2px;padding:4px 12px 3px 12px; border:1px solid #bbbbbb; cursor: text;}
+.mailLogin span{width:75px; display: inline-block; text-align: right; }
+.mailLogin span.faceSpan{vertical-align: top;}
+.mailLogin em{color: #999; font-style: normal; margin-left: 79px; vertical-align: top;}
+.mailLogin input.text{width: 130px; padding-left: 5px; height: 25px; line-height:25px; border:1px solid #bbbbbb; border-right:0; box-shadow: rgb(233, 235, 237) 0px 1px 3px inset;}
+.mailLogin input.sendMan{border:1px solid #bbbbbb; width: 219px;}
+.mailLogin .face img{border:none;}
+.secondStep{float: right;width: 415px;}
+.secondStep .birthdayShow{width:65px;}
+.birthday{float: left;width: 85px;height: 25px;margin-right:8px;border: 1px solid #ccc; position: relative;}
+.birthday .down_checked{height: 25px;width: 25px;right: 0; top:0;position: absolute; display: block; border-left: 1px solid #cccccc;}
+.birthday .birList{width:85px;position: absolute; left:-1px;top: 25px; z-index: 1;background: #fff;border:1px solid #ccc;}
+.birthday .birList li{padding: 1px 0; text-indent: 5px;}
+.birthday .birList li a{display: block; color: #666; text-decoration: none;}
+.birthday .birList li a:hover{background: #5d99ce; color: #fff;}
+.birthday em.dateDefault{position:relative; top:3px; margin-left:5px;}
+.secondStep .birthdayShow .birList{width:65px;}
+.sex label{ position: relative; top:2px; margin:0 8px 0 2px;}
+.sex span{width:75px; display: inline-block; text-align: right; vertical-align: top;}
+.footer{height:71px; background: #d7e2ec; line-height: 71px; text-align:center;}
+.footer a.enter{color: #0066cc; margin-left: 10px; position:relative; _top:18px;}
+.footer a:hover{ text-decoration: none;}
+.birthWarning{margin-left:82px;}
+/**/
+.tips{width:458px;background:#fff; box-shadow: 0 0 15px #999; z-index: 1001; position: absolute; left: 50%; top:50%; margin-left:-229px; margin-top:-50px;}
+.tips dl{padding:40px;}
+.tips dl dt{float:left; margin-right:10px;}
+.sucessTitle{color: #7fab43; font-size: 20px; font-weight: normal; font-family: "黑体";}
+.tips dl dd{color:#818181; font-size: 14px;}
+.tips dl dd.mt10{margin-top:10px;}
+.mail_setting{position: relative;}
+.upPhoto{position: absolute;top: 0px;left: 78px; z-index: 10;}
+.upPhoto input{opacity: 0;filter:alpha(opacity=0);width: 65px !important;height: 65px;}
+
+.gray_layer{ filter:alpha(opacity=30);-moz-opacity:0.3;opacity:0.3;background-color:#000;width:100%;height:100%;z-index:1000;position: absolute;left:0;top:0;overflow: hidden;}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>mail.139.com</title>
+
+</head>
+<body>
+<style>
+body,th, td {
+    margin: 0;
+    padding: 0;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+	font-size:12px;
+	table-layout:fixed;
+	 width:100%;
+}
+
+.header , .header td ,.midder ,.midder td{
+	vertical-align:top;
+}
+</style>
+<table width="100%" background="contentbg.png"  style="background-repeat:repeat;background-position:0 0;height:100%;min-width:660px;">
+	<tr>
+    	<td background="headerbg.png" style="background-repeat:repeat-x;height:38px">
+        	<table>
+            	<tr>
+                    <td background="header-left-top.png" style="background-position:0 0;background-repeat:no-repeat;height:38px;"></td>
+		            <td background="header-right-top.png" style="background-repeat:no-repeat;background-position:0 0;width:45px;height:38px;"></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+	<tr>
+    	<td style="padding:20px 50px 10px">
+        	<table>
+            	<tr>
+                    <td class="content" id="content139" contentEditable=true
+                    style="color:#333300;
+                    font-size:12px;
+                    min-height:500px;
+                    line-height:30px;
+                    height:355px;
+                    _height:355px;
+                    _overflow:visible;
+                    vertical-align:top;">
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+    <td background="footerbg.png" style="background-repeat:repeat-x;background-position:0 bottom;height:126px;" valign="top">
+    	<table>
+        	<tr>
+            	<td background="footer-l.png" style="background-repeat:no-repeat;background-position:0 bottom;height:126px;"></td>
+			    <td background="footer-r.png" style="background-repeat:no-repeat;background-position:0 bottom;width:316px;height:126px;"></td>
+            </tr>
+        </table>
+    </td></tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<project name="build_pack" default="packFile">
+<target name="packFile">
+<concat destfile="./packs/account_lock.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+	<fileset dir="./richmail/settings" includes="**/m2012.settings.safelock.model.js"/>
+	<fileset dir="./richmail/settings" includes="**/m2012.settings.safelock.view.submit.js"/>
+	<fileset dir="./richmail/settings" includes="**/m2012.settings.safelock.view.custom.js"/>
+	<fileset dir="./richmail/settings" includes="**/m2012.settings.safelock.view.pop.js"/>
+	<fileset dir="./richmail/settings" includes="**/m2012.settings.model.password.js"/>
+	<fileset dir="./richmail/settings" includes="**/m2012.settings.view.password.js"/>
+	<fileset dir="./richmail/settings" includes="**/m2012.settings.passwordcheck.js"/>
+</concat>
+</target>
+</project>

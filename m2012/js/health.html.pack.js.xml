@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<project name="build_pack" default="packFile">
+    <target name="packFile">
+        <concat destfile="./packs/health.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+
+            <fileset dir="./" includes="**/m2012.health.model.js" />
+            <fileset dir="./" includes="**/m2012.health.view.js" />
+            <fileset dir="./" includes="**/m2012.health.update.model.js" />
+            <fileset dir="./" includes="**/m2012.health.update.view.js" />
+        </concat>
+
+    </target>
+</project>

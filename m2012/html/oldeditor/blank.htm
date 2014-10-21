@@ -1,0 +1,79 @@
+﻿<html>
+<head>
+    <title>正文</title>
+
+<script type="text/javascript">
+var ua = navigator.userAgent;
+if (/MSIE [5-8]/.test(navigator.userAgent) || /firefox|webkit|opera|safari/i.test(navigator.userAgent)) {
+    document.designMode = "on";
+}
+try{
+    document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+}catch(e){}
+if (document.all) {
+    document.attachEvent("onkeydown", keyDown);
+}else{
+    document.addEventListener("keydown",keyDown,false);
+}
+
+function keyDown(e){
+	e = e || event;
+	try {
+		if (window.top.globalKeyDownEvent) {
+			window.top.globalKeyDownEvent(e);
+		}
+	} 
+	catch (e) {
+	}
+}
+</script>
+
+    <style type="text/css">
+        body
+        {
+            padding-right: 4px;
+            padding-left: 4px;
+            background: #fff;
+            padding-bottom: 0px;
+            margin: 0px;
+            font: 14px Verdana;
+            overflow: auto;
+            padding-top: 2px;
+            line-height: 150%;
+        }
+        p
+        {
+            line-height: 150%;
+        }
+        font
+        {
+            line-height: 150%;
+        }
+        div
+        {
+            line-height: 150%;
+        }
+        li
+        {
+            line-height: 150%;
+        }
+        .i
+        {
+            table-layout: fixed;
+            width: auto;
+        }
+        pre
+        {
+            word-wrap: break-word;
+        }
+    </style>
+
+
+
+</head>
+<body hidefocus="1" contenteditable="true" style="PADDING-RIGHT: 4px; PADDING-LEFT: 4px; FONT-SIZE: 14px; PADDING-BOTTOM: 0px; COLOR: #000; PADDING-TOP: 2px; FONT-FAMILY: Verdana">
+    <div>
+        <br />
+    </div>
+</body>
+</html>

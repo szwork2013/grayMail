@@ -1,0 +1,73 @@
+﻿<!DOCTYPE HTML>
+<html><head>
+<title>139个邮通讯录-清理联系人</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript">
+document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+function filltag(d, c, f) { var b, a, e = []; while (d.length) { a = d.shift(); switch (true) { case Object.prototype.toString.apply(a) === "[object Array]": b = "<script " + (a[1].length > 0 ? 'charset="' + a[1] + '" ' : "") + "src='" + (a[2] ? a[2] : c) + "/js/" + a[0] + "' type='text/javascript'><\/script>"; break; case a.indexOf(".js") > -1: b = "<script " + (f ? 'charset="' + f + '" ' : "") + "src='" + c + "/js/" + a + "' type='text/javascript'><\/script>"; break; case a.indexOf(".css") > -1: b = "<link rel='stylesheet' type='text/css' href='" + c + "/css/" + a + "' />"; break; case a.length == 0: b = "<link rel='stylesheet' type='text/css' />" } e.push(b) } document.write(e.join("")) }
+var resourcePath = top.resourcePath, addrsrc = resourcePath.replace('coremail', 'addr');
+filltag(['global2012.css', '', 'addr2012.css'], resourcePath);
+
+try {
+top.loadScript('libs.pack.js', document);
+top.loadScript('m139.core.pack.js', document);
+top.loadScript("m2011.utilscontrols.pack.js", document);
+top.loadScript("/m2012/js/packs/addr/addr_clean.html.pack.js", document);
+} catch (ex) {}
+</script>
+
+<script type="text/javascript">
+Utils.loadSkinCss(null, document, "addr");
+top.addBehavior("打开清理页面");
+</script>
+
+<style>
+.coll-one {
+    margin-right: 15px;
+}
+</style>
+</head>
+
+<body class="ml3P-contacts">
+<header id="header"></header>
+<article class="g-s5m0">
+    <div class="col-main-s5">
+        <div>
+            <div class="main-wrap">
+
+                <div class="tab-title">
+                    <h4>待清理的联系人</h4>
+                </div>
+
+                <div class="toolBar139">
+                    <div class="btn_normal clear" style="display:block">
+                        <ul class="btn_main">
+                            <li class="mr_10"><a class="j_btn_back" hidefocus="1" href="javascript:void(0)"><i class="l_border"></i><em>&lt;&lt;</em> 返回<i class="r_border"></i></a></li>
+                            <li class="mr_10"><a class="j_btn_clean" hidefocus="1" href="javascript:void(0)" behavior="一键清理按钮"><i class="l_border"></i>一键清理<i class="r_border"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="j_container" class="mail-bd clearfix">
+                    <div class="contacts-main">
+                        <div class="top-y-tips">您现在有<span id="j_labelCount">_</span>个联系人的资料待清理，格式不正确的红色字段将被清理</div>
+                    </div>
+                </div>
+
+                <div class="toolBar139" style="position:relative">
+                    <div class="btn_normal clear" style="display:block">
+                        <ul class="btn_main">
+                            <li class="mr_10"><a class="j_btn_back" hidefocus="1" href="javascript:void(0)"><i class="l_border"></i><em>&lt;&lt;</em> 返回<i class="r_border"></i></a></li>
+                            <li class="mr_10"><a class="j_btn_clean" hidefocus="1" href="javascript:void(0)" behavior="一键清理按钮"><i class="l_border"></i>一键清理<i class="r_border"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+            <footer id="footer"></footer>
+        </div>
+    </div>
+    <aside class="col-side-s5 mainSideBar" id="sidebar"></aside>
+</article>
+</body>
+</html>

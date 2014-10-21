@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <script type="text/javascript">
+        //设域
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+    </script>
+    <script type="text/javascript">
+        top.loadCSS(["module/lab.css"], document);
+    </script>
+
+</head>
+<body>
+    <div>
+        <div class="laboratoryTopMes">
+            <span style="float: left; display: inline;"><img src="../../images/module/lab/laboratory.gif" alt=""></span>
+            <dl>
+                <dt style="font-weight: bolder;">欢迎体验新功能</dt>
+                <dd style="color: #666">
+                    139邮箱实验室发布新功能和实验性功能，欢迎您开通、体验，随时将产品使用感受和建议反馈给我们，以便改进产品设计，为您提供更好的服务。
+                    欢迎到“<a href="javascript:M2012.Uec.LabMain.Links.toUEC()" >体验中心</a>”参与我们的用户满意度调查活动！
+                </dd>
+            </dl>
+        </div>
+        <div class="laboratoryMain">
+            <div class="laboratoryMain_mes">
+                <ul id="ulList">
+                    <!--
+                    <li data-index="{index}">
+                        <div style="float: left; display: inline;padding-bottom: 20px;">
+                            <table class="img">
+                                <tbody>
+                                    <tr>
+                                        <td align="center" valign="middle">
+                                            <img style="max-height: 105px; max-width: 120px;" 
+                                                alt="" src="{img}" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <dl>
+                            <dt>
+                                <strong style="font-weight: bold; font-size: 14px; float: left;" 
+                                    title="{name}">
+                                    {name}
+                                </strong>
+                                <span style="float: right;">
+                                    <a href="javascript:" id="aFeedback_{id}" >
+                                        意见反馈
+                                    </a>&nbsp;&nbsp;
+                                </span>
+                            </dt>
+                            <dd style="min-height: 45px;">
+                                {summary}
+                                <a style="{detailDisplay}" href="{detailUrl}" target="_blank">
+                                    详细&gt;&gt;
+                                </a>
+                                <br />
+                                <span id="spanRefresh_{id}" style="display:none;">
+                                    <span style="color: red; line-height: 20px;"> *  温馨提示：刷新页面才可生效哦。</span>
+                                    <a href="javascript:" onclick="M2012.Uec.LabMain.Links.reload();" 
+                                        style="text-decoration: underline;">
+                                        立即刷新
+                                    </a>
+                                </span>
+                            </dd>
+                            <dd id="ddOpenStatus0_{id}" style="{openStatusDisplay0}">
+                                <div>
+                                    <a title="{buttonText}" class="btnTb ml_5" href="javascript:"><span>{buttonText}</span></a>
+                                </div>
+                            </dd>
+                            <dd id="ddOpenStatus1_{id}" style="{openStatusDisplay1}" >
+			                    <div style="padding-top: 8px; padding-bottom: 5px;">
+					                <div>
+					                    <span>
+					                        <i class="ok"></i>&nbsp;&nbsp;已经开通，
+					                    </span>
+					                    <a id="aShutdown_{id}" href="javascript:">
+					                        关闭
+					                    </a>
+					                </div>
+			                    </div>
+			                </dd>
+                        </dl>
+                    </li>
+                    -->
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <script type="text/javascript">
+        top.loadScript('libs.pack.js', document);
+        top.loadScript('m139.core.pack.js', document);
+        top.loadScript("m2012.ui.common.pack.js", document);
+        top.loadScript("uec.lab.html.pack.js", document)
+//        top.loadScript("../../js/service/uec/m2012.uec.labmain.model.js", document);
+//        top.loadScript("../../js/service/uec/m2012.uec.labmain.view.js", document);
+    </script>
+    
+    
+</body>
+</html>

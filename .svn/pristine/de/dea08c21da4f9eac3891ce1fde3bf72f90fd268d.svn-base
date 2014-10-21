@@ -1,0 +1,241 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>群相册</title>
+    <script type="text/javascript">
+        document.domain = window.location.host.match(/[^.]+\.[^.]+$/)[0];
+        var resourcePath = top.$App.getResourcePath(), resourcePath = resourcePath.replace('richmail', 'coremail');
+        try {
+            top.loadCSS(["common/global.css", "common/frame.css", "module/addr/groupAlbum.css"], document);
+            top.loadScript('libs.pack.js', document);
+            top.loadScript('m139.core.pack.js', document);
+            top.loadScript("m2012.ui.common.pack.js", document);
+        } catch (ex) {
+        }
+    </script>
+</head>
+<body>
+<div class="groupAlbumBox">
+    <div class="groupAlbumBoxCon">
+        <!--header-->
+        <div class="groupAlbumTabs">
+		    <div class="groupAlbum_title"><i class="i_groupAdd_s"></i><i class="i_groupIco_s"></i>基础邮箱小组</div>
+		    <ul class="clearfix">
+			    <li>会话</li>
+			    <li class="groupOn">群相册</li>
+		    </ul>
+	    </div>
+
+        <!--相册-->
+        <div class="groupSession">
+            <!--toolbar-->
+		    <div class="groupAlbum_btn">
+			    <ul class="clearfix">
+				    <li><a href="javascript:void(0)" class="btnSure"><span id="uploadBtn">上传图片</span></a></li>
+				    <li><a href="javascript:void(0)" class="btnNormal"><span>下 载</span></a></li>
+				    <li><a href="javascript:void(0)" class="btnNormal"><span>删 除</span></a></li>
+				    <li><a href="javascript:void(0)" class="btnNormal"><span>存彩云</span></a></li>
+				    <li><a href="javascript:void(0)" class="btnNormal"><span>发 送</span></a></li>
+			    </ul>
+			    <span class="groupAlbum_num">容量：15.6MB/100MB</span>
+		    </div>
+            <!--相册列表-->
+		    <div class="groupSession_time allScrollCon mt_14" style="height:500px;">
+			    <ul class="groupSession_timeList" id="uploadList">
+				    
+			    </ul>
+		    </div>
+	    </div>
+    </div>
+</div>
+
+<!--右侧群成员列表-->
+<div class="groupAlbumContacts">
+	<div class="groupAlbumContacts_title">
+		<strong>群成员 <span>(18人)</span></strong>
+		<a href="#" class="i_groupIco_add"></a>
+		<a href="#" class="i_groupIco_out"></a>
+	</div>
+	<ul class="groupAlbumContacts_list" style="height:500px;">
+		<li>
+			<a href="#" class="clearfix">
+				<img src="../../images/201312/face_02.jpg" alt="" title="" />
+				<div class="groupAlbumContacts_list_con">
+					<p>张三丰</p>
+					<span>sanfeng@139.com</span>
+				</div>
+			</a>
+		</li>
+		<li class="groupOn">
+			<a href="#" class="clearfix">
+				<img src="../../images/201312/face_02.jpg" alt="" title="" />
+				<div class="groupAlbumContacts_list_con">
+					<p>张三丰</p>
+					<span>sanfeng@139.com</span>
+				</div>
+			</a>
+		</li>
+		<li>
+			<a href="#" class="clearfix">
+				<img src="../../images/201312/face_02.jpg" alt="" title="" />
+				<div class="groupAlbumContacts_list_con">
+					<p>张三丰</p>
+					<span>sanfeng@139.com</span>
+				</div>
+			</a>
+		</li>
+		<li>
+			<a href="#" class="clearfix">
+				<img src="../../images/201312/face_02.jpg" alt="" title="" />
+				<div class="groupAlbumContacts_list_con">
+					<p>张三丰</p>
+					<span>sanfeng@139.com</span>
+				</div>
+			</a>
+		</li>
+		<li>
+			<a href="#" class="clearfix">
+				<img src="../../images/201312/face_02.jpg" alt="" title="" />
+				<div class="groupAlbumContacts_list_con">
+					<p>张三丰</p>
+					<span>sanfeng@139.com</span>
+				</div>
+			</a>
+		</li>
+		<li>
+			<a href="#" class="clearfix">
+				<img src="../../images/201312/face_02.jpg" alt="" title="" />
+				<div class="groupAlbumContacts_list_con">
+					<p>张三丰</p>
+					<span>sanfeng@139.com</span>
+				</div>
+			</a>
+		</li>
+		<li>
+			<a href="#" class="clearfix">
+				<img src="../../images/201312/face_02.jpg" alt="" title="" />
+				<div class="groupAlbumContacts_list_con">
+					<p>张三丰</p>
+					<span>sanfeng@139.com</span>
+				</div>
+			</a>
+		</li>
+		<li>
+			<a href="#" class="clearfix">
+				<img src="../../images/201312/face_02.jpg" alt="" title="" />
+				<div class="groupAlbumContacts_list_con">
+					<p>张三丰</p>
+					<span>sanfeng@139.com</span>
+				</div>
+			</a>
+		</li>
+		<li>
+			<a href="#" class="clearfix">
+				<img src="../../images/201312/face_02.jpg" alt="" title="" />
+				<div class="groupAlbumContacts_list_con">
+					<p>张三丰</p>
+					<span>sanfeng@139.com</span>
+				</div>
+			</a>
+		</li>
+		<li>
+			<a href="#" class="clearfix">
+				<img src="../../images/201312/face_02.jpg" alt="" title="" />
+				<div class="groupAlbumContacts_list_con">
+					<p>张三丰</p>
+					<span>sanfeng@139.com</span>
+				</div>
+			</a>
+		</li>
+		<li>
+			<a href="#" class="clearfix">
+				<img src="../../images/201312/face_02.jpg" alt="" title="" />
+				<div class="groupAlbumContacts_list_con">
+					<p>张三丰</p>
+					<span>sanfeng@139.com</span>
+				</div>
+			</a>
+		</li>
+	</ul>
+</div>
+
+<!--js pack-->
+<script type="text/javascript">
+    try {
+        //top.loadScript("/m2012/js/packs/addr/addr_home_team_detail.html.pack.js", document);
+        top.loadScript("/m2012/js/service/groupmail_v2/list/m2012.groupmail.view.album.js", document);
+    }
+    catch (ex) {
+    }
+</script>
+<script src="swfobject.js"></script>
+<script src="upload.js"></script>
+
+<!--模板-->
+<script type="text/template" id="tpl_photo_list">
+    <!--第一行多了个class, strong里面的内容也稍不一样-->
+    <li class="groupSession_timeList_li groupSession_name_first">
+	    <div class="groupSession_name clearfix">
+		    <strong>16 : 16</strong>
+		    <span class="i_icoTime"></span>
+		    <a href="#">张三丰</a>
+		    <span>上传了 2 张图片</span>
+	    </div>
+        <!--选中图片处理-->
+	    <ul class="groupSession_pic clearfix">
+		    <li>
+			    <a href="#"><img src="../../images/201312/face_04.jpg" alt="" title="" /><span class="i_groupIco_ok"></span></a>
+		    </li>
+		    <li>
+			    <a href="#"><img src="../../images/201312/face_04.jpg" alt="" title="" /><span class="i_groupIco_ok"></span></a>
+		    </li>
+	    </ul>
+    </li>
+</script>
+
+<script type="text/javascript">
+    function updateUI(fileInfo) {
+        var ul = $("#uploadList");
+        switch (fileInfo.state) {
+            case "waiting":
+                ul.append("<li taskId='" + fileInfo.taskId + "'>" + fileInfo.fileName + "(等待上传...)</li>");
+                break;
+            case "uploading":
+                ul.find("li[taskId=" + fileInfo.taskId + "]").html(fileInfo.fileName + "(" + fileInfo.percent + "%)");
+                break;
+            case "complete":
+                ul.find("li[taskId=" + fileInfo.taskId + "]").html(fileInfo.fileName + "(完成)");
+                break;
+        }
+    }
+
+    var fileUpload = new FileUpload({
+        container: document.getElementById("uploadBtn"),
+        //uploadType: "flash",
+        getUploadUrl: function () {
+            //return "upload.ashx";
+            return "http://192.168.9.64/test/upload.ashx";
+        },
+        onselect: function (files) {
+            var self = this;
+            $(files).each(function (i, n) {
+                updateUI(n);
+            });
+            setTimeout(function () { //异步，等待onselect函数return后才能调用upload
+                self.upload();
+            }, 10);
+        },
+        onprogress: function (fileInfo) {
+            updateUI(fileInfo);
+        },
+        oncomplete: function (fileInfo, responseText) {
+            updateUI(fileInfo);
+            console.log(this.getUploadFiles());
+
+        }
+    });
+</script>
+
+</body>
+</html>

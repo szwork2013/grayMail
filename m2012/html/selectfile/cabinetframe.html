@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>暂存柜-139邮箱</title>
+
+<script type="text/javascript">
+	document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+</script>
+<script>
+    top.loadScript('libs.pack.js', document);
+    top.loadScript('m139.core.pack.js', document);
+    top.loadScript("m2012.ui.common.pack.js", document);
+</script>
+<script>top.loadCSS(["common/global.css", "module/savezcg.css"], document);</script>
+</head>
+<body>
+<div class="savefile-search savefile-search2" id="searchDiv"><!--  输入字时加上 savefile-search-on -->
+    <i class="i_c-search"></i>
+    <input type="text" class="iText gray" value="搜索暂存柜" id="keywords"/> 
+	<a hideFocus="1" href="javascript:void(0)" class="btnNormal" id="search"><span>搜 索</span></a>
+</div>
+<table class="savefiletabtitle">
+    <tbody>
+    <tr>
+        <td class="td1">
+            <a hideFocus="1" href="javascript:void(0)"><input type="checkbox" id="allOrNone"/></a>
+        </td>
+        <td class="td2">
+            <a hideFocus="1" href="javascript:void(0)" id="aFileName"><span>文件名</span><i class=""></i></a>
+        </td>
+        <td class="td3">
+            <a hideFocus="1" href="javascript:void(0)" id="aFileSize"><span>大小</span><i class=""></i></a>
+        </td>
+        <td class="td4">
+            <a hideFocus="1" href="javascript:void(0)" id="aFileExpire"><span>有效期</span><i class="i_th0"></i></a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<p class="gray pl_5 pt_5 pb_5" id="searchResunt" style="display: none">搜索结果:</p>
+<div class="nosearchend" style="display: none;">                
+    <p ><span class="gray"></span>没有找到相关文件</p>
+	<a hideFocus="1" href="javascript:void(0)" class="i_u_close"></a>
+</div>
+<div class="savefiletabdiv" id="fileList">
+</div>
+<!--<div class="boxIframeBtn">
+    <span class="bibText">已选择:<strong class="c_ff6600" id="fileCount">0</strong>个文件</span>
+    <span class="bibBtn"> <a hideFocus="1" href="javascript:void(0)" class="btnNormal" id="confirm"><span>确定</span></a> </span>
+</div>-->
+</body>
+<script>top.loadScript("cabinetframe.html.pack.js", document)</script>
+<!-- 
+<script src="../../js/ui/selectfile/m2012.ui.selectfile.model.storagecabinet.js"></script>
+<script src="../../js/ui/selectfile/m2012.ui.selectfile.view.storagecabinet.js"></script>-->
+</html>

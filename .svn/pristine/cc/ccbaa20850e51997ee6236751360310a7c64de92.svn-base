@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-Type" />
+    <title>个人情况</title>
+    <link rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+        function filltag(d, c, f) { var b, a, e = []; while (d.length) { a = d.shift(); switch (true) { case Object.prototype.toString.apply(a) === "[object Array]": b = "<script " + (a[1].length > 0 ? 'charset="' + a[1] + '" ' : "") + "src='" + (a[2] ? a[2] : c) + "/js/" + a[0] + "' type='text/javascript'><\/script>"; break; case a.indexOf(".js") > -1: b = "<script " + (f ? 'charset="' + f + '" ' : "") + "src='" + c + "/js/" + a + "' type='text/javascript'><\/script>"; break; case a.indexOf(".css") > -1: b = "<link rel='stylesheet' type='text/css' href='" + c + "/css/" + a + "' />"; break; case a.length == 0: b = "<link rel='stylesheet' type='text/css' />" } e.push(b) } document.write(e.join("")) }
+        var resourcePath = top.resourcePath, addrsrc = resourcePath.replace('coremail', 'addr'), verifyImageUrl = '', AddressBookType = {}, g = 'GB2312';
+        filltag(['global.css', 'addr.css', ''], resourcePath);
+    </script>
+    <script>
+        top.loadCSS('module/addr/addr.css', document);
+        top.loadCSS(["common/global.css"], document);        
+    </script>
+    <style type="text/css">
+        body{font: 12px/1.5 "Microsoft YaHei",Verdana,"Simsun" !important;}
+        .tabdiv{padding:20px 10px;}
+        .tablib { font-weight:lighter; }
+        .tablib a:link,
+        .tablib a:hover,
+        .tablib a:visited{text-decoration:none;margin:0 10px;font-size:12px;font-weight:lighter;}
+        .tablib a:link.navset,
+        .tablib a:visited.navset { font-weight:bold; }
+        .formArea table{table-layout:auto;}
+        .formArea th{font-weight:lighter;text-align:right;padding-right:5px;height:30px;padding-top:8px;_padding-top:5px;vertical-align:middle;font-family: "Microsoft YaHei";}
+        .formArea td{vertical-align:middle;}
+        .content .formArea input ,.content .formArea textarea{width:350px;}
+        .tishi{background:none repeat scroll 0 0 #FFFFE5;border:1px solid #FDB21B;line-height:17px;padding:5px 5px 3px 12px;}
+        p.action{margin-top:10px;}
+        #tbcss th{padding-top:0;}
+        .content input.text{margin-top: 4px;}
+        .formArea {border-width: 0px;}
+        #pageSetPassword .formArea th{width: 5em;}    
+        .addr-nav ul li a{padding: 0 21px;}
+    </style>    
+    <script>
+        top.loadScript('libs.pack.js', document);
+        top.loadScript('m139.core.pack.js', document);
+        top.loadScript("m2012.ui.common.pack.js", document);
+        top.loadScript("m2011.utilscontrols.pack.js", document);
+    </script>
+</head>
+<body>
+    <div id="pageSetPassword">
+        <div class="singTitle">
+            <strong><span>个人资料</span></strong> | <a id="gotoHome" href="javascript:void(0);">&lt;&lt;返回</a>  
+        </div>
+        <div class="content">
+            <div class="addr-nav" id="addr_nav">
+                <ul>
+                    <li><a href="javascript:void(0);">基本资料</a></li>
+                    <li><a href="javascript:void(0);">联系方式</a></li>
+                    <li><a href="javascript:void(0);">商务信息</a></li>
+                    <li><a href="javascript:void(0);">个人情况</a></li>
+                    <li><a href="javascript:void(0);">我的头像</a></li>
+                </ul>
+            </div>
+            <div style="margin:0 20px;">
+            <div class="formArea">
+                <table cellpadding="0" id="tbcss">
+                    <tbody>
+                        <tr id="trPassword">
+                            <th>我的性格：</th>
+                            <td>
+                                <input name="txtMettle" type="text" id="txtMettle" maxlength="50" class="text" /></td>
+                        </tr>
+                        <tr class="newPassword">
+                            <th>欣赏的人：</th>
+                            <td>
+                                <input name="txtAppreciation" type="text" id="txtAppreciation" maxlength="100" class="text" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>我想结交：</th>
+                            <td>
+                                <input name="txtContact" type="text" id="txtContact" maxlength="100" class="text" /></td>
+                        </tr>
+                        <tr>
+                            <th>我的简介：</th>
+                            <td>
+                                <textarea name="txtResume" id="txtResume" class="text" style="width:354px" maxlength="256"></textarea></td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td style="padding-top: 10px;"><a href="javascript:void(0)" id="more">编辑更多信息︾</a></td>
+                        </tr>
+                        <tr style="display: none">
+                            <th>喜欢的书：</th>
+                            <td>
+                                <textarea name="txtBook" id="txtBook" class="text" maxlength="100"></textarea></td>
+                        </tr>
+                        <tr style="display: none">
+                            <th>喜欢的音乐：</th>
+                            <td>
+                                <textarea name="txtMusic" id="txtMusic" class="text" maxlength="100"></textarea></td>
+                        </tr>
+                        <tr style="display: none">
+                            <th>喜欢的电影：</th>
+                            <td>
+                                <textarea name="txtMovie" id="txtMovie" class="text" maxlength="100"></textarea></td>
+                        </tr>
+                        <tr style="display: none">
+                            <th>喜欢的电视：</th>
+                            <td>
+                                <textarea name="txtTV" id="txtTV" class="text" maxlength="100"></textarea></td>
+                        </tr>
+                        <tr style="display: none">
+                            <th>喜欢的运动：</th>
+                            <td>
+                                <textarea name="txtSports" id="txtSports" class="text" maxlength="100"></textarea></td>
+                        </tr>
+                        <tr style="display: none">
+                            <th>喜欢的游戏：</th>
+                            <td>
+                                <textarea name="txtGame" id="txtGame" class="text" maxlength="100"></textarea></td>
+                        </tr>
+                        <tr id="show">
+                            <th>&nbsp;</th>
+                            <td colspan="2">
+                                <p class="action">
+                                    <a id="btnSubmit" class="btn btnGreen" href="javascript:void(0)"><em style="color:#fff;">保 存</em></a>
+                                    <a id="btnCancel" class="btn ml_10" onclick="javascript:top.MM.goBack();" href="javascript:void(0)"><em style="color:#666;">取 消</em></a>
+                                </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">top.loadScript("/m2012/js/packs/addr/addr_personalcir.html.pack.js", document)</script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+﻿<!DOCTYPE HTML>
+<html id="pageLoading">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>139邮箱</title>
+<script>
+    var letterInfo = {letterInfo};
+</script>
+<script>
+    if(location.href.indexOf("resetdomain=0")==-1){
+        document.domain=window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1].replace(/:\d+/,"");
+    }
+    var reg = /[&?]callback=(\w+)/;
+    var match = location.href.match(reg);
+    var callback;
+    if(match){
+        callback = match[1];
+    }
+    if(callback)parent[callback](window,"json",window.letterInfo);
+</script>
+<style>
+html,body,p,ul,ol,dl,h1,h2,h3,h4,h5,h6,
+form,fieldset,legend,input,select,
+textarea,button,th,td,blockquote,
+address,var,pre{
+	margin:0;padding:0;
+}
+html,body{line-height:1.6;zoom:1;}
+html{ overflow-y:hidden;}
+body {*padding-right:20px; padding-top:3px}
+
+#blessingsContainer, #signContainer{
+	font: 13px Verdana;
+	line-height:1.6;
+}
+.showyi{padding:10px 0  10px 5px;}
+.showyi a{text-decoration:none;font-size:12px;color:#014282;}
+.i_2trid,.i_2tridd{background:url(http://images.139cm.com/m2012/images/global/global.png) no-repeat;display:inline-block;overflow:hidden;vertical-align:middle;width:8px;height:9px;}
+.i_2trid{background-position:-275px 0;}
+.i_2tridd{background-position:-300px 0;}
+/*mailcontent.css end*/
+
+.remindtips{color:blue;text-decoration:underline;}
+.addtipslay{ font-size:12px;position:absolute;text-decoration:none;width:85px;height:27px;display:inline-block;text-align:center;line-height:27px;color:#FFF;background: url(../images/global/addtips.png);_background:none; _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/global/addtips.png' ,sizingMethod='noscale');cursor: pointer;}
+.addtipslay:hover{text-decoration:none;}
+</style>
+<script>
+	try{
+		var csslink = top.$T.Url.queryString("csslink",location.href); //默认请求module目录的
+		var cssfile;
+		if(csslink){
+			cssfile = "module/" + top.$T.Utils.htmlEncode(csslink) + ".css";
+			top.loadCSS([cssfile], document);
+		}
+	}catch(e){}
+</script>
+</head>
+<body>
+{content}
+</body>
+</html>
+<script>
+    if(callback)parent[callback](window,"domready");
+</script>

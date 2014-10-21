@@ -1,0 +1,224 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="Keywords" content="" />
+<meta name="Description" content="" />
+<title>139邮箱-设置-代收邮件</title>
+
+
+<script type="text/javascript">
+    //设域
+    document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+</script>
+<script>top.loadScript('libs.pack.js',document);top.loadScript('m139.core.pack.js',document)</script><script>top.loadCSS(["common/global.css","module/set.css"],document)</script></head>
+<body class="setbody">
+<div class="tab setTab">
+  <div class="tabTitle">
+	<ul>
+	  <li ><a href="account.html"><span>账 户</span></a></li>
+	  <li ><a href="javascript:void(0)"><span>邮件设置</span></a></li>
+	  <li ><a href="javascript:void(0)"><span>代收邮箱</span></a></li>
+	  <li><a href="javascript:void(0)"><span>邮件分类</span></a></li>
+	  <li><a href="javascript:void(0)"><span>标签文件夹</span></a></li>
+	  <li class="on"><a href="javascript:void(0)"><span>手机通知</span></a></li>
+	  <li><a href="javascript:void(0)"><span>反垃圾</span></a></li>
+	  <li><a href="javascript:void(0)"><span>移动特色</span></a></li>
+	</ul>	
+      <a href="#" class="tab-more">设置记录</a>
+  </div>
+</div>	  
+<div class="setWrap">
+		<div class="setArea">	
+		<h2>登录短信通知</h2>		
+		<ul class="form ">				
+			<li class="formLine">
+				<label class="label">登录短信通知：</label>
+				<div class="element ">
+					<div><label class="mr_10"><input type="radio" value="" class="mr_5" />异常时发送</label> <span class="gray">在其他城市（非您经常登录的城市）登录时，前5次发送通知。</span></div>
+					<div><label ><input type="radio" value="" class="mr_5" />每次都发送</label></div>
+					<div><label ><input type="radio" value="" class="mr_5" />不发送</label></div>
+				</div>
+			</li>		
+			<li class="formLine">
+				<label class="label">上次登录：</label>
+				<div class="element ">
+				深圳，2012-5-12 (星期二)	，22:11
+				</div>
+			</li>				
+			
+		</ul>	
+	</div>	
+	<div class="setArea">	
+		<h2>邮件到达通知</h2>	
+		<table class="notifytab">
+			<tr>
+				<th width="120">发件人</th>
+				<th width="180">手机接收方式</th>
+				<th >接收设置</th>	
+				<th class="td1"></th>	
+					
+			</tr>
+			<tr>
+				<td><div class="p_relative">在通讯录<i class="i_wenhao ml_5"></i>
+					<div class="tips yellowtips" style="left:44px;top:25px;width:200px;z-index:1000;">
+						<div class="tips-text">									
+							发信时，会自动保存收件人到通讯录																	
+						</div>
+						<div class="tipsTop diamond"></div>
+					</div>
+				</div>
+				</td>
+				<td>
+					<div class="dropDown dropDown-notify">
+						<div>
+							<div class="dropDownA" href="javascript:void(0)"><i class="i_triangle_d"></i></div>
+							<div class="dropDownText">普通短信</div>
+						</div> 
+						<div class="menuPop shadow show hide"><!--show\hide显示隐藏-->
+							<ul>
+								<li class="li1"><a  href="#"><span class="text">wap链接</span></a>									
+								</li>
+								<li class="li2 "><a  href="#"><span class="text">长短信</span></a>
+									
+								</li>
+								<li class="li3 on"><a  href="#"><span class="text">彩信</span></a>
+									<div class="tips dropDown-notifytips">
+										<div class="tips-text">									
+											发信时，会自动保存收件人到通讯录																	
+										</div>
+										<div class="tipsLeft diamond"></div>
+									</div>
+								</li>
+								<li class="li4 "><a  href="#"><span class="text">免提短信</span></a>
+									
+								</li>
+								<li class="line"></li>
+								<li><a  href="#"><span class="text">不接收通知</span></a></li>
+							</ul>
+						</div>
+					 </div>
+				</td>
+				<td>每天，8：00~22:00；<br />每次都接收</td>
+				<td class="td1"><a href="#">修改</a></td>
+			</tr>
+			<tr>
+				<td>不在通讯录</td>
+				<td><div class="dropDown dropDown-notify" style="z-index:900;">
+						<div>
+							<div class="dropDownA" href="javascript:void(0)"><i class="i_triangle_d"></i></div>
+							<div class="dropDownText">普通短信</div>
+						</div> 
+						</div></td>
+				<td>每天，8：00~22:00；<br />每次都接收</td>
+				<td class="td1"><a href="#">修改</a></td>
+			</tr>
+		</table>	
+		<div class="mt_10 noticfyadd">
+			<p><i class="phoneyes"></i>想接收某人</p>
+			<P class="pb_5"><a href="#">添加</a> | <a href="#">从我的熟人添加</a>	</p>
+			<div class="tips notify-tips" >						
+						<div class="tips-text">			
+							<div class="content-text">								
+								 <ul class="form form-notify">		
+										<li class="formLine">
+											<label class="label">发&nbsp;件&nbsp;人&nbsp;：</label>
+											<div class="element">											
+												<div class="peoinput">
+													<input type="text" class="iText" value="" /><a href="#" class="i_peo"></a>
+												</div>
+												
+											</div>
+										</li>	
+										<li class="formLine">
+											<label class="label">接收方式：</label>
+											<div class="element">		
+														<div class="dropDown dropDown-notify" style="z-index:900;">
+															<div>
+																<div class="dropDownA" href="javascript:void(0)"><i class="i_triangle_d"></i></div>
+																<div class="dropDownText">普通短信</div>																
+															</div> 
+														</div>
+											</div>
+										</li>	
+										<li class="formLine">
+											<label class="label">接收设置：</label>
+											<div class="element">		
+													每天，8：00~22：00；每次都接收 <a href="#">修改</a>
+											</div>
+										</li>	
+									</ul>									
+							</div>
+							<div class="tips-btn">
+								<a href="javascript:void(0)" class="btnNormal "><span>确 定</span></a>	<a href="javascript:void(0)" class="btnNormal "><span>取 消</span></a>
+							</div>
+						</div>	
+						<a class="i_u_close" href="#"></a>
+						<div class="tipsTop diamond"></div>
+					</div>
+			<table class="notifylisttab">
+				<tr>
+					<td class="td1">qing@139.com</td>
+					<td class="td2">普通短信</td>
+					<td class="td3"><a href="#">删除</a> <a href="#">修改</a></td>
+				</tr>
+				<tr class="on">
+					<td class="td1">qing@139.com</td>
+					<td class="td2">普通短信</td>
+					<td class="td3"><a href="#">删除</a> <a href="#">修改</a></td>
+				</tr>
+				<tr>
+					<td class="td1">qing@139.com</td>
+					<td class="td2">普通短信</td>
+					<td class="td3"><a href="#">删除</a> <a href="#">修改</a></td>
+				</tr>
+				
+			</table>	
+		</div>
+		<div class="noticfyadd mt-1">
+			<p><i class="phoneno"></i>不想接收某人</p>
+			<a href="#">添加</a> | <a href="#">从最近收信记录添加</a>		
+		</div>
+		<p class="pt_5 pb_5"><label><input type="checkbox" value="" class="mr_5" />如果我已登录web或wap邮箱，不发送邮件到达通知</label></p>
+	</div>	
+	<div class="setArea notifyseta">	
+		<h2>代收邮箱</h2>
+		<p class="pl_10"><strong >richinfo邮箱</strong> <span class="gray">(geng@richonfi.cn)</span></p>
+		<p class="pl_10"><label class="mr_20"><input type="radio" class="mr_5" value="" />接收该邮箱的通知</label><label class="mr_20"><input type="radio" class="mr_5" value="" />不接收该邮箱的通知</label></p>
+		<div class="mt_10 noticfyadd">
+			<p><i class="phoneyes"></i>想接收某人</p>
+			<a href="#">添加</a> | <a href="#">从我的熟人添加</a>	
+			<table class="notifylisttab">
+				<tr>
+					<td class="td1">qing@139.com</td>
+					<td class="td2">普通短信</td>
+					<td class="td3"><a href="#">删除</a> <a href="#">修改</a></td>
+				</tr>
+				<tr class="on">
+					<td class="td1">qing@139.com</td>
+					<td class="td2">普通短信</td>
+					<td class="td3"><a href="#">删除</a> <a href="#">修改</a></td>
+				</tr>
+				<tr>
+					<td class="td1">qing@139.com</td>
+					<td class="td2">普通短信</td>
+					<td class="td3"><a href="#">删除</a> <a href="#">修改</a></td>
+				</tr>
+				
+			</table>	
+		</div>
+		<div class="noticfyadd mt-1">
+			<p><i class="phoneno"></i>不想接收某人</p>
+			<a href="#">添加</a> | <a href="#">从最近收信记录添加</a>		
+		</div>
+		<p class="pt_5 pb_5"><label><input type="checkbox" value="" class="mr_5" />如果我已登录web或wap邮箱，不发送邮件到达通知</label></p>
+	</div>
+	<p class="gray pt_10 pl_15 pb_15">【通知接收时间】默认设置为每天的8：00~22：00<br />
+短信通知完全免费、不限条数<br />
+手机读邮件的方法</p>
+</div>
+	<div class="setBtn">
+<a href="javascript:void(0)" class="btnSetG"><span>保 存</span></a> <a href="javascript:void(0)" class="btnSet"><span>取 消</span></a>
+</div>
+</body>
+</html>

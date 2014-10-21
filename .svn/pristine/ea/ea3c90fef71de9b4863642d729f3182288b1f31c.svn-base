@@ -1,0 +1,315 @@
+<!DOCTYPE HTML>
+<html style="overflow-x:hidden;">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>我的任务</title>
+<!--这里必须要加上，不然不生效果-->
+<link rel="stylesheet" type="text/css">
+<!--end-->
+<script type="text/javascript">
+ document.domain=window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+ var v=Math.random();
+//top.Utils.loadSkinCss(null,document,"dingyuezhongxin","http://images.139cm.com/subscribe/css/");
+ top.loadCSS(["module/mytask/evertask.css"],document);
+ top.loadScript('libs.pack.js', document);
+ top.loadScript('taskmain.html.pack.js', document);
+</script>
+</head>
+
+<body>
+	<div class="rssTitleBar clear">
+		<ul class="rssTitleTab" id="mainTab">
+			<li id="myTask"  class="current"><a href="javascript:void(0);" >我的任务</a></li>
+			<li id="taskStar"><a   href="javascript:void(0);">任务明星榜</a></li>
+			<li id="taskHistory"><a   href="javascript:void(0);" >任务荣誉墙</a></li>
+			<li class="" id="taskLevel"><a   href="javascript:void(0);" >任务等级</a></li>
+		</ul>
+	</div>
+	<div class="main">
+	    
+		<!--我的任务-->
+		<div id="content_myTask" name="content">
+			<div class="mt20 clear">
+				<div class="fr"><img id="adPic"  style="cursor:pointer;" title=""/></div>
+				<dl class="avtor fl">
+					<dt class="fl"><img class="mr10" id="userImg" style="cursor:pointer;" title="查看详细升级信息" /></dt>
+					<dd><h3 class="fz_14 fwb" id="username"></h3></dd>
+					<dd class="pt5"><span id="name"></span><em class="pl5 pr5 c_999">|</em></span><span>任务等级：<strong class="c_red" id="level"></strong></span></dd>
+					<dd class="pt5 c_666"><em class="c_red" id="tofinish"></em>个任务待完成</dd>
+					<dd class="pt5 c_666">差<em class="toupgrade" style="color:red;" id="count"></em>个任务可升级</dd>
+				</dl>
+			</div>
+			<div>
+				  <div style="width:232px;display:inline-block;overflow:hidden;height:17px;_float:left;*float:left;">
+					<ul class="var_list  clear" id="memSign"  ></ul>
+				  </div>
+				  <span style="position:relative;top:-4px;_top:1px;*top:-2px;*flost:left;" >
+					<a href="javascript:void(0);" id="moveL"  style="_padding-right:2px;*padding-right:2px;cursor:pointer;"><span class="left_move" ></span></a>
+					<a href="javascript:void(0);" id="moveR"><span class="right_move" style="cursor:pointer;"></span></a></li>
+				</span>
+				</div>
+			<div class="welCenter" style="margin:25px 0 0 0;">
+				<div id="AdTab" class="tab welcomeTab">
+						<div class="tab-title">
+							<ul class="tabTitle" id="subTab">
+								<li id="newTask" style="width:25%;display:none;"   class="on"><a href="javascript:void(0);;"><span name="newTask">新手任务</span></a></li>
+								<li id="everyMonth" style="width:25%;display:none;"><a href="javascript:void(0);;" ><span name="monthTask">每月任务</span></a></li>
+								<li id="active" style="width:25%;display:none;"><a href="javascript:void(0);;" ><span name="activeTask">活动任务</span></a></li>
+							</ul>
+						</div>
+						<div id="content_newTask" style="display:none;">
+						        <!--头信息-->
+								<!--新手任务-->
+					 </div>
+					 <div id="content_everyMonth" style="display:none;"> </div>
+					 <div id="content_active" style="display:none;"> </div>
+			</div>
+		</div>
+	    </div>
+		<!--任务明星榜 -->
+		<div id="content_taskStar" name="content" style="display:none;">
+			<div>
+				<p class="pb5 pl20 c_999 " style="border-bottom:2px solid #dfdfe2;">
+				  <strong class="c_000">任务明星</strong>
+				  <span>|</span>
+				  <span>上周参与邮箱任务，且设置了个人头像的用户，即有机会出现在这里</span>
+				  <a href="javascript:void(0);"  name="setHead"  style="display:none;">&nbsp;立即设置头像</a>
+				</p>
+			</div>
+			<div class="mt20 mb20">
+				<div class="user_head"></div>
+			</div>
+			<div>
+				<p class="pb5 pl20 c_999 " style="border-bottom:2px solid #dfdfe2;">
+					 <strong class="c_000">任务擂主</strong>
+					 <span>|</span>
+					 <span>截至上月底，累计完成人数的前10名，且设置了个人头像的用户，即有机会出现在这里</span>
+					 <a href="javascript:void(0);" name="setHead" style="display:none;">&nbsp;立即设置头像</a>
+				</p>
+			</div>
+			<div class="user_member mt10" id="taskLeizu"></div>
+		</div>
+		<!--任务荣誉墙 -->
+		<div id="content_taskHistory"  name="content" style="display:none;">
+			<div class="glory_wall p-relative">
+			   <div class="glory_main" style="overflow:hidden;position:relative;">
+					<div class="clear" style="position:relative">
+						<a href="javascript:void(0);" style="outline:none;"   class="fl" ><i class="left_bar" ></i></a>
+						<div id="memHis"></div>
+						<a href="javascript:void(0);" class="fl"  style="position:relative;left:695px;outline:none;"><i class="right_bar"></i></a>
+				  </div>
+				</div>
+				<div class="tac" style="position: absolute; bottom: 10px; left: 50%;margin-left: -30px;"><a href="#"><i class="first_page mr10"></i></a><a href="#"><i class="next_page"></i></a></div>
+		   </div>
+		    <div id="taskTip" class="qd-ytips qdday-ytips" style="display:none;top: 0px; left: 0px; z-index: 999; padding: 8px; word-wrap: break-word; word-break: break-all;"><div class="tips-text"></div><div class="tipsBottom diamond"></div></div>
+		</div>
+		<!--任务等级表 -->
+		<div id="content_taskLevel" name="content" style="display:none;">
+			<div class="mt20 mb20">
+				<div class="user_head">
+					<dl>
+						<dt class="fl"><img id="levelIMG" src=""></dt>
+						<dd class="pl20" style="padding-left:95px;">我的任务等级：<b class="c_red" id="my_level"></b>级<span class="pl15 pr15 c_b2b">|</span>任务称号：<span id="name"></span><span class="pl15 pr15 c_b2b">|</span>累计完成：<b class="c_red" id="finishCount"></b>个任务<span class="pl15 pr15 c_b2b">|</span>再完成<b class="c_red" id="count"></b>个任务，可升至<b class="c_red" id="nextLevel"></b>级</dd>
+						<dd class="pt10" style="padding-left:95px;"><span class="pr5"><i class="d1"></i>1级</span><span class="pr5"><i class="d3"></i>2-4级</span><span class="pr5"><i class="d3"></i>5-7级</span><span class="pr5"><i class="d3"></i>8-10级</span><span style="padding-left:30px;"><i class="d3"></i>11-15级</span><span style="padding-left:40px;" ><i class="d3"></i>16-20级</span><span style="padding-left:30px;"><i class="d3"></i>21-25级</span><span style="padding-left:50px;"><i class="d3"></i>26-30级</span></dd>
+						<dd><span class="c_bar"><em style="width:6%;"></em><em style="width:8%;"></em><em style="width:20%;"></em><em style="width:16%;"></em><em style="width:19%;"></em><em style="width:17%;"></em><span id="levelPercent" title=""></span></span></dd>
+					</dl>
+				</div>
+			</div>
+			<div>
+				<table class="loginSearchTable" cellpadding="0" cellspacing="0">
+					<thead>
+						<tr>
+							 <th width="300" colspan="2">任务称号</th>
+							 <th width="190">任务等级</th>
+							 <th width="190">需累计完成数</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							 <td>初学弟子</td>
+							 <td class="pt10 pb10"><img  imgsrc="1_76.png"></td>
+							 <td>1</td>
+							 <td class="bord_rgt">0</td>
+					   </tr>
+					   <tr>
+							<td>初入江湖</td>
+							<td class="pt10 pb10"><img imgsrc="2_76.png"></td>
+							<td>
+								  <table cellpadding="0" cellspacing="0" class="table_inside">
+									   <tr><td>2</td> </tr>
+									   <tr><td >3</td> </tr>
+									   <tr><td class="bord_none">4</td></tr>
+								  </table>
+						 </td>
+						 <td  class="bord_rgt">
+								<table cellpadding="0" cellspacing="0" class="table_inside">
+								   <tr><td>2</td> </tr>
+								   <tr><td >10</td></tr>
+								   <tr><td class="bord_none">18</td> </tr>
+							   </table>
+						</td>
+					</tr>
+					<tr>
+						<td>江湖新秀</td>
+						<td class="pt10 pb10"><img imgsrc="3_76.png"></td>
+						<td>
+							<table cellpadding="0" cellspacing="0" class="table_inside">
+								 <tr><td>5</td> </tr>
+								 <tr><td >6</td> </tr>
+								 <tr><td class="bord_none">7</td></tr>
+							</table>
+						</td>
+						<td class="bord_rgt">
+							<table cellpadding="0" cellspacing="0" class="table_inside">
+							   <tr><td>26</td></tr>
+							   <tr><td >34</td></tr>
+							   <tr><td class="bord_none">42</td></tr>
+						  </table>
+					 </td>
+				   </tr>
+					<tr>
+						<td>江湖少侠</td>
+						<td class="pt10 pb10"><img imgsrc="4_76.png"></td>
+						<td>
+							<table cellpadding="0" cellspacing="0" class="table_inside">
+								<tr><td>8</td></tr>
+								<tr><td >9</td> </tr>
+								<tr><td class="bord_none">10</td> </tr>
+							</table>
+						</td>
+						<td class="bord_rgt">
+							<table cellpadding="0" cellspacing="0" class="table_inside">
+								<tr><td>50</td></tr>
+								<tr><td>58</td></tr>
+								<tr><td class="bord_none">66</td> </tr>
+							</table>
+						</td>
+				   </tr>
+					<tr>
+						<td>江湖豪侠</td>
+						<td class="pt10 pb10"><img  imgsrc="5_76.png"></td>
+						<td>
+							<table cellpadding="0" cellspacing="0" class="table_inside">
+								<tr><td>11</td></tr>
+							   <tr><td >12</td></tr>
+							   <tr><td>13</td></tr>
+							   <tr><td>14</td></tr>
+							   <tr><td class="bord_none">15</td></tr>
+							</table>
+					   </td>
+					   <td class="bord_rgt">
+							<table cellpadding="0" cellspacing="0" class="table_inside">
+							   <tr><td>74</td></tr>
+							   <tr><td >82</td></tr>
+							   <tr><td>90</td></tr>
+							   <tr><td >98</td></tr>
+							   <tr><td class="bord_none">106</td></tr>
+						   </table>
+					 </td>
+				  </tr>
+				   <tr>
+					 <td>一派掌门</td>
+					 <td class="pt10 pb10"><img  imgsrc="6_76.png"></td>
+					 <td>
+						  <table cellpadding="0" cellspacing="0" class="table_inside">
+							   <tr><td>16</td></tr>
+							   <tr><td >17</td> </tr>
+							   <tr><td>18</td> </tr>
+							   <tr><td >19</td> </tr>
+							   <tr><td class="bord_none">20</td> </tr>
+						  </table>
+					 </td>
+					 <td class="bord_rgt">
+						<table cellpadding="0" cellspacing="0" class="table_inside">
+							   <tr><td>114</td></tr>
+							   <tr><td>122</td> </tr>
+							   <tr><td >130</td></tr>
+							   <tr><td >138</td> </tr>
+							   <tr><td class="bord_none">146</td></tr>
+						</table>
+					 </td>
+				   </tr>
+					<tr>
+						<td>一代宗师</td>
+						<td class="pt10 pb10"><img  imgsrc="7_76.png"></td>
+						<td>
+							<table cellpadding="0" cellspacing="0" class="table_inside">
+							   <tr><td>21</td></tr>
+							   <tr><td >22</td></tr>
+							   <tr><td>23</td></tr>
+							   <tr><td >24</td> </tr>
+							   <tr><td class="bord_none">25</td> </tr>
+							</table>
+						</td> 
+						 <td class="bord_rgt">
+								<table cellpadding="0" cellspacing="0" class="table_inside">
+								   <tr><td>158</td> </tr>
+								   <tr><td >162</td> </tr>
+								   <tr><td>170</td></tr>
+								   <tr><td >178</td> </tr>
+								   <tr><td class="bord_none">186</td></tr>
+							  </table>
+						</td>
+					</tr>
+					<tr>
+						<td>武林盟主</td>
+						<td class="pt10 pb10"><img  imgsrc="8_76.png"></td>
+						<td>
+							<table cellpadding="0" cellspacing="0" class="table_inside">
+								<tr><td>26</td></tr>
+								<tr><td>27</td></tr>
+								<tr><td >28</td></tr>
+								<tr><td >29</td></tr>
+								<tr><td class="bord_none">30</td></tr>
+						   </table>
+					 </td>
+					 <td class="bord_rgt">
+						  <table cellpadding="0" cellspacing="0" class="table_inside">
+							   <tr><td>194</td> </tr>
+							   <tr><td>202</td> </tr>
+							   <tr><td >210</td></tr>
+							   <tr><td >218</td></tr>
+							   <tr><td class="bord_none">226</td></tr>
+						  </table>
+					</td>
+					</tr>
+			 </table>
+		 </div>
+		 <div class="pt15 " style="margin-bottom:30px;">
+			<h2 class="fz_14 fwb mb10 pl20">任务等级说明</h2>
+			<div class="pl10" style="border:1px solid #ccc;">
+				<h3 class="fz_12 fwb pt10">1.什么是任务等级？</h3>
+				   <p class="pt5 pl10 c_666">任务等级代表您在邮箱任务系统中的荣誉，级别越高，表示您在邮箱任务系统的资历越深。</p>
+				<h3  class="fz_12 fwb pt20">2.任务等级如何增长？</h3>
+				<p class="pt5 pl10 c_666">任务等级的增长，随着您完成任务的总数量的增长而增长。</p>
+					<h3  class="fz_12 fwb pt20">3.任务数如何计算？</h3>
+				<p class="pt5 pl10 c_666" style="margin-bottom:20px;">任务数量按照任务项来计算。例如："发2封邮件"；完成此任务项，按照1个任务数来计算。</p>
+			</div>
+		 </div>
+	   </div>
+</div>
+<div id="maintip" class="qd-ytips qdday-ytips" style="display:none;width:291px;font-size:12px;display:block;;top: 167px; left: 350px; z-index: 999; padding: 8px; word-wrap: break-word; word-break: break-all;*margin-bottom: 0px;">
+    <a href="javascript:void(0);" class="i_close"></a>
+    <div class="tips-text">
+		<div id="title">您已成功获得</div>
+		<div>
+			<img id='main_Img' style="height;48px;width:48px;"></img>
+			<span id="content" style="position: relative;top: 35px;left: -10px;overflow:hidden;">新手通关纪念章:1枚</span>
+		</div>
+		<div >
+			<span style="padding-left:25px;"></span>
+			<a class="sl-rc fr" id='main_click' style="cursor:pointer;" href="javascript:void(0);">
+				<span class="x sl-rc-cnt">
+					 <span class="sl-rc">
+						 <span  id='main_cName' class="x sl-rc-cnt" style="padding:3px 10px;" >立即查看</span>
+					 </span>
+			   </span>
+			</a>
+		</div>
+	</div>
+</div>
+<script  type="text/javascript">
+	if(NTask)NTask.init();
+</script>
+ </body>
+</html>

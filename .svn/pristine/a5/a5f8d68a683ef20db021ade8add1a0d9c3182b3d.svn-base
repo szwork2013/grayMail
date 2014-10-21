@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <!-- 基础类库 -->
+    <script>top.loadScript('libs.pack.js',document);top.loadScript('m139.core.pack.js',document)</script>
+    
+    
+    <script type="text/javascript">
+        M139.registerJS("M2012.Myapp.Model", "richmail/pages/myapp/m2012.myapp.model.js");
+        M139.registerJS("M2012.Myapp.View", "richmail/pages/myapp/m2012.myapp.view.js");
+
+        M139.requireJS(['M2012.Myapp.Model'], function () {
+            M139.requireJS(['M2012.Myapp.View'], function () {
+
+            });
+        });
+    </script>
+<script>top.loadCSS(["common/global.css","module/folder.css"],document)</script></head>
+<body>
+    <div id="loaddingWapper" style="background: #0094ff; color: #fff; font-size: 18px;">
+        loadding......</div>
+    <div id="main">
+        <div id="addrFloarWapper" class="">
+        </div>
+    </div>
+    <!-- 模版 -->
+    <script type="text/template" id="myapp-template">
+      
+    </script>
+    <script type="text/template" id="myapp-manager-template">
+      
+    </script>
+</body>
+</html>

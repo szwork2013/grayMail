@@ -1,0 +1,1351 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="Keywords" content="139邮箱" />
+<title>139邮箱</title>
+
+<script type="text/javascript">
+if (window.top != window) {
+    try {
+        top.location.href = window.location.href;
+    } catch (e) {
+        alert("139邮箱标准版不支持内嵌窗口登录，请在新窗口打开:http://mail.10086.cn");
+    }
+}
+document.domain=window.location.host.match(/[^.]+\.[^.]+$/)[0];
+var m2012ResourceDomain = "http://" + location.host;
+if (document.domain == "10086.cn" && window.location.href.indexOf("reload=true") == -1) {
+    m2012ResourceDomain = /appmail3/.test(location.host) ? "http://image0.139cm.com" : "http://images.139cm.com";
+}
+function loadScript(path, _doc, charset, rootPath) {
+    //fixed proxy.htm
+    if (path === "jquery.js") {
+        if (_doc && _doc.location.pathname.indexOf("proxy.htm") > -1) {
+            return;
+        }
+    }
+    if (_doc && !_doc.location.pathname.match(/\/m2012.+?/) && !/http:|\/m2012/.test(path) && !_doc.location.pathname.match(/\/mpost2014.+?/)) { //旧版调用
+        loadScriptM2011(path, _doc, charset, rootPath);
+        return;
+    } else {
+        if (path.indexOf(".js") > -1) {
+            var jsVersion = getResourceVersion(path) || "20130612";
+
+            if (window.location.href.indexOf("reload=true") > -1) {
+                jsVersion += "_reload";
+            }
+            if (path.indexOf("/") == -1) {
+                if (rootPath) {
+                    path = rootPath + path;
+                } else {
+                    var base = "/m2012/js";
+                    if (path.indexOf("pack.js") > -1) {
+                        base += "/packs";
+                    }
+                    path = base + "/" + path;
+                }
+            }
+            if (path.indexOf("?") == -1) {
+                path += "?v=" + jsVersion;
+            }
+            if (path.indexOf("http://") == -1 && path.indexOf("/") == 0) {
+                path = m2012ResourceDomain + path;
+            }
+        }
+        if (!charset && path.indexOf("/m2012/") > -1) {
+            charset = "utf-8";
+        }
+    }
+    (_doc || document).write("<script jsonload='0' onload='this.setAttribute(\"jsonload\",\"1\")' " + (charset ? "charset=\"" + charset + "\" " : "") + " type=\"text/javascript\" src=\"" + path + "\"></" + "script>");
+}
+var m139LoadScript = loadScript,resetDiskSelect = true;//网盘目录记忆功能清空
+
+function getResourceVersion(path) {
+    if (window.Config_FileVersion) {
+        var fileName = path.match(/[^\/\\]*$/)[0];
+        return Config_FileVersion[fileName] || Config_FileVersion["defaults"];
+    } else {
+        return "";
+    }
+}
+
+function loadCSS(path, _doc) {
+    if (typeof path == "string") path = [path];
+    for (var i = 0; i < path.length; i++) {
+        var item = path[i];
+        if (item.indexOf("http://") == -1) {
+            item = "/m2012/css/" + item;
+            item = m2012ResourceDomain + item;
+        }
+        var cssVersion = getResourceVersion(item);
+        if (item.indexOf("?") == -1) {
+            item = item + "?v=" + cssVersion;
+        }
+        if (item.indexOf('skin_') != -1) {
+            (_doc || document).write('<link id="skinLink" rel="stylesheet" href="' + item + '" type="text/css" />');
+        } else {
+       		(_doc || document).write('<link cssonload="0" onload="this.setAttribute(\'cssonload\',\'1\')" rel="stylesheet" href="' + item + '" type="text/css" />');
+		}
+    }
+}
+var IndexHTML = {
+    /**@public*/
+    checkLoadSuccess:function(){
+        var errNS = this.checkErrorNS();
+        if (errNS) {
+            //send log
+            this.reloadPage("&reload=true&errorNS=" + errNS);
+        } else {
+            //success
+            this.showMainView();
+        }
+    },
+    /**@inner*/
+    checkErrorNS: function () {
+        var chkList = ["Backbone", "M139", "M2012","SiteConfig", { "M2012": ["MainApplication", "MatrixVM"] }];
+        var errNS = "";
+        for (var i = 0; i < chkList.length; i++) {
+            var ns = chkList[i];
+            if (typeof ns == "string") {
+                errNS = checkNS(window, ns);
+            } else {
+                for (var subNS in ns) {
+                    errNS = checkNS(window[subNS], ns[subNS]);
+                    if (errNS) break;
+                }
+            }
+            if (errNS) break;
+        }
+        return errNS;
+        function checkNS(target,nsList) {
+            if (typeof nsList == "string") nsList = [nsList];
+            for (var i = 0; i < nsList.length; i++) {
+                var ns = nsList[i];
+                if (!target[ns]) {
+                    return ns;
+                }
+            }
+        }
+    },
+    /**@inner*/
+    reloadPage: function (query) {
+        if (location.href.indexOf(query) == -1) {
+            location.href = location.href + query;
+        } else {
+            //重试还是失败
+            alert("加载文件发生异常，可能是网络原因，请使用 Ctrl+F5 刷新页面");
+        }
+    },
+    /**@inner*/
+    showMainView: function () {
+        //一开始不加class，不然loading有颜色
+        $(document.body).addClass('bodycolor');
+        $(".indexLoading").hide();
+        $(".Loading_Hidden").show();
+    }
+};
+
+/**
+精简版日志上报
+*/
+(function () {
+    var HealthCheckModule = {
+        timeMap : {}, //记录时间戳的map
+        startHealthCheck: function () {
+            var This = this;
+            function setTimestamp(key) {
+                if (!This.timeMap[key]) {
+                    This.timeMap[key] = new Date();
+                }
+            }
+            var check_map = {
+                M139: function () {
+                    return !!window.M139;
+                },
+                TopWin: function () {
+                    return window == top;
+                },
+                M2012: function () {
+                    return !!window.M2012;
+                },
+                SiteConfig: function () {
+                    return !!window.SiteConfig;
+                },
+                jQuery: function () {
+                    return !!window.jQuery;
+                },
+                Folders: function () {
+                    var result = !!(window.jQuery && $("#folder_main > li[fid]").length > 0);
+                    if (result) {
+                        setTimestamp("folders");
+                    }
+                    return result;
+                },
+                Welcome: function () {
+                    //var result = !!(window.jQuery && $("#adv2", $("iframe[id=welcome]")[0].contentWindow.document).children().length > 0);
+                    if (window.WELCOME_LOADED) {
+                        setTimestamp("welcome");
+                        return true;
+                    }
+                }
+            };
+            var errList;
+            var interval = 500;
+            var stopLog = 1000 * 65 / interval;
+            var timer = setInterval(watch, interval);
+            var count = 0;
+            function watch() {
+                count++;
+                var time = count * interval;
+                if (isSucc()) {
+                    clearInterval(timer);
+                    This.logLoginSuccess(time);
+                } else {
+                    //15s,25s...65s
+                    if (count >= 30 && (count - 30) % 20 == 0) {
+                        if (count <= stopLog) {
+                            This.logLoginUnSuccess(time, errList.join(","));
+                        }
+                    }
+                }
+            }
+            function isSucc() {
+                var error = [];
+                for (var p in check_map) {
+                    if (!check_map[p]()) {
+                        error.push(p);
+                    }
+                }
+                if (error.length > 0) {
+                    errList = error;
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        },
+        sendLog: function (logInfo) {
+            var log = '<object><string name="version">m2012</string><array name="messages"><object>';
+            //noencode
+            for (var p in logInfo) {
+                log += '<string name="' + p.toUpperCase() + '">' + logInfo[p] + '</string>';
+            }
+            log += '</object></array></object>';
+            var url = (window.SiteConfig && SiteConfig.scriptLog) || "/mw2/weather/weather?func=user:monitorLogAction";
+            url += "&sid=" + this.getSid();
+            LightHttpClient.post({
+                url: url,
+                data: log
+            });
+        },
+        logLoginSuccess: function (time) {
+            var fromLoginTime = "";
+            var welcomeLoadTime = "";
+            var loginCguid = $Url.queryString("cguid");
+            if (loginCguid) {
+                var lDate = M139.Text.Utils.getDateTimeFromCGUID(loginCguid);
+                if (lDate) {
+                    var folderTime = this.timeMap["folders"];
+                    if (folderTime < lDate) {
+                        lDate.setDate(lDate.getDate() - 1);//跨天了
+                    }
+                    fromLoginTime = folderTime - lDate;
+                    welcomeLoadTime = this.timeMap["welcome"] - lDate;
+                }
+            }
+            this.sendLog({
+                time: time,
+                name: "LOGINSUCCESS",
+                level: "INFO",
+                serviceTime: $Url.queryString("mtime"),
+                fromLoginTime: fromLoginTime,
+                welcomeLoadTime:welcomeLoadTime,
+                loginCguid: loginCguid
+            });
+        },
+        logLoginUnSuccess: function (time,errObj) {
+            this.sendLog({
+                level: "ERROR",
+                time: time,
+                runtime: time,
+                name: "LOGINERROR",
+                errorObj: errObj,
+                commonlog: "[" + time + "]LOGINERROR:" + errObj //兼容老版本格式(监控采集)
+            });
+        },
+        getSid: function () {
+            return location.href.match(/sid=([^&]+)/)[1];
+        }
+    };
+    var LightHttpClient = {
+        post: function (options) {
+            var xhr = this.getXHR();
+            xhr.open("post", options.url, true);
+            xhr.send(options.data || null);
+        },
+        getXHR: function (options) {
+            var win = (options && options.window) || window;
+            if (win.XMLHttpRequest) {
+                return new win.XMLHttpRequest();
+            } else {
+                var MSXML = ['MSXML2.XMLHTTP.5.0', 'MSXML2.XMLHTTP.4.0', 'MSXML2.XMLHTTP.3.0', 'Microsoft.XMLHTTP'];
+                for (var n = 0; n < MSXML.length; n++) {
+                    try {
+                        return new win.ActiveXObject(MSXML[n]);
+                        break;
+                    }catch (e) {}
+                }
+            }
+        }
+    };
+    HealthCheckModule.startHealthCheck();
+})(window);
+
+</script>
+
+<style>
+/*初始化loading界面 随机显示广告*/
+html,body,dl,dt,dd,p{margin:0;padding:0;color:#333;font:12px/1.5 "Microsoft YaHei",Verdana;}
+.ta_c{text-align:center;}
+/* ==== 图片文字左右结构 ====   */
+.imgInfo:after{content:".";clear:both;display:block;height:0;visibility:hidden;}
+.imgInfo{zoom:1;}
+.imgInfo .imgLink{float:left;margin-right:7px;}
+.imgInfo dl{overflow:hidden;zoom:1;}
+/* 刷新邮箱加载 */
+.indexLoading{width:442px;position:absolute;left:50%;top:50%;height:132px;margin-top:-66px;margin-left:-221px; }
+.indexLoading .imgInfo{border:1px solid #a2b0c6;background-color:#fbfbfd;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;height:79px;padding-top:15px;padding-left:30px;overflow:hidden;}
+.indexLoading .imgInfo dt{font-weight:bold;font-size:14px;}
+.indexLoading .imgInfo dt{padding-top:20px;}
+.indexLoading .imgInfo dt.a1{padding-top:9px;padding-bottom:3px;}
+.indexLoading .imgInfo .imgLink {margin-right:25px;}
+.i_l_yj{background-position:0 -69px!important;}  /* 一键搬家 */
+.i_l_khd{background-position:-160px -69px!important;}  /* 客户端发信 */
+.i_l_tag{background-position:0 -135px!important;}  /* 邮箱多标签操作 */
+.i_l_attr{background-position:-80px 0!important;}  /* 多附件上传 */
+.i_l_qun{background-position:-80px -69px!important;}  /* 群显单发 */
+.i_l_sj{background-position:-80px -135px!important;}  /* 手机号码 */
+.indexLoading p{font-size:14px;padding-top:15px;}
+.indexLoading p img{vertical-align:middle;margin-right:8px;}
+/*loading时隐藏主界面*/
+.Loading_Hidden{display:none;}
+</style>
+<script>
+document.write('<style>.i_l_md,.i_l_yj,.i_l_khd,.i_l_tag,.i_l_attr,.i_l_qun,.i_l_sj{width:78px;height:67px;overflow:hidden;background:url(' + m2012ResourceDomain + '/m2012/images/global/inldexloadico.png) no-repeat;}</style>')
+</script>
+</head>
+<body>
+<div id="LoginLoadingTip">
+<script>
+    (function () {
+        //随机显示一个loading广告
+        var ads = [
+            { icon: "i_l_md", text: '<dt class="a1">邮件到达，手机立即通知。</dt><dd>您可以通过邮件提醒直接阅读邮件。</dd>' },
+            { icon: "i_l_yj", text: '<dt>一键搬家，轻松管理您的其它邮箱。</dt>' },
+            { icon: "i_l_khd", text: '<dt>客户端发信，保存到139邮箱“已发送”。</dt>' },
+            { icon: "i_l_tag", text: '<dt>邮箱多标签操作，从容切换多窗口。</dt>' },
+            { icon: "i_l_attr", text: '<dt>多附件上传进度显示，随时掌握上传状态。</dt>' },
+            { icon: "i_l_qun", text: '<dt>群发单显，让每个人收到单独发给ta的邮件。</dt>' },
+            { icon: "i_l_sj", text: '<dt>邮箱发送短、彩信，精彩发不停。</dt>' },
+            { icon: "i_l_md", text: '<dt>手机号码就是您的邮箱帐号，方便易记。</dt>' }
+        ];
+        var rnd = parseInt(Math.random() * ads.length);
+        var ad = ads[rnd];
+        var html = ['<div class="indexLoading">',
+            '<div class="imgInfo">',
+                '<span class="imgLink ', ad.icon, '"> </span>',
+                '<dl> ',
+                    ad.text,
+                '</dl>',
+            '</div>',
+            '<p class="ta_c"><img src="/m2012/images/global/load.gif" alt="">页面正在打开，请稍候......</p>',
+			'<p class="ta_c" style="padding-top:35px" id="showSimple"></p>',
+        '</div>'].join("");
+        document.write(html);
+		
+    })();
+</script>
+</div>
+<script>
+    (function () {
+        var match = location.href.match(/sid=([^&<>#]+)/);
+        if (match && match[1]) {
+            window.sid = match[1];
+        } else {
+            location.href = "http://mail.10086.cn";
+        }
+    })();
+    m139LoadScript("http://" + location.host + "/m2012/conf/config." + document.domain + ".js?sid=" + sid, document);
+
+
+	//切换到基础版
+	function showSimpleLink(){
+		var obj = document.getElementById('showSimple');
+		var changeUrl= getDomain('mail') + '/login/switchto.aspx?sid=' + sid + '&v=3';
+		document.getElementById('showSimple').innerHTML =  '网速缓慢，您可以试一下简洁极速的<a href="' + changeUrl + '">基础版&gt;&gt;</a>';
+	}	
+	setTimeout(showSimpleLink,10000);
+</script>
+
+<script>
+
+    // 需要隐藏的皮肤
+    // skin_mcloud 为废弃皮肤
+    // 其他为暂时下线皮肤
+    var HIDDEN_SKIN = {
+            'skin_mcloud': true
+        };
+
+    function isAlternateSkin(skin_name){
+        var alternateSkin = ['skin_claritFlower','skin_claritForest','skin_claritSunset'];
+        var len = alternateSkin.length;
+        for (var i = 0; i < len; i++){
+            if (skin_name === alternateSkin[i]) {
+                return true;
+            };    
+        } 
+        return false; 
+    }
+
+    function nowTimeForAlternateSkin(){
+        var now = new Date();
+        var nowHours = now.getHours();
+        if(nowHours >= 6 && nowHours < 14){
+            return 0;
+        } else if (nowHours >= 14 && nowHours < 22){
+            return 1;
+        } else{
+            return 2;
+        }
+
+    }
+    //根据皮肤名称和时间选择样式
+    function chooseAlternateSkin(skin_name){
+        var skin_claritFlower = ['skin_claritFlower','skin_claritSky','skin_claritTifany'];
+        var skin_claritForest = ['skin_claritForest','skin_claritGrass','skin_claritLeaf'];
+        var skin_claritSunset = ['skin_claritWave','skin_claritSunset','skin_claritUniverse'];
+        var nowtime = nowTimeForAlternateSkin();
+        switch(skin_name){
+            case 'skin_claritFlower' :
+                return skin_claritFlower[nowtime];
+                break;
+            case 'skin_claritForest' :
+                return skin_claritForest[nowtime];
+                break;
+            case 'skin_claritSunset' :
+                return skin_claritSunset[nowtime];
+        }
+
+    }
+
+    (function () {
+        var list = ["common/global.css"];
+        // 2.3版本默认皮肤为skin_lightblue
+        // 皮肤“云端”已经下线
+        var skinPath = getCookie("SkinPath2");
+        
+        if (!/^skin_\w+$/.test(skinPath) || HIDDEN_SKIN[skinPath]) {
+            skinPath = "skin_lightblue";
+        } else if (skinPath == 'skin_normal') {
+            skinPath = getCookie("cookiepartid") == 1 ? "skin_red" : "skin_lightblue";
+        }
+
+        // 根据当天时间段变化的皮肤，进行匹配
+        if(isAlternateSkin(skinPath)){
+            skinPath = chooseAlternateSkin(skinPath);
+        }
+
+        list.push('packs/' + skinPath + '_index.html.pack.css');//skin_normal_index.html.pack.css
+        loadCSS(list, document);
+    })();
+    
+</script>
+<script>
+    m139LoadScript('libs.pack.js');
+    m139LoadScript('m139.core.pack.js')
+    m139LoadScript("m2012.ui.common.pack.js", document);
+</script>
+    <div class="headerTopMenu clearfix" id="top">
+        <a href="javascript:$App.show('welcome');" class="mailLogo_new" bh="top_logo"></a>
+        <a id="msgBoxClick" href="javascript:$Evocation.showMessageBox();" class="newMenuMore infoBoxB">
+            <i class="infoBox"></i>            
+        </a>
+        <i class="i-red_dot" id="msgBoxComing" style="position:absolute; left:150px; display:none; top:5px;"></i>
+		<ul id="toFixTabs" class="newMenu">
+			<li id="toptab_welcome" name="welcome" channel="welcome"><a href="javascript:$App.showChannel('welcome')" class="clearfix"><i class="i_homeNew"></i>首页</a></li>
+			<li id="toptab_mailbox" name="mailbox_1" channel="mail" bh="top_mail"><a href="javascript:$App.showChannel('mail')">邮件</a></li>
+			<li id="toptab_addr" name="addr" channel="addr"><a href="javascript:$App.showChannel('addr')">通讯录</a></li>
+			<li id="toptab_calendar" name="calendar" channel="calendar"><a href="javascript:$App.showChannel('calendar')">日历</a></li>
+			<li id="toptab_diskdev" name="diskDev" channel="disk"><a href="javascript:$App.showChannel('disk')" bh="top_disk">彩云网盘</a></li>
+			<li id="toptab_googSubscription" name="googSubscription" channel="subscribe"><a href="javascript:$App.showChannel('subscribe')" bh="top_mpost">云邮局</a></li>
+			<li id="top_bussinessoffice" name="billCharge" style="display:none" channel="billCharge"><a href="javascript:$App.show('billCharge')" bh="top_billCharge">邮箱营业厅</a></li>
+		</ul>
+        <span class="newMenuMore_no">|</span>
+		<div id="setDefaultTab" class="newMenuMore">
+			<span class="newMenuMore_line"><a href="javascript:void(0);" class="i-newMenuMore"></a></span>
+			<div id="setDefaultTabDiv" class="boxIframe hide J-dropdown" style="right:0; top:36px; width:274px;">
+				<div class="boxIframeMain">
+					<div class="boxIframeText">
+						<div class="norTips clearfix">
+							<label>登录后默认进入的主页：</label>
+							<div id="view28_endTime" class="dropDown" style="width:90px;">
+								<a name="view28_endTimePop" href="javascript:void(0);" class="dropDownA">
+									<i name="view28_endTimePop" class="i_triangle_d"></i>
+								</a>
+								<div id="defaultTabTxt" class="dropDownText">邮件</div>
+							</div>
+						</div>
+					</div>
+					<div class="boxIframeBtn">
+						<span class="bibText"></span>
+						<span class="bibBtn">
+							<a href="javascript:void(0)" id="setDefaultTabConfirm" class="btnSure mr_5">
+								<span>确 定</span>
+							</a>
+							<a href="javascript:void(0)" id="setDefaultTabCalcel" class="btnNormal">
+								<span>取 消</span>
+							</a>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<ul class="newLogoInfo">
+			<li id="mailSetLi" class="newLogoInfo_li">
+				<a href="javascript:void(0)" class="i-setup newLogoInfo_a"></a>
+				<div style="top:36px; right:0; z-index: 9001; position: absolute; width:70px;" class="J-dropdown menuPop shadow hide" bindautohide="1">
+					<ul>
+						<li index="1"><a bh="top_setting_set" href="javascript:$App.show('preference')"><span class="text">设置</span></a></li>
+						<li class="line"></li>
+						<li index="2"><a href="javascript:top.$App.show('uecLab');"><span class="text">实验室</span></a></li>
+						<li index="3"><a bh="top_setting_help_center" href="javascript:;" id="helpcenter" target="_blank"><span class="text">帮助中心</span></a></li>
+						<li index="4"><a bh="top_setting_formal_blog" href="http://blog.sina.com.cn/richinfo139" target="_blank"><span class="text">官方博客</span></a></li>
+						<li index="5"><a bh="top_setting_formal_twitter" href="http://e.weibo.com/139yx" target="_blank"><span class="text">官方微博</span></a></li>
+						<li index="6"><a bh="top_setting_feedback" href="javascript:;" id="feedback" target="_blank" bh="top_feedback"><span class="text">意见反馈</span></a></li>
+						<li index="7"><a bh="top_setting_update_log" href="http://help.mail.10086.cn/statichtml/1/Category/39/List_1.html" target="_blank" bh="welcomeb_log"><span class="text">更新日志</span></a></li>
+					</ul>
+				</div>
+			</li>
+			<li id="togAudioBox" class="newLogoInfo_li off" style="display: none;">
+				<a href="javascript:void(0);" class="i_musicIco newLogoInfo_a"></a>
+			</li>
+			<iframe id="audioBox" src="about:blank" frameborder="0" class="musicPop shadow" style="height: 263px; width:242px;position:absolute;right:7px;_right:0px; top:36px;display:none;"></iframe>
+			
+            <script>
+
+			top.MusicBox = function(){
+				// note 此初始状态须与HTML、样式一致
+				var MUSIC_BOX_LOADED = false;
+				var VISIBLE = false;
+				
+				var audioBox = $('#audioBox');
+				var toggleBtn = $("#togAudioBox");
+				//console.log(toggleBtn);
+
+				function noop(){}
+
+				return {
+					load: function(callback){
+						audioBox.attr("src", "/m2012/html/music_box.html");
+						MUSIC_BOX_LOADED = true;
+						if(typeof callback !== "function"){
+							callback = noop;
+						}
+						//console.log("music box loaded");
+						//warn 重新加载框架时，不要再引用回调
+						audioBox.one("load", callback);
+						top.addBehavior("music_box_load");
+					},
+					ready: function(){	// not a good name
+						return MUSIC_BOX_LOADED;
+					},
+					/*
+					* 添加播放列表数据到音乐盒，并指定要立即播放的项 (iframe)
+					*/
+					addMusic: function(instantPlay, playList){
+						var frameWin;
+						if(audioBox.length < 1) return ;
+
+						frameWin = audioBox[0].contentWindow;
+
+						if(MUSIC_BOX_LOADED) {
+							frameWin.onAddMusic(instantPlay, playList);
+						} else {
+							this.load(function(){
+								frameWin.onAddMusic(instantPlay, playList);
+							});
+							toggleBtn.show();	// ...
+						}
+					},
+					show: function(){
+						//if(VISIBLE) return ;
+						audioBox.show();
+						VISIBLE = true;
+					},
+					hide: function(){
+						//if(!VISIBLE) return ;
+						audioBox.hide();
+						VISIBLE = false;
+					},
+					showPlayStatus: function(play) {
+						if(play) {
+							toggleBtn.removeClass("off").addClass("on");
+						} else {
+							toggleBtn.removeClass("on").addClass("off");
+						}
+					},
+					toggle: function(){
+						VISIBLE ? this.hide() : this.show();
+					},
+					changeSkin: function(){
+						var frameWin = audioBox[0].contentWindow;
+
+						if(!frameWin || typeof frameWin.changeSkin !== "function"){
+							return ;	// 播放器页面未加载
+						}
+						
+						frameWin.changeSkin();
+					}
+				};
+			}();
+
+			$("#togAudioBox").click(function(e){
+				e.preventDefault();
+				e.stopPropagation();
+				/*if(MusicBox.ready() === false) {
+					MusicBox.load();
+				}*/
+				MusicBox.toggle();
+			});
+			$(document).click(function(e){
+				MusicBox.hide();
+			});
+            </script>
+		</ul>
+	</div>
+<div id="mainContentBox" class="bodyBg Loading_Hidden">
+  <div class="header" id="header">
+    <div class="headerInner clearfix">
+        <div class="personalInformation">
+            <ul class="personalInformation_ul clearfix">
+                <li id="accountSet" class="personalInformation_li">
+                    <a href="javascript:;" class="personalInformation_a"></a>
+                    <div style="top:20px; left:0px; z-index: 9001; position: absolute; width:180px;" class="menuPop shadow hide J-dropdown" bindautohide="1">
+                        <ul class="personalSettings">
+                            
+                            <li class="line"></li>
+                            <li index="5"><a href="javascript:$App.show('account', { anchor: 'basePersonalInfo' })"><span class="text">个人资料</span></a></li>
+                            <li index="6"><a href="javascript:$App.show('account')"><span class="text">帐户设置</span></a></li>
+                        </ul>
+                    </div>
+                </li>				
+                <li class="personalInformation_span">|</li>
+                <li id="head_changeSkin" class="personalInformation_li"><a href="javascript:$App.show('changeSkin')" class="personalInformation_a" bh="top_setting_change_skin">换肤</a></li>
+                <li class="personalInformation_span">|</li>
+                <li id="healthSet" class="personalInformation_li">
+                    <a href="javascript:;" class="personalInformation_a" bh="health_top"><i class="mr_5"></i>健康度</a>
+                    <div style="left:0px; top:20px;width:150px; display: none" class="tipsOther">
+                        <div class="tips-text">
+                        </div>
+                    </div>
+                </li>
+				<li class="personalInformation_span">|</li>
+                <li class="personalInformation_li"><a id="logout" href="javascript:;" class="personalInformation_a">退出</a></li>
+                <li class="personalInformation_li" id="indexTopAd"></li>
+
+            </ul>
+        </div>
+
+      <div>
+        <div class="searchWrap" id="searchContainer">
+			<div class="searchContent searchContentOn"><!--点击时背景变成白色加上 searchContentOn -->
+			<input type="text" value="" class="searchInput" id="tb_mailSearch" autocomplete="off" />
+			<span class="searchLeft ">	<!-- loading 的时候加上 searchLoading -->		
+			</span>
+			<span id="searchIcon" class="searchRight"><!-- 输入时图标变成回车加上 searchEnter -->
+			</span>
+            <a href="javascript:;" class="write-voice" id="btn_foiceSearch"><i class="i_voice"></i></a>
+			<a href="javascript:;" class="searchBtn i-index-sbtn" id="searchBtnIcon"></a>
+			</div>
+			<div id="searchMenu" class="menuPop shadow mailSearchboolBar hide" style="z-index: 1001;">
+                <ul>
+                <li><a href="javascript:" id="op_mail"><i class="i_s_mail"></i>包含<strong>关键词</strong>的邮件</a></li>
+                
+                <li><a href="javascript:" id="op_from" field="from"><i class="i_s_space"></i><span class="gray">发件人:</span><strong style="font-weight:normal;">关键词</strong></a></li>
+                
+                <li><a href="javascript:" id="op_subject" field="subject"><i class="i_s_space"></i><span class="gray">主&nbsp;&nbsp;题:</span><strong style="font-weight:normal;">关键词</strong></a></li>
+                
+                <li><a href="javascript:" id="op_to_from" field="to_from"><i class="i_s_space"></i><span class="gray">收/发件人:</span><strong style="font-weight:normal;">关键词</strong></a></li>
+                
+                <li id="li_op_subject_content"><a href="javascript:" id="op_subject_content" field="subject_content"><i class="i_s_space"></i><span class="gray">主题+正文:</span><strong style="font-weight:normal;">关键词</strong></a></li>
+                
+                <li id="li_op_all"><a href="javascript:" id="op_all" field="all"><i class="i_s_space"></i><span class="gray">全文搜索:</span><strong style="font-weight:normal;">关键词</strong></a></li>
+                
+                <li><a href="javascript:" id="op_contact"><i class="i_s_peo"></i>包含<strong>关键词</strong>的联系人</a></li>
+                
+                <li><a href="javascript:" id="op_calendar"><i class="i-create" style="position: relative; top: 3px; _top:0px;"></i>包含<strong>关键词</strong>的公共日历</a></li>
+                
+                <li><a href="javascript:" id="op_attach"><i class="i_s_arr"></i>包含<strong>关键词</strong>的附件夹文件</a></li>
+                
+                <li id="li_op_disk"><a href="javascript:" id="op_disk"><i class="i_s_wep"></i>包含<strong>关键词</strong>的彩云网盘文件</a></li>
+                
+                <li><a href="javascript:" id="op_tempStorage"><i class="i_s_sark"></i>包含<strong>关键词</strong>的暂存柜文件</a></li>
+                
+                <li><a href="javascript:" id="op_googSubscription"><i class="i_s_cloud"></i>包含<strong>关键词</strong>的报刊、服务</a></li>
+                <li id="li_open_all" ><a href="javascript:" id="open_all" style="color:blue" bh="open_search_all" ><i class="i_s_space"></i>开通全文检索</a></li>
+                <li class="line"></li>
+                <li><a href="javascript:" id="btn_searchAdvance"><b class="c_666">高级搜索...</b></a></li>
+                
+              </ul>
+			</div>
+		</div>
+      </div>
+    </div>
+  </div>
+  <div class="sub" id="sub">
+	<div class="readWrite">
+		<a hidefocus href="javascript:;" class="writeBtn" id="btn_receive"><i class="i_read"></i><span>收信</span></a> 
+		<a hidefocus href="javascript:;" class="redBtn" id="btn_compose" bh="left_compose"><i class="i_write"></i><span>写信</span></a> 
+    </div>
+	<div class="smsNetTip" id="smsNetTip" style="display:none">
+	</div>
+    <!--<div class="skintopBg"></div>-->
+	
+    <div class="subList sweb" id="sb_h" style=""><!--满足条件显示滚动条-->
+       
+    	<textarea id="template_folderMain" style="display:none">
+      	<!--item start-->
+        <li id="li_mailbox" fid="1">
+            <a hidefocus  style="" title="$inbox.title" href="javascript:;" fid="1"  bh="left_inbox">
+                <span>收件箱$inbox.count</span> 
+            </a>
+        </li>
+
+        <li id="li_sendedbox" fid="3"  style="$sent.style"><a  bh="left_sent" hidefocus title="$sent.title" href="javascript:void(0)" fid="3">已发送$sent.count</a></li>
+		<li id="li_draftbox" fid="2"  style="$draft.style"><a  bh="left_draft" hidefocus title="$draft.title" href="javascript:void(0)" fid="2">草稿箱$draft.count</a></li>
+<li fid="4"  style="$deleted.style"><a  bh="left_deleted" hidefocus title="$deleted.title" href="javascript:void(0)" fid="4">已删除$deleted.count<i class="i_dels" id="btn_clear"></i></a></li>
+            <li class="bottomLi"></li>
+            <li id="li_vip"><a href="javascript:appView.searchVip()" bh="click_vip_mail"><i class="user_vip"></i><span>VIP邮件</span></a></li>
+            <li id="li_star" style="$star.style"><a  bh="left_star" hidefocus href="javascript:appView.searchMail({flags:{starFlag:1}})" title="$star.title"><i class="i_starM_y"></i>星标邮件$star.count </a></li>
+		<li id="li_remind" style="$task.style"><a bh="left_remind" hidefocus href="javascript:appView.searchTaskmail()" title="$task.title"><i class="i_cDon"></i>待办任务$task.count</a></li>
+        
+        
+        <li fid="8" id="li_bill"><a bh="left_bill" hidefocus href="javascript:void(0)" fid="8">服务邮件</a></li>
+        <!--<li onClick="appView.show('googSubscription')" style="$subscribe.style"><a  bh="left_subscribe" hidefocus title="$subscribe.title" href="javascript:;"  >$subscribe.lock我的订阅$subscribe.count</a></li>-->
+		<li  id="li_subscribe" onclick="appView.showSubscribe(true)" style="$subscribe.style"><a  bh="left_subscribe" hidefocus title="$subscribe.title" href="javascript:;">$subscribe.lock订阅邮件$subscribe.count</a></li>
+        <li class="bottomLi"></li>
+        <!--item end-->
+        </textarea>
+		
+		
+    <div class="subListScroll" id="sidebar" style="overflow-y:auto">
+		  <span class="subListScrollTop" style="display:none"></span>
+		  <div class="subListScrollCon" style="overflow:auto"><div class="jscroll-c" style="position: relative; padding-right:0 !important;">
+
+
+      <ul class="big" id="folder_main">
+            <li fid="1">
+              <a hidefocus="" style="" href="javascript:$App.showMailbox(1);" fid="1" bh="left_inbox">
+                  <span>收件箱</span>
+              </a>
+          </li>
+      </ul>
+        
+    <!--<div style="overflow-y:auto;position:relative;" id="sidebar" class="sweb">-->
+        <ul class="big subListScrollLast" >
+		
+		  
+		<li id="customfolder_list">
+		</li>
+          
+		<li id="tag_list">
+		</li>
+		
+		<li id="pop_list">
+		</li>
+
+        </ul>
+        </div>
+        <div class="jscroll-e" unselectable="on" style="height: 100%; top: 0px; right: 0px; position: absolute;"><div class="jscroll-u" style="position: absolute;"></div><div class="jscroll-h"  style="-moz-border-radius: 3px;  -webkit-border-radius: 3px; border-radius:3px; position: absolute; cursor:pointer;"></div><div class="jscroll-d" style="position: absolute;"></div></div>
+
+	    </div></div>
+
+        <!-- add by yuanhb start -->
+        <div id="myapp">
+            <ul class="big">
+                <li class="bottomLi"></li>
+                <li>
+                    <a href="javascript:void(0)" hidefocus="" id="listAppsSwitch" bh="left_listapps" ><i id="listAppsSwitchIcon" class="triangle t_blackRight" bh="left_listapps"></i><span>特色应用</span><i id="setapp" class="i_set" title="添加我的应用"><!-- 设置 --></i></a>
+                    <ul id="myappList" class="small">
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <!-- add by yuanhb end -->
+       
+          <div class="myappmore">
+				<a href="javascript:;" hidefocus="true" id="appmorelink" style="display:none"><span>更多</span><i class="i_xiax"></i><i class="i_xias" style="display:none"></i></a>
+		  </div>
+
+      </div>     
+    </div>
+ 
+    <!--<div class="skinBottomBg"></div>-->
+  
+  <div class="mainTop" id="divTab">
+      <ul>
+      </ul>
+  </div>
+  <div class="main" id="main">
+
+    <div class="mainIframeBg clearfix" id="div_main"></div>
+	<div id="fetionElemTop" class="fxclickdiv Loading_Hidden" title="飞信" style="display: none;"><div class="fxdiva" id="fetionContainerId"></div></div>
+  </div>
+</div>
+<div class="dRound skinPop" style="left:442px;top:36px;display:none;">
+  <div class="dRoundBody skinPopBody clearfix">
+  </div>
+  <div class="skinPopBtn"> <a class="btn-blue" href="javascript:void(0)"><span>保存</span></a> <a class="btn-black" href="javascript:void(0)"><span>取消</span></a> </div>
+</div>
+<div id="logoArea" class="skin Loading_Hidden">
+  <div class="skinTop"></div>
+  <div class="skinTopLeft"></div>
+  <div class="skinTopRight"></div>
+  <div class="skinBody">
+        <img id="skinBgImg" src=""/>
+  </div>
+  <div id="skinBgSub" class="skinMenu"></div>
+</div>
+<div style="top:40px;left:4px;width:330px; z-index:9999; display:none" id="msgBox" class="tips tipsInfoBox ">
+    <div class="tips-text">
+        <div class="tipsInfoBox_title"><strong>通知</strong><a href="javascript:;" id="msgBoxEmpty" class="i_delb"></a></div>
+        <ul class="tipsInfoBox_list">            
+        </ul>
+    </div>
+    <span class="tipsTop5 diamond" style="left:139px;"></span>
+</div>
+<script>
+    (function () {
+	    // fix: 编辑器粘贴表格导致邮箱页面滚动不可见
+	    document.getElementById('mainContentBox').style.height = document.body.clientHeight - 36 + "px";
+
+        var skinPath = getCookie("SkinPath2");
+        if (!/^skin_\w+$/.test(skinPath) || HIDDEN_SKIN[skinPath]) {
+            skinPath = "skin_lightblue";
+        } else if (skinPath == 'skin_normal') {
+            skinPath = getCookie("cookiepartid") == 1 ? "skin_red" : "skin_lightblue";
+        }
+        var bgImg = document.getElementById('skinBgImg');
+        var skinBgSub = document.getElementById('skinBgSub');
+        //判别轮换皮肤
+        if(isAlternateSkin(skinPath)){
+            skinPath = chooseAlternateSkin(skinPath);
+        }
+        
+        if (skinPath.indexOf('_clarit') > -1) {
+            bgImg.src = '../images/skin/'+ skinPath.split('_')[1] +'/skinBody.jpg';
+        } else {
+            bgImg.src = '';
+            skinBgSub.style.display = 'none';
+        }
+    })();
+</script>
+<textarea id="template_maillist" style="display:none">
+     <!--[if IE 8]>
+    <div style='+zoom:1;position: relative;'><![endif]-->
+    <!--[if IE 8]></div><![endif]-->
+		<!--section start-->
+		<div class="dayArea">
+			<a href="javascript:;" class="daytableTitle pl_10"><i class="i_plusj i_minus"></i><span>@getSectionName</span></a>
+			    <!--[if lt ie 8]>
+    <div style='+zoom:1;position: relative;'><![endif]-->
+            <table class="dayAreaTable">
+			<tbody>
+				<!--item start-->
+				<tr mid="$mid" sessionId="$mailSession" >
+					<td class="td1">
+                        <div class="p_relative">
+                        <input type="checkbox" /><i class="@getPriority(priority)"></i>@getStatus()<i class="@getAttach()"></i>
+                        </div>
+					</td>
+					<td class="td2">
+                        <div class="mailForm">
+                            
+                            <span name="from" class="@getRowStyle()">@getName(from)</span>  @getVipIcon()                          
+                        </div>
+                    </td>
+					<td name="td_sub" class="tdtitle">
+					@getStarIcon()
+					<div class="mTitle">
+                        <h3 class="@getRowStyle()" mid="$mid" mailnum="$mailNum">
+                            <a href='javascript:;' onClick="return false;" title="@getSubject(subject,1)" style='@getSubjectColor(color)' name="subject">
+                                @getFolder() @getSubject(subject) 
+                            </a>
+                            @getMailNum(true)
+                             @getRemarkIco()
+                        </h3>
+                       
+                        @getSummary(summary)
+                        <div class="TagDiv">
+                            
+                            @getTagList(label)
+                        </div>
+					</div>
+					</td>
+					<td class="td3">@getDate(sendDate,receiveDate,taskDate)</td>
+					<td class="td4">@getSize(size)</td>
+					<td class="td5">
+                        <div id="list_ico_$mid" style="_zoom:1;">
+                            <!--<a href="#" class="i_alarm"></a>-->
+                            @getRemindIco()
+                            <a href="javascript:;" name="tagMenu" class="i_tagfor_n"></a>
+                        </div>
+					</td>
+				</tr>
+				<!--item end-->
+			</tbody>
+		</table>
+<!--[if lt ie 8]></div><![endif]-->
+		</div>
+		<!--section end-->
+     <div class="downPagenumBox clearfix" id="maillist_pager_bottom"></div> 
+		<p style="line-height: 50px;font-size: 20px;display:none"><a href="javascript:" id="btn_nextPage">加载下一页</a></p>
+</textarea>
+
+<textarea id="template_maillist_left" style="display:none">
+        <!--[if lt ie 8]>
+    <div style='+zoom:1;position: relative;'><![endif]-->
+<table class="tableTitle" id="list_header">
+    <tbody>
+      <tr>
+        <td class="td1"><div class="tdsel"><!-- 选中时加上 class="tdselOn" --><input type="checkbox" id="chk_mailist_all"/><i bh="mailbox_selectAllDrop" class="i_triangle_d" id="btn_checkMenu"></i> </div></td>
+        <td class="tdtitle"></td>
+        <td class="td6"><div class="tdsel"><!-- 选中时加上 class="tdselOn" --> 
+          <a href="javascript:" id="btn_sortMenu"><span>时间由新到旧</span><i class="i_triangle_d" ></i></a> </div></td>
+      </tr>
+    </tbody>
+  </table>
+    <!--[if lt ie 8]></div><![endif]-->
+  <!--section start-->
+  <div class="dayArea"> <a href="javascript:" class="daytableTitle"><i class="i_plusj i_minus"></i><span>@getSectionName</span></a> 
+            <!--[if lt ie 8]>
+    <div style='+zoom:1;position: relative;'><![endif]-->
+      <table class="dayAreaTable">
+         <!--item start-->
+         <tr mid="$mid" sessionId="$mailSession">
+          <td class="td1">
+          <div class="p_relative">
+                  <input type="checkbox" /><i class="@getPriority(priority)"></i>@getStatus()<i class="@getAttach()"></i>
+          </div>
+          </td>
+
+          <td name="td_sub" class="tdtitle">
+
+<div class="mTitle mailForm mailForm-lr">
+              <p class="black"><span name="from" class="@getRowStyle()">@getName(from)</span>@getVipIcon()</p>
+              <h3 class="@getRowStyle()" mid="$mid" mailnum="$mailNum"><a href='javascript:' onClick="return false;" title="@getSubject(subject,1)" style='@getSubjectColor(color) @getSubjectPadding()'  name="subject">@getSubject(subject) </a>@getMailNum(true) @getRemarkIco() </h3>
+              @getSummary(summary)  
+            </div></td>
+          <td class="td6"><p class="gray">@getDate(sendDate,receiveDate)</p>
+          
+              <div class="inboxWrapLeft_TagDiv">
+                 @getStarIcon() 
+                  @getTagList(label)
+                <div  id="list_ico_$mid">
+                <a href="javascript:" class="i_alarm" style="display:none"></a>
+                </div>
+                 
+           </td>
+        </tr>
+        <!--item end-->
+    </table>
+      <!--[if lt ie 8]></div><![endif]-->
+  </div>
+  <!--section end-->
+  <p style="line-height: 50px;font-size: 20px;display:none"><a href="javascript:" id="btn_nextPage">加载下一页</a></p>
+</textarea>
+<style>
+
+#fetionContainerId .fxbar_wrap .tip_close{border:none;background:none;}
+#fetionContainerId .fxbar_wrap .tip_close div{background:none;}
+#fetionContainerId .fxbar_wrap .tip_close .fxbar_count_139{padding:0;width:25px;overflow:hidden;}
+#fetionContainerId .fxbar_wrap .fxbar_139_tipbk_top{width:54px;}
+#fetionContainerId .fxbar_wrap .fxbar_139_tipbk_top .fxbar_area_139 {width:44px;}
+
+
+
+.leftFodderBoot{position:fixed;_position:absolute;z-index:5010;top:250px;left:120px;}
+.leftFodderBoot_close{position:absolute;top:5px;right:-1px;width:20px;height:20px;}
+.leftFodderBoo_swf{width: 257px;height:240px;position: absolute;left: 27px;top:65px;}
+.leftFodderBoo_swf a{cursor:pointer;}
+.leftFodderBoot_01,.leftFodderBoot_02,.leftFodderBoot_03{position:absolute;}
+.leftFodderBoot_01{width:101px;height:77px;top:-31px;background:url(../images/201312/leftBoot_01.png) no-repeat;_background-image:url(../images/201312/leftBoot_01IE6.png);}
+.leftFodderBoot_02{width:300px;height:295px;top:-120px;background:url(../images/201312/leftBoot_02.png) no-repeat;_background-image:url(../images/201312/leftBoot_02IE6.png);}
+.leftFodderBoot_03{width:310px;height:326px;top:-100px;background:url(../images/201312/leftBoot_03.png) no-repeat;_background-image:url(../images/201312/leftBoot_03IE6.png);}
+
+</style>
+    <ul class="leftFodderBoot">
+
+    <li class="leftFodderBoot_01" style="display:none">
+		<a href="javascript:;" class="leftFodderBoot_close" onclick="$(this).parent().hide()" style="top:15px;right:5px;"></a>
+	</li>
+	<li class="leftFodderBoot_02" style="display:none">
+		<a href="javascript:;" class="leftFodderBoot_close" onclick="$(this).parent().hide()" style="top:15px;right:0px;"></a>
+	</li>
+	
+</ul>
+</body>
+</html>
+<script>
+//m139LoadScript("m2012.matrixvm.pack.js", document); //已将m2012.matrixvm.pack.js合并到 index.html.pack.js
+m139LoadScript("index.html.pack.js", document);
+</script>
+<script>
+    IndexHTML.checkLoadSuccess();
+</script>
+
+<script>
+    fetionAjax = window.fetionAjax = {
+        isAjaxReady: false,
+
+        ajaxInit: function () {
+            var swfName = window.location.protocol + "//webim.feixin.10086.cn/webimbar/v2/swf/ajaxhelper_n.swf";
+
+            try {
+                var swfObject = '<object codebase="//download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,0,0"'
+                                    + ' width="0" height="0" id="fetion_ajaxproxy" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000">'
+                                    + '<param name="allowScriptAccess" value="always" />'
+                                    + '<param name="movie" value="' + swfName + '" />'
+                                    + '<param name="quality" value="high" />'
+                                    + '<param name="bgcolor" value="#ffffff" />'
+                                    + ' <embed src="' + swfName + '" quality="high" width="0" height="0" bgcolor="#ffffff"'
+                                    + ' type="application/x-shockwave-flash" pluginspage="//www.macromedia.com/go/getflashplayer"'
+                                    + ' name="fetion_ajaxproxy" swLiveConnect="true" allowScriptAccess="always">'
+                                    + '<\/embed>'
+                                    + '<\/object>';
+
+                document.write(swfObject);
+            } catch (err) {
+            }
+        },
+
+        ajaxReady: function () {
+            fetionAjax.isAjaxReady = true;
+        }
+    };
+
+    fetionAjax.ajaxInit();
+</script>
+<script type="text/javascript">
+
+EventManager = {
+    addEvent : function(obj,type,handler){
+        if(typeof obj  == 'object'){
+            if(obj.addEventListener){
+                obj.addEventListener(type,handler,false);//useCapture
+            }else if(obj.attachEvent){
+                obj.attachEvent('on'+type,handler)
+            }
+        }
+
+    }
+
+
+}
+
+var singleton = (function(){
+    var unique;
+    var getInstance = function(){
+        if(unique == undefined){
+            unique = new DialogManager()
+        }
+        return unique;
+    }
+    var DialogManager = function(){
+        this.dialogConfig ={
+            width:410,
+            hideTitleBar:true
+        }
+        this.iframeStatusMap = {
+            start:'../html/umcupgrade/upgrade_tip.html',
+            success:'../html/umcupgrade/upgrade_success.html',
+            reset:'../html/umcupgrade/upgrade_setpsd.html',
+            failure:'../html/umcupgrade/upgrade_failure.html'
+        }
+        this.iframe = null; //弹出对话框中的iframe
+        this.mb = null; //弹出对话框实例
+
+    }
+    DialogManager.prototype = {
+        // status 标明四种对话框 ['start','success','reset','failure']
+        setStatus:function(status){
+            this.status = status;
+        },
+        getStatus:function(){
+            return this.status || null;
+        },
+        showDialog:function(){
+            var status  = this.getStatus();
+            // success和failure状态中的iframe都是共享之前的Messagebox，只需要改变iframe中src就可以了
+            if((status == 'success' || status == 'failure')&&this.mb){
+                this.mb.setHeight(350);
+                this.mb.resetHeight();
+                this.iframe.src = this.iframeStatusMap[status];
+                this.iframeLoad(status,this.iframe);
+            }else if(status == 'start' || status == 'reset'){  //
+                this.dialogConfig.url = this.iframeStatusMap[status];
+                      status == 'reset' ? this.dialogConfig.height = 590 : this.dialogConfig.height = 360;
+                this.mb = top.$Msg.open(this.dialogConfig);
+                this.iframe = this.mb.$el.find('iframe')[0];//find的返回这是一个jquery对象
+                this.iframeLoad(status,this.iframe);
+            }
+        },
+        iframeLoad:function(status,iframe){
+            var loadHandler = function(){
+                var iframeDoc = iframe.contentWindow.document;
+                new DialogEventManager(iframeDoc,singleton.getInstance()); ////所有的事件都是这儿处理的
+            }
+            if(iframe){
+                EventManager.addEvent(iframe,'load',loadHandler)
+            }
+
+
+        },
+        closeDialog:function(){
+            if(this.mb){
+                this.mb.close();
+                this.mb = null;
+            }
+
+        }
+    }
+    return {
+        getInstance :getInstance
+    }
+
+})()
+var DialogEventManager = function(iframeDoc,DialogManager){
+    this.iframeDoc = iframeDoc;
+    this.dm = DialogManager;
+    this.dialogStatus = this.dm.getStatus();
+      this.verifyCodeMapping = {
+        'ts':'http://pvcnew.mail.10086ts.cn:20080/getimage?clientid=1',  //测试线
+        'pro':'http://imagecode.mail.10086.cn/getimage?clientid=1' //现网,灰度
+      }
+    this.initEvent()
+}
+DialogEventManager.prototype = {
+
+    initEvent:function(){
+        var _this = this;
+        var iframeDoc = this.iframeDoc;
+        var dm = this.dm;
+        var dialogStatus = this.dialogStatus;
+        var lnk  = $(iframeDoc).find('.lnk')[0];
+        if(dialogStatus == 'success'){
+            EventManager.addEvent(lnk,'click',function(){
+                dm.closeDialog();
+                top.location.reload();
+                   return;
+            })
+        }
+        else if (dialogStatus == 'failure'){
+            EventManager.addEvent(lnk,'click',function(){
+                dm.closeDialog();
+                   return;
+            })
+        }
+           else if(dialogStatus == 'start' || dialogStatus == 'reset'){
+                var btnAnother = iframeDoc.getElementById('btnAnother');  //这个是通行证需要密码输入中的弹出框中''
+                if(btnAnother){
+                    var verifyCodeURL = '';
+                    var verifyCodeEl = iframeDoc.getElementById('imgRnd');
+
+                    verifyCodeURL =(document.domain.indexOf('ts')==-1?_this.verifyCodeMapping['pro']:_this.verifyCodeMapping['ts']); //这儿之前有问题
+                    verifyCodeEl.src = verifyCodeURL+'&r='+Math.random();
+					EventManager.addEvent(btnAnother,'click',function(event){                     					 					  /* var verifyCodeURL = 'http://pvcnew.mail.10086ts.cn:20080/getimage?clientid=1&r='+Math.random();
+			   // var verifyCodeURL = 'http://imagecode.mail.10086ts.cn/getimage?clientid=1&r='+Math.random();
+		           //var verifyCodeEl = iframeDoc.getElementById('imgRnd');*/
+				     verifyCodeEl.src = verifyCodeURL+'&r='+Math.random();
+				 })
+                }
+        
+            var submitBtn  = $(iframeDoc).find('.submitArea')[0];
+            EventManager.addEvent(submitBtn,'click',function(event){
+                _this.startAndResetHandler(event);
+
+            });
+        }
+    },
+    startAndResetHandler:function(event){
+        var _this = this;
+        var iframeDoc = this.iframeDoc;
+        var dm = this.dm;
+        var SEvent = event.srcElement ? event.srcElement:event.target;
+        var eSourceClass = SEvent.className ;//||eve
+        //  var eSourceClass = event.target.className ;//||event.target.getAttribute('class');
+        var umcPsd = iframeDoc.getElementById('passwd');
+           var vc = iframeDoc.getElementById('vc'); //验证码输入框
+           var comfirmUpgrade = this.iframeDoc.getElementById('comfirmUpgrade'); //添加重复点击的属性
+        if(eSourceClass == 'lnk'){
+            dm.closeDialog();
+            return;
+        }
+        if(eSourceClass == 'greenBtn'){
+            var psdValidResult = [];
+            var url = top.$Url.makeUrl('umc:updatePassport',{
+                sid:$App.getSid(),
+                rnd:$Url.queryString('rnd')
+            });
+               if (umcPsd && vc) {  //这儿主要是验证用分支
+
+                   var ispsdValid = (psdValidResult = this.validatePsd(umcPsd))[0];
+                   var doc = this.iframeDoc;
+                   var errorDiv = doc.getElementById('errorMsg');
+                   if(!ispsdValid){
+                        errorDiv.innerHTML = psdValidResult[1];
+                        return;
+                   }
+                   if (!$.trim(vc.value)){
+                       errorDiv.innerHTML = '请输入验证码';
+                       return;
+                   }
+
+
+                }
+               if(comfirmUpgrade.getAttribute('trigger-once')) return;
+               comfirmUpgrade.setAttribute('trigger-once','1');
+               if(umcPsd && psdValidResult[0]){ ////这儿主要是密码验证框的ajax请求
+                  var psd = $.trim(umcPsd.value);
+                  var verifyCode = $.trim(vc.value);
+                  var data = '<object>' +
+                                     '<string name="p">'+psd+
+                                     '</string><string name="ver">'+4+
+                                      '</string><string name="verifycode">'+verifyCode+
+                                      '</string>'+
+                                '</object>'
+
+                top.M139.RichMail.API.call(url,data,function(result){
+                    var  respData = result.responseData;
+                    if(respData && respData.code && respData.code == "S_OK"){
+
+                        _this.success(result,'reset');
+                    }else{
+
+                          _this.error(respData,'reset');
+                    }
+                },{
+                    // scope:_this,
+                    httpMethod:'post',
+                    error:_this.error
+                });
+               
+            }
+            else if(!umcPsd){
+                var data = '<object><string name="ver">'+4+'</string></object>';
+                top.M139.RichMail.API.call(url,data,function(result){
+
+                    var  respData = result.responseData;
+                    if(respData && respData.code && respData.code == "S_OK"){
+
+                        _this.success(result,'start');
+                    }else{
+
+                        _this.error(result);
+                    }
+                },{
+                    httpMethod: 'post',
+                    error: function(result){_this.error(result);}
+                })
+            }
+        }
+    },
+    validatePsd:function(umcPsd){  //直接在html文档中加控制display属性就行
+        var value = $.trim(umcPsd.value);
+        var chars = value.split('');
+        var SMSMessage = {
+            SetEmptyPasswordformValid: "密码不能为空",
+            SetValidatePasswordLengthformValid: "请输入6位至16位字符和数字组成的密码",
+            SetValidateFormatformValid: "密码中包含不合法字符，可支持字母、数字、及_~@#$^符号",
+           // SetValidSequenceNumAndLetter:"请输入6-16位不连串的数字和字母组成的密码"
+            SetValidateNumformValid:"密码不能是纯数字组合",
+            SetValidateCharformValid: "密码不能是字符串联，如aaaaaa、FEDCBA"
+        };
+        var returnValue = true;
+        var msg = "";
+        if (value == "") {
+            msg = SMSMessage["SetEmptyPasswordformValid"]; //"密码不允为空";
+            returnValue = false;
+
+            return [returnValue, msg];
+        }
+        if (value.length < 6) {
+            msg = SMSMessage["SetValidatePasswordLengthformValid"]; //"请输入6位至16位字符或数字组成的密码";
+            returnValue = false;
+
+            return [returnValue, msg];
+        }
+        if(value.replace(/[A-Za-z0-9_~@#$\^]/g, '') != ""){
+            msg = SMSMessage["SetValidateFormatformValid"]; //"密码中包含不合法字符，可支持字母、数字、及_~@#$^符号"
+            returnValue = false;
+
+            return [returnValue, msg];
+        }
+        if (!value.replace(/\d/g, '')) {
+            msg = SMSMessage["SetValidateNumformValid"]; //"密码不能是纯数字组合";
+
+            returnValue = false;
+            return [returnValue, msg];
+        }
+       
+        var reg;
+        if (chars[0] == '^') {
+            reg = new RegExp('[\\' + chars[0] + ']', 'g')
+        }
+        else {
+            reg = new RegExp('[' + chars[0] + ']', 'g')
+        }
+        if (value.replace(reg, '') == '') {
+            msg = SMSMessage["SetValidateCharformValid"]; //"密码不能是字符串联，如aaaaaa、ABCDEF、FEDCBA";
+            returnValue = false;
+            return [returnValue, msg];
+        }
+        
+        return [returnValue, msg];
+
+    },
+   
+    success:function(result,status){
+        if(status == 'start'){
+            this.dm.closeDialog();
+            top.location.reload();
+        }
+        else if (status == 'reset'){
+            this.dm.setStatus('success');
+            this.dm.showDialog();
+        }
+       
+
+    },
+       error:function(result,status){
+          if(status == 'reset'){
+              var comfirmUpgrade = this.iframeDoc.getElementById('comfirmUpgrade');
+              var errorDiv = this.iframeDoc.getElementById('errorMsg');
+              if(result.code && result.code == 'FA_ENTER'){
+                    errorDiv.innerHTML = '验证码输入不正确';
+                    comfirmUpgrade.removeAttribute('trigger-once');
+                    return ;
+              }
+              else if(result.code && result.code == 'FA_EXPIRE'){
+                   errorDiv.innerHTML = '图片校验码已过期';
+                   comfirmUpgrade.removeAttribute('trigger-once');
+                   return;
+              }
+          }
+          this.dm.setStatus('failure');
+          this.dm.showDialog();
+       }
+
+}
+</script>

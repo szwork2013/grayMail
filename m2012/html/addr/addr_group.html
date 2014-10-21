@@ -1,0 +1,513 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>139个邮通讯录 - 编辑分组</title>
+<script type="text/javascript">
+function filltag(d,c,f){var b,a,e=[];while(d.length){a=d.shift();switch(true){case Object.prototype.toString.apply(a)==="[object Array]":b="<script "+(a[1].length>0?'charset="'+a[1]+'" ':"")+"src='"+(a[2]?a[2]:c)+"/js/"+a[0]+"' type='text/javascript'><\/script>";break;case a.indexOf(".js")>-1:b="<script "+(f?'charset="'+f+'" ':"")+"src='"+c+"/js/"+a+"' type='text/javascript'><\/script>";break;case a.indexOf(".css")>-1:b="<link rel='stylesheet' type='text/css' href='"+c+"/css/"+a+"' />";break;case a.length==0:b="<link rel='stylesheet' type='text/css' />"}e.push(b)}document.write(e.join(""))}
+
+document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+var resourcePath = top.resourcePath
+var addrPath = resourcePath.replace('coremail', 'addr');
+</script>
+
+<script>
+try {
+top.loadCSS("common/global.css", document);
+top.loadScript("libs.pack.js", document);
+top.loadScript('m139.core.pack.js', document);
+top.loadScript("m2011.utilscontrols.pack.js", document);
+top.loadScript("/m2012/js/packs/addr/addr_zh_hans.pack.js", document);
+} catch (ex) {}
+filltag(['global2012.css', 'addr2012.css', ''], resourcePath);
+</script>
+<!--[if lt IE 9]><script>document.write('<script src="' + resourcePath + '/js/html5.js"><\/script>')</script><![endif]-->
+<style type="text/css">
+.addFormContact .addFcLeft .contactList,
+.searchEnd {
+    height: 327px;
+}
+.addFormContact .addFcRight {
+    width: 200px;
+}
+.contacts-selecting {
+    margin-left: 25px;
+}
+.btn_normal {
+    margin: 15px 20px;
+    position: relative;
+}
+.mr_10 {
+    margin: 0 2em
+}
+/*
+.tabContent {
+    width: 220px;
+}
+*/
+.addFormContact {
+    width: 490px;
+}
+.all-null { margin-left: 30px }
+/*.add-group .name { margin-left: 25px; }*/
+.mail-bd .contacts-main tr:hover { background: none; }
+/* 按纽对齐 */
+.toolBar139 li.mr_10 a{font-family: "微软雅黑";}
+.btn_normal li a{
+    height: 23px;line-height: 23px;padding-top:0;border-bottom: 0;}
+.pageStyleBar .pageStyle{height: 23px;}
+.addFormContact table {margin: 0px;}
+i.i_addjt{margin-right:-2px;}
+</style>
+</head>
+
+<body class="ml3P-contacts msyhv2">
+<article class="g-s5m0">
+    <div class="col-main-s5">
+        <div class="col-wrap-s5" style="margin:0px">
+            <div>                 
+                <div class="singTitle">
+                    <h4><script>document.write((Utils.queryString("id") || "")?"编辑":"新建")</script>分组 | <a  id="gotoHome" href="javascript:void(0);">&lt;&lt;返回</a></h4>
+                </div>
+                <div class="mail-bd">
+                    <div class="contacts-main">
+                        <div class="add-group">
+                            <div class="name">
+                                <strong>组名</strong><input type="text" maxlength="16" id="txtGroupName" class="ipt-text" />
+                            </div>
+                            <div class="addFormContact">
+                                <table>
+                                    <tbody>
+                                    <tr>
+                                        <td><strong>联系人</strong></td>
+                                        <td width="6%"></td>
+                                        <td><strong>已选中</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 0px;">
+                                            <div id="divContainer" class="addFcLeft p_relative AddressBookContainer" style="width: 213px;">
+                                            </div>
+                                        </td>
+                                        <td class="ta_c" width="6%" style="vertical-align:middle"><i class="i_addjt"></i></td>
+                                        <td>
+                                            <div id="divSelection" class="addFcRight">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                                <span>选择: <!--<a id="lnkSelectAll" href="javascript:void(0)" title="" class="tdu">全部选中</a>&nbsp;|&nbsp;-->&nbsp;<a id="lnkEmpty" href="javascript:void(0)" title="" class="tdu">清空已选</a></span>
+                            </div>
+                            <div class="btn_normal">
+                                <p class="action">
+                                    <a href="javascript:void(0);" id="btnSave" role="button" hidefocus="1" class="btn btnGreen"><em>保 存</em></a>
+                                    <a href="javascript:void(0);" id="btnCancel" role="button" hidefocus="1" class="btn ml_10"><em>取 消</em></a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+
+<script type="text/javascript">
+var L =
+{
+    groupNameDefaultText:"请输入组名",
+    groupNameEmptyMsg:"请输入组名",
+    notSelectContactsMsg:"请至少选择一个联系人"
+};
+
+var txtGroupName = document.getElementById("txtGroupName");
+var divContainer = document.getElementById("divContainer");
+
+//根据传来的参数填充组名与选择联系人。
+var groupId = Utils.queryString("id") || "";
+var groupName = Utils.queryString("group") || "";
+
+var C = top.Contacts;
+var data = C.data;
+
+var isFromEdit = groupId.length > 0;
+var isFromByName = groupName.length > 0;
+
+//编辑组初始化页面
+$(function()
+{
+    if (isFromEdit)
+    {
+        var group = C.getGroupById(groupId);
+        txtGroupName.value = group.GroupName;
+    }
+    else if (isFromByName)
+    {
+        var group = C.getGroupByName(groupName);
+        groupid = group.GroupId;
+        txtGroupName.value = group.GroupName;
+    }
+
+    var contactsModel = top.M2012.Contacts.getModel();
+    var member = top.M2012.Contacts.getModel().getGroupMembers(groupId);
+
+    var selItems = [];
+    for (var i = 0; i < member.length; i++) {
+        selItems[i] = {
+            name: member[i].name,
+            addr: member[i].SerialId,
+            serialId: member[i].SerialId,
+            value: member[i].name
+        };
+    }
+
+    var self = this;
+    var lstAddr = new top.M2012.UI.Widget.Contacts.View({
+        container: divContainer,
+        width: "100%",
+        receiverText: groupName,
+        showLastAndCloseContacts: false,
+        showVIPGroup: false,
+        showSelfAddr: false,
+        selectMode: true
+
+    }).on("additem", function(e) {
+        var addr = [];
+
+        if (!e.isGroup) {
+            var c = contactsModel.getContactsById(e.serialId);
+            addr = [c];
+        } else {
+            addr = e.value;
+        }
+
+        for (var i=addr.length; i--; ) {
+            var serialId = addr[i].SerialId;
+            if (!lstAddr.selection[serialId]) {
+                //var item = $('<a hidefocus="1" href="javascript:void(0)" class="lia"><i class="i_del"></i><span>' + $T.Html.encode(addr[i].name) + '</span></a>');
+                var item = $('<a hidefocus="1" href="javascript:void(0)" class="lia"><i class="i_del"></i><span title=' + addr[i].FamilyEmail + '>' + $T.Html.encode(addr[i].name) + '</span></a>');
+                item.data("SerialId", serialId);
+                lstAddr.selection[serialId] = true;
+                $("#divSelection").append(item);
+            }
+        }
+    }).on("print", function(e){
+        lstAddr.addSelectedItems(selItems);
+    });
+    /*
+        BH_onAddGroup 整组添加
+        BH_onSearch  搜索
+        BH_onAddNewContacts 新建联系人
+
+    */
+
+    lstAddr.on('BH_onAddGroup', function(){
+        if(isFromEdit){
+            top.BH('addr_editGroup_allGroup');
+        }else{
+            top.BH('addr_addGroup_allGroup');
+        }
+    });
+
+    lstAddr.on('BH_onSearch', function(){
+        if(isFromEdit){
+            top.BH('addr_editGroup_search');
+        }else{
+            top.BH('addr_addGroup_search');
+        }
+    });
+
+    lstAddr.on('BH_onAddNewContacts', function(){
+        if(isFromEdit){
+            top.BH('addr_editGroup_addContact');
+        }else{
+            top.BH('addr_addGroup_addContact');
+        }
+    });
+
+    lstAddr.on('addGroup', function(result){    
+        if(top.$Addr){
+            var groupId = result.id; 
+            var master = top.$Addr;
+            master.trigger(master.EVENTS.LOAD_MODULE, {
+                key: 'events:group',
+                actionKey: '140',
+                groupId: groupId
+            });                        
+        }
+    });
+
+    lstAddr.on('addContact', function(result){
+        var groupId;
+        var contacts = result.contacts;
+        if(contacts[0].GroupId && contacts[0].GroupId.length){
+            groupId = contacts[0].GroupId.split(',');
+        }
+
+        if(top.$Addr && contacts && contacts.length){
+            var master = top.$Addr;
+            master.trigger(master.EVENTS.LOAD_MODULE, {
+                key: 'events:contacts',
+                actionKey: '110',
+                contactId: contacts[0].SerialId,
+                groupId: groupId
+            });
+        }
+    });
+
+    lstAddr.selection = {};
+
+    //移除
+    $("#divSelection").click(function(e){
+        var $el = $(e.target);
+        var serialId = $el.parent().data("SerialId");
+        if (serialId) {
+            delete lstAddr.selection[serialId];
+            $el.parent().remove();
+            lstAddr.removeSelectedAddr(serialId);
+
+            if(isFromEdit){
+                top.BH('addr_editGroup_cancelSelect');   
+            }else{
+                top.BH('addr_addGroup_cancelSelect');
+            }
+        }
+
+
+    });
+
+    //添加默认文字
+    $(txtGroupName).blankText(L.groupNameEmptyMsg);
+
+    $("#btnSave").click(function()
+    {
+        if (Tool.sending) { return false; } //避免用户双击，重发保存
+        if(!Tool.isFormatGroupName()) return;
+
+        var selection = lstAddr.getSelectedItems();
+        selection = $.map(selection, function (i) { return i.serialId });
+        selection = selection.join(',');
+        if(isFromEdit){
+            top.BH('addr_editGroup_save');
+        }else{
+            top.BH('addr_addGroup_save');
+        }
+        Tool.editGroupList( selection );
+        return false;
+    });
+
+    $("#btnCancel, #gotoHome").click(function()
+    {
+        if(isFromEdit){
+            top.BH('addr_editGroup_cancel');
+        }else{
+            top.BH('addr_addGroup_cancel');
+        }
+        Tool.goToHomePage();
+        return false;
+    });
+
+    //全部选择
+    $("#lnkSelectAll").click(function(){
+        if (data.contacts.length > 100){
+            top.FF.confirm("您的联系人较多，全部选择时响应较慢，您仍然要全部选择吗？", function(){
+                
+            });
+        } else {
+            
+        }
+    });
+
+    //清空选择
+    $("#lnkEmpty").click(function(){
+        top.FF.confirm("您确定要清空已选择的联系人吗？", function(){
+            for (var serialId in lstAddr.selection) {
+                lstAddr.removeSelectedAddr(serialId);
+            }
+            lstAddr.selection = {};
+            $("#divSelection").html("");
+        });
+
+        if(isFromEdit){
+            top.BH('addr_editGroup_reset');
+        }else{
+            top.BH('addr_addGroup_reset');    
+        }
+        
+    });
+
+    if(isFromEdit){
+        top.BH('addr_pageLoad_editGroup');
+    }else{
+        top.BH('addr_pageLoad_newGroup');
+    }
+});
+
+
+//页面工具类
+var Tool =
+{
+
+    //跳转回首页
+    goToHomePage: function(groupName) {
+        setTimeout(function() {
+            if(top.$Addr){ 
+                var master = top.$Addr;
+                master.trigger(master.EVENTS.LOAD_MAIN);
+            }else{
+				top.$('#addr').attr({'src': 'addr_v2/addr_index.html'});
+			}
+        }, 0xff);
+        /*
+		var url = "addr_index.html";
+
+        var groupId = Utils.queryString("id");
+        if (groupId) {
+            url += "?groupid=" + groupId;
+        }
+        else if (groupName) {
+            url += "?groupname=" + escape(groupName);
+        }
+
+        var b = document.createElement("a");
+
+        if (b.click) {
+            b.href = url;
+            document.body.appendChild(b);
+            b.click();
+        } else {
+            b = document.createElement("META");
+            b.httpEquiv="refresh";
+            b.content="0;url=" + url; 
+            document.getElementsByTagName("head")[0].appendChild(b);
+        }
+        */
+    },
+
+    //编辑组列表//取到已选择的联系人的 serialId串 (, 分隔)
+    editGroupList: function(serialIds) {
+        var groupID = '';
+        var serialId;
+
+        var groupName = txtGroupName.value.trim();
+        if (!groupName || groupName.length == 0 || groupName == L.groupNameEmptyMsg) {
+            FloatingFrame.alert(L.groupNameEmptyMsg);
+            $("#txtGroupName").focus();
+            return false;
+        }
+
+        if(serialIds && serialIds.length){
+            serialId = serialIds.split(',');
+        }
+
+        Tool.sending = true;
+        top.$App.on("contactLoad", _onreload);
+
+        //验证组名称，由中文、字母、数字、-、_组成，合共16字内
+        if (!isFromEdit && (!serialIds || serialIds.length == 0)) {            
+            C.addGroup(groupName, function(result) {
+                onresponse(result, function() {
+                    top.$App.trigger("change:contact_maindata"); //新建组需要单独重载数据。
+                });
+            });
+            return true;
+        }
+
+        var param = { "groupName": $T.Xml.encode(groupName), "serialId": serialIds };
+        if (isFromEdit) {
+            param.groupId = groupId;
+        }
+
+        C.editGroupList(param, onresponse);
+
+        function _onreload() {
+            var msg = (isFromEdit ? "保存" : "新建") + "成功";
+
+            var dialog = top.FF.alert(msg);
+            dialog.on("close", function(args) {
+                setTimeout(function(){                    
+                    Tool.goToHomePage()
+                }, 10);
+
+                if(isFromEdit){
+                    //编辑
+                    if(top.$Addr){                        
+                        var master = top.$Addr;
+                        master.trigger(master.EVENTS.LOAD_MODULE, {
+                            key: 'events:group',
+                            actionKey: '50',
+                            contactId: serialId,
+                            groupId: groupID
+                        });
+                    }
+                }else{
+                    //新建                     
+                    if(top.$Addr){                        
+                        var master = top.$Addr;
+                        master.trigger(master.EVENTS.LOAD_MODULE, {
+                            key: 'events:group',
+                            actionKey: '40',
+                            contactId: serialId,
+                            groupId: groupID
+                        });                        
+                    }
+                }
+            });
+
+            top.$App.off("contactLoad", _onreload);
+        };
+
+        function onresponse(result, onsucceed) {
+            if (result.ResultCode == "0") {                
+                if (onsucceed) onsucceed();
+
+                if(result.groupId){
+                    groupID = result.groupId;
+                }else{
+                    groupID = result.GroupInfo[0].GroupId;
+                }
+            }
+            else {
+               var almsg = result.ResultCode == "22" ? "对不起，最多只能新建50个联系人组" : result.msg;
+                FF.alert(almsg);
+                Tool.sending = false;
+                top.$App.off("contactLoad", _onreload); //防止出错时，多次绑定_onsuccess，造成多次提示成功
+            }
+
+            //ModGroup 87  AddGroup 81
+            top.BH({actionId: (isFromEdit ? 87 : 81), thingId: "0", moduleId: 19, actionType: 10});
+        };
+    },
+
+    //是否合法的联系组名称
+    isFormatGroupName: function() {
+        var groupName = $("#txtGroupName").val().trim();
+        if (groupName == "") {
+            FF.alert("请输入组名");
+            return false;
+        }
+
+
+        if (isFromEdit) {
+            if(C.data.groupsMap[groupId]){
+                var group = C.getGroupById(groupId);
+                if (group.GroupName != groupName && C.isExistsGroupName(groupName)) {
+                    FF.alert("组名已存在");
+                    return false;
+                }
+            }else{
+                isFromEdit = false;
+                //编辑该组时, 删除该组, 就变成新建.
+            }
+        }
+        else if (C.isExistsGroupName(groupName)) {
+            FF.alert("组名已存在");
+            return false;
+        }
+
+        return true;
+    }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,280 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" class="box">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>编辑日程</title>
+<script type="text/javascript">
+//设域
+document.domain=window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+//获得资源路径
+var resourcePath=window.top.resourcePath;
+var calendarResourcePath=resourcePath.replace("coremail","calendar");
+var htmlCode="";
+htmlCode+=getLinkTag("");
+htmlCode+=getLinkTag(calendarResourcePath+"/css/calendar.css?v=20110617");
+
+//top.loadScript("jquery.js", document);
+top.loadScript('libs.pack.js', document);
+top.loadScript('m139.core.pack.js', document);
+top.loadScript("m2011.utilscontrols.pack.js", document);
+top.loadScript("/m2012/js/matrixvm/page/m2011.page.RichInputBox.js", document);
+
+top.loadScript("/m2012/js/service/calendar/m2011.calendar.MyCalendar.js", document);
+top.loadScript("/m2012/js/service/calendar/m2011.calendar.edit.js?v=20130412", document);
+
+document.write(htmlCode);
+function getJsTag(path,charset){
+    var html="<script charset='gb2312' src='"+path+"' type='text/javascript'></"+"script>";
+    if (charset) html = html.replace("gb2312",charset);
+    return html;
+}
+function getLinkTag(path){
+    var text="";
+    if(path)text="href='"+path+"'";
+    return "<link rel='stylesheet' type='text/css' "+text+" />";
+}
+</script>
+<link rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+Utils.loadSkinCss(null,document,"calendar");
+</script>
+<!--[if lte IE 7]><script>iereset('content')</script><![endif]-->
+<style>
+#commonTextArea.textarea{
+    display: block;
+    border-left: 1px #C3C3C3 solid;
+    border-right: 1px #C3C3C3 solid;
+    border-top: 1px #7C7C7C solid;
+    width: 489px;
+    /*background-image: url('../images-2/input.png');*/
+    background-repeat: repeat-x;
+    background-color: white;
+    border-bottom: none;
+}
+#commonTextArea.textarea .ft {
+    position: relative;
+    height: 22px;
+    border-top: 1px #C3C3C3 solid;
+    border-bottom: 1px #C3C3C3 solid;
+    background: #E8E8E8;
+    background-repeat: repeat-x;
+    z-index: 5;
+    padding-top: 2px;
+}
+#commonTextArea .letter-count {
+    color: #747B95 !important;
+    float: left;
+    display: inline;
+    margin-left: 10px;
+    line-height: 18px;
+}
+#commonTextArea textarea{
+    font-size: 12px;
+    font-family: lucida Grande,Verdana;
+    border:0;
+    width: 486px;
+    margin-bottom: 0;
+}
+.textarea .ft em{
+    color: #600538;
+    font-weight:normal;
+    font-style:normal;
+}
+input,textarea{
+    outline:none;
+}
+</style>
+</head>
+<body>
+	<div class="aside">
+		<ul class="tag">
+		    <li><a href="calendar_list.html"><i class="allcalendar"></i><span id="spanCount1">全部日程</span></a></li>
+		    <li><a id="aRecent" href="javascript:;"><i class="day7"></i><span id="spanCount2">最近7天日程</span></a></li>
+		    <li><a id="aAgent" href="javascript:;"><i class="undo"></i><span>待办事项</span></a></li>
+		    <li><a id="aHasDone" href="javascript:;"><i class="done"></i><span>已办事项</span></a></li>
+		    <li class="line"></li>
+		</ul>
+		<ul class="category">
+		<script type="text/javascript" language="javascript">
+		    richinfo.email.calendar.commonUI.category.addCategory("",Utils.queryString("comefrom"));
+		</script>
+		</ul>
+		<b class="shadow"></b>
+	</div>
+	<div class="header">
+		<h1><i class="setcalendar"></i><span id="aTitle"></span></h1>
+	</div>
+	<form class="content" id="content">
+	    <p class="tips" style="display:none" id="pErrorMsg"><i class="error"></i><label id="lblErrorMsg">错误提示信息！</label></p>
+	    <dl class="form">
+			<dt>内容</dt>
+			<dd>
+                <div class="textarea" id="commonTextArea">
+                    <textarea rows="4" cols="60" id="txtContent" class="normal"></textarea>
+                    <div class="ft">
+                         <p id="helpCount" class="letter-count" style="margin-top:0;">还可输入<em>200</em>字，最多<em>200</em>字 </p>
+                     </div>
+                </div>
+
+                <!--
+				<textarea rows="4" cols="60" id="txtContent" class="normal"></textarea>
+				<p class="help" id="helpCount">您已经输入了<em>0</em>字，还可以输入<em>200</em>字 </p>
+                -->
+			</dd>
+			<dt>时间</dt>
+			<dd>
+				<div class="panel" id="divLunarContent"></div>
+			</dd>
+			
+            <script type="text/javascript">
+			    var objCalendarRemind=new richinfo.email.calendar.commonUI.remindBox(0);
+		    </script>
+		    
+			<dt>
+				&nbsp;<!--submit button-->
+			</dt>
+			<dd>
+			    <input type="hidden" id="HiddCalValue" value="0">
+				<input type="button" id="btnSave" value="保 存" class="btn">
+				<input type="button" id="btnCancel" class="btn" value="取 消">
+			</dd>
+		</dl>
+	</form>
+</body>
+<script type="text/javascript">
+$(document).ready(function()
+{
+     var page = new SetCalPage();
+           //dt.setHours(8);
+           //dt.setMinutes(0);
+           //objCalendarRemind.setEventTime(dt,dt);
+   if(location.search.indexOf("ywextend")>0)
+    {
+        //获取内容
+        var ywextend=Utils.queryString("ywextend");//ywextend
+        var con=Utils.queryString("content");      //文本
+        var startDate=Utils.queryString("startDate");//2010-11-25
+        var startTime=Utils.queryString("startTime");//5,20
+        var endDate=Utils.queryString("endDate");//2010-11-30
+        var endTime=Utils.queryString("endTime");//6,20
+        var remind=Utils.queryString("remind");//0|1
+        
+        // add by tkh
+        if(ywextend == 'earth2013'){
+        	window.isEarth2013 = true;
+        	//startDate:'2013-03-23', startTime : '8,30', endDate:'2013-03-23', endTime : '9,30'
+        	con = '参与地球1小时熄灯活动，支持环保，一起来保护地球。';
+        	startDate = '2013-03-23';
+        	startTime = '20:30';
+        	endDate = '2013-03-23';
+        	endTime = '21:30';
+        	$("#opAdvanc")[0].selectedIndex = 1;
+        	$("#chkme").attr('checked', true);
+        }
+        if(ywextend == 'checkin'){
+        	window.isCheckin = true;
+        }
+        
+        //debugger;
+        var sDate=null;
+        var eDate=null;
+        try
+        {
+   
+            
+            if($.trim(startDate).length>0)
+            {
+                //开始时间
+                sDate=new Date(startDate);//Date.parse(startDate);
+                var sTime=[]
+                if($.trim(startTime).length>0)
+                {
+                    sTime=startTime.split(":");
+                }
+                if(sTime.length>0)
+                {
+                    sDate.setHours(parseInt(sTime[0]));
+                    sDate.setMinutes(parseInt(sTime[1]));
+                    startTime=sTime[0]+"："+sTime[1];
+                }
+             }
+           
+            if($.trim(endDate).length>0)
+            {  
+                //结束时间
+                eDate=new Date(endDate); //Date.parse(endDate);
+                var eTime=[]
+                if($.trim(endTime).length>0)
+                {
+                    eTime=endTime.split(":");
+                }
+                
+                if(eTime.length>0)
+                {
+                    eDate.setHours(parseInt(eTime[0]));
+                    eDate.setMinutes(parseInt(eTime[1]));
+                    endTime=eTime[0]+"："+eTime[1];
+                    
+                }
+             }
+             
+             if(sDate==null && eDate!=null)
+             {
+                sDate=eDate;
+             }
+             
+             if(sDate!=null && eDate==null)
+             {
+                eDate=sDate;
+             }
+             
+             if(sDate!=null && eDate!=null)
+             {
+                //设置定时时间
+                 window.setTimeout(function()
+                 {
+                    //objCalendarRemind.initTextDate(sDate,eDate);
+                    //objCalendarRemind.initTime(startTime,endTime);
+                    console.log(startDate);
+                    $("#txtGregStart").val(startDate).attr("realDate",startDate);                     
+                    $("#txtGregEnd").val(endDate).attr("realDate",endDate);
+                     $("#opGregStart").children().each(function(k,i){
+                        if($(i).text()==startTime)
+                        {
+                          $(i).attr("selected",true);
+                          //break;  
+                        }
+                     }); 
+                     
+                      $("#opGregEnd").children().each(function(k,i){
+                        if($(i).text()==endTime)
+                        {
+                          $(i).attr("selected",true);
+                          //break;  
+                        }
+                     }); 
+                     
+                     
+                   // $("#opGregStart").attr("value",startTime);
+                    //$("#opGregEnd").attr("value",endTime);
+        
+                     //objCalendarRemind.startDate=sDate;
+                     
+	                          //内容
+                    $("#txtContent").val(con);
+                    //提醒好友
+                    parseInt(remind)==1? $("#chkalert").attr("chekced",true):$("#chkalert").attr("chekced",false)
+
+                    
+                    
+                    },1000);
+             }
+            
+       }
+       catch(e)
+       {
+       }
+     }
+});
+</script>
+</html>

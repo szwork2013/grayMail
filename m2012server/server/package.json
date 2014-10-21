@@ -1,0 +1,15 @@
+{
+	"name": "M2012_Server",
+	"main": "nw.html",
+	"single-instance": true,
+	"window": {
+		"title": "M2012_Server",
+		"frame": true,
+		"toolbar": false,
+		"width": 800,
+		"height": 600
+	},
+	"webkit": {
+		"plugin": false
+	}
+}

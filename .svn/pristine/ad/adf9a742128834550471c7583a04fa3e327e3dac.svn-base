@@ -1,0 +1,186 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>彩云-139邮箱</title>
+
+<script type="text/javascript">
+	document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+</script>
+<script>
+    top.loadScript('libs.pack.js', document);
+    top.loadScript('m139.core.pack.js', document);
+    top.loadScript("m2012.ui.common.pack.js", document);
+</script>
+<script>top.loadCSS(["common/global.css", "module/FileExtract/extract.css", "module/networkDisk/networkDisk.css"], document);</script>
+	<style type="text/css">
+	.addr-imgInfo{ margin-top: 100px;}
+	.listHead th{
+	background: #fafafa;
+	}
+	body{
+	background: #fafafa;
+	}
+	</style>
+</head>
+<body>
+<div class="boxIframeText_new">
+
+<div class="inboxHeader bgPadding" style="display: none;">
+	<span id="navContainer">全部文件</span>
+</div>
+			<div class="diskTableList onScollTable" style="display: none;">
+                <table cellspacing="0" cellpadding="0" class="listHead newShareTable">
+                    <tr>
+                        <th class="wh1">
+                            <input type="checkbox" id="selectAll"/>
+                        </th>
+                        <th id="fileName"><a field="from" href="javascript:void(0)" hidefocus="true"><span id="fileName2">文件</span><i></i></a></th>
+                        <th id="selectCount" style="display: none">已选择：<span><b class="c_ff6600"></b>个文件</span><span>，</span><span><b class="c_ff6600"></b>个文件夹</span>
+						</th>
+                        <th class="wh5" style="display: none;">
+                            <a id="uploadTime" style="display:none;" field="from" href="javascript:void(0)" hidefocus="true">
+                                <span>上传时间</span>
+                                <i class="i_th0"></i>
+                            </a>
+                        </th>
+                        <th class="wh6 bdRightNone">
+                            <a id="fileSize" field="from" href="javascript:void(0)" hidefocus="true">
+                                <span>大小</span>
+                                <i class=""></i>
+                            </a>
+                        </th>
+                    </tr>
+                </table>
+			</div>
+    		<div class="appendixList p_relative bgPadding_left" id="fileList" style="height: 370px;">
+        
+        	</div>
+</div>
+ <div class="boxIframeBtn" id="confirmAndcancel" style="display: none;">
+			<span class="bibText" id="selectFile" style="display: none;">共选中<b class="c_ff6600"></b>个文件</span>
+			<span class="bibBtn">
+				<a class="btnSure mr_5" id="confirm" href="javascript:void(0)">
+					<span>确 定</span>
+				</a>
+				<a class="btnNormal" id="cancel" href="javascript:void(0)">
+					<span>取 消</span>
+				</a>
+			</span>
+        </div>
+
+</body>
+<script>top.loadScript("disk_write.html.pack.js", document)</script>
+<script type="text/javascript">
+    //****版本号的控制**********
+    var versionConf = {
+        htmlVersion: { "default": "20121018" },
+        jsVersion: { "default": "20121018" },
+        cssVersion: { "default": "20121018" }
+    };
+    /**
+     *		公共页面初始化函数
+     *		docCur: 当前页面document对象
+     *		diskWindowTop: 当前页面的parent对象
+     *		diskResJs: 要加载的JS/css数组[{dirName:xxx, fileName:xxx},{},{}]
+     *		isLoadCss: 是否是加载CSS文件
+     *		dCssaAble: 是否加载netDisk.css，默认为true
+     */
+    function CommonInit(docCur, diskWindowTop, diskResJs, isLoadCss, dCssaAble) {
+        var doc = docCur || document;
+        var diskTop = diskWindowTop || window;
+        //获得资源路径
+        var resourcePath = getResource();
+        var diskResourcePath = resourcePath[1] + "/";   //资源
+        var htmlCode = "";
+        if (dCssaAble == undefined || dCssaAble == true) {
+            htmlCode += getLinkTag(resourcePath[0], "/css/", "netdisk");
+        }
+        htmlCode += getLinkTag("");   //保留皮肤的css
+
+        top.loadScript("jquery.js", doc);
+        top.loadScript("m2011.utilscontrols.pack.js", doc); //暂时注释
+        top.loadScript("/m2012/js/service/disk/m2011.disk.diskconf.js", doc);
+        top.loadScript("/m2012/js/service/disk/m2011.disk.diskcommon.js", doc);
+        if (docCur == window.document) {
+            top.loadScript("/m2012/js/service/disk/m2011.disk.diskmain.js", doc);
+        }
+        if (diskResJs && diskResJs.length > 0) {
+            for (var i = 0; i < diskResJs.length; i++) {
+                if (isLoadCss) {
+                    htmlCode += getLinkTag(diskResourcePath, diskResJs[i].dirName, diskResJs[i].fileName)
+                } else {
+                    top.loadScript("/m2012/js/service/disk/" + diskResJs[i].fileName, doc);
+                }
+            }
+        }
+        doc.write(htmlCode);
+    }
+    function getResource() {
+        var resourcePath = [];
+        if (top.isRichmail) {//rm环境,返回rm资源服务器路径
+            var path = window.top.rmResourcePath;
+            resourcePath.push(path);
+            resourcePath.push(path.replace("richmail", "newnetdisk4") + "/");
+        } else {
+            var path = window.top.resourcePath;
+            resourcePath.push(path);
+            resourcePath.push(path.replace("coremail", "newnetdisk4") + "/");
+        }
+        return resourcePath;
+    }
+    /**
+     *		组合js路径标签代码
+     *		path: 域名实际路径
+     *		dir: 对应文件夹
+     *		fileName: 文件名称
+     *		charset: 指定编码，不指定则默认utf-8
+     */
+    function getJsTag(path, dir, fileName, charset) {
+        var v = versionConf.jsVersion["default"];
+        if (versionConf.jsVersion[fileName]) {
+            v = versionConf.jsVersion[fileName];
+        }
+        var html = "<script charset='utf-8' src='" + path + "" + dir + "" + fileName + ".js?v=" + v + "' type='text/javascript'></" + "script>";
+        if (charset) {
+            html = html.replace("utf-8", charset);
+        }
+        return html;
+    }
+    /**
+     *		组合css路径标签代码
+     *		path: 文件的实际路径
+     *		dir: 对应文件夹
+     *		fileName: 文件名称
+     */
+    function getLinkTag(path, dir, fileName) {
+        if (path) {
+            var v = versionConf.cssVersion["default"];
+            if (versionConf.cssVersion[fileName]) {
+                v = versionConf.cssVersion[fileName];
+            }
+            var text = "href='" + path + "" + dir + "" + fileName + ".css?v=" + v + "'";
+        }
+        return "<link rel='stylesheet' type='text/css' " + text + " />";
+    }
+    window.SID = queryString("sid");
+    /**
+     *		获取URL传递的参数值
+     *		param: 参数名称
+     *		url: 要获取参数的URL，默认为window.location
+     */
+    function queryString(param, url) {
+        if (!url) {
+            url = location.search;
+        }
+        var svalue = url.match(new RegExp("[?&]" + param + "=([^&]*)", "i"));
+        return svalue ? unescape(svalue[1]) : null;
+    }
+    window.SID = queryString("sid");
+    //加载CSS和JS,CommonInit(当前document,彩云最顶层window)
+    //CommonInit(document, window);
+    function scrollTop() {
+        scroll(0, 0);
+    }
+</script>
+</html>

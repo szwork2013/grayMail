@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<project name="build_pack" default="packFile">
+	<target name="packFile">
+		<concat destfile="./packs/conversationrichupload.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+			<fileset dir="./ui/menu" includes="**/m2012.ui.uploadpic.menu.js"/>
+			<fileset dir="./richmail/compose" includes="**/composeMessages.js"/> 
+			<fileset dir="./richmail/compose" includes="**/upload_module.js" />
+			<fileset dir="./richmail/compose" includes="**/upload_tool.js" />
+			<fileset dir="./richmail/compose" includes="**/upload_module_common.js" />
+			<fileset dir="./richmail/compose" includes="**/attachFrame.js" />
+			<fileset dir="./richmail/compose" includes="**/swfobject.js" />
+			<fileset dir="./richmail/compose" includes="**/upload_module_flash.js" />
+			<fileset dir="./richmail/compose" includes="**/upload_module_multiThread.js" />
+			<fileset dir="./richmail/compose" includes="**/upload_module_screenshot.js" />
+			<fileset dir="./richmail/compose" includes="**/upload_module_ajax.js" />
+			<fileset dir="./richmail/compose" includes="**/uploadForm.js"/>
+			<fileset dir="./richmail/compose" includes="**/largeAttach.js" />
+			<fileset dir="./richmail/compose" includes="**/upload_large_attach.js"/>
+			<fileset dir="./richmail/compose" includes="**/compose_upload_2010.js" />
+			<fileset dir="./richmail/compose" includes="**/compose_render_2010.js" />
+			<fileset dir="./richmail/compose" includes="**/m2012.compose.model.conversation.js" />
+			<fileset dir="./richmail/compose" includes="**/m2012.compose.view.main.conversation.js" />
+			<fileset dir="./richmail/compose" includes="**/m2012.compose.view.attachlist.js" />
+			<fileset dir="./richmail/compose" includes="**/m2012.compose.view.upload.js" />
+			<fileset dir="./richmail/compose" includes="**/m2012.compose.view.htmleditor.js" />
+			<fileset dir="./richmail/compose" includes="**/m2012.compose.application.conversation.js" />
+		</concat>
+	</target>
+</project>

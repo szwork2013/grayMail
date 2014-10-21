@@ -1,0 +1,366 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="Keywords" content="">
+    <meta name="Description" content="">
+    <title>139邮箱通讯录::个人资料</title>
+	<script type="text/javascript">
+        document.domain = window.location.host.match(/[^.]+\.[^.]+$/)[0];
+        var resourcePath = top.$App.getResourcePath(), resourcePath = resourcePath.replace('richmail', 'coremail');
+        try {
+            top.loadCSS(["common/global.css", "common/frame.css", "module/addr/addr.css", "module/addr/addrnew.css", "module/timePlug.css"], document);
+        } catch (ex) {
+        }
+    </script>
+    <script type="text/javascript">
+    	try {
+      	    top.loadScript('libs.pack.js', document);
+	        top.loadScript('m139.core.pack.js', document);
+	        top.loadScript("m2012.ui.common.pack.js", document);
+	        top.loadScript("m2011.utilscontrols.pack.js", document);
+        } catch (ex) {
+        }
+    </script>
+    <!--[if lt IE 9]><script src="../../js/html5.js" type="text/javascript" charset="utf-8" ></script><![endif]-->
+</head>
+<body>
+	<div id="main-from" name="frmClone">
+		<div class="bgPadding main-rows">
+			<div class="setArea">           
+				<h2><strong id="title">查看个人资料</strong> |  <a class="fanghui" href="javascript:void(0);" id="btn-back">&lt;&lt;返回</a></h2>
+			</div>
+			<ul class="btn_main clearfix mt_10" id="tool" style="display:none">
+				<li class="ml-1 tool_li" id="tool-edit">
+					<a href="javascript:void(0);" class="btnTb"><span class="p_relative">编辑</span></a>
+				</li>
+			</ul>
+		</div>
+		<div class="bgPadding mt_10 main-rows" id="main-button" style="display:none;">
+			<a role="button" href="javascript:void(0);" id="btn-save" class="btnG"><span>保 存</span></a>
+			<a href="javascript:void(0);" id="btn-cancel" class="btnTb ml_10"><span class="p_relative">取 消</span></a>
+		</div>
+		<div class="addrFetionScroll" id="main-content">			
+			<div class="addrFetion" id="main-body">
+				<div class="ta_c pt_20 pb_20">
+				    <img src="../../images/global/load.gif" width="16" height="16" /> 正在加载...
+				</div>
+			</div>
+		</div>
+    </div>
+<script type="text/template" id='temp-load'>
+	<div class="ta_c pt_20 pb_20">
+	    <img src="../../images/global/load.gif" width="16" height="16" /> 正在加载...
+	</div>
+</script>
+<script type="text/template" id='temp-ready'>
+	<div class="addrFetion_first">
+		<ul class="form">
+			<li class="clearfix">
+				<label class="label"><img src="<%=firstInfo.ImageUrl%>"/></label>
+				<div class="element">
+					<span class="fz_16"><%=M139.Text.Html.encode(firstInfo.AddrFirstName)%></span>
+				</div>
+			</li>
+		</ul>
+	</div>	
+	<ul class="form noLine_bottom">
+		<% for(var key in baseInfo){ %>
+			<% var item = baseInfo[key] %>
+			<% if(item.value && item.value.length > 0){%>
+				<li class="clearfix">
+					<label class="label"><%=item.key%>：</label>
+					<div class="element">
+						<%=M139.Text.Html.encode(item.value)%>
+					</div>
+				</li>
+			<%}%>
+		<% } %>
+
+		<% for(var key in otherInfo){ %>
+			<% var item = otherInfo[key] %>
+			<% if(item.value && item.value.length > 0){%>
+				<li class="clearfix">
+					<label class="label"><%=item.key%>：</label>
+					<div class="element">					
+						<%=M139.Text.Html.encode(item.value)%>
+					</div>
+				</li>
+			<%}%>
+		<% } %>
+	</ul>		
+</script>
+<script type="text/template" id='temp-edit'>
+	<div class="addrFetion_first">
+		<ul class="form">
+			<li class="clearfix">
+				<label class="label">
+					<img src="<%=ImageUrl%>" id="face" />
+					<input type="file" id="btn-file" name="" />
+				</label>
+				<div class="element">
+					<input type="text" style="width:130px;" value="<%=M139.Text.Html.encode(AddrFirstName)%>" maxlength="70" id="AddrFirstName" name="AddrFirstName" class="iText">
+				</div>
+			</li>
+		</ul>
+	</div>
+	<ul class="form noLine_bottom pb_0">
+		<li class="clearfix o-email" data-value="<%=FamilyEmail%>">
+			<label class="label">电子邮箱：</label>
+			<div class="element">
+				<input type="text" style="width:268px;" maxlength="90" value="<%= FamilyEmail%>" id="FamilyEmail" name="FamilyEmail" class="iText">
+				<a href="javascript:void(0);" class="i-c-add btn-create ml_10" data-key="FamilyEmail"></a>
+			</div>
+		</li>		
+		<li class="clearfix o-email" data-value="<%=BusinessEmail%>">
+			<label class="label">商务邮箱：</label>
+			<div class="element">
+				<input type="text" style="width:268px;" maxlength="90" value="<%= BusinessEmail%>" id="BusinessEmail" name="BusinessEmail" class="iText">
+				<a href="javascript:void(0);" class="i-c-minus btn-remove ml_10" data-key="BusinessEmail"></a>
+			</div>
+		</li>
+		<li class="clearfix o-moblie" data-value="<%=MobilePhone%>">
+			<label class="label">手机号码：</label>
+			<div class="element">
+				<input type="text" style="width:268px;" maxlength="20" value="<%= MobilePhone%>" id="MobilePhone" name="MobilePhone" class="iText">
+				<a href="javascript:void(0);" class="i-c-add btn-create ml_10" data-key="MobilePhone"></a>
+			</div>
+		</li>
+		<li class="clearfix o-moblie" data-value="<%=BusinessMobile%>">
+			<label class="label">商务手机：</label>
+			<div class="element">
+				<input type="text" style="width:268px;" maxlength="20" value="<%= BusinessMobile%>" name="BusinessMobile"  id="BusinessMobile" class="iText">
+				<a href="javascript:void(0);" class="i-c-minus btn-remove ml_10" data-key="BusinessMobile"></a>
+			</div>
+		</li>
+		<li class="clearfix" data-value="<%=BirDay%>">
+			<label class="label">生日：</label>
+			<div class="element">
+				<span id="btn-calender">
+					<input type="text" style="width:128px;" maxlength="20"  value="<%= BirDay%>" id="BirDay" name="BirDay" readonly="readonly" class="iText">
+					<a href="javascript:void(0);" class="i-create"></a>
+				</span>
+			</div>
+		</li>
+	</ul>
+	<ul class="form" id="contacts-more">
+		<li class="clearfix default o-phone" data-value="<%=AddrNickName%>">
+			<label class="label">昵称：</label>
+			<div class="element">
+				<input type="text" style="width:268px;" id="AddrNickName" maxlength="30" value='<%=M139.Text.Html.encode(AddrNickName)%>' name="AddrNickName" class="iText">
+			</div>
+		</li>
+		<li class="clearfix default" data-value="<%=UserSex%>">
+			<label class="label">性别：</label>
+			<div class="element">
+				<%var checked = 'checked="checked"'%>
+				<input type="radio" name="UserSex" value="0" <%= UserSex == '0' ? checked : '' %> class="radio" /><label for="" class="radioInfo">男</label>
+				<input type="radio" name="UserSex" value="1" <%= UserSex == '1' ? checked : '' %> class="radio" /><label for="" class="radioInfo">女</label>
+				<input type="radio" name="UserSex" value="2" <%= UserSex == '2' ? checked : '' %> class="radio" /><label for="" class="radioInfo">保密</label>
+			</div>
+		</li>
+		<li class="clearfix default o-phone" data-value="<%=FamilyPhone%>">
+			<label class="label">常用固话：</label>
+			<div class="element">
+				<input type="text" style="width:268px;" id="FamilyPhone" maxlength="30" value='<%=FamilyPhone%>' name="FamilyPhone" class="iText">
+				<a href="javascript:void(0);" class="i-c-add btn-create ml_10" data-key="FamilyPhone"></a>
+			</div>
+		</li>
+		<li class="clearfix o-phone" data-value="<%=BusinessPhone%>">
+			<label class="label">公司固话：</label>
+			<div class="element">
+				<input type="text" style="width:268px;" maxlength="30" id="BusinessPhone" value='<%=BusinessPhone%>' name="BusinessPhone" class="iText">
+				<a href="javascript:void(0);" class="i-c-minus btn-remove ml_10" data-key="BusinessPhone"></a>
+			</div>
+		</li>
+		<li class="clearfix o-phone" data-value="<%=BusinessFax%>">
+			<label class="label">公司传真：</label>
+			<div class="element">
+				<input type="text" style="width:268px;" maxlength="30" id="BusinessFax" value='<%=BusinessFax%>' name="BusinessFax" class="iText">
+				<a href="javascript:void(0);" class="i-c-minus btn-remove ml_10" data-key="BusinessFax"></a>
+			</div>
+		</li>
+		<li class="clearfix default o-address" data-value="<%=HomeAddress%>">
+			<label class="label">家庭地址：</label>
+			<div class="element">
+				<input type="text" style="width:268px;" maxlength="50" id="HomeAddress" value='<%=M139.Text.Html.encode(HomeAddress)%>' name="HomeAddress" class="iText">
+				<a href="javascript:void(0);" class="i-c-add btn-create ml_10" data-key="HomeAddress"></a>
+			</div>
+		</li>					
+		<li class="clearfix o-address" data-value="<%=CPAddress%>">
+			<label class="label">公司地址：</label>
+			<div class="element clearfix">
+				<input type="text" style="width:268px;" maxlength="50" id="CPAddress" value='<%=M139.Text.Html.encode(CPAddress)%>' name="CPAddress" class="iText">
+				<a href="javascript:void(0);" class="i-c-minus btn-remove ml_10" data-key="CPAddress"></a>
+			</div>
+		</li>
+		<li class="clearfix default" data-value="<%=CPName%>">
+			<label class="label">公司名称：</label>
+			<div class="element">
+				<input type="text" style="width:268px;" maxlength="30" id="CPName" value='<%=M139.Text.Html.encode(CPName)%>' name="CPName" class="iText">
+			</div>
+		</li>
+		<li class="clearfix default" data-value="<%=UserJob%>">
+			<label class="label">职务：</label>
+			<div class="element">
+				<input type="text" style="width:268px;" maxlength="10" id="UserJob" value='<%=M139.Text.Html.encode(UserJob)%>' name="UserJob" class="iText">
+			</div>
+		</li>
+		<li class="clearfix default o-code" data-value="<%=ZipCode%>">
+			<label class="label">家庭邮编：</label>
+			<div class="element">
+				<input type="text" style="width:268px;" maxlength="10" id="ZipCode" value='<%=ZipCode%>' name="ZipCode" class="iText">
+				<a href="javascript:void(0);" class="i-c-add btn-create ml_10" data-key="ZipCode"></a>
+			</div>
+		</li>
+		<li class="clearfix  o-code" data-value="<%=CPZipCode%>">
+			<label class="label">公司邮编：</label>
+			<div class="element">
+				<input type="text" style="width:268px;" maxlength="10" id="CPZipCode" value='<%=CPZipCode%>' name="CPZipCode" class="iText">
+				<a href="javascript:void(0);" class="i-c-minus btn-remove ml_10" data-key="CPZipCode"></a>
+			</div>
+		</li>
+		<li class="clearfix default o-im" data-value="<%=OtherIm%>">
+			<label class="label">飞信号：</label>
+			<div class="element">
+				<input type="text" style="width:268px;" maxlength="20" id="OtherIm" value='<%=OtherIm%>' name="OtherIm" class="iText">
+				<a href="javascript:void(0);" class="i-c-add btn-create ml_10" data-key="OtherIm"></a>
+			</div>
+		</li>
+		<li class="clearfix o-im" data-value="<%=OICQ%>">
+			<label class="label">QQ:</label>
+			<div class="element">
+				<input type="text" style="width:268px;" maxlength="50" id="OICQ" value='<%=OICQ%>' name="OICQ" class="iText">
+				<a href="javascript:void(0);" class="i-c-minus btn-remove ml_10" data-key="OICQ"></a>
+			</div>
+		</li>
+		<li class="clearfix o-im" data-value="<%=MSN%>">
+			<label class="label">MSN:</label>
+			<div class="element">
+				<input type="text" style="width:268px;" maxlength="50" id="MSN" value='<%=MSN%>' name="MSN" class="iText">
+				<a href="javascript:void(0);" class="i-c-minus btn-remove ml_10" data-key="MSN"></a>
+			</div>
+		</li>
+		<li class="clearfix o-im" data-value="<%=PersonalWeb%>">
+			<label class="label">个人主页:</label>
+			<div class="element">
+				<input type="text" style="width:268px;" maxlength="50" id="PersonalWeb" value='<%=PersonalWeb%>' name="PersonalWeb" class="iText">
+				<a href="javascript:void(0);" class="i-c-minus btn-remove ml_10" data-key="PersonalWeb"></a>
+			</div>
+		</li>
+		<li class="clearfix o-im" data-value="<%=CompanyWeb%>">
+			<label class="label">公司主页:</label>
+			<div class="element">
+				<input type="text" style="width:268px;" maxlength="50" id="CompanyWeb" value='<%=CompanyWeb%>' name="CompanyWeb" class="iText">
+				<a href="javascript:void(0);" class="i-c-minus btn-remove ml_10" data-key="CompanyWeb"></a>
+			</div>
+		</li>
+		<li class="clearfix default" data-value="<%=StartCode%>">
+			<label class="label">星座:</label>
+			<div class="element" id="start-code"></div>
+		</li>		
+		<li class="clearfix default" data-value="<%=BloodCode%>">
+			<label class="label">血型:</label>
+			<div class="element" id="blood-code"></div>
+		</li>
+		<li class="clearfix default" data-value="<%=Marriage%>">
+			<label class="label">婚姻状况:</label>
+			<div class="element" id="marriage"></div>
+		</li>
+		<li class="clearfix default" data-value="<%=StreetCode%>">
+			<label class="label">居住地:</label>
+			<div class="element">
+				<input type="text" style="width:268px;" maxlength="50" id="StreetCode" value='<%=M139.Text.Html.encode(StreetCode)%>' name="StreetCode" class="iText">
+			</div>
+		</li>
+		<li class="clearfix default o-more" data-value="<%=Character%>">
+			<label class="label">我的性格:</label>
+			<div class="element">
+				<input type="text" style="width:268px;" maxlength="50" id="Character" value='<%=M139.Text.Html.encode(Character)%>' name="Character" class="iText">
+				<a href="javascript:void(0);" class="i-c-add btn-create ml_10" data-key="Character"></a>
+			</div>
+		</li>
+		<li class="clearfix o-more" data-value="<%=FavoPeople%>">
+			<label class="label">欣赏的人:</label>
+			<div class="element">
+				<input type="text" style="width:268px;" maxlength="50" id="FavoPeople" value='<%=M139.Text.Html.encode(FavoPeople)%>' name="FavoPeople" class="iText">
+				<a href="javascript:void(0);" class="i-c-minus btn-remove ml_10" data-key="FavoPeople"></a>
+			</div>
+		</li>
+		<li class="clearfix o-more" data-value="<%=MakeFriend%>">
+			<label class="label">我想结交:</label>
+			<div class="element">
+				<input type="text" style="width:268px;" maxlength="50" id="MakeFriend" value='<%=M139.Text.Html.encode(MakeFriend)%>' name="MakeFriend" class="iText">
+				<a href="javascript:void(0);" class="i-c-minus btn-remove ml_10" data-key="MakeFriend"></a>
+			</div>
+		</li>
+		<li class="clearfix o-more" data-value="<%=Brief%>">
+			<label class="label">我的简介:</label>
+			<div class="element">
+				<input type="text" style="width:268px;" maxlength="50" id="Brief" value='<%=M139.Text.Html.encode(Brief)%>' name="Brief" class="iText">
+				<a href="javascript:void(0);" class="i-c-minus btn-remove ml_10" data-key="Brief"></a>
+			</div>
+		</li>
+		<li class="clearfix o-more" data-value="<%=FavoBook%>">
+			<label class="label">喜欢的书:</label>
+			<div class="element">
+				<input type="text" style="width:268px;" maxlength="50" id="FavoBook" value='<%=M139.Text.Html.encode(FavoBook)%>' name="FavoBook" class="iText">
+				<a href="javascript:void(0);" class="i-c-minus btn-remove ml_10" data-key="FavoBook"></a>
+			</div>
+		</li>
+		<li class="clearfix o-more" data-value="<%=FavoMusic%>">
+			<label class="label">喜欢的音乐:</label>
+			<div class="element">
+				<input type="text" style="width:268px;" maxlength="50" id="FavoMusic" value='<%=M139.Text.Html.encode(FavoMusic)%>' name="FavoMusic" class="iText">
+				<a href="javascript:void(0);" class="i-c-minus btn-remove ml_10" data-key="FavoMusic"></a>
+			</div>
+		</li>
+		<li class="clearfix o-more" data-value="<%=FavoMovie%>">
+			<label class="label">喜欢的电影:</label>
+			<div class="element">
+				<input type="text" style="width:268px;" maxlength="50" id="FavoMovie" value='<%=M139.Text.Html.encode(FavoMovie)%>' name="FavoMovie" class="iText">
+				<a href="javascript:void(0);" class="i-c-minus btn-remove ml_10" data-key="FavoMovie"></a>
+			</div>
+		</li>
+		<li class="clearfix o-more" data-value="<%=FavoTv%>">
+			<label class="label">喜欢的电视:</label>
+			<div class="element">
+				<input type="text" style="width:268px;" maxlength="50" id="FavoTv" value='<%=M139.Text.Html.encode(FavoTv)%>' name="FavoTv" class="iText">
+				<a href="javascript:void(0);" class="i-c-minus btn-remove ml_10" data-key="FavoTv"></a>
+			</div>
+		</li>
+		<li class="clearfix o-more" data-value="<%=FavoSport%>">
+			<label class="label">喜欢的运动:</label>
+			<div class="element">
+				<input type="text" style="width:268px;" maxlength="50" id="FavoSport" value='<%=M139.Text.Html.encode(FavoSport)%>' name="FavoSport" class="iText">
+				<a href="javascript:void(0);" class="i-c-minus btn-remove ml_10" data-key="FavoSport"></a>
+			</div>
+		</li>
+		<li class="clearfix o-more" data-value="<%=FavoGame%>">
+			<label class="label">喜欢的游戏:</label>
+			<div class="element">
+				<input type="text" style="width:268px;" maxlength="50" id="FavoGame" value='<%=M139.Text.Html.encode(FavoGame)%>' name="FavoGame" class="iText">
+				<a href="javascript:void(0);" class="i-c-minus btn-remove ml_10" data-key="FavoGame"></a>
+			</div>
+		</li>
+	</ul>
+	<div class="addrFetion_last">
+		<a href="javascript:void(0);" id="btn-more"><i class="i-c-addInfo"></i>添加详细资料</a>
+	</div>
+</script>
+<script type="text/javascript">
+    try {
+    	/*
+        top.loadScript('/m2012/js/service/addr/component/m2012.addr.imageupload.js', document);
+        top.loadScript('/m2012/js/service/addr/component/m2012.addr.view.calenderchoose.js', document);
+        top.loadScript('/m2012/js/service/addr/component/m2012.addr.view.kit.js', document);
+        
+        top.loadScript('/m2012/js/service/addr/src/m2012.addr.model.personinfo.js', document);
+        top.loadScript('/m2012/js/service/addr/src/m2012.addr.view.personinfo.js', document);
+        */
+        top.loadScript('/m2012/js/packs/addr/addr_personinfo.html.pack.js', document);
+    } catch (ex) {
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>文件夹属性</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <script type="text/javascript">
+    //设域
+    document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1].replace(/:\d+/, "");
+     top.$("iframe#diskDev")[0].contentWindow.CommonInit(document, top.$("iframe#diskDev")[0].contentWindow
+        ,[{"dirName": "js/", fileName:"m2011.disk.docproperty.js"}]);
+    </script>
+
+    <script type="text/javascript">
+    //加载皮肤
+    Utils.loadSkinCss(null, document, "netdisk");
+    </script>
+</head>
+<body>
+    <div class="dialog">
+        <div class="bd">
+            <table cellpadding="0" class="tbl-dialog-form dl-form-property">
+                <tr class="t-edition">
+                    <th>
+                        名称：</th>
+                    <td>
+                        <input class="text" type="text"  maxlength="20" />
+                        <p class="dialog-input-tip">
+                            可直接重命名文件夹，点击确定按钮保存</p>
+                        <p class="dialog-error-tip">
+                            <i class="i-warn"></i><span id="errorMsg">错误信息提示</span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        类型：
+                    </th>
+                    <td>
+                        文件夹</td>
+                </tr>
+                <tr>
+                    <th>
+                        位置：</th>
+                    <td id="tdPos"></td>
+                </tr>
+                <tr>
+                    <th>
+                        大小：</th>
+                    <td id="tdSize"></td>
+                </tr>
+                <tr>
+                    <th>
+                        创建时间：</th>
+                    <td id="tdCtime"></td>
+                </tr>
+                <tr>
+                    <th>
+                        文件信息：</th>
+                    <td id="tdFileInfo"></td>
+                </tr>
+            </table>
+        </div>
+        <div class="ft">
+            <ul class="dbtn-list">
+                <li><a class="btnNormal" id="aSumbit" href="">确 定</a></li>
+                <li><a class="btnNormal" id="aCancel" href="">取 消</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

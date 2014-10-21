@@ -1,0 +1,168 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <title>免费发送短信</title>
+    <link rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
+//设域
+
+document.domain=window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+//获得资源路径
+var resourcePath=window.top.resourcePath;
+var supermanResourcePath=resourcePath.replace("coremail","sms");
+var htmlCode="";
+htmlCode+=getLinkTag("");
+htmlCode+=getLinkTag(resourcePath+"/css/global.css");
+
+top.loadScript("jquery.js", document);
+top.loadScript("m2011.utilscontrols.pack.js", document);
+top.loadScript("/m2012/js/matrixvm/page/m2011.page.AddressBook.js", document);
+top.loadScript("/m2012/js/service/sms/m2011.sms.Sms_FreeSms_Send.js", document);
+
+document.write(htmlCode);
+function getJsTag(path,charset){
+    var html="<script charset='gb2312' src='"+path+"' type='text/javascript'></"+"script>";
+    if (charset) html = html.replace("gb2312",charset);
+    return html;
+}
+function getLinkTag(path){
+    var text="";
+    if(path)text="href='"+path+"'";
+    return "<link rel='stylesheet' type='text/css' "+text+" />";
+}
+    </script>
+</head>
+<body>
+    <script type="text/javascript">
+	Utils.setDomain();
+	Utils.loadSkinCss();
+    </script>
+
+    <form id="form1">
+        <div id="pageComposeSMS" class="pageComposeMS">
+            <div class="writeWrapper">
+                <div class="writeContent">
+                    <div class="addressSwitchWrapper">
+                        <i id="addressSwitch" class="addressSwitchOn"></i>
+                    </div>
+                    <div class="tipMoney">
+                        <i class="notice"></i>
+                        <p id="freeInfo">
+                        </p>
+                    </div>
+                    <table cellpadding="0">
+                        <tr class="recive">
+                            <th>
+                                短信内容：</th>
+                            <td height="50">
+                                <p>
+                                    <span class="fc lHeight" id="smsContent">
+                                    </span>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr class="recive">
+                            <th>
+                                个性签名：</th>
+                            <td>
+                                <input type="text" id="txtSignature" class="inp2" maxlength="10" />&nbsp; <span class="fe">（<b class="ff">选填</b>，您可以输入10个字符的个性签名，让好友知道短信由您发出。）</span></td>
+                        </tr>
+                        <tr class="s_SendContent">
+                            <th>
+                                接收人：</th>
+                            <td>
+                                <textarea name="txtMobile" rows="2" cols="20" id="txtMobile"></textarea>
+                                <p id="serviceInfo">
+                                </p>
+                            </td>
+                        </tr>
+                        <tr class="rndNum">
+                            <th>
+                                &nbsp;</th>
+                            <td>
+                                <a id="linkSend" href="javascript:;" class="but3">发 送</a><a id="linkBack" href="javascript:;" class="but">返
+                                    回</a></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="addressList">
+                <ul class="tab">
+                    <li style="width: 100%; text-indent: 25px; text-align: left; cursor: auto;" class="li1 on">
+                        通讯录</li>
+                </ul>
+                <div class="s_AddressListContent1" id="divLinkManSearch">
+                </div>
+                <div class="addressListContent2">
+                    <div class="headerMS">
+                    </div>
+                    <iframe name="MS" frameborder="0" scrolling="auto" target="_self" width="100%"></iframe>
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+<script type="text/javascript">
+    var PostXML = 
+    {
+    FreesendInit_Xml: "<null />",
+    Freesend_Xml: "\
+<object>\
+<int name=\"smsId\">{0}</int>\
+<string name=\"mobile\">{1}</string>\
+<string name=\"signature\">{2}</string>\
+</object>"
+    };
+    var sid = "";
+    if(top.window == window)
+    {
+        sid = top.$("iframe[id='sms']")[0].contentWindow.top.UserData.ssoSid;//;window.parent.top.UserData.ssoSid;
+    }
+    else
+    {
+        sid = top.UserData.ssoSid;
+    }
+	var mbs = top.SiteConfig.smsMiddleware+"sms";
+    var getUrl = "/mw2/sms/sms?func=sms:smsFreesendInit&sid=" + sid + "&rnd=" + Math.random();
+	
+    var smsid=Utils.queryString("smsid");
+    var signature=Utils.queryString("sign");
+    if (signature) {$("#txtSignature").val(unescape(signature));}
+	if (top.SmsContent){$("#smsContent").html(unescape(top.SmsContent));}
+	
+String.format=function(){
+    if(arguments.length==0)return "";
+    if(arguments.length==1)return arguments[0];
+    var newArgs = [];
+    for(var i=1;i<arguments.length;i++){
+        newArgs.push(arguments[i]);
+    }
+    return String.prototype.format.apply(arguments[0],newArgs)
+}
+    $(function(){
+        //初始化页面
+       $.ajax({
+                type: "post",
+                contentType: "application/xml;charset:utf-8",
+                url: getUrl,
+                data: PostXML["FreesendInit_Xml"],
+                dataType: "json",
+				error: function(err){top.FloatingFrame.alert(err.statusText);},
+                success: function(result) {
+				    if(result.code=="S_OK"){
+				        //群发数
+                        var groupLength = result["var"].groupLength;
+                        new CreateInputMobileChecker("#txtMobile",groupLength,300).satrt();
+				        //资费提示
+				        $("#freeInfo").html(result["var"].freeInfo);
+				        //群发信息
+				        $("#serviceInfo").html("可同时发送给<em class=\"ff\">"+ groupLength +"</em>人，手机号之间以逗号“,”隔开，只支持向<em class=\"ff\">省内移动用户</em>发送！");
+				    }else{
+				        window.location.href = String.format("errorinfo.html?sid={0}&rnd={1}",window.top.UserData.ssoSid,Math.random());
+                    }
+                }
+            });
+    });
+</script>
+</html>

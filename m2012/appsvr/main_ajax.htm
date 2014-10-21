@@ -1,0 +1,34 @@
+var UserAttrs={
+    uid:"<%=user.userId%>",
+    trueName:"<%=user.trueName%>",
+    mailDomain:"<%=user.email%>".replace(/.+?@/,""),
+	replyWithQuote:<%=config.replyWhithQuote%>,
+	defaultPageSize:<%=config.pageSize%>,
+	replyPrefix:"<%=config.replyPrefix%>",
+	promptForReceipt:"<%=config.receipt%>",
+	isShowSize:<%=config.showSize%>,
+	isShowContent:<%=config.showSummay%>,
+    fts_flag: <%=config.fts_flag%>,
+    reportMail:"antispam@<%=config.webmailDomain%>",
+    userCosId:<%=user.roleId%>,
+    sessionMode:<%=config.sessionMode%>
+}
+ 
+var MessageInfo={
+	limitMessageSize:"<%=mail.totalSize%>",
+	messageSize:"<%=mail.usedSize%>",
+	messageCount:"<%=mail.messageCount%>",
+	unreadMessageCount:"<%=mail.newMessageCount%>",
+	folderCount:<%=mail.folderCount%>
+};
+
+var PopList=[];
+var SignList=[];
+try{
+	SignList=<%=list.signList%>;
+	PopList=<%=list.popList%>;
+}catch(ex){
+	
+}
+
+

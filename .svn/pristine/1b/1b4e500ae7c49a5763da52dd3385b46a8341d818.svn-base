@@ -1,0 +1,547 @@
+<!DOCTYPE HTML>
+<html id="pageDetail">
+<head>
+    <meta charset="utf-8">
+    <meta name="Keywords" content="">
+    <meta name="Description" content="">
+    <title>文件快递发送-139邮箱</title>
+     <script type="text/javascript">
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+        var resourcePath = top.$App.getResourcePath(), resourcePath = resourcePath.replace('richmail', 'coremail');
+        try {
+            top.loadCSS(["common/global.css", "module/addr/addr.css", "module/addr/addrnew.css"], document);
+            top.loadScript('libs.pack.js', document);
+            top.loadScript('m139.core.pack.js', document);
+            top.loadScript("m2012.ui.common.pack.js", document);
+        } catch (ex) {
+        }
+    </script>
+    <!--[if lt IE 9]><script>document.write('<script src="' + resourcePath + '/js/html5.js"><\/script>')</script><![endif]-->
+	<style type="text/css">
+	<!--
+		.setArea h2{left:20px;}
+	-->
+	</style>
+    <script type="text/javascript">
+        $("#addr", top.window.document).css("overflow-y", "auto");
+        function goHomePage() {
+            setTimeout(function () {
+                if (top.$Addr) {
+                    var master = top.$Addr;
+                    master.trigger(master.EVENTS.LOAD_MAIN);
+                } else {
+                    top.$('#addr').attr({ 'src': 'addr_v2/addr_index.html' });
+                }
+            }, 0xff);
+        }
+</script>
+</head>
+<body>
+	<form id="pnlclone" name="frmClone">
+    <script type="text/template" id="info-tmpl">
+        <div class="setArea">           
+            <h2><strong>查看联系人</strong> |  <a class="fanghui" href="javascript:goHomePage();" id="goBack">&lt;&lt;返回</a></h2>
+        </div> 
+        <div class="peopleList">        
+            <div class="">
+                <ul class="form">
+				    <li class="formLine">
+                        <label class="label"><img src="http://image0.139cm.com/rm/richmail/images/face.png" alt="" title="<%-name%>" /></label>
+                        <div class="element">
+                            <div>
+                                <h2 title="<%-name%>"><%-name%></h2>
+                            </div>                        
+                        </div>
+                    </li>
+                    <!--手机-->
+                    <% if(($.isArray(mobile) && (mobile.length != 0)) || !$.isEmptyObject(mobile)) { %>
+                        <% $.each(mobile, function(i,val) { %>
+                            <li class="formLine">    
+                                <label class="label">手&nbsp;机：</label>        
+                                <div class="element">
+                                    <div>
+                                        <%-val%> 
+                                    </div> 
+                                </div>
+                            </li>    
+                        <% }); %>        
+                    <% } %>                                              
+                    
+                    <!--工作手机workMobile-->
+                    <% if(($.isArray(workMobile) && (workMobile.length != 0)) || !$.isEmptyObject(workMobile)) { %>
+                        <% $.each(workMobile, function(i,val) { %>
+                            <li class="formLine">    
+                                <label class="label">工作手机：</label>        
+                                <div class="element">
+                                    <div>
+                                        <%-val%> 
+                                    </div> 
+                                </div>
+                            </li>    
+                        <% }); %>        
+                    <% } %>
+
+                    <!--家庭手机homeMobile-->
+                    <% if(($.isArray(homeMobile) && (homeMobile.length != 0)) || !$.isEmptyObject(homeMobile)) { %>
+                        <% $.each(homeMobile, function(i,val) { %>
+                            <li class="formLine">    
+                                <label class="label">家庭手机：</label>        
+                                <div class="element">
+                                    <div>
+                                        <%-val%> 
+                                    </div> 
+                                </div>
+                            </li>    
+                        <% }); %>        
+                    <% } %>
+
+                    <!--其他手机otherMobile-->
+                    <% if(($.isArray(otherMobile) && (otherMobile.length != 0)) || !$.isEmptyObject(otherMobile)) { %>
+                        <% $.each(otherMobile, function(i,val) { %>
+                            <li class="formLine">    
+                                <label class="label">其他手机：</label>        
+                                <div class="element">
+                                    <div>
+                                        <%-val%> 
+                                    </div> 
+                                </div>
+                            </li>    
+                        <% }); %>        
+                    <% } %>
+
+                    <!--iPhone手机iphone-->
+                    <% if(($.isArray(iphone) && (iphone.length != 0)) || !$.isEmptyObject(iphone)) { %>
+                        <% $.each(iphone, function(i,val) { %>
+                            <li class="formLine">    
+                                <label class="label">iPhone手机：</label>        
+                                <div class="element">
+                                    <div>
+                                        <%-val%> 
+                                    </div> 
+                                </div>
+                            </li>    
+                        <% }); %>        
+                    <% } %>
+
+                    <!--电话tel-->
+                    <% if(($.isArray(tel) && (tel.length != 0)) || !$.isEmptyObject(tel)) { %>
+                        <% $.each(tel, function(i,val) { %>
+                            <li class="formLine">    
+                                <label class="label">电&nbsp;话：</label>        
+                                <div class="element">
+                                    <div>
+                                        <%-val%> 
+                                    </div> 
+                                </div>
+                            </li>    
+                        <% }); %>        
+                    <% } %>
+
+                    <!--家庭电话homeTel-->
+                    <% if(($.isArray(homeTel) && (homeTel.length != 0)) || !$.isEmptyObject(homeTel)) { %>
+                        <% $.each(homeTel, function(i,val) { %>
+                            <li class="formLine">    
+                                <label class="label">家庭电话：</label>        
+                                <div class="element">
+                                    <div>
+                                        <%-val%> 
+                                    </div> 
+                                </div>
+                            </li>    
+                        <% }); %>        
+                    <% } %>
+                
+                    <!--工作电话workTel-->
+                    <% if(($.isArray(workTel) && (workTel.length != 0)) || !$.isEmptyObject(workTel)) { %>
+                        <% $.each(workTel, function(i,val) { %>
+                            <li class="formLine">    
+                                <label class="label">工作电话：</label>        
+                                <div class="element">
+                                    <div>
+                                        <%-val%> 
+                                    </div> 
+                                </div>
+                            </li>    
+                        <% }); %>        
+                    <% } %>
+
+                    <!--车载电话carTel-->
+                    <% if(($.isArray(carTel) && (carTel.length != 0)) || !$.isEmptyObject(carTel)) { %>
+                        <% $.each(carTel, function(i,val) { %>
+                            <li class="formLine">    
+                                <label class="label">车载电话：</label>        
+                                <div class="element">
+                                    <div>
+                                        <%-val%> 
+                                    </div> 
+                                </div>
+                            </li>    
+                        <% }); %>        
+                    <% } %>
+                    
+                    <!--其他电话otherTel-->
+                    <% if(($.isArray(otherTel) && (otherTel.length != 0)) || !$.isEmptyObject(otherTel)) { %>
+                        <% $.each(otherTel, function(i,val) { %>
+                            <li class="formLine">    
+                                <label class="label">其他电话：</label>        
+                                <div class="element">
+                                    <div>
+                                        <%-val%> 
+                                    </div> 
+                                </div>
+                            </li>    
+                        <% }); %>        
+                    <% } %>
+					
+					<!--电报paper-->
+                    <% if(($.isArray(paper) && (paper.length != 0)) || !$.isEmptyObject(paper)) { %>
+                        <% $.each(paper, function(i,val) { %>
+                            <li class="formLine">    
+                                <label class="label">电&nbsp;报：</label>        
+                                <div class="element">
+                                    <div>
+                                        <%-val%> 
+                                    </div> 
+                                </div>
+                            </li>    
+                        <% }); %>        
+                    <% } %>
+                
+                    <!--电子邮箱email-->
+                    <% if(($.isArray(email) && (email.length != 0)) || !$.isEmptyObject(email)) { %>
+                        <% $.each(email, function(i,val) { %>
+                            <li class="formLine">    
+                                <label class="label">电子邮箱：</label>        
+                                <div class="element">
+                                    <div>
+                                        <%-val%> 
+                                    </div> 
+                                </div>
+                            </li>    
+                        <% }); %>        
+                    <% } %>
+                    
+                    <!--工作电子邮箱workMail-->
+                    <% if(($.isArray(workMail) && (workMail.length != 0)) || !$.isEmptyObject(workMail)) { %>
+                        <% $.each(workMail, function(i,val) { %>
+                            <li class="formLine">    
+                                <label class="label">工作电子邮箱：</label>        
+                                <div class="element">
+                                    <div>
+                                        <%-val%> 
+                                    </div> 
+                                </div>
+                            </li>    
+                        <% }); %>        
+                    <% } %>
+
+                    <!--家庭电子邮箱homeMail-->
+                    <% if(($.isArray(homeMail) && (homeMail.length != 0)) || !$.isEmptyObject(homeMail)) { %>
+                        <% $.each(homeMail, function(i,val) { %>
+                            <li class="formLine">    
+                                <label class="label">家庭电子邮箱：</label>        
+                                <div class="element">
+                                    <div>
+                                        <%-val%> 
+                                    </div> 
+                                </div>
+                            </li>    
+                        <% }); %>        
+                    <% } %>
+                    
+                    <!--其他电子邮箱otherMail-->
+                    <% if(($.isArray(otherMail) && (otherMail.length != 0)) || !$.isEmptyObject(otherMail)) { %>
+                        <% $.each(otherMail, function(i,val) { %>
+                            <li class="formLine">    
+                                <label class="label">其他电子邮箱：</label>        
+                                <div class="element">
+                                    <div>
+                                        <%-val%> 
+                                    </div> 
+                                </div>
+                            </li>    
+                        <% }); %>        
+                    <% } %>
+                
+                    <!--传真fax-->
+                    <% if(($.isArray(fax) && (fax.length != 0)) || !$.isEmptyObject(fax)) { %>
+                        <% $.each(fax, function(i,val) { %>
+                            <li class="formLine">    
+                                <label class="label">传&nbsp;真：</label>        
+                                <div class="element">
+                                    <div>
+                                        <%-val%> 
+                                    </div> 
+                                </div>
+                            </li>    
+                        <% }); %>        
+                    <% } %>
+                
+                    <!--工作传真workFax-->
+                    <% if(($.isArray(workFax) && (workFax.length != 0)) || !$.isEmptyObject(workFax)) { %>
+                        <% $.each(workFax, function(i,val) { %>
+                            <li class="formLine">    
+                                <label class="label">工作传真：</label>        
+                                <div class="element">
+                                    <div>
+                                        <%-val%> 
+                                    </div> 
+                                </div>
+                            </li>    
+                        <% }); %>        
+                    <% } %>
+
+                    <!--家庭传真homeFax-->
+                    <% if(($.isArray(homeFax) && (homeFax.length != 0)) || !$.isEmptyObject(homeFax)) { %>
+                        <% $.each(homeFax, function(i,val) { %>
+                            <li class="formLine">    
+                                <label class="label">家庭传真：</label>        
+                                <div class="element">
+                                    <div>
+                                        <%-val%> 
+                                    </div> 
+                                </div>
+                            </li>    
+                        <% }); %>        
+                    <% } %>
+        
+                    <!--其他传真otherFax-->
+                    <% if(($.isArray(otherFax) && (otherFax.length != 0)) || !$.isEmptyObject(otherFax)) { %>
+                        <% $.each(otherFax, function(i,val) { %>
+                            <li class="formLine">    
+                                <label class="label">其他传真：</label>        
+                                <div class="element">
+                                    <div>
+                                        <%-val%> 
+                                    </div> 
+                                </div>
+                            </li>    
+                        <% }); %>        
+                    <% } %>
+
+                    <!--飞信fetion-->
+                    <% if(($.isArray(fetion) && (fetion.length != 0)) || !$.isEmptyObject(fetion)) { %>
+                        <% $.each(fetion, function(i,val) { %>
+                            <li class="formLine">    
+                                <label class="label">飞&nbsp;信：</label>        
+                                <div class="element">
+                                    <div>
+                                        <%-val%> 
+                                    </div> 
+                                </div>
+                            </li>    
+                        <% }); %>        
+                    <% } %>
+        
+                    <!--QQ-->
+                    <% if(($.isArray(qq) && (qq.length != 0)) || !$.isEmptyObject(qq)) { %>
+                        <% $.each(qq, function(i,val) { %>
+                            <li class="formLine">    
+                                <label class="label">Q&nbsp;Q：</label>        
+                                <div class="element">
+                                    <div>
+                                        <%-val%> 
+                                    </div> 
+                                </div>
+                            </li>    
+                        <% }); %>        
+                    <% } %>
+                    
+                    <!--MSN-->
+                    <% if(($.isArray(msn) && (msn.length != 0)) || !$.isEmptyObject(msn)) { %>
+                        <% $.each(msn, function(i,val) { %>
+                            <li class="formLine">    
+                                <label class="label">MSN：</label>        
+                                <div class="element">
+                                    <div>
+                                        <%-val%> 
+                                    </div> 
+                                </div>
+                            </li>    
+                        <% }); %>        
+                    <% } %>
+        
+                    <!--网站website-->
+                    <% if(($.isArray(website) && (website.length != 0)) || !$.isEmptyObject(website)) { %>
+                        <% $.each(website, function(i,val) { %>
+                            <li class="formLine">    
+                                <label class="label">网&nbsp;站：</label>        
+                                <div class="element">
+                                    <div>
+                                        <%-val%> 
+                                    </div> 
+                                </div>
+                            </li>    
+                        <% }); %>        
+                    <% } %>
+                    
+                    <!--公司网站companyWebsite-->
+                    <% if(($.isArray(companyWebsite) && (companyWebsite.length != 0)) || !$.isEmptyObject(companyWebsite)) { %>
+                        <% $.each(companyWebsite, function(i,val) { %>
+                            <li class="formLine">    
+                                <label class="label">公司网站：</label>        
+                                <div class="element">
+                                    <div>
+                                        <%-val%> 
+                                    </div> 
+                                </div>
+                            </li>    
+                        <% }); %>        
+                    <% } %>
+            
+                    <!--家庭网站homeWebsite-->
+                    <% if(($.isArray(homeWebsite) && (homeWebsite.length != 0)) || !$.isEmptyObject(homeWebsite)) { %>
+                        <% $.each(homeWebsite, function(i,val) { %>
+                            <li class="formLine">    
+                                <label class="label">家庭网站：</label>        
+                                <div class="element">
+                                    <div>
+                                        <%-val%> 
+                                    </div> 
+                                </div>
+                            </li>    
+                        <% }); %>        
+                    <% } %>
+					
+					<!--地址address-->
+					<% if(($.isArray(address) && (address.length != 0)) || !$.isEmptyObject(address)) { %>
+                        <% $.each(address, function(i,val) { %>
+                            <li class="formLine">    
+                                <label class="label">地&nbsp;址：</label>        
+                                <div class="element">
+                                    <div>
+                                        <%-val%> 
+                                    </div> 
+                                </div>
+                            </li>    
+                        <% }); %>        
+                    <% } %>
+					
+					<!--工作地址workAddress-->
+					<% if(($.isArray(workAddress) && (workAddress.length != 0)) || !$.isEmptyObject(workAddress)) { %>
+                        <% $.each(workAddress, function(i,val) { %>
+                            <li class="formLine">    
+                                <label class="label">工作地址：</label>        
+                                <div class="element">
+                                    <div>
+                                        <%-val%> 
+                                    </div> 
+                                </div>
+                            </li>    
+                        <% }); %>        
+                    <% } %>
+
+                    <!--家庭地址homeAddress-->
+					<% if(($.isArray(homeAddress) && (homeAddress.length != 0)) || !$.isEmptyObject(homeAddress)) { %>
+                        <% $.each(homeAddress, function(i,val) { %>
+                            <li class="formLine">    
+                                <label class="label">家庭地址：</label>        
+                                <div class="element">
+                                    <div>
+                                        <%-val%> 
+                                    </div> 
+                                </div>
+                            </li>    
+                        <% }); %>        
+                    <% } %>     
+					
+					<!--其他地址otherAddress-->
+					<% if(($.isArray(otherAddress) && (otherAddress.length != 0)) || !$.isEmptyObject(otherAddress)) { %>
+                        <% $.each(otherAddress, function(i,val) { %>
+                            <li class="formLine">    
+                                <label class="label">其他地址：</label>        
+                                <div class="element">
+                                    <div>
+                                        <%-val%> 
+                                    </div> 
+                                </div>
+                            </li>    
+                        <% }); %>        
+                    <% } %>
+
+                    <!--生日birthday-->
+                    <% if(($.isArray(birthday) && (birthday.length != 0)) || !$.isEmptyObject(birthday)) { %>
+                        <% $.each(birthday, function(i,val) { %>
+                            <li class="formLine">    
+                                <label class="label">生&nbsp;日：</label>        
+                                <div class="element">
+                                    <div>
+                                        <%-val%> 
+                                    </div> 
+                                </div>
+                            </li>    
+                        <% }); %>        
+                    <% } %>
+
+                    <!--纪念日anniversary-->
+                    <% if(($.isArray(anniversary) && (anniversary.length != 0)) || !$.isEmptyObject(anniversary)) { %>
+                        <% $.each(anniversary, function(i,val) { %>
+                            <li class="formLine">    
+                                <label class="label">纪念日：</label>        
+                                <div class="element">
+                                    <div>
+                                        <%-val%> 
+                                    </div> 
+                                </div>
+                            </li>    
+                        <% }); %>        
+                    <% } %>
+            
+                    <!--职位position-->
+                    <% if(($.isArray(position) && (position.length != 0)) || !$.isEmptyObject(position)) { %> 
+                        <% $.each(position, function(i,val) { %>
+                            <li class="formLine">    
+                                <label class="label">职&nbsp;位：</label>        
+                                <div class="element">
+                                    <div>
+                                        <%-val%> 
+                                    </div> 
+                                </div>
+                            </li>    
+                        <% }); %>  
+                    <% } %>
+
+                    <!--备注note-->
+                    <% if(($.isArray(note) && (note.length != 0)) || !$.isEmptyObject(note)) { %>
+                        <% $.each(note, function(i,val) { %>
+                            <li class="formLine">    
+                                <label class="label">备&nbsp;注：</label>        
+                                <div class="element">
+                                    <div>
+                                        <%-val%> 
+                                    </div> 
+                                </div>
+                            </li>    
+                        <% }); %>        
+                    <% } %>
+
+                    <!--分组groupMap-->
+                    <% if(($.isArray(groupMap) && (groupMap.length != 0)) || !$.isEmptyObject(groupMap)) { %> 
+                        <li class="formLine">
+                            <label class="label">分&nbsp;组：</label>
+                            <div class="element">
+                                <div> 
+                                    <% $.each(groupMap, function(i,val) { %> 
+                                        <span class="addr-s-t"><%-val%></span>  
+                                    <% }); %>
+                                </div>                        
+                            </div>
+                        </li>
+                    <% } %>
+                </ul>
+            </div>      
+        </div>
+    </script> 
+    </form>
+<script type="text/javascript">
+    try {
+        // home-base
+        top.loadScript("m2011.utilscontrols.pack.js", document);
+        top.loadScript("/m2012/js/packs/addr/addr_home_base.html.pack.js", document);
+        top.loadScript("/m2012/js/packs/addr/detail_andAddr.html.pack.js", document);
+    } catch (ex) {
+    }
+</script>
+</body>
+</html>
+

@@ -1,0 +1,420 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<script type="text/javascript">
+document.domain=window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1].split(":")[0];
+
+var version = "20140815";
+//获得资源路径
+var resourcePath=window.top.resourcePath;
+var mmsResourcePath=resourcePath.replace("coremail","suppermms");
+var htmlCode="";    
+htmlCode+=getLinkTag(mmsResourcePath+"/css/mms.css");
+htmlCode += getLinkTag("");
+
+top.loadScript("jquery.js", document);
+top.loadScript("m2011.utilscontrols.pack.js", document);
+top.loadScript("/m2012/js/matrixvm/page/m2011.page.RichInputBox.js", document);
+top.loadScript("/m2012/js/matrixvm/page/m2011.page.floatTips.js", document);
+top.loadScript("/m2012/js/service/mms/m2011.mms.mms.js", document);
+top.loadScript("/m2012/js/service/mms/m2011.mms.MMSDefFactory.js", document);
+
+document.write(htmlCode);    
+function getJsTag(path,charset){
+	return "<script charset='" + (charset || "utf-8") + "' src='" + path + "?v=" + version + "' type='text/javascript'></" + "script>";
+}
+function getLinkTag(path){
+	var text="";
+	if(path){
+		 text = "href='" + path + "?v" + version + "'";
+	}
+	return "<link rel='stylesheet' type='text/css' " + text + " />";
+}
+</script>
+
+<script type="text/javascript">
+    var coremailDomain=window.top.coremailDomain;
+    var uid=window.top.uid;    
+    </script>
+
+<script type="text/javascript">
+    var isBirthdayPage = false;
+	if(Utils.queryString("birthday"))
+	{
+		isBirthdayPage = true;
+	}
+$(document).ready(function(){
+PerviewWindow.Init();
+});
+Utils.loadSkinCss(null,document,"mms");
+</script>
+<style>
+.content table label {
+    margin-right: 0;
+}
+.RichInputBoxLayout{width:353px;}
+</style>
+</head>
+<body>
+<div id="dvtemp" style="  position: relative;">
+<div class="dialog" style="overflow-y:auto;height:370px;position: relative;">
+
+  <div class="preview">
+<!-- overflow-y: auto; overflow-x: hidden; height:392px;
+  class name解释如下
+  class="wrap" 240x320
+  class="wrap medium" 176x220 
+  clas="wrap small: 128x128 -->
+  <!--  <div class="wrap medium">
+     <div class="mms_bar">
+        <b class="mms_r"></b>
+        <b class="mms_l"></b>
+      </div>
+      <div class="monitor">
+      	<ul class="ctn">
+      		<li id="lipicFrame"><img src="images/sample2.jpg"/></li>
+            <li id="litxtFrame">
+            <div class="t">祝你理想，梦想，心想事成；公事，私事，事事称心；财路，运路，人生路，路路畅通；晴天，雪天，天天开心；亲情，友情，爱情，情情似海；重阳节快乐！</div>
+            </li>
+            <li id="limusicFrame">
+            	<div class="media"></div>
+                <a href="javascript:;">试听</a>
+            </li>
+        </ul>
+      </div>
+    </div>-->
+    <div class="wrap"  id="dvPreviewContent">
+     <div class="mms_bar">
+        <b class="mms_r"></b>
+        <b class="mms_l"></b>
+      </div>
+      <!--<li id="lipicFrame"><img src="images/sample2.jpg"/></li>
+            <li id="litxtFrame">
+            <div class="t"></div>
+            </li>
+            <li id="limusicFrame">
+            	<div class="media"></div>
+                <a href="javascript:;">试听</a>
+            </li>-->
+      <div class="monitor">
+      	<ul class="ctn" id="ulFramePre">
+      		
+        </ul>
+      </div>
+    </div>
+    <p id="playController">
+     <a href="javascript:;" id="aPlay"><b class="mms_play"></b></a><a href="javascript:;" id="aPause"><b class="mms_pause"></b></a>
+    <!--<img  alt="" src="images/pause.png" id="imgAutoPlay"/>--> <a href="javascript:;"><b class="mms_prev"></b></a><span id="spPage"> </span> <a href="javascript:;" ><b class="mms_next"></b></a> </p>
+    
+    <p id="pReSelect" style="display:none;"><a href="javascript:;" onclick="javascript:MMSPerview.Close();">换一张生日贺卡</a></p>
+  </div>
+  <div class="content">
+    <table style="margin-left:20px;">
+      <tbody>
+        <tr>
+          <th></th>
+          <td><div class="msg" id="dvErrorMsg" style="display:none;"><i class="warning"></i></div></td>
+        </tr>
+        <tr id="trReceive">
+          <th>接收手机：</th>
+          <td><div id="mmsTo" style="float:left;margin-right:8px;width:355px;"></div><span  style="margin-top:4px;"><i class="add"></i><a href="javascript:;" style="_position:static" id="aContact">添加</a></span></td>
+        </tr>
+        <tr id="trBirthdayTip" style="display:none;">
+            <td colspan="2" class="sendBlessTip"><span>选择接收生日祝福的寿星们：</span></td>
+        </tr>
+        <tr id="trBirthday" style="display: none;">
+            <td colspan="2">
+                <div id="friendList">
+                            </div>
+                <p style="line-height:18px;margin-top:5px;color:#666;">可同时发给10人，以上好友的生日信息来自139邮箱注册或设置。</p>
+            </td>
+        </tr>
+        <tr>
+          <th>主题：</th>
+          <td><input type="text" class="input-text" id="txtSubject" style="width:414.5px;" tabindex="2" /></td>
+        </tr>
+        <tr>
+          <th class="v_top"><span id="thSpanContent">内容：</span></th>
+          <td><div class="textarea" id="dvTextarea">
+              <textarea class="txt_area" id="txtContent" tabindex="3" style="width:416px"></textarea>
+              <div class="ft" style="*position:static"> 还可输入<em id="emWordCount">10000</em>字，最多<em>10000</em>字 </div>
+            </div>
+            <input type="checkbox" class="chk" id="chkSave" checked="checked"/>
+            <label>保存到彩信记录</label>
+            <input type="checkbox" class="chk" id="chkTimming"/>
+            <label>定时发送</label></td>
+        </tr>
+        <tr>
+          <th style="padding:0;"></th>
+          <td style="padding:0;"><span class="date-select" style="display:none;" id="spYearToDay">
+            <select id="sltYear">
+              <option value="2010">2010</option>
+              <option value="2011">2011</option>
+            </select>
+            <label>年</label><select id="sltMonth">
+                <option value="01">1</option>
+                <option value="02">2</option>
+                <option value="03">3</option>
+                <option value="04">4</option>
+                <option value="05">5</option>
+                <option value="06">6</option>
+                <option value="07">7</option>
+                <option value="08">8</option>
+                <option value="09">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+            </select>
+			<label>月</label><select id="sltDay">
+                <option value="01">1</option>
+                <option value="02">2</option>
+                <option value="03">3</option>
+                <option value="04">4</option>
+                <option value="05">5</option>
+                <option value="06">6</option>
+                <option value="07">7</option>
+                <option value="08">8</option>
+                <option value="09">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+                <option value="21">21</option>
+                <option value="22">22</option>
+                <option value="23">23</option>
+                <option value="24">24</option>
+                <option value="25">25</option>
+                <option value="26">26</option>
+                <option value="27">27</option>
+                <option value="28">28</option>
+                <option value="29">29</option>
+                <option value="30">30</option>
+                <option value="31">31</option>
+            </select>
+			</span>
+			<span class="time-select" style="display: none;" id="spHourToMin">
+                           <select id="sltHour">
+                    <option value="00">0</option>
+                    <option value="01">1</option>
+                    <option value="02">2</option>
+                    <option value="03">3</option>
+                    <option value="04">4</option>
+                    <option value="05">5</option>
+                    <option value="06">6</option>
+                    <option value="07">7</option>
+                    <option value="08">8</option>
+                    <option value="09">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                    <option value="23">23</option>
+                </select>
+				<label> 时</label><select id="sltMinute">
+                        <option value="00">00</option>
+                        <option value="01">01</option>
+                        <option value="02">02</option>
+                        <option value="03">03</option>
+                        <option value="04">04</option>
+                        <option value="05">05</option>
+                        <option value="06">06</option>
+                        <option value="07">07</option>
+                        <option value="08">08</option>
+                        <option value="09">09</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
+                        <option value="24">24</option>
+                        <option value="25">25</option>
+                        <option value="26">26</option>
+                        <option value="27">27</option>
+                        <option value="28">28</option>
+                        <option value="29">29</option>
+                        <option value="30">30</option>
+                        <option value="31">31</option>
+                        <option value="32">32</option>
+                        <option value="33">33</option>
+                        <option value="34">34</option>
+                        <option value="35">35</option>
+                        <option value="36">36</option>
+                        <option value="37">37</option>
+                        <option value="38">38</option>
+                        <option value="39">39</option>
+                        <option value="40">40</option>
+                        <option value="41">41</option>
+                        <option value="42">42</option>
+                        <option value="43">43</option>
+                        <option value="44">44</option>
+                        <option value="45">45</option>
+                        <option value="46">46</option>
+                        <option value="47">47</option>
+                        <option value="48">48</option>
+                        <option value="49">49</option>
+                        <option value="50">50</option>
+                        <option value="51">51</option>
+                        <option value="52">52</option>
+                        <option value="53">53</option>
+                        <option value="54">54</option>
+                        <option value="55">55</option>
+                        <option value="56">56</option>
+                        <option value="57">57</option>
+                        <option value="58">58</option>
+                        <option value="59">59</option>
+                    </select>
+            <label>分</label>
+            </span></td>
+        </tr>
+        <tr id="trValidCode">
+          <th class="v_top pd_top">验证码：</th>
+          <td>
+	          <div id="divValidate" class="newcodepr">
+                <div id="spanValidate" class="newcodepr newcodeinput">
+                    <input id="txtValidCode" class="" type="text" value="请点击获取验证码" />
+                </div>
+				<div class="newcode" id="spValidCode">
+					<div class="codeclear">
+						<img alt="验证码"  id="imgValidate"  />
+						<div class="bbt">
+							<p>图案显示的是什么？</p>			
+							<a href="javascript:void(0);" id="aValidCodeRefresh">看不清换一张</a>
+						</div>
+					</div>
+					<p class="bbb">请输入答案前的 <span>数字或字母</span></p>	
+				</div>
+              </div>
+		  </td>
+        </tr>
+        <tr>
+          <th></th>
+          <td id="trTip"><i class="tip"> </i><span class="tips" id="spFreeTip"></span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="toolbar">
+		<a class="btnNm" id="btnSend" tabindex="4" href="javascript:;"><i class="but_lIco"></i><span class="but_bg-x">发送</span><i class="but_rIco"></i></a>
+		<a class="btnNm" id="btnCancel" href="javascript:;"><i class="but_lIco"></i><span class="but_bg-x">取消</span><i class="but_rIco"></i></a>
+		<a class="btnNm" id="btnSave" href="javascript:;"><i class="but_lIco"></i><span class="but_bg-x">存草稿</span><i class="but_rIco"></i></a>
+    </div>
+  </div>
+</div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    var br = "";
+    var birthdayData;
+    var middlewareUrl = top.getDomain("rebuildDomain");
+
+    Utils.requestByScript("listByTemplate", top.resourcePath + "/js/listByTemplate.js", function () {
+
+        Utils.waitForReady('top.$App.getModel("contacts").get("data")', function () {
+
+            // 生日提醒数据获取规则：
+            // 先查收到的提醒邮件中的生日好友，再查用户通讯录中有过生日的好友
+
+            // 如果是从生日邮件页面跳过来的
+            if (Utils.queryString("singleBirthDay")) {
+
+                // 先判断是否采用新的邮件模板
+                if (top.SiteConfig.birthMail) {
+                    birthdayData = top.$App.get('birth') ? top.$App.get('birth').birdthMan : [];
+                } else {
+
+                    // 否则使用旧的邮件模板生日好友
+                    birthdayData = top.BirthRemind.birdthMan;
+                }
+            }
+
+            // 从通讯录中查取用户过生日的好友
+            if (!birthdayData || birthdayData.length == 0) {
+                birthdayData = top.$App.getModel("contacts").get("data").birthdayContacts || [];
+            }
+
+            // 最多显示10个过生日的好友
+            if (birthdayData) birthdayData = birthdayData.slice(0, 10);
+
+            function sentNumList() {
+                $("body").append("<iframe src=\"" + middlewareUrl + "/proxy.htm\" id=\"proxyIframe\" name=\"proxyIframe\" style=\"display:none;\"></iframe>");
+
+                Utils.waitForReady("frames['proxyIframe']._ajax", function () {
+                    var rmUrl = middlewareUrl + "/card/s?func=card:birthdayRemind&sid=" + top.sid;
+                    getMmsAjax(frames['proxyIframe']._ajax, rmUrl);
+                });
+
+                function getMmsAjax(ajax, url) {
+                    var data = {op: "get"};
+
+                    ajax.post(url, top.namedVarToXML("", data, ""), function (res) {
+                        var resData = Utils.tryEval(res);
+
+                        if (!resData) {
+                            initBirthdayPage("");
+                            return;
+                        }
+
+                        var names = "";
+                        if (resData["var"] != undefined) {
+                            $.each(resData["var"].mobiles, function (index, item) {
+                                names += item + "、";
+                            });
+                            if (names != "") {
+                                names = names.substr(0, names.length - 1);
+                            }
+                        }
+                        initBirthdayPage(names);
+                    });
+                }
+            }
+
+            function initBirthdayPage(sentList) {
+                $("#trBirthdayTip").show();
+                $("#trBirthday").show();
+                $("#trReceive").hide();
+                $("#pReSelect").show();
+                //生日提醒
+                //@2014-7-1 modify by wn 删除好友生日提醒的动态链接
+                // br = new ListByTemplate({
+                //     "listContainer": "friendList",
+                //     "dataSource": birthdayData,
+                //     "sentNumbers": sentList,
+                //     "explainMsg": "已发送祝福"
+                // });
+            }
+
+            if (isBirthdayPage) {
+                sentNumList();
+            }
+        });
+    }, "utf-8");
+</script>
+<script type="text/javascript">top.loadCSS(["module/fontbase.css"], document);</script>
+

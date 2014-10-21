@@ -1,0 +1,46 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+  <title>139邮箱</title>
+  <!-- Video.js CSS -->
+  <link rel="stylesheet" href="css/video-js.css" type="text/css">
+  <script src="js/video.js"></script>
+  <script src="../m139.component.mediaplayer.js"></script>
+</head>
+<body>
+
+    <video id="videoTag" class="video-js vjs-default-skin" controls>
+    </video>
+
+    <script>
+        //videojs api文档
+        //https://github.com/videojs/video.js/blob/master/docs/index.md
+        videojs.options.flash.swf = "swf/video-js.swf";
+
+        var playerSettings = M139.Component.MediaPlayer.Utils.getParamsFromUrl();
+        var options = {
+            controls: true,
+            autoplay: playerSettings.autoplay,
+            poster:playerSettings.poster, //播放前背景图
+            preload: playerSettings.preload || ""
+        };
+        var videoTag = document.getElementById("videoTag");
+        videoTag.setAttribute("height", playerSettings.height);
+        videoTag.setAttribute("width", playerSettings.width);
+
+        videojs("videoTag", options, function () {
+            this.src(playerSettings.sources);
+            /*
+            this.src([
+              { type: "video/mp4", src: "video/oceans-clip.mp4" },
+              { type: "video/webm", src: "video/oceans-clip.webm" },
+              { type: "video/ogg", src: "video/oceans-clip.ogv" }
+            ]);
+            */
+            //立即播放
+            //this.play();
+        });
+    </script>
+
+</body>
+</html>

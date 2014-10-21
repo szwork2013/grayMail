@@ -1,0 +1,845 @@
+/**
+    * @fileOverview 定义设置页基本参数的文件.
+*/
+/**
+    *@namespace 
+    *设置页基本参数
+*/
+(function (jQuery, _, M139) {
+    var $ = jQuery;
+    var superClass = M139.View.ViewBase;
+    M139.namespace('M2012.Settings.Preference.View', superClass.extend(
+    /**
+    *@lends M2012.Settings.View.Preference.prototype
+    */
+        {
+        defaults: {
+            formId: "frmSet"
+        },
+        initialize: function () {
+            this.autoForwardAddr = $("#auto_forward_addr");
+            this.model = new M2012.Settings.Preference.Model();
+            this.initEvents();
+            this.checkAddr = true;
+            return superClass.prototype.initialize.apply(this, arguments);
+        },
+        getTop: function () {
+            return M139.PageApplication.getTopAppWindow();
+        },
+        getAnchorPositon: function () {
+            var anchor = $T.Url.queryString("anchor");
+            var objAnchor = this.model.anchor[anchor];
+            if (anchor && anchor == objAnchor["url"]) {
+                var top = $("#" + objAnchor["id"]).offset().top;
+                $(window).scrollTop(top);
+            }
+        },
+        /**
+        *接收设置页基本参数的报文，设置页面内input的checked属性
+        *声明反垃圾页HTML最外层的ID
+        *@param {String} preference:id值
+        */
+        render: function (preference) {
+            var self = this;
+            this.getAnchorPositon();
+            this.model.getPreference(function (dataSource) {
+                if (dataSource["code"] != "S_OK") {
+                    self.getTop().$Msg.alert(
+                        self.model.messages.serverBusy,
+                        { dialogTitle: "系统提示", icon: "warn" }
+                    )
+                    return
+                }
+                dataSource = dataSource["var"];
+                var dom = $("#" + preference);
+                var domRadio = dom.find("input[keyvalue]");
+                var len = domRadio.length;
+                var lettersNum = dataSource.preference_letters;
+				var pageStyle = dataSource._custom_pageStyle;
+                var autoReplayCon = $T.Html.decode($T.Html.decode(dataSource.auto_replay_content));
+                var startTime = dataSource.auto_replay_starttime;
+                var endTime = dataSource.auto_replay_endtime;
+                var layout = dataSource.list_layout;
+                var autoForwardStatus = dataSource.auto_forward_status;
+                var autoForwardAddr = dataSource.auto_forward_addr;
+                var autoForwardVerify = self.getTop().$App.getCustomAttrs("auto_forward_verify");
+                var auto_forward_bakup = dataSource.auto_forward_bakup;
+                if (!autoReplayCon || autoReplayCon == "undefined" || autoReplayCon == null) {
+                    autoReplayCon = self.model.messages.defaultAutoReplayCon;
+                }
+                dataSource.auto_replay_content = autoReplayCon;
+                if (!layout) {
+                    layout = 0;
+                }
+                for (var i = 0; i < len; i++) {
+                    var keyvalue = domRadio.eq(i).attr("keyvalue");
+                    var key = keyvalue.split("-")[0];
+                    var value = keyvalue.split("-")[1];
+                    var data = key + "-" + dataSource[key];
+                    if (keyvalue == data) {
+                        domRadio.eq(i).attr("checked", "checked");
+                    }
+                }
+
+                $("#cbxsmtpsavesend").prop("checked", dataSource["smtpsavesend"] == "1");
+
+                self.getAutoForward(autoForwardStatus, autoForwardAddr); //自动转发
+                if ($("#openForward").prop("checked")) {
+                    $("#isSaveMail").show();
+                    if (autoForwardStatus == 1 && autoForwardVerify == 0) {
+                        $("#auto_forward_addr").next().text("已验证");
+                    } else {
+                        $("#forwardText").next().text("保存后请登录该邮箱，通过验证后方可生效");
+                    }
+                };
+                $("#openForward").click(function(e) {
+                    if ($("#openForward").prop("checked")) {
+                        $("#isSaveMail").show();
+                    } else {
+                        $("#isSaveMail").hide();
+                    }
+                });
+                if (auto_forward_bakup == 0) {
+                    $("[name=rd]")[1].checked = true;
+                };
+                self.getOnlineTips(dom)//tips
+                self.getListLayout(layout); //邮件列表视图
+                self.unallowPop();
+                self.getMailForDate();
+                self.getPopFlagValue();
+                self.removePopFolderList(); //
+                if (top.$App.getConfig("UserAttrs").sessionMode == 1) {
+                    $("#session_model").attr("checked", true)
+                }
+                else {
+                    $("#session_model").removeAttr("checked")
+                }
+                self.checkBillAndSub();
+                //跳转到具体位置
+                self.setIframeScrollTop();
+                self.setDataAutoReply(dataSource, startTime, endTime); //自动回复
+                top.BH("perference_load");
+            });
+
+            return superClass.prototype.render.apply(this, arguments);
+        },
+        unallowPop: function () {//不允许客户端修改邮件状态和删信
+            var userAttrs = top.$App.getConfig("UserAttrs");
+            var change = userAttrs.unallow_pop3_change_mail_state;
+            var del = userAttrs.unallow_pop3_delete_mail;
+            $("#notChange").prop("checked", change == 1);
+            if (del == 1) {
+                $("#forbidDel").attr("checked", true);
+            }
+        },
+        setDataAutoReply: function (dataSource, startTime, endTime) {
+            var self = this;
+            self.getCalendar("calendarStart", "startTime", startTime, "getPeriodStart"); //自动回复时间段  start
+            self.getCalendar("calendarEnd", "endTime", endTime, "getPeriodEnd"); //自动回复时间段  end
+            self.layerStatus(dataSource.auto_replay_status, "autoReplayLi"); //自动回复遮罩层
+            //self.layerStatus(dataSource.auto_forward_status, "autoForwardLi"); //自动转发遮罩层 
+            $("#autoReplyTextarea").val(dataSource.auto_replay_content);
+            var today = new Date().format("yyyy-MM-dd");
+            var st = new Date(startTime * 1000).format("yyyy-MM-dd")
+            if (st == "1970-01-01") {
+                st = today;
+                startTime = (+new Date()) / 1000;
+            }
+            var et = new Date(endTime * 1000).format("yyyy-MM-dd")
+            if (et == "1970-01-01") {
+                et = today;
+                endTime = (+new Date()) / 1000;
+            }
+
+            $("#startTime").html(st);
+            $("#getPeriodStart").html(self.getPeriod(startTime));
+            $("#endTime").html(et);
+            $("#getPeriodEnd").html(self.getPeriod(endTime));
+        },
+        checkBillAndSub: function () {
+            var self = this;
+            var bill = self.getTop().$App.getFolderById(8); //我的账单
+            var subscribe = self.getTop().$App.getFolderById(9); //我的订阅
+			var adver = self.getTop().$App.getFolderById(11); //广告文件夹
+            var del = self.getTop().$App.getFolderById(4);//已删除文件夹
+            if (bill) {
+                self.getRange("myBill", bill.keepPeriod, "billValue");
+            } else {
+                $("#myBill").parents(".formLine").hide();
+            }
+            if (subscribe) {
+                self.getRange("mySubscribe", subscribe.keepPeriod, "subscribeValue");
+            } else {
+                $("#mySubscribe").parents(".formLine").hide();
+            }
+			if (adver) {
+                self.getRange("myAdver", adver.keepPeriod, "adverValue");
+            } else {
+                $("#myAdver").parents(".formLine").hide();
+            }
+           if (del) {
+                self.getRange("clearDelMail", del.keepPeriod, "delValue");
+            } else {
+                $("#clearDelMail").parents(".formLine").hide();
+            }
+            if (!subscribe && !bill && !adver && !del) {
+                $("#clearFolders").remove();
+            }
+        },
+        getAutoForward: function (status, addr) {
+            if (status == 1) {
+                $("#openForward").attr("checked",true);
+                $("#auto_forward_addr").val(addr).removeClass("gray");
+            }
+        },
+        getOnlineTips: function (dom) {
+            if (!top.$BMTips || top.$User.isNotChinaMobileUser()) {
+                if (dom.find("#onlinetips").length > 0) dom.find("#onlinetips").hide();
+                return;
+            }
+            var status = top.$BMTips.getNewMailTipsSetting();
+            var el, types = this.model.get('onlineTipsTypes');
+            for (var pos = 3; pos >= 0; pos--) {//进行移位操作,邮件，用户登录，联系人，广告
+                el = document.getElementById(types[pos] + status.charAt(pos));
+                el.checked = 'checked';
+            }
+        },
+        setOnlineTips: function () {
+            if (!top.$BMTips) return;
+            var el, ischeck;
+            var value = "";
+            var types = this.model.get('onlineTipsTypes');
+            for (var pos = 0; pos <= 3; pos++) {//从右到左,邮件，用户登录，联系人，广告
+                el = document.getElementById(types[pos] + "1");
+                ischeck = el.checked ? "1" : "0";
+                value += ischeck;
+            }
+            top.$App.setMailTips(value);
+        },
+        setIframeScrollTop: function () {
+            var userinfo = $T.Url.queryString('info');
+            if ($("#" + userinfo).length > 0) {
+                top.$PUtils.setIframeScrollTop($("#" + userinfo), window);
+            }
+        },
+        layerStatus: function (dataSource, li) {
+            var id = $("#" + li);
+            if (dataSource != 1) {
+                top.$App.setOpacityLayer(id);
+            } else {
+                id.find(".blackbanner").remove();
+            }
+        }, //todo 同步
+        getListLayout: function (layout) {
+            var obj = [
+            { key: $("#oneWindow") },
+            { key: $("#TBwindow") },
+            { key: $("#LFwindow") }
+            ]
+            for (var i = 0; i < obj.length; i++) {
+                if (layout == i) {
+                    obj[i]["key"].attr("checked", true).next().find("span:first").addClass("viewaOn");
+                }
+            }
+        },
+        getPeriod: function (date) {
+            date = date * 1000;
+            var now = new Date();
+            var feture = new Date(date);
+            var today = (+new Date())
+            var t = date - today; //当前和选中的日期之间相差的毫秒数
+            var day = Math.round(t / 1000 / 60 / 60 / 24);
+            var w1 = now.getDay(); w1 = w1 == 0 ? 7 : w1;
+            var w2 = feture.getDay(); w2 = w2 == 0 ? 7 : w2;
+            var week = ['日', '一', '二', '三', '四', '五', '六'][feture.getDay()]//获取星期
+            if (day <= 1) {//相隔天数小于1
+                if (day == 0) {
+                    return "今"
+                }
+                else if (day < 0) {
+                    return ""
+                } else {
+                    return "明"
+                }
+            }
+            else if (day == 2) {//相隔天数小于2
+                return "后"
+            }
+            else if (day > 2) {//相隔天数大于2
+                if (day <= 7 - w1) {
+                    return "本周" + week
+                } else if (day > 7 - w1) {
+                    if (day > 14 - w1) {
+                        return ""
+                    } else {
+                        return "下周" + week
+                    }
+                }
+            }
+        },
+        getCalendar: function (calendar, timeObj, time, period) {
+            var self = this;
+            var calendarPicker = new M2012.UI.Picker.Calendar({
+                bindInput: $("#" + calendar),
+                value: new Date()
+            });
+            calendarPicker.on("select", function (e) {
+                var value = +new Date(e.value) / 1000;
+
+                $("#" + timeObj).html(e.value.format("yyyy-MM-dd"));
+                $("#" + period).html(self.getPeriod(value));
+            });
+        },
+        getRange: function (obj, keepPeriod, value) {
+            keepPeriod = keepPeriod == -1 ? 0 : keepPeriod;
+            var id = $("#" + obj).find("input");
+            for (var i = 0, len = id.length; i < len; i++) {
+                var value = id.eq(i).attr("keepPeriod");
+                if (value == keepPeriod) {
+                    id.eq(i).attr("checked", true);
+                }
+            }
+        },
+        saveError: function () {
+            var self = this;
+            self.getTop().$Msg.alert(
+                self.model.messages.operateFailed,
+                { dialogTitle: "系统提示", icon: "ok" }
+            )
+        },
+        getOptionsAttrs: function () {
+            var obj = {
+                attrs: {
+                    preference_letters: this.model.get("preference_letters"),
+					_custom_pageStyle: this.model.get("_custom_pageStyle"),
+                    preference_reply_title: this.model.get("preference_reply_title"),
+                    preference_reply: this.model.get("preference_reply"),
+                    preference_receipt: this.model.get("preference_receipt"),
+                    mailsizedisplay: this.model.get("mailsizedisplay"),
+                    mailcontentdisplay: this.model.get("mailcontentdisplay"),
+                    auto_replay_status: this.model.get("auto_replay_status"),
+                    auto_forward_status: this.model.get("auto_forward_status"),
+                    auto_replay_content: this.model.get("auto_replay_content"),
+                    auto_forward_addr: this.model.get("auto_forward_addr"),
+                    auto_forward_bakup: this.model.get("auto_forward_bakup"),
+                    smtpsavesend: this.model.get("smtpsavesend"),
+                    auto_replay_starttime: this.model.get("auto_replay_starttime"),
+                    auto_replay_endtime: this.model.get("auto_replay_endtime"),
+                    list_layout: this.model.get("list_layout")
+                }
+            }
+            return obj;
+        },
+        getMailForDate: function () {
+            var self = this;
+            var arrTitle = [
+                { text: "全部", value: 0 },
+                { text: "最近100天", value: 1 }
+            ];
+            var popLimit = top.$App.getConfig("UserAttrs").popLimit;
+            self.model.set({ popMailForDate: popLimit });
+            var defaultText = popLimit == 0 ? "全部" : "最近100天";
+            var obj = $("#getMailForDate");
+            var dropMenu = M2012.UI.DropMenu.create({
+                defaultText: defaultText,
+                menuItems: arrTitle,
+                container: obj,
+                width: "95px"
+            });
+            self.model.set({ defaultText: defaultText });
+            dropMenu.on("change", function (item) {
+                self.model.set({ popStatusChange: false, popMailForDate: item.value });
+                if (item.text == self.model.get("defaultText")) {
+                    var popStatusChange = false;
+                } else {
+                    var popStatusChange = true;
+                }
+                self.model.set({ popStatusChange: popStatusChange });
+            });
+        },
+        inputToggle: function () {
+            var self = this;
+            var popFolderList = $("#popFolderList");
+            var defaultStatus = popFolderList.attr("status");
+            popFolderList.find("input").change(function () {
+                var status = $(this).attr("status");
+                var changeStatus = status == "true" ? "false" : "true";
+                $(this).attr("status", changeStatus); //重新赋值再和初始状态下的比较
+                var popStatusChange = status == defaultStatus ? true : false;
+                self.model.set({ popStatusChange: popStatusChange });
+            });
+        },
+        /**
+        *自动清理文件夹
+        *组装自动清理文件夹接口的请求报文
+        */
+        getBillSubValue: function () {
+            var billValue = "";
+            var subValue = "";
+			var adverValue = "";
+            var delValue = "";
+            var billObj = $("input[name=billKeepPeriod]");
+            var subObj = $("input[name=subKeepPeriod]");
+			var advObj = $("input[name='adverKeepPeriod']");
+            var delObj = $("input[name='delKeepPeriod']");//[xumei] add
+            for (var i = 0, billLen = billObj.length; i < billLen; i++) {
+                if (billObj.eq(i).attr("checked")) {
+                    billValue = billObj.eq(i).attr("keepPeriod");
+                }
+            }
+            for (var n = 0, subLen = subObj.length; n < subLen; n++) {
+                if (subObj.eq(n).attr("checked")) {
+                    subValue = subObj.eq(n).attr("keepPeriod");
+                }
+            }
+			for (var j = 0, advLen = advObj.length; j < advLen; j++) {
+                if (advObj.eq(j).attr("checked")) {
+                    adverValue = advObj.eq(j).attr("keepPeriod");
+                }
+            }
+            for (var m = 0, delLen = delObj.length; m < delLen; m++) {
+                if (delObj.eq(m).attr("checked")) {
+                    delValue = delObj.eq(m).attr("keepPeriod");
+                }
+            }
+            var optionsBill = {
+                fid: 8, //帐单
+                type: 6,
+                keepPeriod: billValue
+            }
+            var optionsSubscribe = {
+                fid: 9, //订阅
+                type: 6,
+                keepPeriod: subValue
+            }
+			var optionsAdver = {
+                fid: 11, //广告
+                type: 6,
+                keepPeriod: adverValue
+            }
+             var optionsDel = {
+                fid: 4, //广告
+                type: 6,
+                keepPeriod: delValue
+            }
+            var obj = {
+                optionsBill: optionsBill,
+                optionsSubscribe: optionsSubscribe,
+				optionsAdver: optionsAdver,
+                optionsDel: optionsDel
+            }
+            return obj;
+        },
+        /**
+        *客户端接收邮件设置
+        *组装客户端删信接口的请求报文
+        {
+        type:1,
+        value:0   //1不删除   0删除
+        }
+        */
+        getDelMailObj: function () {
+            var type = 1;
+            var value = $("#forbidDel").attr("checked") ? 1 : 0;
+            var obj = {
+                type: type,
+                value: value
+            };
+            return obj;
+        },
+
+        getPopFolderList: function () {//客户端能收取的文件夹列表 //账单中心  我的订阅 垃圾邮件 广告文件夹 我的文件夹 
+            var custom = top.$App.getFolders("custom"); //自定义文件夹
+            var arr = [];
+            $.each(custom, function (i, n) {
+                if (n.fid == 8 || n.fid == 9) {
+                } else {
+                    arr.push(n.fid);
+                }
+            })
+            var obj = [
+                { key: "spam", id: "spamFolder", fid: [5] },
+                { key: "ads", id: "adsFolder", fid: [11] },
+                { key: "myfolder", id: "myFolder", fid: arr}//我的文件夹fid值是一个数组，包括所有自定义的文件夹
+            ]
+            return obj;
+        },
+        removePopFolderList: function () {
+            var obj = this.getPopFolderList();
+            $.each(obj, function (i, n) {
+                if (!n.fid[0]) {//没有自定义文件夹的时候设置一个不存在的fid值
+                    n.fid[0] = -1;
+                }
+                var folder = top.$App.getFolderById(n.fid[0]);
+                if (!folder || (folder.fid == 5 && folder.stats["messageCount"] == 0)) {
+                    $("#" + n.id).parent().hide().next().remove();
+                }
+            });
+        },
+        getPopFid: function () {//客户端收取邮件时，得到可代收和不可代收文件夹的fid值
+            var obj = this.getPopFolderList();
+            var len = obj.length;
+            var allowPopArr = [];
+            var unallowPopArr = [];
+            for (var i = 0; i < len; i++) {
+                var id = obj[i].id;
+                if ($("#" + id).attr("checked")) {
+                    allowPopArr = allowPopArr.concat(obj[i].fid);
+                } else {
+                    unallowPopArr = unallowPopArr.concat(obj[i].fid);
+                }
+            }
+            var PopFid = {
+                allowPopArr: allowPopArr,
+                unallowPopArr: unallowPopArr
+            }
+            return PopFid
+        },
+        /**
+        *从getFolderList接口里得到各个文件夹pop3Flag的值
+        *根据pop3Flag的值勾选复选框
+        */
+        getPopFlagValue: function () {
+            var obj = this.getPopFolderList();
+            var len = obj.length;
+            for (var i = 0; i < len; i++) {
+                var fid = obj[i].fid[0];
+                if (fid) {
+                    var id = obj[i].id;
+                    var folder = top.$App.getFolderById(fid);
+                    if (folder) {
+                        var popFlag = folder.pop3Flag;
+                        if (popFlag == 1) {
+                            $("#" + id).attr("checked", true);
+                        }
+                    }
+                }
+            };
+        },
+        /**
+        *组装设置客户端按文件夹收取邮件的报文
+        *@returns {Obj} 
+        {
+        allowPop:{
+        fid:[],
+        type:4,
+        pop3Flag:0   //1 可被代收   0 不可被代收
+        },
+        unallowPopObj:{
+        fid:[],
+        type:4,
+        pop3Flag:1   //1 可被代收   0 不可被代收
+        }
+        }
+        */
+        getPopRequest: function () {//
+            var self = this;
+            var obj = this.getPopFid();
+            var allowPopObj = {
+                fid: obj.allowPopArr,
+                type: 4,
+                pop3Flag: 1
+            }
+            var unallowPopObj = {
+                fid: obj.unallowPopArr,
+                type: 4,
+                pop3Flag: 0
+            }
+            var popObj = {
+                allowPop: allowPopObj,
+                unallowPop: unallowPopObj
+            }
+            return popObj;
+        },
+        getAppsvrSequentialObj: function () {//序列化appsvr接口,最多只支持合并10个接口
+            var self = this;
+            var optionsAttrs = self.getOptionsAttrs();
+            var billSub = self.getBillSubValue();
+            var optionsDelMail = self.getDelMailObj();
+            /**
+             *客户端接收邮件设置
+             *组装设置未读邮件状态接口的请求报文
+             {
+             type:2,
+             value:0   //1未读邮件状态不变   0未读邮件自动标记为已读
+             }
+             */
+            var optionsChangeStatus = {
+                type: 2,
+                value: $("#notChange").prop("checked") ? 1 : 0
+            };
+
+            var arr = [
+                { func: "user:setAttrs", "var": optionsAttrs },
+                { func: "mbox:updateFolders", "var": billSub.optionsBill },
+                { func: "mbox:updateFolders", "var": billSub.optionsSubscribe },
+				{ func: "mbox:updateFolders", "var": billSub.optionsAdver },
+                { func: "mbox:updateFolders", "var": billSub.optionsDel },
+                { func: "mbox:setUserFlag", "var": optionsDelMail },
+                { func: "mbox:setUserFlag", "var": optionsChangeStatus },
+                { func: "mbox:setUserFlag", "var": { type: 0, value: self.model.get("popMailForDate")} },
+                { func: "mbox:getAllFolders", "var": { stats: 1, type: 0} }
+                ];
+            return arr;
+        },
+        updateFolders: function (obj, callback) {//设置文件夹是否可被客户端代收
+            if (obj["fid"].length > 0) {
+                this.model.updateFolders(obj, function (res) {
+                    if (callback) { callback(res) }
+                });
+            }
+        },
+        /**
+        *保存数据的操作
+        */
+        savaData: function () {
+            var self = this;
+            var arr = self.getAppsvrSequentialObj();
+            var PopRequest = self.getPopRequest();
+            self.updateFolders(PopRequest.allowPop); //允许代收的文件夹
+            self.updateFolders(PopRequest.unallowPop); //不允许代收的文件夹
+            this.model.savaData(arr, function (data) {
+                if (data["code"] == "S_OK") {
+                    var text = $("#getMailForDate .dropDownText").text();
+                    self.setOnlineTips();
+					
+					//通知邮件列表样式改变
+					top.$App.trigger('pageStyleChange',{pageStyle:self.model.get('_custom_pageStyle')});
+					
+					
+                    top.M139.UI.TipMessage.show(self.model.messages.saved, { delay: 2000 });
+
+                    //重新加载两个接口的userattrs数据，并通知邮件列表刷新
+                    self.getTop().appView.trigger('reloadFolder', { reload: true });
+
+                    self.getTop().$App.trigger("userAttrChange", {
+                        callback: function () { }
+                    });
+                    self.model.set({ defaultText: text });
+                    top.BH("set_preference_save_success");
+                    if (self.model.get("popStatusChange")) {//文件夹选中状态有改变时，日志上报
+                        top.BH("set_preference_change_pop");
+                        self.model.set({ popStatusChange: false }); //还原成初始值
+                    }
+                    $("#popFolderList input").attr("status", "false"); //将值设成默认的false，用于文件夹选中状态再次改变后比较
+                } else {
+                    self.saveError();
+                }
+
+            });
+        },
+        //获取距离1970年的毫秒数
+        getSecondTime: function (str) {
+            str = str.split('-');
+            var date = new Date();
+            date.setUTCFullYear(str[0], str[1] - 1, str[2]);
+            date.setUTCHours(0, 0, 0, 0);
+            return date;
+        },
+        windowAlert: function (text) {
+            top.$Msg.alert(
+                        text,
+                        {
+                            dialogTitle: "系统提示",
+                            icon: "warn"
+                        })
+        },
+        checkForwardAddr: function (data) {
+            var self = this;
+            var addr = $("#auto_forward_addr");
+            var input = $("#openForward");
+            var bakup = $("[name=rd]")[1]
+            var val = addr.val();
+            var text = "";
+            if (input.attr("checked")) {
+                data["auto_forward_status"] = 1;
+                var accountList = top.$User.getAccountList();
+                for (var m = 0; m < accountList.length; m++) {
+                    if (val == accountList[m]["name"]) {
+                        text = self.model.messages.forwardMailError;
+                        self.windowAlert(text);
+                        return;
+                    }
+                }
+                if (val == ""||val == "邮箱地址") {//判断自动转发时邮箱地址是否正确
+                    text = self.model.messages.forwardMailNull;
+                    self.windowAlert(text);
+                    return;
+                }
+                else {//邮箱地址正确时新增auto_forwar_addrr的信息
+                    data["auto_forward_addr"] = val;
+                    if (bakup.checked) {
+                        data['auto_forward_bakup'] = 0
+                    } else {
+                        data['auto_forward_bakup'] = 1
+                    }
+                }
+            } else{
+                data["auto_forward_status"] = 0;
+            }
+            return data;
+        },
+        initEvents: function () {
+            var obj = $("#windowView input");
+            //this.displayStatus("auto_forward", "autoForwardLi");
+            this.displayStatus("auto_replay", "autoReplayLi");
+            this.listViewStatus(obj);
+            this.inputToggle();
+            var self = this;
+            var data = {};
+            $("#auto_forward_addr").focus(function () {
+                $(this).removeClass("gray");
+                if ($(this).val() == "邮箱地址") {
+                    $(this).val("");
+                }
+            })
+            $("#auto_forward_addr").blur(function () {
+                var This = $(this);
+                if (This.val() == "") {
+                    This.val("邮箱地址");
+                    This.addClass("gray");
+                    This.next().text("保存后请登录该邮箱，通过验证后方可生效");
+                } else if(!$Email.isEmail(This.val())) {//判断自动转发时邮箱地址是否正确
+                    This.next().text("请输入正确的邮箱地址");
+                } else {
+                    This.next().text("保存后请登录该邮箱，通过验证后方可生效");
+                }
+            })
+            $("#auto_forward_addr").click(function() {
+                if (!$("#openForward").prop("checked")) {
+                    $("#openForward").attr("checked",true);
+                    $("#isSaveMail").show();
+                };
+            })
+            $("#doOk").live("click", function () {
+                data = self.getValue();
+                data = self.checkForwardAddr(data);
+                if (!data) { return }
+                if (data.auto_forward_addr != self.model.get('auto_forward_addr')) {
+                    self.model.forwardVerify(data.auto_forward_addr)
+                };
+                if ($(".formError").length > 0) {
+                    var top = $(".formError").offset().top;
+                    $("body").scrollTop(top - 200)
+                    return
+                }
+                var mode = $("#session_model").attr("checked") == "checked" ? 1 : 0; // mode 0 - 设置标准模式  1 - 设置会话模式
+                self.getTop().$App.setReadMailMode(mode, function (data) {
+
+                });
+                data["mailcontentdisplay"] = $("#mailContentDisplay").attr("checked") ? 1 : 0;
+                data["mailsizedisplay"] = $("#mailSizeDisplay").attr("checked") ? 1 : 0;
+                var startTime = $("#startTime").html();
+                var endTime = $("#endTime").html();
+                var st = +self.getSecondTime(startTime) / 1000;
+                var et = +self.getSecondTime(endTime) / 1000;
+                data["auto_replay_starttime"] = st;
+                data["auto_replay_endtime"] = et;
+                if (st >= et && $("input[keyvalue=auto_replay_status-1]").attr("checked")) {
+                    self.getTop().$Msg.alert(
+                        self.model.messages.timeError,
+                        {
+                            dialogTitle: "系统提示",
+                            icon: "warn"
+                        })
+                    return;
+                }
+                var len = obj.length;
+                for (var i = 0; i < len; i++) {
+                    if (obj.eq(i).attr("checked")) {
+                        self.model.set({ "list_layout": i });
+                    }
+                }
+                var con = self.getAutoReplyVal();
+                if (con) {
+                    data["auto_replay_content"] = con;
+                } else {
+                    return
+                }
+                self.model.set(data)
+                self.savaData();
+            })
+            $("#doCancel").click(function () {
+                self.getTop().$App.close();
+            })
+        },
+        getAutoReplyVal: function () {
+            var self = this;
+            var areatextObj = $("#autoReplyTextarea");
+            var con = areatextObj.val().trim();
+            if ($("#openAutoReply").attr("checked")) {
+                if (con.length > 500) {
+                    self.windowAlert(self.model.messages.autoReplyContentMax)
+                    return
+                }
+                if (con == "") {
+                    self.windowAlert(self.model.messages.autoReplayNull)
+                    return
+                }
+            }
+            if (con == "") {
+                con = self.model.messages.defaultAutoReplayCon;
+            }
+            return con
+        },
+        //列表视图
+        listViewStatus: function (obj) {
+            obj.click(function () {
+                obj.next().find("span:first").removeClass("viewaOn");
+                $(this).next().find("span:first").addClass("viewaOn");
+            })
+        },
+        /**
+        *通过input的checked属性获取设置好的数据，组装成JSON
+        */
+        getValue: function () {
+            var inputChecked = $("#preference").find("input[statusName=attrs]:checked");
+            var len = inputChecked.length;
+            var obj = {};
+            for (var i = 0; i < len; i++) {
+                var keyvalue = inputChecked.eq(i).attr("keyvalue");
+                var key = keyvalue.split("-")[0];
+                var value = keyvalue.split("-")[1];
+                var reg = /^\d+$/;
+                if (reg.test(value)) {
+                    value = parseInt(value);
+                }
+                obj[key] = value;
+            }
+            obj["auto_forward_addr"] = $("#auto_forward_addr").val();
+            obj["smtpsavesend"] = $("#cbxsmtpsavesend").prop("checked") ? "1" : "0";
+            return obj;
+        },
+        /**
+        *启用时显示的内容在状态改成关闭后，增加透明层进行遮罩，设成不可编辑状态
+        */
+        displayStatus: function (input, li) {
+            var id = $("#" + li);
+            var obj = $("#" + input);
+            obj.find("label").click(function () {
+                var status = $(this).find("input").attr("status");
+                if (status == "on") {
+                    id.find(".blackbanner").remove();
+                    id.find("input").attr("disabled", false);
+                    if (input == "auto_forward") {
+                        $("#auto_forward_addr").focus();
+                    }
+                }
+                else {
+                    top.$App.setOpacityLayer(id);
+                    var height = id.height();
+                    id.find("input").attr("disabled", true);
+                    if (input == "auto_forward") {
+                        $(".formError").remove();
+                    }
+                }
+            })
+        }
+    })
+    );
+
+    preferenceView = new M2012.Settings.Preference.View();
+    preferenceView.render("preference");
+})(jQuery, _, M139);
+
+

@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="Keywords" content="">
+    <meta name="Description" content="">
+    <title>您可能感兴趣的人-139邮箱</title>
+	<script type="text/javascript">
+        document.domain = window.location.host.match(/[^.]+\.[^.]+$/)[0];
+        var resourcePath = top.$App.getResourcePath(), resourcePath = resourcePath.replace('richmail', 'coremail');
+        try {
+            top.loadCSS(["common/global.css", "module/addr/addrnew.css"], document);
+            top.loadScript('libs.pack.js', document);
+            top.loadScript('m139.core.pack.js', document);
+            top.loadScript("m2012.ui.common.pack.js", document);
+            top.loadScript("/m2012/js/packs/addr/addr_zh_hans.pack.js", document);
+        } catch (ex) {
+        }
+    </script>
+    <!--[if lt IE 9]><script src="../../js/html5.js" type="text/javascript" charset="utf-8" ></script><![endif]-->
+</head>
+<body>
+	<div class="bgPadding" id="head">
+		<div class="createTop tabTitle">
+			<h2>可能认识的人<a class="back" id="btn-back" href="javascript:void(0);">&lt;&lt;返回</a></h2>
+		</div>
+	</div>
+	<ul class="addrNameList addrConsScroll clearfix" id="main-warp">
+		
+	</ul>
+	<p class="addrNameList_loading" id="loading"><img src="../../images/global/load.gif" alt="">正在加载...</p>	
+	
+<script type="text/template" id="temp-item">
+	<li class="clearfix box-item <%=selector%>" style="display:none;">
+		<a href="javascript:void(0);" class="btn-photo" data-index="<%=index%>"><img src="<%=url%>"></a>
+		<div class="addrNameList_Con">
+			<p><%=showName%></p>
+			<span class="addrNameList_mail"><%=Email%></span>
+			<a href="javascript:void(0);" data-index="<%=index%>" class="btnTb btn-add"><span>添加</span></a>
+		</div>
+	</li>
+</script>
+<script type="text/javascript">
+    try {
+        top.loadScript("/m2012/js/packs/addr/addr_maybeknown_dialog.html.pack.js", document);
+        top.loadScript("/m2012/js/packs/addr/addr_maybeknown.html.pack.js", document);
+    } catch (ex) {
+    }
+</script>	
+</body>
+</html>

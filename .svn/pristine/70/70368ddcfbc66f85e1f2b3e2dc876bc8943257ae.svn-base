@@ -1,0 +1,112 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>双通道介绍页</title>
+    <link type="text/css" href="http://images.139cm.com/m/coremail/css/channelCss.css"
+        rel='stylesheet' />
+
+    <script type="text/javascript">
+ 
+ function initPage()
+    {
+        //http://192.168.9.53:8088/m/coremail/css/supersms.css?v=20101129
+        var help=document.getElementById("help");
+        var url="";
+        if(help)
+        {
+            var provid=getParmByUrl("provid");
+            if(typeof(provid)=="undefined")
+                provid=0;
+            url="http://help.mail.10086.cn/statichtml/"+provid+"/index.html";
+            help.href=url;
+        }
+    }
+    
+	var getParmByUrl= function(o){
+        var url = window.location.toString();
+        var tmp;
+        if (url && url.indexOf("?")) {
+            var arr = url.split("?");
+            var parms = arr[1];
+            if (parms && parms.indexOf("&")) {
+                var parmList = parms.split("&");
+                for (var i = 0; i < parmList.length; i++){
+                    if (parmList[i] && parmList[i].indexOf("=")) {
+                        var parmarr = parmList[i].split("=");
+                        if (o) {
+                            if (typeof(o) == "string" && o == parmarr[0]) {
+                                tmp = parmarr[1] == null ? '' : parmarr[1];
+                            }
+                        }
+                        else {
+                            tmp = parms;
+                        }
+                    }
+                }
+            }
+        }
+        return tmp;
+    }
+    </script>
+
+</head>
+<body onload="initPage();">
+    <div class="container">
+        <div class="head">
+            <a href="http://mail.10086.cn" class="logo"></a>
+            <div class="nav">
+                <a href="javascript:;">客服电话10086</a>&nbsp;|&nbsp; <a id="help">帮助中心</a>&nbsp;|&nbsp; <a href="http://www.10086.cn">
+                    中国移动</a>
+            </div>
+        </div>
+        <div class="body">
+            <div class="intro">
+                <img src="http://images.139cm.com/m/coremail/images/chunnelDesc/intro_1.jpg" /><img
+                    src="http://images.139cm.com/m/coremail/images/chunnelDesc/intro_2.jpg" />
+                <p>
+                    用139邮箱发短信，当您选择了“同时发到对方139邮箱”，如果对方开通了139邮箱，则对方邮箱也会收到您的短信内容。 从此不用担心对方接收不到或漏看，双管齐下，确保信息传递畅通。
+                    注：如果您给未开通139邮箱的广东移动用户使用“同时发到对方139邮箱”，系统将邀请对方开通139邮箱。
+                </p>
+            </div>
+            <div class="desc">
+                <dl>
+                    <dt><i class="backup"></i></dt>
+                    <dd>
+                        <em>信息备份不怕遗漏</em>
+                        <p>
+                            发短信，同时发邮件到对方的邮箱中备份，不让信息遗漏</p>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt><i class="msg"></i></dt>
+                    <dd>
+                        <em>确保对方收到信息</em>
+                        <p>
+                            短信邮件两个方式发送信息，双重确保对方收到信息</p>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt><i class="sync"></i></dt>
+                    <dd>
+                        <em>手机电脑同时接收</em>
+                        <p>
+                            手机电脑同时接收，移动固定状态下都保持畅通</p>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <div class="foot">
+        <div class="wrap">
+            <div class="copyright">
+                <a href="javascript:;">中国移动通讯版权所有</a></div>
+            <div class="link">
+                <a href="http://www.10086.cn/index_law_3134.htm">法律声明</a>&nbsp;|&nbsp; <a href="http://mail.10086.cn/help/contact.html">
+                    联系我们</a>&nbsp;|&nbsp; <a href="http://www.10086.cn/index_sitemap_3137.htm">网站地图</a>&nbsp;|&nbsp;
+                <a href="javascript:;">客服热线：10086</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

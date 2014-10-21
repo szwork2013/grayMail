@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>文件快递</title>
+    <link type="text/css" rel="Stylesheet" />
+
+    <script>
+
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+
+        top.loadScript("/m2012/js/service/largeattach/m2011.largeattach.filesharing.js", document);
+
+    </script>
+    <script type="text/javascript">
+        fileSharing.initialize();
+        //加载脚本并初始化页面信息
+        top.loadScript("/m2012/js/service/largeattach/m2011.largeattach.welcome.js", document);
+    </script>
+
+</head>
+<body>
+    <div class="rightContentBg">
+        <div class="fileExpGuied">
+            <h3 class="fcI">
+                文件快递</h3>
+            <p id="maxSizeTips"></p>
+            <p>
+                <a style="text-decoration: none;" class="yt-button">
+                    <button id="btnEnter">
+                        现在就体验&gt;&gt;</button></a></p>
+            <div class="info-bg">
+                <p>
+                    可上传<strong id="maxSizeUpload"></strong>级超大文件，最多存储<strong><span id="spSize"></span></strong>文件，支持<strong>断点续传</strong>;</p>
+                <p>
+                    安装139小工具后，电脑、网页上的<strong>图片、音乐、小说、游戏</strong>... ...<br />
+                    通过<strong>鼠标右健</strong>快速上传到<strong>手机</strong>;</p>
+                <p>
+                    上传文件保存<span id="spRemainDays"></span>天，文件到期前<strong>2</strong>天<strong>邮件和短信提醒</strong>，<br />
+                    可登陆邮箱或通过手机短信延长保存期.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

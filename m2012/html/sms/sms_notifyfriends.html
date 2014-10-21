@@ -1,0 +1,214 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <title>发送短信提醒好友收邮件 - 139邮箱(标准版)</title>
+    <base target="_self" />
+    <link rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        #tbValidate
+        {
+            width: 100px;
+        }
+    </style>
+
+    <script type="text/javascript">
+        //设域
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+        //获得资源路径
+        var resourcePath = window.top.resourcePath;
+        var supermanResourcePath = resourcePath.replace("coremail", "sms");
+        var htmlCode = "";
+        htmlCode += getLinkTag("");
+        htmlCode += getLinkTag(resourcePath + "/css/global.css");
+        top.loadScript("jquery.js", document);
+        top.loadScript("m2011.utilscontrols.pack.js", document);
+        top.loadScript("/m2012/js/matrixvm/page/m2011.page.AddressBook.js", document);
+        top.loadScript("/m2012/js/service/sms/m2011.sms.comon.js", document);
+        top.loadScript("/m2012/js/service/sms/m2011.sms.matrix.js", document);
+        document.write(htmlCode);
+
+        function getJsTag(path, charset) {
+            var html = "<script charset='gb2312' src='" + path + "' type='text/javascript'></" + "script>";
+            if (charset) html = html.replace("gb2312", charset);
+            return html;
+        }
+        function getLinkTag(path) {
+            var text = "";
+            if (path) text = "href='" + path + "'";
+            return "<link rel='stylesheet' type='text/css' " + text + " />";
+        }
+    </script>
+
+    <script type="text/javascript">
+        Utils.setDomain();
+        Utils.loadSkinCss();
+    </script>
+
+</head>
+<body>
+    <form id="form1" method="post">
+    <div class="toolBar">
+        <a id="aSend" class="tlBtn" href="javascript:void(0);"><b class="tlBtn7"></b>&nbsp;发送<span></span></a>
+        <a id="linkCancel" class="tlBtn" href="javascript:void(0);"><b class="tlBtn9"></b>&nbsp;取消<span></span></a>
+    </div>
+    <div id="pageComposeSMSToReceiver" class="pageComposeMS">
+        <div class="writeWrapper">
+            <div class="writeContent">
+                <div class="addressSwitchWrapper">
+                    <i id="addressSwitch" class="addressSwitchOn"></i>
+                </div>
+                <div class="tipMoney" id="tipMoney" style="display: none;">
+                    <i class="notice"></i>
+                    <p id="divEMail">
+                    </p>
+                </div>
+                <table cellpadding="0">
+                    <tr class="recive">
+                        <th>
+                            接收手机：
+                        </th>
+                        <td>
+                            <input type="text" id="txtMobile" class="text" />
+                        </td>
+                    </tr>
+                    <tr class="email">
+                        <th>
+                            邮件接收人：
+                        </th>
+                        <td>
+                            <span id="spReceiveEMail"></span>
+                        </td>
+                    </tr>
+                    <tr class="sendContent">
+                        <th>
+                            短信内容：
+                        </th>
+                        <td>
+                            <p>
+                                <span class="span1">您的好友</span><input type="text" id="txtUsername" class="text" maxlength="11" />
+                                <span class="span2" id="spSubject"></span>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr class="rndNum">
+                        <th>
+                            <strong>验证码：</strong>
+                        </th>
+                        <td>
+                            <input type="text" id="tbValidate" class="rnd" value="请点击获取验证码" />
+                            <span class="rndNum" style="display: none">
+                                <img id="imgValidate" style="border: 1px solid #ccc; float: left; padding: 3px; margin: 0 10px 0 0;
+                                    background: #fff;" alt="验证码" />
+                                <p style="color: #666; line-height: 1.8;">
+                                    图中显示的图片是什么？将你认为正确答案前的<font color="#ff6600">字母或数字</font>填入框中（不分大小写）</p>
+                                <p style="line-height: 1.8;">
+                                    <a href="javascript:void(0);" id="refreshImg">看不清，换一张</a></p>
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+                <p class="action">
+                    <input id="btnSmsNotifyFriends" class="btnStrong" type="button" value="发送" />
+                    <input id="btnCancel" class="btnNormal" type="button" title="点击可以取消操作" value="取消" />
+                </p>
+            </div>
+        </div>
+        <div class="addressList">
+            <h2>
+                通讯录</h2>
+            <div class="addressListContent1" id="addressList">
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var PostXML =
+    {
+        SmsNotify_Xml: "\
+<object>\
+<int name=\"actionId\">{0}</int>\
+<string name=\"mobile\">{1}</string>\
+<string name=\"userName\">{2}</string>\
+<string name=\"receiveEMail\">{3}</string>\
+<string name=\"emailTitle\">{4}</string>\
+<string name=\"validCode\">{5}</string>\
+</object>"
+    };
+        var sid = "";
+        if (top.window == window) {
+            sid = top.$("iframe[id='sms']")[0].contentWindow.top.UserData.ssoSid; //;window.parent.top.UserData.ssoSid;
+        }
+        else {
+            sid = top.UserData.ssoSid;
+        }
+        var mbs = top.SiteConfig.smsMiddleware + "sms";
+        var getUrl = "/mw2/sms/sms?func=sms:smsNotifyInit&sid=" + sid + "&rnd=" + Math.random();
+        String.format = function() {
+            if (arguments.length == 0) return "";
+            if (arguments.length == 1) return arguments[0];
+            var newArgs = [];
+            for (var i = 1; i < arguments.length; i++) {
+                newArgs.push(arguments[i]);
+            }
+            return String.prototype.format.apply(arguments[0], newArgs)
+        }
+
+        getQueryString = function(param, url) {
+            if (!url) {
+                url = location.search;
+            }
+            var reg = new RegExp("[?#&]" + param + "=([^&]*)", "i");
+            var svalue = url.match(reg);
+            var result = svalue ? svalue[1] : null;
+            if (!result && location.hash) {
+                svalue = location.hash.match(reg);
+                result = svalue ? svalue[1] : null;
+            }
+            return result;
+        }
+        //发件人别名、邮件接收人、短信内容
+        var userName = decodeURIComponent(getQueryString("un"));
+        var receiveEMail = decodeURIComponent(getQueryString("re"));
+        var emailTitle = decodeURIComponent(getQueryString("et"));
+        if (userName) { $("#txtUsername").val(userName); }
+        if (receiveEMail) { $("#spReceiveEMail").html(receiveEMail); }
+        if (emailTitle) { $("#spSubject").html("发来了邮件“" + emailTitle + "”，请您查收！"); }
+
+        function showPartnerTip() {
+
+            if (top.$User.needMailPartner()) {
+                $("#divEMail").append("<div><a href='javascript:top.$App.show(\"mobile\")'>*开通邮箱伴侣</a>享受更多短信优惠</div>");
+            }
+             
+        }
+
+        $(function() {
+            var tipMoney = $("#tipMoney").hide();
+            $.ajax({
+                type: "post",
+                contentType: "application/xml;charset:utf-8",
+                dataType: "json",
+                url: getUrl,
+                data: String.format(PostXML["SmsNotify_Xml"], 0, "", "", "", "", ""),
+                error: function(err) { top.FloatingFrame.alert(err.statusText); },
+                success: function(data) {
+                    if (data.code == "S_OK") {
+                        validateUrl = data["var"].validImg; //图片验证码
+                        tipMoney.show();
+                        //资费
+                        $("#divEMail").html(top.UserData.provCode.toString() == "19" ? data["var"].freeInfo.replace("<span class=\"notice_font\">0.0</span>元/条", "<span class=\"notice_font\">0.1</span>元/条") : data["var"].freeInfo);
+
+                        showPartnerTip();
+                    }
+                    else
+                        top.FloatingFrame.alert(data.summary);
+                }
+            });
+        });
+        $(initSmsNotifyFriends);
+    </script>
+
+    </form>
+</body>
+</html>

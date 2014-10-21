@@ -1,0 +1,95 @@
+﻿<html id="pg-read-card" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>查看贺卡</title>
+<script type="text/javascript">
+    function GetArgs(Key, DefaultValue)
+	{
+		var Str = window.location.href;
+		var Pos = Str.indexOf('?');
+		if (Pos == -1) return DefaultValue;
+		Str = Str.substring(Pos + 1, Str.length);
+		var List = Str.split("&");
+		for (Loop = 0; Loop < List.length; Loop++)
+		{
+			if ((Pos = List[Loop].indexOf('=')) == -1) continue;
+			Str = List[Loop].substring(0, Pos);
+			if (Str == Key)
+				return String(List[Loop].substring(Pos + 1, List[Loop].length));
+		}
+		return DefaultValue;
+	}
+	function HtmlEncode(s) {
+		return (s == null)?s:s.replace(/&/g,"&amp;").replace(/\"/g,"&quot;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+	}
+	function BodyLoaded()
+	{
+	    var _resPath = GetArgs("resPath", ""); 
+		var _link = GetArgs("link", "");
+		var _from = GetArgs("from", "");
+		var _template = "<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,29,0\" width=\"440\" height=\"330\"><param name=\"movie\" value=\"_Card_\" /><param name=\"wmode\" value=\"transparent\">	<param name=\"quality\" value=\"high\" /><embed src=\"_Card_\" quality=\"high\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\" type=\"application/x-shockwave-flash\" width=\"440\" height=\"330\"></embed></object>";
+		_link = _link.replace(/images\.baina\.com/i, "images.139cm.com");
+		_from = _from.replace(/images\.baina\.com/i, "images.139cm.com");
+		if ( !isAllowHost( _link ) ) {
+			document.getElementById("card").innerHTML = "非法URL";
+			return ;
+		}
+		
+		document.getElementById("cardinfo").style.backgroundImage="url("+_resPath+"/images/card-bg.jpg)";
+		
+		document.getElementById("card").innerHTML = _template.replace(/_Card_/g, _link);
+		
+		if (_from != "") {
+			document.getElementById("from").innerHTML = HtmlEncode(decodeURIComponent(_from));
+		}		
+	}
+	function isAllowHost( _aUrl ) {
+		//var _allowHostList	= [ "*.139cm.com", "*.rd139cm.com", "*.139.com", "*.rd139.com" ];原139域名
+		var _allowHostList	= [ "*.10086.cn","*.10086rd.cn","*.10086ts.cn","*.139cm.com", "*.rd139cm.com", "*.139.com", "*.rd139.com" ];
+		var _urlHost		= _aUrl.split( "://" ).pop().split( "/" )[ 0 ];
+		if ( !_urlHost )
+			return false;
+
+		var _urlHostItems		= _urlHost.split( "." );
+		var _urlHostItemsLen	= _urlHostItems.length;
+		for ( var i = _allowHostList.length - 1; i >= 0; i-- ) {
+			var _allowHostItem		= _allowHostList[ i ].split( "." );
+			var _allowHostItemLen	= _allowHostItem.length;
+			var _pos				= 1;
+
+			for ( ; _pos <= _urlHostItemsLen && _pos <= _allowHostItemLen; _pos++ ) {
+				if ( _allowHostItem[ _allowHostItemLen - _pos ] != "*" &&
+					 _allowHostItem[ _allowHostItemLen - _pos ] != 
+					 _urlHostItems[ _urlHostItemsLen - _pos ] )
+					break;
+			}
+			if ( _pos - 1 == _allowHostItemLen && 
+				 ( _allowHostItem[ 0 ] == "*" || _allowHostItemLen == _urlHostItemsLen ) )
+				return true;
+		}		
+		return false;
+	}
+</script>
+</head>
+<body onload="BodyLoaded()">
+<style>
+#cardinfo{ width:718px; height:565px; background:no-repeat; font-size:12px}
+.container{ margin:72px 130px 0 120px; }
+.login{ text-align:right;}
+a{ color:#000}
+h2{ margin:36px 0 0 0; text-align:center; font-size:14px}
+.container .flash{ width:440px; height:330px; background:#ccc; margin:12px 9px 12px 14px; text-align:center}
+</style>
+	<table id="cardinfo" align="center">
+		<tr>
+			<td valign="top">
+				<div  class="container">
+					<div class="login"><a href="card_writebehavior.html" target="_blank">登录139邮箱发送更多精美贺卡>></a></div>
+					<h2 id="from"></h2>
+					<div class="flash" id="card"></div>
+				</div>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>

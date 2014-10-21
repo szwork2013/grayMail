@@ -1,0 +1,238 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <meta name="Keywords" content="" />
+    <meta name="Description" content="" />
+    <title>彩云-您的随身移动彩云</title>
+
+    <script type="text/javascript" charset="utf-8" src="../../largeattachments/html/filesharing.js"></script>
+
+    <script type="text/javascript">
+        fileSharing.initialize(function() {
+            var netDiskResource = fileSharing.getResourcePath();
+            netDiskResource = netDiskResource.replace("richmail", "newnetdisk4");
+            fileSharing.loadCss(netDiskResource + "/css/139tool.css");
+        }, true);    </script>
+
+</head>
+<body>
+    <div class="header">
+        <div class="inwrap">
+            <a href="http://disk.mail.10086.cn" class="fl logo" title="彩云-您的随身移动彩云"></a>
+        </div>
+    </div>
+    <div class="main">
+        <div class="inwrap">
+            <h1 class="title">
+            </h1>
+            <div class="in-middle">
+                <div class="textcontent">
+                    <div class="bottonbt" style="display: none;">
+                        <a href="javascript:void(0)" class="downbtn" title="立即下载"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="textinfo clearfix">
+                <h3>
+                    彩云特色功能介绍：</h3>
+                <dl class="clearfix">
+                    <dt><i class="ico1"></i>自动同步</dt>
+                    <dd>
+                        支持手机、电脑等多种设备随时随地查看文件。</dd>
+                </dl>
+                <dl class="clearfix">
+                    <dt><i class="ico2"></i>断点续传</dt>
+                    <dd>
+                        上传过程意外中断，可进行断点续传。</dd>
+                </dl>
+                <dl class="clearfix">
+                    <dt><i class="ico3"></i>安全可靠</dt>
+                    <dd>
+                        数据加密传输，多机房备份，安全可靠，永不丢失。</dd>
+                </dl>
+                <dl class="clearfix">
+                    <dt><i class="ico4"></i>快速秒传</dt>
+                    <dd>
+                        系统智能分析反馈，文件上传瞬间完成。</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="inwrap">
+            <span class="fl">彩云 <a href="http://disk.mail.10086.cn">disk.mail.10086.cn</a></span>
+            <span class="fr">谢您一直以来的支持，我们将不断创新，为您带来更好的邮箱体验! </span>
+        </div>
+    </div>
+    <textarea id="tempFilePreview" style="display: none;">
+       <div id="dvFilePrev">
+        <img class="imgbor" src="{0}" alt="{1}" />
+        <div class="infoico">
+            <i class="otherico" title="{1}"></i>
+        </div>
+        <p><strong title="{5}">{1}</strong><span class="gray">({2})</span></p>
+        <p>剩余有效时间：<span id="spRemainTime">{3}</span> | 剩余下载次数：<span id="spRemainDownTimes">{4}</span></p>
+        </div>
+    </textarea>
+    <textarea id="tempErrorPreview" style="display: none;">
+        <div class="infoico">
+            <i class="errorico"></i>
+        </div>
+        <p><strong class="red">很抱歉，文件不存在、过期或已超过最大下载次数！</strong></p>
+    </textarea>
+
+    <script type="text/javascript">
+        var DiskSharing = {
+            sendId: "",
+            flags: null,
+            action: {
+                pageLoad: function() {
+                    var sendId = Utils.queryString("sendid");
+                    var container = $(".textcontent");
+                    if (!sendId) {
+                        DiskSharing.render.rendErrorFile();
+                        return;
+                    }
+                    DiskSharing.sendId = sendId;
+                    $(".downbtn").click(function() {
+                        var me = $(this);
+                        if (me.attr("down") == "0")
+                        { return; }
+                        me.attr("down", "0");
+                        window.setTimeout(function() { me.attr("down", "1"); }, 4000);
+                        var data = $(this).data("file");
+                        DiskSharing.action.downFile(data, function() {
+                            window.setTimeout(function() {
+                                DiskSharing.render.rendDownload();
+                            }, 5000);
+                        });
+                    });
+                    DiskSharing.render.rendFile(sendId);
+                },
+                downFile: function(data, callback) {
+                    var url = "";
+                    DiskSharing.server.downloadSendFile(data.groupId, data.sendId, function(ret) {
+                        if (ret && ret.length > 0) {
+                            url = ret;
+                        }
+                    });
+                    if (url) {
+                        if (callback) callback();
+                        window.open(url);
+                    }
+                }
+            },
+            render: {
+                rendFile: function(id) {
+                    DiskSharing.server.getDownFileListNew(id, function() {
+                        if (this && this.length > 0) {
+                            DiskSharing.render.rendFileInfo(this[0]);
+                        } else {
+                            DiskSharing.render.rendErrorFile();
+                        }
+                    }, false);
+                },
+                rendDownload: function() {
+                    DiskSharing.server.getDownFileListNew(DiskSharing.sendId, function() {
+                        if (this && this.length > 0) {
+                            $("#spRemainDownTimes").text(this[0].remainDownloadTimes);
+                        }
+                    });
+                },
+                rendErrorFile: function() {
+                    var container = $(".textcontent");
+                    container.children().hide();
+                    container.prepend($("#tempErrorPreview").val());
+
+                },
+                rendFileInfo: function(file) {
+                    var html = $("#tempFilePreview").val();
+                    var thumbImgUrl = file.imgTbnailUrl;
+                    var container = $(".textcontent");
+                    var fileName = file.fileName;
+                    var ele = $(html.format(thumbImgUrl, DiskSharing.tool.subName(fileName, 30).encode(), file.fileSize, file.remainTime, file.remainDownloadTimes, fileName.encode()));
+                    if (thumbImgUrl) {
+                        ele.find("div.infoico").remove();
+                    } else {
+                        ele.find("img").remove();
+                    }
+                    ele.prependTo(container);
+                    $(".downbtn").data("file", file).parent().show();
+                }
+            },
+            server: {
+                getDownFileListNew: function(sendIds, callback, async) {
+                    async = async ? true : false;
+                    $.postXml({
+                        url: fileSharing.resolveUrl("downLoadInitNew"),
+                        data: XmlUtility.parseJson2Xml({
+                            sendIds: sendIds
+                        }),
+                        async: async,
+                        success: function(result) {
+                            var result = null;
+                            if (this.code == fsConfig.isOk) {
+                                result = this["var"].fileList;
+                            }
+                            if (callback) callback.call(result);
+                        },
+                        error: function(error) {
+                            if (callback) callback.call(null);
+                        }
+                    })
+                },
+                downloadSendFile: function(groupId, sendId, callback) {
+                    $.postXml({
+                        url: fileSharing.resolveUrl("downLoadMd"),
+                        data: XmlUtility.parseJson2Xml({
+                            groupId: groupId,
+                            sendId: sendId
+                        }),
+                        async: false,
+                        success: function(result) {
+                            if (this && this.code) {
+                                if (this.code != fsConfig.isOk) {
+                                    fileSharing.FF.alert(this.summary);
+                                    return;
+                                }
+                                if (callback) { callback(this.imageUrl); }
+                            }
+                        },
+                        error: function(xhr, textStatus, errorThrown) {
+                            fileSharing.tool.handleError(error);
+                        }
+                    });
+                }
+            },
+            tool: {
+                isPicture: function(ext) {
+                    var category = "bmp,gif,ico,jpg,jpeg,png,tif,";
+                    return category.indexOf("{0},".format(ext).toLowerCase()) > -1;
+                },
+                subName: function(name, length) {
+                    if (!name || name.length < length) {
+                        return name;
+                    }
+                    var left = "";
+                    var ext = "";
+                    var subs = name.split(".");
+                    if (subs.length > 1) {
+                        ext = "." + subs.pop();
+                        left = subs.join("");
+
+                    } else {
+                        left = name;
+                    }
+                    if (left.length < length) {
+                        return left + ext;
+                    };
+                    return left.substring(0, length) + "。。" + ext;
+                }
+            }
+        };
+        DiskSharing.action.pageLoad();
+    </script>
+
+</body>
+</html>

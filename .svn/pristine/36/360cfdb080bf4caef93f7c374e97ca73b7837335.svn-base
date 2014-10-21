@@ -1,0 +1,107 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="Keywords" content="" />
+<meta name="Description" content="" />
+<title>139邮箱</title>
+<script type="text/javascript">
+//设域
+document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+</script>
+<script>top.loadScript('libs.pack.js',document);top.loadScript('m139.core.pack.js',document)</script>
+<script>top.loadScript("m2012.ui.common.pack.js",document)</script>
+<script>top.loadCSS(["common/global.css","module/set.css"],document)</script>
+</head>
+<body class="setbody"> 
+<div class="setWrap">
+    <div class="setArea" id="smsVerifySet">
+        <h2>修改安全锁密码 <span class="line">|</span> <a class="fanghui" href="javascript:;" id="goBack">&lt;&lt;返回</a></h2>
+		<div id="yzm" style="position: absolute; border: 1px #a4acbf solid; padding: 8px 10px; width: 260px; background-color: #FFF; z-index: 9999; display:none;">
+			<table border="0" >
+				<tr>
+					<td width="180"><img id="yangzhengmaImg" style="border: 0" src="" /></td>
+					<td>
+					<p style="font-size: 14px; font-weight: 700; line-height: 17px;">图案显示的是什么？</p>
+					<p style="padding-top: 4px;"><a href="javascript:;" style="color:#2D5169; text-decoration: underline;" id="yangzhengmaTips">看不清换一张</a></p></td>
+				</tr>
+				<tr>
+					<td><p style="padding-top: 5px;clear: both;font-weight: 700;height: 21px;line-height: 21px;">请输入答案前的 <span style="color: #ff6600;">数字或字母</span></p></td>
+					<td>&nbsp;</td>
+				</tr>
+			</table>
+		</div>
+        <div class="setArea-content changepassowrd1 clearfix" id="firstStep">
+            <ul class="passwordStep" id="passwordStep">
+                <li class="on">1.获取短信验证码</li>
+                <li>2.修改安全锁密码</li>
+                <li>3.成功</li>
+            </ul>
+            <ul class="form p_relative" id="verifyCodeUl">
+                <li class="formLine">
+                    <label class="label">手机：</label>
+                    <div class="element p_relative" id="codeButtons">
+                        <div class="tips passydztips2 hide" id="sendedTips">
+                            <div class="tips-text">
+                                <i class="i_ok_min mr_5"></i>验证码已发送
+                            </div>
+                            <div class="tipsBottom diamond"></div>
+                        </div>
+                        <span id="mobileNumber"></span>
+                    </div>
+                </li>
+				<li class="formLine">
+                    <label class="label">图片验证码 : </label>
+                    <div class="element p_relative" id="codeButtons">
+                        <input id="yangzhengmaValue" name="yangzhengmaValue" type="text" style="width: 190px; border: 1px solid #969696; padding: 4px 5px;" maxlength="1" placeholder="点击获取图片验证码">
+                    </div>
+                </li>
+				<!--
+				<li class="formLine" style="height: 53px;">
+                    <label class="label">验证码：</label>
+                    <div class="element p_relative" id="">
+                        <img id="yangzhengmaImg" style="border:0;" src="" />
+                        <a id="yangzhengmaTips">看不清，换一张</a>
+                    </div>
+                </li>
+				-->
+                <li class="formLine">
+                    <label class="label">短信验证码：</label>
+                    <div class="element">
+                        <div><input type="password" id="smsCode" value="" class="iText j_tbox" disabled>
+						<a id="getCode" class="btnNormal ml_5" href="javascript:void(0)"><span>获取短信验证码</span></a><a class="btnNormal ml_5 hide" id="reGetCode" href="javascript:void(0)"><span class="gray"><em id="timeSecond">60</em>秒后可重新获取</span></a></div>
+                        <div>验证码30分钟内有效</div>
+                    </div>
+                </li>
+                <li class="formLine">
+                    <label class="label">设置新密码：</label>
+                    <div class="element">
+                        <input id="setPass" type="password" value="" class="iText j_tbox" disabled>
+                    </div>
+                </li>
+                <li class="formLine">
+                    <label class="label">确认新密码：</label>
+                    <div class="element">
+                        <input id="comfirmPass" type="password" value="" class="iText j_tbox" disabled>
+                    </div>
+                </li>
+                <div style="top: 122px; height:170px; z-index:10;" id="blackbanner" class="blackbanner"></div>
+            </ul>
+        </div>
+    </div>
+
+</div>
+<div class="setBtn fixed-bottom" id="setBtn1">
+<div class="tips passydztips2 passydztips3 hide" id="resetTips">
+    <div class="tips-text"></div>
+    <div class="tipsBottom diamond"></div>
+</div>
+<span class="pl_20"></span><a class="btnSetG" href="javascript:void(0)"><span>确 定</span></a> <a class="btnSet" id="doCancel" href="javascript:void(0)"><span>取 消</span></a></span>
+</div>
+
+<div class="setBtn fixed-bottom" id="setBtn3" style="display:none;">
+<span class="pl_20"></span><a class="btnSetG" href="javascript:void(0)"><span>确 定</span></a> <a class="btnSet" id="doCancel" href="javascript:void(0)"><span>取 消</span></a></span>
+</div>
+</body>
+<script>top.loadScript("account_lock_verifycode.html.pack.js", document)</script>
+</html>

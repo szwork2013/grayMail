@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<project name="build_pack" default="packFile">
+    <target name="packFile">
+        <subant target="">
+            <fileset dir="./" includes="**.pack.js.xml"/>
+        </subant>
+    </target>
+</project>

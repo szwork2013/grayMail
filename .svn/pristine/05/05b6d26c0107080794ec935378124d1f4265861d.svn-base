@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html id="aaa">
+<head>
+    <meta charset="utf-8">
+    <meta name="Keywords" content=""/>
+    <meta name="Description" content=""/>
+    <title>139邮箱</title>
+    <script type="text/javascript">
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1]; var m2012ResourceDomain = "http://" + location.host;
+        if (document.domain == "10086.cn") {
+            m2012ResourceDomain = /appmail3/.test(location.host) ? "http://image0.139cm.com" : "http://images.139cm.com";
+        }
+</script>
+</head>
+<body>
+	
+</body>
+</html>

@@ -1,0 +1,688 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="pg-default" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <title>发短信</title>
+
+    <script type="text/javascript">
+        //Utils.setDomain();
+        //设域
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+        //获得资源路径
+        var resourcePath = window.top.resourcePath;
+        var supermanResourcePath = resourcePath.replace("coremail", "superman");
+        var htmlCode = "";
+        htmlCode += getLinkTag("");
+        htmlCode += getLinkTag(resourcePath + "/css/supersms.css?v=20140126");
+        top.loadScript("jquery.js", document);
+        top.loadScript("m2011.utilscontrols.pack.js", document);
+        top.loadScript("/m2012/js/matrixvm/page/m2011.page.floatTips.js", document);
+        top.loadScript("/m2012/js/service/sms/m2011.sms.superman.js", document);
+        top.loadScript("/m2012/js/matrixvm/page/m2011.page.AddressBook.js", document);
+        top.loadScript("/m2012/js/matrixvm/page/m2011.page.RichInputBox.js", document);
+        document.write(htmlCode);
+        function getJsTag(path, charset) {
+            var html = "<script charset='gb2312' src='" + path + "' type='text/javascript'></" + "script>";
+            if (charset) html = html.replace("gb2312", charset);
+            return html;
+        }
+        function getLinkTag(path) {
+            var text = "";
+            if (path) text = "href='" + path + "'";
+            return "<link rel='stylesheet' type='text/css' " + text + " />";
+        }
+
+        top.WaitPannel.hide();
+
+        top.BH("sms_page_load");
+    </script>
+
+    <link rel="stylesheet" type="text/css" />
+
+    <script type="text/javascript">
+        Utils.loadSkinCss(null, document, "supersms");
+    </script>
+
+<style type="text/css">
+	#container
+	{
+	    display: none;
+	}
+	.addressListContent2
+	{
+	    display: none;
+	}
+	.addressListContent3
+	{
+	    display: none;
+	}
+	#pRedUserTip
+	{
+	    display: none;
+	}
+	#btnFreeSms
+	{
+	    display: none;
+	    margin: 5px auto;
+	}
+	#pNoSmsList
+	{
+	    display: none;
+	}
+	#pNoHotShareSms
+	{
+	    display: none;
+	}
+	#dtFrom139
+	{
+	    display: none;
+	}
+	#ulSmsListBarPager
+	{
+	    display: none;
+	}
+	#ulShareSmsBarPager
+	{
+	    display: none;
+	}
+	#txtValidate
+	{
+	    ime-mode: disabled;
+	}
+	.addressListContent1
+	{
+	    height: 423px;
+	}
+	.addressListContent3
+	{
+	    height: 423px;
+	}
+	#dlAddress, .adc-bd
+	{
+	    height: 360px;
+	}
+	.ckbtips
+	{
+	    position: relative;
+	}
+	.ckbtips div
+	{
+	    width: 324px;
+	    background-color: #FFFFD8;
+	    border: 1px solid #FF5500;
+	    position: absolute;
+	    padding: 10px;
+	    left: 15px;
+	    top: 5px; *top:20px;
+	}
+	.ckbtips a
+	{
+	    color: #0042c3;
+	}
+	#trPriceTips
+	{
+	    display: none;
+	}
+	#divPriceTips
+	{
+	    background-color: #ffffcc;
+	    width: 100%;
+	    border-top: 1px solid #f7f2b5;
+	    border-bottom: 1px solid #b69202;
+	    height: 18px;
+	    line-height: 18px;
+	    color: #5d5d5d;
+	    text-indent: 10px;
+	}
+	#divPriceTips .close
+	{
+	    display: inline-block;
+	    position: absolute;
+	    right: 6px;
+	    top: 0px;
+	    cursor: pointer;
+	    color: #6d5801;
+	}
+
+.msg-helper2{position: relative;padding-right: 55px;}
+.btnupload{position: absolute;right: 5px;top: 2px;}
+
+</style>
+</head>
+
+<body>
+    <div id="container">
+        <div id="header">
+            <ul class="nav-hd">
+                <li class="current"><a>发短信</a></li>
+                <li style="display: none;"><a href="">有奖分享</a></li>
+                <li><a href="javascript:void(0);" onclick="Common.openRecord(0,'sms_Record.html')">短信记录</a><a
+                    href="sms_setting.html"><i class="i-lock" id="lock" style="display: none;"></i></a></li>
+                <li><a href="javascript:;" onclick="top.Links.show('mms');return false;">发彩信</a></li>
+                <li><a href="javascript:;" onclick="top.Links.show('greetingcard');return false;">发贺卡</a></li>
+            </ul>
+            <span style="float: right; margin: 10px 250px 0 0; display: none;" id="tipsLink">
+            </span>
+            <p style="display: none;">
+                <a href="javascript:void(0)" id="aOpenCalendar" onclick="javascript:Common.openCalendar();return false;"
+                    behavior="日程提醒" ext="5" title="如您设置了约会、生日或备忘提醒，系统会在您指定的时间点，通过短信或邮件提醒您。">日程提醒</a>&nbsp;&nbsp;
+                <a id="aFileUpload" behavior="短信超人-文件快递" href="javascript:void(0)">快速把文件发送到手机&gt;&gt;</a>
+            </p>
+        </div>
+        <div>
+        </div>
+        <div id="wrapper">
+            <div id="content">
+                <div class="rcd-hd">
+                    <!--<a href="javascript:void(0)" id="aFreeSms" onclick="gotoMail()" class="linkSms">免费发短信请点此</a> -->
+                    <a class="btnSmsSend btnNm" href="javascript:;" id="btnSmsSendHeader"><i class="but_lIco">
+                    </i><span class="but_bg-x">发送</span><i class="but_rIco"></i></a><a class="btnSetTime btnNm" href="javascript:;" id="btnSetTimeHeader" style="margin-left: 10px;"><i class="but_lIco">
+                    </i><span class="but_bg-x">定时发送</span><i class="but_rIco"></i></a><a class="btnFlashMms btnNm"
+                        type="javascript:;" id="btnFlashMmsHeader" style="margin-left: 10px;"><i class="but_lIco"></i><span
+                            class="but_bg-x">彩字发送</span><i class="but_rIco"></i></a>
+                </div>
+                <table cellpadding="0">
+                    <tr id="trChooseType" style="display: none" class="choose-type">
+                        <th>
+                            <label>
+                                选择类型：</label>
+                        </th>
+                        <td>
+                            <label>
+                                <input name="choosetype" value="3" checked="checked" type="radio" /><strong>免费短信</strong></label>
+                            <label>
+                                <input name="choosetype" type="radio" value="2" /><strong>点对点短信</strong></label>
+                            <em class="p-type">对方手机看到短信由<span>10658139</span>发出</em> <em>对方手机看到短信由<span>您的手机号码</span>发出</em>
+                        </td>
+                    </tr>
+                    <tr class="receive show-tooltip show-input-tip" id="trReceive">
+                        <th>
+                            <label>
+                                接收手机：</label>
+                        </th>
+                        <td>
+                            <div class="msg-helper msg-helper2">
+                                <div id="txtMobiles">
+                                    <div style="width: 99%;">
+                                        <div id="RichInputBoxID" class="input-text">
+                                            <span class="input-text ">
+                                                <input type="text" id="txtMob" class="text input-default" style="width: 100%" tabindex="1"
+                                                    backspacedeleteoff="true"></input>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="input-text ">
+                                    <input id="txtMobile" style="display: none" class="text input-default" type="text" /></span>
+                                <div id="divMobileError" class="tooltip warn-tooltip" style="display: none;">
+                                    <div class="bd">
+                                        <p>
+                                            <strong>请输入正确的中国移动手机号码, 号码间以“,”分割</strong>
+                                        </p>
+                                        <div class="pointer">
+                                            <span class="pt-bd"></span>
+                                        </div>
+                                        <i class="i-warn"></i>
+                                        <!--[if lte IE 7]>
+								<iframe class="ifr-helper"></iframe><![endif]-->
+                                    </div>
+                                </div>
+                                <a class="btnNm btnupload" href="javascript:;" id="btnImportSmsContact"><i class="but_lIco"></i><span class="but_bg-x">导入</span><i class="but_rIco"></i></a>
+                          </div>
+                        </td>
+                    </tr>
+                    <tr id="trPriceTips" class="sms-content">
+                        <th style="padding-top: 0px;">
+                        </th>
+                        <td style="padding-top: 0px;">
+                            <div class="msg-helper">
+                                <div class="textarea">
+                                    <div id="divPriceTips">
+                                        <span>有1位联通或电信用户，每条与本地资费相同</span><span class="close" title="关闭提示">x</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr id="trBirthday" style="display: none">
+                        <th>
+                        </th>
+                        <td>
+                            <div class="sendBlessListWrap" style="padding: 0;">
+                                <p class="top_txt">
+                                    <span class="fl">选择接收生日祝福的寿星们：</span><a href="javascript:;" onclick="javascript:top.Links.show('greetingcard','&birthday=1&id=38')">发贺卡祝福</a>&nbsp;&nbsp;<a
+                                        href="javascript:;" onclick="javascript:top.Links.show('mms','&mmstype=birthday&id=38')">发彩信祝福</a>
+                                </p>
+                                <div id="friendList">
+                                </div>
+                                <p class="bom_txt">
+                                    以上好友的生日信息来自139邮箱注册或设置。
+                                </p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="sms-content" id="trSMSContent">
+                        <th>
+                            <label>
+                                短信内容：</label>
+                        </th>
+                        <td>
+                            <div class="msg-helper">
+                                <div class="textarea">
+                                    <div style="padding: 2px 5px">
+                                        <textarea id="txtContent" tabindex="2" style="width: 100%; padding: 0; resize: none;"></textarea>
+                                    </div>
+                                    <div class="ft">
+                                        <p id="pLetterCount" class="letter-count">
+                                            还可输入<em>0</em>字，本次将以<em>0</em>条计费
+                                        </p>
+                                        <div id="divSign" class="sign-select">
+                                            <dl id="dlIdiograph" class="dropdownlist">
+                                                <dt>短信签名<i class="i-down"></i></dt>
+                                                <dd>
+                                                    <ul>
+                                                    </ul>
+                                                </dd>
+                                            </dl>
+                                        </div>
+                                        <dl class="from-139">
+                                            <dt id="dtFrom139">[来自139邮箱] </dt>
+                                            <dd>
+                                                &quot;[来自139邮箱]&quot;是系统签名，不会多扣除您的条数和费用。 接收方会在短信末尾看到系统签名。</dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                                <div id="divContentError" class="tooltip warn-tooltip">
+                                    <div class="bd">
+                                        <p>
+                                            <strong>请输入正确的中国移动手机号码, 号码间以“,”分割</strong>
+                                        </p>
+                                        <div class="pointer">
+                                            <span class="pt-bd"></span>
+                                        </div>
+                                        <i class="i-warn"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            选择方式：
+                        </th>
+                        <td>
+                            <div class="select-type" style="height: auto;">
+                                <ul class="box-list" style="padding-bottom: 0;">
+                                    <li>
+                                        <input type="radio" id="radio2" name="smstype" /><label for="radio2">普通短信<span style="color: #747B95;">（推荐）</span></label>
+                                    </li>
+                                    <li>
+                                        <input type="radio" id="radio3" name="smstype" /><label label for="radio3">免提短信</label>&nbsp;&nbsp;<span
+                                            style="position: relative; top: 2px; color: #747B95;">（无需点击，按70字/条逐条直接显示，需手动保存）</span>
+                                    </li>
+									<li>
+										<p style="margin-top:10px;"> <input type="checkbox" name="smsRecordAutoSave" id="smsRecordAutoSave" checked /><label for="smsRecordAutoSave">自动保存发送记录</label></p>
+									</li>
+                                </ul>
+                                <div class="tooltip" id="rad3">
+                                    <div class="bd">
+                                        <p>
+                                            无需点击，直接显示，需手动保存。按70字/条显示。
+                                        </p>
+                                        <div class="pointer" style="left: 120px;">
+                                            <span class="pt-bd"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <!--双通道HTML-->
+                    <tr id="doubleEnable" style="display: none;">
+                        <th>
+                        </th>
+                        <td>
+                            <input id="cbxSendMsg" type="checkbox" class="chunnel" /><label class="chunnel" for="cbxSendMsg">同时发邮件到对方139邮箱</label>
+                            <a id="chunnelDesc" target="_blank">了解更多&gt;&gt;</a>
+                        </td>
+                    </tr>
+                    <tr id="trValide" class="rnd-code">
+                        <th>
+                            <label>验证码：</label>
+                        </th>
+                        <td>
+                            <div id="divValidate" class="newcodepr">
+                                <div id="spanValidate" class="newcodepr newcodeinput">
+                                    <input id="txtValidate" class="" type="text" value="请点击获取验证码" />
+	                            </div>
+								<div class="newcode" id="divValidateLayer" style="display:none;">
+									<div class="codeclear">
+										<img alt=""  id="imgValidate"  />
+										<div class="bbt">
+											<p>图案显示的是什么？</p>			
+											<a href="javascript:void(0);" id="aValidate">看不清换一张</a>
+										</div>
+									</div>
+									<p class="bbb">请输入答案前的 <span>数字或字母</span></p>	
+								</div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <div id="divMoneyTip" class="money-tip">
+                    本条共<em class="other">270</em>字,将以<em class="other">0</em>条计费,本月赠<em>30</em>条,已发送<em>1</em>条，超出按
+                    0.1元/条计费,<a href="javascript:void(0);">关闭超出提醒</a><dl class="qa show-tooltip">
+                        <dt><i class="i-help"></i></dt>
+                        <dd>
+                            <div class="tooltip">
+                                <div class="bd">
+                                    <p id="pshowtip">
+                                    </p>
+                                    <div class="pointer">
+                                        <span class="pt-bd"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </dd>
+                    </dl>
+                    <!--<p id="pRedUserTip">温馨提示：一天内最多发送50条，一月内最多发送1000条<br />
+				为避免影响其他用户，请不要<em class="other">半小时</em>内发送短信超过<em class="other">300</em>条，超出免费条数的短信收入归中国移动所有！</p>
+				-->
+                </div>
+                <div class="rcd-hd">
+                    <a class="btnSmsSend btnNm" href="javascript:;" id="btnSmsSendFooter"><i class="but_lIco">
+                    </i><span class="but_bg-x">发送</span><i class="but_rIco"></i></a><a class="btnSetTime btnNm" href="javascript:;" id="btnSetTimeFooter" style="margin-left: 10px;"><i class="but_lIco">
+                    </i><span class="but_bg-x">定时发送</span><i class="but_rIco"></i></a><a class="btnFlashMms btnNm"
+                        type="javascript:;" id="btnFlashMmsFooter" style="margin-left: 10px;"><i class="but_lIco"></i><span
+                            class="but_bg-x">彩字发送</span><i class="but_rIco"></i></a>
+                </div>
+            </div>
+        </div>
+        <div id="aside">
+            <ul class="as-nav">
+                <li>通讯录</li>
+                <li class="current">经典短信</li>
+                <li style="display: none">热门共享</li>
+            </ul>
+            <div class="aside-bd">
+                <div id="divLinkManSearch" class="addressListContent1" style="display: none;">
+                </div>
+                <div id="addressListContent2" class="addressListContent2" style="display: block;">
+                    <iframe id="smslistframe" frameborder="0" width="229" height="435" scrolling="auto"
+                        target="_self"></iframe>
+                    <!--target="_self"-->
+                </div>
+                <div class="addressListContent3" style="display: none;">
+                    <div class="hd">
+                        <span class="select">
+                            <select id="sltHotShareSmsBarClass">
+                                <!--<option>短信基地</option>-->
+                                <option value="0">短信分类</option>
+                            </select>
+                        </span><span class="select select-2">
+                            <select id="sltHotShareSmsBarType">
+                                <option selected="selected" value="-1">最新创建</option>
+                                <option value="2">本日最热</option>
+                                <option value="3">一周最热</option>
+                                <option value="4">本月最热</option>
+                            </select>
+                        </span>
+                    </div>
+                    <div class="adc-bd">
+                        <p class="search">
+                            <input id="txtSearchMobile" class="input-default" type="text" value="搜索好友..." />
+                            <button id="btnSearchMobile" class="close" type="button">
+                            </button>
+                        </p>
+                        <ul id="ulShareSmsBarPager" class="pager">
+                            <li class="previous"></li>
+                            <li class="count">1/3</li>
+                            <li class="next"></li>
+                        </ul>
+                        <p class="sms-list" id="pNoHotShareSms">
+                            暂无短信
+                        </p>
+                        <!--<ul id="ulHotShareSmsListBar" class="sms-list" style="display: none;">
+                        </ul>-->
+                    </div>
+                </div>
+            </div>
+            <div class="aside-pointer">
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="HiddisNote" value="" />
+    <input type="hidden" id="HiddNoteValue" value="" />
+    <input type="hidden" id="hidSerialId" value="-1" />
+    <input type="hidden" id="hidShareSmsId" value="" />
+    <input type="hidden" id="hidShareSmsContent" value="" />
+    <input type="hidden" id="hidShareSmsUsernumber" value="" />
+    <input type="hidden" id="hidSmsId" value="" />
+    <input type="hidden" id="hidSmsContent" value="" />
+    <input type="hidden" id="hidIsLimit" value="" />
+    <input type="text" id="txtfocus" style="display: none" />
+</body>
+
+<script type="text/javascript">
+
+    var page = new SendPage();
+
+    page.templeHotShareSms = ['<li>',
+		'<div class="sms-info">',
+			'<div class="count">',
+				'<div class="rc1"></div>',
+				'<div class="rc-bd"><p>{1}</p></div>',
+				'<div class="rc1"></div>',
+			'</div>',
+			'<div class="more-info"><p>{2} 发布</p></div>',
+		'</div>',
+		'<p>{0}</p>',
+		'</li>'];
+
+    page.templeIdiograph = '<li>{0}</li>';
+
+    page.htmlNotice = '<b style="display:none;">本条共<em class="other">0</em>字，将以<em class="other">0</em>条计费，</b>温馨提示:{0}<span id="spanLimit"></span><br /><p id="pRedUserTip">为避免影响其他用户，请不要<em class="other">半小时</em>内发送短信超过<em class="other">300</em>条，超出免费条数的短信收入归中国移动所有！</p>';
+
+    //生日提醒
+    var isBirthdayPage = false;
+    if (Utils.queryString("birthday")) {
+        isBirthdayPage = true;
+    }
+    $(function () {
+
+        //根据程序动态读取给值
+
+        //window.frames["smslistframe"].location.reload()
+
+        page.load();
+
+        $(".RichInputBoxLayout").css("padding", "2px 0 0 0").css("background", "#fff").css("margin-right", "1px").width("99%").css({ "border-color": "#7C7C7C #C3C3C3 #fff #9A9A9A", 'border-bottom': 'none' });
+        $(".RichInputBoxLayout input").width("100%").css("margin-left", "2px");
+
+        //chunnelDesc.html
+        $("#chunnelDesc").attr("href", "sms_help.html?provid=" + top.UserData.provCode);
+
+        if (!window.isMainDataLoadError) {
+            $("#smslistframe").attr("src", top.getDomain("rebuildDomain") + "/sms/uploads/html/SmsList/smslist_new_7.html?v=20121022");
+        }
+    });
+
+    function setNoticeAndSendSms(isNotice) {
+        page.setNoticeAndSendSms(isNotice);
+    }
+    function setMoneyTip(flag) {
+        var config = new Config();
+        config.editNote(flag);
+    }
+    function onModuleShow() {
+        setTimeout(function () {
+            $("#divContentError").removeClass("show-tooltip");
+            $("#divMobileError").removeClass("show-tooltip");
+        }, 0);
+    }
+
+    function AutoSelect() {
+        try {
+            $("#txtContent").val($(document.getElementById("smslistframe").contentWindow.document).find(".sms-list li p").get(0).innerHTML.trim() + $("#txtContent").val());
+            BirthdayCheckWord();
+        }
+        catch (e) { }
+    }
+    function AutoLoad(listType) {
+        var mb = "";
+        if (top.isRichmail) {
+            mb = "/sms";
+        }
+        if (!window.isMainDataLoadError) {
+            $("#smslistframe").attr("src", top.getDomain("rebuildDomain") + "/sms/uploads/html/SmsList/smslist_" + listType + ".html?v=20121022");
+        }
+        setTimeout("AutoSelect()", 2000);
+    }
+
+
+    var singleBirthDay = Utils.queryString("singleBirthDay");
+    var br = "";
+    var birthdayData;
+    function BirthdayCheckWord() {
+        var emaillist = '';
+        var nodeList;
+        try {
+            nodeList = br.getDataList("input[checked=true]");
+        } catch (e) { }
+        var arrBirthday;
+        var mobile = "";
+        if (nodeList != null && nodeList.length > 0) {
+            for (var i = 0; i < nodeList.length; i++) {
+                arrBirthday = nodeList[i].split(',');
+                //提醒邮件地址/号码
+                mobile = arrBirthday[0];
+                if (mobile.substring(0, 2) == "86") {
+                    mobile = mobile.substring(2);
+                }
+                emaillist += mobile + ","; //发送短彩用
+            }
+        }
+        $("#txtMobile").val(emaillist);
+        nodeList = null;
+        var commonPage1 = new CommonPage();
+        commonPage1.smsLength = 350;
+        var smsSize = 70;
+        if ($("input[name='smstype']:eq(0)").attr("checked")) {
+            if ($("#txtContent").attr("value").length > 70)
+                smsSize = 67;
+        }
+        commonPage1.checkInputWord(smsSize, 1);
+    }
+    Utils.requestByScript("listByTemplate", top.resourcePath + "/js/listByTemplate.js", function () {
+        top.$App.getModel("contacts").requireData(function () {
+            if (Utils.queryString("singleBirthDay") == "1") {
+                if (top.SiteConfig.birthMail) {
+                    birthdayData = top.$App.get('birth').birdthMan;
+                } else {
+                    birthdayData = top.BirthRemind.birdthMan;
+                }
+            } else {
+                birthdayData = top.$App.getModel("contacts").get("data").birthdayContacts || [];
+            }
+            function SentCallback(result) {
+                var names = "";
+                if (result["var"] != undefined) {
+                    $.each(result["var"].mobiles, function (index, item) {
+                        names += item + "、";
+                    });
+                    if (names != "") {
+                        names = names.substr(0, names.length - 1);
+                    }
+                }
+                initBirthdayPage(names);
+            }
+            function sentNumList() {
+                var url = "/mw2/card/cardsvr?func=card:birthdayRemind&sid={0}".format(top.UserData.ssoSid);
+                var data = '<object><string name="op">get</string></object>';
+                Common.postXml({
+                    url: url,
+                    data: data,
+                    error: function (err) { initBirthdayPage(""); },
+                    success: function (result) {
+                        SentCallback(result);
+                    }
+                });
+            }
+            function initBirthdayPage(sentList) {
+                $("#tipsLink").hide();
+                $("#trBirthday").show();
+                //$("#trTool").hide();
+                $("#trReceive").hide();
+                $("#btnFlashMmsHeader").hide();
+                $("#btnFlashMmsFooter").hide();
+                //生日提醒		
+                br = new ListByTemplate({
+                    "listContainer": "friendList",
+                    "dataSource": birthdayData,
+                    "sentNumbers": sentList,
+                    "itemOnClickCallBack": BirthdayCheckWord,
+                    "explainMsg": "已发送祝福"
+                });
+                isBirthdayPage = true;
+
+                setTimeout("AutoLoad('35_1_1')", 2000);
+            }
+            if (!isBirthdayPage) {
+                if (birthdayData && parseInt(birthdayData.length) > 0) {
+                    //生日提醒
+                    /*
+                    new ListByTemplate({
+                    "linkContainer": "tipsLink",
+                    "dataSource": top.Contacts.data.birthdayContacts,
+                    explainMsg: "已发送祝福"
+                    });
+                    $("#tipsLink").click(function() {
+                    sentNumList();
+                    //日志上报
+                    top.addBehaviorExt({
+                    actionId: 30157,
+                    thingId: 0,
+                    moduleId: 14
+                    });
+                    return false;
+                    });
+                    //$("#tipsLink").show();
+                    */
+                    $("#trBirthday").hide();
+                }
+            } else {
+                sentNumList();
+            }
+        });
+    }, "utf-8");
+
+    if (singleBirthDay == 1) {
+        var ael = $("#trBirthday").find("a");
+        ael[0].onclick = function () {
+            top.Links.show('greetingcard', '&birthday=1&singleBirthDay=' + singleBirthDay + '&id=38');
+        };
+        ael[1].onclick = function () {
+            top.Links.show('mms', '&mmstype=birthday&singleBirthDay=' + singleBirthDay + '&id=38');
+        }
+    }
+
+    /**
+     *fixed css bug
+     *计费提示开启状态tip靠左溢出屏幕
+     */
+    setTimeout(function () {
+        $("#aNotice").mouseover(function () {
+            setTimeout(function () {
+                var $el = $("#dlNotice .tooltip");
+                var offsetLeft = $el.offset().left;
+                if (offsetLeft < 0) {
+                    var pointer = $el.find(".pointer");
+                    $el.css("left", parseInt($el.css("left")) - offsetLeft);
+                    pointer.css("right", parseInt(pointer.css("right")) - offsetLeft);
+                }
+            }, 0);
+        });
+    }, 1000);
+</script>
+<script>top.loadCSS(["module/fontbase.css"], document);</script>
+</html>

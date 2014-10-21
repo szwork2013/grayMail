@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="Keywords" content=""/>
+		<meta name="Description" content=""/>
+		<title>139邮箱-邮箱营业厅</title>
+		<script type="text/javascript">
+            document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+
+            top.loadScript("libs.pack.js", document);
+            top.loadScript("m139.core.pack.js", document);
+            top.loadScript("m2012.ui.common.pack.js", document);
+            top.loadScript("hall.mybiz.html.pack.js", document);
+
+            top.loadCSS(["common/global.css", "module/hall/hall.css"], document);
+		</script>
+		
+		<script src="../../js/mockdata/m139.api.mock.js"></script>
+		<script src="../../js/mockdata/hall.mockdata.js"></script>
+		
+		<style type="text/css">
+			html, body {
+				height: 100%;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="hall-title" id="title">
+			<a href="index.html">邮箱营业厅</a> &gt; <strong>我的业务</strong>
+		</div>
+		<div id="body" style="overflow:auto;position:relative;">
+			<div class="hall-body">
+				<div class="hall-myb">
+					<div id="basic">
+						<textarea id="template_basic" style="display:none;">
+							<!--item start-->
+							<dl class="hall-dl-list hall-dl-on">
+								<dt>
+									<span class="dt-name fw_b">$typeName</span>
+									<a href="###" name="$typeId" class="btnNormal hallBizReorderBtn"> <span>更 换</span> </a>
+								</dt>
+								<dd class="union-dd">
+									<a name="$curr.id"> </a>
+									<div class="hall_title_bar" name="$curr.id" style="cursor:pointer;">
+										<div class="dt-num">
+											本月套餐
+										</div>
+										<span class="dt-name">$curr.name（<span class="c_009900">$curr.expense</span> 元/$curr.unit）</span>
+									</div>
+									<div class="tips union-tips" style="display:none;">
+										<a href="###" class="i_u_close" title="关闭"> </a>
+										<div class="tips-text">
+											<p>$curr.main</p>
+											<div class="dd-line"> </div>
+											<p>$curr.extra</p>
+										</div>
+										<div class="tipsTop diamond"> </div>
+									</div>
+								</dd>
+								<dd class="union-dd">
+									<a name="$next.id"> </a>
+									<div class="hall_title_bar" name="$next.id" style="cursor:pointer;">
+										<div class="dt-num">
+											下月套餐
+										</div>
+										<span class="dt-name">$next.name（<span class="c_009900">$next.expense</span> 元/$next.unit）</span>
+									</div>
+									<div class="tips union-tips" style="display:none;">
+										<a href="###" class="i_u_close" title="关闭"> </a>
+										<div class="tips-text">
+											<p>$next.main</p>
+											<div class="dd-line"> </div>
+											<p>$next.extra</p>
+										</div>
+										<div class="tipsTop diamond"> </div>
+									</div>
+								</dd>
+							</dl>
+							<!--item end-->
+						</textarea>
+					</div>
+					<!-- 增值业务 -->
+					<dl class="hall-dl-list hall-dl-on" id="vas" style="display:none;">
+						<textarea id="template_vas" style="display:none;">
+							<dt>
+								<span class="dt-name fw_b">增值业务</span>
+								<a href="###" class="btnNormal hallBizReorderBtn"> <span>更 换</span> </a>
+							</dt>
+							<!--item start-->
+							<dd class="union-dd">
+								<a name="$id"> </a>
+								<div class="hall_title_bar" name="$id" style="cursor:pointer;">
+									<span class="dt-name">$name（<span class="c_009900">$expense</span> 元/$unit）</span>
+								</div>
+								<div class="tips union-tips" style="display:none;">
+									<a href="###" class="i_u_close" title="关闭"> </a>
+									<div class="tips-text">
+										<p>
+											$main
+										</p>
+									</div>
+									<div class="tipsTop diamond"> </div>
+								</div>
+							</dd>
+							<!--item end-->
+						</textarea>
+					</dl>
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript">
+            new M2012.Hall.View.MyBusiness();
+		</script>
+	</body>
+</html>

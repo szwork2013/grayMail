@@ -1,0 +1,75 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="Keywords" content="">
+    <meta name="Description" content="">
+    <title>通讯录编辑群组-139邮箱</title>
+    <script>
+        document.domain = location.host.match(/[^.]+\.[^.]+$/)[0];
+
+        top.loadCSS('common/global.css', document);
+        top.loadCSS('module/addr/addrnew.css', document);
+        top.loadCSS('module/addr/addr.css', document);
+        top.m139LoadScript('libs.pack.js', document);
+        top.m139LoadScript('m139.core.pack.js', document)
+        top.m139LoadScript("m2012.ui.common.pack.js", document);
+    </script>
+</head>
+<body>
+<div class="addr-list-body">
+		<div class="setArea">           
+            <h2>编辑群组<a href="javascript:;" class="fanghui" id="goBack">&lt;&lt;返回</a></h2>
+        </div>   
+       <div class="add-group">
+		<div class="name mt_10">
+			<strong>群组名称：</strong><input type="text" class="iText" id="txtClusterName" maxlength="16" style="color: rgb(170, 170, 170); width:440px;">
+		</div>
+		<div class="addFormContact">
+			<table>
+				<tbody>
+				<tr>
+					<td>联系人</td>
+					<td width="32"></td>
+					<td id="lblSelectedCount">已选中(0)</td>
+				</tr>
+				<tr>
+					<td>
+                        <div class="addFcLeft p_relative AddressBookContainer" id="addrContainer">
+
+                        </div>
+					</td>
+					<td width="32" style="vertical-align:middle" class="ta_c"><i class="i_addjt"></i></td>
+					<td>
+						<div class=" addFcRight" id="divSelection">
+						</div>
+					</td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+			<span class="all-null">选择: &nbsp;
+                <a class="tdu" title="" href="javascript:void(0)" id="aClearSelected">清空已选</a></span>
+			<p class="mt_10">
+				<a role="button" id="btnSubmit" hidefocus="" class="btnSetG" href="javascript:;"><span>保 存</span></a>
+                <a role="button" id="btnCancel" hidefocus="" class="btnSet ml_5" href="javascript:;"><span>取 消</span></a>
+			</p>
+		</div>
+		
+   </div> 
+   <div id="divClusterEmptyTips" class="tips" style="left:23px;top:40px; display:none;" role="tooltip">
+		<div class="tips-text"><i class="i-ok mr_5"></i>群组名不能为空</div>
+		<div class="tipsBottom  diamond"></div>
+	</div>
+    <div id="divClusterMememberMaxTips" class="tips" style="left: 263px; top: 109px; display: none;" role="tooltip">
+        <div class="tips-text"><i class="i-ok mr_5"></i>群组人数最多50人</div>
+        <div class="tipsBottom  diamond"></div>
+    </div>
+</body>
+</html>
+<script>
+    top.m139LoadScript('/m2012/js/ui/widget/contacts/m2012.ui.widget.contacts.model.js', document);
+    top.m139LoadScript('/m2012/js/ui/widget/contacts/m2012.ui.widget.contacts.view.js', document);
+    top.m139LoadScript('/m2012/js/service/addr/cluster/m2012.addr.cluster.model.edit.js', document);
+    top.m139LoadScript('/m2012/js/service/addr/cluster/m2012.addr.cluster.view.edit.js', document);
+</script>

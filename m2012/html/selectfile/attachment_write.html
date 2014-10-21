@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>附件夹-139邮箱</title>
+
+<script type="text/javascript">
+	document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+</script>
+<script>
+    top.loadScript('libs.pack.js', document);
+    top.loadScript('m139.core.pack.js', document);
+    top.loadScript("m2012.ui.common.pack.js", document);
+</script>
+<script>top.loadCSS(["common/global.css", "module/FileExtract/extract.css", "module/networkDisk/networkDisk.css"], document);</script>
+<style>
+.listHead th{
+	background: #fafafa;
+	}
+	body{
+	background: #fafafa;
+	}
+
+</style>
+</head>
+<body>
+<div class="boxIframeText_new">
+<div class="savefile-search savefile-search2" style="display: none;" id="searchDiv"><!--  输入字时加上 savefile-search-on -->
+    <i class="i_c-search"></i>
+    <input type="text" class="iText gray" value="搜索附件夹" id="keywords"/> 
+	<a hideFocus="1" href="javascript:void(0)" class="btnNormal" id="search"><span>搜 索</span></a>
+</div>
+<div class="diskTableList onScollTable" style="border-bottom: 1px solid #e6e6e6;">
+<table cellspacing="0" cellpadding="0" class="listHead newShareTable">
+    <tbody>
+    <tr>
+        <th class="wh1" style="border-bottom:none;">
+            <a hideFocus="1" href="javascript:void(0)"><input type="checkbox" id="allOrNone"/></a>
+        </th>
+        <th class="" style="border-bottom:none;">
+            <a hideFocus="1" href="javascript:void(0)" id="aFileName" style=""><span>文件名</span><i class=""></i></a>
+        </th>
+        <th class="wh6 gray" style="border-bottom:none;">
+            <a hideFocus="1" href="javascript:void(0)" id="aFileSize" style=""><span>大小</span><i class=""></i></a>
+        </th>
+    </tr>
+    </tbody>
+</table>
+</div>
+<p class="gray pl_5 pt_5 pb_5" id="searchResunt" style="display: none">搜索结果:</p>
+<div class="nosearchend" style="display: none;">                
+    <p ><span class="gray"></span>没有找到相关文件</p>
+	<a hideFocus="1" href="javascript:void(0)" class="i_u_close"></a>
+</div>
+<div class="appendixList p_relative bgPadding_left" id="fileList" style="height: 348px; margin-top: 0px; overflow-x: hidden; overflow-y: auto;">
+</div>
+</div>
+ <div class="boxIframeBtn">
+			<span class="bibText" id="fileCount" style="display: none;">共选中<b class="c_ff6600"></b>个文件</span>
+			<span class="bibBtn">
+				<a class="btnSure mr_5" id="confirm" href="javascript:void(0)">
+					<span>确 定</span>
+				</a>
+				<a class="btnNormal" id="cancel" href="javascript:void(0)">
+					<span>取 消</span>
+				</a>
+			</span>
+        </div>
+<!--<div class="boxIframeBtn">
+    <span class="bibText">已选择:<strong class="c_ff6600" id="fileCount">0</strong>个文件</span>
+    <span class="bibBtn"> <a hideFocus="1" href="javascript:void(0)" class="btnNormal" id="confirm"><span>确定</span></a> </span>
+</div>-->
+</body>
+<script>top.loadScript("attach_write.html.pack.js", document)</script>
+<!-- 
+<script src="../../js/ui/selectfile/m2012.ui.selectfile.model.storagecabinet.js"></script>
+<script src="../../js/ui/selectfile/m2012.ui.selectfile.view.storagecabinet.js"></script>-->
+</html>

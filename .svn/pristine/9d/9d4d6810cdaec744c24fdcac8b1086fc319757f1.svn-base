@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<script type="text/javascript" src='jquery.js'></script>
+	<STYLE TYPE="text/css">
+		 body, div, h1, h2, h3, h4, h5, h6, p, em, img, ol, ul, li{margin: 0;padding: 0;}
+		 ol, ul {list-style: none;}
+		.letter-meeting{padding:0 10px;font-family:"Microsoft yahei";}
+		.letter-meeting .editable{color:#999999;}
+		.letter-meeting .editable:hover{color:#999999;background:#cdecff;}
+		.letter-meeting .meeting-warp{ padding:0 0px 3px 0px;background:#dae4ea;}
+		.letter-meeting .meeting-min{ border:1px #d3d3d3 solid; background:#f3fbff;padding:18px 10px;}
+		.letter-meeting .meeting-min .meeting-head{padding-bottom:10px;border-bottom:2px #246085 solid;position:relative;}
+		.letter-meeting .meeting-head h1{font-size:16px;color:#444444;text-align:center;font-weight:100;}
+		.letter-meeting .meeting-head .com-name p{font-size:14px;line-height:18px; color:#999999;}
+		.letter-meeting .meeting-head .com-left{border-bottom:2px #d43434 solid;
+			margin-right: 80%;
+			top:12px;
+			position: relative;
+		}
+		.letter-meeting .meeting-head .com-logo{float:right;display:block;background:url(letter-uploade.png);}
+		.letter-meeting .meeting-head .com-logo img{border:none;outline:none;}
+		.letter-meeting .meeting-head .com-logo:hover{background-position:-121px 0;}
+		.letter-meeting .meeting-min .meeting-cont ul{margin-top:22px;margin-bottom:25px; font:14px/35px "Microsoft yahei";color:#444;}
+		.letter-meeting .meeting-cont .min-text{font:14px/30px "Microsoft yahei"; color:#444444;position:relative;}
+		.letter-meeting .meeting-cont .min-text .participant{margin-bottom:10px;}
+		.letter-meeting .meeting-cont .min-text .con-text{padding-left:19px;margin-top:8px;position:relative;}
+		.letter-meeting .meeting-cont .min-text .con-text ol{list-style:decimal inside none;line-height:20px;padding-left:26px;}
+		.letter-meeting .meeting-cont .min-text .text-foot{ text-align: right;}
+		.editable > .tpl-black{ color:#333;}
+	</STYLE>
+	<title>会议纪要</title>
+</head>
+<body contenteditable="true"  >
+	<div class="letter-meeting">
+		<div class="meeting-warp">
+			<div class="meeting-min">
+				<div class="meeting-head">
+					<div class="com-name">
+						<h1><span class='editable'   >公司中文名称</span></h1>
+					</div>
+					<div class="com-left"></div>
+				</div>
+				<div class="meeting-cont">
+				
+					<div class="min-text">
+						<div class="con-text">
+							<ul>
+								<li><span>会议主题：</span><span class="editable">主题</span></li>
+								<li><span>时&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;间：</span><span class="editable">时间</span></li>
+								<li><span>地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;点：</span><span class="editable">地点</span></li>
+							</ul>
+							<p class="participant">参加人员：<span class="editable">参加人员姓名</span></p>
+							<p>会议内容：</p>
+							<ol>
+								<li><span class="editable">内容</span></li>
+								<li><span class="editable">内容</span></li>
+								<li><span class="editable">内容</span></li>
+								<li><span class="editable">内容</span></li>
+							</ol>
+							<p>会议结论：</p>
+							<ol>
+								<li><span class="editable">内容</span></li>
+								<li><span class="editable">内容</span></li>
+								<li><span class="editable">内容</span></li>
+								<li><span class="editable">内容</span></li>
+							</ol>
+						</div>
+						<p class="text-foot">记录人：<span class="editable">(签名)</span></p>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

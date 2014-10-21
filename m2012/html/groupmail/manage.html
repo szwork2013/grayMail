@@ -1,0 +1,79 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="Keywords" content="">
+    <meta name="Description" content="">
+    <title>群邮件</title>
+     <script type="text/javascript">
+         document.domain = window.location.host.match(/[^.]+\.[^.]+$/)[0];
+ 	</script>
+	<script>
+	    top.loadScript('libs.pack.js', document);
+	    top.loadScript('m139.core.pack.js', document);
+	    top.loadScript("m2012.ui.common.pack.js", document);
+	</script>
+	<script>top.loadCSS(["common/global.css"], document);</script>
+<body>
+<p>
+<a href="list.html">&lt;群邮件</a>&nbsp;|
+    <a href="javascript:" id="link_create">创建群</a>&nbsp;|
+    <a href="javascript:" id="link_invite">邀请记录</a>
+</p>
+<div id="div_grouplist" style="width:300px;float:left">
+</div>
+<div id="div_invitelist" style="width:600px;float:left;display:none">
+  invitelist
+</div>
+<div id="div_editgroup" style="width:600px;float:left;display:none">
+  创建群/编辑群
+</div>
+<div id="div_memberlist" style="width:600px;float:left">
+  memberlist
+</div>
+    <textarea id="template_memberlist" style="display:none">
+        <ul>
+		<!--item start-->
+            <li>@getName(name)--------@getEmail(email)</li>
+           
+		<!--item end-->
+        </ul>
+	</textarea>
+
+    <textarea id="template_invitelist" style="display:none">
+        <ul>
+		<!--item start-->
+            <li><a  href="javascript:">@getContent()</a></li>
+           
+		<!--item end-->
+        </ul>
+		</textarea>
+</body>
+
+<!--<script>top.loadScript("disk.html.pack.js", document)</script> -->
+
+<script src="../../js/service/groupmail_v2/common/m2012.groupmail.app.js"></script>
+<script src="../../js/service/groupmail_v2/common/m2012.groupmail.model.base.js"></script>
+<script src="../../js/service/groupmail_v2/common/m2012.groupmail.command.js"></script>
+<script src="../../js/service/groupmail_v2/manage/m2012.groupmail.model.manage.js"></script>
+ <script src="../../js/service/groupmail_v2/manage/m2012.groupmail.view.manage.main.js"></script>
+     <script src="../../js/service/groupmail_v2/manage/m2012.groupmail.view.memberlist.js"></script>
+<script src="../../js/service/groupmail_v2/manage/m2012.groupmail.view.groupedit.js"></script>
+<script src="../../js/service/groupmail_v2/manage/m2012.groupmail.view.grouppanel.js"></script>
+    <script src="../../js/service/groupmail_v2/manage/m2012.groupmail.view.invitelist.js"></script>
+    <script src="../../js/service/groupmail_v2/manage/m2012.groupmail.view.nogroup.js"></script>
+
+
+<script src="../../js/mockdata/m139.api.mock.js"></script>
+<script src="../../js/mockdata/test.mockdata.groupmail.js"></script>
+
+<script>
+    $(function () {
+        var model = new M2012.GroupMail.Model.Manage();
+
+        var main = new M2012.GroupMail.View.Manage.Main({ model: model });
+        main.render();
+        
+    });
+</script>
+</html>

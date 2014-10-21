@@ -1,0 +1,285 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>可能认识的人</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<script type="text/javascript">
+document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+function filltag(d,c,f){var b,a,e=[];while(d.length){a=d.shift();switch(true){case Object.prototype.toString.apply(a)==="[object Array]":b="<script "+(a[1].length>0?'charset="'+a[1]+'" ':"")+"src='"+(a[2]?a[2]:c)+"/js/"+a[0]+"' type='text/javascript'><\/script>";break;case a.indexOf(".js")>-1:b="<script "+(f?'charset="'+f+'" ':"")+"src='"+c+"/js/"+a+"' type='text/javascript'><\/script>";break;case a.indexOf(".css")>-1:b="<link rel='stylesheet' type='text/css' href='"+c+"/css/"+a+"' />";break;case a.length==0:b="<link rel='stylesheet' type='text/css' />"}e.push(b)}document.write(e.join(""))}
+var R = top.$App.getResourcePath(), addrsrc = R.replace('coremail', 'addr'),g='GB2312';
+filltag(['global2012.css', 'addr2012.css', 'addr_skin_snow.css'], R);
+
+
+try {
+top.loadScript("libs.pack.js", document);
+top.loadScript('m139.core.pack.js', document);
+top.loadScript("m2012.ui.common.pack.js", document);
+top.loadScript("m2011.utilscontrols.pack.js", document);
+top.loadScript("../../js/packs/addr/addr_zh_hans.pack.js", document);
+top.loadScript("../../js/packs/addr/addr_onykeyaddsuc.html.pack.js", document);
+} catch (ex) {}
+</script>
+
+<script type="text/javascript">
+Utils.loadSkinCss(null, document, "addr");
+document.write('<link href=\"' + R +'/css/min_global_all.css?v=20120210\"  charset=\"utf-8\" rel=\"Stylesheet\" type=\"text/css\"/> ');
+</script>
+</head>
+<body>
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+		<tbody>
+			<tr>
+				<td colspan="3" style="padding-right:2px;">
+					<div class="winTipC">
+						<div class="wTipCont">
+							<table class="car_inqure">
+								<tbody>                         
+								  <tr>
+								   <td class="td1"><input type="checkbox" value="" id="allContactsInSameGroup" />以下联系人分组到：</td>
+								   <td class="td2" id="allContastsGroup">
+								   </td>
+								 </tr>                  
+								</tbody>
+							</table>
+						<div class="tips" id="errortip" style="display:none;width:80px;top:56px;left:3px;z-index:999;">
+							<div class="tips-text">
+								<p class="norTips">请选择联系人</p>
+							</div>
+							<div class="tipsBottom diamond"></div>
+						</div>
+						<div class="lxidiv" style="height:205px;overflow-y:auto;margin-bottom:10px;">
+							<table id="chooseSignGroup" class="car_inqure">
+								<tr>
+								   <td class="td1"><strong style="padding-left:15px;">姓名</strong></td>
+								   <td class="td2"><strong>分组</strong></td>
+							   </tr>
+						</table>
+						</div>
+					<div style="text-align:right;" class="addrbtn">
+						<a href="javascript:;" id="btnOk" class="but YesButton">确&nbsp;定</a>
+						<a href="javascript:;" id="btnclose" class="but CancelButton">取&nbsp;消</a>
+					</div>
+					</div>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+<script type="text/javascript">
+$(function(){
+	var addr = top.document.getElementById(Pt.param("frame"));
+	var userInfo = addr.contentWindow.DealManager.oneKeyAddSucInfo;
+	var onekeyaddingroup = {
+		initGroup: function(){
+			var groups = top.Contacts.data.groups;
+			var selectHtml =""; //组装成select返回
+				selectHtml = "<select class='fengzsel'><option value=''></option>";
+			var optionHtml =[];
+			for(var i=0; i< groups.length; i++){
+				var op = "<option value='{0}'>{1}</option>";
+				var gId = Pt.htmlEncode(groups[i].GroupId);
+				var gName = Pt.htmlEncode(groups[i].GroupName); //一定要转义
+				if(gId&& gName){
+					optionHtml.push(op.format(gId,gName));
+				}
+			}
+			optionHtml = optionHtml.join("");
+			selectHtml += optionHtml;
+			selectHtml += "</select>";
+			return selectHtml;
+		},
+		initPage:function(){
+			var data = userInfo;
+			var signTrHtml="";
+			var dataHtml = [];
+			var groupInfo = this.initGroup(); //不能再转义
+			var signTrHtmlTmp ='<tr><td class="td1"><input type="checkbox" value={0} />{1}</td><td class="td2">{2}  <span style="display:none;"class="red">请选择分组</span></td></tr>';
+			for(var i=0; i<data.length; i++){
+				var sId = Pt.htmlEncode(data[i].SerialId);
+				var sName = Pt.htmlEncode(data[i].UserName);    //一定要转义
+				if(sId && sName){
+					dataHtml.push(signTrHtmlTmp.format(sId,sName,groupInfo));
+				}
+			}
+			dataHtml = dataHtml.join("");
+			$(dataHtml).insertAfter($("#chooseSignGroup tr:first"));
+			var allInGrouptdhtml = groupInfo + " <span style='display:none;' class='red'>请选择分组</span>";
+			$(allInGrouptdhtml).appendTo($("#allContastsGroup"));
+		}
+		
+	};
+	
+	
+	onekeyaddingroup.initPage();
+	$("#allContastsGroup select").attr("disabled","disabled");
+
+	//全部保存到一个接口交互
+	$("#allContactsInSameGroup").click(function(){
+		$("#errortip").hide();
+		$("#chooseSignGroup input[type=checkbox]").attr("checked",this.checked);
+		$("#allContastsGroup select").attr("disabled",!this.checked);
+		var selectedGroup = $("#allContastsGroup select").val();
+		var signsGroup = $("#chooseSignGroup select");
+		$(signsGroup).each(function(e,v){ //点击了保存到同一组后 每个联系人分组的值都要保持一致
+			$(this).find("option[value="+ selectedGroup +"]").attr("selected","selected");	
+			$(this).next().hide();
+			/*
+			if(selectedGroup){
+				$(this).find("option[value="+ selectedGroup +"]").attr("selected","selected");
+			}else{
+				$(this).next().hide();
+			}*/
+			
+		});
+		$("#allContastsGroup select").next().hide();
+	});
+
+	$("#allContastsGroup select").change(function(){
+		$(this).next().hide();
+		var selectedGroup = $(this).val();
+		var signsGroup = $("#chooseSignGroup select");
+		$(signsGroup).each(function(e,v){
+			$(this).find("option[value="+ selectedGroup +"]").attr("selected","selected");
+			$(this).next().hide();
+		});
+	}); 
+	
+	//单个联系分选择分组交互
+	$("#chooseSignGroup input[type=checkbox]").click(function(){
+		$("#errortip").hide();
+		$("#allContactsInSameGroup").attr("checked",false);
+		$("#allContastsGroup select").attr("disabled",true);
+		if(!this.checked){
+			$(this).parent().next().children("select").next().hide();
+			$("#allContastsGroup select").next().hide();
+		}
+	});
+	$("#chooseSignGroup select").change(function(){
+		$("#allContactsInSameGroup").attr("checked",false);
+		$("#allContastsGroup select").attr("disabled",true);
+		$("#allContastsGroup select").next().hide();
+		$(this).next().hide();
+		if($(this).val() != ""){
+			$(this).parent().prev().children("input").attr("checked",true);
+		}
+	});
+	
+	//保存信息
+	$("#btnOk").click(function(){
+		var checkboxEls = $("input:checked");
+		if(checkboxEls.length <=0){
+			$("#errortip").show();
+			return false;
+		}
+		var check = true;
+		for(var i=0;i<checkboxEls.length;i++){
+			var selectel = $(checkboxEls[i]).parent().next().children("select");
+			if($(selectel).val() == ""){
+				$(selectel).next().show();
+				check =  false;
+			}
+		}
+		if(!check){
+			return false;
+		}
+		/*
+		$(checkboxEls).each(function(e,v){
+			var selectel = $(v).parent().next().children("select");
+			if($(selectel).val() == ""){
+				$(selectel).next().show();
+				return false;
+			}
+		});*/
+		var selectel = $(checkboxEls).parent().next().children("select");
+			if($(selectel).val() == ""){
+				$(selectel).next().show();
+				return false;
+			}
+		//所有人信息
+		var allContacts = $("#chooseSignGroup input:checked");
+		var requestData = [];
+			requestData.push("<WMAGroupList>");
+			requestData.push("<UserNumber>{0}</UserNumber>".format(top.$User.getUid()));
+			
+		if($("#allContactsInSameGroup").attr("checked")){//所有人存到一个分组
+			var allSid = [];
+			var gid="";
+			$(allContacts).each(function(e,v){
+				var sid = $(v).val();
+				if(sid){
+					allSid.push(sid);
+				}
+			});
+			allSid = allSid.join(",");
+			gid = $("#allContastsGroup select").val();
+			requestData.push("<SerialId>{0}</SerialId>".format(allSid));
+			requestData.push("<GroupId>{0}</GroupId>".format(gid));
+		}else{
+			var userToGroupHtmlTmp = "<UserToGroup><SerialId>{0}</SerialId><GroupId>{1}</GroupId></UserToGroup>";
+			var userToGroupHtml="";
+			$(allContacts).each(function(e,v){
+				var ssid = $(v).val();
+				var ggis = $(v).parent().next().children("select").val();
+				if(ssid &&ggis){
+					userToGroupHtml += userToGroupHtmlTmp.format(ssid,ggis);
+				}
+				requestData.push(userToGroupHtml);
+			});
+		}
+		requestData.push("</WMAGroupList>");
+		requestData = requestData.join("");
+		
+		function callback(res){
+			var res = top.M139.JSON.tryEval(res);
+			var data =res.responseData;
+			if(!data || data.ResultCode != 0){ //分组失败-清空数据-接着弹出询问
+				top.FF.alert("系统繁忙，请稍后再试！",function(){
+					addr.contentWindow.DealManager.oneKeyAddSucInfo = "";
+					var askContacts = addr.contentWindow.DealManager.askOrForgetContacts;
+					if(askContacts && askContacts.length>0){
+						top.FF.close();
+						addr.contentWindow.DealManager.openMultiAskPage(askContacts[0].RelationId, askContacts[0].name, askContacts[0].img,askContacts[0].DealStatus);
+					}else{
+						top.FF.close();
+						addr.contentWindow.outBindMore(); //一个界面所有操作完成-没有框弹出才刷新
+					}
+				});
+				return false;
+			}
+			
+			//更新缓存
+			$(allContacts).each(function(e,v){
+					var usid = $(v).val();
+					var ugid = $(v).parent().next().children("select").val();
+					var userinfo = top.Contacts.getContactsById(usid);
+					if(userinfo){
+						var par = { info: {
+									FamilyEmail: userinfo.FamilyEmail || "",
+									AddrFirstName:userinfo.AddrFirstName || "",
+									SerialId: usid,
+									MobilePhone:userinfo.MobilePhone || "",
+									GroupId: ugid
+								}};
+						top.Contacts.updateCache('EditContactsDetails',par);//这样更新会把原来的字段置空
+					}
+				
+			});
+			var url = "http://" + window.location.host + "/m2012/html/addr/addr_onekeyaddingroupsuc.html?frame=" + queryString("frame");
+			window.location.href = url;
+			top.FF.setHeight("130px");
+			top.FF.setWidth("400px");
+		}
+		top.Contacts.WMAGroupList(requestData,callback);
+    });
+	
+	//关闭可能认识的人分组窗口，要将保存成功数据的变量清空
+	$("#btnclose").click(function(){
+		addr.contentWindow.DealManager.oneKeyAddSucInfo = "";
+		addr.contentWindow.DealManager.openNextAskPage();
+    });
+	
+	});
+</script>
+</body>
+</html>

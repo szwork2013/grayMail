@@ -1,0 +1,129 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="Keywords" content="" />
+    <meta name="Description" content="" />
+    <title>139邮箱-邮箱营业厅</title>
+
+    <script type="text/javascript">
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+
+        top.loadScript("libs.pack.js", document);
+        top.loadScript("m139.core.pack.js", document);
+
+        top.loadCSS(["common/global.css", "module/hall/hall.css"], document);
+
+    </script>
+</head>
+<body>
+    <div class="hall-title">
+        <a href="index.html">邮箱营业厅</a> &gt; <strong>看优惠</strong>
+    </div>
+    <div class="hall-body" id="dataList">
+    </div>
+    <script type="text/javascript">
+        var detailIndex = -1,
+            listData = [],
+            detailData = '',
+            listHtml = [
+                '<div class="imgInfo imgInfo-look">',
+                    '<img class="imgLink" width="200" src="{imgUrl}" alt="" />',
+                    '<dl>',
+                        '<dt>{title}</dt>',
+                            '{time}',
+                            //'<dd>活动时间：{startTime} 至 {endTime}</dd>',
+                            '<dd>适用品牌：{brand}</dd>',
+                            '<dd class="pt_15">',
+                            '<a href="javascript:" title="" class="showMore" >详情↓</a>',
+                        '</dd>',
+                    '</dl>',
+                '</div>'].join(''),
+            detailHtml = [
+                '<div class="lookmore" style="display:none; margin-bottom:20px">',
+                    '<a href="javascript:" title="" class="look-off"><i class="i_2tridd"></i>收起</a>',
+                    '<a href="javascript:" title="" class="look-off loop-off-down"><i class="i_2tridd"></i>收起</a>',
+                    '<h3>{title}</h3>',
+                    '<img src="{imgUrl}" alt="" />',
+                    '<div style="height:20px; clear:both"></div>',
+                    '<div id="moreDetail">{content}</div>',
+                    '<div style="height:20px; clear:both"></div>',
+                '</div>'].join("");
+        if (top.businessHall_queryDetailDiscountInfo) {
+            takeData(top.businessHall_queryDetailDiscountInfo);
+        } else {
+            top.M139.RichMail.API.call("businessHall:queryDetailDiscountInfo", {}, function (result) {
+                var dataList = result.responseText;
+                dataList = eval("(" + dataList + ")");
+                if (dataList && dataList.code === "S_OK") {
+                    //数据提取，只取20条
+                    dataList = dataList['var'];
+                    top.businessHall_queryDetailDiscountInfo = dataList;
+                    takeData(dataList);
+                }
+            });
+        }
+        function takeData(dataList) {
+
+            dataList = dataList.discountInfo;
+            var showList = [];
+            if (dataList.length > 20) {
+                for (var i = 0; i < 6; i++) {
+                    var randomUser = parseInt(Math.random() * 1000) % dataList.length;
+                    showList.push(dataList.splice(randomUser, 1)[0]);
+                }
+            } else {
+                showList = dataList;
+            }
+
+            //开始组装数据             
+            for (var i = 0; i < showList.length; i++) {
+                detailData = '<div id="privilegeList' + i + '">'
+                var time = '';
+                if (dataList[i].beginDate != "null") {
+                    time = '活动时间：' + dataList[i].beginDate.slice(0, 10) + ' 至 ';
+                    if (dataList[i].endDate != "null") {
+                        time += dataList[i].endDate.slice(0, 10);
+                    } else {
+                        time += '结束时间另行通知';
+                    }
+
+                }
+                detailData += $T.Utils.format(listHtml, {
+                    imgUrl: dataList[i].discountImageUrl,
+                    title: dataList[i].discountTile,
+                    time: time,
+                    brand: dataList[i].discountSuitCustom
+                });
+                detailData += $T.Utils.format(detailHtml, {
+                    content: dataList[i].discountDetailInfo,
+                    title: dataList[i].discountTile,
+                    imgUrl: dataList[i].discountImageUrl
+                });
+                detailData += '</div>';
+                listData.push(detailData);
+            }
+            var listHtmlJoin = listData.join('');
+            $("#dataList").delegate('a.showMore', 'click', function () {
+                $(this).parents('div.imgInfo').hide().next().show()
+                $('#moreDetail a').attr('target', '_blank');
+            });
+
+            $("#dataList").delegate('a.look-off', 'click', function () {
+                top = $(this).parents('div.lookmore').hide().prev().show();
+                var top = $(this).parents('div.lookmore').parent().offset().top;
+                
+                    $(document).scrollTop(top);
+            });
+
+
+            $("#dataList").html(listHtmlJoin);
+
+
+
+        };
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+@charset "utf-8";
+/* html{-webkit-text-size-adjust: none;} */
+html,body,p,ul,ol,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,form,fieldset,legend,input,select,textarea,button,th,td,blockquote,address,var,pre{margin:0;padding:0;}
+h1,h2,h3,h4,h5,h6,input,textarea,select,button,label{font-size:100%;}
+button,select,textarea,input{vertical-align:middle;color:#333;}
+input[type=button],input[type=submit],input[type=reset],input[type=file],button{cursor:pointer;overflow:visible;width:auto}
+button{padding:3px 5px 2px;}
+textarea{resize:vertical;} 
+a{display:inline-block;text-decoration:none;}
+a:hover{text-decoration:none;}
+a:focus{outline:none;}
+ul,ol{list-style:none outside none;}
+img,fieldset{border:none;}
+img{overflow:hidden;vertical-align:top;}
+em,address,var{font-style:normal;}
+sup,sub{vertical-align:baseline;}
+table{border-collapse:collapse;border-spacing:0;}
+i{font-style:normal;}
+/* ================================================ 字体样式 ================================================ */
+body{color:#333;font:12px/1.5 "Microsoft YaHei",Verdana;} 
+/*float*/
+.fl{float:left;display:inline;}
+.fr{float:right;display:inline;}
+/* clear float */
+.clearfix:after{visibility:hidden;display:block;font-size:0;content:" ";clear:both;height:0;}
+.clearfix{zoom:1;}
+.clearAll{overflow:hidden;_zoom:1;}
+/* ================================================ 公用结构 ================================================ */
+.dragonTips{width:673px; height:511px; position:absolute; top:50%; left:50%; margin-left:-337px; margin-top:-256px;background:url(../images/tipBg.png) no-repeat top center; }
+.festivalContent{position:relative;width:100%;height:100%;}
+
+.festivalContent .closeBtn{ position:absolute; right:70px; top:90px;}
+.festivalContent .festivalPicMain{width: 264px;height: 199px;position: absolute;left: 123px;top: 122px;}
+.festivalContent .changeBtn{position: absolute;left: 347px;bottom: 157px;width: 61px;text-align: right;text-indent: -9999px;height: 23px;}
+.festivalContent .greetingsTig{position: absolute;left: 123px;bottom: 90px;width: 264px; height:70px;}
+.festivalContent .greetingsTig textarea{width: 252px; height:58px; font-size:14px; color:#666; padding:5px;border: none;resize: none;}
+.festivalContentList{width: 178px;position:absolute; right:89px;top:122px; overflow:hidden;}
+.festivalContentList h2{height:29px; line-height:29px; font-size:12px; font-weight:normal; text-indent:16px; color:#fff;}
+.festivalContentList_con{width:177px;height:269px;overflow: hidden;}
+.festivalContentList ul {height:269px;overflow-x: hidden;overflow-y: scroll; position:relative;}
+.festivalContentList ul li{padding-left: 16px;vertical-align: top;margin-top: 7px;}
+.festivalContentList ul li input{position: relative;top: 0px;margin-right: 10px;}
+.festivalContentList ul li  label{color:#b18d63;}
+.festivalContentList_modul a{position:absolute; bottom: 64px;right: 220px;color:#418836; margin-top:8px;}
+.festivalContent .sendBox{position:absolute; bottom: 37px;left: 180px;}
+
+
+
+
+
+
+
+
+
+

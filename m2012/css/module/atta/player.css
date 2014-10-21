@@ -1,0 +1,44 @@
+.ptitle .imp3{background-position: 0 0;padding-left: 20px;}
+.ptitle .imp4{background-position: 0 -24px;padding-left: 23px;}
+.pivPic{margin:10px 0 20px 0;}
+.pivPic img{margin-right: 15px;}
+.pivBrower{width: 600px;margin:10px 20px 20px 0;background-color: #000;}
+.pivAudio{margin:10px 0 20px 0;width: 360px;}
+.ptitle{font-size: 13px;line-height: 23px;padding-top: 5px;}
+.ptitle p{line-height: 23px;height: 23px;}
+.ptitle span{color: gray;margin:0 8px;}
+.ptitle a{color: #014282;text-decoration: none;}
+.ptitle a:hover{text-decoration: none;}
+.audioplayer{overflow: hidden; _zoom: 1;}
+.audioplayer .play_pre{ float:left;width:100%;}
+.audioplayer .p_pre{ margin:0 99px 0 52px;position: relative;height: 22px;padding-top: 16px;}
+.audioplayer .p_btn{ float:left;width:40px; margin-left:-100%;}
+.audioplayer .p_time{padding-right: 10px;width:85px; margin-left:-95px;float:left;font-family: '微软雅黑';}
+.imp3,.imp4,.audioplayer,.audioplayer .p_play,.audioplayer .p_stop,.audioplayer .p_pre_cur{background:url(/m2012/images/module/atta/redico.png) no-repeat;_background:url(/m2012/images/module/atta/redico_8.png) no-repeat;}
+.audioplayer{background-repeat:  repeat-x;background-position:  0 -85px;}
+.audioplayer .p_play,.audioplayer .p_stop{width:40px;height:38px;display:inline-block; }
+.audioplayer .p_play{background-position:0 -125px; }
+.audioplayer .p_play:hover{background-position:-42px -125px; }
+.audioplayer .p_stop{background-position:0 -165px; }
+.audioplayer .p_stop:hover{background-position:-42px -165px; }
+.audioplayer .p_pre_cur{width: 15px;height: 15px;background-position:-5px -210px;overflow: hidden;position: absolute;top: 12px;cursor: pointer; z-index: 4;margin-left:-3px;}
+.audioplayer{border:1px solid #313131;border-radius: 2px;height: 38px;line-height: 38px;color: #cccccc;font-size:12px;}
+.audioplayer .p_btn{width: 40px;height: 38px;overflow: hidden;float: left;}
+.audioplayer .p_time{padding-right: 10px;width:85px;text-align: right;float: right;font-weight: 700; }
+.audioplayer .p_pre .p_pre_g{border:1px solid #151515;border-bottom: 0;height: 5px;border-radius: 5px;overflow:hidden;}
+.audioplayer .p_pre .p_pre_bg{height: 5px;overflow: hidden;position: relative;
+background-image:-webkit-gradient(linear, left 0, left 100%, from(#e8e8e8), to(#c7c7c7));
+background-image:-webkit-linear-gradient(top, #e8e8e8 0, #c7c7c7 100%);
+background-image:-moz-linear-gradient(top, #e8e8e8 0, #c7c7c7 100%);
+background-image:linear-gradient(to bottom, #e8e8e8 0, #c7c7c7 100%);
+background-repeat:repeat-x;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#e8e8e8', endColorstr='#c7c7c7', GradientType=0);}
+.audioplayer .p_pre .p_pre_l{height: 5px;overflow: hidden;border-radius: 5px;background-color: #999;position: absolute;left: 0;top: 0;z-index: 2;}
+.audioplayer .p_pre .p_pre_b{height: 5px;overflow: hidden;border-radius: 5px;position: absolute;left: 0;top: 0;z-index: 3;
+background-image:-webkit-gradient(linear, left 0, left 100%, from(#4fbaff), to(#2a95da));
+background-image:-webkit-linear-gradient(top, #4fbaff 0, #2a95da 100%);
+background-image:-moz-linear-gradient(top, #4fbaff 0, #2a95da 100%);
+background-image:linear-gradient(to bottom, #4fbaff 0, #2a95da 100%);
+background-repeat:repeat-x;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#4fbaff', endColorstr='#2a95da', GradientType=0);}
+.viedesence{height: 338px;}
+.viedesence p{font-size: 28px;font-family: '微软雅黑';color: #FFF;text-align: center;padding-top: 140px;}
+.audioplayer .audiop_error{padding-top: 0;height: 38px;line-height: 38px;text-align: center;font-size: 14px;}

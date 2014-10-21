@@ -1,0 +1,58 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<title>好友通知发送成功</title>
+<script type="text/javascript">
+function getLinkTag(path) {
+var text = "";
+if (path) text = "href='" + path + "'";
+return "<link rel='stylesheet' type='text/css' " + text + " />";
+}
+
+function getJsTag(path) {
+return "<script charset='gb2312' src='" + path + "' type='text/javascript'></" + "script>";
+}
+
+document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+var resourcePath = top.resourcePath;
+
+var htmlCode = "";
+htmlCode += getLinkTag(resourcePath + "/css/addr.css");
+htmlCode += getLinkTag("");
+document.write(htmlCode);
+</script>
+<script type="text/javascript">
+document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+try {
+top.loadScript('libs.pack.js', document, "utf-8", "/m2012/js/packs/");
+if (top.$App) {
+top.loadScript('m2011.utilscontrols.pack.js', document, "utf-8", "/m2012/js/packs/");
+} else {
+document.write(getJsTag(resourcePath + "/js/utils_controls.js"));
+}
+} catch (ex) { }
+</script>
+<script type="text/javascript">
+Utils.loadSkinCss(null, document, "addr");
+$(function(){
+    $("#checkContacts").click(function(){
+        if (top.$App) {
+            top.$App.show('addrhome');
+        } else {
+            top.Links.show('addr');
+        }
+        return false;
+    });
+});
+</script>
+</head>
+<body>
+<div id="pageSuccess">
+<i></i>
+<h2><span class="current">好友通知成功发送</span></h2>
+<ul>
+<li><a id="checkContacts" href="javascript:void(0);">&lt;&lt;查看导入的联系人</a></li>
+</ul>
+</div>
+</body>
+</html>

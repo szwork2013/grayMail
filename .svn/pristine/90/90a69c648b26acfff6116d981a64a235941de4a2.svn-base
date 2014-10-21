@@ -1,0 +1,85 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="Keywords" content="" />
+<meta name="Description" content="" />
+<title>139邮箱</title>
+
+
+<script type="text/javascript">
+    //设域
+    document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+</script>
+<script>top.loadScript('libs.pack.js',document);top.loadScript('m139.core.pack.js',document)</script><script>top.loadScript("m2012.ui.common.pack.js",document)</script><script>top.loadCSS(["common/global.css","module/set.css"],document)</script></head>
+<body class="setbody">  
+<div class="setWrap">
+	<div class="setArea ">
+		<h2>快速创建收信规则</h2>
+		<div class="setArea-content sort-fastbody">	
+            <div id="sortFasttb"></div>
+			<div class="tipsYellow ta_l"><label for="historyMail"><input id="historyMail" checked type="checkbox" class="mr_5" value="" />对历史邮件执行分类</label></div>
+
+		</div>
+	</div>
+</div>	
+<div class="setBtn fixed-bottom">
+<span class="pl_20"><a href="javascript:void(0)" class="btnSetG" id="btn_save"><span>保 存</span></a> <a id="btn_cancel" href="javascript:void(0)" class="btnSet"><span>取 消</span></a></span>
+</div>
+
+
+
+
+                <textarea id="sortFastTemplate" style="display: none;">
+			<table class="sort-fasttb">
+                    <!--item start-->
+				    <tr>
+					    <td><input type="checkbox" checked name="checked" value="" class="mr_5" /> 将&lt;<span class="mailFrom">$from</span>&gt;<span class="gray mailTotal">$total封</span><span class="hide mailText">的来信</span></td><td>收取到<input type="text" class="iText col folderName" value="@getName()" />文件夹</td>					
+				    </tr>
+                    <!--item end-->
+			</table>
+                </textarea>
+
+
+
+
+
+      
+   <script>       top.loadScript("fast_create_sort.html.pack.js", document)</script>   
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+  
+       
+  
+    
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

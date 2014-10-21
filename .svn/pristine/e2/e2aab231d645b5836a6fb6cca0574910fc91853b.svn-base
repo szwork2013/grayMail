@@ -1,0 +1,86 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>短信提醒</title>
+<script>
+    document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+</script>
+<script>
+top.loadScript('libs.pack.js', document); 
+top.loadScript('m139.core.pack.js', document);
+top.loadScript("m2012.ui.common.pack.js", document);
+</script>
+<script>
+top.loadCSS(["common/global.css", "module/write.css", "module/smsnot/smsnot.css"], document)
+</script>
+</head>
+<body>
+	<table class="writeTable">
+		<tr>
+			<th scope="row" width="80" class="ta_r" valign="top">邮件接收人：</th>
+			<td><span id="spReceiveEMail"></span></td>
+		</tr>
+		<tr>
+			<th scope="row" width="80" class="ta_r" valign="top">
+				<span class="fr mt_5">
+					接收手机号
+					：
+				</span>
+			</th>
+			<td>
+				<div class="smsnot-write" style="width:460px">
+					<input type="text" class="iText" id="txtMobile" style="width:450px" />
+					<a href="javascript:;" title="通讯录" id="contactIco" class="i_peo"></a>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<th scope="row" width="80" class="ta_r">短信内容：</th>
+			<td>
+				您的好友<input type="text" id="txtUsername" class="iText ml_5 mr_5" maxlength="11"  /><span id="spSubject"></span>				
+			</td>
+		</tr>
+		<tr>
+			<th scope="row" width="80" class="ta_r">验证码：</th>
+			<td>
+				<input type="text" style="color:gray" value="请点击获取验证码" class="iText mr_5" id="tbValidate" />
+				<span class="red" id="imgcodeerror"></span>
+			</td>
+		</tr>
+		<tr>
+			<th scope="row" width="80" class="ta_r">&nbsp;</th>
+			<td>
+				<div class="clearfix" id="imgCodeArea" style="display:none">
+					<div class="imgtext">
+						<img id="imgValidate" alt="验证码" /></div>
+					<div class="imgtext2">
+						图片中显示的图案是什么？将你认为正确答案前的<em style="color:#F60">字母或数字</em>填入框中(不分大小写)
+						<br>
+						<a href="javascript:;" id="refreshImg">看不清，换一张</a>
+					</div>
+				</div>
+			</td>
+		</tr>
+	<tr>
+			<th scope="row" width="80" class="ta_r">&nbsp;</th>
+			<td>
+				 <ul class="toolBarUl">
+				    <li class="mr_10"><a class="btnTb" id="btnSmsNotifyFriends" href="javascript:void(0)"><span>发 送</span></a></li>
+				    <li class="mr_10 ml-1"><a  class="btnTb" id="btnCancel" href="javascript:void(0)" ><span>取 消</span></a></li>
+				 </ul>		
+			</td>
+		</tr>		
+
+	</table>
+	<p class="smsnotp">
+		<span id="tips"></span>
+		<br />
+		<span id="parnerInfo" style="display:none">*<a href="javascript:top.$App.show('mobile')">开通邮箱伴侣</a>享受更多短信优惠。</span>
+	</p>
+
+<script>
+top.loadScript("m2012.smsnotifyfriends.pack.js", document);
+</script>
+</body>
+</html>

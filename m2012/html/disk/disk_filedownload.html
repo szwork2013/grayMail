@@ -1,0 +1,178 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <title>多个文件打包</title>
+
+    <script type="text/javascript">
+        //设域
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1].replace(/:\d+/, "");
+    </script>
+    <script type="text/javascript">
+        //****版本号的控制**********
+        var versionConf = {
+            htmlVersion: { "default": "20121018" },
+            jsVersion: { "default": "20121018" },
+            cssVersion: { "default": "20121018" }
+        };
+
+//        var diskWinow = top.$("iframe#diskDev")[0].contentWindow;
+//        diskWinow.CommonInit(document, diskWinow, null);
+        /**
+         *		公共页面初始化函数
+         *		docCur: 当前页面document对象
+         *		diskWindowTop: 当前页面的parent对象
+         *		diskResJs: 要加载的JS/css数组[{dirName:xxx, fileName:xxx},{},{}]
+         *		isLoadCss: 是否是加载CSS文件
+         *		dCssaAble: 是否加载netDisk.css，默认为true
+         */
+        function CommonInit(docCur, diskWindowTop, diskResJs, isLoadCss, dCssaAble) {
+            var doc = docCur || document;
+            var diskTop = diskWindowTop || window;
+            //获得资源路径
+            var resourcePath = getResource();
+            var diskResourcePath = resourcePath[1] + "/";   //资源
+            var htmlCode = "";
+            if (dCssaAble == undefined || dCssaAble == true) {
+                htmlCode += getLinkTag(resourcePath[0], "/css/", "netdisk");
+            }
+            htmlCode += getLinkTag("");   //保留皮肤的css
+
+            top.loadScript("jquery.js", doc);
+            top.loadScript("m2011.utilscontrols.pack.js", doc); //暂时注释
+            top.loadScript("/m2012/js/service/disk/m2011.disk.diskconf.js", doc);
+            top.loadScript("/m2012/js/service/disk/m2011.disk.diskcommon.js", doc);
+            if (docCur == window.document) {
+                top.loadScript("/m2012/js/service/disk/m2011.disk.diskmain.js", doc);
+            }
+            if (diskResJs && diskResJs.length > 0) {
+                for (var i = 0; i < diskResJs.length; i++) {
+                    if (isLoadCss) {
+                        htmlCode += getLinkTag(diskResourcePath, diskResJs[i].dirName, diskResJs[i].fileName)
+                    } else {
+                        top.loadScript("/m2012/js/service/disk/" + diskResJs[i].fileName, doc);
+                    }
+                }
+            }
+            doc.write(htmlCode);
+        }
+        function getResource() {
+            var resourcePath = [];
+            if (top.isRichmail) {//rm环境,返回rm资源服务器路径
+                var path = window.top.rmResourcePath;
+                resourcePath.push(path);
+                resourcePath.push(path.replace("richmail", "newnetdisk4") + "/");
+            } else {
+                var path = window.top.resourcePath;
+                resourcePath.push(path);
+                resourcePath.push(path.replace("coremail", "newnetdisk4") + "/");
+            }
+            return resourcePath;
+        }
+        /**
+         *		组合js路径标签代码
+         *		path: 域名实际路径
+         *		dir: 对应文件夹
+         *		fileName: 文件名称
+         *		charset: 指定编码，不指定则默认utf-8
+         */
+        function getJsTag(path, dir, fileName, charset) {
+            var v = versionConf.jsVersion["default"];
+            if (versionConf.jsVersion[fileName]) {
+                v = versionConf.jsVersion[fileName];
+            }
+            var html = "<script charset='utf-8' src='" + path + "" + dir + "" + fileName + ".js?v=" + v + "' type='text/javascript'></" + "script>";
+            if (charset) {
+                html = html.replace("utf-8", charset);
+            }
+            return html;
+        }
+        /**
+         *		组合css路径标签代码
+         *		path: 文件的实际路径
+         *		dir: 对应文件夹
+         *		fileName: 文件名称
+         */
+        function getLinkTag(path, dir, fileName) {
+            if (path) {
+                var v = versionConf.cssVersion["default"];
+                if (versionConf.cssVersion[fileName]) {
+                    v = versionConf.cssVersion[fileName];
+                }
+                var text = "href='" + path + "" + dir + "" + fileName + ".css?v=" + v + "'";
+            }
+            return "<link rel='stylesheet' type='text/css' " + text + " />";
+        }
+        window.SID = queryString("sid");
+        /**
+         *		获取URL传递的参数值
+         *		param: 参数名称
+         *		url: 要获取参数的URL，默认为window.location
+         */
+        function queryString(param, url) {
+            if (!url) {
+                url = location.search;
+            }
+            var svalue = url.match(new RegExp("[?&]" + param + "=([^&]*)", "i"));
+            return svalue ? unescape(svalue[1]) : null;
+        }
+        window.SID = queryString("sid");
+        //加载CSS和JS,CommonInit(当前document,彩云最顶层window)
+        CommonInit(document, window);
+        function scrollTop() {
+            scroll(0, 0);
+        }
+    </script>
+
+</head>
+<body style="padding: 1px;">
+    <div class="dialog">
+        <div class="bd">
+            <h3 id="title">
+                多个文件打包完成！</h3>
+            <i class="i-success"></i>
+        </div>
+        <div class="ft">
+            <ul class="dbtn-list">
+                <li><a class="btnNormal" id="btnDownload" href="javascript:void(0);">下 载</a></li>
+                <li><a class="btnNormal" id="btnCancel" href="javascript:void(0);">取消下载</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        //加载皮肤
+       // top.Utils.loadSkinCss(null, top.document, "netdisk");
+        $(function() {
+            debugger;
+            $("body").append("<iframe id='downloadFrame' style='display: none;'> </iframe>");
+            var downUrl = unescape(Utils.queryString("downloadurl"));
+            var state = top.Utils.queryString("state");
+            state = state ? state.toLowerCase() : "";
+            if (!downUrl) {
+                top.FF.close();
+                return;
+            }
+            //部分打包成功
+            if (state == "notallsuccess") {
+                $(".i-success").removeClass("i-success").addClass("i-dialog-warn");
+                $("#title").html("有部分文件未成功打包，是否继续下载完成打包的其他文件");
+            }
+//            $("#btnDownload").attr("href", downUrl).click(function(e) {
+            $("#btnDownload").click(function(e) {
+                console.log($("#downloadFrame"));
+                $("#downloadFrame").attr('src', downUrl);
+                console.log('URL: '+downUrl);
+                debugger;
+                window.setTimeout(function() {
+                    top.FF.close();
+                }, 500);
+            });
+            $("#btnCancel").click(function() {
+                top.FF.close();
+            });
+        });
+    </script>
+    <!--<iframe id="downloadFrame" src="" style="display: none;"></iframe>-->
+</body>
+</html>

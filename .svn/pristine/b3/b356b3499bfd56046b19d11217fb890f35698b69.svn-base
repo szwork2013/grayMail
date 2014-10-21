@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<script type="text/javascript">
+document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+try {
+top.loadCSS(top.rmResourcePath + "/css/addr.css", document)
+top.loadScript("libs.pack.js", document);
+top.loadScript("m2011.utilscontrols.pack.js", document); //loadSkinCss
+} catch (ex) {}
+</script>
+<link rel="stylesheet" rev="stylesheet" type="text/css" />
+<script type="text/javascript">Utils.loadSkinCss(null,document,"addr");</script>
+<title>您的共享发送成功</title>
+<base target="_self" />
+</head>
+<body>
+    <div id="pageSuccess">
+        <i></i>
+        <h2><span class="current">您的共享发送成功</span></h2>
+        <ul>
+            <li><a href="javascript:void(0);" id="aAddrHome">&lt;&lt;返回通讯录首页</a></li>
+            <li><a id="aGoOn" href="javascript:;">继续共享&gt;&gt;</a></li>
+        </ul>
+    </div>
+<script type="text/javascript">
+	
+$(function(){
+    $("#aGoOn").click(function(){
+        window.location = "addr_share_home.html?sid=" + top.$App.getSid();
+        return false;
+    });
+		
+	$("#aAddrHome").click(function(){
+		goHomePage();
+		return false;
+	});
+});
+function goHomePage(){
+    /*
+	var url = ""
+
+    if (top.$App) {
+        url = top.location.href.replace("index", "addr/addr_index");
+    }
+    
+    window.location.href = url;
+    */
+    setTimeout(function() {
+        if(top.$Addr){ 
+            var master = top.$Addr;
+            master.trigger(master.EVENTS.LOAD_MAIN);
+        }else{
+			top.$('#addr').attr({'src': 'addr_v2/addr_index.html'});
+		}
+    }, 0xff);
+}
+</script>
+</body>
+</html>

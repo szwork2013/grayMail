@@ -1,0 +1,402 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="Keywords" content=""/>
+	<meta name="Description" content=""/>
+	<title>添加日程标签-139邮箱</title>
+	<!--
+	<link rel="stylesheet" href="../../css/common/global.css" type="text/css"/>
+	<link href="../../css/module/FileExtract/extract.css" rel="stylesheet" type="text/css">	
+	<link rel="stylesheet" href="../../css/module/networkDisk/networkDisk.css" type="text/css"/>
+	-->
+	<style type="text/css">
+        #floatLoadDiv input{width:142px;font-size:31px;}
+        #floatLoadDiv{cursor:pointer;position:absolute;top:0;left:0;width:160px;height:23px;overflow:hidden;z-index:1;padding:0px;opacity:0;-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";#filter:alpha(opacity=0);}
+		body{ position: relative;overflow:hidden;}
+    </style>
+	<script type="text/javascript">
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+        top.$App.dyinfoChanged = true;
+        if (!top.$App.setModuleSkinCSS) {
+            top.$App.setModuleSkinCSS = top.$.noop;
+        }
+	</script>
+	<script>
+	    top.loadScript('libs.pack.js', document);
+	    top.loadScript('m139.core.pack.js', document);
+	    top.loadScript("m2012.ui.common.pack.js", document);
+	</script>
+	<script>
+	    top.loadCSS(["common/global.css", "module/FileExtract/extract.css", "module/networkDisk/networkDisk.css"], document);
+	    top.$App.setModuleSkinCSS(document);
+	</script>
+	<style type="text/css">
+	.addr-imgInfo{ margin-top: 100px;}
+	.diskPicModle2{
+		height: 31px;
+		text-align:center;
+	}
+	.diskPicModle2 a{
+		display: block;
+		background:#f2f2f2;
+		height: 31px;
+		line-height: 31px;
+		color:#999;
+	}
+	.diskPicModle2 a:hover{
+		background:#e8e8e8;
+		color:#666;
+	}
+	</style>
+</head>
+<body>
+	<div class="outArticle" id="outArticle">
+    	<div class="outArticleMain" id="iframe-main" style="height: 100%; display:none;">
+        	<iframe scrolling="auto" class="main-iframe" name="ifbg" frameborder="no" width="100%" id="netRightFrame" src=""></iframe>
+        </div>		
+		<div class="outArticleMain" id="disk-main" style="height: 100%; ">
+			<div id="sortMenus" class="menuPop  shadow" style="right:155px; top:37px;display: none;">
+                <ul>
+                    <li name="fileName"><a href="javascript:void(0);"><i class=""></i><span class="text">按名称</span></a></li>
+                    <li name="uploadTime" class="cur"><a href="javascript:void(0);"><i class=""></i><span class="text">按上传时间<em class="downRinking">↓</em></span></a></li>
+                    <li name="fileSize"><a href="javascript:void(0);"><i class=""></i><span class="text">按大小</span></a></li>
+                </ul>
+			</div>
+<div class="toolBar bgMargin border-btm">
+    <ul class="toolBarUl" style="display: block;">
+				<li id="upload" class="mr_0" style="display: none;">
+                        <a href="javascript:void(0)" role="button" class="btnTb ml_10">
+                            <em>
+                                <i class="upLoad"></i>
+                                <label>上 传</label>
+                            </em>
+                        </a>
+                        
+                    </li><!--上传文件/上传文件夹-->
+					<li id="createDir" class="mr_0">
+                        <a href="javascript:void(0)" role="button" class="btnTb">
+                            <span class="p_relative">新建文件夹</span>
+                        </a>
+                    </li>
+                    <li id="download" class="mr_0">
+                        <a bh="diskv2_download_package" href="javascript:void(0)" role="button" class="btnTb ml_6">
+                            <span class="p_relative">下载</span>
+                        </a>
+                    </li>
+					<!--
+					<li id="play" class="mr_5" style="display: none;">
+                        <a href="javascript:void(0)" role="button" class="btn ml_10">
+                            <em>播放</em>
+                        </a>
+                    </li>
+					-->
+                    <li id="sendFile" class="mr_0">
+                        <a href="javascript:void(0)" role="button" class="btnTb ml_6">
+                            <span class="p_relative">发送</span>
+                        </a>
+                    </li>
+                    <!--<li id="share2" class="mr_0" style="display: none;">
+                        <a href="javascript:void(0)" role="button" class="btnTb ml_6">
+                            <span class="p_relative">共享</span>
+                        </a>
+                    </li>
+-->					<li id="share" class="mr_0" >
+                        <a href="javascript:void(0)" role="button" class="btnTb ml_6">
+                            <span class="p_relative">分享</span>
+                        </a>
+                    </li>
+                    <li id="remove" class="mr_0" >
+                        <a bh="diskv2_removefolder" href="javascript:void(0)" role="button" class="btnTb ml_6">
+                            <span class="p_relative">移动到</span>
+                        </a>
+                    </li>
+					<li id="rename" class="mr_0" >
+                        <a href="javascript:void(0)" role="button" class="btnTb ml_6">
+                            <span class="p_relative">重命名</span>
+                        </a>
+                    </li>
+                    <li id="delete" class="mr_0">
+                        <a href="javascript:void(0)" role="button" class="btnTb ml_6">
+                            <span class="p_relative">删除</span>
+                        </a>
+                    </li>
+					<!--发送到邮箱/发送到手机-->
+					<!--
+					<li id="setCover" class="mr_5" style="display: none;">
+                        <a href="javascript:void(0)" role="button" class="btn ml_10">
+                            <em>设为封面</em>
+                        </a>
+                    </li>
+					-->
+                    
+					<!--
+					<li id="postcard" class="mr_5" style="display: none;">
+                        <a bh="diskv2_postcard" href="javascript:void(0)" role="button" class="btn ml_10">
+                            <em>明信片</em>
+                        </a>
+                    </li>
+					-->
+                    <!--<li id="rename2" class="mr_0" style="display: none;">
+                        <a href="javascript:void(0)" role="button" class="btnTb ml_6">
+                            <span class="p_relative">重命名</span>
+                        </a>
+                    </li>
+-->                 <li id="more" class="mr_0" style="display:none;">
+						<a href="javascript:void(0)" role="button" class="btnTb ml_6">
+                            <span class="p_relative">更多</span>
+                        </a>
+                    </li>
+    </ul>
+	<div id="sortMenus2" class="menuPop menuPops shadow" style="right: 8px; top: 37px; width: 125px; display: none;" bindautohide="1">
+		<ul>
+			<li name="fileName">
+				<a href="javascript:void(0);"><i class="i-time"  style="position: absolute;top: 4px;"></i><span class="text" style="text-indent: 20px;">时间线视图</span></a>
+			</li>
+			<li name="uploadTime" class="cur">
+				<a href="javascript:void(0);"><i class="i_list" style="position: absolute;top: 4px;"></i><span class="text" style="text-indent: 20px;">缩略图视图</span></a>
+			</li>
+			<li name="fileSize">
+				<a href="javascript:void(0);"><i class="i_view" style="position: absolute;top: 4px;"></i><span class="text" style="text-indent: 20px;">列表视图</span></a>
+			</li>
+		</ul>
+	</div>
+    <div id="maillist_pager">
+		<span id="isimagesModel" style="display:none;">
+			<a href="javascript:void(0)" class="pageNumTop viewModleTab ml_10" style="float:right;"><i class="i_triangle_d mt_5 ml_5" style="float:right;"></i><i class="i-time"></i></a>
+		</span>
+        <span id="listModeContainer">
+				<span class="viewTipPic mr_10 fr">
+				<a href="javascript:void(0)" class="ml_10 mr_5">
+					<!--不选中时候添加"i_view_checked"-->
+					<i class="i_view">
+					</i>
+				</a>
+				<a href="javascript:void(0)">
+					<!--选中时候添加"i_list_checked"-->
+					<i class="i_list_checked">
+					</i>
+				</a>
+			</span>
+		</span>
+		<div id="filelist_pager">
+			<div class="toolBarPaging ml_10 fr" id="view_0.8189248512499034">
+				<div>
+				</div>
+				<a rel="selector" href="javascript:;" class="pagenum">
+					<span class="pagenumtext">
+						
+					</span>
+				</a>
+				<a rel="prev" title="上一页" href="javascript:;" class="up up-gray">
+				</a>
+				<a rel="next" title="下一页" href="javascript:;" class="down ">
+				</a>
+			</div>
+		</div>
+        <a href="javascript:void(0)" class="pagenum pageNumTop" id="sortDock" style="float:right;"><span class="pagenumtext">排序</span></a>	
+    </div>
+</div>
+<div class="inboxHeader bgMargin">
+	<span id="navContainer">全部文件</span>
+</div>
+		
+		
+		
+            <!--
+			<div class="inboxHeader" style="background:#fafafb; border-bottom:1px solid #e8e8e8; display:none;">
+                <div class="inboxHeaderfr clearfix">
+                    <a href="#" class="fr ml_10" style="margin-right:26px; color:#127dc2;">升级</a>
+                    <span class="mr_10">
+                        <span class="diskprogressBarBlue fr">
+                            <em class="growsBlow"></em>
+                            <em class="growFont">2.1G/5.0G</em>
+                        </span>
+                        <span class="fr">容量：</span>
+                    </span>
+                <strong class="fl">暂存柜</strong>
+                </div>
+            </div>
+			-->
+			<div class="diskTableList onScollTable" style="display:none;">
+                <table cellspacing="0" cellpadding="0" class="listHead newShareTable">
+                    <tr>
+                        <th class="wh1 t-check">
+                            <input type="checkbox" id="selectAll"/>
+                        </th>
+                        <th id="fileName"><a field="from" href="javascript:void(0)" hidefocus="true"><span id="fileName2">文件名</span><i></i></a></th>
+                        <th id="selectCount" style="display: none">已选择：<span><b class="c_ff6600"></b>个文件</span><span>，</span><span><b class="c_ff6600"></b>个文件夹</span>
+							<a id="cleanSelected" href="javascript:void(0)" class="c_ff6600" style="color:#1a75ca; display:inline">取消选择</a>
+						</th>
+                        <th class="wh5">
+                            <a id="uploadTime" field="from" href="javascript:void(0)" hidefocus="true">
+                                <span>上传时间</span>
+                                <i class="i_th0"></i>
+                            </a>
+                        </th>
+                        <th class="wh6 bdRightNone">
+                            <a id="fileSize" field="from" href="javascript:void(0)" hidefocus="true">
+                                <span>大小</span>
+                                <i class=""></i>
+                            </a>
+                        </th>
+                    </tr>
+                </table>
+			</div>
+    		<div class="appendixList p_relative" id="fileList" style="margin-right: 0">
+        
+        	</div>
+			<div class="diskPicModle" id="diskPicModle">
+				<div class="diskPicModle2" id="clickToGetMore" style="display:none;">
+					<a>点击查看更多</a>
+				</div>
+			</div>
+			
+        <!---tips--->
+		</div>
+        <div id="search"></div>
+		<iframe id="downloadFrame" src="" style="display: none;"></iframe>
+	</div >
+<div class="inAside " id="inAside">
+</div>
+
+</body>
+<script>top.loadScript("disk.html.pack.js", document)</script>
+
+<!--<script type="text/javascript" src="../../js/ui/upload/md5.min.js"></script>-->
+<!--<script type="text/javascript" src="../../js/ui/upload/upload.facade.js"></script>-->
+<!--<script type="text/javascript" src="../../js/ui/upload/upload.html5.js"></script>-->
+<!--<script type="text/javascript" src="../../js/ui/upload/upload.flash.js"></script>-->
+<!--<script type="text/javascript" src="../../js/ui/upload/swfobject.js"></script>-->
+<!--<script type="text/javascript" src="../../js/ui/upload/upload.activex.js"></script>-->
+
+<!--<script type="text/javascript" src="../../js/plugin/m139.plugin.screencontrol.js"></script>-->
+<!--<script type="text/javascript" src="../../js/service/disk_v2/m2012.disk.model.js"></script>-->
+<!--<script type="text/javascript" src="../../js/service/disk_v2/m2012.disk.view.statusbar.js"></script>-->
+<!--<script type="text/javascript" src="../../js/service/disk_v2/m2012.disk.view.command.js"></script>-->
+<!--<script type="text/javascript" src="../../js/service/disk_v2/m2012.disk.view.toolbar.js"></script>-->
+<!--<script type="text/javascript" src="../../js/service/disk_v2/m2012.disk.view.filelist.js"></script>-->
+<!--<script type="text/javascript" src="../../js/service/disk_v2/m2012.disk.view.filethumbnail.js"></script>-->
+<!--<script type="text/javascript" src="../../js/service/disk_v2/m2012.disk.view.rename.js"></script>-->
+<!--<script type="text/javascript" src="../../js/service/disk_v2/m2012.disk.view.createdir.js"></script>-->
+<!--<script type="text/javascript" src="../../js/service/disk_v2/m2012.disk.view.main.js"></script>-->
+<!--<script type="text/javascript" src="../../js/service/disk_v2/m2012.disk.application.js"></script>-->
+<!--<script type="text/javascript" src="../../js/service/disk_v2/m2012.disk.model.upload.js"></script>-->
+<!--<script type="text/javascript" src="../../js/service/disk_v2/m2012.disk.view.upload.js"></script>-->
+<!--<script type="text/javascript" src="../../js/ui/dialog/m2012.ui.dialog.savetodisk.js"></script>-->
+
+<script type="text/javascript">
+    //****版本号的控制**********
+    var versionConf = {
+        htmlVersion: { "default": "20121018" },
+        jsVersion: { "default": "20121018" },
+        cssVersion: { "default": "20121018" }
+    };
+    /**
+     *		公共页面初始化函数
+     *		docCur: 当前页面document对象
+     *		diskWindowTop: 当前页面的parent对象
+     *		diskResJs: 要加载的JS/css数组[{dirName:xxx, fileName:xxx},{},{}]
+     *		isLoadCss: 是否是加载CSS文件
+     *		dCssaAble: 是否加载netDisk.css，默认为true
+     */
+    function CommonInit(docCur, diskWindowTop, diskResJs, isLoadCss, dCssaAble) {
+        var doc = docCur || document;
+        var diskTop = diskWindowTop || window;
+        //获得资源路径
+        var resourcePath = getResource();
+        var diskResourcePath = resourcePath[1] + "/";   //资源
+        var htmlCode = "";
+        if (dCssaAble == undefined || dCssaAble == true) {
+            htmlCode += getLinkTag(resourcePath[0], "/css/", "netdisk");
+        }
+        htmlCode += getLinkTag("");   //保留皮肤的css
+
+        top.loadScript("jquery.js", doc);
+        top.loadScript("m2011.utilscontrols.pack.js", doc); //暂时注释
+        top.loadScript("/m2012/js/service/disk/m2011.disk.diskconf.js", doc);
+        top.loadScript("/m2012/js/service/disk/m2011.disk.diskcommon.js", doc);
+        if (docCur == window.document) {
+            top.loadScript("/m2012/js/service/disk/m2011.disk.diskmain.js", doc);
+        }
+        if (diskResJs && diskResJs.length > 0) {
+            for (var i = 0; i < diskResJs.length; i++) {
+                if (isLoadCss) {
+                    htmlCode += getLinkTag(diskResourcePath, diskResJs[i].dirName, diskResJs[i].fileName)
+                } else {
+                    top.loadScript("/m2012/js/service/disk/" + diskResJs[i].fileName, doc);
+                }
+            }
+        }
+        doc.write(htmlCode);
+    }
+    function getResource() {
+        var resourcePath = [];
+        if (top.isRichmail) {//rm环境,返回rm资源服务器路径
+            var path = window.top.rmResourcePath;
+            resourcePath.push(path);
+            resourcePath.push(path.replace("richmail", "newnetdisk4") + "/");
+        } else {
+            var path = window.top.resourcePath;
+            resourcePath.push(path);
+            resourcePath.push(path.replace("coremail", "newnetdisk4") + "/");
+        }
+        return resourcePath;
+    }
+    /**
+     *		组合js路径标签代码
+     *		path: 域名实际路径
+     *		dir: 对应文件夹
+     *		fileName: 文件名称
+     *		charset: 指定编码，不指定则默认utf-8
+     */
+    function getJsTag(path, dir, fileName, charset) {
+        var v = versionConf.jsVersion["default"];
+        if (versionConf.jsVersion[fileName]) {
+            v = versionConf.jsVersion[fileName];
+        }
+        var html = "<script charset='utf-8' src='" + path + "" + dir + "" + fileName + ".js?v=" + v + "' type='text/javascript'></" + "script>";
+        if (charset) {
+            html = html.replace("utf-8", charset);
+        }
+        return html;
+    }
+    /**
+     *		组合css路径标签代码
+     *		path: 文件的实际路径
+     *		dir: 对应文件夹
+     *		fileName: 文件名称
+     */
+    function getLinkTag(path, dir, fileName) {
+        if (path) {
+            var v = versionConf.cssVersion["default"];
+            if (versionConf.cssVersion[fileName]) {
+                v = versionConf.cssVersion[fileName];
+            }
+            var text = "href='" + path + "" + dir + "" + fileName + ".css?v=" + v + "'";
+        }
+        return "<link rel='stylesheet' type='text/css' " + text + " />";
+    }
+    window.SID = queryString("sid");
+    /**
+     *		获取URL传递的参数值
+     *		param: 参数名称
+     *		url: 要获取参数的URL，默认为window.location
+     */
+    function queryString(param, url) {
+        if (!url) {
+            url = location.search;
+        }
+        var svalue = url.match(new RegExp("[?&]" + param + "=([^&]*)", "i"));
+        return svalue ? unescape(svalue[1]) : null;
+    }
+    window.SID = queryString("sid");
+    //加载CSS和JS,CommonInit(当前document,彩云最顶层window)
+    //CommonInit(document, window);
+    function scrollTop() {
+        scroll(0, 0);
+    }
+</script>
+<script type="text/javascript">
+</script>
+</html>

@@ -1,0 +1,52 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="Keywords" content="" />
+<meta name="Description" content="" />
+<title>139邮箱</title>
+
+<link rel="stylesheet" href="../../../html/style/common/global.css" type="text/css" />
+<link rel="stylesheet" href="../../../html/style/common/frame.css" type="text/css" />
+<link rel="stylesheet" href="../../../html/style/skin/skin_lightblue.css" type="text/css" />
+
+
+<style type="text/css">
+<!--
+body{padding:10px;color:#333333;}
+
+</style>
+</head>
+<body>
+	<div id="div1"></div>
+	<br>
+	<div id="div2"></div>
+	
+
+</body>
+<script type="text/javascript" src="../../libs/jquery-1.7.2.min.js"></script>
+<script src="../../libs/underscore.min.js"  ></script>
+<script src="../../libs/backbone.min.js" ></script>
+<script type="text/javascript" src="../../core/m139.core.js"></script>
+
+<script type="text/javascript" src="m139.ui.tabpage.js"></script>
+    <script type="text/javascript">
+
+	
+	var tab=new M139.UI.TabPage({container:document.getElementById("div1"),
+	tabList:["one","two","three"],
+	pageList:["您好<br>您好<br>您好<br>","世界<br>世界<br>世界<br>","hello,world<br>hello,world<br>hello,world"]
+	});
+	tab.render();
+	
+	var tab2=new M139.UI.TabPage({
+	tabList:["tab1","tab2","tab3"],
+	onTabChange:function (tabIndex){
+		var html=["<p>tab content",tabIndex,"</p>"].join("");
+		this.setPageContent(html);
+	}
+	});
+        document.getElementById("div2").appendChild(tab2.render());
+
+    </script>
+</html>

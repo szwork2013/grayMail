@@ -1,0 +1,361 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="Keywords" content="" />
+<meta name="Description" content="" />
+<title>139邮箱</title>
+
+
+
+<script type="text/javascript">
+    //设域
+    document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+</script>
+<script>top.loadScript('libs.pack.js',document);top.loadScript('m139.core.pack.js',document)</script><script>top.loadScript("m2012.ui.common.pack.js",document)</script><script>top.loadCSS(["common/global.css","module/write.css","module/set.css"],document)</script>
+<style>
+.edit-btn,.eidt-bar .eidt-bar-li .line,.eidt-bar .pushon{display:none;}
+#ED_Bold,#ED_FontFamily,#ED_FontSize,#ED_FontColor,#ED_Italic{display:inline-block;}
+</style></head>
+<body class="setbody">  
+<div class="setWrap" id="preference">
+	<div class="setArea">
+		<h2>邮件列表</h2>
+		<div class="setArea-content">
+			<ul class="form setForm">					
+				<li class="formLine">
+					<label class="label">每页显示：</label>
+                    <div class="element">
+					 <input type="radio" name="letters" statusName="attrs" id="letters20" keyvalue="preference_letters-20" value="" class="mr_5"/><label for="letters20">20封</label><br/>
+					 <input type="radio" name="letters" statusName="attrs" id="letters50" keyvalue="preference_letters-50" value="" class="mr_5"/><label for="letters50">50封</label><br/>
+					 <input type="radio" name="letters" statusName="attrs" id="letters100" keyvalue="preference_letters-100" value="" class="mr_5"/><label for="letters100">100封</label>
+                       <!--   <div id="mailNum"></div>
+                        <div id="mailNumValue" class="hide"></div>-->
+                    </div>
+				</li>	
+				<li class="formLine">
+					<label class="label">列表视图：</label>
+					<div class="element viewSet" id="windowView">	
+                    
+					 <input type="radio" id="oneWindow" name="window" value="" class="mr_5"/><label for="oneWindow">没有分栏<span class="viewa"></span></label><br/>
+					 <input type="radio" id="TBwindow" name="window" value="" class="mr_5"/><label for="TBwindow">上下分栏<span class="viewa2"><span class="top1"></span></span></label><br/>
+					 <input type="radio" id="LFwindow" name="window" value="" class="mr_5"/><label for="LFwindow">左右分栏<span class="viewa3"><span class="left1"></span></span></label>
+							<!--<a href="javascript:;" id="oneWindow" title="分页列表" class="viewa"></a> 
+							<a href="javascript:;" id="TBwindow" title="上下分栏" class="viewa2"> <span class="top1"></span> </a> 
+							<a href="javascript:;" id="LFwindow" title="左右分栏" class="viewa3"> <span class="left1"></span> </a> -->
+					</div>
+				</li>
+				<li class="formLine">
+					<label class="label">列表显示：</label>
+					<div class="element">	
+						<label hidefocus=true for="mailContentDisplay"><input id="mailContentDisplay" type="checkbox" statusName="attrs" keyvalue="mailcontentdisplay-1" value="" class="mr_5" />正文摘要</label><br />
+						<label hidefocus=true for="mailSizeDisplay"><input id="mailSizeDisplay" type="checkbox" statusName="attrs" keyvalue="mailsizedisplay-1" value="" class="mr_5" />邮件大小</label>
+					</div>
+				</li>	
+				<li class="formLine">
+					<label class="label">邮件列表视图：</label>
+					<div class="element">	
+						<label hidefocus=true for="session_model"><input type="checkbox" id="session_model" value="" class="mr_5" />会话模式</label>
+					</div>
+				</li>
+			</ul>			
+		</div>
+	</div>
+	<div class="setArea">
+		<h2>读信页</h2>
+		<div class="setArea-content">
+			<ul class="form">					
+				<li class="formLine">
+					<label class="label">对方要求回执时：</label>
+					<div class="element">	
+						<label hidefocus=true for="receipt1"><input id="receipt1" checked type="radio" statusName="attrs" keyvalue="preference_receipt-1" name="receipt" value="" class="mr_5" />需要确认 <i class="i_tuij"></i></label><br />
+						<label hidefocus=true for="receipt3"><input id="receipt3" type="radio" statusName="attrs" keyvalue="preference_receipt-3" name="receipt" value="" class="mr_5" />发送</label><br />
+						<label hidefocus=true for="receipt2"><input id="receipt2" type="radio" statusName="attrs" keyvalue="preference_receipt-2" name="receipt" value="" class="mr_5" />忽略</label>
+					</div>
+				</li>	
+					
+			</ul>			
+		</div>
+	</div>
+	<div class="setArea">
+		<h2>回复邮件</h2>
+		<div class="setArea-content p_relative" id="replyLayer">
+			<ul class="form setForm">					
+				<li class="formLine">
+					<label class="label">回复邮件：</label>
+					<div class="element">	
+						<label hidefocus=true for="preferecneReply"><input id="preferecneReply" checked type="radio" statusName="attrs" keyvalue="preference_reply-1" name="reply" value="" class="mr_5" />附原邮件 <i class="i_tuij"></i></label><br />
+						<label hidefocus=true for="nopreferecneReply"><input id="nopreferecneReply" type="radio" statusName="attrs" keyvalue="preference_reply-0" name="reply" value="" class="mr_5" />不附原邮件</label>
+					</div>
+				</li>	
+				<li class="formLine">
+					<label class="label">回复时主题显示：</label>
+					<div class="element">		
+						<label hidefocus=true for="zhCn"><input checked id="showTitle1" type="radio" statusName="attrs" keyvalue="preference_reply_title-1" name="language" value="" class="mr_5" />Re: <i class="i_tuij"></i></label><br />
+						<label hidefocus=true for="enUs"><input id="showTitle2" type="radio" statusName="attrs" keyvalue="preference_reply_title-2" name="language" value="" class="mr_5" />&gt;</label><br />
+						<label hidefocus=true for="enUs"><input id="showTitle3" type="radio" statusName="attrs" keyvalue="preference_reply_title-3" name="language" value="" class="mr_5" />Reply:</label>
+					</div>
+				</li>	
+				<li class="formLine">
+					<label class="label"><i title="当您出差、旅游或一段时间不方便上网时，可帮您自动回复每一封来信。" class="i_wenhao"></i> 自动回复：</label>
+					<div class="element" id="auto_replay">		
+						<label hidefocus=true for="openAutoReply"><input id="openAutoReply" type="radio" statusName="attrs" keyvalue="auto_replay_status-1" name="auto_replay" status="on" value="" class="mr_5" />开启</label><br />
+						<label hidefocus=true for="noopenAutoReply"><input id="noopenAutoReply" type="radio" statusName="attrs" keyvalue="auto_replay_status-0" name="auto_replay" status="close" value="" class="mr_5" />关闭</label>
+					</div>
+				</li>
+				<li class="formLine p_relative" id="autoReplayLi">
+					<label class="label">时间段：</label>
+					<div class="element">
+						<div class="clearfix">
+							<div class="dropDown dropDown-mailset" id="calendarStart"> <a class="dropDownA" href="javascript:void(0)"><i class="i_triangle_d"></i></a>
+									<div class="dropDownText"><span id="startTime">2012-03-20</span> <span id="getPeriodStart" class="gray"></span></div>								
+							</div><span class="dropDown-mailsettext">至</span>
+							<div class="dropDown dropDown-mailset" id="calendarEnd"> <a class="dropDownA" href="javascript:void(0)"><i class="i_triangle_d"></i></a>
+									<div class="dropDownText"><span id="endTime">2012-03-20</span> <span id="getPeriodEnd" class="gray"></span></div>								
+							</div>
+						</div>
+						<div class="mt_5">
+                            <textarea class="mailtextared" id="autoReplyTextarea"></textarea>
+                        </div>	
+					</div>
+				</li>
+					
+			</ul>		
+		</div>
+	</div>
+	<div class="setArea" id="">
+		<h2>转发邮件</h2>
+		<div class="setArea-content p_relative">
+			<ul class="form">					
+				<li class="formLine">
+					<label class="label">自动转发：</label>
+					<div class="element" id="auto_forward">	
+						<label hidefocus=true for="openForward"><input id="openForward" type="radio" statusName="attrs" keyvalue="auto_forward_status-1" name="auto_forward" status="on" value="" class="mr_5" />开启</label><br />
+						<label hidefocus=true for="closeForward"><input id="closeForward" type="radio" statusName="attrs" keyvalue="auto_forward_status-0" name="auto_forward" status="close" value="" class="mr_5" />关闭</label>
+					</div>
+				</li>	
+				<li class="formLine p_relative" id="autoForwardLi">
+					<label class="label">自动转发到：</label>
+					<div class="element">		
+						<input type="text" id="auto_forward_addr" class="iText gray" value="邮箱地址" style="width:120px;" /> <label class="ml_5" for="saveMail" hidefocus=true><input id="saveMail" type="checkbox" statusName="attrs" keyvalue="auto_forward_bakup-1" value="" class="mr_5" />本帐号保存邮件</label>
+					</div>
+				</li>	
+					
+			</ul>	
+		</div>
+	</div>
+	<div class="setArea" id="clearFolders">
+		<h2>文件夹清理</h2>
+		<div class="setArea-content">
+			<ul class="form setForm">					
+				<li class="formLine">
+					<label class="label">我的订阅：</label>
+					<div class="element" id="mySubscribe">
+                    
+					<input type="radio" name="subKeepPeriod" keepPeriod="0" value="" class="mr_5"/><label for="">不清理</label><br/>
+					 <input type="radio" name="subKeepPeriod" keepPeriod="7" value="" class="mr_5"/><label for="">7天</label><br/>
+					 <input type="radio" name="subKeepPeriod" keepPeriod="15" value="" class="mr_5"/><label for="">15天</label><br/>
+					 <input type="radio" name="subKeepPeriod" keepPeriod="30" value="" class="mr_5"/><label for="">30天</label>
+                   <!-- <div id="mySubscribe"></div>
+                    <div id="subscribeValue" class="hide"></div> -->
+                </div>
+				</li>	
+				<li class="formLine">
+					<label class="label">我的账单：</label>
+					<div class="element" id="myBill">
+                    
+					<input type="radio" name="billKeepPeriod" keepPeriod="0" value="" class="mr_5"/><label for="">不清理</label><br/>
+					 <input type="radio" name="billKeepPeriod" keepPeriod="7" value="" class="mr_5"/><label for="">7天</label><br/>
+					 <input type="radio" name="billKeepPeriod" keepPeriod="15" value="" class="mr_5"/><label for="">15天</label><br/>
+					 <input type="radio" name="billKeepPeriod" keepPeriod="30" value="" class="mr_5"/><label for="">30天</label>
+                    <!--<div id="myBill"></div>
+                    <div id="billValue" class="hide"></div> -->
+                </div>
+				</li>	
+					
+			</ul>			
+		</div>
+	</div>
+	<!--登录tips的相关提醒设置 -->
+	<div class="setArea " id="onlinetips">
+		<h2>邮件到达通知框</h2>
+		<div class="setArea-content p_relative">
+			<img src="/m2012/images/module/set/mialtz.png" class="mialDZimg" style="top:136px;right:0px;" width="216" height="98" alt="邮件到达通知" />
+			<ul class="form setForm">					
+				<li class="formLine">
+					<label class="label"></label>
+					<div class="element p_relative">	
+						<div class="">用户登录提醒，用户成功登录后，和联系人互打招呼</div>
+						<div>
+							<label hidefocus=true for="login1"><input type="radio" name="login" id="login1"  value="" class="mr_5" />显示</label><br />
+							<label hidefocus=true for="login0"><input type="radio" name="login" id="login0" value="" class="mr_5" />不显示</label>					
+						</div>
+						
+					</div>
+				</li>	
+				<li class="formLine">
+					<label class="label"></label>
+					<div class="element p_relative">	
+						<div class="">联系人上线提醒，当通讯录联系人登录邮箱时将提醒你</div>
+						<div>
+							<label hidefocus=true for="online1"><input type="radio" name="online" id="online1"  value="" class="mr_5" />显示</label><br />
+							<label hidefocus=true for="online0"><input type="radio" name="online" id="online0" value="" class="mr_5" />不显示</label>					
+						</div>
+						</div>
+				</li>	
+				<li class="formLine">
+					<label class="label"></label>
+					<div class="element p_relative">	
+						<div class="">邮件到达提醒，新邮件到达时，第一时间提醒你</div>
+						<div>
+							<label hidefocus=true for="mail1"><input type="radio" name="mail" id="mail1"  value="" class="mr_5" />显示</label><br />
+							<label hidefocus=true for="mail0"><input type="radio" name="mail" id="mail0" value="" class="mr_5" />不显示</label>					
+						</div>
+						</div>
+				</li>	
+				<li class="formLine">
+					<label class="label"></label>
+					<div class="element p_relative">	
+						<div class="">实用功能提醒，箱新功能，抢先知道快速体验</div>
+						<div>
+							<label hidefocus=true for="ad1"><input type="radio" name="ad" id="ad1"  value="" class="mr_5" />显示</label><br />
+							<label hidefocus=true for="ad0"><input type="radio" name="ad" id="ad0" value="" class="mr_5" />不显示</label>					
+						</div>
+					</div>
+				</li>	
+					
+			</ul>			
+		</div>
+	</div>
+	<div class="setArea" id="autoSavaContact">
+		<h2>自动保存联系人</h2>
+		<div class="setArea-content">
+			<ul class="form">					
+				<li class="formLine">
+					<label class="label"></label>
+					<div class="element">	
+						<div class="">邮件\短信发送成功后，是否自动保存联系人到通讯录</div>
+						<div>
+							<label hidefocus=true for="saveContacts"><input type="radio" id="saveContacts" name="autoSave" checked value="" class="mr_5" />保存</label><br />
+							<label hidefocus=true for="noSaveContacts"><input type="radio" id="noSaveContacts" name="autoSave" value="" class="mr_5" />不保存</label>					
+						</div>
+					</div>
+				</li>	
+					
+			</ul>			
+		</div>
+	</div>
+	<div class="setArea" id="clientSend">
+		<h2>客户端发邮件保存设置</h2>
+		<div class="setArea-content">
+			<ul class="form">					
+				<li class="formLine">
+					<label class="label"></label>
+					<div class="element">	
+						<div class="">从Foxmail、Outlook等客户端发出的邮件，是否自动保存到139邮箱“已发送”文件夹</div>
+						<div>
+							<label hidefocus=true for="smtpSaveSend"><input id="smtpSaveSend" statusName="attrs" keyvalue="smtpsavesend-1" name="smtpsavesend" type="radio" value="" class="mr_5" />保存<span class="red">（若使用通过IMAP协议的客户端发送邮件时，会在已发送文件夹存在2封相同的邮件）</span></label><br />
+							<label hidefocus=true for="nosmtpSaveSend"><input id="nosmtpSaveSend" statusName="attrs" keyvalue="smtpsavesend-0" name="smtpsavesend" type="radio" value="" class="mr_5" />不保存</label>					
+						</div>
+					</div>
+				</li>	
+					
+			</ul>			
+		</div>
+	</div>
+    <div class="setArea" id="popReceiveMail">
+        <h2>客户端接收邮件设置 <span class="gray fz_12 fw_n">(仅对POP有效)</span></h2>
+        <div class="setArea-content">
+            <ul class="form setForm">
+                <li class="formLine">
+                    <label class="label">使用POP方式收邮件时：</label>
+                    <div class="element">
+                        <div>
+                            <label for="markReaded"><input type="radio" id="markReaded" name="mailStatus" value="" class="mr_5"/>未读邮件自动标记为已读</label><br/>
+                            <label for="notChange"><input type="radio" id="notChange" name="mailStatus" value="" class="mr_5"/>未读邮件状态不变 <i class="i_tuij"></i></label>
+                        </div>
+                    </div>
+                </li>
+                <li class="formLine">
+                    <label class="label">同步选项：</label>
+                    <div class="element">
+                        <div>
+                            <label for="forbidDel"><input type="checkbox" name="" id="forbidDel" value="" class="mr_5"/>禁止客户端删信</label> (<a href="http://help.mail.10086.cn/statichtml/1/Content/1875.html" target="_blank">为什么会有客户端删信</a>)
+                        </div>
+                    </div>
+                </li>
+                <li class="formLine">
+                    <label class="label">客户端收取选项：</label>
+                    <div class="element">
+                        <div class="clearfix"><div id="getMailForDate" class="fl mr_5"></div>的邮件：</div>
+                        <div id="popFolderList" status="false">
+                            <label><input type="checkbox" checked disabled name="" value="" class="mr_5"/>收件箱</label>   <br />
+                            <label><input type="checkbox" checked disabled name="" value="" class="mr_5"/>账单中心</label>   <br />
+                            <label><input type="checkbox" checked disabled name="" value="" class="mr_5"/>我的订阅</label>   <br />
+                            <label><input status="false" type="checkbox" id="spamFolder" key="spam" name="" value="" class="mr_5"/>垃圾邮件</label>   <br />
+                            <label><input status="false" type="checkbox" id="adsFolder" key="ads" name="" value="" class="mr_5"/>广告文件夹</label>   <br />
+                            <label><input status="false" type="checkbox" id="myFolder" key="myfolder" name="" value="" class="mr_5"/>我的文件夹</label>   <br />
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+	<div class="setBtn fixed-bottom">
+<span class="pl_20"><a href="javascript:void(0)" class="btnSetG" id="doOk"><span>保 存</span></a> <a href="javascript:void(0)" class="btnSet" id="doCancel"><span>取 消</span></a></span>
+</div>
+
+
+
+
+
+
+      <script>          top.loadScript("preference.branch.html.pack.js", document)</script>
+      
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+
+
+
+
+
+
+    
+    
+    
+
+
+
+
+
+    
+    
+    
+    
+
+    
+    
+    
+
+
+</body>
+</html>

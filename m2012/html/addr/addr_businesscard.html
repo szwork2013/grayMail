@@ -1,0 +1,153 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="pageDetail" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>139邮箱通讯录::电子名片</title>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<script type="text/javascript">
+document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+function filltag(d,c,f){var b,a,e=[];while(d.length){a=d.shift();switch(true){case Object.prototype.toString.apply(a)==="[object Array]":b="<script "+(a[1].length>0?'charset="'+a[1]+'" ':"")+"src='"+(a[2]?a[2]:c)+"/js/"+a[0]+"' type='text/javascript'><\/script>";break;case a.indexOf(".js")>-1:b="<script "+(f?'charset="'+f+'" ':"")+"src='"+c+"/js/"+a+"' type='text/javascript'><\/script>";break;case a.indexOf(".css")>-1:b="<link rel='stylesheet' type='text/css' href='"+c+"/css/"+a+"' />";break;case a.length==0:b="<link rel='stylesheet' type='text/css' />"}e.push(b)}document.write(e.join(""))}
+var resourcePath = top.resourcePath, addrsrc = resourcePath.replace('coremail', 'addr'), verifyImageUrl='', AddressBookType={};
+//filltag(['global2012.css?v=20120620','',"addr.css","jquery-1.7.1.min.js",["utils.js","GB2312"]],resourcePath);
+filltag(["global2012.css?v=20120620", "", "addr2012.css"], resourcePath);
+try {
+top.loadScript("libs.pack.js", document);
+top.loadScript('m139.core.pack.js', document);
+top.loadScript("m2012.ui.common.pack.js", document);
+top.loadScript("m2011.utilscontrols.pack.js", document);
+top.loadScript("../../js/packs/addr/addr_zh_hans.pack.js", document);
+top.loadScript("../../js/packs/addr/addr_detail.html.pack.js", document);
+} catch (ex) {}
+</script>
+<script type="text/javascript">Utils.loadSkinCss(null, document, "addr");</script>
+<!--[if IE 6]><script type="text/javascript">try { document.execCommand('BackgroundImageCache', false, true); } catch(e) {}</script><![endif]-->
+<style type="text/css">
+#frmUpload{position:absolute;top:0px;left:0px;}
+#fileUpload{background:red;position:relative;height:96px;width:96px;left:1px;z-index:100;opacity: 0;filter: alpha(opacity=0);cursor:pointer;}  
+#uploadButton{position: absolute;bottom:-67px;left:1px;line-height:16px;}
+#aBackContacts{font-weight:bold;font-size:14px;text-decoration:none;color:#000;}
+#cardContent table td{text-align:left;}
+#FavoWord{resize:none;}
+#uploadButton{_bottom:0px;}
+/* 按纽对齐 */
+.toolBar139 li.mr_10 a{font-family: "微软雅黑";}
+.btn_normal li a{
+    height: 23px;line-height: 23px;padding-top:0;border-bottom: 0;}
+.pageStyleBar .pageStyle{height: 23px;}
+</style>
+<base target="_self" />
+</head>
+
+<body class="hasAddressList bodyDetail msyhv2" style="overflow:auto;padding:0;">
+  <div class="content">	
+		<div class="signature signaturemy">
+			<div class="singTitle">
+				<strong><a href="javascript:void(0);" id ="aBackContacts">通讯录&gt;&gt;</a></strong>
+				<strong id ="spanDetailsTitle"></strong>
+				<p id="infoNotComplete"></p>	
+			
+			</div>	
+			<div class="toolBar139" id="divToolBar" style="display:none;">	
+				<div class="btn_normal clear">	
+					<ul class="btn_main" id="editBtnArea">			
+						<li class="lianlil mr_10"><a  id="aBackDet" title="返回" href="javascript:void(0)"><i class="l_border"></i>&lt;&lt;返回<i class="r_border"></i></a></li>
+						<li class="mr_10"><a id="aEditCard" title="编辑" href="javascript:void(0)"><i class="l_border"></i>编辑<i class="r_border"></i></a></li> 
+						<li class="lianli"><a  id="sendemail" title="邮件发送名片" href="javascript:void(0)"><i class="l_border"></i>邮件发送名片<i class="r_border"></i></a> </li>		
+						<li class="lianli"><a  id="sendsms"   title="短信发送名片" href="javascript:void(0)"><i class="l_border"></i>短信发送名片<i class="r_border"></i></a> </li>		
+						<li class="lianli mr_10"><a id="sendmms" title="彩信发送名片" href="javascript:void(0)"><i class="l_border"></i>彩信发送名片<i class="r_border"></i></a> </li>
+						
+						<li class="lianlil mr_10" ><a id="btnSave"   title="保存" href="javascript:void(0)"><i class="l_border"></i>保存<i class="r_border"></i></a></li>
+						<li class="lianlil mr_10"><a id="btnCancelEdit"       title="取消" href="javascript:void(0)"><i class="l_border"></i>取消<i class="r_border"></i></a></li> 
+						<li class="lianli mr_10" style="display:none;"><a  id="aDefSign"  title="设为默认邮件签名" href="javascript:void(0)"><i class="l_border"></i><span>设为默认邮件签名</span><i class="r_border"></i></a> </li>
+						
+					</ul>		
+				</div> 
+			</div>		 
+			<div class="mySLinfo" id="cardContentArea" style="display:none;" >
+				<div class="mySlinfoF"><img width="96" height="96" alt="" id="ImageUrl" /><!--<a class="upface" href="javascript:void(0);" id="aUploadImg" style="display:none;">上传头像</a>-->	
+				 <form id="frmUpload" name="frmUpload" method="post" enctype="multipart/form-data" action="" target="ifrmReturnInfo" style="height:30px;width:98px;">
+                   
+				   <input id="fileUpload" name="fileUpload" class="file" type="file" style="display:none; font-size:10px;"/>
+				   <a class="upface" href="javascript:void(0);" id="uploadButton" style="display:none;" >上传头像</a>
+				   <input id="oldImageUrl" name="oldImageUrl" type="hidden" />
+                   <input id="funcid" name="funcid" type="hidden" />
+				   <input id="unreserved" name="unreserved" type="hidden" />
+				 </form>
+				</div>
+			
+				<dl id="cardContent">
+					<dt><span><input class="text" type="text" name="name" id="name" value="姓名" maxlength="12" style="display:none" /><em style="font-weight:bold;"></em></span></dt>
+					<dt style="height:auto;"><span><textarea style="width:228px; height:32px;" maxlength="35" name="FavoWord"  style="display:none"id="FavoWord" onpropertychange =" textareaMaxLen()"></textarea><em></em></span></dt>
+					<dd>
+						<table>
+							<tr style="display:none" >
+								<td width="38">职务：</td><td><input class="text" type="text"  name="UserJob"     id="UserJob"  value="" maxlength="10" style="display:none"/><em></em></td>
+							</tr>
+							<tr style="display:none" >
+								<td width="38">公司：</td><td><input class="text" type="text" name="CPName" id="CPName" value="" maxlength="30" style="display:none" /><em></em></td>
+							</tr>
+							<tr style="display:none" >
+								<td width="38">地址：</td><td><input class="text" type="text"  name="CPAddress"   id="CPAddress"  value=""maxlength="50" style="display:none" /><em></em></td>
+							</tr>
+							<tr style="display:none" >
+								<td width="38">邮箱：</td><td><input class="text" type="text"  name="FamilyEmail" id="FamilyEmail" value="" maxlength="90" style="display:none" /><em></em></td>
+							</tr>
+							<tr style="display:none" >
+								<td width="38">手机：</td><td><input class="text" type="text"  name="MobilePhone" id="MobilePhone"  value="" maxlength="20" style="display:none" /><em></em></td>
+							</tr>
+							<tr style="display:none" >
+								<td width="38">电话：</td><td><input class="text" type="text" name="OtherPhone"  id="OtherPhone"   value="" maxlength="30" style="display:none" /><em></em></td>
+							</tr>
+							<tr style="display:none" >
+								<td width="38">传真：</td><td><input class="text" type="text" name="BusinessFax" id="BusinessFax" value="" maxlength="30" style="display:none" /><em></em></td>
+							</tr>
+							<tr style="display:none" >
+								<td width="38">邮编：</td><td><input class="text" type="text" name="CPZipCode"     id="CPZipCode" value="" maxlength="10" style="display:none" /><em></em></td>
+							</tr>
+						</table>
+					</dd>
+				</dl>
+			</div>		
+			<div class="toolBar139 toolBar139bnone" id="bottomdivToolBar" style="display:none;overflow:hidden;_zoom:1;">	
+			<div class="btn_normal clear">	
+				<ul class="btn_main" id="bottomeditBtnArea">			
+					<li class="lianlil mr_10"><a id="bottomaBackDet" title="返回" href="javascript:void(0)" ><i class="l_border"></i>&lt;&lt;返回<i class="r_border"></i></a></li>
+					<li class="mr_10"><a  id="bottomaEditCard" title="编辑" href="javascript:void(0)"><i class="l_border"></i>编辑<i class="r_border"></i></a></li> 
+					<li class="lianli"><a  id="bottomsendemail" title="邮件发送名片" href="javascript:void(0)"><i class="l_border"></i>邮件发送名片<i class="r_border"></i></a> </li>		
+					<li class="lianli"><a  id="bottomsendsms" title="短信发送名片" href="javascript:void(0)"><i class="l_border"></i>短信发送名片<i class="r_border"></i></a> </li>		
+					<li class="lianli mr_10"><a id="bottomsendmms" title="彩信发送名片" href="javascript:void(0)"><i class="l_border"></i>彩信发送名片<i class="r_border"></i></a> </li>
+					
+					<li class="lianlil mr_10"><a  id="bottombtnSave"  title="保存" href="javascript:void(0)"><i class="l_border"></i>保存<i class="r_border"></i></a></li>
+					<li class="lianlil mr_10"><a  id="bottombtnCancelEdit"    title="取消" href="javascript:void(0)"><i class="l_border"></i>取消<i class="r_border"></i></a></li> 
+					<li class="lianli mr_10 " style="display:none;"><a id="bottomaDefSign"title="设为默认邮件签名" href="javascript:void(0)"><i class="l_border"></i><span>设为默认邮件签名</span><i class="r_border"></i></a> </li>
+				</ul>
+			</div> 
+		</div>
+	</div>
+</div>
+
+
+
+<iframe id="ifrmReturnInfo" name="ifrmReturnInfo" scrolling="no" height="0" width="0" frameborder="0" src="empty.html"></iframe>
+<script type="text/javascript">
+$(function (){
+    ContactModule.initCardPage();
+		//实例化上传类 add by zsx
+	new m2012.imageUpload({
+		ImageId : document.getElementById("ImageUrl"),
+		formId : document.getElementById("frmUpload"),
+		inputId : document.getElementById("fileUpload"),
+		hideInput : document.getElementById("oldImageUrl"), 
+		flag : true
+	});
+   
+});
+//textarea长度限制
+function   textareaMaxLen(){ 
+	var el = document.getElementById("FavoWord");
+	if(el.value.length> 35) {
+		el.value=el.value.substring(0,35) 
+	}
+} 
+</script>
+</body>
+</html>

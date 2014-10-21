@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>离职告别</title>
+<style>
+	body,th, td {
+	    margin: 0;
+	    padding: 0;
+	    font-family:Microsoft YaHei;
+	}
+	
+	table {
+		border-collapse: collapse;
+		border-spacing: 0;
+		font-size:12px;
+		table-layout:fixed;
+		width:100%;
+	}
+	
+	.header , .header td ,.midder ,.midder td{
+		vertical-align:top;
+	}
+</style>
+</head>
+<body contenteditable="true">
+<div>
+<table style="height: 100%; min-width: 660px; width: 99%;">
+  <tbody>
+	<tr>
+		<td style="vertical-align:top; background-position:bottom; background-repeat:repeat-x;background:#e0f7fc;">
+			<!--内容开始-->
+			<table style="height:100%;">
+			<tbody>
+				<tr>
+					<td style=" background:#e0f7fc; background-repeat:repeat-x;">
+						<!--头部的table开始-->
+						<table>
+						<tbody>
+							<tr>
+								<td background="topbg.jpg" style="background-repeat:no-repeat; background-position:center top; height:152px;"></td>
+							</tr>
+						</tbody>
+						</table>
+						<!--头部的table结束-->
+					</td>
+				</tr>
+				<tr>
+					<td style="padding:0 30px;">
+						<!--内容的table开始-->
+						<table>
+						<tbody>
+							<tr>
+								<td background="" style="padding:0 30px;">
+									<table>
+									<tbody>
+										<tr>
+											<td id="content139" class="content" style="font-size:12px;min-height:500px;padding:5px 0px 25px 0px;line-height:30px;height:300px;_height:300px;_overflow:visible;vertical-align:top;">
+												<table border="0" cellpadding="0" cellspacing="0">
+													<tr height="40">
+														<td style="color:#386076;font-size:14px;text-align:left;">Dear all:</td>
+													</tr>
+													<tr height="20">
+														<td style="color:#386076;font-size:14px;text-align:left;">感谢大家一直以来对我的支持和鼓励，今天我在这里的工作将告一段落。太多的感谢要表达，太多的回忆要珍藏，诸多不舍。祝愿大家工作顺利，身体健康！</td>
+													</tr>
+													<tr height="20">
+														<td style="color:#386076;font-size:14px;text-align:left;"></td>
+													</tr>
+													<tr height="20">
+														<td style="color:#386076;font-size:14px;text-align:left;"></td>
+													</tr>
+													<tr height="20">
+														<td style="color:#386076;font-size:14px;text-align:left;"></td>
+													</tr>
+													<tr height="20">
+														<td style="color:#386076;font-size:14px;text-align:left;"></td>
+													</tr>
+													<tr height="20">
+														<td style="color:#74a4be;font-size:14px;text-align:right;"><span class="editable">请输入姓名</span></td>
+													</tr>
+													<tr height="20">
+														<td style="color:#386076;font-size:14px;text-align:right;"><span class="editable">****</span>年<span class="editable">**</span>月<span class="editable">**</span>日</td>
+													</tr>
+												</table>
+											</td>
+										</tr>
+									</tbody>
+									</table>
+								</td>
+							</tr>
+						</tbody>
+						</table>
+						<!--内容的table结束-->
+					</td>
+				</tr>
+				<tr>
+					<td background="rep-bg.png" style="background-repeat:repeat-x; background-position:top center; ">
+						<!--页脚的table开始-->
+						<table>
+						<tbody>
+							<tr>
+								<td background="bottombg.jpg" style="background-position:top center;height:132px; background-repeat:no-repeat;"></td>
+							</tr>
+						</tbody>
+						</table>
+						<!--页脚的table结束-->
+					</td>
+				</tr>
+			</tbody>
+			</table>
+			<!--内容结束-->
+		</td>
+	</tr>
+  </tbody>
+</table>
+</div>
+</body>
+<html>

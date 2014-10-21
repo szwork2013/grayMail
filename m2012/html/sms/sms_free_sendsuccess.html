@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>种子发短信成功</title>
+    <link rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
+//设域
+
+document.domain=window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+//获得资源路径
+var resourcePath=window.top.resourcePath;
+var supermanResourcePath=resourcePath.replace("coremail","sms");
+var htmlCode="";
+htmlCode+=getLinkTag("");
+htmlCode+=getLinkTag(resourcePath+"/css/global.css");
+
+top.loadScript("jquery.js", document);
+top.loadScript("m2011.utilscontrols.pack.js", document);
+top.loadScript("/m2012/js/matrixvm/page/m2011.page.AddressBook.js", document);
+top.loadScript("/m2012/js/service/sms/m2011.sms.comon.js", document);
+top.loadScript("/m2012/js/service/sms/m2011.sms.matrix.js", document);
+top.loadScript("/m2012/js/service/sms/m2011.sms.Sms_FreeSms_SendSuccess.js", document);
+
+document.write(htmlCode);
+function getJsTag(path,charset){
+    var html="<script charset='gb2312' src='"+path+"' type='text/javascript'></"+"script>";
+    if (charset) html = html.replace("gb2312",charset);
+    return html;
+}
+function getLinkTag(path){
+    var text="";
+    if(path)text="href='"+path+"'";
+    return "<link rel='stylesheet' type='text/css' "+text+" />";
+}
+    </script>
+</head>
+<body>
+
+    <script type="text/javascript">
+	Utils.setDomain();
+	Utils.loadSkinCss();
+    </script>
+
+    <form id="form1">
+        <div class="rightContentBg">
+            <div class="tipMoney" id="senddaymsg" style="width: 625px; display: none">
+                <i class="notice mT5px"></i>
+                <p id="lbInfo">
+                    您今天的<em>发送数量已达到限额</em>，请明天再试，谢谢您的使用！</p>
+            </div>
+            <div class="tipMoney" id="sendmonthmsg" style="width: 625px; display: none">
+                <i class="notice mT5px"></i>
+                <p id="P1">
+                    您本月的<em>发送数量已达到限额</em>，请下个月再试，谢谢您的使用！</p>
+            </div>
+            <div class="spInfo" style="margin-top: 30px;">
+                <span class="do4"></span><b class="fc f16px" id="successInfo"></b>
+                <br />
+                <a id="linkSendAgain" href="javascript:void(0);">&lt;&lt;继续发送本条短信</a> &nbsp; &nbsp; &nbsp; &nbsp;<a
+                    href="../../uploads/html/NewFreeSms/index.html">返回到免费短信首页&gt;&gt;</a>
+            </div>
+            <div class="seedSms_sAll">
+                <div class="seedSms_s" id="divAddr" style="display:none">
+                    <span class="createFolder">&nbsp;<em class="fc">将以下手机号码添加到您的通讯录</em></span>
+                    <div id="divAddress">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td width="25" height="30">
+                                    <input id="chkSelectAll" type="checkbox" onclick="selectAll()" /></td>
+                                <td width="130">
+                                    姓名</td>
+                                <td width="160">
+                                    邮箱</td>
+                                <td width="160">
+                                    手机</td>
+                            </tr>
+                           </table> 
+                    </div>
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td width="25" height="15">
+                                &nbsp;</td>
+                            <td width="130">
+                                &nbsp;</td>
+                            <td width="160">
+                                &nbsp;</td>
+                            <td width="160">
+                                &nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                &nbsp;</td>
+                            <td>
+                                <a id="linkSave" href="javascript:;" class="but3">保 存</a></td>
+                            <td>
+                                &nbsp;</td>
+                            <td>
+                                &nbsp;</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+<script type="text/javascript">
+    var varSmsId = Utils.queryString("smsid");
+    var varSignature = Utils.queryString("sign");
+    var varisDayCanSend=Utils.queryString("iday");
+    var varisMonthCanSend=Utils.queryString("imonth");
+    var varSendMobile=unescape(Utils.queryString("m"));
+    var recArr = varSendMobile.split(",");
+    $("#successInfo").html("您的免费短信成功发送给"+ recArr.length +"个联系人！");
+</script>
+</html>

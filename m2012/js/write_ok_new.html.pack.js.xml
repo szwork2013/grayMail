@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<project name="build_pack" default="packFile">
+    <target name="packFile">
+        <concat destfile="./packs/write_ok_new.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+            <fileset dir="./" includes="**/m2012.ui.widget.contactsautosave.js"/>
+            
+            <fileset dir="./" includes="**/success/m2012.compose.model.success.js"/>            
+            <fileset dir="./" includes="**/success/m2012.compose.view.success.addgroup.js"/>
+            <fileset dir="./" includes="**/success/m2012.compose.view.success.addvip.js"/>
+            <fileset dir="./" includes="**/success/m2012.compose.view.success.mailnotify.js"/>
+            <fileset dir="./" includes="**/success/m2012.compose.view.success.subscribe.js"/>
+            <fileset dir="./" includes="**/success/m2012.compose.view.success.aliasname.js"/>
+            <fileset dir="./" includes="**/success/m2012.compose.view.success.truename.js"/>
+            <fileset dir="./" includes="**/success/m2012.compose.view.success.saveContact.js"/>
+            <fileset dir="./" includes="**/success/m2012.compose.view.success.main.js"/>
+        </concat>
+    </target>
+</project>

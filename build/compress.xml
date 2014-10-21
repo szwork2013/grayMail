@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="compress" default="all" basedir=".">
+       <property file="build.properties"/>
+       <target name="all">
+       <copy todir="${M2012.build.dir}/js/packs">
+            <fileset dir="${M2012.build.dir}/js/packs" includes="*.pack.js" excludes="libs.pack.js,mobile.html.pack.js"/>
+            <mapper type="regexp" from="^(.*)\.pack\.js$" to="\1.pack.source.js"/>
+       </copy>
+       <apply executable="java" verbose="true" dest="${M2012.build.dir}/js/packs" failonerror="true" parallel="false">
+            <fileset dir="${M2012.build.dir}/js/packs" includes="**/*.pack.source.js"/>
+            <arg line="-jar"/>
+            <arg path="${M2012.src.dir}/build/lib/compiler.jar"/>
+            <arg line="--charset utf8"/>
+            <arg value="--warning_level"/>
+            <arg value="QUIET"/>
+            <arg value="--formatting"/>
+            <arg value="PRETTY_PRINT"/>
+            <arg value="--js"/>
+            <srcfile/>
+            <arg value="--js_output_file"/>
+            <targetfile/>
+            <mapper type="regexp" from="^(.*)\.source\.js$" to="\1.js"/>
+         </apply>
+         </target>
+</project>

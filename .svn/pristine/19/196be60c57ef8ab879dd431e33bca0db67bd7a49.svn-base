@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>正文</title>
+<script type="text/javascript">
+    if (/MSIE [5-8]/.test(navigator.userAgent) || /webkit|opera|safari/i.test(navigator.userAgent)) {
+        document.designMode = "on";
+    }
+    try{
+	    document.domain=window.location.host.match(/[^.]+\.[^.]+$/)[0];
+    }catch(e){}
+
+    if (document.attachEvent) {
+        document.attachEvent("onkeydown", keyDown);
+    }else{
+        document.addEventListener("keydown",keyDown,false);
+    }
+
+    function keyDown(e){
+        e = e || event;
+        try {
+	        if (window.top.globalKeyDownEvent) {
+		        return window.top.globalKeyDownEvent(e);
+	        }
+        } 
+        catch (e) {
+        }
+    }
+</script>
+
+<style type="text/css">
+
+html {
+	height:100%;
+}
+
+body {
+	position: relative;
+	height: 95%;
+	padding: 5px;
+	background: #fff;
+	padding-bottom: 0px;
+	margin: 0px;
+	font: 13px Verdana;
+	/*overflow: auto;*/
+	line-height:1.6;
+}
+
+p, font, div, li {
+	line-height:1.6;
+}
+
+.i {
+	table-layout: fixed;
+	width: auto;
+}
+
+pre {
+	word-wrap: break-word;
+}
+
+input[type="radio"], input[type="checkbox"]{
+	cursor: default;
+}
+
+input[type="radio"]:hover, input[type="checkbox"]:hover{
+	cursor: help;
+}
+
+table td{
+	word-break: break-all;
+}
+
+</style>
+<link rel="stylesheet" href="/m2012/css/module/atta/in_mail_atta_preview.css" />
+</head>
+
+<body contenteditable="true"></body>
+</html>

@@ -1,0 +1,49 @@
+﻿
+.zlfl
+{
+    float: left;
+}
+.zlfr
+{
+    float: right;
+}
+#doc
+{
+    position: relative;
+    border: 1px solid #eee;
+    box-shadow: 0 0 5px #999;
+    border-radius: 5px;
+    overflow: hidden;
+    font-size: 11px;
+    font-family: 微软雅黑;
+    width: 624px;
+    display: none;
+}
+.zlGroup{  font-size: 13px;color: #cc0000;}
+.w260
+{
+    display: block;
+    width: 260px;
+}
+.p15
+{
+    padding: 15px;
+}
+.m15
+{
+    margin: 15px;
+}
+#main{ margin: 15px;       }
+.contactsArea{ width: 500px;}
+.h270{ height: 270px;overflow:auto;}
+.h250{ height: 250px;overflow:auto;}
+.hd{ display: none;}
+.cb1{border: 1px solid #ccc}
+.p5{ padding: 5px;}
+.bd1{ border-bottom: 1px dashed #eee;}
+.pd5{ padding-bottom: 5px;}
+.md5{ margin-bottom: 5px;}
+.rl{ position: relative;}
+.prt{ position: absolute;right: 0;top: 0;}
+.zlSerachBox{ width: 200px;height: 17px;line-height: 17px;padding: 1px;}
+#addrToolbar{ width: 624px;padding: 15px 15px 0 15px}

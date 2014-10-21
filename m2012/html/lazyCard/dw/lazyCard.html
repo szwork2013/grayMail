@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>懒人贺卡</title>
+<script type="text/javascript">
+        //设域
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+        function loadScript(path, _doc, charset) {
+            if (path.indexOf(".js") > -1) {
+                var base = "/m2012/js";
+                var jsVersion = "20140520";
+                if (path.indexOf("pack.js") > -1) {
+                    base += "/packs";
+                }
+                path = base + "/" + path;
+                if (path.indexOf("?") == -1) {
+                    path += "?v=" + jsVersion;
+                }
+            }
+            (_doc || document).write("<script charset=\"" + (charset || "") + "\" type=\"text/javascript\" src=\"" + path + "\"></" + "script>");
+        }
+    </script>
+    <script type="text/javascript">
+        loadScript('libs.pack.js', document);
+        loadScript('m139.core.pack.js', document);
+    </script>
+<link href="style/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+	<div class="dragonTips">
+		<div class="festivalContent">
+			<a href="#" class="closeBtn" title="关闭" id="close"><img src="images/closeBtn.png" /></a>
+			<div class="festivalPicMain" id="cardFlash">
+			
+			</div>
+			<p><a href="javascript:void;" title="换一张" class="changeBtn" id="changeCard"></a></p>
+			<div class="greetingsTig">
+				<textarea id="blessing"></textarea>
+			</div>
+				<a href="javascript:;" class="sendBox" id="sendCard"><img src="images/sendBtn.png"></a>
+			<div class="festivalContentList">
+					<h2>收件人：</h2>
+					<div class="festivalContentList_con" id="receiver">
+					</div>
+				</div>
+				<p class="festivalContentList_modul"><a id="gotoCardPage" href="javascript:top.$App.show('greetingcard','&series=端午节&materialId=10673');top.ProductFuns.closeLazyCard();">高级模式</a></p>
+
+		</div>
+	</div>
+	<script type="text/javascript">
+        loadScript('lazycard.html.pack.js', document);
+    </script>
+</body>
+</html>

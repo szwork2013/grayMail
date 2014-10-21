@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="pageSuccess" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>您的邮件发送成功</title>
+<script type="text/javascript">
+//版本号
+var version = "20121203";
+//设域
+document.domain=window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+//获得资源路径
+var resourcePath=window.top.rmResourcePath;
+var cardResourcePath=resourcePath.replace("richmail","greatCard");
+var htmlCode="";
+
+htmlCode += getLinkTag(cardResourcePath + "/css/sengcard.css");
+htmlCode += getLinkTag("");
+
+top.loadCSS(["common/global.css","module/write.css"],document);
+top.loadScript('libs.pack.js',document);
+top.loadScript("m2011.utilscontrols.pack.js", document);
+top.loadScript('m139.core.pack.js',document);
+
+top.loadScript("/m2012/js/ui/widget/m2012.ui.widget.contactsautosave.js", document);
+top.loadScript("/m2012/js/matrixvm/page/m2011.page.listByTemplate.js", document);
+top.loadScript("/m2012/js/service/card/m2011.card.success.js", document);
+
+document.write(htmlCode);
+
+function getJsTag(path,charset){
+	return "<script charset='" + (charset || "utf-8") + "' src='" + path + "?v=" + version + "' type='text/javascript'></" + "script>";
+}
+function getLinkTag(path){
+	var text="";
+	if(path){
+		 text = "href='" + path + "?v" + version + "'";
+	}
+	return "<link rel='stylesheet' type='text/css' " + text + " />";
+}
+</script>
+
+<script type="text/javascript">
+    Utils.loadSkinCss(null,document,"sengcard");
+</script>
+</head>
+<body>
+<div class="successContent">
+	<i class="i-small-succ succ-ico"></i>
+	<h2 id="h2Msg" class="success">您的贺卡发送成功</h2>
+	<p id="pSaveBox"><span class="gray">此贺卡已保存至“已发送”，</span><a id="aOutbox" class="toSeeEmail" href="javascript:;">查看此贺卡</a></p>
+	<p id="MmsCardTip"><span class="gray">此彩信贺卡已保存至彩信记录，</span><a href="#" onclick="top.Links.show('mms','&mmstype=record');return false;">查看彩信记录</a></p>
+	<p class="back">
+		<!--<a id="aInbox" href="javascript:;" class="btnNm"><i class="but_lIco"></i><span class="but_bg-x">返回收件箱</span><i class="but_rIco"></i></a>-->
+		<a href="card_sendcard.html" class="btnNm"><i class="but_lIco"></i><span class="but_bg-x">继续发贺卡</span><i class="but_rIco"></i></a>
+		<a id="aSms" href="javascript:;" class="sendSMS">发短信提醒好友收贺卡</a>
+	</p>				
+    <p><input class="btn" value="确 定" type="button" id="btnConfirm" onclick="top.MM.close();" style="display:none" /></p>	
+    
+    <div id="lottery" style="margin:10px 0; display:none"></div>
+			      
+	<div class="wrapper" id="divRecommendCard" style="display:none">
+	    
+    </div>
+    <div id="divContact" style="width: 450px"></div>
+</div>
+    <div id="divAd" style="display:none;overflow:hidden;_zoom:1;">
+    </div>
+<div class="card_birdTip" id="card_birthday" style="display:none;margin:30px 0 0 178px;padding:10px 0;width:610px;">
+
+
+    
+
+
+	<i class="fl card_birdayIco"></i>
+	<div class="fl">
+    <i class="careBirdIco mt_10"></i>
+    <div class="card_birdMes">
+        <span class="lt"></span>
+        <span class="rt"></span>
+        <span class="rb"></span>
+        <span class="lb"></span>
+        <dl>
+            <dt><strong>填生日，享祝福</strong></dt>
+            <dd>您的生日是啥时候？朋友们都想给您送生日祝福哦！<a href="javascript:;" onclick="javascript:top.Links.show('baseData');">赶紧去填写您的生日吧！&gt;&gt;</a></dd>
+        </dl>
+    </div>
+    </div>
+    
+</div>
+    <div style="height:20px; clear:both"></div>
+    <div style="margin:0 0 0 178px;padding:0;width:610px;">
+    <div class="wrapperBirthday" id="birth_remind" style="padding:10px 0; display:none; ">
+		<p class="wrapperBirthday_p">有好友要过生日了，给TA一些祝福吧···</p>
+		<div class="wrapperBirthday_box" style="border-bottom:none; padding-bottom:0">
+			<ul>
+			</ul>
+			<div class="tipsTop"></div>
+		</div>
+	</div>
+        </div>
+    <div id="pnlDetail" class="detail" style="display:none">
+<p>编辑联系人</p>
+<table summary="">
+    <tbody>
+        <tr>
+            <th>姓名:</th>
+            <td><input id="txtName" class="text" type="text" maxlength="100" name="name"><span>*必填</span></td>
+        </tr>
+        <tr>
+            <th>邮箱:</th>
+            <td><input id="txtEmail" class="text" type="text" maxlength="60" name="name" disabled="disabled"><span>*必填</span></td>
+        </tr>
+        <tr>
+            <th>手机:</th>
+            <td><input id="txtMobile" class="text" type="text" maxlength="100" name="name"></td>
+        </tr>
+        <tr>
+            <th>所属分组:</th>
+            <td>
+            <div class="saveGroup">
+                <ul id="GroupsContainer"></ul>
+            </div>
+            </td>
+        </tr>
+        <tr>
+            <th></th>
+            <td class="addGroup"><a onclick="showadd(this,document)" href="javascript:void(0)">添加新组</a></td>
+        </tr>
+        <tr>
+            <th></th>
+            <td><button id="btnSave" type="button">保存信息</button></td>
+        </tr>
+    </tbody>
+</table>
+</div>
+</body>
+<script type="text/javascript">top.loadCSS(["module/fontbase.css"], document);</script>
+</html>

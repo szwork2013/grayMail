@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>设置默认字体</title>
+<script>
+	document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+    try{
+        top.loadScript('libs.pack.js', document);
+        top.loadScript('m139.core.pack.js', document);
+        top.loadScript("m2012.ui.common.pack.js", document);
+        top.loadScript("/m2012/js/ui/editor/m2012.ui.htmleditor.view.menu.js", document);
+    } catch (e) { }
+	
+    try{
+        top.loadCSS(["common/global.css", "common/frame.css","module/write.css"], document);
+    } catch (e) { }
+</script>
+</head>
+<body>
+    <div class="boxIframeText">
+        <ul class="form setFontBox">
+            <li class="formLine">
+                <label class="label">字体：</label>
+                <div class="element">
+                    <div class="dropDown" id="fontFamily">
+                        <div class="dropDownA" href="javascript:void(0)"><i class="i_triangle_d"></i></div>
+                        <div class="dropDownText">黑体</div>
+                    </div>
+                </div>
+            </li>
+            <li class="formLine">
+                <label class="label">字号：</label>
+                <div class="element">
+                    <div class="dropDown" id="fontSize">
+                        <div class="dropDownA" href="javascript:void(0)"><i class="i_triangle_d"></i></div>
+                        <div class="dropDownText">五号</div>
+                    </div>
+                </div>
+            </li>
+            <li class="formLine">
+                <label class="label">颜色：</label>
+                <div class="element">
+                    <div class="dropDown" id="fontColor">
+                        <div class="dropDownA" href="javascript:void(0)"><i class="i_triangle_d"></i></div>
+                        <div class="dropDownText">
+                            <span class="fontcolor-list-a" style="background-color: rgb(51, 51, 0);"></span>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="formLine">
+                <label class="label">行距：</label>
+                <div class="element">
+                    <div class="dropDown" id="fontLineheight">
+                        <div class="dropDownA" href="javascript:void(0)"><i class="i_triangle_d"></i></div>
+                        <div class="dropDownText">1.5倍</div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div class="setFontDfShow">
+            <span class="tits">预览</span>
+            <table><tr><td><span id="previewFont">中国移动<br>139邮箱</span></td></tr></table>
+        </div>
+    </div>
+    <p class="gray ta_c pt_10 pb_15">*默认字体的最终显示依赖于收件人的操作系统与浏览器设置。</p>
+    <div class="boxIframeBtn">
+        <span class="bibText"></span><span class="bibBtn">
+            <a href="javascript:void(0)" class="btnSure"><span>确定</span></a>
+            <a href="javascript:void(0)" class="btnNormal"><span>取 消</span></a>
+        </span>
+    </div>
+    <script>
+    	top.loadScript("/m2012/js/richmail/compose/m2012.compose.view.defaultfont.js", document);
+    </script>
+</body>
+</html>

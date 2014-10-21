@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<project name="build_pack" default="packFile">
+<target name="packFile">
+	<concat destfile="./packs/classify.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+		<fileset dir="./richmail/dialog/classifymail" includes="**/m2012.classifymail.model.js"/>
+		<fileset dir="./richmail/dialog/classifymail" includes="**/m2012.classifymail.view.js"/>
+	</concat>
+</target>
+</project>

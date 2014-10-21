@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>试听 - 139邮箱(标准版) </title>
+    <style type="text/css">
+    .prelrc{font-size:12px;margin-left:12px;color:#000000}
+    .nowlrc{font-weight:bold;font-size:12px;margin-left:12px;color:#ff5a00}
+    .p1 {FONT-SIZE: 9pt; FONT-FAMILY: "宋体"}
+    .f14 {FONT-SIZE: 14px; MARGIN-LEFT: -24pt; align: left}
+    .f9 {FONT-SIZE: 9pt; LINE-HEIGHT: 16px}
+    TD {FONT-SIZE: 9pt; LINE-HEIGHT: 16px}
+    .c {COLOR: #666666}
+    .formfont {FONT-SIZE: 16px; FONT-FAMILY: "Verdana", "Arial", "Helvetica", "sans-serif"}
+    .t {COLOR: #0000cc; TEXT-DECORATION: none}
+    A.t:hover {TEXT-DECORATION: underline}
+    #ad{text-align:center;margin:10px 0 8px 0;}
+    </style>
+    
+
+
+    <script type="text/javascript">
+//MultiThreadUpload.create();
+//音乐试听
+var MusicPlayTest={
+Init:function(){
+    var url=request("url");
+    var musicName=unescape(request("musicName"));
+    document.getElementById("musicName").innerHTML=musicName;
+    //$("#music").html("");
+    document.getElementById("music").innerHTML="<object classid='CLSID:6BF52A52-394A-11d3-B153-00C04F79FAA6' codebase='http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=6,4,7,1112'"+
+                        "standby='Loading Microsoft Windows Media Player components...' type='application/x-oleobject'"+
+                        "width='100%' height='70'>"+
+                        "<param name='URL' value='"+url+"' />"+
+                        "<param name='autoStart' value='true' />"+
+                        "<param name='invokeURLs' value='false' />"+
+                        "<param name='playCount' value='1' />"+
+                        "<param name='defaultFrame' value='datawindow' />"+
+                        "<embed allowscan='1' animationatstart='0' autorewind='0' autosize='0' autostart='1'"+
+                        "invokeurls='0' showaudiocontrols='1' showcaptioning='0' showcontrols='1' showdisplay='0'"+
+                        "showgotobar='0' showpositioncontrols='0' showstatusbar='1' showtracker='1' src='"+url+"'"+
+                        "transparentatstart='0' type='application/x-mplayer2' width='100%' height='70' />"+
+                    "</object>";
+}};
+
+function request(paras){ 
+var url = location.href;  
+var paraString = url.substring(url.indexOf("?")+1,url.length).split("&");  
+var paraObj = {}  
+for (i=0; j=paraString[i]; i++){  
+paraObj[j.substring(0,j.indexOf("=")).toLowerCase()] = j.substring(j.indexOf("=")+1,j.length);  
+}  
+var returnValue = paraObj[paras.toLowerCase()];  
+if(typeof(returnValue)=="undefined"){  
+return "";  
+}else{  
+return returnValue; 
+}
+}
+
+    </script>
+</head>
+<body ms_positioning="GridLayout" onload="MusicPlayTest.Init()">
+    <table border="0" cellspacing="0" cellpadding="4" width="470" style="line-height: 30px">
+        <tr bgcolor="#f2f2f2">
+            <td align="left" colspan="2" style="padding-top: 10px">
+                &nbsp;&nbsp;<span class="f9" id="spStartName"><strong>音乐试听：</strong> <b id="musicName"> </b></span>
+            </td>
+        </tr>
+        <tr>
+            <tr>
+                <td align="center" height="6" colspan="2">
+                </td>
+            </tr>
+            <tr>
+                <td align="center" style="vertical-align: top" id="music">
+                   
+                    <br>
+                    <br>
+                    <div align="left" style="margin: 8px">
+                        如果您无法试听歌曲,请先安装<a href="http://download.microsoft.com/download/9/4/0/94072943-9188-4a60-b31f-3031f18404e4/mpsetup.exe"
+                            target="_blank">Windows media player</a>软件&nbsp;&nbsp;<a href='http://mms.mail2008.rd139.com'
+                                target="_blank" style="color: #666666">权利声明</a></div>
+                </td>
+                <td style="vertical-align: top">
+                </td>
+            </tr>
+    </table>
+</body>
+</html>

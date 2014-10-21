@@ -1,0 +1,332 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>发送彩信成功</title>
+<script type="text/javascript">
+document.domain=window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1].split(":")[0];
+
+var version = "20120817";
+//获得资源路径
+var resourcePath=window.top.resourcePath;
+var supermanResourcePath=resourcePath.replace("coremail","superman");
+var mmsResourcePath=resourcePath.replace("coremail","suppermms");
+var htmlCode="";    
+htmlCode+=getLinkTag(mmsResourcePath+"/css/mms.css");
+htmlCode+=getLinkTag("");
+
+top.loadCSS(["common/global.css","module/write.css"],document);
+top.loadScript('libs.pack.js',document);
+top.loadScript("m2011.utilscontrols.pack.js", document);
+top.loadScript('m139.core.pack.js',document);
+top.loadScript("/m2012/js/ui/widget/m2012.ui.widget.contactsautosave.js", document);
+
+top.loadScript("/m2012/js/service/mms/m2011.mms.mms.js", document);
+top.loadScript("/m2012/js/service/mms/m2011.mms.script.js", document);
+
+htmlCode+=getJsTag(supermanResourcePath+"/js/superman1.js");
+document.write(htmlCode);    
+function getJsTag(path,charset){
+	return "<script charset='" + (charset || "utf-8") + "' src='" + path + "?v=" + version + "' type='text/javascript'></" + "script>";
+}
+function getLinkTag(path){
+	var text="";
+	if(path){
+		 text = "href='" + path + "?v" + version + "'";
+	}
+	return "<link rel='stylesheet' type='text/css' " + text + " />";
+}
+</script>
+
+    <script type="text/javascript">
+    Utils.loadSkinCss(null,document,"mms"); 
+    </script>
+    
+    <style type="text/css">
+	.btnNormal{width:auto;}
+	</style>
+</head>
+<body class="status">
+<div class="lt">
+		<i class="i-small-succ"></i>
+    </div>
+<div class="ctn">
+    <h2 id="hSendTypeMsg">您的彩信发送完成</h2>
+            <div class="raffleTips mt_10" id="message_multimedia1" style="display:none">
+				<i class="add_integral mr_5"></i>成功获得<strong class="fz_14"> 2 </strong>积分
+                <a href="javascript:;" class="rafBtn ml_10">去赢大奖</a>
+                <a href="javascript:;" class="rafBtn ml_10">去做任务</a>
+			</div>
+    <div class="info">
+        <p id="pViewHis">定时彩信自动保存到彩信记录 <a>查看定时彩信</a></p>
+		<p><span id="recordMes" style="display:none;color:gray;">此彩信已保存至彩信记录，</span><a id="hrefViewRecord" href="javascript:" style="margin-left:0;">查看彩信记录</a></p>
+		<a id="btnSendMms" class="btnNm" href="javascript:;" style="display:none">
+			<i class="but_lIco"></i>
+			<span class="but_bg-x">继续发彩信</span>
+			<i class="but_rIco"></i>
+		</a>
+		<a id="btnBack" class="btnNm" href="javascript:;" style="display:none">
+			<i class="but_lIco"></i>
+			<span class="but_bg-x">返回彩信首页</span>
+			<i class="but_rIco"></i>
+		</a>
+		<a id="btnSendWord" class="btnNm" href="javascript:;" style="margin-left:5px;display:none">
+			<i class="but_lIco"></i>
+			<span class="but_bg-x">继续发彩字</span>
+			<i class="but_rIco"></i>
+		</a>
+    </div>
+    <div class="recommend" id="dvRecommend" style="height:150px;">
+        <h3 id="hMsg"></h3>
+        <ul class="clr" id="ulRemmendMms">
+        </ul>
+    </div>
+   <div id="divContact" style="width: 450px"></div>
+   <div id="divSaveToAddr"></div>
+
+   <div id="pnlDetail" class="tb" style="display:none">
+        <p>编辑联系人</p>
+        <table summary="">
+            <tbody>
+                <tr>
+                    <th>姓名:</th>
+                    <td><input id="txtName" class="ipt_t" type="text" maxlength="100" name="name"><span>*必填</span></td>
+                </tr>
+                <tr>
+                    <th>邮箱:</th>
+                    <td><input id="txtEmail" class="ipt_t" type="text" maxlength="60" name="name" disabled="disabled"><span>*必填</span></td>
+                </tr>
+                <tr>
+                    <th>手机:</th>
+                    <td><input id="txtMobile" class="ipt_t" type="text" maxlength="100" name="name"></td>
+                </tr>
+                <tr>
+                    <th class="v_top">所属分组:</th>
+                    <td><div class="saveGroup"><ul class="group" id="GroupsContainer"></ul></div></td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td class="addGroup"><a onclick="showadd(this,document)" href="javascript:void(0)">添加新组</a></td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td><button id="btnSave" type="button">保存信息</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+<div class="card_birdTip mt_10" id="card_birthday" style="display:none;">
+	<i class="fl card_birdayIco"></i>
+	<div class="fl">
+    <i class="careBirdIco mt_10"></i>
+    <div class="card_birdMes">
+        <span class="lt"></span>
+        <span class="rt"></span>
+        <span class="rb"></span>
+        <span class="lb"></span>
+        <dl>
+            <dt><strong>填生日，享祝福</strong></dt>
+            <dd>您的生日是啥时候？朋友们都想给您送生日祝福哦！<a href="javascript:;" onclick="javascript:top.Links.show('baseData');">赶紧去填写您的生日吧！&gt;&gt;</a></dd>
+        </dl>
+    </div>
+    </div>
+</div>
+    <div style="padding:10px 0; display:none"><a href="javascript:;" id="message_multimedia"><img src="../../images/module/usercenter/m_multimedia.png" /></a></div>
+    <div class="yt-tip yt-tip-f">
+    	<i class="fun2"></i>
+        <div class="yt-tip-content">
+            <div class="hd">
+                <span class="rc3"></span>
+                <span class="rc2"></span>
+                <span class="rc1"></span>
+            </div>
+              <div class="bd">
+                <h2>送祝福，选贺卡</h2>
+                <p>精美的FLASH贺卡，让您的祝福传递更加直接！<a thingid="2604" id="seeGreetingcard" href="javascript:">赶紧去试试吧！&gt;&gt;</a>。</p>
+            </div>
+            <div class="ft">
+                <span class="rc1"></span>
+                <span class="rc2"></span>
+                <span class="rc3"></span>
+            </div>
+            <div class="yt-pointer"></div>
+        </div>
+    </div>
+<script type="text/javascript">
+    top.WaitPannel.show("数据加载中...");
+
+    //自动保存联系人与最近联系人
+    var enableAutoSave = top.Contacts.isAutoSaveContact();
+    if (enableAutoSave) {
+        var C = top.Contacts;
+        var del = C.DelSavedContact, mod = C.ModSavedContact, showadd = C.QuickAddGroup;
+        var pnl = { main: $('#pnlDetail'), mainHTML: $('#pnlDetail').html() };
+		var autoSave = null;
+        // add by tkh
+        var contacts = top._mmsReceivedPerson;
+        var list = [];
+        autoSave = new M2012.UI.Widget.ContactsAutoSave({
+            container: document.getElementById("divContact"),
+            type: "mobile",
+            list: list.concat(contacts.split(','))
+        });
+		
+		autoSave.on("BH_CancelModify", function () {
+			top.BH("send_mms_cancel_modify");
+		});
+
+		autoSave.on("BH_Modify", function () {
+			top.BH("send_mms_modify");
+		});
+
+		autoSave.on("BH_AddGroup", function () {
+			top.BH("send_mms_add_group");
+		});
+
+		autoSave.on("BH_DeleteContact", function () {
+			top.BH("send_mms_delete_contact");
+		});
+
+		autoSave.on("BH_Save", function () {
+			top.BH("send_mms_save");
+		});
+
+		autoSave.on("BH_Cancel", function () {
+			top.BH("send_mms_cancel");
+		});
+		
+		autoSave.render();
+
+        /*
+         try{!function(){
+         var from = C.FROMTYPE.MOBILE | C.FROMTYPE.MMS,
+         contacts = top._mmsReceivedPerson,
+         recentMail = top._mmsSubject || '发送了一条彩信',
+         panel = document.getElementById('divContact');
+         C.AutoSaveRecentContacts(contacts, from, panel, recentMail);
+         }();}catch(e){}*/
+    } else {
+//更新最近联系人		
+        if (window != window.top) {
+            try {
+                if (top.Contacts.addLastestContactsExt) {
+                    top.Contacts.addLastestContactsExt({
+                        ComeFrom: "M5",
+                        AddrContent: new CommonPage().getFormatMobile(top._mmsReceivedPerson),
+                        AddrTitle: top.MmsSubject
+                    });
+                }
+                else {
+                    top.Contacts.addLastestContacts("mobile", new CommonPage().getFormatMobile(top._mmsReceivedPerson));
+                }
+            }
+            catch (e) {
+            }
+        }
+        top.Contacts.createAddContactsPage({
+            type: "mobile",
+            container: document.getElementById("divSaveToAddr"),
+            mobiles: top._mmsReceivedPerson
+        });
+    }
+function seeGreetingcard() {
+    $('#seeGreetingcard').click(function () {
+        var current = top.$App.getCurrentTab().name;
+        top.Links.show('greetingcard');
+        top.$App.close(current);
+    })
+}
+    function showPartnerTip() {
+        var count = top.$User.getFreeMmsCount();
+        if (count <= 5 && top.$User.needMailPartner()) { //免费条数小于5
+            $(".info").prepend("<div>*本月免费自写彩信仅余<span>" + count + "</span>条，<a href='javascript:top.$App.show(\"mobile\")'>开通邮箱伴侣</a>享受更多彩信优惠</div>");
+            top.BH("partner_guide1");
+
+        }
+    }
+    $(document).ready(function () {
+
+        SuccessPage.Init();
+        top.WaitPannel.hide();
+
+        showPartnerTip();
+        seeGreetingcard();
+    });
+
+    // 需要将发送生日彩信成功的接收好友进行设置
+    window.setSucBirFriends();
+
+    //隐藏或显示生日
+    top.Contacts.QueryUserInfo(function (result) {
+        if (result && result.info && result.info.BirDay) {
+            $("#card_birthday").hide();            
+        } else {
+            $("#card_birthday").show();
+            $('#message_multimedia').parent('div').hide();
+        }
+    });
+
+    var isMobileUser = $Mobile.isChinaMobile(top.$User.getShortUid());  //判断是不是移动用户
+    if (isMobileUser) {
+        var message = $('#message_multimedia1').show().find('a'); 
+
+        message.eq(0).click(function () {
+            top.BH('send_ok_mms');  //统计法彩信完成页中，点击去用户中心的人数、次数
+            url = 'http://zone.mail.10086.cn/api/sso/ssoformail.ashx?to=CN201204A1&sid=';
+            url += top.$App.getSid();
+            top.window.open(url);
+        });     
+        message.eq(1).click(function(){
+            top.BH('send_mms_myTask');
+            top.$App.show('myTask');
+        })   
+    }
+
+    function setSucBirFriends() {
+
+        // 发送成功的好友号码信息(号码，生日日期)
+        var sucMobiles = Utils.getCookie("sucMobiles" + top.UserData.ssoSid);
+
+        if (sucMobiles != null && sucMobiles != "") {
+
+            var middlewareUrl = top.getDomain("rebuildDomain");
+
+            $("body").append("<iframe src=\"" + middlewareUrl + "/proxy.htm\" id=\"proxyIframe\" name=\"proxyIframe\" style=\"display:none;\"></iframe>");
+
+            Utils.waitForReady("frames['proxyIframe']._ajax", function () {
+                var rmUrl = middlewareUrl + "/card/s?func=card:birthdayRemind&sid=" + top.sid;
+                getMmsAjax(frames['proxyIframe']._ajax, rmUrl);
+            });
+
+            function getMmsAjax(ajax, url) {
+
+                var data = {
+                    op: "set",
+                    mobiles: sucMobiles
+                };
+
+                ajax.post(url, top.namedVarToXML("", data, ""), function (res) {
+                    var resData = Utils.tryEval(res);
+
+                    if (!resData) {
+                        initBirthdayPage("");
+                        return;
+                    }
+
+                    var dateSuccess = new Date();
+                    dateSuccess.setDate(dateSuccess.getDate() - 10);
+                    Utils.setCookie("sucMobiles" + top.UserData.ssoSid, "", dateSuccess);//清cookie
+                });
+            }
+
+            //生日提醒清理
+            Utils.requestByScript("listByTemplate", top.resourcePath + "/js/listByTemplate.js", function () {
+                // new ListByTemplate().cleanSelectedItem();
+            }, "utf-8");
+        }
+    }
+</script>
+</div>
+</body>
+<script type="text/javascript">top.loadCSS(["module/fontbase.css"], document);</script>
+</html>

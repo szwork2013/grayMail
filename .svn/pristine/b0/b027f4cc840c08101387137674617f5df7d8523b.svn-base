@@ -1,0 +1,816 @@
+/**
+* @fileOverview 定义设置页邮件分类首页的文件.
+*/
+/**
+*@namespace 
+*设置页邮件分类
+*/
+(function (jQuery, _, M139) {
+    var $ = jQuery;
+    var superClass = M139.View.ViewBase;
+    M139.namespace('M2012.Settings.Classify.View.Home', superClass.extend(
+    /**
+    *@lends M2012.Settings.Classify.View.Home.prototype
+    */
+    {
+    el: "body",
+	templateString : ['<table class="sorttable" >',
+                    '<tbody>',
+                        '<tr class="head1">',
+                            '<th class="td1">分类说明</th>',
+                            '<th class="td2">目前状态</th>',
+                            '<th class="td3">管理</th>',
+                        '</tr>',
+						'{content}',
+					'</tbody>',
+					'</table>'].join(''),
+    initialize: function () {
+        var self = this;
+        this.model = new M2012.Settings.Classify.Model();
+        this.initEvents();
+        return superClass.prototype.initialize.apply(this, arguments);
+    },
+    events: {
+        "click .createSort": "createSort",
+        "click .fastCreateSort": "fastCreateSort",
+        "click .deleteRule": "deleteRule",
+        "click .editRule": "editRule",
+		"click .open": "openRule",
+		"click .close": "closeRule"
+    },
+    getTop: function () {
+        return M139.PageApplication.getTopAppWindow();
+    },
+    render: function () {
+        this.initStatus();
+        return superClass.prototype.render.apply(this, arguments);
+    },
+    /**
+    *逻辑判断，打开页面时需要展示的数据。
+    */
+    initStatus: function () {
+        var self = this;
+        this.model.getFilter_139(function (datasource) {
+        //	console.log(datasource);
+            var data = datasource["var"];
+            if (!data) {
+                console.log("user:getFilter_139数据出错:summary" + datasource["summary"]);
+                return;
+            }
+            data.reverse();
+            var len = data.length;
+        //    console.log(data);
+            self.model.set({ "getData": data, "dataLen": len });
+            if (len > 0) {//有已建立的分拣规则
+                self.rebuildFiltersData(datasource, function () {
+                    self.getSortData();
+                });
+            } else {//无分拣规则
+                self.getmessageCount();
+            }
+        });
+    },
+    /**
+    *根据邮件总数的不同显示不同的内容。
+    */
+    getmessageCount: function () {
+        var count = this.getTop().$App.getFolderById(1)["stats"]["messageCount"];
+        if (count < 1000) {//邮件总数小于1000
+            $("#fewMail").show();
+            $("#hasData").remove();
+            $("#fewMail .mailCounts").html(count);
+            top.BH("filter_load");
+        } else {
+            $("#moreMail").show();
+            $("#hasData").remove();
+            $("#moreMail .mailCounts").html(count);
+            this.model.statMessages(function (datasource) {//邮件总数大于1000 显示邮件排行榜
+                var templateStr = $("#sortTemplate").val();
+                var rp = new Repeater(templateStr);
+                rp.Functions = {
+                    getPercentage: function () {
+                        return (parseInt((this.DataRow["total"] / count) * 100)).toString();
+                    },
+                    getCounts: function () {
+                        return count.toString();
+                    },
+                    getName: function () {
+                        var name = this.DataRow["name"] == "" ? top.$App.getAddrNameByEmail(this.DataRow["from"]) : this.DataRow["name"];
+                        return name;
+                    }
+                };
+                var html = rp.DataBind(datasource);
+                $("#sortphtab").html(html);
+                top.BH("filter_load");
+            });
+        }
+    },
+    /**
+    *普通创建分类。
+    */
+    createSort: function (e) {
+        var self = this;
+        var arr = [];
+        var custom = this.getTop().$App.getFolders("custom");
+        var system = this.getTop().$App.getFolders("system");
+        var systemLen = system.length;
+        var customLen = custom.length;
+        var sid = $T.Url.queryString("sid");
+        var type = $(e.currentTarget).attr("name");
+        var initName = this.getTop().$App.getFolderById(1).name; //默认显示
+        var obj = {
+            workMail: "公司邮件",
+            friendMail: "朋友邮件",
+            normalMail: initName
+        };
+        var status = this.ruleMoreThan100();
+        if (!status) {
+            return;
+        }
+        for (var i = 0; i < systemLen; i++) {
+            arr.push(system[i].name);
+        }
+        for (var n = 0; n < customLen; n++) {
+            arr.push(custom[n].name);
+        }
+        Array.prototype.in_array = function (e) {
+            for (var n = 0; n < this.length; n++) {
+                if (this[n] == e)
+                    return true;
+            }
+            return false;
+        };
+        var status = arr.in_array(obj[type]);
+        if (status) {
+            if (M139.Browser.is.ie && window.event) {
+                window.event.returnValue = false;
+            }
+            location.href = "/m2012/html/set/create_sort.html?type=" + type + "&sid=" + sid;
+        }
+        else {
+            self.getTop().$App.addFolder(obj[type], null, function () {
+                if (M139.Browser.is.ie && window.event) {
+                    window.event.returnValue = false;
+                }
+                location.href = "/m2012/html/set/create_sort.html?type=" + type + "&sid=" + sid;
+            });
+        }
+    },
+    ruleMoreThan100: function () {
+        var dataLen = this.model.get("dataLen");
+        if (dataLen >= 100) {
+            top.$Msg.alert(
+                            this.model.messages.moreThan100,
+                            {
+                                dialogTitle: "系统提示",
+                                icon: "warn"
+                            });
+            return;
+        }
+        return true;
+    },
+    /**
+    *快速创建分类。
+    */
+    fastCreateSort: function () {
+        var sid = $T.Url.queryString("sid");
+        var status = this.ruleMoreThan100();
+        if (!status) {
+            return;
+        }
+        if (M139.Browser.is.ie && window.event) {
+            window.event.returnValue = false;
+        }
+        location.href = "fast_create_sort.html?sid=" + sid;
+    },
+    /**
+    *排行榜的显示和隐藏。
+    */
+    showRank: function () {
+        $("#showRank,#rankClose").live("click", function () {
+            var rankList = $("#rankList");
+            rankList[0].style.display == "none" ? rankList.show() : rankList.hide();
+        });
+    },
+    /**
+    *根据返回的报文，获取分拣规则的类型。
+    */
+    getDealType: function (datasource, num) {
+        var dealType = datasource[num].dealType && datasource[num].dealType.split(",");;
+        var typeText = '';
+        var num2 = 1;
+        for(;dealType.length;) {
+            type=dealType.pop();
+            
+            switch (type) {
+            case "0":
+                typeText = typeText + (num2) + '、直接删除<br/>';
+                num2++
+                break;
+            case "2":
+                typeText = typeText + (num2) + '、移动到 ';
+                num2++
+                var fid = datasource[num].moveToFolder;
+                try {
+                    var name = this.getTop().$App.getFolderById(parseInt(fid)) ? this.getTop().$App.getFolderById(parseInt(fid)).name : "收件箱";
+                    typeText = typeText + name + "<br/>";
+                } catch (e) { };
+                break;
+            case "3":
+                typeText = typeText + (num2) + '、转发到 ';
+                num2++
+                var addr = datasource[num].forwardAddr;
+                typeText = typeText + addr+ "<br/>";
+                break;
+            case "4":
+                typeText = typeText + (num2) + '、自动回复 ';
+                num2++
+                var content = datasource[num].replayContent;
+                content = M139.Text.Html.encode(content);
+                content = content.replace(/\<.+?\>/ig,"");
+                $("#autoReplyCon").html(content);
+                content = $("#autoReplyCon").text();
+                content = M139.Text.Html.decode(content);
+                content = M139.Text.Html.decode(content);
+                content = content.replace(/\<.+?\>/ig,"");
+                typeText = typeText + content+ "<br/>";
+                break;
+            case "5":
+                typeText = typeText + (num2) + '、标记标签 ';
+                num2++
+                var fid = datasource[num].attachLabel;
+                try {
+                    fid = fid ? fid : datasource[num].moveToFolder; //兼容存量用户，以前的attachLabel是放在moveTofolder中
+                    var name = this.getTop().$App.getFolderById(parseInt(fid)).name;
+                    typeText = typeText + name+ "<br/>";
+                } catch (e) { };
+                break;
+            case "6":
+                typeText = typeText + (num2) + '、标为星标<br/>';
+                num2++
+                break;
+            case "7":
+                typeText = typeText + (num2) + '、标为已读<br/>';
+                num2++
+                break;
+            case "8":
+                typeText = typeText + (num2) + '、置顶<br/>';
+                num2++
+                break;
+            }
+        }
+        return typeText;
+    },
+    /**
+    *构造新的JSON数据。
+    */
+    rebuildFiltersData: function (datasource, callback) {
+        var self = this;
+            if (datasource["code"] == "S_OK") {
+            	var datasource = datasource["var"];
+                var data = [];
+                var len = datasource.length;
+                for (var i = 0; i < len; i++) {
+                    var obj = {};
+                    var ruleKey = [
+                    { key: '发件人' },
+                    { key: '收件人' },
+                    { key: '主题' },
+                    { key: '附件' },
+                    { key: '邮件大小' },
+                    { key: '接收时间' }
+                ];
+                    var ruleValue = [
+                    { value: datasource[i].from.split(";"), type: "fromType" },
+                    { value: datasource[i].to.split(";"), type: "toType" },
+                    { value: datasource[i].subject.split(";"), type: "subjectType" },
+                    { value: datasource[i].attach.split(";"), type: "attachType" },
+                    { value: [datasource[i].mailSize], type: "mailSizeType" },
+                    { value: [datasource[i].mailRectimeStart,(datasource[i].mailRectimeStart > datasource[i].mailRectimeEnd ? "次日" : "当日"),datasource[i].mailRectimeEnd], type: "mailRectimeType" }
+                ];
+
+                    function  getArrTitle(type) {
+                        var arrTitle=[];
+                        if (type == '附件') {
+                            arrTitle = [
+                                { text: "包含 {0} ", type: 1 },
+                                { text: "不包含 {0} ", type: 2 },
+                                { text: "无附件",type: 3 }
+                            ];
+                        } else if (type == '邮件大小') {
+                            arrTitle = [
+                                { text: "大于等于{0}MB ", type: 1 },
+                                { text: "小于{0}MB ", type: 2 }
+                            ];
+                        } else if (type == '接收时间') {
+                            arrTitle = [
+                                { text: "起始时间从当日{0}到{1}{2} ", type: 1 }
+                            ];
+                        } else {
+                            arrTitle = [
+                                { text: "包含 {0} ", type: 1 },
+                                { text: "不包含 {0} ", type: 2 }
+                            ];
+                        }
+                        return arrTitle;
+                    };
+                   
+                    var ruleType = [
+                    { key: "fromType", status: "from" },
+                    { key: "toType", status: "to" },
+                    { key: "subjectType", status: "subject" },
+                    { key: "attachType", status:"attach"},
+                    { key:"mailSizeType",status:"mailSize"},
+                    { key:"mailRectime",status:"mailRectimeType"}
+                    ];
+
+                    var ruleRelation = [
+                    { value: 0,type: "fromType"},
+                    { value: datasource[i].toRelation, type:"toType"},
+                    { value: datasource[i].subjectRelation, type:"subjectType"},
+                    { value: datasource[i].attachRelation,type:"attachType"}
+                    ]
+
+                    var conditionsRelation = datasource[i].conditionsRelation;
+
+                    var arrKey=[];
+                    var relation;
+                    var num = 1;
+                    for (var q = 0; q < 6; q++) {
+                        
+                        if (ruleValue[q].value[0] != "" ||(ruleKey[q].key == "附件" && datasource[i]["attachType"] == 3)) {
+                            //arrKey.push(ruleKey[q].key);
+                            arrTitle = getArrTitle(ruleKey[q].key);
+                            for (var n = 0; n < arrTitle.length; n++) {
+                                if (datasource[i][ruleType[q].key] == arrTitle[n].type) {
+
+                                    if(ruleRelation[q]) {
+                                        relation = (ruleRelation[q].value == 0 ? "或" : "和");
+                                    }
+                                    if (relation) {
+                                        arrText2 = [ruleValue[q].value.join(relation)]; 
+                                    } else {
+                                        arrText2 = [ruleValue[q].value.join("")];
+                                    }
+                                    arrText = $T.Utils.format(arrTitle[n].text,arrText2);
+                                    if (ruleKey[q].key == "附件" && arrTitle[n].type == 3) {
+                                        arrKey.push("<br/>"+num+'、'+arrText);
+                                    }else{
+                                       arrKey.push("<br/>"+num+'、'+ruleKey[q].key+arrText); 
+                                    }  
+    
+                                    num = num+1;
+                                } else if (ruleType[q].key == 'mailRectime') {
+                                    arrText = $T.Utils.format(arrTitle[n].text,ruleValue[q].value);  
+                                    arrKey.push("<br/>"+num + '、' + ruleKey[q].key + arrText);
+                                    num = num+1;
+
+                                };
+                            };
+
+                        };
+                    };
+                    var typeText = self.getDealType(datasource, i);
+                    obj.result = typeText;
+                    obj.ruleText = (conditionsRelation == 1 ? arrKey.join("并且"):arrKey.join("或者"));
+                    obj.num = i + 1;
+                    obj.filterId = datasource[i]["filterId"];
+                    obj.sortId = datasource[i]["sortId"];
+					obj.onoff = datasource[i] && datasource[i]["onOff"];
+                    data.push(obj);
+                }
+                self.model.set({ rebuildData: data });
+                if (callback) { callback(); }
+            }
+
+
+ //       });
+    },
+    /**
+    *把构造的新数据绑定到HTML模板上。
+    */
+    getSortData: function () {
+        var sortData = this.model.get("rebuildData");
+        this.DataRow = sortData;
+        var mailBoxCounts = this.getTop().$App.getFolderById(1)["stats"]["messageCount"];
+        var count = top.$User.getMessageCount();
+        $("#hasData").show();
+        $("#hasData .mailCounts").html(mailBoxCounts);
+        if (mailBoxCounts > 1000) {//未分类的邮件大于1000，收件箱里的邮件数
+            $("#sortCount").show();
+            this.model.statMessages(function (data) {
+                var templateStr = $("#sortTemplateHasData").val();
+                var rpph = new Repeater(templateStr);
+                rpph.Functions = {
+                    getPercentage: function () {
+                        return (parseInt((this.DataRow["total"] / count) * 100)).toString();
+                    },
+                    getCounts: function () {
+                        return count.toString();
+                    },
+                    getName: function () {
+                        var name = this.DataRow["name"] == "" ? top.$App.getAddrNameByEmail(this.DataRow["from"]) : this.DataRow["name"];
+                        return name;
+                    }
+                };
+                var html = rpph.DataBind(data);
+                $("#sortphtabHasData").html(html);
+            });
+        }
+        var templateSort = $("#setAreaContentTemplate").val();
+        var rpSort = new Repeater(templateSort);
+        rpSort.Functions = {
+            getFilterId: function () {
+                var row = this.DataRow;
+                return row.filterId.toString();
+                // return this.DataRow["filterId"];
+            },
+            getIndex: function () {
+                return this.DataRow["index"].toString();
+            },
+            getSortId: function () {
+                return this.DataRow["sortId"].toString();
+            },
+			//开启还是关闭判断
+			onOrOff: function(){
+				var onoff = this.DataRow["onoff"];
+				var html = "";
+				if(onoff == 1){
+					html = '<span class="sort-w">已关闭</span> <a href="javascript:void(0);" class="open" bh="set_sort_open">开启</a>';
+				}else{
+					html = '<span class="sort-r">已开启</span> <a href="javascript:void(0);" class="close" bh="set_sort_close">关闭</a>';
+				}
+				return html;
+			}
+        };
+        var htmlSort = rpSort.DataBind(sortData);
+		htmlSort = $T.format(this.templateString, {content: htmlSort});
+        $("#setArea-content").html(htmlSort);
+		//先渲染再拖动，不然找不到handleElement
+		this.initDragBar();
+        top.BH("filter_load");
+    },
+    /**
+    *事件处理
+    */
+    initEvents: function () {
+        this.showRank();
+    },
+	//设置可拖动排序 add by zsx
+	initDragBar: function(){
+		var self = this;
+		var basket = $("<div id='dragBasket' style='position:absolute;z-index:9999;display:none'><span class=\"msg msgYellow\"><i class=\"i_t_move\"></i> <span id='dragtips'>收信规则</span></span></div>");
+		$(document.body).append(basket);
+		var sourceIndex = -1;
+		var lastFid = -1;
+		var dx = 0;//偏移量
+		var isDrag = false; //是否执行了拖放
+		$D.setDragAble(basket[0], {
+		//	handleElement: $("#setArea-content").find("span[name='dragBar']"),
+			handleElement: $("#setArea-content").find("tr"),
+			onDragStart: function(e){
+				dx = 0;
+				var target = e.target || e.srcElement;
+				var text1 = $(target).parents("tr[filterid]").find("p.brline").text();
+				var text2 = $(target).parents("tr[filterid]").find("p.brline").next("p").text();
+				var textFina = text1 + ',' + text2 ;
+				if(textFina.length > 60){
+					textFina = textFina.substr(0, 60);
+				}
+				$(basket).find("#dragtips").html($TextUtils.htmlEncode(textFina)); //显示拖拽文字
+				sourceIndex = $(target).parents("tr[filterid]")[0].rowIndex - 1;
+			},
+			onDragMove: function(e){
+				dx++;
+				if(dx > 15){
+					basket.show();
+					lastFid = self.hitTestRules(basket[0]);
+					isDrag = true;
+				}else{
+					isDrag = false;
+				}
+				
+			//	console.log(lastFid);
+			},
+			onDragEnd: function(e){
+				dx = 0;
+				if(isDrag){
+					basket.hide();
+					if (lastFid != -1) {
+                        var targetIndex = 0;
+                        if (lastFid == 0) { //0是特殊含义，表示拖到了顶部
+                            $("#customerFolder tr").attr("style", ""); //清除选中样式
+                            targetIndex = -1; //-1表示插在第0位之前，即置顶。
+                        } else {
+                            $(".sorttable tr[filterid=" + lastFid + "]").attr("style", ""); //清除选中样式
+                            targetIndex = $(".sorttable tr[filterid=" + lastFid + "]")[0].rowIndex - 1;
+                        }
+                    //    console.log(targetIndex);
+                        self.resetPosition(sourceIndex, targetIndex);
+						top.BH("set_sort_drag");
+                        /*self.model.swapPosition(sourceFid, lastFid, function (result) {
+                        M139.UI.TipMessage.show("排序成功", {delay:1});
+                        });*/
+                    }
+				}
+				
+			}
+		});
+	},
+	//碰撞测试
+	hitTestRules: function(basket){
+		var result = -1;
+            $(".sorttable tr").each(function (i, n) {
+                if ($D.hitTest(n, basket)) {
+                    if ($(n)[0].tagName == "TR" && $(n).attr("filterid")) {
+                        result = $(n).attr("filterid");
+
+                        $(n).css({
+                        //    "border-color": "black",
+                        //    "border-width": "2px",
+							"border-bottom": "2px solid black",
+                            "background-color": "#DEEED7"
+                        });
+                        //console.log("移动文件夹" + $(n).find("a").html());
+
+                        return;
+                    } else if ($(n)[0].className == "head1") { //移动到第一位，与表头重叠
+                        $(n).css({
+                        //    "border-color": "black",
+                        //    "border-width": "2px",
+							"border-bottom": "2px solid black",
+                            "background-color": "#DEEED7"
+                        });
+                        result = 0;
+                        return;
+                    }
+
+                } else {
+                    $(n).attr("style", "");
+                }
+            });
+            return result;
+	},
+	//处理排序
+	resetPosition: function(sourceIndex, targetIndex){
+		var self = this;
+		var sortData = this.model.get("getData");
+		var filteridArr = [];
+		$.each(sortData,function(i,n){
+			filteridArr.push(n["filterId"]);
+		});
+		console.log("原始的filterid:" + filteridArr);
+		var outid = filteridArr.splice(sourceIndex, 1); //移除源fid
+		if (sourceIndex > targetIndex) { //还原因上一步splice引起的索引变化
+			targetIndex += 1;
+		}
+		filteridArr.splice(targetIndex, 0, outid[0]); //插入新位置
+		console.log("拖动后的filterid:" + filteridArr);
+        var options = {};
+        options['filterId'] = outid[0];
+        options['ids'] = filteridArr;
+        self.model.callApi("user:sortFilter_139",options,function(res) {
+            if (res.responseData.code == 'S_OK') {
+                console.log(res);
+                self.render();
+            };
+
+        })
+
+		//把sortData对象的数据按照字段filterid以filteridArr数组的顺序排序
+		/*var sortData2 = (function (sortData, filteridArr){
+			var tmpObj = {};
+			var tmpArr = [];
+			$.each(sortData, function(i,n){
+				tmpObj[n["filterId"]] = n;
+			});
+			$.each(filteridArr, function(i,n){
+				tmpArr.push(tmpObj[n]);
+			});
+			return tmpArr;
+		})(sortData, filteridArr);
+	
+		var postItems = [];
+        var startPosition = 0;
+            $(sortData2).each(function (i, n) {
+				    var tmpObj = {
+                    'opType' : 'mod',
+                    'filterId' : n['filterId'],
+                    'name' : n["name"],
+                    'ignoreCase' : n["ignoreCase"],
+                    'sortId' : n["sortId"],
+                    'conditionsRelation' : n["conditionsRelation"],
+                    'subjectRelation' : n["subjectRelation"],
+                    'toRelation' : n["toRelation"],
+                    'attachRelation' : n["attachRelation"],
+                    'mailSizeType' : n["mailSizeType"],
+                    'mailSize' : n["mailSize"],
+                    'fromType' : n["fromType"],
+                    'from' : n["from"],
+                    'toType' : n["toType"],
+                    'to' : n["to"],
+                    'attachType':n['attachType'],
+                    'attach':n['attach'],
+                    'mailRectimeType':n['mailRectimeType'],
+                    'mailRectimeStart':n['mailRectimeStart'],
+                    'mailRectimeEnd':n['mailRectimeEnd'],
+                    'subjectType' : n["subjectType"],
+                    'subject' : n["subject"],
+                    'dealType' : n["dealType"],
+                    'moveToFolder' : n["moveToFolder"],
+                    'attachLabel' : n["attachLabel"],
+                    'forwardAddr' : n["forwardAddr"],
+                    'forwardBakup' : n["forwardBakup"],
+                    'replayContent' : n["replayContent"],
+                    'onOff' :  n["onOff"]
+                };
+                    if(tmpObj["fromType"] == 0){
+                        delete tmpObj["from"];
+                    }
+                    if(tmpObj["toType"] == 0){
+                        delete tmpObj["to"];
+                        delete tmpObj["toRelation"];
+                    }
+                    if(tmpObj["subjectType"] == 0){
+                        delete tmpObj["subject"];
+                        delete tmpObj["subjectRelation"];
+                    }
+                    if(tmpObj["attachType"] == 0){
+                        delete tmpObj["attach"];
+                        delete tmpObj["attachRelation"];
+                    }
+                    if (tmpObj['mailSizeType'] == 0) {
+                        delete tmpObj['mailSize'];
+                    };
+                    if (tmpObj['mailRectimeType'] = 0) {
+                        delete tmpObj["mailRectimeStart"];
+                        delete tmpObj["mailRectimeEnd"];
+                    };
+                    if(tmpObj["forwardAddr"] == ""){
+                        delete tmpObj["forwardAddr"];
+                    }
+                    if(tmpObj["replayContent"] == ""){
+                        delete tmpObj["replayContent"];
+                    }
+                postItems.push({
+                    "func": "user:setFilter_139",
+                    "var": tmpObj
+                });
+            });
+		console.log(postItems);
+		top.$RM.call("global:sequential", {
+                items: postItems
+            }, function (res) {
+                console.log(res);
+				self.render();
+            //    self.getTop().appView.trigger('reloadFolder', { reload: true });
+            });*/
+
+	},
+    /**
+    *删除分拣规则的点击事件。
+    */
+    deleteEvent: function (e) {
+        var self = this;
+        var filterId = $(e.currentTarget).parent().attr("filterId");
+        var options = {
+            opType: "delete",
+            filterId: filterId
+        };
+        this.model.setFilter_139(options, function (dataSource) {
+            if (dataSource.code = "S_OK") {
+                self.render();
+            }
+        });
+    },
+    /**
+    *修改分拣规则。
+    */
+    editRule: function (e) {
+        var sid = $T.Url.queryString("sid");
+        var type = "edit";
+        var index = $(e.currentTarget).parent().attr("index");
+        var filterId = $(e.currentTarget).parent().attr("filterId");
+        var sortId = $(e.currentTarget).parent().attr("sortId");
+        if (M139.Browser.is.ie && window.event) {
+            window.event.returnValue = false;
+        }
+        location.href = "create_sort.html?type=" + type + "&index=" + index + "&sortId=" + sortId + "&filterId=" + filterId + "&sid=" + sid;
+    },
+	//设置开启或者关闭 add by zsx
+	openOrclose: function(e, onoff){
+		var filterId = $(e.currentTarget).parent().attr("filterId");
+		var sortData = this.model.get("getData");
+		var theInfo = {};
+		for(var i = 0, l = sortData.length; i < l ; i++){
+			if(sortData[i]["filterId"] == filterId){
+				theInfo = sortData[i];
+				break;
+			}
+		}
+		var tmpObj = {
+					'opType' : 'mod',
+					'filterId' : filterId,
+					'name' : theInfo["name"],
+					'ignoreCase' : theInfo["ignoreCase"],
+					'sortId' : theInfo["sortId"],
+					'conditionsRelation' : theInfo["conditionsRelation"],
+                    'subjectRelation' : theInfo["subjectRelation"],
+                    'toRelation' : theInfo["toRelation"],
+                    'attachRelation' : theInfo["attachRelation"],
+					'mailSizeType' : theInfo["mailSizeType"],
+					'mailSize' : theInfo["mailSize"],
+					'fromType' : theInfo["fromType"],
+                    'attachType':theInfo['attachType'],
+                    'attach':theInfo['attach'],
+                    'mailRectimeType':theInfo['mailRectimeType'],
+                    'mailRectimeStart':theInfo['mailRectimeStart'],
+                    'mailRectimeEnd':theInfo['mailRectimeEnd'],
+					'from' : theInfo["from"],
+					'toType' : theInfo["toType"],
+					'to' : theInfo["to"],
+					'subjectType' : theInfo["subjectType"],
+					'subject' : theInfo["subject"],
+					'dealType' : theInfo["dealType"],
+					'moveToFolder' : theInfo["moveToFolder"],
+					'attachLabel' : theInfo["attachLabel"],
+					'forwardAddr' : theInfo["forwardAddr"],
+					'forwardBakup' : theInfo["forwardBakup"],
+					'replayContent' : theInfo["replayContent"],
+					'extContentFlag': 1,
+					'onOff' :  onoff
+				};
+                    if(tmpObj["fromType"] == 0){
+						delete tmpObj["from"];
+					}
+					if(tmpObj["toType"] == 0){
+						delete tmpObj["to"];
+                        delete tmpObj["toRelation"];
+					}
+					if(tmpObj["subjectType"] == 0){
+						delete tmpObj["subject"];
+                        delete tmpObj["subjectRelation"];
+					}
+                    if(tmpObj["attachType"] == 0){
+                        delete tmpObj["attach"];
+                        delete tmpObj["attachRelation"];
+                    }
+                    if (tmpObj['mailSizeType'] == 0) {
+                        delete tmpObj['mailSize'];
+                    };
+                    if (tmpObj['mailRectimeType'] = 0) {
+                        delete tmpObj["mailRectimeStart"];
+                        delete tmpObj["mailRectimeEnd"];
+                    };
+					if(tmpObj["forwardAddr"] == ""){
+						delete tmpObj["forwardAddr"];
+					}
+					if(tmpObj["replayContent"] == ""){
+						delete tmpObj["replayContent"];
+					}
+		var options ={
+				items: [tmpObj]
+        };
+		var self = this;
+		this.model.setFilter_139(options, function (datasource) {
+                if (datasource["code"] == "S_OK") {
+                    top.M139.UI.TipMessage.show("你的设置已成功", {delay : 2000});
+					self.render();
+                } else {
+                    top.M139.UI.TipMessage.show("你的设置失败了", {delay : 2000});
+                }
+		});
+	},
+	//关闭规则
+	closeRule : function(e){
+		this.openOrclose(e, 1);
+	},
+	//开启规则
+	openRule: function(e){
+		this.openOrclose(e, 0);	
+	},
+    /**
+    *删除分拣规则。
+    */
+    deleteRule: function (e) {
+        var self = this;
+        var popup = M139.UI.Popup.create({
+            target: $(e.currentTarget),
+            icon: "i_warn",
+			width: 189,
+            buttons: [{ text: "确定", cssClass: "btnSure", click: function () { self.deleteEvent(e); popup.close(); } },
+		                { text: "取消", click: function () { popup.close(); } }
+	                ],
+            content: '<p class="norTipsLine pt_10">确定删除该规则吗？</p>'
+        });
+        if ($(".delmailTips").length == 0) {
+            popup.render();
+        }
+    }
+})
+    );
+sortView = new M2012.Settings.Classify.View.Home();
+sortView.render();
+})(jQuery, _, M139);
+
+

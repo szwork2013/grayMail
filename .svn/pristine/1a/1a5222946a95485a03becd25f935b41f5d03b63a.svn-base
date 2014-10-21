@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="page-search" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <title>搜索列表</title>
+
+    <script type="text/javascript">    
+    //设域
+    document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1].replace(/:\d+/, "");
+    //加载CSS和JS,CommonInit(当前document,彩云最顶层window)
+    window.parent.CommonInit(document, window.parent
+        ,[{"dirName": "js/", fileName:"m2011.disk.listpager.js"}, {"dirName": "js/", fileName:"m2011.disk.searchlist.js"}]);
+    </script>
+
+    <script type="text/javascript">
+    //加载皮肤
+    Utils.loadSkinCss(null, document, "netdisk");  
+    </script>
+
+</head>
+<body>
+    <div id="container">
+        <div class="crumb" style="display:none">
+            您的位置：<a href="disk_default.html">彩云网盘</a> &gt; <strong>搜索结果</strong>
+        </div>
+        
+        <p class="result-count" style="display: none">共搜索到<em>0</em>个文件</p>
+        
+        <div class="rcd-hd">
+            <div class="page">
+                <a href="#" style="display:none"></a>
+                <a href="#">上一页</a>
+                <a href="#">下一页</a>
+                <a href="#" style="display:none"></a>
+                <select></select>
+            </div>
+            <span style="display:none"><a class="i-b" id="aBack" href=""><i class="i-disk-back"></i>返回彩云</a></span>
+            <button class="include-i" type="button" id="aDown">下载<i class="i-download"></i></button>
+            <button type="button" id="aShare">共享</button>
+            <button type="button" id="aDel">删除</button> 
+            <button type="button" id="aProperty" style="display:none">属性/重命名</button> 
+            
+        </div>
+        <div class="search-list">
+            
+            <table cellpadding="0" class="tbl-list">
+                <thead id="tbl-header" style="display: none">
+                    <tr>
+                        <th class="t-check">
+                            <label id="lblSelectAllFile" for="cbSelectAllFile">全选</label><input style="position:absolute;left:-999px;top:-999px;" type="checkbox" id="cbSelectAllFile" /></th>
+                        <th class="t-type">
+                            类型<span class="t-arrow"></span></th>
+                        <th class="t-name">
+                            名称<span class="t-arrow"></span></th>
+                        <th class="t-date">
+                            上传时间<span class="t-arrow"></span></th>
+                        <th class="t-size">
+                            大小<span class="t-arrow"></span></th>
+                    </tr>
+                </thead>
+            </table>
+            <table cellpadding="0" class="tbl-list">
+                <tbody id="tbl-fileList">
+                </tbody>
+            </table>
+            
+            <table cellpadding="0" class="tbl-list">
+				<tr class="tfoot">
+					<th class="t-check"><label id="lblSelectAllFile2" for="cbSelectAllFile">全选</label></th>
+					<th>
+					
+					</th>
+				</tr>
+	        </table>
+	        
+            <div class="rcd-hd">
+                    <div class="page">
+                        <a href="#" style="display:none"></a>
+                        <a href="#">上一页</a>
+                        <a href="#">下一页</a>
+                        <a href="#" style="display:none"></a>
+                        <select></select>
+                    </div>
+                    <button class="include-i" type="button" id="aDown2" style="position:static">下载<i class="i-download"></i></button>
+                    <button type="button" id="aShare2">共享</button>
+                    <button type="button" id="aDel2">删除</button> 
+                    <button type="button" id="aProperty2" style="display:none">属性/重命名</button> 
+                    
+            </div>
+        </div>
+        <iframe id="iframecgi" width="0" height="0" style="display: none"></iframe>
+    </div>
+</body>
+</html>

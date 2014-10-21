@@ -1,0 +1,256 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="pageDetail" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>139邮箱通讯录::联系人资料</title>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<script type="text/javascript">
+document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+top.WaitPannel.show('加载中...');
+function filltag(d,c,f){var b,a,e=[];while(d.length){a=d.shift();switch(true){case Object.prototype.toString.apply(a)==="[object Array]":b="<script "+(a[1].length>0?'charset="'+a[1]+'" ':"")+"src='"+(a[2]?a[2]:c)+"/js/"+a[0]+"' type='text/javascript'><\/script>";break;case a.indexOf(".js")>-1:b="<script "+(f?'charset="'+f+'" ':"")+"src='"+c+"/js/"+a+"' type='text/javascript'><\/script>";break;case a.indexOf(".css")>-1:b="<link rel='stylesheet' type='text/css' href='"+c+"/css/"+a+"' />";break;case a.length==0:b="<link rel='stylesheet' type='text/css' />"}e.push(b)}document.write(e.join(""))}
+var resourcePath = top.$App.getResourcePath(), addrsrc = resourcePath.replace('richmail', 'addr'), verifyImageUrl = '', AddressBookType = {}, g = 'GB2312';
+filltag(["global.css?v=20140516", "addr.css?v=20140516"], resourcePath);
+try {
+top.loadCSS([ "module/addr/addrnew.css"], document);
+top.loadScript("libs.pack.js", document);
+top.loadScript('m139.core.pack.js', document);
+top.loadScript("m2012.ui.common.pack.js", document);
+top.loadScript("m2011.utilscontrols.pack.js", document);
+top.loadScript("/m2012/js/packs/addr/addr_zh_hans.pack.js?v=1.5.7", document);
+top.loadScript("/m2012/js/packs/addr/addr_detail.html.pack.js?v=1.5.7", document);
+} catch (ex) {}
+</script>
+<script type="text/javascript">
+Utils.loadSkinCss(null, document, "addr");
+$(function(){ 
+
+		ContactModule.initPage(); 
+				//实例化上传类 add by zsx
+		//		debugger;
+		var serialId = "1";
+		var type = M139.Text.Url.queryString("type");
+		var endDate = new Date('2014-06-10 00:00:00');
+		if(type === "edit"){
+			serialId = M139.Text.Url.queryString("id");
+		}
+
+		if (top.Date.getServerTime) {
+		    now = top.M139.Date.getServerTime();
+		}else{
+			now = new Date();
+		}
+
+		var differ = top.M139.Date.getDaysPass(now, endDate);
+
+		if(differ > 0){
+			$('#fileUpload').change(function(){
+				top.$Msg.alert('系统维护，暂不支持上传头像');//临时需求
+				return;
+			});
+		}else{
+			new m2012.imageUpload({
+				ImageId : document.getElementById("ImageUrl"),
+				formId : document.getElementById("frmUpload"),
+				inputId : document.getElementById("fileUpload"),
+				hideInput : document.getElementById("oldImageUrl"),
+				serialId : serialId,
+				flag : true
+			});
+		}
+		
+	top.BH('addr_pageLoad_newContacts');	
+});
+</script>
+<!--[if IE 6]><script type="text/javascript">try { document.execCommand('BackgroundImageCache', false, true); } catch(e) {}</script><![endif]-->
+<style type="text/css">
+#btnHidden, #divPerson, #divCompany { display:none }
+.point-info { position:static }
+#Memo { width:206px }
+#btnHidden, #btnShowMore { padding-left:72px }
+.progressBar { position:relative; padding:0; }
+#percentbar { z-index:2; position:absolute; height:16px }
+#percentnumber { color:#fff; z-index:3; position:absolute }
+#divBaseInfo { padding: 6px 20px }
+.showAddressList #container { position:relative }
+.search input {width:auto}
+.optbtn{margin-bottom:5px;}
+.sync-tips{top:12px;}
+.syncbox .sync-name{top: 33px;}
+.content input.text{margin-top: 2px;}
+#divToolBar{padding-left: 15px;}
+.face .buttonList{margin-left: 28px;}
+.bodyDetail .groupSelect ul{height: 110px;}
+.tab li{border:none;padding:0 15px;}
+.bgPadding{padding:0 14px !important;}
+.bgPadding_left{padding:0 0 0 14px !important;}
+.bgPadding_right{padding:0 14px 0 0 !important;}
+.bgPadding_top{padding-top:14px !important;}
+</style>
+<base target="_self" />
+</head>
+<body class="hasAddressList bodyDetail msyhv2" style="padding:0;">
+<div id="container" class="content" style="overflow:auto;">
+	<div class="signature">		
+		<div class="addr-list-body bgPadding" id="newHead">
+	        <div class="biitab">
+	            <div class="tab setTab" id="billTab">
+	                <div class="tabTitle">
+	                    <ul>
+	                        <li class="on"><a hidefocus="1" href="javascript:void(0);"  style="height:30px"> <span id="tipHead">联系人详细资料</span></a></li>
+	                        <li><a hidefocus="1" href="../groupmail/group_detail.html" bh="gom_tab_create_group" style="height:30px"> <span>新建群组</span></a></li>
+	                    </ul>
+	                </div>
+	            </div>
+	        </div>
+
+
+	    </div>
+		<div class="singTitle" style="display: none;" id="editHead">
+			<strong>
+				<span id="tipHead">联系人详细资料</span> 
+				<strong id="tipContentName"> － </strong>
+			</strong> | 
+			<a id="aBack" href="javascript:void(0);">&lt;&lt;返回</a> 
+		</div>
+		<div></div>
+		<div class="main-wrap">
+			<div class="toolBar139" id="divToolBar">	
+				<div class="toolBar139" style="display:none;">
+					<a href="javascript:;" id="aDeleteLinkMan" role="button" hidefocus="1" class="btn mr_10">
+						<em>删除联系人</em>
+					</a>
+					<a href="javascript:;" id="aSearchEmails" role="button" hidefocus="1" class="btn mr_10">
+						<em>查看往来邮件</em>
+					</a>
+					<a href="javascript:;" id="aGoToAdd" role="button" hidefocus="1" class="btn">
+						<em>新建联系人</em>
+					</a>
+				</div>
+			</div>
+		<div class="tabContainer" style="display:block;">
+			<div class="top-info">
+				<!-- 编辑资料 -->
+				<div class="tabContent" id="divBaseInfo" style="border:none;">
+					<fieldset>
+						<ul class="form">
+							<li class="syncbox">
+								<label><span class="red">*</span> 姓 名：</label><input class="text long" id="name" name="name" type="text" maxlength="70">
+								<p>电子邮箱和手机号码，至少填写一项。</p>
+								<span class="sync-tips"><a href="#">联系人有同名</a><i class="down"></i></span>
+							</li>
+							<li>
+								<label>电子邮箱：</label>
+								<input class="text long" id="FamilyEmail" type="text" maxlength="90">
+							</li>
+							<li>
+								<label>手机号码：</label>
+								<input class="text" id="MobilePhone" type="text" maxlength="20" />
+								<select id="FamilyPhoneBrand" style="display:none"></select>
+								<select id="FamilyPhoneType" style="display:none"></select>
+							</li>
+							<li>
+								<label>常用固话：</label>
+								<input class="text" id="FamilyPhone" type="text" maxlength="30">
+							</li>
+							<li style="overflow:hidden;_zoom:1;">
+								<div class="boxSelect">
+									<label>性 别：</label>
+									<ul style="float:left;">
+										<li><label for="UserSex0"><input type="radio" id="UserSex0" name="UserSex" value="0">男</label></li>
+										<li><label for="UserSex1"><input type="radio" id="UserSex1" name="UserSex" value="1">女</label></li>
+										<li><label for="UserSex2"><input type="radio" id="UserSex2" name="UserSex" value="2">保密</label></li>
+									</ul>
+								</div>
+							</li>
+							<li class="birthday" id="dateWrap">
+								<label>生 日：</label>
+								<select name="bYear" id="bYear" class="dateForYear"></select>年
+								<select name="bMonth" id="bMonth" class="dateForMonth"></select>月
+								<select name="bDay" id="bDay" class="dateForDay"></select>日
+							</li>
+							<li class="groupSelect" style="overflow: hidden; height: 160px;">
+								<label>所属分组：</label>
+								<div style="float:left;overflow:hidden;_zoom:1;">
+									<ul id="GroupsContainer" class="GroupsContainer" style="margin-left:0;"></ul>
+									<p class="borderpground" style="margin-left:0;">
+										<input id="ChkNewGroupId" type="checkbox" />
+										<input class="text short c-h" id="NewGroupName" name="NewGroupName" maxlength="16" type="text" />
+									</p>						
+								</div>
+			                </li>
+			                <li id="btnHidden">
+		                        <i class="closeList"></i><a href="javascript:ContactBean.ToggleDeteil();">关闭详细资料</a>		                        
+		                    </li>
+		                    <li id="btnShowMore">
+		                        <a href="javascript:ContactBean.ToggleDeteil();">添加详细资料</a>
+		                    </li>		                    
+						</ul>
+					</fieldset>
+					<div class="tab-info" id="divPerson">
+						<h3>个人信息</h3>
+						<fieldset>
+							<ul class="form">
+								<li><label>飞信号：</label><input class="text" id="OtherIm" type="text" maxlength="10"></li>
+								<li>
+									<label>家庭地址：</label>
+                                	<select id="ProvCode" name="ProvCode"></select>
+                                	<select id="CityCode" name="CityCode"></select>
+                                	<p><input class="text" id="HomeAddress" type="text" maxlength="50"></p>
+                                </li>
+                                <li>
+                                	<label>备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
+                                	<textarea id="Memo"></textarea>
+                                </li>
+							</ul>
+						</fieldset>
+						<div class="face">
+							<fieldset>
+								<img alt="" width="96" height="96" name="ImageUrl" id="ImageUrl" />
+								<form id="frmUpload" name="frmUpload" method="post" enctype="multipart/form-data" action="" target="ifrmReturnInfo">
+									<ul class="buttonList">
+			                            <li>
+			                            	<input class="button" type="button" value="浏览" />
+			                            	<input id="fileUpload" name="fileUpload" class="file" type="file" />
+			                            </li>
+			                            <li>
+			                            	<input class="button" type="button" id="btnDelImage" value="删除" style="display: none;" />
+			                            </li>
+			                        </ul>
+			                        <input id="oldImageUrl" name="oldImageUrl" type="hidden" />
+									<input id="unreserved" name="unreserved" type="hidden" />
+									<!--标记参数 联系人头像上传时删除原来的头像 本人头像上传时不删除-->
+			                        <input id="funcid" name="funcid" type="hidden" />
+		                        </form>
+		                        <p>
+		                        	最佳尺寸96×96像素<br>
+                        			(支持gif、jpg、jpeg、bmp、png格式)
+                        		</p>
+							</fieldset>
+						</div>
+					</div>
+					<div class="tab-info" id="divCompany">
+						<h3>公司信息</h3>
+						<ul class="form">
+							<li><label>公司名称：</label><input class="text" id="CPName" type="text" maxlength="30" /></li>
+                            <li><label>职 务：</label><input class="text" id="UserJob" type="text" maxlength="10" /></li>
+                            <li><label>商务邮箱：</label><input class="text" id="BusinessEmail" type="text" maxlength="90" /></li>
+                            <li><label>商务手机：</label><input class="text" id="BusinessMobile" type="text" maxlength="20" /><select id="BusinessPhoneBrand" style="display:none"></select><select id="BusinessPhoneType" style="display:none"></select></li>
+                            <li><label>公司固话：</label><input class="text" id="BusinessPhone" type="text" maxlength="30" /></li>
+                            <li><label>传真号码：</label><input class="text" id="BusinessFax" type="text" maxlength="30" /></li>
+                            <li><label>公司地址：</label><select id="CPProvCode" name="CPProvCode"></select><select id="CPCityCode" name="CPCityCode"></select><input class="text" id="CPAddress" type="text" maxlength="50"></li>
+                            <li><label>公司邮编：</label><input class="text" id="CPZipCode" type="text" maxlength="10" /></li>
+						</ul>
+					</div>	
+				</div>
+				<p class="action" style="margin-left:20px;margin-bottom:10px;">
+					<a href="javascript:;" role="button" hidefocus="" id="btnSave" class="btn btnGreen" style="margin-right:10px;"><em>保 存</em></a><a href="javascript:;" id="btnCancel" role="button" hidefocus="" class="btn ml_10"><em>取 消</em></a>
+				</p>
+			</div>
+		</div>
+	</div>
+	</div>
+</div>
+
+<iframe id="ifrmReturnInfo" name="ifrmReturnInfo" scrolling="no" height="0" width="0" frameborder="0" src="empty.html"></iframe>
+
+</body>
+</html>

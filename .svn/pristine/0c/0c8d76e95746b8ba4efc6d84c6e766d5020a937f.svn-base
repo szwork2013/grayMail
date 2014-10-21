@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>无标题文档</title>
+</head>
+
+<body>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" background="xinzhi_img/fun_01bg.gif">
+<style>
+	td{padding:0;}
+	p{line-height:25px; *line-height:28px; position:relative;top:-10px; *top:0;}
+</style>
+  <tr>
+    <td height="91"><div align="left"><img src="xinzhi_img/fun_01.gif" width="331" height="145" /></div></td>
+  </tr>
+</table>
+<table width="100%" height="190" border="0" cellpadding="0" cellspacing="0" bgcolor="#9ddfef" ; background-repeat: no-repeat;background-position: right bottom;>
+  <tr>
+    <td valign="top"><table width="92%" border="0" align="center" cellpadding="0" cellspacing="0" background="xinzhi_img/fun_01bg2.jpg">
+        
+        <tr>
+          <td id="content139" valign="top" style="font-size:14px; line-height:2; color: #000000"><p>亲爱的朋友:<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;您好!<br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />            
+            &nbsp;&nbsp;&nbsp;&nbsp;此致<br />
+            敬礼!</p>          </td>
+        </tr>
+        <tr>
+          <td height="10" valign="top" bgcolor="#9DDEF0" style="font-size:14px; line-height:2; color: #000000"><div align="right"><img src="xinzhi_img/fun_02.jpg" width="206" height="59" /></div></td>
+        </tr>
+        <tr>
+          <td height="10" valign="top" bgcolor="#9DDEF0" style="font-size:14px; line-height:2; color: #000000"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

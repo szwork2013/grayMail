@@ -1,0 +1,110 @@
+﻿<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>暂存柜-139邮箱</title>
+		<script type="text/javascript">
+			document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+
+		</script>
+		<script>
+			top.loadScript('libs.pack.js', document);
+			top.loadScript('m139.core.pack.js', document);
+			top.loadScript("m2012.ui.common.pack.js", document);
+
+		</script>
+		<script>
+			top.loadCSS(["common/global.css", "module/FileExtract/extract.css", "module/bigattr.css"], document);
+		</script>
+		<style>
+        .floatLoadDiv input{width:188px;font-size:16px;cursor:pointer;}
+        .floatLoadDiv{position:relative;margin-top:-208px; *margin-top:-220px;left:164px;*left:0;width:188px;height:35px;overflow:hidden;z-index:1;padding:0px;opacity:0;-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";#filter:alpha(opacity=0);}
+        
+        .floatLoadDivTop input{width:188px;font-size:16px;cursor:pointer;}
+        .floatLoadDivTop{position:relative;margin-top:-22px;left:0px;width:212px;height:21px;overflow:hidden;z-index:1;padding:0px;opacity:0;-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";#filter:alpha(opacity=0);}
+		body{
+		background: #fafafa;
+		}
+    </style>
+	</head>
+	<body>
+			<div class="">
+				<div class="tabTitle" style="display: none;">
+					<ul>
+						<li id="localFile" class="on">
+							<a href="javascript:void(0)"><span>本地文件</span></a>
+						</li>
+						<li id="disk">
+							<a href="javascript:void(0)"><span>彩云网盘</span></a>
+						</li>
+						<li id="cabinet">
+							<a href="javascript:void(0)"><span>暂存柜 </span></a>
+						</li>
+					</ul>
+				</div>
+				<div class="tabMain" id="localFileContainer">
+					<div class="tabContent show">
+						<h2>本地文件 </h2>
+						<div class="topBtn" style="display: block">
+                            <div class="floatLoadDiv" id="floatLoadDiv">
+					            <form style="" enctype="multipart/form-data" id="fromAttach" method="post" action="" target="frmAttachTarget">
+					                <input style="height: 35px;" type="file" name="uploadInput" id="uploadFileInput" multiple="true" />
+					                <input style="display:none;height: 35px;" type="button" name="uploadInput"/>
+					            </form>
+					            <iframe id="frmAttachTarget" style="display: none" name="frmAttachTarget"></iframe>
+					        </div>
+						</div>
+						<div class="topBtn" style="display: none;" id="goForBigAttachment"><a href="javascript:void(0)" class="btnNormal"><span>继续上传文件</span></a></div>
+						<div class="attaList" id="attachList">
+							<div class="addFilesTips" style="display: none">
+							<ul class="boxIframeText_buttom" id="boxForBigAttachment">
+								<li><a href="javascript:void(0)" class="btn btnGreen" style="vertical-align:middle; padding-left:25px; width: 155px;">
+									<span style="padding-right:30px;"><i class="i-uploadS"></i>上传本地文件</span>
+								</a><p id="mealinfo">最大上传2G文件，将保存到暂存柜，15天后过期。</p></li>
+								<li class="boxIframeText_buttom_line"></li>
+								<li id="formCab"><a class="btn btnGreen" hidefocus="" role="button" href="javascript:;"><span><i class="i_s_sarkw"></i>从暂存柜选择</span></a></li>
+								</ul>							
+							</div>
+						</div>
+					</div>
+					<div class="loadTip" style="display: none">
+						<i class="i_file_16 i_f_upload"></i><span>139邮箱小工具：支持超大文件极速上传、断点续传！</span><a hideFocus="1" href="javascript:top.Utils.openControlDownload()" target="_blank">立即安装</a>
+					</div>
+				</div>
+				<!-- 嵌入彩云暂存柜的iframe -->
+				<div class="tabMain" id="filesContainer">
+				</div>
+			</div>
+			<div class="boxIframeBtn delmailTipsBtn" style="visibility:hidden">
+			<span class="delmailTipsBtntext">
+			  <label for="ckb_12_auto" id="ckb_12" style="display:none;"><input type="checkbox" value="" id="ckb_12_auto">
+				  上传完成后自动发送邮件</label>
+			</span>
+			<span class="bibBtn">
+				<a class="btnSure mr_5" id="confirm" href="javascript:void(0)">
+					<span>确 定</span>
+				</a>
+				<a class="btnNormal" id="cancel" href="javascript:void(0)">
+					<span>取 消</span>
+				</a>
+			</span>
+        </div>
+	</body>
+	<!-- 
+	<script type="text/javascript" src="../../js/service/fileexpress/m2012.fileexpress.upload.model.js"></script><br/>
+	-->
+	<script>top.loadScript("largeAttach.html.pack.js", document)</script>
+	<!-- 
+	<script type="text/javascript" src="../../js/ui/upload/md5.min.js"></script>
+    <script type="text/javascript" src="../../js/ui/upload/upload.facade.js"></script>
+    <script type="text/javascript" src="../../js/ui/upload/upload.html5.js"></script>
+    <script type="text/javascript" src="../../js/ui/upload/upload.flash.js"></script>
+    <script type="text/javascript" src="../../js/ui/upload/swfobject.js"></script>
+    <script type="text/javascript" src="../../js/ui/upload/upload.activex.js"></script>
+    
+	<script type="text/javascript" src="../../js/ui/selectfile/m2012.ui.selectfile.model.js"></script>
+	<script type="text/javascript" src="../../js/ui/selectfile/m2012.ui.selectfile.veiw.upload.js"></script>
+	<script type="text/javascript" src="../../js/ui/selectfile/m2012.ui.selectfile.view.main.js"></script>
+	<script type="text/javascript" src="../../js/ui/selectfile/m2012.ui.selectfile.application.js"></script>
+	-->
+</html>

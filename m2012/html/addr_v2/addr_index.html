@@ -1,0 +1,681 @@
+﻿<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="Keywords" content="">
+        <meta name="Description" content="">
+        <title>通讯录首页-139邮箱</title>
+        <script type="text/javascript">
+            document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+            var resourcePath = top.$App.getResourcePath(), resourcePath = resourcePath.replace('richmail', 'coremail');
+            try {
+                top.loadCSS(["common/global.css", "common/frame.css", "module/addr/addr.css", "module/addr/addrnew.css"], document);
+                top.loadScript('libs.pack.js', document);
+                top.loadScript('m139.core.pack.js', document);
+                top.loadScript("m2012.ui.common.pack.js", document);
+                top.loadScript("/m2012/js/packs/addr/addr_zh_hans.pack.js", document);
+            } catch (ex) {
+            }
+        </script>
+        <!--[if lt IE 9]><script>document.write('<script src="' + resourcePath + '/js/html5.js"><\/script>')</script><![endif]-->
+        <style type="text/css">
+            .tool_li {
+                list-style: none;
+                display: inline-block;
+            }
+
+            /*contacts list styles*/
+            .addr-table table .ipt-edit {/*copy style from global2012.css*/
+                border: 1px solid #D1DBE4;
+                color: #464646;
+                /*font-family: "宋体",arial;*/
+                height: 20px;
+                left: -5px;
+                line-height: 20px;
+                padding-left: 5px;
+                position: relative;
+                width: 95%;
+            }
+            .addr-table table tr div.Edit {
+                display: none;
+                margin-left: 5px
+            }
+            .addr-table table tr.Editing .List {
+                display: none;
+            }
+            .addr-table table tr.Editing .Edit {
+                display: block;
+            }
+            .addr-table table .td6 div {
+                text-align: left;
+                padding-left: 10px
+            }
+
+            /*#groups-nav-list li {
+                cursor: auto
+            }
+            #groups-nav-list li span.Name {
+                cursor: pointer
+            }*/
+
+            li.No-edit a.Edit {
+                display: none !important;
+            }
+            li.No-del a.Del {
+                display: none !important;
+            }
+            
+            #contacts-list tr td:hover {
+                cursor: default
+            }
+            #contacts-list tr td div.Edit-link:hover {
+                cursor: pointer
+            }
+        </style>
+    </head>
+    <body>
+        <div id="addr-loading-box">
+            <div id="addr-loading" class="bodyerror">
+                <img src="/m2012/images/global/load.gif" width="16" height="16" />
+                <P>
+                    加载中，请稍候......
+                </P>
+                <a class="btnTb hide" href="javascript:"><span class="p_relative">重新加载</span></a>
+            </div>
+            <div id="addr-loadError" class="bodyerror " style="display:none">
+                <img height="72" width="73" src="/m2012/images/global/smile.png">
+                <p>
+                    加载失败，再试一次吧。
+                </p>
+                <a href="javascript:top.$App.show('addr')" class="btnTb"><span class="p_relative">重新加载</span></a>
+            </div>
+        </div>
+        
+        <!--通讯录第一版框架-->
+        <div class="outArticle" id="addr-first-main" role="main" style="display: none">
+            <div id="main_iframe" class="outArticleMain" style="display:none;">
+                <iframe scrolling="auto" id="addr_main" name="ifbg" frameborder="no" width="100%" src="" style="height: 468px;"></iframe>
+            </div>
+            <div id="main_container" class="outArticleMain">
+                <div id="m139-contacts-list" class="addr-list-body" style="display:block">
+                    <div id="contacts-search-title" class="setArea  bgMargin" style="display: none">
+                        <h2>搜索结果 <em class="setArea_em">（共<span id="searched-contacts-num">0</span>个） </em></h2>
+                    </div>
+                    <div class="add-group">
+                        <div class="addr-btngroup clearfix" id="too_bar">
+                            <div class="addr-btn">
+                                <ul class="btn_main">
+                                    <li id="tool_add_vip" class="tool_li" style="display: none;"></li>
+                                    <li id="tool_remove_vip" class="ml-1 tool_li" style="display: none;"></li>
+                                    <li id="tool_email" class="tool_li"></li>
+                                    <li id="tool_sms" class="ml-1 tool_li"></li>
+                                    <li id="tool_copy" class="ml-1 tool_li"></li>
+                                    <li id="tool_move" class="ml-1 tool_li" style="display: none;"></li>
+                                    <li id="tool_delete" class="ml-1 tool_li"></li>
+                                    <li id="tool_group_edit" class="ml-1 tool_li"></li>
+                                    <li id="tool_group_delete" class="ml-1 tool_li"></li>
+                                    <li id="tool_more" class="ml-1 tool_li"></li>
+                                    <li id="tool_update" class="ml-1 tool_li p_relative" style="display: none;">
+                                        <span class="num" id="span_addr_dot" style="display:none">0</span>
+                                    </li>
+                                </ul>                                
+                            </div>
+
+                            <div id="contactsPagingBar" class="toolBarPaging">
+                                <a rel="selector" href="javascript:;" class="pagenum pagenumBorder"> <span class="pagenumtext">20</span> </a>
+                                <a rel="selector" href="javascript:;" class="pagenum"> <span class="pagenumtext">1/66</span> </a>
+                                <a rel="prev" title="上一页" href="javascript:;" class="up up-gray"></a>
+                                <a rel="next" title="下一页" href="javascript:;" class="down "></a>
+                            </div>
+                        </div>
+                        
+                        <!-- <div class="search-title">
+                        <strong>搜索“蔡”的结果</strong><span class="line">|</span><a href="javascript:void(0)"><span class="f_st">&lt;&lt;</span>返回所有联系人列表</a>
+                    </div> -->
+                        <div id="initial-letter-filter" class="addr-letter clearfix bgMargin">
+                            <a href="javascript:void(0)" class="firstStyle on">All</a>
+                            <a href="javascript:void(0)">A</a>
+                            <a href="javascript:void(0)">B</a>
+                            <a href="javascript:void(0)">C</a>
+                            <a href="javascript:void(0)">D</a>
+                            <a href="javascript:void(0)">E</a>
+                            <a href="javascript:void(0)">F</a>
+                            <a href="javascript:void(0)">G</a>
+                            <a href="javascript:void(0)">H</a>
+                            <a href="javascript:void(0)">I</a>
+                            <a href="javascript:void(0)">J</a>
+                            <a href="javascript:void(0)">K</a>
+                            <a href="javascript:void(0)">L</a>
+                            <a href="javascript:void(0)">M</a>
+                            <a href="javascript:void(0)">N</a>
+                            <a href="javascript:void(0)">O</a>
+                            <a href="javascript:void(0)">P</a>
+                            <a href="javascript:void(0)">Q</a>
+                            <a href="javascript:void(0)">R</a>
+                            <a href="javascript:void(0)">S</a>
+                            <a href="javascript:void(0)">T</a>
+                            <a href="javascript:void(0)">U</a>
+                            <a href="javascript:void(0)">V</a>
+                            <a href="javascript:void(0)">W</a>
+                            <a href="javascript:void(0)">X</a>
+                            <a href="javascript:void(0)">Y</a>
+                            <a href="javascript:void(0)">Z</a>
+                        </div>
+                        <div class="addr-yellow-tips" style="display: none">
+                            您识别以下联系人吗？建议您立即修改姓名、完善资料
+                        </div>
+                        <div id="contacts-list-msg"></div>
+                        <div id="contacts-list-container">
+                            <div class="addr-table">
+                                <!-- addr-list-scroll 宽度小于809时加上这个class -->
+                                <!--[if lt ie 8]>
+                            <div style='+zoom:1;'>
+                            <![endif]-->
+                                <div class="bgMargin">
+                                    <table id="contacts-header" class="addr-table-header">
+                                        <tr>
+                                            <td class="td1">
+                                                <input id="toggle-page-contacts" type="checkbox" />
+                                            </td>
+                                            <td class="td2">
+                                                <div id="title-name" class="sort-container">
+                                                    <div class="sort" style="cursor: pointer">
+                                                        姓名<span class="order i-d-up" style="margin-left: 3px"></span>
+                                                    </div>
+                                                </div><!-- <span id="name-title">姓名 <a href="javascript:void(0)" id="sort-by-name" class="sort i-d-up"></a></span> --><span id="title-selected" class="hide">已选择：<strong id="selected-num" class="c_ff6600"> 0 </strong>个联系人 <a id="clean-selected-contacts" href="javascript:void(0)" class="c_ff6600">取消选择</a> </span>
+                                            </td>
+                                            <td class="td3">
+                                                <div id="title-email" class="sort-container">
+                                                    <div class="sort" style="cursor: pointer">
+                                                        邮件地址<span class="order" style="margin-left: 3px"></span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="td4">
+                                                <div id="title-mobile" class="sort-container">
+                                                    <div class="sort" style="cursor: pointer">
+                                                        手机<span class="order" style="margin-left: 3px"></span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <!-- <td class="td4">手机 <a href="javascript:void(0)" id="sort-by-mobile" class="sort i-d-down"></a></td> -->
+                                            <td class="td5">分组</td>
+                                            <!-- <td class="td6"></td> -->
+                                        </tr>
+                                        <!-- <tr>
+                                    <td class="td1">
+                                    <input type="checkbox" />
+                                    </td>
+                                    <td class="td2"><span class="hide">姓名</span><span>已选择：<strong class="c_ff6600"> 2 </strong>个联系人 <a href="javascript:void(0)" class="c_ff6600">取消选择</a></span></td>
+                                    <td class="td3">邮件地址 <a href="javascript:void(0)" class="i-d-up"></a></td>
+                                    <td class="td4">手机 <a href="javascript:void(0)" class="i-d-down"></a></td>
+                                    <td class="td5">分组</td>
+                                    <td class="td6"></td>
+
+                                    </tr> -->
+                                    </table>
+                                </div>
+                                <!--[if lt ie 8]></div><![endif]-->
+                                <!-- <div class="addr-list " style="height:300px;"> -->
+                                <div class="addr-list bgPadding">
+                                    <!--[if lt ie 8]>
+                                <div style='+zoom:1;'>
+                                <![endif]-->
+                                    <table id="contacts-list">
+                                        <!-- <tr class="on">
+                                        <td class="td1">
+                                        <input type="checkbox" />
+                                        </td>
+                                        <td class="td2">白雪天</td>
+                                        <td class="td3">baixuetian@richinfo.com</td>
+                                        <td class="td4">13648742167</td>
+                                        <td class="td5"><span class="addr-s-t">大学同学</span><span class="addr-s-t">彩讯-用记体验室</span></td>
+                                        <td class="td6"><span class=""><a href="javascript:void(0)">发邮件</a> | <a href="javascript:void(0)">发短信</a> | <a href="javascript:void(0)">编辑</a> | <a href="javascript:void(0)">删除</a></span></td>
+                                    </tr> -->
+                                    </table>
+                                    <!--[if lt ie 8]></div><![endif]-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="and-contacts-list" class="addr-list-body" style="display : none">
+                    <div class="add-group">
+                        <div class="addr-btngroup clearfix" id="pim_too_bar">
+                            <div class="addr-btn">
+                                <ul class="btn_main">
+                                    <li id="pim_tool_email" class="tool_li"></li>
+                                    <li id="pim_tool_sms" class="ml-1 tool_li"></li>
+                                    <li id="pim_tool_import" class="ml-1 tool_li" style="display:none;"></li>
+                                    <li id="pim_tool_manage" class="ml-1 tool_li"></li>
+                                </ul>
+                            </div>
+                            <div id="contactsPagingBar" class="toolBarPaging">
+                                <a rel="selector" href="javascript:;" class="pagenum pagenumBorder"> <span class="pagenumtext">20</span> </a>
+                                <a rel="selector" href="javascript:;" class="pagenum"> <span class="pagenumtext">1/66</span> </a>
+                                <a rel="prev" title="上一页" href="javascript:;" class="up up-gray"></a>
+                                <a rel="next" title="下一页" href="javascript:;" class="down "></a>
+                            </div>
+                        </div>
+                        <div id="contacts-list-msg"></div>
+                        <div id="contacts-list-container">
+                            <div class="addr-table">
+                                <!-- addr-list-scroll 宽度小于809时加上这个class -->
+                                <!--[if lt ie 8]>
+                            <div style='+zoom:1;'>
+                            <![endif]-->
+                                <div class="bgMargin">
+                                    <table id="contacts-header" class="addr-table-header">
+                                        <tr>
+                                            <td class="td1">
+                                                <input id="toggle-page-contacts" type="checkbox" />
+                                            </td>
+                                            <td class="td2">
+                                                <div id="title-name" class="sort-container">
+                                                    <div class="sort">
+                                                        姓名
+                                                    </div>
+                                                </div>
+                                                <span id="title-selected" style="display:none">已选择：<strong id="selected-num" class="c_ff6600"> 0 </strong>个联系人 <a id="clean-selected-contacts" href="javascript:void(0)" class="c_ff6600">取消选择</a> </span>
+                                            </td>
+                                            <td class="td4">
+                                                <div id="title-mobile" class="sort-container">
+                                                    <div class="sort">
+                                                        手机
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="td3">
+                                                <div id="title-email" class="sort-container">
+                                                    <div class="sort">
+                                                        邮件地址
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="td5">分组</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <!--[if lt ie 8]></div><![endif]-->
+                                <div class="addr-list bgPadding">
+                                    <!--[if lt ie 8]><div style='+zoom:1;'><![endif]-->
+                                    <table id="contacts-list"></table>
+                                    <!--[if lt ie 8]></div><![endif]-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="group-contacts-list" class="addr-list-body" style="display:none;">
+                    <div class="add-group" id="group-contacts-list-new">
+                        <div class="addr-btngroup clearfix" id="group_toolbar">
+                            <div class="addr-btn">                                
+                                <a href="javascript:void(0);" id="grourp_send_mail" role="button" hidefocus class="btnTb"><span class="pl_30 p_relative"><i class="i-addr-g"></i> 发群邮件</span></a>
+                                <a href="javascript:void(0);" id="grourp_edit" role="button" hidefocus class="btnTb ml_6"><span>编辑群组</span></a>
+                                <a href="javascript:void(0);" id="group_exit" role="button" hidefocus class="btnTb ml_6"><span>退出群组</span></a>
+                                <a href="javascript:void(0);" id="group_add_contacts" role="button" hidefocus class="btnTb ml_6"><span>添加到通讯录</span></a>
+                            </div>
+                            <div class="toolBarPaging" style="display:none;">
+                                <a rel="selector" href="javascript:;" class="pagenum">
+                                    <span class="pagenumtext">1/66</span>
+                                </a>
+                                <a rel="prev" title="上一页" href="javascript:;" class="up up-gray"></a>
+                                <a rel="next" title="下一页" href="javascript:;" class="down "></a>
+                            </div>
+                        </div>
+
+                        <div class="addr-table group-table">
+                            <!-- addr-list-scroll 宽度小于809时加上这个class -->
+                            <!--[if lt ie 8]>
+                           <div style='+zoom:1;'>
+                               <![endif]-->
+                            <div class="bgMargin">
+                                <table class="addr-table-header" role="grid" id="teamTable">
+                                    <tr>
+                                        <td class="td1">
+                                            <input type="checkbox" id="toggle-team-contacts" />
+                                        </td>
+                                        <td class="td2" id="nameTd"><span>姓名 <a href="javascript:;"></a></span></td>
+                                        <td class="td3">邮件地址</td>
+                                        <td class="td4">手机</td>
+
+                                        <td class="td5">群组</td>
+                                        <td class="td6"></td>
+
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <!--[if lt ie 8]></div><![endif]-->
+                            <div class="addr-list  bgPadding_left" style="height:300px;">
+                                <!--[if lt ie 8]>
+                           <div style='+zoom:1;'>
+                               <![endif]-->
+                                <table role="grid" id="group-contact-list"></table>
+                                <!--[if lt ie 8]></div><![endif]-->
+                            </div>
+
+                        </div>
+                    </div>
+                    <div id="member-no-group-container" style="display: none;">
+                    </div>
+                </div>
+
+            </div>   
+        </div>
+
+        <div class="inAside" style="display: none">
+            <!--通讯录顶部按钮-->
+            <div id="addr-left-btns" class="addr-left-btn ta_c">
+                <a class="btnG btnCreate" id="btn-create" href="javascript:void(0);" role="button"><span>新 建</span></a>
+                <a class="btn btnGreenBd ml_15" href="javascript:void(0);" onclick="$Addr.trigger('redirect', {key: 'addr_import_clone'});" role="button"><span>导 入</span></a>
+            </div>
+            <div id="addr-groups-nav" class="addr-p" role="tabpanel">
+                <ul class="addr-p-tab clearfix" role="tablist" id="addr-tab">
+                    <li class="liline on" aria-selected="false"role="tab">
+                        <span class="groups-nav" data-state="contacts" style="width:100%;">
+                            <i class="i-addr-p"></i><span>联系人</span>
+                        </span>
+                    </li>
+                    <li class="" aria-selected="true" role="tab">
+                        <span class="groups-nav" data-state="group">
+                            <i class="i-addr-g"></i><span>群组</span>
+                        </span>
+                        <span class="groups-nav" data-state="groupNotify">
+                            <i class="i-notice ml_5 p_relative" id="span_notify"></i>
+                        </span>
+                    </li>
+                </ul>
+                <div class="addr-p-list sweb" role="tabpanel" id="leftbar-contacts">                    
+                    <div class="addr-ul-list sweb" style="overflow-y: auto;position:relative">
+                        <ul id="groups-nav-list" class=""></ul>
+                    </div>                   
+
+                    <a id="btn-create-group" href="javascript:void(0);" onclick="$Addr.trigger('redirect', { key: 'addr_create_group'});" class="newa" hidefocus="hidefocus">新建分组</a>
+                    <div id="andAddr-groups-container" class="addr-ul-list sweb mt_5" style="display:none;position:relative">
+                        <ul id="andAddr-title" class="pt_5">
+                            <li><span class="triangle t_globalRight" href="javascript:;"></span><em class="clearfix"><i class="i-c-notes"></i>和通讯录</em></li>
+                        </ul>
+                        <ul id="andAddrGroups-nav-list" class="pt_5" style="display:none">
+                        </ul>
+                    </div>
+                </div>
+                <!--群组 added by tj-->
+                <div id="leftbar-group" class="addr-p-list sweb bgWhite" role="tabpanel" style="display: none;">
+                    <div class="addr-ul-list group-ul-list sweb" id="div_teamlist" style="overflow-y:auto;">
+
+                    </div>
+                    <div id="div_leftBarNoGroup" style="display: none;">
+                    </div>
+                    <a href="javascript:void(0);" onclick="$Addr.trigger('redirect', { key: 'addr_team_create' });" class="newa ml_15" id="downCreate" style="display: none;">新建群组</a>
+                </div>
+
+            </div>
+            <div id="wam_container" class="add-maybe" style="display: none;">
+                <h3><a href="javascript:void(0);"  onclick="$Addr.trigger('redirect', { key: 'addr_whoaddme', data: ''}); top.BH('addr_remind_more');" class="">更多</a>可能认识的人<span class="num" id="wam_num"></span></h3>
+                <ul class="add-maybe-p clearfix" id="wam_box"></ul>
+            </div>
+
+        </div>
+
+        <div id="drag-drop-container" style='position:absolute;z-index:9999;display:none'></div>
+
+        <script type="text/template" id="contact-item">
+            <td class="td1">
+            <input class="toggle-contact" type="checkbox" <%= selected ? 'checked="checked"' : '' %> />
+            <i class=<%= isVip ? "i-addrVip" : "" %>></i>
+            <td class="td2">
+            <div class="List Name Edit-link name-txt editings_em">
+                <span class="editings_span" title=<%= tName %>>
+                    <%= displayName %>
+                </span>                
+            </div>
+            <div class="Edit">
+                <input class="ipt-edit Name" type="text" maxlength="12" />
+            </div></td>
+            <td class="td3">
+            <div class="List Email Edit-link email-txt"  title=<%= tEmail %>>
+                <%= displayEmail %>
+            </div>
+            <div class="Edit">
+                <input class="ipt-edit Email" type="text" maxlength="90" />
+            </div></td>
+            <td class="td4">
+            <div class="List Mobile Edit-link mobile-txt" title=<%= tMobile %>>
+                <%= displayMobile %>
+            </div>
+            <div class="Edit">
+                <input class="ipt-edit Mobile" type="text" maxlength="20" />
+            </div></td>
+            <td class="td5" title=<%= tGroups %>> <% for (var i in groups) { %> <span class="addr-s-t"><%= groups[i] %></span> <% } %> </td>
+            <!-- <td class="td6">
+            <div class="List">
+                <span class=""> <a class="Send-email" href="javascript:void(0)">发邮件</a> | <a class="Send-SM" href="javascript:void(0)">发短信</a> | <a class="Quick-edit" href="javascript:void(0)">编辑</a> | <a class="Quick-del" href="javascript:void(0)">删除</a> </span>
+            </div>
+            <div class="Edit" style="margin-left:0">
+                <span class="" style="display:block"> <a class="Commit-edit" href="javascript:void(0)">保存</a> | <a class="Cancel-edit" href="javascript:void(0)">取消</a></span>
+            </div></td> -->
+        </script>
+
+        <script type="text/template" id="contacts-paging">
+            <a id="page-size-caller" rel="selector" href="javascript:;" class="pagenum pagenumBorder" style="display: none"> <span class="pagenumtext"><%- pageSize %></span> </a>
+            <a id="page-index-caller" rel="selector" href="javascript:;" class="pagenum"> <span class="pagenumtext"><label class="page-index"><%- pageIndex %></label>/<label class="max-index"><%- maxIndex %></label></span> </a>
+            <a rel="prev" title="上一页" href="javascript:;" class="prev up <%=  firstPage ? 'up-gray' : '' %>"></a>
+            <a rel="next" title="下一页" href="javascript:;" class="next down <%=  lastPage ? 'down-gray' : '' %>"></a>
+            <!-- <div style="top:74px; right:80px; z-index: 9001; position: absolute; width:70px;" class="menuPop shadow " bindautohide="1"> -->
+            <div id="page-size-container" style="z-index: 9001; margin-top: 20px; width:70px;position: absolute;display: none" class="menuPop shadow" bindautohide="1">
+                <ul>
+                    <!-- <li index="1">
+                        <a class="Page-size" href="javascript:;"><span class="text">5</span></a>
+                    </li> -->
+                    <li index="1">
+                        <a class="Page-size" href="javascript:;"><span class="text">20</span></a>
+                    </li>
+                    <li index="2">
+                        <a class="Page-size" href="javascript:;"><span class="text">50</span></a>
+                    </li>
+                    <li index="3">
+                        <a class="Page-size" href="javascript:;"><span class="text">100</span></a>
+                    </li>
+                </ul>
+            </div>
+        </script>
+
+        <script type="text/template" id="tpl-groups-nav-item">
+            <a class="i-addr-e Del" title="删除分组" href="javascript:"></a><a class="i-addr-d Edit" href="javascript:" title="编辑分组"></a><em class="clearfix"><span class="numN Name" title=<%- name %>><%- name %></span> <span class="num members">(<%- members %>)</span></em>
+        </script>
+
+        <script type="text/template" id="tpl-drag-msg">
+            <span class="msg msgYellow"><i class="i_t_move"></i> <span id='drag-tips'><%- message %></span></span>
+        </script>
+        
+        <script type="text/template" id="tpl-no-group-contacts">
+            <div class="imgInfo addr-imgInfo">
+                <i class="imgLink i-addr-smile"></i>
+                <dl>
+                    <dt>暂无联系人，您可以</dt>
+                    <dd>
+                        <a href="javascript:void(0);" id="btnCopyContact">复制联系人到分组</a> <span>或</span> <a href="javascript:void(0);" id="btnCreateContact">新建联系人</a>
+                    </dd>
+                </dl>
+            </div>
+        </script>
+        
+        <script type="text/template" id="tpl-no-vip-contacts">
+            <div class="imgInfo addr-imgInfo">
+                <i class="imgLink i-addr-smile"></i>
+                <dl>
+                    <dt>暂无联系人，您可以</dt>
+                    <dd>
+                        <a href="javascript:void(0);" id="btnAddVip">添加VIP联系人</a>
+                    </dd>
+                </dl>
+            </div>
+        </script>
+        
+        <script type="text/template" id="tpl-no-contacts">
+            <div class="imgInfo addr-imgInfo">
+                <i class="imgLink i-addr-smile"></i>
+                <dl>
+                    <dt>暂无联系人，您可以</dt>
+                    <dd>
+                        <a href="javascript:void(0);" id="btnCreateContact">新建联系人</a> <span>或</span> <a href="javascript:void(0);" id="btnImport">导入联系人</a>
+                    </dd>
+                </dl>
+            </div>
+        </script>
+        
+        <script type="text/template" id="tpl-no-search-contacts">
+            <div class="imgInfo addr-imgInfo">
+                <i class="imgLink i-addr-smile"></i>
+                <p style="padding-top:25px;">没有找到联系人</p>
+            </div>
+        </script>
+        
+        <script type="text/template" id="tpl-no-filter-contacts">
+            <div class="imgInfo addr-imgInfo">
+                <i class="imgLink i-addr-smile"></i>
+                <p style="padding-top:25px;">没有找到联系人</p>
+            </div>
+        </script>
+
+        <!--  和通讯录模板开始  -->
+        <script type="text/template" id="tpl-andAddr-groups-item">
+            <em class="clearfix"><span class="numN"><%- name %></span><span class="num">(<%- membersNum %>)</span></em>
+        </script>
+
+        <script type="text/template" id="tpl-andAddr-contact-item">
+            <td class="td1">
+                <input class="toggle-contact" type="checkbox" <%= selected ? 'checked="checked"' : '' %> />
+            <td class="td2">
+                <div class="List Name Edit-link name-txt editings_em">
+                    <span class="editings_span" title=<%- name %>>
+                        <%- name %>
+                    </span>
+                </div>
+            </td>
+            <td class="td4">
+                <div class="List Mobile Edit-link mobile-txt" title=<%- mobile %>>
+                    <%- mobile %>
+                </div>
+            </td>
+            <td class="td3">
+                <div class="List Email Edit-link email-txt" title=<%- email %>>
+                    <%- email %>
+                </div>
+            </td>
+            <td class="td5"> <% for (var i in groups) { %> <span class="addr-s-t"><%- groups[i] %></span> <% } %> </td>
+        </script>
+
+        <script type="text/template" id="tpl-no-andAddr-contacts">
+            <div class="imgInfo addr-imgInfo" style="width:460px">
+                <i class="imgLink i-addr-smile"></i>
+                <dl>
+                    <dt>暂无联系人，您可以</dt>
+                    <dd>
+                        <a href="http://pim.10086.cn/download.php" id="btnDownloadAndAddrClient" target="_blank">下载“和通讯录”客户端，</a> <span>一键上传手机电话簿至“和通讯录”</span>
+                    </dd>
+                </dl>
+            </div>
+        </script>
+
+        <script type="text/template" id="tpl-load-and-contacts-msg">
+            <div>
+                <div id="and-contacts-loading" class="bodyerror" style="display: none;">
+                    <img src="/m2012/images/global/load.gif" width="16" height="16">
+                    <p>
+                        加载中，请稍候......
+                    </p>
+                </div>
+                <div id="and-contacts-loadError" class="bodyerror " style="width:240px">
+                    <img height="72" width="73" src="/m2012/images/global/smile.png">
+                    <p>
+                        暂时无法处理该请求，请您稍后再试。
+                    </p>
+                    <a href="javascript:void(0)" class="btnTb Reload-andGroups"><span class="p_relative">立即重试</span></a>
+                </div>
+            </div>
+        </script>
+        <!--  和通讯录模板结束  -->
+
+        <!--  群组模板开始 added by tj  -->
+        <script type="text/template" id="tpl-team-groups-item">
+            <ul id="div_grouplist">
+            <% _.each(data, function(obj) { %>
+                <li gn=<%= obj["groupNumber"] %> <% if(obj["current"]) {%>
+                    class = "on"
+                 <% }%> >
+                <em class="clearfix">
+                <i <% if(obj["owner"]=="1") { %> class="groupIco1" <% } else { %> class="groupIco2" <% } %> ></i>
+                <span class="numN" title=<%- obj["groupName"] %> ><%- obj["groupName"] %></span><span class="num" >(<%= obj["totalUserCount"] %>)</span></em></li>
+            <% }); %>
+            </ul>
+        </script>
+        <!--  群组模板结束 added by tj  -->
+
+        <!--群组模版 start-->
+        <script type="text/template" id="group-create-detail">
+            <div class="addr-list-body bgPadding">
+                <div class="setArea">
+                    <h2>编辑群组 | <a href="javascript:;" class="fanghui" id="goBack">&lt;&lt;返回</a></h2>
+                </div>
+                <div class="add-group">
+                    <div class="name mt_10">
+                        <label class="show pb_5">群组名称：</label><input type="text" class="iText" id="txtGroupName" maxlength="16" style="color: rgb(170, 170, 170); width:440px;">
+                    </div>
+                    <div class="addFormContact" style="width:452px;">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>联系人</td>
+                                    <td width="32"></td>
+                                    <td>已选中(<span id="selectedNum">18</span>)</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="addFcLeft p_relative AddressBookContainer" id="divContainer"></div>
+                                    </td>
+                                    <td width="32" style="vertical-align:middle" class="ta_c"><i class="i_addjt"></i></td>
+                                    <td>
+                                        <div class=" addFcRight" id="divSelection"></div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <span class="all-null">选择: &nbsp;<a class="tdu" title="" href="javascript:void(0)" id="lnkEmpty">清空已选</a></span>
+                    <p class="mt_10">
+                        <a role="button" hidefocus="" class="btnSetG" href="javascript:;"><span>保 存</span></a>
+                        <a role="button" hidefocus="" class="btnSet ml_5" href="javascript:;"><span>取 消</span></a>
+                    </p>
+                </div>
+            </div> 
+        </script>
+        <!--群组模版 end-->
+        <!--<script type="text/javascript" src="../../js/mockdata/m139.api.mock.js"></script>
+        <script type="text/javascript" src="../../js/mockdata/test.mockdata.groupmail.js"></script>-->
+        <script type="text/javascript">
+            try {
+                // home-base
+                top.loadScript("/m2012/js/packs/addr/addr_home_base.html.pack.js", document);
+
+                // home-main
+                top.loadScript("/m2012/js/packs/addr/addr_home_main.html.pack.js", document);
+                
+                top.loadScript('/m2012/js/packs/addr/addr_master.html.pack.js', document);
+
+                top.loadScript("/m2012/js/packs/addr/addr_home_andAddr.html.pack.js", document);
+
+                top.loadScript("/m2012/js/packs/addr/addr_home_team.html.pack.js", document);
+
+                // home-index
+                top.loadScript("/m2012/js/packs/addr/addr_home_index.html.pack.js", document);
+
+                top.loadScript("/m2012/js/packs/addr/addr_maybeknown_dialog.html.pack.js", document);
+
+            } catch (ex) {
+            }
+        </script>   
+        
+    </body>
+</html>

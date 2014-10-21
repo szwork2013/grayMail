@@ -1,0 +1,25 @@
+﻿
+ <script type="text/javascript">
+     //设域
+     document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];</script>
+<script>
+
+
+    top.M139.RichMail.API.call("umc:getArtifact", {}, function (response) {
+        var respData = response.responseData;
+ 
+            if (respData && respData.code == "S_OK") {
+                respData = respData['var'];
+
+                if (respData.artifact) {
+
+                    //window.location.href = "http://211.155.28.247/VMS/yyxx.html?" + top.$T.Url.urlEncodeObj(respData);
+window.location.href = "http://v.mail.10086.cn/yyxx.html?" + top.$T.Url.urlEncodeObj(respData);
+
+                }  else {
+                    alert("获取登录凭证失败");
+                }
+            }
+        
+    });
+</script>

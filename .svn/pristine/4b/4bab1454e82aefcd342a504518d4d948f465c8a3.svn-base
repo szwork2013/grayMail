@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+<title>139个邮通讯录-导入联系人</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript">
+document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+function filltag(d, c, f) { var b, a, e = []; while (d.length) { a = d.shift(); switch (true) { case Object.prototype.toString.apply(a) === "[object Array]": b = "<script " + (a[1].length > 0 ? 'charset="' + a[1] + '" ' : "") + "src='" + (a[2] ? a[2] : c) + "/js/" + a[0] + "' type='text/javascript'><\/script>"; break; case a.indexOf(".js") > -1: b = "<script " + (f ? 'charset="' + f + '" ' : "") + "src='" + c + "/js/" + a + "' type='text/javascript'><\/script>"; break; case a.indexOf(".css") > -1: b = "<link rel='stylesheet' type='text/css' href='" + c + "/css/" + a + "' />"; break; case a.length == 0: b = "<link rel='stylesheet' type='text/css' />" } e.push(b) } document.write(e.join("")) }
+var resourcePath = top.resourcePath, addrsrc = resourcePath.replace('coremail', 'addr'), verifyImageUrl = '', AddressBookType = {}, g = 'GB2312';
+filltag(['global2012.css','addr2012.css',''], resourcePath);
+
+
+try {
+top.loadScript("libs.pack.js", document);
+top.loadScript('m139.core.pack.js', document);
+top.loadScript("m2012.ui.common.pack.js", document);
+top.loadScript("m2011.utilscontrols.pack.js", document);
+top.loadScript("../../js/packs/addr/addr_zh_hans.pack.js", document);
+top.loadScript("../../js/packs/addr/addr_importclient.html.pack.js", document);
+} catch (ex) {}
+</script>
+<script type="text/javascript">Utils.loadSkinCss(null, document, "addr");</script>
+<!--[if lt IE 9]><script>document.write('<script src="' + resourcePath + '/js/html5.js"><\/script>')</script><![endif]-->
+<style type="text/css">.import-cts .computer .m {width:360px;}</style>
+</head>
+
+<body class="ml3P-contacts">
+<header id="header"></header>
+<article class="g-s5m0">
+<div class="col-main-s5">
+<div class="main-wrap">
+
+<div class="tab-title">
+	<h4>导入联系人&gt;&gt;从我的电脑导入</h4>
+</div>
+
+<div class="toolBar139">
+	<div class="btn_normal clear" style="display:block">
+		<ul class="btn_main">
+			<li class="mr_10"><a hidefocus="1" href="addr_importhome.html"><i class="l_border"></i><em>&lt;&lt;</em> 返回<i class="r_border"></i></a></li>
+		</ul>
+	</div>
+</div>
+
+							<!--  toolbar  end  -->
+							<div class="mail-bd">
+								<div class="contacts-main">
+									<div class="import-cts clear">
+										<ul class="computer clear">
+											<li><!-- Foxmail-->
+												<i class="import_foxmailImg computerImportImg lt"></i>
+												<div class="m lt" id="divIptInfo1">
+													<p><strong>您的电脑好像没有安装Foxmail</strong></p>
+													<p class="gray-ipt">目前不支持Foxmail6.5以上版本，如果您安装了相应的版本，</p>
+                                                    <p class="gray-ipt">而系统没有检测到，请给我们反馈，谢谢！<a href="javascript:void(0)" title="立即反馈" class="tdu" target="_blank">立即反馈</a></p>
+												</div>
+												<div class="r" id="divIptBtn1"></div>
+											</li>
+											<li><!-- MicrosoftOutlook-->
+												<i class="import_outlookImg computerImportImg lt"></i>
+												<div class="m lt" id="divIptInfo2">
+													<p><strong>您的电脑好像没有安装Outlook</strong></p>
+													<p class="gray-ipt">目前不支持Outlook2010及以上版本，如果您安装了相应的版本，</p>
+                                                    <p class="gray-ipt">而系统没有检测到，请给我们反馈，谢谢！<a href="javascript:void(0)" title="立即反馈" class="tdu" target="_blank">立即反馈</a></p>
+												</div>
+												<div class="r" id="divIptBtn2"></div>
+											</li>
+											<li><!-- OutlookExpress-->
+												<i class="import_outlookExImg computerImportImg lt"></i>
+												<div class="m lt" id="divIptInfo3">
+													<p><strong>您的电脑好像没有安装OutlookExpress</strong></p>
+													<p class="gray-ipt">如果您安装了OutlookExpress，而系统没有检测到，</p>
+                                                    <p class="gray-ipt">请给我们反馈，谢谢！<a href="javascript:void(0)" title="立即反馈" class="tdu" target="_blank">立即反馈</a></p>
+												</div>
+												<div class="r" id="divIptBtn3"></div>
+											</li>
+											<li></li>
+										</ul>	
+									</div>
+								</div>
+								<!--  contacts-main    end   -->
+								
+							</div>
+							<!--  mail-bd    end   -->
+							
+<div class="toolBar139">
+	<div class="btn_normal clear" style="display:block">
+		<ul class="btn_main">
+			<li class="mr_10"><a hidefocus="1" href="addr_importhome.html"><i class="l_border"></i><em>&lt;&lt;</em> 返回<i class="r_border"></i></a></li>
+		</ul>
+	</div>
+</div>
+						</div>
+            <footer id="footer"></footer>
+	</div>
+	<aside class="col-side-s5 mainSideBar" id="sidebar"></aside>
+    
+    
+</article>
+
+
+</body>
+</html>

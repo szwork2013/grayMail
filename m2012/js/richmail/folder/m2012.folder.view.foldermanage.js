@@ -1,0 +1,1034 @@
+﻿/**
+* @fileOverview 定义文件夹操作的所有视图.
+*/
+M139.namespace("M2012.Folder.View", {
+    //每个视图定义单独的id事件处理，不然会串
+    Folders: M139.View.ViewBase.extend({
+        selfModel: new top.M2012.Folder.Model.FolderModel(),
+        getTop: function () {
+            var topWindow = M139.PageApplication.getTopAppWindow();
+            return topWindow;
+        },
+        initialize: function () {
+            this.model = this.selfModel;
+            this.model.on("change:folders", this.render, this);
+            this.getTop().$App.on("updateSetFolder", this.render, this);
+            //this.model.on('Process', this.showLoadding, this);
+            //this.model.on('ProcessCompleted', this.closeLoadding, this);
+            this.model.fetchFolderList(9, function () { });
+
+            ////初始话按钮
+            //$("#lbShowFolder").click(function () {
+            //    appView.showPage({name:"folderTags",view:M2012.Folder.View.Folders});
+            //    setModel.set({ "tabid": "folderTags" });
+            //});
+
+            //$("#lbShowTag").click(function () {
+            //    appView.showPage({name:"folderTags",view:M2012.Folder.View.Folders});
+            //    setModel.set({ "tabid": "lbShowTag" });
+            //});
+        },
+
+        template: _.template($('#folder-template').html()),
+
+        //显示进度提示
+        //showLoadding: function () {
+        //$('#loaddingWapper').show();
+        //},
+
+        //关闭进度提示
+        //closeLoadding: function () {
+        //$('#loaddingWapper').hide();
+        //},
+        render: function () {
+            $(this.el).html(this.template(this.model));
+            var self = this;
+            this.initDragBar();
+			this.initDragBartag();
+            var customFolders = this.model.customFolders;
+            var tagsFolders = this.model.tags;
+            if (customFolders.length > 0) {//已经有建立的自定义文件夹
+                $("#addFolderTop").html('<div class="mt_20"><a id="openAddFolder" bh="set_foldermanager_create_folder" class="btnSet btnsetTag" href="javascript:;"><span>创建文件夹</span></a></div>');
+                $("#addFolderTop").next().removeClass("hide")
+            } else {
+                $("#addFolderTop").next().addClass("hide")
+            }
+            if (tagsFolders.length > 0) {//已经有建立的标签
+                $("#addTagTop").html('<div class="mt_20"><a id="openAddtag" bh="set_foldermanagers_tag_create" class="btnSet btnsetTag" href="javascript:;"><span>创建标签</span></a></div>');
+                $("#addTagTop").next().removeClass("hide")
+            } else {
+                $("#addTagTop").next().addClass("hide")
+            }
+            /*$(this.el).find("[name=dragBar]").click(function () {
+            self.dragToSort();
+            });*/
+            top.BH("tag_load");
+            return this;
+        },
+        className: 'zl_veiw_holder',
+        events: {
+            'click .deleteFolder': 'deleteFolder',
+            'click .clearFolder': 'clearFolder',
+            'click .update': 'updateFolder',
+            'click .export': 'exportFile',
+            'click #openAddFolder': 'openAddFolder',
+            'click .lbOpenMailList': 'getMailList',
+            'click .filter': 'filterMail',
+            'click .colorFolder': 'colorFolder',
+            'click #openAddtag': 'addTag',
+            'click .folderShowStatus': 'folderShowStatus',
+            'click .filterMailFrom1': 'getAddressBook',
+            'click #filterMailFrom': 'getAddressBook'
+        },
+        getMailFrom: function (obj) {
+            var arr = [];
+            var objPrev = obj.prev();
+            var val = objPrev.val();
+            var ex = /\;|\,|，|；/;
+            if (val.match(ex)) {
+                arr = val.split(ex);
+            } else {
+                arr.push(val)
+            }
+            var arrLen = arr.length;
+            for (var i = 0; i < arrLen; i++) {
+                if (arr[i] == "") {//处理数组元素为空的情况
+                    break
+                }
+                var mail = $Email.isEmail(arr[i]);
+
+
+                if (!mail) {
+                    this.model.alertWindow(this.model.messages.mailAddrError, objPrev);
+                    return;
+                }
+
+            }
+            return arr;
+        },
+        getAddressBook: function (e) {
+            var obj = $(e.currentTarget);
+            var self = this;
+            var view = top.M2012.UI.Dialog.AddressBook.create({
+                filter: "email",
+                items: self.getMailFrom(obj)
+            });
+            view.$el.find(".SendToMySelf").addClass("hide");
+            view.on("select", function (e) {
+                var value = eval('(' + JSON.stringify(e) + ')').value;
+                var mailArr = [];
+                var len = value.length;
+                for (var i = 0; i < len; i++) {
+                    var mail = $Email.getEmail(value[i]);
+                    mailArr.push(mail);
+                }
+                var text = mailArr.join(";");
+                var val = obj.prev().val();
+            //    if (val != "") {
+            //        obj.prev().val(text + ";" + val);
+            //    } else {
+                    obj.prev().val(text);
+            //    }
+            });
+            view.on("cancel", function () {
+            });
+        },
+        folderShowStatus: function (e) {
+            var currentItem = this.model._getCurrentOpItem(e, 'fchange_'),
+                currentView = M139.View.getView('folderShowStatusView');
+
+            if (!currentView) {
+                currentView = new window.M2012.Folder.View.FolderShowStatus({ parentView: this, el: this.el });
+                M139.View.registerView('folderShowStatusView', currentView);
+            }
+            //加锁判断：加锁的文件夹不能设置
+            if (currentItem.folderPassFlag !== 0) {
+                var obj = {
+                    id: null,
+                    status: null,
+                    unlock: true
+                }
+                this.model.alertWindow(this.model.messages.folderLocked, obj);
+                return;
+            }
+            currentView.folderId = currentItem.fid;
+            currentView.render(e);
+        },
+        addTag: function () {
+
+            var currentView = M139.View.getView('AddTagView');
+            if (!currentView) {
+                currentView = new window.M2012.Folder.View.AddTag({ parentView: this, el: this.el });
+                M139.View.registerView('AddTagView', currentView);
+            }
+            currentView.render();
+
+            //this.getTop().$App.trigger("mailCommand", { command: "addTag" });
+        },
+		//拖拽标签排序
+		initDragBartag:function(){
+			var self = this;
+			var basket2 = $("<div id='dragBasket2' style='position:absolute;z-index:9999;display:none'><span class=\"msg msgYellow\"><i class=\"i_t_move\"></i> <span id='dragtips'>移动文件夹</span></span></div>");
+			$(document.body).append(basket2);
+			var sourceIndex = -1;
+            var lastFid = -1;
+			$D.setDragAble(basket2[0],{
+				handleElement: $(this.el).find("[name=dragBarTag]"),
+				onDragStart: function(e){
+					var target = e.target || e.srcElement;
+					$(basket2).find("#dragtips").html($(target).parent().find(".lbOpenMailList").html()); //拖拽文字
+					sourceIndex = $(target).parents("tr[fid]")[0].rowIndex - 1;
+				},
+				onDragMove: function(e){
+					basket2.show();
+					lastFid = self.hitTestFolder2(basket2[0]);
+				},
+				onDragEnd: function(e){
+					basket2.hide();
+					if (lastFid != -1) {
+						var targetIndex = 0;
+						if (lastFid == 0){
+							$("#customerTags th").attr("style", ""); 
+							targetIndex = -1;
+						}else{
+							$("#customerTags tr[fid=" + lastFid + "] td").attr("style", ""); //清除选中样式
+                            targetIndex = $("#customerTags tr[fid=" + lastFid + "]")[0].rowIndex - 1;
+						}
+						console.warn(targetIndex);
+						top.BH("tag_sort");
+                        self.model.resetPosition2(sourceIndex, targetIndex);
+					}
+				}
+			
+			});
+		},
+		hitTestFolder2: function(basket2){
+			var result = -1;
+			$("#customerTags tr[fid] td,#customerTags th").each(function(i,n){
+				if ($D.hitTest(n, basket2)) {
+                    if ($(n)[0].tagName == "TD") {
+                        result = $(n).parents("tr").attr("fid");
+
+                        $(n).css({
+                            "border-color": "black",
+                            "border-width": "2px",
+                            "background-color": "#DEEED7"
+                        });
+                        //console.log("移动文件夹" + $(n).find("a").html());
+
+                        return;
+                    } else if ($(n)[0].tagName == "TH") { //移动到第一位，与表头重叠
+                        $(n).css({
+                            "border-color": "black",
+                            "border-width": "2px",
+                            "background-color": "#DEEED7"
+                        });
+                        result = 0;
+                        return;
+                    }
+
+                } else {
+                    $(n).attr("style", "");
+                }
+			});
+			return result;
+		},
+        //拖拽文件夹排序
+        initDragBar: function () {
+            //alert("click");
+            var self = this;
+            var basket = $("<div id='dragBasket' style='position:absolute;z-index:9999;display:none'><span class=\"msg msgYellow\"><i class=\"i_t_move\"></i> <span id='dragtips'>移动文件夹</span></span></div>");
+            $(document.body).append(basket);
+            var sourceIndex = -1;
+            var lastFid = -1;
+            //todo add flag to lock thread
+            $D.setDragAble(basket[0], {
+                handleElement: $(this.el).find("[name=dragBar]"),
+                onDragStart: function (e) {
+                    var target = e.target || e.srcElement;
+                    $(basket).find("#dragtips").html($(target).parent().find("a").html()); //显示拖拽文字
+                    //sourceFid=$(target).parents("tr[fid]").attr("fid");
+                    sourceIndex = $(target).parents("tr[fid]")[0].rowIndex - 1;
+                    //console.log("start:" + sourceIndex);
+                },
+                onDragMove: function (e) {
+                    basket.show();
+                    lastFid = self.hitTestFolder(basket[0]);
+
+                    //console.log(lastFid);
+                    //$D.hitTest($(".tagcreat")[0], basket)
+
+                },
+                onDragEnd: function (e) {
+                    //console.log("end");
+                    basket.hide();
+                    if (lastFid != -1) {
+                        var targetIndex = 0;
+                        if (lastFid == 0) { //0是特殊含义，表示拖到了顶部
+                            $("#customerFolder th").attr("style", ""); //清除选中样式
+                            targetIndex = -1; //-1表示插在第0位之前，即置顶。
+                        } else {
+                            $("#customerFolder tr[fid=" + lastFid + "] td").attr("style", ""); //清除选中样式
+                            targetIndex = $("#customerFolder tr[fid=" + lastFid + "]")[0].rowIndex - 1;
+                        }
+                        console.warn(targetIndex);
+                        self.model.resetPosition(sourceIndex, targetIndex);
+                        /*self.model.swapPosition(sourceFid, lastFid, function (result) {
+                        M139.UI.TipMessage.show("排序成功", {delay:1});
+                        });*/
+                    }
+                }
+            });
+
+        }, hitTestFolder: function (basket) {
+
+
+            var result = -1;
+            $("#customerFolder tr[fid] td,#customerFolder th").each(function (i, n) {
+                if ($D.hitTest(n, basket)) {
+                    if ($(n)[0].tagName == "TD") {
+                        result = $(n).parents("tr").attr("fid");
+
+                        $(n).css({
+                            "border-color": "black",
+                            "border-width": "2px",
+                            "background-color": "#DEEED7"
+                        });
+                        //console.log("移动文件夹" + $(n).find("a").html());
+
+                        return;
+                    } else if ($(n)[0].tagName == "TH") { //移动到第一位，与表头重叠
+                        $(n).css({
+                            "border-color": "black",
+                            "border-width": "2px",
+                            "background-color": "#DEEED7"
+                        });
+                        result = 0;
+                        return;
+                    }
+
+                } else {
+                    $(n).attr("style", "");
+                }
+            });
+            return result;
+
+        },
+        filterMail: function (e) {
+            var currentItem = this.model._getCurrentOpItem(e, 'filter_'),
+                currentView = M139.View.getView('filterFolderView');
+
+            if (!currentView) {
+                currentView = new window.M2012.Folder.View.FilterFolder({ parentView: this, el: this.el });
+                M139.View.registerView('filterFolderView', currentView);
+            }
+            //加锁判断：加锁的文件夹不能设置
+            if (currentItem.folderPassFlag !== 0) {
+                var obj = {
+                    id: null,
+                    status: null,
+                    unlock: true
+                }
+                this.model.alertWindow(this.model.messages.folderLocked, obj);
+                return;
+            }
+            currentView.folderId = currentItem.fid;
+            currentView.type = currentItem.type;
+            currentView.render(e, currentView.folderId);
+        },
+        //修改颜色
+        colorFolder: function (e) {
+            var currentItem = this.model._getCurrentOpItem(e, 'fcolor_'),
+               currentView = M139.View.getView('colorFolderView');
+            if (!currentView) {
+                currentView = new window.M2012.Folder.View.ColorFolder({ parentView: this, el: this.el });
+                M139.View.registerView('colorFolderView', currentView);
+            }
+            currentView.folderId = currentItem.fid;
+            currentView.render(e);
+        },
+        getMailList: function (e) {
+            var fid = this.model._getCurrentOpItem(e, 'fmaillist_').fid;
+            this.getTop().$App.showMailbox(Number(fid));
+        },
+        deleteFolder: function (e) {
+            var currentItem = this.model._getCurrentOpItem(e, 'fdelete_'),
+                currentView = M139.View.getView('deleteFolderView');
+
+            if (!currentView) {
+                currentView = new window.M2012.Folder.View.DeleteFolder({ parentView: this, el: this.el });
+                M139.View.registerView('deleteFolderView', currentView);
+            }
+            //加锁判断：
+            if (currentItem.folderPassFlag !== 0) {
+                var obj = {
+                    id: null,
+                    status: null,
+                    unlock: true
+                }
+                this.model.alertWindow(this.model.messages.folderLocked, obj);
+                return;
+            }
+            currentView.folderId = currentItem.fid;
+            currentView.folderType = currentItem.type;
+            currentView.render(e);
+        },
+        //清空文件夹
+        clearFolder: function (e) {
+            var currentItem = this.model._getCurrentOpItem(e, 'fclear_'),
+                currentView = M139.View.getView('clearFolderView');
+            //加锁判断：
+            if (currentItem.folderPassFlag !== 0) {
+                var obj = {
+                    id: null,
+                    status: null,
+                    unlock: true
+                }
+                this.model.alertWindow(this.model.messages.folderLocked, obj);
+                return;
+            }
+            if (!currentView) {
+                currentView = new window.M2012.Folder.View.ClearFolder({ parentView: this, el: this.el });
+                M139.View.registerView('clearFolderView', currentView);
+            }
+            currentView.folderId = currentItem.fid;
+            currentView.render(e);
+        },
+        updateFolder: function (e) {
+            //alert('uploader')
+            var currentItem = this.model._getCurrentOpItem(e, 'frename_'),
+                currentView = M139.View.getView('renameFolderView');
+
+            if (!currentView) {
+                currentView = new window.M2012.Folder.View.RenameFolder({ parentView: this, el: this.el });
+                M139.View.registerView('renameFolderView', currentView);
+            }
+            //加锁判断：加锁的文件夹更名不能
+            if (currentItem.folderPassFlag !== 0) {
+                var obj = {
+                    id: null,
+                    status: null,
+                    unlock: true
+                }
+                this.model.alertWindow(this.model.messages.folderLocked, obj);
+                return;
+            }
+            currentView.name = currentItem.name;
+            currentView.folderId = currentItem.fid;
+            currentView.render(e);
+        },
+        //导出文件夹
+        exportFile: function (e) { 
+            var currentItem = this.model._getCurrentOpItem(e, 'export_');
+
+            //文件夹大小提示界定
+            var warnSize = 200 * 1024; //200M
+            var fileSize = currentItem.stats.messageSize;
+
+            //加锁判断：加锁的文件夹不能导出
+            if (currentItem.folderPassFlag !== 0) {
+                var obj = {
+                    id: null,
+                    status: null,
+                    unlock: true
+                }
+                this.model.alertWindow(this.model.messages.folderLocked, obj);
+                return;
+            }
+
+            if( fileSize > warnSize ){
+                top.$Msg.confirm(
+                    "文件夹邮件较多，导出邮件可能需要较长的时间。",
+                    function(){
+                        new top.M2012.Mailbox.Model.Export().exportFile(currentItem.fid);
+                    },
+                    {
+                        icon:"warn"
+                    }
+                );
+            }else{
+                new top.M2012.Mailbox.Model.Export().exportFile(currentItem.fid);
+            }
+
+        },
+        openAddFolder: function () {
+            //this.getTop().$App.trigger("mailCommand", { command: "addFolder" });
+            //加锁判断：
+            var currentView = M139.View.getView('AddFolderView');
+            if (!currentView) {
+                currentView = new window.M2012.Folder.View.AddFolder({ parentView: this, el: this.el });
+                M139.View.registerView('AddFolderView', currentView);
+            }
+            currentView.render();
+        }
+    }),
+    AddFolder: M139.View.ViewBase.extend({
+        template: _.template($('#add-folder-template').html()),
+        initialize: function (args) {
+            this.parentView = args.parentView;
+        },
+        events: {
+            'click #addSure': 'addFolder',
+            'click .addCancel': 'cancel',
+            'click #showFolderInput': 'showInput'
+        },
+        getTop: function () {
+            var topWindow = M139.PageApplication.getTopAppWindow();
+            return topWindow;
+        },
+        render: function () {
+            $('#creatTabBody').remove();
+            $("#customerFolder .systemwjj").before(this.template(this.model));
+            this.tbFolderName = $("#tbFolderName");
+            this.tbFolderName.focus();
+            return this;
+        },
+        showInput: function () {
+            var mailFrom = $("#mailFrom");
+            mailFrom[0].style.display == "none" ? mailFrom.show() : mailFrom.hide();
+        },
+        cancel: function () {
+            $('#creatTabBody').remove();
+        },
+        addFolder: function () {
+            var self = this;
+            var name = this.tbFolderName;
+            var nameVal = name.val();
+            nameVal = nameVal.replace(/(^\s*)|(\s*$)/g, "");
+            var tbAddr = $('#tbAddr');
+            var addrVal = $('#tbAddr').val();
+            var len = $("#mailFrom:hidden").length;
+            var obj = {
+                id: name,
+                status: "add"
+            };
+			//add by zsx标签与文件夹，发件人可以添加多个！
+			function isAllEmail(str){
+				var tmpArr = str.split(";");
+				for(var i =0, t=tmpArr.length; i< t; i++){
+					if(!$Email.getEmail(tmpArr[i])){
+						return false;
+						break;
+					}
+				}
+				return true;
+			}
+            if (!this.getTop().$App.checkFolderName(nameVal, obj)) {
+                return;
+            }
+            if (len == 0) {
+                if (!isAllEmail(addrVal)) {
+                    top.$Msg.alert(
+                    self.parentView.model.messages.mailAddrError2,
+                    {
+                        dialogTitle: "系统提示",
+                        icon: "warn",
+                        isHtml: true,
+                        onClose: function (e) {
+                            tbAddr.select().focus();
+                        }
+                    }
+                );
+                    return;
+                }
+            }
+            this.parentView.model.addFolder(nameVal, addrVal);
+            this.getTop().appView.trigger('reloadFolder', { reload: true });
+            this.cancel();
+        }
+    }),
+    DeleteFolder: M139.View.ViewBase.extend({
+        initialize: function (args) {
+            this.parentView = args.parentView;
+            this.folderId = '';
+            this.folderType = '';
+            this.moveToInbox = '';
+        },
+        getTop: function () {
+            var topWindow = M139.PageApplication.getTopAppWindow();
+            return topWindow;
+        },
+        render: function (e) {
+            var self = this;
+            var This = $(e.currentTarget);
+            var name = top.$App.getFolderById(self.folderId)["name"];
+            var html = this.folderType == 3 ? '<p class="norTipsLine">删除"' + name + '"</p><p><label><input type="radio" checked id="moveMail" name="delete" class="mr_5" value="">文件夹中邮件移动到“收件箱”</label></p><p><label><input name="delete" type="radio" class="mr_5" value="">邮件一起删除</label></p>' : "<p class=\"norTipsLine\">确定删除“"+name+"”这个标签？</p><p>该标签删除时，不会删除邮件。</p>";
+
+            var width = this.folderType == 3 ? "320" : "280";
+
+            var popup = M139.UI.Popup.create({
+                target: This,
+                icon: "i_warn",
+                width: width,
+                buttons: [{ text: "确定", cssClass: "btnSure", click: function () {
+                    if (self.folderType == 3) {
+                        if ($("#moveMail").attr("checked")) {
+                            self.moveToInbox = true;
+                        } else {
+                            self.moveToInbox = false;
+                        }
+                    }
+                    self.deleteFolder();
+                    popup.close();
+                }
+                },
+		                { text: "取消", click: function () { popup.close(); } }
+	                ],
+                content: html
+            });
+            $(".delmailTips").remove();
+            popup.render();
+
+            return this;
+        },
+        deleteFolder: function () {
+            this.parentView.model.deleteFolder(this.folderId, this.folderType, this.moveToInbox);
+        }
+    }),
+    ClearFolder: M139.View.ViewBase.extend({
+        initialize: function (args) {
+            this.parentView = args.parentView;
+            this.folderId = '';
+        },
+        getTop: function () {
+            var topWindow = M139.PageApplication.getTopAppWindow();
+            return topWindow;
+        },
+        render: function (e) {
+            var self = this;
+            var This = $(e.currentTarget);
+            var popup = M139.UI.Popup.create({
+                target: This,
+                icon: "i_warn",
+                width: "180",
+                buttons: [{ text: "确定", cssClass: "btnSure", click: function () {
+                    self.clearFolder();
+                    popup.close();
+                }
+                },
+		                { text: "取消", click: function () { popup.close(); } }
+	                ],
+                content: self.parentView.model.messages.clearFolder
+            });
+            $(".delmailTips").remove();
+            popup.render();
+
+            return this;
+        },
+        clearFolder: function () {
+            this.parentView.model.clearFolder(this.folderId);
+            this.getTop().appView.trigger('reloadFolder', { reload: true });
+        }
+    }),
+    RenameFolder: M139.View.ViewBase.extend({
+        template: _.template($('#update-folder-template').html()),
+        initialize: function (args) {
+            this.parentView = args.parentView;
+            this.folderId = '';
+            this.name = '';
+        },
+        getTop: function () {
+            var topWindow = M139.PageApplication.getTopAppWindow();
+            return topWindow;
+        },
+        //这里视图中不要存在相同选择器的事件注册，会很蛋疼的！！
+        events: {
+            'click #updateSure': 'renameFolder',
+            'click .updateCancel': 'cancel'
+        },
+        render: function (e) {
+            $('#floatLayer').remove();
+            $(e.currentTarget).parent().parent().after(this.template(this.model));
+            $("#tbNewFolderName").val(this.name);
+            $("#tbNewFolderName").select().focus();
+            return this;
+        },
+        cancel: function () {
+            $(this.parentView.el).find('#floatLayer').remove();
+        },
+        renameFolder: function () {
+            var folderInfo = this.getTop().$App.getFolderById(this.folderId);
+
+            var tbNewFolderName = $('#tbNewFolderName');
+            var val = tbNewFolderName.val();
+            if (val == this.name) {
+                this.cancel();
+                return
+            }
+            var obj = {
+                id: tbNewFolderName,
+                status: "rename"
+            }
+            if (folderInfo.type == 3) {
+                if (!this.getTop().$App.checkFolderName(val, obj)) {
+                    return
+                }
+            } else if (folderInfo.type == 5) { //标签
+                var msg = this.getTop().$App.checkTagName(val, true);
+                if (msg != "") {
+                    this.getTop().$Msg.alert(msg);
+                    return
+                }
+
+            }
+            this.parentView.model.renameFolder(this.folderId, val);
+            this.getTop().appView.trigger('reloadFolder', { reload: true });
+        }
+    }),
+
+    FilterFolder: M139.View.ViewBase.extend({
+        template: _.template($('#filter-folder-template').html()),
+        initialize: function (args) {
+            this.autoChecked();
+            this.parentView = args.parentView;
+            this.folderId = '';
+            this.type = '';
+        },
+        getTop: function () {
+            var topWindow = M139.PageApplication.getTopAppWindow();
+            return topWindow;
+        },
+        events: {
+            'click #filterSure': 'filterFolder',
+            'click .filterCancel': 'cancel'
+        },
+        render: function (e, fid) {
+            var folder = $("#fmaillist_" + fid).text();
+            $('#floatLayer').remove();
+            $(e.currentTarget).parent().parent().after(this.template(this.model));
+            $("#currentFolderName").html(folder);
+            if (this.type == 5) {
+                $("#filterTagOrFolderText").html("标记上标签");
+                $("#currentFolder").html("标签");
+            }
+            this.getSelectMenu("from");
+            this.getSelectMenu("to");
+            this.getSelectMenu("subject");
+            return this;
+        },
+        cancel: function () {
+            $(this.parentView.el).find('#floatLayer').remove();
+        },
+        getSelectMenu: function (type) {
+            var arrTitle = [
+                { text: "包含", type: 1 },
+                { text: "不包含", type: 2 }
+                
+        ]
+            var obj = $("#dropDown_" + type);
+            var self = this;
+            var dropMenu = M2012.UI.DropMenu.create({
+                defaultText: arrTitle[0].text,
+                //selectedIndex:1,
+                menuItems: arrTitle,
+                container: obj,
+                width: "89px"
+            });
+            self.parentView.model.set({
+                fromType: 1,
+                toType: 1,
+                subjectType: 1
+            })
+            dropMenu.on("change", function (item) {
+                var typeObj = {
+                    from: { "fromType": item.type },
+                    to: { "toType": item.type },
+                    subject: { "subjectType": item.type }
+                }
+                var json = typeObj[type]
+                self.parentView.model.set(json)
+            });
+        },
+        getInputText: function (obj) {
+            var arr = [];
+            var val = obj.val();
+            var ex = /\;|\,|，|；/;
+            if (val.match(ex)) {
+                arr = val.split(ex);
+            } else {
+                arr.push(val)
+            }
+            return arr;
+        },
+        filterFolder: function () {
+            var self = this;
+            var subject = $("#tbFilterSubject").val();
+            //var type=5;
+            var objRule = $("#formTagForm input[type=text]");
+            var ruleType = [
+                { key: "from", type: "fromType" },
+                { key: "to", type: "toType" },
+                { key: "subject", type: "subjectType" }
+            ]
+            var typeLen = ruleType.length;
+            var args = [{
+                opType: "add", ignoreCase: 1, name: "cx", forwardBakup: 1, filterId: -1, dealHistoryMail: 2, conditionsRelation: 1, rulePiority: 1,onOff: 0
+            }];
+            this.isInputNull(args);
+            if (this.status == false) {
+                return
+            }
+            for (var m = 0; m < typeLen; m++) {
+                var val = objRule.eq(m).val();
+                val = val.replace(/(^\s*)|(\s*$)/g, "");
+                var t = ruleType[m]["type"];
+                if (val != "") {
+                    var getType = self.parentView.model.get(t);
+                    var arr = self.getInputText(objRule.eq(m));
+                    args[0][t] = getType;
+                    if (getType == 1 && arr.length > 1) {
+                        args[0][t] = 7;
+                    }
+                    for (var i = 0; i < arr.length; i++) {
+                        if (!$Email.isEmail(arr[i]) && t != "subjectType") {
+                            self.parentView.model.alertWindow(self.parentView.model.messages.mailAddrError);
+                            return
+                        }
+                    }
+                }
+            }
+            if (this.type == 5) {
+                args[0].dealType = 5;
+                args[0].attachLabel = this.folderId
+            } else {
+                args[0].dealType = 2;
+                args[0].moveToFolder = this.folderId;
+                args[0].folderId = 0;
+            }
+            this.parentView.model.filterFolder(args, function (data) {
+                var dataLen = data.length;
+                if (dataLen >= 100) {
+                    top.$Msg.alert(
+                            self.parentView.model.messages.moreThan100,
+                            {
+                                dialogTitle: "系统提示",
+                                icon: "warn"
+                            });
+                    return;
+                }
+                self.cancel();
+                return true
+            });
+        },
+        status: true,
+        autoChecked: function () {
+            var text = $("input[type=text]");
+            text.live("focus", function () {
+                var checkbox = $("input[type=radio]");
+                var i = $("input[type=text]").index(this);
+                var val = $(this).val();
+                checkbox.eq(i).attr("checked", "true");
+            })
+            text.live("blur", function () {
+                var checkbox = $("input[type=radio]");
+                var i = $("input[type=text]").index(this);
+                var val = $(this).val();
+                checkbox.eq(i).attr("checked", "true");
+            })
+        },
+        isInputNull: function (args) {
+            this.status = true;
+            var self = this;
+            var mailObj = $('#tbFilterMails');
+            var toObj = $('#tbFilterTo');
+            var subjectObj = $('#tbFilterSubject');
+            var mailsVal = $('#tbFilterMails').val();
+            var toVal = $('#tbFilterTo').val();
+            var subjectVal = $('#tbFilterSubject').val();
+            var obj = [
+                { id: mailObj, val: mailsVal, type: "from" },
+                { id: toObj, val: toVal, type: "to" },
+                { id: subjectObj, val: subjectVal, type: "subject" }
+            ]
+            if (mailsVal == "" && subjectVal == "" && toVal == "") {
+                this.getTop().$Msg.confirm(
+                    self.parentView.model.messages.unvalidRule,
+                    {
+                        dialogTitle: "系统提示",
+                        icon: "warn"
+                    }
+                );
+                this.status = false;
+            }
+            var len = obj.length;
+            for (var i = 0; i < len; i++) {
+                if (obj[i].val != "") {
+                    var type = obj[i]["type"];
+                    var arr = self.getInputText(obj[i].id);
+                    var val = arr.join(";");
+                    args[0][type] = val;
+                }
+            };
+        }
+    }),
+    ColorFolder: M139.View.ViewBase.extend({
+        initialize: function (args) {
+            this.parentView = args.parentView;
+            this.folderId = '';
+        },
+        render: function (e) {
+            this.showColorTable(e);
+            return this;
+        },
+        showColorTable: function (e) {
+            var target = $(e.currentTarget);
+            var self = this;
+            var items = [];
+            var colorArr = this.parentView.model.getAllColor();
+            $(colorArr).each(function (i, n) {
+                var html = ['<span class="tagMin tagOrange" style="border-left:1px solid ' + n + ';border-right:1px solid ' + n + ';"><span class="tagBody" style="border-top:1px solid ' + n + ';border-bottom:1px solid ' + n + '; background-color:', n, '"></span></span>'].join("");
+                items.push({ html: html, value: i });
+            });
+            M2012.UI.PopMenu.create({
+                //width:300,
+                maxHeight: "118px",
+                items: items,
+                template: ['<div class="menuPop shadow show creatTagpop" style="top:0;left:0;z-index:9100">',
+               '<ul>',
+               '</ul>',
+            '</div>'].join(""),
+                left: ($(target).offset().left) + "px",
+                top: ($(target).offset().top + 20) + "px",
+                onItemClick: function (item) {
+                    self.parentView.model.set("addTag_color", item.value);
+                    var selectedColor = self.parentView.model.getColor(item.value);
+                    var folderId = target.attr("id").split("_")[1];
+                    $("#tagTd_" + folderId).find(".tag").css({ "border-right": "1px solid " + selectedColor, "border-left": "1px solid " + selectedColor });
+                    $("#tagTd_" + folderId).find(".tagBody").css({ "background-color": selectedColor, "border-top": "1px solid " + selectedColor, "border-bottom": "1px solid " + selectedColor });
+                    if (target.attr("foldercolor") == item.value) { //要改变颜色和本身的颜色一致时
+                        return
+                    }
+                    self.parentView.model.changeFolderColor(Number(folderId), Number(item.value))
+                }
+            });
+
+        }
+    }),
+    FolderShowStatus: M139.View.ViewBase.extend({
+        initialize: function (args) {
+            this.parentView = args.parentView;
+            this.folderId = '';
+        },
+        render: function () {
+            var id = $("#fchange_" + this.folderId);
+            if (id.attr("hideFlag") == 0) {
+                hideFlag = 1;
+                id.attr("hideFlag", 1)
+            } else {
+                hideFlag = 0;
+                id.attr("hideFlag", 0)
+            }
+            this.folderShowStatus(hideFlag);
+            return this;
+        },
+        folderShowStatus: function (hideFlag) {
+            this.parentView.model.changeFolderStatus(this.folderId, hideFlag);
+        }
+    }),
+    /**
+    * @fileOverview 定义文件夹列表的视图.
+    */
+    AddTag: M139.View.ViewBase.extend({
+        template: _.template($('#add-tag-template').html()),
+        initialize: function (args) {
+            this.parentView = args.parentView;
+        },
+        events: {
+            'click #addTagSure': 'addTag',
+            'click .addTagCancel': 'cancel',
+            'click #showTagInput': 'showInput',
+            'click #mailThemeBg': 'showColorTable'
+        },
+        render: function () {
+            $('#creatTabBody').remove();
+            $("#customerTags .systemwjj").before(this.template(this.model));
+            this.tbTagName = $("#tbTagName");
+            this.tbTagName.focus();
+            return this;
+        },
+        showInput: function () {
+            var mailFrom = $("#mailFrom");
+            mailFrom[0].style.display == "none" ? mailFrom.show() : mailFrom.hide();
+        },
+        cancel: function () {
+            $('#creatTabBody').remove();
+        },
+        showColorTable: function (e) {
+            var target = $(e.currentTarget);
+            var self = this;
+            var items = [];
+            var colorArr = this.parentView.model.getAllColor();
+            $(colorArr).each(function (i, n) {
+                var html = ['<span class="tagMin tagOrange" style="border-left:1px solid ' + n + ';border-right:1px solid ' + n + ';"><span class="tagBody" style="border-top:1px solid ' + n + ';border-bottom:1px solid ' + n + '; background-color:', n, '"></span></span>'].join("");
+                items.push({ html: html, value: i });
+            });
+            M2012.UI.PopMenu.create({
+                //width:300,
+                maxHeight: "118px",
+                items: items,
+                template: ['<div class="menuPop shadow show creatTagpop" style="top:0;left:0;z-index:9100">',
+               '<ul>',
+               '</ul>',
+            '</div>'].join(""),
+                left: ($(target).offset().left) + "px",
+                top: ($(target).offset().top + 20) + "px",
+                onItemClick: function (item) {
+                    self.parentView.model.set("addTag_color", item.value);
+                    $("#mailThemeBg").attr("color", item.value)
+                    var selectedColor = self.parentView.model.getColor(item.value);
+                    $("#mailThemeBg .tagMin").css({ "border-right": "1px solid " + selectedColor, "border-left": "1px solid " + selectedColor });
+                    $("#mailThemeBg .tagBody").css({ "background-color": selectedColor, "border-top": "1px solid " + selectedColor, "border-bottom": "1px solid " + selectedColor });
+                }
+            });
+
+        },
+        addTag: function () {
+            var self = this;
+            var name = this.tbTagName;
+            var tagName = name.val();
+            tagName = tagName.replace(/(^\s*)|(\s*$)/g, "");
+            var tbAddr = $('#tbAddr');
+            var addrVal = tbAddr.val();
+            var color = $("#mailThemeBg").attr("color");
+            var checkName = this.parentView.model.checkTagName(tagName);
+            var len = $("#mailFrom:hidden").length;
+            if (checkName) {
+                top.$Msg.alert(
+                    checkName,
+                    {
+                        dialogTitle: "系统提示",
+                        icon: "warn",
+                        isHtml: true,
+                        onClose: function (e) {
+                            name.focus();
+                        }
+                    }
+                );
+                return false;
+            }
+            if (len == 0) {
+                if (!$Email.getEmail(addrVal)) {
+                    top.$Msg.alert(
+                    self.parentView.model.messages.mailAddrError,
+                    {
+                        dialogTitle: "系统提示",
+                        icon: "warn",
+                        isHtml: true,
+                        onClose: function (e) {
+                            tbAddr.select().focus();
+                        }
+                    }
+                );
+                    return;
+                }
+            }
+            this.parentView.model.addTag(tagName, Number(color), addrVal);
+            this.cancel();
+        }
+    })
+});
+
+$(function () {
+    //初始话按钮
+    var view = new M2012.Folder.View.Folders({ el: '#addrFloarWapper' });
+});

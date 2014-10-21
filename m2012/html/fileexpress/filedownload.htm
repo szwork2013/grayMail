@@ -1,0 +1,196 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="Keywords" content="" />
+<meta name="Description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0;">
+<title>139邮箱-文件下载</title>
+<script type="text/javascript">
+document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+var m2012ResourceDomain = "http://" + location.host;
+if (document.domain == "10086.cn") {
+	var bReg = /appmail3/.test(location.host) || /share0/.test(location.href) || /share20/.test(location.href);
+	m2012ResourceDomain = bReg ? "http://image0.139cm.com" : "http://images.139cm.com";
+}
+
+function loadScript(path, _doc, charset, location) {
+	if (_doc && !_doc.location.pathname.match(/\/m2012.+?/) && !/http:|\/m2012/.test(path)) { //旧版调用
+		if (window.loadScriptM2011) {
+			loadScriptM2011(path, _doc, charset, location);
+			return;
+		}
+	}
+
+	if (path.indexOf(".js") > -1) {
+		var jsVersion = "20130328";
+		if (path.indexOf("/") == -1) {
+			var base = "/m2012/js";
+			if (path.indexOf("pack.js") > -1) {
+				base += "/packs";
+			}
+			path = base + "/" + path;
+		}
+		if (path.indexOf("?") == -1) {
+			path += "?v=" + jsVersion;
+		}
+		if (path.indexOf("http://") == -1 && path.indexOf("/") == 0) {
+			path = m2012ResourceDomain + path;
+		}
+	}
+	if (!charset && path.indexOf("/m2012/") > -1) {
+		charset = "utf-8";
+	}(_doc || document).write("<script " + (charset ? "charset=\"" + charset + "\" " : "") + " type=\"text/javascript\" src=\"" + path + "\"></" + "script>");
+}
+
+function loadCSS(path, _doc) {
+	if (typeof path == "string") path = [path];
+	for (var i = 0; i < path.length; i++) {
+		var item = path[i];
+		if (item.indexOf("http://") == -1) {
+			item = "/m2012/css/" + item;
+			item = m2012ResourceDomain + item;
+		}
+
+		(_doc || document).write('<link rel="stylesheet" href="' + item + '" type="text/css" />');
+	}
+}
+loadScript('libs.pack.js', document);
+loadScript('m139.core.pack.js', document);
+loadScript('m2012.ui.common.pack.js', document);
+loadScript('/m2012/js/service/largeattach/filesharing.js?v=123', document);
+
+</script>
+
+<!--
+
+<script charset="utf-8" type="text/javascript" src="/m2012/js/service/largeattach/filesharing.js"></script>      
+
+<script charset="utf-8" type="text/javascript" src="/m2012/js/packs/libs.pack.js?v=20130517"></script>
+
+<script charset="utf-8" type="text/javascript" src="/m2012/js/packs/m139.core.pack.js?v=20130517"></script>
+
+<script charset="utf-8" type="text/javascript" src="/m2012/js/packs/m2012.ui.common.pack.js?v=20130517"></script>
+
+-->
+<script type="text/javascript">
+	
+fileSharing.initialize(function() {
+	loadScript('libs.pack.js', document);
+	fileSharing.loadScript("/m2012/js/service/largeattach/loginPop.js");
+	fileSharing.loadScript("/m2012/js/service/largeattach/filedownload.js");
+	//加载弹出框存彩云所需要的js
+	fileSharing.loadScript("/m2012/js/ui/dialog/m2012.ui.dialog.savetodisk.js");
+	fileSharing.loadScript("/m2012/js/ui/treeview/m2012.ui.treeview.mainview.js");
+	fileSharing.loadScript("/m2012/js/ui/treeview/m2012.ui.treeview.nodeview.js");
+});
+
+
+//如果url没有sid，要加上sid，因为没有sid，saveotodisk弹出窗口会出错，因为savetodisk要调用api接口。add by zsx
+var UserData1 = $T.Cookie.get("UserData");
+if($T.Cookie.get("UserData") && $T.Url.queryString("sid") == null){
+	location.href = location.href + "&sid=" + eval("("+UserData1+")").ssoSid;
+}
+
+//loadCSS('module/largeattachments/fileExp_global.css', document);
+loadCSS('common/frame.css', document);
+loadCSS('common/global.css', document);
+loadCSS('skin/skin_lightblue.css', document);
+loadCSS('module/largeattachments/filedownload.css', document);
+
+</script>
+<!--
+
+<link rel="stylesheet" href="/m2012/css/module/largeattachments/fileExp_global.css" type="text/css">
+
+<link rel="stylesheet" href="/m2012/css/module/largeattachments/139tool.css" type="text/css" />
+
+<link rel="stylesheet" href="/m2012/css/common/global.css" type="text/css">
+
+-->
+</head>
+
+<body>
+<script type="text/javascript">
+
+//手动调接口取sid
+(function(){
+	var loginOut = M139.Text.Url.queryString("loginOut");
+	if(loginOut != 1){
+		var loginUrl = "";
+		var sid = "";
+		if(location.host.indexOf("10086ts") > -1){
+			$('<iframe src="http://mail.10086ts.cn/proxy.html" id="login" name="login" style="display:none"></iframe>').appendTo(document.body);
+			loginUrl = "http://mail.10086ts.cn/s?func=login:getSid";
+		}else{
+			$('<iframe src="http://mail.10086.cn/proxy.html" id="login" name="login" style="display:none"></iframe>').appendTo(document.body);
+			loginUrl = "http://mail.10086.cn/s?func=login:getSid";
+		}
+
+		var login = document.getElementById("login").contentWindow;
+		M139.Timing.waitForReady("login._ajax",function(){
+			login._ajax.get(loginUrl, null, function(r){
+				var dataVar = $.parseJSON(r)["var"];
+				// console.log(dataVar);
+				sid = dataVar["sid"];
+				if(sid && location.href.indexOf("sid") == -1){
+					location.href = location.href + "&sid=" + sid;
+				}
+			 });
+		});
+	}
+})();
+
+</script>
+
+	<div class="header">
+		<div class="headerCon clearfix">
+			<a href="#" class="logo" id="fileCenterTitle"></a>
+			<span class="logoCon">文件下载</span>
+			<ul class="login clearfix" id="loginToolbar">
+				<li><a href="javascript:void(0)" id="loginBtn" title="登录后可将文件存至彩云网盘">登 录</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="mainOnly">
+		<div class="downBox">
+			<div class="down">
+				<table class="table">
+					<tr>
+						<td width="34" class="ta_c"><input id="checkAll" type="checkbox" name="" checked="true"/></td>
+						<td><a href="javascript:void(0)" class="btnGreen ml_4" id="downloadBtn">下 载</a><a href="javascript:void(0)" id="uploadBtn" class="btnGray ml_10">存彩云网盘</a></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="down downCon" id="textContent" >
+			<table class="table" id="ucList">
+				<tbody>
+					<tr id="liMessage" class="dLast" style="display: none;">
+						<td>没有找到您要提取的文件</td>
+						<td class="borderNone"><i class="unDefind">none</i>
+						</td>
+						<td><em>温馨提示</em>：您本次接收的文件中，有<span id="spanCount" style="font-weight: bold; color: #ff6600;">0</span>个可能是已过了有效期，或是超过了有效下载次数，也可能已被发送者删除。 您可以通知好友重新发送一份。</td>
+						<td>&nbsp;</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<iframe id="downloadFrame" src="" style="display: none;"></iframe>
+	<div class="backgroundBG" id="backgroundBG" style="display:none;"></div>
+<script>
+	$("#fileCenterTitle").html('<img src="' + m2012ResourceDomain + '/m2012/images/module/largeattachments/logo.png">');
+	if(location.host.indexOf("appmail3") > -1 || location.href.indexOf("share0") > -1 || location.href.indexOf("share20") > -1){
+		$('<iframe src="http://smsrebuild0.mail.10086.cn//proxy.htm" id="proxy" name="proxy" style="display:none"></iframe>').appendTo(document.body);
+	}else if(location.host.indexOf("10086ts") > -1){
+		$('<iframe src="http://rm.mail.10086ts.cn/mw2/proxy.htm" id="proxy" name="proxy" style="display:none"></iframe>').appendTo(document.body);
+	}else if(location.host.indexOf("10086rd") > -1){
+        $('<iframe src="http://mw.mail.10086rd.cn/mw2/proxy.htm" id="proxy" name="proxy" style="display:none"></iframe>').appendTo(document.body);
+    }else{
+		$('<iframe src="http://smsrebuild1.mail.10086.cn//proxy.htm" id="proxy" name="proxy" style="display:none"></iframe>').appendTo(document.body);
+	}
+</script>
+</body>
+<!--<script charset="utf-8" type="text/javascript" src="http://images.139cm.com/m2012/js/packs/index.html.pack.js"></script>-->
+</html>

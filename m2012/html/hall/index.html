@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="Keywords" content="" />
+    <meta name="Description" content="" />
+    <title>139邮箱-邮箱营业厅</title>
+
+    <script type="text/javascript">
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+
+        top.loadScript("libs.pack.js", document);
+        top.loadScript("m139.core.pack.js", document);
+
+        top.loadScript("hall.index.html.pack.js", document);
+
+        top.loadCSS(["common/global.css", "module/hall/hall.css"], document);
+
+    </script>
+
+    <style type="text/css">
+        html, body {
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="hall-title" id="title">
+        <strong>邮箱营业厅</strong>
+    </div>
+    <div id="loading" style="position:absolute; top:50%; left:50%; margin:-8px 0 0 -8px;">
+			<img src="../../images/global/load.gif">          
+		</div>
+    <div id="body" style="overflow: auto; position: relative;display:none">
+        <div class="hall-body">
+            <div class="hall-left">
+                <div class="hall-view">
+                    <div class="hall-view-c" style="line-height: 80px; width:238px!important">
+                        <p>可用余额: <strong class="c_009900" id="balance">&nbsp;&nbsp;</strong>元</p>
+						<a href="view.html" id="bill" title="" class="pa_a" >历史账单</a>
+                        <a href="javascript:top.$App.show('pay139');" title="" style="position: absolute; right: 5px; top: 35px; line-height: 21px; display: none" id="fullFee">立即充值</a>
+                    </div>
+                    <div class="hall-view-c">
+                        <p  id="points"></p>
+                        <a href="fee.html" title="" class="pa_a" id="exchangeFee" style="display:none" >兑换话费</a>
+                    </div>
+                </div>
+                <table class="hall-index-table" style="display: none">
+                    <thead>
+                        <tr>
+                            <th colspan="2">套餐余量</th>
+                        </tr>
+                    </thead>
+                    <tbody id="packages">
+                    </tbody>
+                </table>
+                <table class="hall-index-table  hallp" id="biz" >
+                    <thead>
+                        <tr>
+                            <th colspan="2"><span class="fl">我的业务</span><a href="mybusiness.html" class="fr" title="" style="display: none" id="myBusiness">查看详情</a></th>
+                        </tr>
+                    </thead>
+                    <tbody id="bizShow">
+                    </tbody>
+                </table>
+            </div>
+            <div class="hall-right">
+                <a href="javascript:top.$App.show('pay139')" title="充话费" class="ad-a" id="payFee">
+                    <img src="../../images/module/hall/hf.png" width="142" height="96" alt="充话费" />
+                </a>
+                <a href="javascript:" title="办业务" class="ad-a" id="doBusiness">
+                    <img src="../../images/module/hall/yw.png" width="142" height="96" alt="办业务" />
+                </a>
+                <a href="look_favorable.html" id="look_favorable" title="看优惠" class="ad-a">
+                    <img src="../../images/module/hall/yh.png" width="142" height="96" alt="看优惠" />
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="hall-error" id="loadFail" style="display:none;position: absolute;left: 50%;top: 50%;width: 240px;height: 40px;margin-left: -120px;margin-top: -20px;"> <i class="i_warn mr_10"></i>
+            页面加载失败，<a href="javascript:document.location.reload()">点击重试</a>！
+        </div>
+    <script type="text/javascript">
+        new M2012.Hall.View.Main();
+    </script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-Type" />
+    <title>我的头像</title>
+    <link rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+        function filltag(d, c, f) { var b, a, e = []; while (d.length) { a = d.shift(); switch (true) { case Object.prototype.toString.apply(a) === "[object Array]": b = "<script " + (a[1].length > 0 ? 'charset="' + a[1] + '" ' : "") + "src='" + (a[2] ? a[2] : c) + "/js/" + a[0] + "' type='text/javascript'><\/script>"; break; case a.indexOf(".js") > -1: b = "<script " + (f ? 'charset="' + f + '" ' : "") + "src='" + c + "/js/" + a + "' type='text/javascript'><\/script>"; break; case a.indexOf(".css") > -1: b = "<link rel='stylesheet' type='text/css' href='" + c + "/css/" + a + "' />"; break; case a.length == 0: b = "<link rel='stylesheet' type='text/css' />" } e.push(b) } document.write(e.join("")) }
+        var resourcePath = top.resourcePath, addrsrc = resourcePath.replace('coremail', 'addr'), verifyImageUrl = '', AddressBookType = {}, g = 'GB2312';
+        filltag(['addr.css', ''], resourcePath);
+    </script>
+    <script>
+        top.loadCSS('module/addr/addr.css', document);
+        top.loadCSS(["common/global.css"], document);        
+    </script>
+    <style type="text/css">
+    body{font: 12px/1.5 "Microsoft YaHei",Verdana,"Simsun" !important;}
+    .tabdiv{padding:20px 10px;}
+    .tablib { font-weight:lighter; }
+    .tablib a:link,
+    .tablib a:hover,
+    .tablib a:visited{text-decoration:none;margin:0 10px;font-size:12px;font-weight:lighter;}
+    .tablib a:link.navset,
+    .tablib a:visited.navset { font-weight:bold; }
+    .formArea table{table-layout:auto;}
+    .formArea th{font-weight:lighter;text-align:right;padding-right:5px;height:30px;padding-top:8px;_padding-top:5px;vertical-align:top;}
+    .formArea td{vertical-align:top;}
+    .formArea td label{padding-right:10px;display:inline-block;}
+    label > input[type = "radio"]{position:relative;top:1px;}
+    .tishi{background:none repeat scroll 0 0 #FFFFE5;border:1px solid #FDB21B;line-height:17px;padding:5px 5px 3px 12px;}
+    .uploading{position:absolute;opacity: 0;filter:Alpha( opacity=0 );width:80px;left:0px;top:0;cursor:pointer;height:21px;line-height:21px;font-size:21px;}
+    @-moz-document url-prefix(){.uploading{left:-250px;}}
+    .content input.text{margin-top: 2px;}
+    .formArea {border-width: 0px;}
+    #pageSetPassword .formArea th{width: 5em;}    
+    .addr-nav ul li a{padding: 0 21px;}
+    </style>
+    
+    <script type="text/javascript">
+        top.loadScript('libs.pack.js', document);
+        top.loadScript('m139.core.pack.js', document);
+        top.loadScript("m2012.ui.common.pack.js", document);
+        top.loadScript("m2011.utilscontrols.pack.js", document);
+    </script>
+</head>
+<body>
+    <form name="form1" method="post" target="upiframe" action="" id="form1" enctype="multipart/form-data">
+        <div id="pageSetPassword">
+            <div class="singTitle">
+                <strong><span>个人资料</span></strong> | <a id="gotoHome" href="javascript:void(0);">&lt;&lt;返回</a>  
+            </div>
+            <div class="content">
+                <div class="addr-nav" id="addr_nav">
+                    <ul>
+                        <li><a href="javascript:void(0);">基本资料</a></li>
+                        <li><a href="javascript:void(0);">联系方式</a></li>
+                        <li><a href="javascript:void(0);">商务信息</a></li>
+                        <li><a href="javascript:void(0);">个人情况</a></li>
+                        <li><a href="javascript:void(0);">我的头像</a></li>
+                    </ul>
+                </div>
+                <div style="margin:0 20px;">
+                <div class="formArea">
+                    <table cellpadding="0">
+                        <tbody>
+                            <tr id="trPassword">
+                                <th rowspan="4">
+                                    <img id="headpic" src="http://images.139cm.com/rm//coremail/images/face.png" style="border-width: 0px; width:96px; height:96px;" />
+                                </th>
+                                <td>更换头像</td>
+                            </tr>
+                            <tr class="newPassword">
+                                <td>点击浏览从电脑选择一张照片。需小于1mb。</td>
+                            </tr>
+                            <tr>
+                                <td>最佳尺寸100X100像素，支持GIF、JPG、JPEG、BMP、PNG格式图片</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="action">
+                                        <input name="fileInput" type="file" id="fileInput" style="width: 240px" />
+                                    </span>
+                                    <span class="action">
+                                        <a id="btnSubmit" href="javascript:__doPostBack('btnSubmit','')" style="display: none;">生成头像</a>
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </form>
+	<script type="text/javascript">top.loadScript("/m2012/js/packs/addr/addr_mypicture.html.pack.js", document)</script>
+    <iframe name="upiframe" id="upiframe" style="display: none"></iframe>
+</body>
+
+</html>

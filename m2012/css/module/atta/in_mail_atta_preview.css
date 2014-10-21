@@ -1,0 +1,62 @@
+﻿
+.gray {
+	color: #999 !important;
+}
+.clearfix {
+	zoom: 1;
+}
+.attachmentBody {
+	padding:0 14px;
+}
+
+.attachmentOther {
+	border:1px solid #ccc;
+	padding:7px;
+	display:inline-block;
+	*display:inline;
+	*zoom:1;
+	font-size:12px;
+	font-family:"Microsoft YaHei", Verdana, "Simsun";
+	overflow:hidden;
+	vertical-align:middle;
+	position:relative;
+	*top:0;
+	margin:7px 0;
+	line-height:1.6;
+	cursor:default;
+	-moz-box-shadow:0 1px 3px #ccc;
+	-webkit-box-shadow:0 1px 3px #ccc;
+	box-shadow:0 1px 3px #ccc;
+}
+
+.attachmentOther.attachmentOtherOn {
+	border:1px solid #b5d4e5;
+	background-color:#f1faff;
+	-moz-box-shadow:0 1px 3px #b5d4e5;
+	-webkit-box-shadow:0 1px 3px #b5d4e5;
+	box-shadow:0 1px 3px #b5d4e5;
+}
+
+.attachmentOther img {
+	width:32px;
+	float:left;
+	margin-right:6px;
+	_display:inline;
+}
+
+.attachmentOther span {
+	line-height:18px;
+	position:relative;
+	top:-2px;
+}
+
+.attachmentOther a {
+	color: #1a75ca;
+	text-decoration: none;
+}
+.attachmentOther p {
+	margin: 0;
+	padding: 0;
+	line-height:14px;
+	color:#5499e5;
+}

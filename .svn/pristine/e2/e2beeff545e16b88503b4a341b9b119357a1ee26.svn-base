@@ -1,0 +1,23 @@
+<html>
+    <script type="text/javascript">
+        document.domain = window.location.host.match(/[^.]+\.[^.]+$/)[0];
+</script>
+    <body>
+
+    </body>
+   <script type="text/javascript">
+       if (window.location.search.indexOf("upgrade=1") > 0) {
+           top.window.location.href = top.window.location.href;
+       } else {
+           if (top.$App) {
+               if (top.$Msg.getCurrent()) {
+                   top.$Msg.getCurrent().close();
+               } 
+               top.$App.close();
+               
+           } else if (top.MM) {
+               top.MM.close()
+           }
+       }
+</script>
+</html>

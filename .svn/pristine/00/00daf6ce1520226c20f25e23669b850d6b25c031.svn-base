@@ -1,0 +1,182 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="pg-success" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <title>分批发短信</title>
+
+    <script type="text/javascript">
+        //设域
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+        //获得资源路径
+        var resourcePath = window.top.resourcePath;
+        var supermanResourcePath = resourcePath.replace("coremail", "superman");
+        var htmlCode = "";
+        htmlCode += getLinkTag("");
+        htmlCode += getLinkTag(resourcePath + "/css/supersms.css?v=20121230");
+
+        top.loadScript("jquery.js", document);
+        top.loadScript("m2011.utilscontrols.pack.js", document);
+        top.loadScript("/m2012/js/matrixvm/page/m2011.page.AddressBook.js", document);
+        top.loadScript("/m2012/js/matrixvm/page/m2011.page.RichInputBox.js", document);
+        top.loadScript("/m2012/js/matrixvm/page/m2011.page.floatTips.js", document);
+        top.loadScript("/m2012/js/service/sms/m2011.sms.superman.js", document);
+        top.loadScript("/m2012/js/service/sms/m2011.sms.smsbatch.js", document);
+
+        document.write(htmlCode);
+        function getJsTag(path, charset) {
+            var html = "<script charset='gb2312' src='" + path + "' type='text/javascript'></" + "script>";
+            if (charset) html = html.replace("gb2312", charset);
+            return html;
+        }
+        function getLinkTag(path) {
+            var text = "";
+            if (path) text = "href='" + path + "'";
+            return "<link rel='stylesheet' type='text/css' " + text + " />";
+        }
+        top.WaitPannel.hide();
+    </script>
+
+    <script type="text/javascript">
+        Utils.loadSkinCss(null, document, "supersms");
+    </script>
+
+    <style type="text/css">
+        .yt-tip
+        {
+            margin-top: 15px;
+        }
+        #pg-success #container
+        {
+            padding: 0 0 0 180px;
+            margin: 35px 0 0;
+        }
+        i.i-success
+        {
+            background-position: -700px -70px;
+            height: 80px;
+            left: 80px;
+            position: absolute;
+            top: 30px;
+            width: 80px;
+        }
+        .success
+        {
+            background: none;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+        .success h2
+        {
+            margin-bottom: 10px;
+            margin-top: 10px;
+        }
+        .success h2, .success button
+        {
+            float: none;
+        }
+        .success p
+        {
+            padding: 5px 0;
+            word-wrap: break-word;
+            word-break: break-all;
+        }
+        .dropdownlist
+        {
+            margin-top: 10px;
+        }
+        .sendsms
+        {
+            margin-top: 12px;
+            margin-bottom: 12px;
+        }
+        #ddlBatch
+        {
+            width: 100px;
+        }
+        .rnd-tip
+        {
+            top: 0px;
+            left: 138px;
+            bottom: auto;
+        }
+        .success span.phone_wrong span
+        {
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <i class="i-small-succ"></i>
+        <div class="success">
+            <div class="hd" id="successTips" style="display: none; margin-bottom: 10px;">
+                <h2 id="successTitle">
+                    第1批短信发送完成!
+                </h2>
+                <p>
+                	<b id="saveRecords">已保存到往来记录 <a href="#" id="aRecordSetting" href="javascript:void(0);">立即查看</a></b> | 
+	                <a href="javascript:void(0);" id="aSaveBox">保存到珍藏记录</a>
+	            </p>
+            </div>
+            <div class="p_dot">
+            </div>
+            <div id="wrapper">
+                <div id="content" style="width: 100%;">
+                    <table cellpadding="0" style="width: 100%;">
+                        <tr>
+                            <th>
+                                发短信给：
+                            </th>
+                            <td>
+                                <select id="ddlBatch">
+                                    <option value="">-请选择-</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr class="receive show-tooltip show-input-tip">
+                            <th>
+                                接收手机：
+                            </th>
+                            <td>
+                                <div id="txtMobiles" style="width: 540px;">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr id="trValide1" class="rnd-code">
+                            <th>
+                                验证码：
+                            </th>
+                            <td>
+                                <div class="msg-helper" id="divValidate1">
+                                    <span class="input-text" id="spanValidate1">
+                                        <input id="txtValidate1" class="text input-default" type="text" value="请点击获取验证码" /></span>
+                                    <div class="rnd-tip" id="divValidateLayer1">
+                                        <img id="imgValidate1" alt="" />
+                                        <p id="pValidate1" style="color: #666; width: 200px;">
+                                            图中显示的图片是什么？将你认为正确答案前的<font color="#ff6600">字母或数字</font>填入框中（不分大小写），<a id="aValidate1"
+                                                href="javascript:void(0);" style="color: #0040c5;">看不清换一张</a></p>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="sendsms">
+                        <a class="btnNm" style="margin-left: 6px;" href="javascript:;" id="btnSmsSend"><i
+                            class="but_lIco"></i><span class="but_bg-x">发送</span><i class="but_rIco"></i></a>
+                        <a class="btnNm" style="margin-left: 6px;" type="javascript:;" id="btnReturn"><i
+                            class="but_lIco"></i><span class="but_bg-x">返回</span><i class="but_rIco"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p id="pThanksForShareSms">
+        </p>
+    </div>
+
+    <script type="text/javascript">
+        var batchPage = new smsBatch();
+        batchPage.load();
+    </script>
+
+</body>
+</html>

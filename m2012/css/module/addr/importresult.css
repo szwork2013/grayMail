@@ -1,0 +1,37 @@
+/* 导入成功页 */
+.im-ok-body{margin:0 20px;width: 750px;}
+.inboxHeader{height:39px;color:#666666; padding-left:15px;line-height:39px;
+background:#F5F5F5;
+background: -webkit-gradient(linear, left 70%, left bottom, from(#ffffff), to(#ebebeb));
+background: -moz-linear-gradient(top,  #ffffff,  #ebebeb);
+background: -o-linear-gradient(left, #ffffff, #ebebeb);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ebebeb');
+background: linear-gradient(left, #ffffff, #ebebeb);
+}
+.inboxfh{padding:5px 0 5px 15px;
+border-bottom: 2px solid #dfdfe2;
+}
+.inboxHeader .line{margin:0 5px;}
+.inboxHeader strong{font-size:14px;font-weight:bold;color:#000;margin-right:5px;cursor:pointer;}
+.norTips-imok{border-bottom: 1px dotted #bbbbbb;}
+.tab-imok{border-top:none;border-right:none;margin-top: 15px; }
+.tab-imok .tabTitle{zoom:1;position:relative;height:30px;border-bottom:1px solid #dfdfe2;}
+.tab-imok .tabTitle ul:after{content:".";clear:both;display:block;height:0;visibility:hidden;float: left;}
+.tab-imok .tabTitle ul{zoom:1;position:absolute;left:0;top:0;width:auto;height:31px;background-color: #f9f9fa;}
+.tab-imok .tabTitle li{display:inline;float:left;width:155px;text-align:center;height:29px;border-top: 1px solid #dfdfe2;border-right:1px solid #dfdfe2;border-bottom: 1px solid #dfdfe2;background: url(../../../images/module/set/tabtabx.png) repeat-x;}
+.tab-imok .tabTitle li a{height:30px;line-height:30px;}
+.tab-imok .tabTitle li a{text-align:center;color:#666666;font-size: 14px;}
+.tab-imok .tabTitle li a:hover{text-decoration:none;}
+.tab-imok .tabTitle li span{cursor:pointer;}
+.tab-imok .tabTitle li.on{position:relative;background:none;background-color:#fff;border-bottom: none;}
+.tab-imok .tabTitle li.on a{color:#333333;}
+.tab-imok .tabMain{border-right:1px solid #dfdfe2; background-color: #FFF;padding:10px 0;}
+
+.im-error{margin: 25px 10px 25px 70px;}
+.im-error h2{font-size: 14px;}
+
+.tab-imrule{margin: 10px;}
+.tab-imrule table{width: 100%;table-layout: fixed;text-align: left;}
+.tab-imrule table th{padding-left: 15px;font-weight: 400;border: 1px solid #dfdfe1;height: 30px;
+background: url(../../../images/module/set/tabtabx.png) repeat-x;text-align: left;}
+.tab-imrule table td{border-bottom: 1px solid #dfdfe1;padding-left: 15px;height: 28px;}	

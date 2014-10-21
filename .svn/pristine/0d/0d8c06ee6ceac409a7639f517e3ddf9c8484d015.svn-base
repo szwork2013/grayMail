@@ -1,0 +1,377 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>写信</title>
+    <meta content="IE=EmulateIE7" http-equiv="X-UA-Compatible" />
+    <link href="editor.css" rel="Stylesheet" type="text/css" />
+    <script type="text/javascript">
+        try {
+            document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+        } catch (e) { }
+    </script>
+    <script type="text/javascript">
+        top.loadScript("libs.pack.js", document);
+        top.loadScript("m2011.utilscontrols.pack.js", document);
+    </script>
+    <script type="text/javascript" src="neweditor.js"></script>
+    <script type="text/javascript" src="facemenu.js"></script>
+    <script type="text/javascript">
+    var theEditorBox;
+    var winOnload = false;
+    var editorOnload = false;
+    window.onload = function() {
+        winOnload = true;
+        tryInit()
+    }
+    function frmEditorOnLoad() {
+        editorOnload = true;
+        tryInit()
+    }
+    function tryInit() {
+        if (winOnload && editorOnload) {
+            theEditorBox = new EditorBox(document.getElementById("HtmlEditor"), document.getElementById("plainTextElement"));
+
+            theEditorBox.onUpdateState = setStyleInfo;
+            bindButtonCommmand();
+            resizeAll();
+
+            try{
+                window.parent.EditorManager.onload();
+            }catch(e){}
+        }
+    }
+    </script>
+</head>
+<body>
+    <div class="editor">
+        <div id="toolBarAll" class="opt-area">
+            <div>
+                <!--            <ul>
+                <li class="end"><a hideFocus="1" id="editor_format" href="javascript:;"><i class="format" title="格式刷"></i></a></li>
+              </ul>-->
+                <ul>
+                    <li class="end"><a hidefocus="1" id="editor_fontSize" href="javascript:;"><span class="fontSize">
+                        字号</span><i class="drop down"></i></a></li>
+                </ul>
+                <ul>
+                    <li class="end"><a hidefocus="1" id="editor_fontFamily" href="javascript:;"><span
+                        class="fontFamily">字体</span><i class="drop down"></i></a></li>
+                </ul>
+                <ul>
+                    <li><a hidefocus="1" id="editor_bold" href="javascript:;"><i class="bold" title="加粗">
+                    </i></a></li>
+                    <li><a hidefocus="1" id="editor_italic" href="javascript:;"><i class="italic" title="斜体">
+                    </i></a></li>
+                    <li><a hidefocus="1" id="editor_underline" href="javascript:;"><i class="underline"
+                        title="下划线"></i></a></li>
+                    <li><a hidefocus="1" id="editor_color" href="javascript:;"><i class="color" title="文字颜色">
+                    </i><i class="drop"></i></a></li>
+                    <li class="end"><a hidefocus="1" id="editor_background" href="javascript:;"><i class="bgcolor"
+                        title="背景色"></i><i class="drop down"></i></a></li>
+                </ul>
+                <ul id="ul_image" style="display:none">
+                    <li style="display:none"><a hidefocus="1" id="editor_screenShot" href="javascript:;"><i class="creenshot"
+                        title="截屏"></i><span>截屏</span></a></li>
+                    <li class="end" style="display:none"><a hideFocus="1" id="editor_image" href="javascript:;"><i class="image" title="插入图片"></i><span>图片</span></a></li>
+                </ul>
+                    
+        <ul id="ul_Face_Sign" style="display:none">
+        <li style="display:none"><a hideFocus="1" id="editor_face" href="javascript:;"><i class="smile" title="插入表情"></i><span>表情</span></a></li>
+        <li style="display:none" class="end"><a hideFocus="1" id="editor_sign" href="javascript:;"><i class="signature" title="插入签名"></i><span>签名</span></a></li>
+      </ul>
+                <ul class="ch">
+                    <li class="end"><a hidefocus="1" id="editor_more" href="javascript:;"><span>更多功能</span></a></li>
+                </ul>
+            </div>
+            <div id="editor_toolMore" style="display: none">
+                <ul>
+                    <li><a hidefocus="1" id="editor_undo" href="javascript:;"><i class="undo" title="撤销">
+                    </i></a></li>
+                    <li class="end"><a hidefocus="1" id="editor_redo" href="javascript:;"><i class="redo"
+                        title="恢复"></i></a></li>
+                </ul>
+                <ul>
+                    <li><a hidefocus="1" id="editor_unorderedlist" href="javascript:;"><i class="square"
+                        title="项目编号"></i></a></li>
+                    <li><a hidefocus="1" id="editor_orderedlist" href="javascript:;"><i class="decimal"
+                        title="数字编号"></i></a></li>
+                    <li><a hidefocus="1" id="editor_outdent" href="javascript:;"><i class="indent" title="减少缩进">
+                    </i></a></li>
+                    <li class="end"><a hidefocus="1" id="editor_indent" href="javascript:;"><i class="unindent"
+                        title="增加缩进"></i></a></li>
+                </ul>
+                <ul>
+                    <li><a id="editor_left" href="javascript:;"><i class="left" title="左对齐"></i></a>
+                    </li>
+                    <li><a id="editor_center" href="javascript:;"><i class="center" title="居中对齐"></i></a>
+                    </li>
+                    <li class="end"><a id="editor_right" href="javascript:;"><i class="right" title="右对齐">
+                    </i></a></li>
+                </ul>
+                <ul>
+                    <li><a hidefocus="1" id="editor_link" href="javascript:;"><i class="link" title="超链接">
+                    </i></a></li>
+                    <li class="end"><a hidefocus="1" id="editor_table" href="javascript:;"><i class="table"
+                        title="插入表格"></i></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="txt-area">
+            <iframe style="height: 100%; width: 100%;" hidefocus="" tabindex="5" onload="frmEditorOnLoad()"
+                id="HtmlEditor" name="HtmlEditor" frameborder="0" src="blank.htm">
+            </iframe>
+            <textarea tabindex="6" id="plainTextElement" style="display: none"></textarea>
+        </div>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+    if (Utils.queryString("hidToolBar")) {
+        toggleToolBar();
+    }
+    //是否显示插入图片
+    var imageButtonOnClick=Utils.queryString("imageButtonOnClick");
+    if(imageButtonOnClick){
+        $("#ul_image").show();
+        $("#editor_image").parent().show();
+        $("#editor_image").click(parent[imageButtonOnClick]);
+    }
+    //是否显示截屏
+    //是否显示插入图片
+    var screenShotButtonOnClick=Utils.queryString("screenShotButtonOnClick");
+    if(screenShotButtonOnClick){
+        $("#ul_image").show();
+        $("#editor_screenShot").parent().show();
+        $("#editor_screenShot").click(parent[screenShotButtonOnClick]);
+    }
+    //是否显示表情
+    var showFace=Utils.queryString("showFace");
+    if(showFace){
+        $("#ul_Face_Sign").show();
+        $("#editor_face").parent().show();
+    }
+    function toggleToolBar(){
+        $("#toolBarAll").toggle();
+        resizeAll();
+    }
+    function resizeAll(){
+        var editorHeight = $(document.body).height();
+        if($("#toolBarAll").css("display")!="none"){
+            editorHeight -= $("#toolBarAll").height();
+            editorHeight -= 10;
+        }
+        $(".txt-area,#HtmlEditor").height(editorHeight);
+    }
+</script>
+<script type="text/javascript">
+    $(window).resize(resizeAll);
+    
+    editorAgent = {
+        insertImage: function(url) {
+            theEditorBox.insertImage(url);
+        }
+    }
+    var btnList = [
+    "editor_fontSize"
+    , "editor_fontFamily"
+    , "editor_italic"
+    , "editor_underline"
+    , "editor_color"
+    , "editor_background"
+    , "editor_bold"
+    , "editor_left"
+    , "editor_center"
+    , "editor_right"
+    , "editor_unorderedlist"
+    , "editor_orderedlist"
+    , "editor_redo"
+    , "editor_undo"
+    , "editor_indent"
+    , "editor_outdent"
+    , "editor_link"
+    , "editor_more"
+    , "editor_screenShot"
+    , "editor_image"
+    , "editor_face"
+    , "editor_sign"
+    , "editor_table"
+    ];
+    for (var i = 0; i < btnList.length; i++) {
+        var btnId = btnList[i];
+        eval("var {0}=document.getElementById('{0}')".format(btnId));
+    }
+    function bindButtonCommmand() {
+        $("#editor_fontSize").click(function() {
+            showFontSizeMenu(this);
+            return false;
+        })
+        $("#editor_fontFamily").click(function() {
+            showFontFamilyMenu(this);
+            return false;
+        })
+        $("#editor_italic").click(function() {
+            theEditorBox.setItalic();
+            return false;
+        })
+        $("#editor_underline").click(function() {
+            theEditorBox.setUnderline();
+            return false;
+        })
+        $("#editor_color").click(function() {
+            showColorMenu(this);
+            return false;
+        })
+        $("#editor_background").click(function() {
+            showColorMenu(this, true);
+            return false;
+        })
+        $("#editor_bold").click(function(e) {
+            theEditorBox.setBold();
+            return false;
+        });
+        $("#editor_left").click(function() {
+            theEditorBox.setJustifyLeft();
+            return false;
+        });
+        $("#editor_center").click(function() {
+            theEditorBox.setJustifyCenter();
+            return false;
+        });
+        $("#editor_right").click(function() {
+            theEditorBox.setJustifyRight();
+            return false;
+        });
+        $("#editor_unorderedlist").click(function() {
+            theEditorBox.insertUnorderedList();
+            return false;
+        });
+        $("#editor_orderedlist").click(function() {
+            theEditorBox.insertOrderedList();
+            return false;
+        });
+        $("#editor_redo").click(function() {
+            theEditorBox.redo();
+            return false;
+        });
+        $("#editor_undo").click(function() {
+            theEditorBox.undo();
+            return false;
+        });
+        $("#editor_indent").click(function() {
+            theEditorBox.setIndent();
+            return false;
+        });
+        $("#editor_outdent").click(function() {
+            theEditorBox.setOutdent();
+            return false;
+        });
+        $("#editor_link").click(function() {
+            theEditorBox.setLink();
+            return false;
+        });
+        $("#editor_more").click(function() {
+            var bar = $("#editor_toolMore");
+            bar.toggle();
+            var isShow = bar.css("display") != "none";
+            this.firstChild.innerHTML = isShow ? "简单功能" : "更多功能";
+            resizeAll();
+            return false;
+        });
+        /*
+        $("#editor_screenShot").click(function() {
+            //截屏
+            aCaptureScreenOnClick();
+            return false;
+        })
+        $("#editor_image").click(function() {
+            //插入图片
+            showImageInput();
+            return false;
+        })*/
+        $("#editor_face").click(function() {
+            showFaceWindow(this);
+            return false;
+        })
+        $("#editor_sign").click(function() {
+            //签名
+            showSignMenu(this);
+            return false;
+        })
+        $("#editor_table").click(function() {
+            //theEditorBox.insertTable(3, 3);
+            showInsertTableMenu(this);
+            return false;
+        })
+    }
+    function setStyleInfo(fromClick) {
+        try {
+            var doc = frames["HtmlEditor"].document;
+            if (!doc) throw "";
+        } catch (e) {
+            return;
+        }
+        var element = theEditorBox.getSelectedElement();
+        if (!element || element.ownerDocument != doc) return;
+        var isBold = toolEditor.queryCommandState(doc, "bold");
+        var isUnderLine = toolEditor.queryCommandState(doc, "underline");
+        var isItalic = toolEditor.queryCommandState(doc, "italic");
+        var isAlignLeft = toolEditor.isAlignLeft(element);
+        var isAlignCenter = toolEditor.isAlignCenter(element);
+        var isAlignRight = toolEditor.isAlignRight(element);
+        var isOrderedList = toolEditor.queryCommandState(doc, "insertorderedlist");
+        var isUnorderedList = toolEditor.queryCommandState(doc, "insertunorderedlist");
+        //加粗
+        toolSetButtonState("editor_bold", isBold);
+        //下划线
+        toolSetButtonState("editor_italic", isItalic);
+        //斜体
+        toolSetButtonState("editor_underline", isUnderLine);
+        //对齐方式
+        toolSetButtonState("editor_left", isAlignLeft);
+        toolSetButtonState("editor_center", isAlignCenter);
+        toolSetButtonState("editor_right", isAlignRight);
+        //数字/符号列表
+        toolSetButtonState("editor_orderedlist", isOrderedList);
+        toolSetButtonState("editor_unorderedlist", isUnorderedList);
+        //字体
+        var fontFamily = element && toolEditor.getFontFamily(element);
+        $("#editor_fontFamily span").html(fontFamily);
+        //字号
+        var fontSize = element && toolEditor.getFontSize(element);
+        $("#editor_fontSize span").html(FontSizeList[fontSize] || "字号");
+        function toolSetButtonState(elementId, state) {
+            //ie下jquery removeClass有bug
+            if (!window[elementId]) window[elementId] = document.getElementById(elementId);
+            var element = window[elementId];
+            var className = element.className;
+            if (state) {
+
+                if (className.indexOf("on") == -1) element.className = element.className.replace(/(\s?on)?$/, " on");
+            } else {
+                if (className.indexOf("on") >= 0) element.className = element.className.replace(/(\s?on)?$/, "");
+            }
+        }
+    }
+    var FontSizeList = {
+        "6": "一号",
+        "5": "二号",
+        "4": "三号",
+        "3": "四号",
+        "2": "五号",
+        "1": "六号",
+        "32px": "一号",
+        "24px": "二号",
+        "18px": "三号",
+        "16px": "四号",
+        "13px": "五号",
+        "10px": "六号",
+        "12px": "六号"//chrome
+    };
+    
+    function debug(msg) {
+        var txt = document.getElementById("txtDebug");
+        txt.value = msg;
+    }
+</script>
+

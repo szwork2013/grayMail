@@ -1,0 +1,327 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="Keywords" content="" />
+<meta name="Description" content="" />
+<title>139邮箱 地球一小时</title>
+<link href="css/global.css" rel="stylesheet" type="text/css" />
+<link href="css/earth.css" rel="stylesheet" type="text/css" />
+<style>
+  .noteList-info{ padding-left:176px;}
+	#toContainer input
+	{
+		background-color: Transparent;
+		font-family: Tahoma;
+		font-size: 12px;
+		float: left;
+		border: 0;
+		margin: 0;
+		width: 1px;
+	}
+	
+	#toContainer1 input
+	{
+		background-color: Transparent;
+		font-family: Tahoma;
+		font-size: 12px;
+		float: left;
+		border: 0;
+		margin: 0;
+		width: 1px;
+	}
+	
+	.ItemContainer div
+	{
+		float: left;
+	} 
+</style>
+<script type="text/javascript">
+    //设域
+    document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+	function loadScript(path, _doc, charset) {
+	    if (path.indexOf(".js") > -1) {
+	        var base = "/m2012/js";
+			var jsVersion = "20130321";
+	        if (path.indexOf("pack.js") > -1) {
+	            base += "/packs";
+	        }
+	        path = base + "/" + path;
+			if (path.indexOf("?") == -1) {
+	            path += "?v=" + jsVersion;
+	        }
+	    }
+	    (_doc || document).write("<script charset=\"" + (charset || "") + "\" type=\"text/javascript\" src=\"" + path + "\"></" + "script>");
+	}
+</script>
+<script>
+    try{
+        loadScript('libs.pack.js', document);
+        loadScript('m139.core.pack.js', document);
+        
+        if(!top.$App){
+        	top.loadScript("utils_controls.js",document);
+    		top.loadScript("RichInputBox_2010.js",document);
+    		var maxSend = top.getMaxReceiverNum();
+    		//var maxSend = 7;
+			var sendIsUpTo = maxSend - 5 ;
+			RichInputManager = {
+			   getAllEmailsAddr: function(){
+			        return earth2013View.inviteRichInput.getAddrItems();
+			   },
+			   addMailTofocus: function(addr) {
+			        if (!window._LastFocusAddressBox) _LastFocusAddressBox = earth2013View.inviteRichInput;
+			        if (!_LastFocusAddressBox.beforeInsertItem()) return;
+			        _LastFocusAddressBox.insertItem(addr);
+			        _LastFocusAddressBox.afterInsertItem();
+			   },
+			   getAllInputEmails: function(){
+			        var aa = earth2013View.inviteRichInput.getRightEmails();
+			        aa = aa.distinct();
+			        return aa;
+			    }
+			};
+			window.prevnetAssociate = true;
+        }
+    } catch (e) { }
+</script>
+</head>
+
+<body>
+<div class="wrapper">
+  
+  <h1 class="header">
+    <strong>地球一小时</strong>
+    <span>花一分钟，地球因你而改变</span>
+  </h1>
+  
+  <div class="main" style="">
+    <div class="countdown-wrap m_clearfix">
+      <div class="countimg-box">
+        <object id="FlashID" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="450" height="228">
+          <param name="movie" value="flash/earth.swf">
+          <param name="quality" value="high">
+          <param name="wmode" value="opaque">
+          <param name="swfversion" value="6.0.65.0">
+          <!-- 此 param 标签提示使用 Flash Player 6.0 r65 和更高版本的用户下载最新版本的 Flash Player。如果您不想让用户看到该提示，请将其删除。 -->
+          <param name="expressinstall" value="../Scripts/expressInstall.swf">
+          <!-- 下一个对象标签用于非 IE 浏览器。所以使用 IECC 将其从 IE 隐藏。 -->
+          <!--[if !IE]>-->
+          <object type="application/x-shockwave-flash" data="flash/earth.swf" width="450" height="228">
+            <!--<![endif]-->
+            <param name="quality" value="high">
+            <param name="wmode" value="opaque">
+            <param name="swfversion" value="6.0.65.0">
+            <param name="expressinstall" value="../Scripts/expressInstall.swf">
+            <!-- 浏览器将以下替代内容显示给使用 Flash Player 6.0 和更低版本的用户。 -->
+            <div>
+              <h4>此页面上的内容需要较新版本的 Adobe Flash Player。</h4>
+              <p><a href="http://www.adobe.com/go/getflashplayer"><img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="获取 Adobe Flash Player" width="112" height="33" /></a></p>
+            </div>
+            <!--[if !IE]>-->
+          </object>
+          <!--<![endif]-->
+        </object>
+      </div>
+      
+      <div class="countnum-box">
+        <h3 id="countTip">距2013年3月23日<var>20:30</var>还有</h3>
+        <div class="countchange" id="earthcountdown">
+          <span id="day">00</span>
+          <span id="hour">00</span>
+          <span id="minute">00</span>
+          <span id="second" style="margin-right:0;">00</span>
+        </div>
+        <div class="countchange" id="earthcountup" style="display: none">
+          <span id="dayup">00</span>
+          <span id="hourup">00</span>
+          <span id="minuteup">00</span>
+          <span id="secondup" style="margin-right:0;">00</span>
+        </div>
+        
+        <div class="count-element">
+          <span>天</span>
+          <span>时</span>
+          <span>分</span>
+          <span style="margin-right:0;">秒</span>
+        </div>
+        
+        <div class="people-num">
+          参与人数：
+          <var>0</var>
+          <var>0</var>
+          <var>0</var>
+          <var>0</var>
+          <var>0</var>
+          <var>0</var>
+          <var>0</var>
+          <var>0</var>
+        </div>
+        
+      </div>
+      
+      
+    </div> <!--countdown-->
+    
+    <div class="conBox">
+      
+      <div class="commonBox con1">
+        <div class="con1-head m_clearfix">
+          <h2 id="callMsg"><i class="i-con1-til fl">拯救地球，你现在就可以行动</i></h2>
+          <div id="lastestList" class="noteList-info">
+	          <div class="noteBox fr" style="display: none;">
+	            <i class="note-ico love"></i>
+	            <strong>coco2013</strong>承诺&nbsp;&nbsp;使用绿色账单
+	          </div>
+          </div>
+        </div>
+        
+        <div class="tabBox-wrap m_clearfix">
+          <div class="tabBox-l">
+            <ul class="tabBox-ul">
+              <li class="tabBox-on">
+                <div class="tabtil-com tabtil1" id="lampOffPlan"><i class="i-tab-ico b-light"></i>地球1小时计划</div>
+                <div class="tabtil-com tabtil5" style="display: none" id="sharePhoto"><i class="i-tab-ico b-share"></i>分享地球1小时照片</div>
+              </li>
+              
+              <li>
+                <div class="tabtil-com tabtil3" id="inviteFriends"><i class="i-tab-ico b-love"></i>邀请更多人参与</div>
+              </li>
+              
+              <li>
+                <div class="tabtil-com tabtil2"><i class="i-tab-ico b-leaf"></i>承诺一个环保行动</div>
+              </li>
+            </ul>
+          </div>
+          
+          <div class="tabBox-r">
+            <div class="tabcom tabcontent1">
+              <div id="lampOffPlanContent">
+	              <h3 class="tabcom-head m_clearfix">
+	                <strong>设置提醒，加入熄灯计划</strong>
+	                <a id="attendNow" hidefocus="1" href="javascript:void(0)" class="tabcom-btn">立即加入</a>
+	                <a id="attent" hidefocus="1" href="javascript:void(0)" class="tabcom-btn-disable" style="display: none">已设置熄灯提醒</a>
+	              </h3>
+	              
+	              <div class="tabcontent1-body">
+	                <p>3月23日20：30-21：30，关掉一切不必要的灯光，一起来支持环保。</p>
+	                <p id="lampOffTip">点击“立即加入”按钮，设置地球1小时熄灯提醒。</p>
+	                <p>活动前15分钟，您将收到免费手机短信和邮件提醒您熄灯。</p>
+	              </div>
+              </div>
+              <div id="sharePhotoContent" style="display: none;">
+	              <h3 class="tabcom-head m_clearfix">
+	                <strong>分享熄灯1小时照片</strong>
+	                <a id="uploadNow" hidefocus="1" href="javascript:void(0)" class="tabcom-btn">立即上传</a>
+	              </h3>
+	              
+	              <div class="tabcontent1-body">
+	                <p>没有电灯的1小时，你是怎样度过的？</p>
+	                <p>在哪里？</p>
+	                <p>跟谁在一起？</p>
+	                <p>上传照片至彩云，并设置共享给好友，分享你的这个特别之夜。</p>
+	              </div>
+              </div>
+            </div><!--tabcontent1-->
+            
+            <div id="inviteContainer" class="tabcom tabcontent3" style="display:none;">
+              <h3 class="tabcom-head m_clearfix">
+                <strong id="inviteTip">邀请更多人参与</strong>
+                <a id="inviteNow" hidefocus="1" href="javascript:void(0)" class="tabcom-btn">立即邀请</a>
+              </h3>
+              
+              <div class="contactBox" style="display:none;">
+                <div class="contactBox-t m_clearfix p_relative">
+                	
+                  <div id="earthInputTip" class="tips write-tips" style="position:absolute; left:150px; top:15px;display: none">
+                  	<div class="tips-text">请先选择或输入联系人</div>
+                  	<div class="tipsBottom diamond"></div>
+                  </div>	
+                	
+                  <strong class="fl">+添加/选择邮箱联系人</strong>
+                  <p class="fr">您已邀请<var id="initInviteCount">0</var>位</p>
+                </div>
+                
+                <div class="contact-txt">
+                  <!-- <textarea></textarea>-->
+                  <div id="toContainerInvite"></div>
+                </div>
+                
+                
+                
+              </div>
+              
+              
+              <div class="success-invite" style="display: none;">
+                <h3><i class="success-invite-ico"></i>邀请发送成功！</h3>
+                <p class="success-invite-note">您已邀请<var id="inviteCount">10</var>位邮箱联系人参与拯救地球活动</p>
+                <p class="ta_c"><a id="inviteContinue" hidefocus="1" href="javascript:void(0)" class="tabcom-btn" style=" display:inline-block;float:none;">继续邀请</a></p>
+              </div><!--success-invite-->
+              
+              
+              
+            
+            </div><!--tabcontent3-->
+            
+            <div class="tabcom tabcontent1" style="display: none">
+              <h3 class="tabcom-head m_clearfix">
+                <strong>承诺环保行动，获绿V客证书</strong>
+                <a id="promiseNow" hidefocus="1" href="javascript:void(0)" class="tabcom-btn" id="">立即参加</a>
+              </h3>
+              
+              <div class="tabcontent3-body p_relative">
+                <p>自2011年开始，WWF提出“超越一小时” 、“承诺一个环保改变” ，除了熄灯的环保象征，地球一小时旨在通过改变企业日常经营，以及个人日常习惯实现实实在在的环境影响。</p>
+                <p>熄灭页面灯泡，并承诺你的环保行动，可获得WWF世界自然基金会（中国）签名发放的绿V客荣誉证书，还有更多惊喜等你来发现！ </p>
+              </div>
+              
+            </div>
+            
+          </div>
+        </div><!--tabBox-wrap-->
+        
+      </div><!--con1-->
+      
+      <div class="commonBox con2">
+        <div class="con2-head m_clearfix">
+          <h2><i class="i-con2-til fl">环保行动在139邮箱</i></h2>
+          <div class="slide_nav fr" id="adImagesSlide">
+            <a href="javascript:void(0)" hidefocus="1"><i class="i-silde_l">left</i></a>
+            <a href="javascript:void(0)" hidefocus="1" class="on"><i class="i-slide_num">1</i></a>
+            <a href="javascript:void(0)" hidefocus="1"><i class="i-slide_num">2</i></a>
+            <a href="javascript:void(0)" hidefocus="1"><i class="i-slide_num">3</i></a>
+            <a href="javascript:void(0)" hidefocus="1"><i class="i-slide_num">4</i></a>
+            <a href="javascript:void(0)" hidefocus="1"><i class="i-silde_r">right</i></a>
+          </div>
+        </div>
+        
+        
+        <div class="silde-box" id="adImages">
+          <a href="javascript:void(0)" hidefocus="1" style="display: block"><img src="images/ad1.jpg" width="732" height="100" alt=""/></a>
+          <a href="javascript:void(0)" hidefocus="1" style="display: none"><img src="images/ad2.jpg" width="732" height="100" alt=""/></a>
+          <a href="javascript:void(0)" hidefocus="1" style="display: none"><img src="images/ad3.jpg" width="732" height="100" alt=""/></a>
+          <a href="javascript:void(0)" hidefocus="1" style="display: none"><img src="images/ad4.jpg" width="732" height="100" alt=""/></a>
+        </div>
+        
+        
+      </div><!--con2-->
+      
+      <div class="commonBox con3" style="height: 90px">
+        <div class="about">
+          <i class="i-about-ico"></i>
+          <dl class="about-dl">
+            <dt>关于地球1小时</dt> 
+            <dd>“地球一小时”活动是由WWF（世界自然基金会）发起的、全球最大的环保活动。该活动号召大家在每年3月的最后一个星期六关上灯，并做出一个环保改变，同时动员身边的其他人也加入环保行列。中国活动的网址(<a href="http://www.earthhour.org.cn" target="_blank">www.earthhour.org.cn</a>)</dd>
+          </dl>
+        </div>
+      </div><!--con3-->
+      
+      
+    </div><!--conBox-->
+    
+  </div><!--main-->
+  
+</div><!--wrapper-->
+
+</body>
+<script src="js/indexearth.html.pack.js?v=20130322" type="text/javascript"></script>
+</html>

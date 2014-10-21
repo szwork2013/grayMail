@@ -1,0 +1,40 @@
+﻿<?xml version="1.0"?>
+<project name="build_test" default="m139.core.pack">
+
+    <!-- 如果配置文件不在当前目录，修改此变量即可 -->
+    <property name="basePath" location="./core"/>
+
+    <!-- 打包m139.core.pack.js -->
+    <target name="m139.core.pack">
+        <concat destfile="./packs/m139.core.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+            <!-- 有依赖的需要在最前面定义，其它可以不按顺序 -->
+            <fileset dir="${basePath}" includes="m139.core.js" />
+            <fileset dir="${basePath}" includes="m139.text.js" />
+            <fileset dir="${basePath}" includes="m139.event.js" />
+            <fileset dir="${basePath}" includes="m139.logger.js" />
+            <fileset dir="${basePath}" includes="m139.model.modelbase.js" />
+            <fileset dir="${basePath}" includes="m139.httpclient.js" />
+            <fileset dir="${basePath}" includes="m139.dom.js" />
+            <fileset dir="${basePath}" includes="m139.json.js" />
+            <fileset dir="${basePath}" includes="m139.date.js" />
+            <fileset dir="${basePath}" includes="m139.browser.js" />
+            <fileset dir="${basePath}" includes="m139.configmanager.js" />
+            <fileset dir="${basePath}" includes="m139.exchangehttpclient.js" />
+            <fileset dir="${basePath}" includes="m139.httprouter.js" />
+            <fileset dir="${basePath}" includes="m139.iframe.js" />
+            <fileset dir="${basePath}" includes="m139.richmail.richmailhttpclient.js" />
+            <fileset dir="${basePath}" includes="m139.pageapplication.js" />
+            <fileset dir="${basePath}" includes="m139.timing.js" />
+            <fileset dir="${basePath}" includes="m139.view.viewbase.js" />
+            <!--暂时不引入以下文件
+            <fileset dir="${basePath}" includes="m139.object.js" />
+            <fileset dir="${basePath}" includes="m139.array.js" />
+            <fileset dir="${basePath}" includes="m139.boolean.js" />
+            <fileset dir="${basePath}" includes="m139.function.js" />
+            <fileset dir="${basePath}" includes="m139.math.js" />
+            <fileset dir="${basePath}" includes="m139.string.js" />
+			-->
+
+        </concat>
+    </target>
+</project>

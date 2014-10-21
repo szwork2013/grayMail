@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<project name="BuildCssProject" default="createFileVersion">
+  <!-- 执行任务的nodejs程序 -->
+  <property name="path.concatExec" location="./build/lib/createFileVersion.js" />
+  <property name="thisPath" location="./" />
+  <target name="createFileVersion">
+    <echo>正在生成文件版本号</echo>
+    <apply executable="node" failonerror="true">
+      <!-- 要生成版本号的文件,可根据需求配置 -->
+      <fileset dir="./" includes="js/packs/**/**.js,css/**/**.css" />
+      <arg path="${path.concatExec}" />
+      <arg line="--output=${thisPath}/conf/config.10086.cn.js,${thisPath}/conf/config.10086ts.cn.js,${thisPath}/conf/config.10086rd.cn.js" />
+    </apply>
+  </target>
+
+</project>

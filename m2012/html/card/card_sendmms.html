@@ -1,0 +1,269 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="pg-send-richcard" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>发彩信贺卡</title>
+<script type="text/javascript">
+//版本号
+var version = "20121203";
+//设域
+document.domain=window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+//获得资源路径
+var resourcePath=window.top.rmResourcePath;
+var cardResourcePath=resourcePath.replace("richmail","greatCard");
+var htmlCode="";    
+htmlCode+=getLinkTag(cardResourcePath+"/css/sengcard.css");
+htmlCode+=getLinkTag("");
+
+top.loadScript("jquery.js", document);
+top.loadScript("m2011.utilscontrols.pack.js", document);
+top.loadScript("card_sendmms.html.pack.js", document);
+
+
+document.write(htmlCode);
+
+function getJsTag(path,charset){
+	return "<script charset='" + (charset || "utf-8") + "' src='" + path + "?v=" + version + "' type='text/javascript'></" + "script>";
+}
+function getLinkTag(path){
+	var text="";
+	if(path){
+		 text = "href='" + path + "?v" + version + "'";
+	}
+	return "<link rel='stylesheet' type='text/css' " + text + " />";
+}
+</script>
+
+<script type="text/javascript">
+    Utils.loadSkinCss(null,document,"sengcard");
+    var coremailDomain=window.top.coremailDomain;
+    var uid=window.top.uid;    
+</script>
+
+
+<style type="text/css">
+
+
+/* 短信验证码 */
+.newcode{border:1px #a4acbf solid;padding:8px 10px;background-color:white;width:260px;background-color:#FFF;}
+.codeclear:after{visibility:hidden;display:block;font-size:0;content:" ";clear:both;height:0;}
+.codeclear{zoom:1;}
+.codeclear{overflow:hidden;_zoom:1;}
+.newcode img{float: left;margin-top: 4px;*margin-top: 2px;}
+.newcode .bbt{margin: 3px 0 0 10px;float: left;_display: inline;color: #666; width: 80px;}
+.newcode .bbt p{font-size: 14px;color: #000;font-weight: 700;padding-bottom: 4px;line-height:17px;}
+.newcode .bbt a{text-decoration: underline;margin-top: 4px;}
+.newcode .bbb{padding-top: 5px;clear: both;font-weight: 700;height: 21px;line-height: 21px;}
+.newcode .bbb span{color: #ff6600;vertical-align: baseline;}
+.newcodeinput{height:24px; }
+.newcodeinput input{height: 15px;padding:3px;width:120px;border-left: 1px #c3c3c3 solid;
+border-right: 1px #c3c3c3 solid;
+border-top: 1px #7c7c7c solid;}
+
+.newcodepr{position: relative;z-index: 5;}
+.newcodepr .newcode{position:absolute;bottom:24px;_bottom:42px;left:0;z-index:4;}
+
+
+</style>
+</head>
+<body>
+
+	<div id="header">
+        <p class="fr mt_10" id="tipsLink" style="position:absolute;float:none;margin-left:580px;white-space: nowrap;"></p>
+        <ul class="nav-hd">
+            <li><a href="card_sendcard.html?isLog=1">贺卡</a></li>
+            <li class="current"><a  href="javascript:;">彩信贺卡</a></li>
+        </ul>
+    </div>
+    
+		<div id="wrapper">
+			<div id="content">
+			    <div class="button">
+                  <div class="btnarea">
+					<a id="btnSendMms1" href="javascript:;" class="btnNm"><i class="but_lIco"></i><span class="but_bg-x">发送</span><i class="but_rIco"></i></a>
+					<a id="btnBack1" href="javascript:;" class="btnNm" style="display:none"><i class="but_lIco"></i><span class="but_bg-x">返回</span><i class="but_rIco"></i></a>
+                  </div>					
+                </div>
+                
+				<table class="form" cellpadding="0" cellspacing="0" class="form">
+				<tbody>
+					<tr id="trTool">
+						<th style="width:60px;"></th>
+						<td>
+							<!--<a href="javascript:void(0)" title="更改主题" id="aShowSubject">更改主题</a>-->
+							<a id="alazy" href="sendMms.html?isLog=1"  style="margin-left:10px;display:none">发普通彩信贺卡</a>
+						</td>
+					</tr>
+					<tr id="trReceive">
+						<th style="width:60px;">接收手机：</th>
+						<td>
+							<div id="txtTo" style="float:left;margin-right:8px;width:430px"></div>
+							<div class="contactWrap" id="divLazyMan" style="display:none">
+                    	        <div id="lazyErrMsg" class="errMsg" style="display:none"><i></i><span id="spanErrMsg"></span></div>
+                    	        <div  class="contactList">
+                        	        <ul id="lazycontactList">                            	    
+                                    </ul>
+                                    <p>
+                                    <!--样式转换 arrowUp（向上）/arrowDown（向下）-->
+                                    <i id="iarrowDown" class="arrowDown"></i>
+                                    </p>
+                                </div>                        
+                            </div>
+                        
+						    <a id="aAddrBook" href="javascript:;"><i class="addMan"></i>添加</a></td>
+					</tr>
+					<tr id="trlazy" style="display:none">
+            	        <th></th>
+                        <td><span class="tips">已选择<em id="emcheckall">0</em>人，可同时发给<em>10</em>人，每个人收到的是单独发给他/她的贺卡</span></td>
+                    </tr>	
+					<tr id="trSubject">
+						<th>主题：</th>
+						<td>
+							<input tabindex="2" maxlength="50" id="txtSubject" class="richtitle input-text" name="txtSubject" type="text"  value="" />
+						</td>
+					</tr>
+				    <tr id="trBirthday" style="display:none">
+                        <td colspan="2">
+                        <div class="sendBlessListWrap">
+                    	    <p class="top_txt"><span class="fl">选择接收生日祝福的寿星们：</span><a href="javascript:;" onclick="javascript:top.Links.show('sms','&birthday=1&listType=35_1_1')">发短信祝福</a>&nbsp;&nbsp;<a href="javascript:;" onclick="javascript:top.Links.show('mms','&mmstype=birthday&id=38')">发彩信祝福</a></p>
+                    	    <div id="friendList">
+                            </div>
+                            <p class="bom_txt" id="tiptrBirthday">可同时发给10人，以上好友的生日信息来自139邮箱注册或设置。</p>
+                        </div>    
+                        </td>
+                    </tr> 
+					<tr>
+						<td colspan="2" id="imgarea">
+							<div class="card-img">
+							    <img alt="" id="imgPreview" style="display:none"/>
+							</div>
+							<div class="card-text">
+								<table cellpadding="0" cellspacing="0">
+									<thead>
+										<tr>
+											<td width="70"><strong>&nbsp;输入文字：</strong></td>
+											<td  align="right">
+												<label id="pLetterCount">你还可以输入<em>500</em>字</label>
+											</td>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td colspan="2">
+												<textarea id="tbEditor"></textarea>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="cls"></div>
+						</td>
+					</tr>	
+					<tr id="trControlValidCodeShow">
+                        <th>验证码：</th>
+                        <td>
+				          <div id="divValidate" class="newcodepr">
+								<div id="spanValidate" class="newcodepr newcodeinput">
+									<input id="txtValidCode" class="" autocomplete="off" type="text" value="请点击获取验证码" />
+								</div>
+								<div class="newcode" id="spValidCode">
+									<div class="codeclear">
+										<img alt="验证码"  id="imgRnd"  />
+										<div class="bbt">
+											<p>图案显示的是什么？</p>			
+											<a href="javascript:void(0);" id="imgCode">看不清换一张</a>
+										</div>
+									</div>
+									<p class="bbb">请输入答案前的 <span>数字或字母</span></p>	
+								</div>
+			                </div>
+                        </td>
+                    </tr>
+					</tbody>
+				</table>
+				 <div class="extra-tip" id="divMsg">    				
+				 </div>
+				<div class="button">
+                  <div class="btnarea">
+					<a id="btnSendMms" href="javascript:;" class="btnNm"><i class="but_lIco"></i><span class="but_bg-x">发送</span><i class="but_rIco"></i></a>
+					<a id="btnBack" href="javascript:;" class="btnNm" style="display:none"><i class="but_lIco"></i><span class="but_bg-x">返回</span><i class="but_rIco"></i></a>
+                  </div>					
+                </div>
+			</div>
+	    </div>
+			<div id="aside" class="tab">
+				<div class="tab-title">					
+					<ul>
+						<li id="mmsTab" class="on" style="width:123px;"><a href="javascript:;"><span>彩信贺卡</span></a></li>
+						<li id="smsTab"><a href="javascript:;"><span>祝福语</span></a></li>
+					</ul>
+				</div>
+                
+				<div class="tab-main">					
+					 <div class="aside-bd">
+						<div class="box card current" id="divHCard">
+						
+							<ul class="category clr">
+								<li id="liNew"><a href="javascript:;">最新</a></li>
+								<li class="current" id="liHot"><a href="javascript:;">最热</a></li>
+							</ul>
+							<ul class="category category-2 clr" id="divGroup">                                   
+							</ul>
+							<div id="divContent" class="bd clr">
+								<div class="showMesBar">
+									<ul class="pageCountBar" id="ulPageTop_1">                       
+									</ul>
+								</div>
+								<div class="list"  id="ulTab_1">
+								</div>
+								<div class="showMesBar">
+									<ul class="pageCountBar"  id="ulPage_1">
+									</ul>
+								</div>
+							</div>					
+						</div>
+						
+						<div class="card"  id="divMessage" style="display:none">         
+							<div id="sltSmsListBarClass" class="drop-down w100">
+								<div class="selPageLabel">
+									<div class="drop-down-a"><i class="dot_switch"></i></div>
+									<div class="drop-down-text"></div>
+								</div>
+								<ul class="selMenu" style="display:none;"></ul>
+							 </div>
+							<div id="div1" class="bd message clr">
+								<div class="showMesBar">
+									<ul class="pageCountBar" id="ulPageTop_2">                      
+									</ul>
+								</div>
+								<div class="list" id="divSmsListBar">                        
+								</div>
+								<div class="showMesBar">
+									<ul class="pageCountBar" id="ulPage_2" >
+									</ul>
+								</div>
+							</div>
+						 </div>                       
+					</div>
+				</div>
+			</div>
+	<input type="hidden" id="hdnNewHot" value="1" />
+	<input type="hidden" id="hdnTopGroupId" value="" />
+	<input type="hidden" id="hdnGroupId" value="" />
+	<script type="text/javascript">
+	  var singleBirthDay = Utils.queryString("singleBirthDay");
+	 if(singleBirthDay){
+	    
+	     $("#tiptrBirthday").hide();
+	     var ael = $("#trBirthday").find("a");
+		  ael[0].onclick=function(){
+		  top.Links.show('sms','&birthday=1&singleBirthDay='+singleBirthDay+'&listType=35_1_1');
+		 };
+		 ael[1].onclick=function(){
+		  top.Links.show('mms','&mmstype=birthday&singleBirthDay='+singleBirthDay+'&id=38');
+		 }
+	}
+	</script>
+    <script type="text/javascript">top.loadCSS(["module/fontbase.css"], document);</script>
+</body>
+</html>

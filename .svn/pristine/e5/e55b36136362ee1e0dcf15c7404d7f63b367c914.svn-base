@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<project name="build_pack" default="packFile">
+    <target name="packFile">
+        <concat destfile="./packs/cabinet_write.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+            <fileset dir="./ui/selectfile" includes="**/m2012.ui.cabinet_write.model.storagecabinet.js"/>
+            <fileset dir="./ui/selectfile" includes="**/m2012.ui.cabinet_write.view.storagecabinet.js"/>
+        </concat>
+    </target>
+</project>

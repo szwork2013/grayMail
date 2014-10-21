@@ -1,0 +1,216 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" " http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns=" http://www.w3.org/1999/xhtml">
+<head>
+<title>139邮箱</title>
+<meta charset="utf-8">
+<script type="text/javascript">document.write('<script src="feature_meal_config.js?' + Math.random() + '"><\/script>')</script>
+<script type="text/javascript">
+document.domain=window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1].replace(/:\d+/,"");
+filltag(['module/set/feature_meal_upgrade.css', ['jquery-1.7.1.min.js','',rmResourcePath], ['utils_controls.js','GB2312',rmResourcePath]], resourcePath);
+</script>
+<!--[if IE 6]><script>document.write('<script src="' + resourcePath + '/js/libs/DD_belatedPNG.js"><\/script>')</script><![endif]-->
+<script type="text/javascript">
+//防止to后面是别的域名
+function isAllowHost() {
+		//var _allowHostList	= [ "*.139cm.com", "*.rd139cm.com", "*.139.com", "*.rd139.com" ];原139域名
+		var _allowHostList	= [ "*.10086.cn","*.10086rd.cn","*.10086ts.cn","*.139cm.com", "*.rd139cm.com", "*.139.com", "*.rd139.com" ];
+		var _aUrl = Utils.queryString("to");
+		if(!isNaN(_aUrl)){
+			return true;
+		}
+		var _urlHost		= _aUrl.split( "://" ).pop().split( "/" )[ 0 ];
+
+		if ( !_urlHost )
+			return false;
+
+		var _urlHostItems		= _urlHost.split( "." );
+		var _urlHostItemsLen	= _urlHostItems.length;
+		for ( var i = _allowHostList.length - 1; i >= 0; i-- ) {
+			var _allowHostItem		= _allowHostList[ i ].split( "." );
+			var _allowHostItemLen	= _allowHostItem.length;
+			var _pos				= 1;
+
+			for ( ; _pos <= _urlHostItemsLen && _pos <= _allowHostItemLen; _pos++ ) {
+				if ( _allowHostItem[ _allowHostItemLen - _pos ] != "*" &&
+					 _allowHostItem[ _allowHostItemLen - _pos ] != 
+					 _urlHostItems[ _urlHostItemsLen - _pos ] )
+					break;
+			}
+			if ( _pos - 1 == _allowHostItemLen && 
+				 ( _allowHostItem[ 0 ] == "*" || _allowHostItemLen == _urlHostItemsLen ) )
+				return true;
+		}		
+		return false;
+}
+if ( !isAllowHost() || Utils.queryString("sid").indexOf('.') > -1) {
+	alert('非法url');
+	location.href="http://mail.10086.cn" ;
+}
+function err(msg){
+    $(".tc_dialog").text(msg);
+    $("#imgVerify").animate({ 
+        "margin-top": "31px"
+    }, 256, null, function(){$(".tips").fadeIn()});
+}
+
+function hideErr(){
+    $(".tips").fadeOut("fast", function(){
+        $("#imgVerify").animate({ 
+            "margin-top": "0"
+        }, 256, null, function(){ $(".tc_dialog").text("") });
+    });
+}
+
+function next(){
+    top.location.replace("feature_meal_upgrade2.html?sid=" + encodeURIComponent(Utils.htmlEncode(Utils.queryString("sid"))) + "&to=" + encodeURIComponent(Utils.htmlEncode(Utils.queryString("to"))) + "&toName=" + escape(getServiceName()) + "&currentName=" + escape(getCurrentName()));
+}
+
+$(function(){
+    var verifyUrl, serviceName, currentName;
+
+    $(".tips").hide();
+	getCookie =  function (name) {
+            var arr = document.cookie.match(new RegExp("(^|\\W)" + name + "=([^;]*)(;|$)"));
+            if (arr != null) return unescape(arr[2]);
+            return "";
+	}
+	var to = Utils.queryString("to");
+	//如果为广东用户且变为免费版本，则传递0010
+	if(getCookie('provCode') == 1 && to == "0015"){
+		to = '0010';
+	}
+    var data = '<object><string name="target">' +  to + '</string></object>';
+    proxyready("init", data, function(rs){
+        if (rs.code == "S_OK") {
+            $("#txtAccount").text(rs.account);
+            verifyUrl = rs.verifyUrl + "&r" + Math.random();
+            $("#imgVerify").attr("src", verifyUrl);
+            $("#txtTarget").text(rs.serviceName);
+            serviceName = rs.serviceName;
+            currentName = rs.currentServiceName;
+        } else if (rs.code == "S_FALSE") {
+            err("离开太久啦，请重新登录！");
+        } else {
+            err("对不起，系统繁忙，请重试");
+        }
+    });
+
+    $("#btnAnother").click(function(){
+        if (verifyUrl) {
+            $("#imgVerify").attr("src", verifyUrl + "&r" + Math.random());
+        }
+    });
+
+    $("#btnSubmit").click(function(){
+        var code = $("#txtVerify").val();
+        if (code.length != 1) {
+            err("请输入图片验证码");
+            return;
+        }
+
+        var data = '<object><string name="verifycode">' + code + '</string></object>'
+        proxyready("check", data, function(rs){
+            if (rs.code == "S_OK") {
+                setTimeout(function(){ next() }, 16);
+                return;
+            }
+
+            switch(rs.code) {
+                case "FA_ENTER":
+                    err("验证码输入错误，请重新输入");
+                    $("#btnAnother").click();
+                    break;
+                case "FA_EXPIRE":
+                    err("验证码已失效，请重新输入");
+                    $("#btnAnother").click();
+                    break;
+                case "FA_BLACK":
+                    err("验证码操作太过频繁，请稍后再试");
+                    break;
+                case "S_FALSE":
+                    err("离开太久啦，请重新登录！");
+                    break;
+                default:
+                    err("对不起，系统繁忙，请重试");
+            }
+        });
+    });
+
+    $("#txtVerify").focus(function(){
+        hideErr();
+    });
+
+    window.getServiceName = function(){
+        return serviceName;
+    }
+
+    window.getCurrentName = function(){
+        return currentName;
+    }
+})
+</script>
+</head>
+
+<body class="setbody">
+<div id="header">
+ <div class="wrapper m_clearfix">
+   <h1 class="logo"><a href="http://mail.10086.cn">139邮箱</a></h1>
+   <p class="top_right"><a href="http://mail.10086.cn">邮箱首页</a>&nbsp; | &nbsp;<a href="http://help.mail.10086.cn/statichtml/0/index.html">帮助中心</a></p>
+ 
+ </div>
+</div><!--header--> 
+
+<div id="main">
+ <div class="wrapper">
+    <div class="verifyBox">
+      <div class="verifyBox_head">
+       <h2>变更为<span id="txtTarget"></span>邮箱</h2>
+       <h3>升级邮箱，做与众不同的自己！高性能、个性化、专业级的个人邮箱</h3>
+       <em class="note_ico"></em>
+      </div>
+      <table width="380" class="verify_table">
+        <tr>
+          <td width="120" class="left_line">邮箱帐号：</td>
+          <td width="230" id="txtAccount">@139.com</td>
+        </tr>
+        <tr>
+          <td class="left_line">图片验证码：</td>
+          <td>
+            <input id="txtVerify" type="text" class="verify_txt" maxlength="1" />
+            <div class="tips" style="left:136px; top:76px;">
+                <div class="tips-text">
+                    <p class="tc_dialog"></p>
+                </div>
+                <div class="tipsTop diamond"></div>
+            </div>
+            <div class="clear"></div>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>&nbsp;</td>
+          <td><img id="imgVerify" align="top" /></td>
+        </tr>
+        
+        <tr>
+          <td>&nbsp;</td>
+          <td><p class="d_tips">图中显示的图案是什么？将你认为正确答案前的<em>字母或数字</em>填入框中（不分大小写）<a id="btnAnother" href="#" class="change">看不清，换一张</a></p></td>
+        </tr>
+        
+        <tr>
+          <td>&nbsp;</td>
+          <td><a id="btnSubmit" href="javascript:void(0)" class="blueBtn">获取短信验证码</a></td>
+        </tr>
+      </table>
+    </div>
+ </div>
+</div><!--main-->
+
+<div class="wrapper">
+  <div id="footer" class="m_clearfix">
+    <p class="fl"><a href="http://help.mail.10086.cn/statichtml/1/Content/1013.html">版权声明</a> | <a href="http://www.10086.cn/service/advise/index.htm">客服受理</a> | <a href="http://www.10086.cn/aboutus/index_4450.htm">关于移动</a> | <a href="http://open.mail.10086.cn/">开放平台</a></p>
+    <p class="fr footer_ico"><a target="icp" href="http://www.miibeian.gov.cn/">京ICP备05002571号</a> <span style="color:#999999; padding:0 5px; float:none;">|</span> <a style="color:#999999;" href="http://www.10086.cn/" target="_blank"  title="中国移动通信">中国移动通信版权所有</a></p>
+  </div>
+</div><!--footer-->
+</body>
+</html>

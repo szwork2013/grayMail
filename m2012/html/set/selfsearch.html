@@ -1,0 +1,221 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Language" content="zh-CN"/>
+    <meta name="Keywords" content=""/>
+    <meta name="Description" content=""/>
+    <script type="text/javascript">
+        //设域
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+    </script>
+    <script type="text/javascript">
+        top.loadCSS( ['common/global.css', 'module/selfsearch.css'], document );
+    </script>
+</head>
+<body>
+    <div class="pageSetIndexV2">
+        <div class="loginSearchBar">
+            <h3 class="fcI">
+                <span class="navSet f_st">
+                    <!--<a href="javascript:top.$App.show('account')">设置</a>&gt;&gt;-->
+                </span>自助查询
+            </h3>
+            <ul id="ulTabs" class="loginSearchTab">
+                <!--
+                <li>
+                    <a href="javascript:" onclick="M2012.Set.SelfSearch.Tabs.click({index}, this)">
+                        {name}
+                    </a>
+                </li>
+                -->
+            </ul>
+            
+            
+            <div id="divLoginHistory" class="">
+                <p class="loginSearchMes_info">
+                    <a href="javascript:" target="_blank" class="fr"
+                        onclick="return M2012.Set.SelfSearch.Links.feedback();" >
+                        城市显示错误？
+                    </a>
+                    <span>最近30天的100条登录记录</span>
+                </p>
+                <table class="loginSearchTable">
+                    <thead>
+                        <tr>
+                            <th width="100">时间</th>
+                            <th width="200">IP</th>
+                            <th width="200">地点</th>
+                            <th>登录方式</th>
+                        </tr>
+                    </thead>
+                </table>
+                
+                <!--table
+                <table class="loindatetable">
+                    <thead>
+                        <tr>
+                            <th colspan="4">{date}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        #tr.start#
+                        <tr>
+                            <td width="100">{time}</td>
+                            <td width="200">{IP}</td>
+                            <td width="200">{city}</td>
+                            <td>{typeName}</td>
+                        </tr>
+                        #tr.end#
+                    </tbody>
+                </table>
+                table-->
+            </div>
+          
+          
+            <div id="divMailDeleteHistory" class="hide">
+                <p id="pMailDeleteHistory_Buttons" class="loginSearchMes_info-btn">
+                    <a href="javascript:">全部显示</a>&nbsp;&nbsp;
+                    <a href="javascript:">手动删除</a>&nbsp;&nbsp;
+                    <a href="javascript:">客户端软件删信</a>&nbsp;&nbsp;
+                    <a href="javascript:">系统邮件自销毁</a>
+                </p>
+                <p class="loginSearchMes_info tip_mt">最近30天的100条删信记录</p>
+                <table class="loginSearchTable">
+                    <thead>
+                        <tr>
+                            <th width="75">时间</th>
+                            <th width="165">发件人</th>
+                            <th width="300">主题</th>
+                            <th>删信方式</th>
+                        </tr>
+                    </thead>
+                </table>
+                
+                <!--table
+                <table class="loindatetable">
+                    <thead>
+                        <tr>
+                            <th colspan="4">{date}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        #tr.start#
+                        <tr>
+                            <td width="75">{time}</td>
+                            <td width="165" title="{sender}">{shortSender}</td>
+                            <td width="300" title="{subject}">
+                                <div class="nohh">
+                                    {shortSubject}
+                                </div>
+                            </td>
+                            <td>{typeName}</td>
+                        </tr>
+                        #tr.end#
+                    </tbody>
+                </table>
+                table-->
+            </div>
+            
+            
+            <div id="divMailAgentHistory" class="hide">
+                <p class="loginSearchMes_info">最近30天的100条代收邮件记录</p>
+                <table class="loginSearchTable">
+                    <thead>
+                        <tr>
+                            <th width="100">时间</th>
+                            <th width="200">代收帐号</th>
+                            <th width="200">收取方式</th>
+                            <th>代收情况</th>
+                        </tr>
+                    </thead>
+                </table>
+                
+                <!--table
+                <table class="loindatetable">
+                    <thead>
+                        <tr>
+                            <th colspan="4">{date}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        #tr.start#
+                        <tr>
+                            <td width="100">{time}</td>
+                            <td width="200">{account}</td>
+                            <td width="200">{typeName}</td>
+                            <td>{resultDescription}</td>
+                        </tr>
+                        #tr.end#
+                    </tbody>
+                </table>
+                table-->
+            </div>
+            
+            
+            <div id="divPasswordModifyHistory" class="hide">
+                <p class="loginSearchMes_info">最近30天的100条密码修改记录</p>
+                <table class="loginSearchTable">
+                    <thead>
+                        <tr>
+                            <th>时间</th>
+                        </tr>
+                    </thead>
+                </table>
+                
+                <!--table.nodata
+                <table class="loindatetable">
+                    <tbody>
+                        <tr>
+                            <td>您目前还没有修改过密码</td>
+                        </tr>
+                    </tbody>
+                </table>
+                table.nodata-->
+                
+                <!--table.data
+                <table class="loindatetable">
+                    <thead>
+                        <tr>
+                            <th colspan="4">{date}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        #tr.start#
+                        <tr>
+                            <td>{time}</td>
+                        </tr>
+                        #tr.end#
+                    </tbody>
+                </table>
+                table.data-->
+            </div>
+            
+            <div id="divVolumeDoubleHistoryView" class="hide">
+                <p class="loginSearchMes_info">当您的邮箱实际使用量达到邮箱容量的50%时，邮箱容量将自动翻倍</p>
+                <table class="loginSearchTable">
+                    <thead><tr><th width="140">时间</th><th id="thVolumeDouble">邮箱容量</th></tr></thead>
+                </table>
+                <ul class="userdouble-date"></ul>
+            </div>
+
+
+            <div class="mt_15">
+                <span class="darkTip">数据非实时，若无最新数据，无需担心，请稍后再试。</span>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        top.loadScript('libs.pack.js', document);
+        top.loadScript('m139.core.pack.js', document);
+        top.loadScript("m2012.ui.common.pack.js", document);
+        top.loadScript("miniquery.pack.js", document);
+        top.loadScript("set.selfsearch.html.pack.js", document);
+    
+     //   top.loadScript("../../js/service/set/m2012.set.selfsearch.model.js", document);
+     //   top.loadScript("../../js/service/set/m2012.set.selfsearch.view.js", document);
+    </script>
+</body>
+</html>

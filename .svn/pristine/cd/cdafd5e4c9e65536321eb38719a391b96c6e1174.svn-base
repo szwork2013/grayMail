@@ -1,0 +1,323 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="Keywords" content="" />
+<meta name="Description" content="" />
+<title>139邮箱</title>
+
+
+
+<script type="text/javascript">
+    //设域
+    document.domain = window.location.host.match(/[^.]+\.[^.]+$/)[0];
+</script>
+<script>            
+	top.loadCSS(["common/global.css", "module/editer.css", "module/set.css"], document)
+</script>
+<style>
+.edit-btn,.eidt-bar .eidt-bar-li .line,.eidt-bar .pushon{display:none;}
+#ED_Bold,#ED_FontFamily,#ED_FontSize,#ED_FontColor,#ED_Italic{display:inline-block;}
+</style></head>
+<body class="setbody">  
+<div class="setWrap">
+    <div class="setArea ">
+        <h2>收信规则 <span class="line">|</span> <a id="goBack"  class="fanghui" style="cursor:pointer">&lt;&lt;返回</a></h2>
+        <div class="setArea-content">
+                <ul class="form setForm" style="padding-bottom:0px;">
+                    <li class="formLine" style="padding-bottom:0px;">
+                        <label class="label">规则启用：</label>
+                        <div class="element">
+                           <input type="radio" value="0" class="mr_5" name="modelType" checked=true key="onoff">
+                           <label for="" class="mr_20">启用</label>
+                           <input class="mr_5" type="radio" value="1" name="modelType" key="onoff">
+                           <label class="mr_20" for="">启用，并对历史邮件执行此规则</label>
+                           <input class="mr_5" type="radio" value="2" name="modelType" key="onoff">
+                           <label for="" class="mr_20">不启用</label>
+                        </div>
+                     </li>
+                       <li class="formLine noLine advancedMode" style="padding-bottom:0px;" name="advancedMode">
+                        <label class="label">适用帐号：</label>
+                        <div id="ids" class="element">
+                          
+                        </div>
+                     </li>
+
+                     <li id="allcondition" class="formLine noLine">
+                        <label class="label">如果邮件同时符合：                                                           
+                                </label>
+                                <div class="element">
+                                    <div id="dropDown_conditionsRelation" class="dropDown-sortnew" style="width:130px;">
+                                    </div>       
+                                </div>
+                     </li>
+                </ul>
+        </div>
+
+        <div class="setArea-content sort-fastbody">           
+                        <ul class="form sortminform" style="padding-left:83px;padding-top:0px;padding-bottom:0px;" id="getClassifyRule">
+                            <li class="formLine">
+                                <label class="label"><input type="checkbox" value="" id="checkboxGet_from" class="mr_5 advancedMode" name="advancedMode"  data-name="conditionType" >发&nbsp;件&nbsp;&nbsp;人：                  
+                                </label>
+                                <div class="element">
+                                    <div id="dropDown_from" class="dropDown-sortnew" data-name="dropInclude" style="height:22px">
+                                            <!--包含不包含-->
+                                    </div>       
+                                    <div class="peoinput fl peoinputsort">
+                                        <input id="text_from" name="rule" type="text" class="iText gray" value="支持输入多个关键字，以分号（;）隔开"><a href="javascript:" class="i_peo showAddressBook" key="from"></a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="formLine">
+                                <label class="label"><input type="checkbox" value="" id="checkboxGet_subject" class="mr_5 advancedMode" name="advancedMode"  data-name="conditionType" >主&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;题：                  
+                                </label>
+                                <div class="element">
+                                    <div id="dropDown_subject" class="dropDown-sortnew"  data-name="dropInclude" style="height:22px"><!--包含不包含-->
+                                    </div>       
+                                    <div class="peoinput fl peoinputsort">
+                                        <input id="text_subject" type="text" class="iText gray" value="支持输入多个关键字，以分号（;）隔开"
+                                        name="rule"></a>
+                                    </div>
+                                    <div id="dropDown_subjectRelation" class="dropDown-sortnew ml_5 advancedMode" style="width:120px;height:22px" name="advancedMode" >
+                                           
+                                    </div>
+                                </div>
+                            </li>
+                            
+                            <li class="formLine">
+                                <label class="label"><input type="checkbox" value="" id="checkboxGet_to" class="mr_5 advancedMode" name="advancedMode"  data-name="conditionType">收&nbsp;件&nbsp;&nbsp;人：                  
+                                </label>
+                                <div class="element">
+                                    <div id="dropDown_to" class="dropDown-sortnew"  data-name="dropInclude" style="height:22px">
+                                            <!--包含不包含-->
+                                    </div>       
+                                    <div class="peoinput fl peoinputsort">
+                                        <input id="text_to" name="rule" type="text" class="iText gray" value="支持输入多个关键字，以分号（;）隔开" >
+                                        <a href="javascript:" class="i_peo showAddressBook" key="to"></a>
+                                    </div>
+                                    <div id="dropDown_toRelation" class="dropDown-sortnew ml_5 advancedMode" style="width:120px;height:22px" name="advancedMode">
+                                            
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="formLine">
+                                <label class="label"><input type="checkbox" value="" id="checkboxGet_attach" class="mr_5 advancedMode" name="advancedMode" data-name="conditionType">附&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;件：                  
+                                </label>
+                                <div class="element">
+                                    <div id="dropDown_attach" class="dropDown-sortnew"  data-name="dropInclude" style="width:105px;height:22px">
+                                            
+                                    </div>       
+                                    <div class="peoinput fl peoinputsort" style="width:270px">
+                                        <input id="text_attach" type="text" class="iText gray" value="支持输入多个关键字，以分号（;）隔开" name="rule">
+                                    </div>
+                                    <div id="dropDown_attachRelation" class=" dropDown-sortnew ml_5 advancedMode" style="width:120px;height:22px" name="advancedMode">
+                                            
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="formLine advancedMode" name="advancedMode">
+                                <label class="label"><input type="checkbox" value="" id="checkboxGet_mailSize" class="mr_5" data-name="conditionType">邮件大小：                  
+                                </label>
+                                <div class="element">
+                                    <div id="dropDown_mailSize" class="dropDown-sortnew"  data-name="dropInclude" style="height:22px">
+                                            
+                                    </div>       
+                                    <div class="peoinput fl peoinputsort">
+                                        <input id="text_mailSize" type="text" class="iText gray" value="" name="rule">M
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="formLine advancedMode" name="advancedMode">
+                                <label class="label"><input type="checkbox" value="" id="checkboxGet_mailRectime" class="mr_5" data-name="conditionType">接收时间：                  
+                                </label>
+                                <div class="element">
+                                    <div class="fl mr_5"><span>起始日期从当日到</span></div>
+                                    <div id="dropDown_mailRectimeStart"  class="dropDown-sortnew" style="height:22px">
+                                            
+                                    </div>
+                                    <div class="fl mr_5"><span>&nbsp;至&nbsp;<span id="datetext">当日</span></span></div>
+                                    <div id="dropDown_mailRectimeEnd" class="dropDown-sortnew" style="height:22px">
+                                            
+                                     </div>
+                                </div>
+                            </li>
+                        </ul>
+
+                        <ul class="form sortminform" style="padding-left:71px;" id="getClassifyDeal">
+                            <li class="formLine">
+                                    <div class="" style="margin-bottom:12px;">则执行以下选中的所有操作：</div>
+                            </li>
+                            <li class="formLine">
+                                <label class="label" style="text-align:left;margin-left:64px;">
+                                    <input type="checkbox" class="mr_5" value="" name="dealType" dealType="dealType_2" id="checkbox_move"/>
+                                    <span class="formlineText">移动到文件夹</span> 
+                                </label> 
+                                <div class="element" style="width:70%;float:left;">
+                                    <div id="dropDownFolder" class="dropDown-sortnew" style="width:180px;height:22px"></div>
+                                </div>
+                                                             
+                            </li>
+
+                            <li class="formLine">
+                                <label class="label" style="text-align:left;margin-left:64px;">
+                                    <input type="checkbox" class="mr_5" name="dealType" dealType="dealType_5" value="" id="checkbox_tag"/ >
+                                    <span class="formlineText">标记标签</span>
+                                </label>
+                                    <div class="element" style="width:70%;float:left;">
+                                    <div id="dropDownTag" class="dropDown-sortnew" style="width:180px;height:22px"></div>
+                                </div>
+
+
+
+                            </li>
+                            <li class="formLine" >
+                                <label class="label" style="text-align:left;margin-left:64px;">
+                                    <input type="checkbox" name="dealType" class="mr_5" dealType="dealType_7" value=""/>
+                                    <span class="formlineText">标记为已读</span>
+                                </label>
+
+                            </li>
+                            <li class="formLine" >
+                                <label class="label" style="text-align:left;margin-left:64px;">
+                                    <input type="checkbox" class="mr_5" name="dealType" dealType="dealType_6" value=""/>
+                                    <span class="formlineText">标记为星标邮件</span>
+                                </label>
+                            </li>
+                            <li class="formLine" >
+                                <label class="label" style="text-align:left;margin-left:64px;">
+                                    <input type="checkbox" class="mr_5" name="dealType"dealType="dealType_8" value=""/>
+                                    <span class="formlineText">标记为置顶邮件</span>
+                                </label>
+                            </li>
+                            <li class="formLine">
+                                <label class="label" style="text-align:left;margin-left:64px;width:105px;">
+                                    <input type="checkbox" name="dealType" class="mr_5" dealType="dealType_0" value=""/>
+                                    <span class="formlineText">直接删除邮件</span>
+                                </label>
+                                <span class="gray" style="line-height:22px;">（如选择本项，则不执行其他操作）</span>
+                            </li>
+
+                             <li class="formLine" >
+                                <label class="label" style="text-align:left;margin-left:64px;width:77px;" >
+                                    <input type="checkbox" id="checkbox_forward" name="dealType" class="mr_5" dealType="dealType_3" value=""/>
+                                    <span class="formlineText">自动转发</span></label>
+
+                                <div class="element" style="width:80%">
+                                    <input id="text_forward" type="text" class="iText gray" value="example@example.com" style="width:140px;"/><span class="gray" id="forwardTips"></span>
+                                </div>
+                            </li>
+                            <li id=li_forward class="formLine" style="display:none">
+                                <label class="label"></label>
+                                <div class="element" style="margin-left:-8px">
+                                    <div style="margin-left: 16px">
+                                        <label>
+                                            <input type="radio" name="isSaveMail" value="yes" class="mr_5" checked=true >
+                                            保留已自动转发的邮件
+                                        </label>
+                                        <br>
+                                        <label>
+                                            <input type="radio" name="isSaveMail" value="no" class="mr_5">
+                                            删除已自动转发的邮件
+                                        </label>
+                                    
+                                       
+                                       
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="formLine">
+                                <label class="label" style="text-align:left;margin-left:64px;width:77px;">
+                                    <input type="checkbox" name="dealType" dealType="dealType_4" class="mr_5" value="" id="checked_reply">
+                                    <span class="formlineText">自动回复</span>
+                                </label>
+
+                                <div class="element" key="reply" style="width:80%">
+                                    <textarea id="text_reply" style=" width:314px; height:143px; resize:none; "></textarea>
+                                </div>
+                            </li>
+                            <li class="formLine mt_10 mb_5">
+                                <label id="toMode" class="label">
+                                    <a href="javascript:" id="advancedMode"  bh="classifymailadvanced_onclick" >切换到高级模式</a>
+                                </label>
+
+                                <div class="element">
+                                </div>
+                            </li>
+
+                        </ul>       
+        </div>
+        <div class="setBtn">
+            <a href="javascript:void(0)" class="btnSetG" id="btn_save" >
+                <span>保 存</span>
+            </a>
+            <a href="javascript:void(0)" id="btn_cancel" class="btnSet">
+                <span>取 消</span>
+            </a>
+        </div>
+
+
+
+</div>
+
+<script>
+    top.loadScript('libs.pack.js', document); 
+    top.loadScript('m139.core.pack.js', document);
+    //top.loadScript('m139.api.mock.js', document);
+    //top.loadScript('test.mockdata.js', document);
+</script>
+<script>
+	top.loadScript("m2012.ui.common.pack.js", document)
+</script>
+<script>
+	$("#getClassifyRule input:text").focus(function(){
+		$(this).addClass("boxFocus");
+	}).blur(function(){
+		$(this).removeClass("boxFocus");
+	});
+
+	top.loadScript("create_sort.html.pack.js", document)
+</script>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+  
+       
+  
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

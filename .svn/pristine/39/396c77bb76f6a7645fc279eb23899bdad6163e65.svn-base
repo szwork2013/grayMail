@@ -1,0 +1,960 @@
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="generator" content="JsDoc Toolkit" />
+		<title>M2012.UI.Picker.Range | JsDoc Reference</title>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+		<meta name="mobileoptimized" content="0" />
+	
+		<link rel="stylesheet" href="../css/all.css" media="all" />
+		<link rel="stylesheet" href="../css/handheld.css" media="only screen and (max-width: 660px)" />
+		<link rel="stylesheet" href="../css/handheld.css" media="handheld" />
+		<link rel="stylesheet" href="../css/screen.css" media="screen and (min-width: 661px)" />
+
+		<script src="../javascript/all.js"></script>
+		<!--[if lt IE 9]>
+			<script src="../javascript/html5.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+<div class="index">
+	<div class="menu">
+		<div class="indexLinks">
+			<a href="../index.html">Classes</a>
+			<a href="../files.html">Files</a>
+		</div>
+	
+		<h2 class="heading1">类</h2>
+		
+		<input type="text" name="classFilter" class="classFilter" id="ClassFilter" placeholder="Filter"></input>
+		
+		<nav>
+			<ul class="classList" id="ClassList">
+				
+					<li><a href="../symbols/_global_.html">_global_</a></li>
+				
+					<li><a href="../symbols/Array.html">Array</a></li>
+				
+					<li><a href="../symbols/Date.html">Date</a></li>
+				
+					<li><a href="../symbols/M139.Browser.html">M139<span class='break'> </span>.<span class='break'> </span>Browser</a></li>
+				
+					<li><a href="../symbols/M139.Browser.is.html">M139<span class='break'> </span>.<span class='break'> </span>Browser<span class='break'> </span>.<span class='break'> </span>is</a></li>
+				
+					<li><a href="../symbols/M139.Browser.support.html">M139<span class='break'> </span>.<span class='break'> </span>Browser<span class='break'> </span>.<span class='break'> </span>support</a></li>
+				
+					<li><a href="../symbols/M139.ConfigManager.html">M139<span class='break'> </span>.<span class='break'> </span>ConfigManager</a></li>
+				
+					<li><a href="../symbols/M139.Core.html">M139<span class='break'> </span>.<span class='break'> </span>Core</a></li>
+				
+					<li><a href="../symbols/M139.Date.html">M139<span class='break'> </span>.<span class='break'> </span>Date</a></li>
+				
+					<li><a href="../symbols/M139.Dom.html">M139<span class='break'> </span>.<span class='break'> </span>Dom</a></li>
+				
+					<li><a href="../symbols/M139.Event.html">M139<span class='break'> </span>.<span class='break'> </span>Event</a></li>
+				
+					<li><a href="../symbols/M139.Event.GlobalEventManager.html">M139<span class='break'> </span>.<span class='break'> </span>Event<span class='break'> </span>.<span class='break'> </span>GlobalEventManager</a></li>
+				
+					<li><a href="../symbols/M139.ExchangeHttpClient.html">M139<span class='break'> </span>.<span class='break'> </span>ExchangeHttpClient</a></li>
+				
+					<li><a href="../symbols/M139.HTTPClient.html">M139<span class='break'> </span>.<span class='break'> </span>HTTPClient</a></li>
+				
+					<li><a href="../symbols/M139.Iframe.html">M139<span class='break'> </span>.<span class='break'> </span>Iframe</a></li>
+				
+					<li><a href="../symbols/M139.JSON.html">M139<span class='break'> </span>.<span class='break'> </span>JSON</a></li>
+				
+					<li><a href="../symbols/M139.Logger.html">M139<span class='break'> </span>.<span class='break'> </span>Logger</a></li>
+				
+					<li><a href="../symbols/M139.Model.html">M139<span class='break'> </span>.<span class='break'> </span>Model</a></li>
+				
+					<li><a href="../symbols/M139.Model.ModelBase.html">M139<span class='break'> </span>.<span class='break'> </span>Model<span class='break'> </span>.<span class='break'> </span>ModelBase</a></li>
+				
+					<li><a href="../symbols/M139.PageApplication.html">M139<span class='break'> </span>.<span class='break'> </span>PageApplication</a></li>
+				
+					<li><a href="../symbols/M139.Plugin.Flash.html">M139<span class='break'> </span>.<span class='break'> </span>Plugin<span class='break'> </span>.<span class='break'> </span>Flash</a></li>
+				
+					<li><a href="../symbols/M139.RichMail.html">M139<span class='break'> </span>.<span class='break'> </span>RichMail</a></li>
+				
+					<li><a href="../symbols/M139.RichMail.API.html">M139<span class='break'> </span>.<span class='break'> </span>RichMail<span class='break'> </span>.<span class='break'> </span>API</a></li>
+				
+					<li><a href="../symbols/M139.RichMail.RichMailHttpClient.html">M139<span class='break'> </span>.<span class='break'> </span>RichMail<span class='break'> </span>.<span class='break'> </span>RichMailHttpClient</a></li>
+				
+					<li><a href="../symbols/M139.Testing.LoginHelper.html">M139<span class='break'> </span>.<span class='break'> </span>Testing<span class='break'> </span>.<span class='break'> </span>LoginHelper</a></li>
+				
+					<li><a href="../symbols/M139.Text.Cookie.html">M139<span class='break'> </span>.<span class='break'> </span>Text<span class='break'> </span>.<span class='break'> </span>Cookie</a></li>
+				
+					<li><a href="../symbols/M139.Text.Email.html">M139<span class='break'> </span>.<span class='break'> </span>Text<span class='break'> </span>.<span class='break'> </span>Email</a></li>
+				
+					<li><a href="../symbols/M139.Text.Html.html">M139<span class='break'> </span>.<span class='break'> </span>Text<span class='break'> </span>.<span class='break'> </span>Html</a></li>
+				
+					<li><a href="../symbols/M139.Text.Mobile.html">M139<span class='break'> </span>.<span class='break'> </span>Text<span class='break'> </span>.<span class='break'> </span>Mobile</a></li>
+				
+					<li><a href="../symbols/M139.Text.Url.html">M139<span class='break'> </span>.<span class='break'> </span>Text<span class='break'> </span>.<span class='break'> </span>Url</a></li>
+				
+					<li><a href="../symbols/M139.Text.Utils.html">M139<span class='break'> </span>.<span class='break'> </span>Text<span class='break'> </span>.<span class='break'> </span>Utils</a></li>
+				
+					<li><a href="../symbols/M139.Text.Xml.html">M139<span class='break'> </span>.<span class='break'> </span>Text<span class='break'> </span>.<span class='break'> </span>Xml</a></li>
+				
+					<li><a href="../symbols/M139.Timing.html">M139<span class='break'> </span>.<span class='break'> </span>Timing</a></li>
+				
+					<li><a href="../symbols/M139.UserModel.html">M139<span class='break'> </span>.<span class='break'> </span>UserModel</a></li>
+				
+					<li><a href="../symbols/M139.View.html">M139<span class='break'> </span>.<span class='break'> </span>View</a></li>
+				
+					<li><a href="../symbols/M139.View.ViewBase.html">M139<span class='break'> </span>.<span class='break'> </span>View<span class='break'> </span>.<span class='break'> </span>ViewBase</a></li>
+				
+					<li><a href="../symbols/M139.VipTool.levelEnum.html">M139<span class='break'> </span>.<span class='break'> </span>VipTool<span class='break'> </span>.<span class='break'> </span>levelEnum</a></li>
+				
+					<li><a href="../symbols/M2011.UI.Dialog.RecentMail.html">M2011<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Dialog<span class='break'> </span>.<span class='break'> </span>RecentMail</a></li>
+				
+					<li><a href="../symbols/M2012.Contacts.API.html">M2012<span class='break'> </span>.<span class='break'> </span>Contacts<span class='break'> </span>.<span class='break'> </span>API</a></li>
+				
+					<li><a href="../symbols/M2012.Contacts.ContactsInfo.html">M2012<span class='break'> </span>.<span class='break'> </span>Contacts<span class='break'> </span>.<span class='break'> </span>ContactsInfo</a></li>
+				
+					<li><a href="../symbols/M2012.Contacts.HttpClient.html">M2012<span class='break'> </span>.<span class='break'> </span>Contacts<span class='break'> </span>.<span class='break'> </span>HttpClient</a></li>
+				
+					<li><a href="../symbols/M2012.Contacts.Model.html">M2012<span class='break'> </span>.<span class='break'> </span>Contacts<span class='break'> </span>.<span class='break'> </span>Model</a></li>
+				
+					<li><a href="../symbols/M2012.MainApplication.html">M2012<span class='break'> </span>.<span class='break'> </span>MainApplication</a></li>
+				
+					<li><a href="../symbols/M2012.MatrixVM.html">M2012<span class='break'> </span>.<span class='break'> </span>MatrixVM</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Dialog.AddressBook.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Dialog<span class='break'> </span>.<span class='break'> </span>AddressBook</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Dialog.ContactsEditor.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Dialog<span class='break'> </span>.<span class='break'> </span>ContactsEditor</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Dialog.ExceptNotify.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Dialog<span class='break'> </span>.<span class='break'> </span>ExceptNotify</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Dialog.LargeAttach.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Dialog<span class='break'> </span>.<span class='break'> </span>LargeAttach</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Dialog.RecentMail.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Dialog<span class='break'> </span>.<span class='break'> </span>RecentMail</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Dialog.SaveToDisk.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Dialog<span class='break'> </span>.<span class='break'> </span>SaveToDisk</a></li>
+				
+					<li><a href="../symbols/M2012.UI.DialogBase.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>DialogBase</a></li>
+				
+					<li><a href="../symbols/M2012.UI.DropMenu.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>DropMenu</a></li>
+				
+					<li><a href="../symbols/M2012.UI.HTMLEditor.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>HTMLEditor</a></li>
+				
+					<li><a href="../symbols/M2012.UI.HTMLEditor.Model.Editor.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>HTMLEditor<span class='break'> </span>.<span class='break'> </span>Model<span class='break'> </span>.<span class='break'> </span>Editor</a></li>
+				
+					<li><a href="../symbols/M2012.UI.HTMLEditor.View.Editor.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>HTMLEditor<span class='break'> </span>.<span class='break'> </span>View<span class='break'> </span>.<span class='break'> </span>Editor</a></li>
+				
+					<li><a href="../symbols/M2012.UI.HTMLEditor.View.FaceMenu.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>HTMLEditor<span class='break'> </span>.<span class='break'> </span>View<span class='break'> </span>.<span class='break'> </span>FaceMenu</a></li>
+				
+					<li><a href="../symbols/M2012.UI.HTMLEditor.View.Menu.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>HTMLEditor<span class='break'> </span>.<span class='break'> </span>View<span class='break'> </span>.<span class='break'> </span>Menu</a></li>
+				
+					<li><a href="../symbols/M2012.UI.MenuButton.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>MenuButton</a></li>
+				
+					<li><a href="../symbols/M2012.UI.PageTurning.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>PageTurning</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Picker.Calendar.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Picker<span class='break'> </span>.<span class='break'> </span>Calendar</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Picker.PickerBase.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Picker<span class='break'> </span>.<span class='break'> </span>PickerBase</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Picker.Range.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Picker<span class='break'> </span>.<span class='break'> </span>Range</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Picker.TimeRange.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Picker<span class='break'> </span>.<span class='break'> </span>TimeRange</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Picker.Week.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Picker<span class='break'> </span>.<span class='break'> </span>Week</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Picker.Weekday.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Picker<span class='break'> </span>.<span class='break'> </span>Weekday</a></li>
+				
+					<li><a href="../symbols/M2012.UI.PopMenu.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>PopMenu</a></li>
+				
+					<li><a href="../symbols/M2012.UI.RichInput.ItemView.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>RichInput<span class='break'> </span>.<span class='break'> </span>ItemView</a></li>
+				
+					<li><a href="../symbols/M2012.UI.RichInput.TextBoxView.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>RichInput<span class='break'> </span>.<span class='break'> </span>TextBoxView</a></li>
+				
+					<li><a href="../symbols/M2012.UI.RichInput.View.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>RichInput<span class='break'> </span>.<span class='break'> </span>View</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Widget.Contacts.Model.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Widget<span class='break'> </span>.<span class='break'> </span>Contacts<span class='break'> </span>.<span class='break'> </span>Model</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Widget.Contacts.View.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Widget<span class='break'> </span>.<span class='break'> </span>Contacts<span class='break'> </span>.<span class='break'> </span>View</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Widget.ContactsAutoSave.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Widget<span class='break'> </span>.<span class='break'> </span>ContactsAutoSave</a></li>
+				
+					<li><a href="../symbols/M2012.UI.Widget.ContactsCard.html">M2012<span class='break'> </span>.<span class='break'> </span>UI<span class='break'> </span>.<span class='break'> </span>Widget<span class='break'> </span>.<span class='break'> </span>ContactsCard</a></li>
+				
+					<li><a href="../symbols/String.html">String</a></li>
+				
+			</ul>
+		</nav>
+	</div>
+	<div class="fineprint" style="clear:both">
+		<footer>
+			
+			Documentation generator: <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0<br />
+			Template: <a href="http://www.thebrightlines.com/2010/05/06/new-template-for-jsdoctoolkit-codeview/" target="_blank">Codeview</a> 1.2<br />
+			Generated on:
+			<time datetime='2012-11-21' pubdate>2012-11-21 17:10</time>
+		</footer>
+	</div>
+</div>
+
+<div class="index indexStatic"></div>
+
+<div class="content">
+	<div class="innerContent">
+		<article>
+			<header>
+				<h1 class="classTitle">
+					
+					Class <span>M2012.UI.Picker.Range</span>
+				</h1>
+				
+				<div class="intro">
+					<p class="description summary">
+						
+					</p>
+						
+					
+						<ul class="summary">
+							
+							
+							
+								<li>Defined in: <a href="../symbols/src/G__Work_SVN_Mail139_M2012(rebuild2012)_trunk_src_jsdoc_doc_template_m2012.ui.picker.range.js.html">m2012.ui.picker.range.js</a></li>
+							
+							<li>Extends <span class="fixedFont">
+								<a href="../symbols/M2012.UI.Picker.PickerBase.html">M2012.UI.Picker.PickerBase</a></span></li>
+							
+						</ul>
+					
+				</div>
+			</header>
+			
+			
+				<section>
+					<div class="props">
+						<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class M2012.UI.Picker.Range.">
+							<caption class="sectionTitle">Class Summary</caption>
+							<thead>
+								<tr>
+									<th scope="col">Constructor Attributes</th>
+									<th scope="col">Constructor Name and Description</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="attributes">&nbsp;</td>
+									<td class="nameDescription" >
+										<div class="fixedFont">
+											<b><a href="../symbols/M2012.UI.Picker.Range.html#constructor">M2012.UI.Picker.Range</a></b>(options)
+										</div>
+										<div class="description">范围选择组件</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</section>
+			
+			
+			
+				
+				<section>
+					
+						<nav>
+							<div class="props">
+								<table class="summaryTable" cellspacing="0" summary="A summary of the fields documented in the class M2012.UI.Picker.Range.">
+									<caption class="sectionTitle">属性列表</caption>
+									
+									<thead>
+										<tr>
+											<th scope="col">属性类型</th>
+											<th scope="col">属性描述</th>
+										</tr>
+									</thead>
+									
+									<tbody>
+										
+											<tr>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">
+													<b><a href="../symbols/M2012.UI.Picker.Range.html#endFlag">endFlag</a></b>
+													</div>
+													<div class="description">右边的游标</div>
+												</td>
+											</tr>
+										
+											<tr>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont">
+													<b><a href="../symbols/M2012.UI.Picker.Range.html#startFlag">startFlag</a></b>
+													</div>
+													<div class="description">左边的游标</div>
+												</td>
+											</tr>
+										
+									</tbody>
+								</table>
+							</div>
+						</nav>
+					
+					
+					
+						<nav>
+							<dl class="inheritsList">
+							<dt>Fields borrowed from class <a href="../symbols/M139.View.ViewBase.html">M139.View.ViewBase</a>: </dt><dd><a href="../symbols/M139.View.ViewBase.html#isRemoved">isRemoved</a>, <a href="../symbols/M139.View.ViewBase.html#logger">logger</a></dd>
+							</dl>
+						</nav>
+					
+				</section>
+			
+	<!--
+	#### METHODS SUMMARY
+	-->
+			
+				<section>
+					
+					
+					<div class="props">
+						<h2 class="sectionTitle">方法列表</h2>
+						
+						
+							<nav>
+								<table class="summaryTable" id="MethodsList" cellspacing="0" summary="A summary of the methods documented in the class M2012.UI.Picker.Range.">
+									<thead>
+										<tr>
+											<th scope="col">方法类型</th>
+											<th scope="col">方法描述</th>
+										</tr>
+									</thead>
+									
+									<tbody>
+										
+										
+											<tr
+												 class='item0'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.Picker.Range.html#getEndValue">getEndValue</a></b>()
+													</div>
+													<div class="description">获取结束游标的值</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item1'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.Picker.Range.html#getIndexByValue">getIndexByValue</a></b>(value)
+													</div>
+													<div class="description"></div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item2'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.Picker.Range.html#getLabelHTML">getLabelHTML</a></b>()
+													</div>
+													<div class="description"></div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item3'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.Picker.Range.html#getSelectedValue">getSelectedValue</a></b>()
+													</div>
+													<div class="description">获取最终选取的值</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item4'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.Picker.Range.html#getStartValue">getStartValue</a></b>()
+													</div>
+													<div class="description">获取开始游标的值</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item5'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.Picker.Range.html#render">render</a></b>()
+													</div>
+													<div class="description">构建dom函数</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item6'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.Picker.Range.html#setEndValue">setEndValue</a></b>(value)
+													</div>
+													<div class="description">设置结束游标的值</div>
+												</td>
+											</tr>
+										
+											<tr
+												 class='item7'
+											>
+												<td class="attributes">&nbsp;</td>
+												<td class="nameDescription">
+													<div class="fixedFont"><b><a href="../symbols/M2012.UI.Picker.Range.html#setStartValue">setStartValue</a></b>(value)
+													</div>
+													<div class="description">设置开始游标的值</div>
+												</td>
+											</tr>
+										
+									</tbody>
+								</table>
+							</nav>
+						
+					
+						
+							<nav>
+								<dl class="inheritsList" id="MethodsListInherited">
+								<dt>Methods borrowed from class <span class='fixedFont'><a href="../symbols/M2012.UI.Picker.PickerBase.html">M2012.UI.Picker.PickerBase</a></span>: </dt><dd><span class='fixedFont'><a href="../symbols/M2012.UI.Picker.PickerBase.html#hide">hide</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/M2012.UI.Picker.PickerBase.html#onSelect">onSelect</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/M2012.UI.Picker.PickerBase.html#show">show</a></span></dd><dt>Methods borrowed from class <span class='fixedFont'><a href="../symbols/M139.View.ViewBase.html">M139.View.ViewBase</a></span>: </dt><dd><span class='fixedFont'><a href="../symbols/M139.View.ViewBase.html#get$El">get$El</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/M139.View.ViewBase.html#getEl">getEl</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/M139.View.ViewBase.html#getHeight">getHeight</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/M139.View.ViewBase.html#getId">getId</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/M139.View.ViewBase.html#getRandomId">getRandomId</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/M139.View.ViewBase.html#getWidth">getWidth</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/M139.View.ViewBase.html#isHide">isHide</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/M139.View.ViewBase.html#onUpdate">onUpdate</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/M139.View.ViewBase.html#remove">remove</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/M139.View.ViewBase.html#setHeight">setHeight</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/M139.View.ViewBase.html#setHtml">setHtml</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/M139.View.ViewBase.html#setPosition">setPosition</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/M139.View.ViewBase.html#setSize">setSize</a></span></dd> <dd><span class='fixedFont'><a href="../symbols/M139.View.ViewBase.html#setWidth">setWidth</a></span></dd>
+								</dl>
+							</nav>
+						
+					</div>
+				</section>
+			
+			
+	<!--
+	#### EVENTS SUMMARY
+	-->
+			
+				
+				<section>
+					
+					
+					
+						<nav>
+							<dl class="inheritsList">
+							<dt>Events borrowed from class <a href="../symbols/M2012.UI.Picker.PickerBase.html">M2012.UI.Picker.PickerBase</a>: </dt><dd><a href="../symbols/M2012.UI.Picker.PickerBase.html#event:select">select</a></dd><dt>Events borrowed from class <a href="../symbols/M139.View.ViewBase.html">M139.View.ViewBase</a>: </dt><dd><a href="../symbols/M139.View.ViewBase.html#event:hide">hide</a>, <a href="../symbols/M139.View.ViewBase.html#event:move">move</a>, <a href="../symbols/M139.View.ViewBase.html#event:print">print</a>, <a href="../symbols/M139.View.ViewBase.html#event:remove">remove</a>, <a href="../symbols/M139.View.ViewBase.html#event:render">render</a>, <a href="../symbols/M139.View.ViewBase.html#event:resize">resize</a>, <a href="../symbols/M139.View.ViewBase.html#event:show">show</a>, <a href="../symbols/M139.View.ViewBase.html#event:update">update</a></dd>
+							</dl>
+						</nav>
+					
+				</section>
+			
+	<!--
+	#### CONSTRUCTOR DETAILS
+	-->
+			
+				<section>
+					<div class="details props">
+						<div class="innerProps">
+							<h2 class="sectionTitle" id="constructor">
+								Class Detail
+							</h2>
+							
+							<div class="fixedFont">
+								<b>M2012.UI.Picker.Range</b>(options)
+							</div>
+							
+							<div class="description">
+								范围选择组件
+								
+							</div>
+							
+							
+								
+									<pre class="code">
+        var range1 = new M2012.UI.Picker.Range({
+            container:document.getElementById("divContainer"),
+            items:[{
+                text:"不清理",
+                value:0
+            },{
+                text:"7天",
+                value:7
+            },{
+                text:"15天",
+                value:15
+            },
+            {
+                text:"30天",
+                value:30
+            }]
+        });</pre>
+								
+							
+						
+							
+								<dl class="detailList params">
+									<dt class="heading">Parameters:</dt>
+									
+										<dt>
+											<span class="light fixedFont">{Object}</span>  <b>options</b>
+											
+										</dt>
+										<dd>初始化参数集</dd>
+									
+										<dt>
+											<span class="light fixedFont">{Boolean}</span>  <b>options.isArea</b>
+											
+										</dt>
+										<dd>是否选择范围（有2个游标）</dd>
+									
+										<dt>
+											<span class="light fixedFont">{Number}</span>  <b>options.minArea</b>
+											
+										</dt>
+										<dd>当选择的是范围的时候，最小间隔是多少</dd>
+									
+										<dt>
+											<span class="light fixedFont">{Number}</span>  <b>options.width</b>
+											
+										</dt>
+										<dd>标尺的宽度（默认是210）</dd>
+									
+										<dt>
+											<span class="light fixedFont">{<a href="../symbols/Array.html">Array</a>}</span>  <b>options.items</b>
+											
+										</dt>
+										<dd>步值</dd>
+									
+										<dt>
+											<span class="light fixedFont">{Number}</span>  <b>options.index</b>
+											
+										</dt>
+										<dd>初始化下标</dd>
+									
+										<dt>
+											<span class="light fixedFont">{Object}</span>  <b>options.container</b>
+											
+										</dt>
+										<dd>如果是静态控件，指定一个父容器</dd>
+									
+										<dt>
+											<span class="light fixedFont">{Object}</span>  <b>options.bindInput</b>
+											
+										</dt>
+										<dd>如果是外挂，指定一个绑定的文本框</dd>
+									
+								</dl>
+							
+							
+							
+						</div>
+					</div>
+				</section>
+			
+	<!--
+	#### FIELD DETAILS
+	-->
+			
+				<section>
+					<div class="details props">
+						<div class="innerProps">
+							<h2 class="sectionTitle">
+								属性详细说明
+							</h2>
+							
+							
+								<div class="fixedFont heading" id="endFlag">
+									<span class='lighter'>
+									
+									</span>
+									
+									
+									
+									<b>endFlag</b>							
+								</div>
+								
+								<div class="description">
+									右边的游标
+									
+									
+									
+								</div>
+								
+								
+									
+								
+								<div class="hr"></div>
+							
+								<div class="fixedFont heading" id="startFlag">
+									<span class='lighter'>
+									
+									</span>
+									
+									
+									
+									<b>startFlag</b>							
+								</div>
+								
+								<div class="description">
+									左边的游标
+									
+									
+									
+								</div>
+								
+								
+									
+								
+								
+							
+						</div>
+					</div>
+				</section>
+			
+	<!--
+	#### METHOD DETAILS
+	-->		
+			
+				<section>
+					<div class="details props">
+						<div class="innerProps">
+							<h2 class="sectionTitle">
+								方法详细说明
+							</h2>
+							
+							<ul class="methodDetail" id="MethodDetail">
+								
+								
+									<li 
+										 class='item0'
+									>
+										<div class="fixedFont heading" id="getEndValue">
+											<span class='lighter'>
+											
+											</span>
+											
+											<span class="light">{Number}</span>
+											
+											<b>getEndValue</b>()
+										</div>
+										
+										<div class="description">
+											获取结束游标的值
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+											<dl class="detailList nomargin">
+											
+												
+												
+												
+												
+												
+												
+												
+													<dt class="heading">Returns:</dt>
+													
+														<dd><span class="light fixedFont">{Number}</span> </dd>
+													
+												
+												
+												
+												
+												
+											
+											</dl>
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item1'
+									>
+										<div class="fixedFont heading" id="getIndexByValue">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>getIndexByValue</b>(value)
+										</div>
+										
+										<div class="description">
+											
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>value</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item2'
+									>
+										<div class="fixedFont heading" id="getLabelHTML">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>getLabelHTML</b>()
+										</div>
+										
+										<div class="description">
+											
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item3'
+									>
+										<div class="fixedFont heading" id="getSelectedValue">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>getSelectedValue</b>()
+										</div>
+										
+										<div class="description">
+											获取最终选取的值
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item4'
+									>
+										<div class="fixedFont heading" id="getStartValue">
+											<span class='lighter'>
+											
+											</span>
+											
+											<span class="light">{Number}</span>
+											
+											<b>getStartValue</b>()
+										</div>
+										
+										<div class="description">
+											获取开始游标的值
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+											<dl class="detailList nomargin">
+											
+												
+												
+												
+												
+												
+												
+												
+													<dt class="heading">Returns:</dt>
+													
+														<dd><span class="light fixedFont">{Number}</span> </dd>
+													
+												
+												
+												
+												
+												
+											
+											</dl>
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item5'
+									>
+										<div class="fixedFont heading" id="render">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>render</b>()
+										</div>
+										
+										<div class="description">
+											构建dom函数
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item6'
+									>
+										<div class="fixedFont heading" id="setEndValue">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>setEndValue</b>(value)
+										</div>
+										
+										<div class="description">
+											设置结束游标的值
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>value</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										<div class="hr"></div>
+									</li>
+								
+									<li 
+										 class='item7'
+									>
+										<div class="fixedFont heading" id="setStartValue">
+											<span class='lighter'>
+											
+											</span>
+											
+											
+											
+											<b>setStartValue</b>(value)
+										</div>
+										
+										<div class="description">
+											设置开始游标的值
+											
+											
+											
+											
+										</div>
+										
+										
+										
+										
+											<dl class="detailList params">
+												<dt class="heading">Parameters:</dt>
+												
+													<dt>
+														<b>value</b>
+														
+													</dt>
+													<dd></dd>
+												
+											</dl>
+										
+										
+										
+										
+									</li>
+								
+							</ul>
+						</div>
+					</div>
+				</section>
+			
+			
+	<!--
+	#### EVENT DETAILS
+	-->		
+			
+		</article>
+	</div>
+</div>
+
+		<script type="text/javascript">
+			wbos.CssTools.MediaQueryFallBack.LoadCss('../css/screen.css', '../css/handheld.css', 660)
+			codeview.classFilter.Init()
+		</script>
+	</body>
+</html>
+

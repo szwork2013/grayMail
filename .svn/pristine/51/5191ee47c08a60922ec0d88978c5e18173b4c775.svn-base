@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>mail.139.com</title>
+</head>
+<body>
+<style>
+body,th, td {
+    margin: 0;
+    padding: 0;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+	font-size:12px;
+	table-layout:fixed;
+	 width:100%;
+}
+
+.header , .header td ,.midder ,.midder td{
+	vertical-align:top;
+}
+</style>
+<table style="height:100%;min-width:660px;">
+  <tr>
+    <td style="background-color:#E7E4E7;padding:0 30px">
+      <table>
+        <tr>
+          <td background="headerbg.png" style="height:40px;background-position:0 bottom;background-repeat:repeat-x;"></td>
+        </tr>
+        <tr>
+          <td background="contentbg.png" style="background-color:#fff;background-repeat:repeat-x;background-position:0 bottom;padding:0 30px;">
+            <table style="height:100%">
+              <tr>
+                  <td background="rowbg.png" class="content" id="content139" contentEditable=true
+                  style="color:#330000;
+                  font-size:12px;
+                  min-height:360px;
+                  padding:5px 0 25px;
+                  line-height:30px;
+                  height:360px;
+                  _height:360px;
+                  _overflow:visible;
+                  vertical-align:top;"></td>
+              </tr>
+            </table>
+            </td>
+        </tr>
+        <tr>
+          <td style="height:150px;" valign="top">
+            <table background="footerbg.png" style="background-repeat:repeat-x">
+              <tr>
+                <td background="footer-left.png" style="background-position:0 bottom;background-repeat:no-repeat;height:150px;width:424px"></td>
+                <td background="footer-right.png" style="background-position:right 100px;background-repeat:no-repeat;"></td>
+              </tr>
+            </table>
+            </td>
+        </tr>
+      </table>
+      </td>
+  </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="pageLoading" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta content="IE=EmulateIE7" http-equiv="X-UA-Compatible" />
+<script type="text/javascript">
+    var ua = navigator.userAgent;
+	if(ua.indexOf("MSIE 9")==-1 && ua.indexOf("MSIE 10")==-1){
+	    document.designMode="on";
+	}
+	document.domain=window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+	if (document.all) {
+        document.attachEvent("onkeydown", keyDown);
+    }else{
+        document.addEventListener("keydown",keyDown,false);
+    }
+
+    function keyDown(e){
+        e = e || event;
+        try {
+	        if (window.top.globalKeyDownEvent) {
+		        return window.top.globalKeyDownEvent(e);
+	        }
+        } 
+        catch (e) {
+        }
+    }
+</script>
+<title>blank</title>
+</head>
+<body></body>
+</html>

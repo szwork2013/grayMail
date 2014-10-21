@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" " http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns=" http://www.w3.org/1999/xhtml">
+<head>
+<title>139邮箱</title>
+<meta charset="utf-8">
+<script type="text/javascript">document.write('<script src="feature_meal_config.js?' + Math.random() + '"><\/script>')</script>
+<script type="text/javascript">
+document.domain=window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1].replace(/:\d+/,"");
+filltag(['module/set/feature_meal_upgrade.css', ['jquery-1.7.1.min.js','',rmResourcePath], ['utils_controls.js','GB2312',rmResourcePath]], resourcePath);
+</script>
+<!--[if IE 6]><script>document.write('<script src="' + resourcePath + '/js/libs/DD_belatedPNG.js"><\/script>')</script><![endif]-->
+<script type="text/javascript">
+$(function(){
+    var serviceName = Utils.queryString("toName");
+	serviceName = Utils.htmlEncode(serviceName);
+    $(".txtTarget").text(serviceName);
+})
+</script>
+</head>
+
+<body class="setbody">
+<div id="header">
+ <div class="wrapper m_clearfix">
+   <h1 class="logo"><a href="http://mail.10086.cn">139邮箱</a></h1>
+   <p class="top_right"><a href="http://mail.10086.cn">邮箱首页</a>&nbsp; | &nbsp;<a href="http://help.mail.10086.cn/statichtml/0/index.html">帮助中心</a></p>
+ 
+ </div>
+</div><!--header--> 
+
+<div id="main">
+ <div class="wrapper">
+    <div class="verifyBox">
+      <div class="verifyBox_head">
+       <h2>变更为<span class="txtTarget"></span>邮箱</h2>
+       <h3>升级邮箱，做与众不同的自己！高性能、个性化、专业级的个人邮箱</h3>
+       <em class="note_ico"></em>
+      </div>
+      
+      <div class="marginBox p_relative">
+        <p class="success_note">您的邮箱变更为<em class="txtTarget"></em>的请求已提交！<span>请留意随后下发的短信通知！</span></p>
+      </div>
+    </div><!--verifyBox-->
+ </div>
+</div><!--main-->
+
+<div class="wrapper">
+  <div id="footer" class="m_clearfix">
+    <p class="fl"><a href="http://help.mail.10086.cn/statichtml/1/Content/1013.html">版权声明</a> | <a href="http://www.10086.cn/service/advise/index.htm">客服受理</a> | <a href="http://www.10086.cn/aboutus/index_4450.htm">关于移动</a> | <a href="http://open.mail.10086.cn/">开放平台</a></p>
+    <p class="fr footer_ico"><a target="icp" href="http://www.miibeian.gov.cn/">京ICP备05002571号</a> <span style="color:#999999; padding:0 5px; float:none;">|</span> <a style="color:#999999;" href="http://www.10086.cn/" target="_blank"  title="中国移动通信">中国移动通信版权所有</a></p>
+  </div>
+</div><!--footer-->
+</body>
+</html>

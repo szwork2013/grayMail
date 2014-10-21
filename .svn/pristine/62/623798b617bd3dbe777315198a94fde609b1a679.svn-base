@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" id="pg-window">
+<head>
+    <title>邮件附件保存到彩云</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <script type="text/javascript">
+    var v="20120213";
+    //设域
+    document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1].replace(/:\d+/, "");
+    CommonInit(document);
+
+function CommonInit(docCur, diskResJs, dCssaAble) {
+    var doc = docCur || document;
+    //获得资源路径
+    var resourcePath = getResource();
+    var diskResourcePath = resourcePath[1];   //资源
+    var htmlCode="";
+    if(dCssaAble == undefined || dCssaAble == true) {
+       htmlCode += getLinkTag(resourcePath[0] + "/css/netdisk.css");
+    }
+    htmlCode += getLinkTag("");   //保留皮肤的css
+    top.loadScript("jquery.js", doc);
+    top.loadScript("m2011.utilscontrols.pack.js", doc);
+
+    top.loadScript("/m2012/js/service/disk/m2011.disk.diskconf.js", doc);
+    top.loadScript("/m2012/js/service/disk/m2011.disk.diskcommon.js", doc);
+    
+    top.loadScript("/m2012/js/service/disk/m2011.disk.upload.js", doc);
+    top.loadScript("/m2012/js/service/disk/m2011.disk.savemailattach.js", doc);
+
+    doc.write(htmlCode);
+}
+function getResource() {
+	var resourcePath = [];
+	if (top.isRichmail) {//rm环境,返回rm资源服务器路径
+		var path = window.top.rmResourcePath;
+		resourcePath.push(path);
+		resourcePath.push(path.replace("richmail", "newnetdisk4") + "/");
+	} else {
+		var path = window.top.resourcePath;
+		resourcePath.push(path);
+		resourcePath.push(path.replace("coremail", "newnetdisk4") + "/");
+	}
+	return resourcePath;
+}
+function getJsTag(path,charset) {
+    var html="<script charset='utf-8' src='"+ path +"?v="+ v +"' type='text/javascript'></"+"script>";
+    if (charset) html = html.replace("utf-8",charset);
+    return html;
+}
+function getLinkTag(path){
+    var text="";
+    if(path)text="href='"+path+"?v="+v+"'";
+    return "<link rel='stylesheet' type='text/css' "+text+" />";
+}
+</script>
+
+
+<script type="text/javascript">
+    //加载皮肤
+    Utils.loadSkinCss(null,document, "netdisk");
+    $().ready(PageInit);
+</script>
+
+</head>
+<body >
+<div class="dialog" id="dialog1">
+	<div class="dl-tip">
+		<p>请选择文件保存的位置：<p style="display:none"><select id="stPosition">
+				</select></p></p>
+	</div>
+	<div class="bd">
+		<ul class="file-tree"  id="file-tree2">
+		</ul>
+	</div>
+	<div class="ft">
+		<ul class="dbtn-list">
+			<li><a class="btnNormal" href="javascript:;" id="aSaveAttach">确 定</a></li>
+			<li><a class="btnNormal" href="javascript:;" id="aCancel">取 消</a></li>
+		</ul>
+	</div>
+</div>
+<div class="dialog" style="display:none" id="dialogOK">
+	<div class="bd">
+		<h3 id="h3Name"></h3>
+		<p><a href="javascript:;" id="aOpenDisk">查看</a></p>
+		<i class="i-dialog-warn"></i></div>
+	<div class="ft">
+		<ul class="dbtn-list">
+			<li><a class="btnNormal" href="javascript:;" id="aSaveOK">确 定</a></li>
+		</ul>
+	</div>
+</div>
+</body>
+</html>

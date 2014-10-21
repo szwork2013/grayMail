@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>信纸</title>
+<script type="text/javascript">
+	document.domain=window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+</script>
+<script>
+    try{
+        top.loadScript('libs.pack.js', document);
+        top.loadScript('m139.core.pack.js', document);
+        top.loadScript("m2012.ui.common.pack.js", document);
+        top.loadScript("letterpaper.htm.pack.js", document);
+        top.loadCSS(["common/global.css", "module/letter.css"], document);
+    } catch (e) { }
+</script>
+</head>
+<body id="pageLetterPager">
+<div class="letterPage">
+	<div class="dropDown dropdown-letter" id="papers">
+		<div class="dropDownA" href="javascript:void(0)"><i class="i_triangle_d"></i></div>
+		<div class="dropDownText">全部</div>
+	</div>
+	<div class="letterList">
+		<div class="letterListdiv" id="paperContainer">
+		</div>
+	</div>
+</div>
+</body>
+</html>

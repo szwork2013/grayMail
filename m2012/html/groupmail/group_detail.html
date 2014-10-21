@@ -1,0 +1,89 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="Keywords" content="">
+    <meta name="Description" content="">
+    <title>通讯录首页-139邮箱</title>
+    <script type="text/javascript">
+        document.domain = window.location.host.match(/[^.]+\.[^.]+$/)[0];
+        var resourcePath = top.$App.getResourcePath(), resourcePath = resourcePath.replace('richmail', 'coremail');
+        try {
+            top.loadCSS(["common/global.css", "module/addr/addrnew.css", "module/addr/addr.css"], document);
+            top.loadScript('libs.pack.js', document);
+            top.loadScript('m139.core.pack.js', document);
+            top.loadScript("m2012.ui.common.pack.js", document);
+            top.loadScript("/m2012/js/packs/addr/addr_zh_hans.pack.js", document);
+        } catch (ex) {
+        }
+    </script>
+</head>
+<body>   
+    <div class="addr-list-body bgPadding">
+        <div class="biitab" id="newHead" style="display:none;">
+            <div class="tab setTab" id="billTab">
+                <div class="tabTitle">
+                    <ul>
+                        <li><a hidefocus="1" href="../addr/addr_detail.html" bh="gom_tab_create_contacts"  style="height:30px"> <span>新建联系人</span></a></li>
+                        <li class="on"><a hidefocus="1" href="javascript:void(0);" style="height:30px"> <span>新建群组</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="setArea" id="editHead">           
+            <h2><span id="title">编辑群组</span><a href="javascript:;" class="fanghui" id="goBack">&lt;&lt;返回</a></h2>
+        </div>
+    </div>
+    <div class="addrFetionScroll" id="main" style="height:500px;">
+        <div class="add-group bgPadding" id="mainContent">
+            <div class="name mt_10">
+                <label class="show pb_5">群组名称：</label><input type="text" class="txtGroupName iText" id="txtGroupName" maxlength="16" style="color: rgb(170, 170, 170); width:440px;">
+            </div>
+            <p class="gray" id="gomUserTip" style="display:none;">您不是群组创建者，只能修改组名、添加组员，不能删除组员。</p>
+            <div class="addFormContact" style="width:452px;">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>联系人</td>
+                            <td width="32"></td>
+                            <td>已选中(<span id="selectedNum">0</span>)</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="addFcLeft p_relative AddressBookContainer" id="divContainer"></div>
+                            </td>
+                            <td width="32" style="vertical-align:middle" class="ta_c"><i class="i_addjt"></i></td>
+                            <td>
+                                <div class=" addFcRight" id="divSelection"></div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <span class="all-null">选择: &nbsp;<a class="tdu" title="" href="javascript:void(0)" id="lnkEmpty">清空已选</a></span>
+        </div>
+    </div> 
+
+    <div class="bgPadding">
+        <p class="mt_10">
+            <a role="button" hidefocus="" id="btnSave" class="btnSetG" href="javascript:;"><span>保 存</span></a>
+            <a role="button" hidefocus="" id="btnCancel" class="btnSet ml_5" href="javascript:;"><span>取 消</span></a>
+        </p>
+    </div>	
+   <div class="tips" id="gomNullTip" style="left:75px;top:35px; display:none;" role="tooltip">
+		<div class="tips-text"><i class="i-ok mr_5"></i>群组名不能为空</div>
+		<div class="tipsBottom  diamond"></div>
+	</div>
+    <div class="tips" id="gomMemberMax" style="left: 320px; top: 96px; display: none;" role="tooltip">
+        <div class="tips-text"><i class="i-ok mr_5"></i>群组人数最多50人</div>
+        <div class="tipsBottom  diamond"></div>
+    </div>
+
+<script type="text/javascript">        
+    try {
+        top.loadScript("/m2012/js/packs/addr/addr_home_team_detail.html.pack.js", document);
+    } catch (ex) {
+    }    
+</script>
+</body>
+</html>

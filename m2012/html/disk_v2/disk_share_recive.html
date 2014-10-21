@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="Keywords" content="" />
+    <meta name="Description" content="" />
+    <title>收到的分享-139邮箱</title>
+    <script type="text/javascript">
+        //设域
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+    </script>
+    <script type="text/javascript">
+        (function () {
+            var styles = [];
+            styles.push("common/global.css");
+            styles.push("module/FileExtract/extract.css");
+            styles.push("module/networkDisk/networkDisk.css");
+            top.loadCSS(styles, document);
+            top.$App.setModuleSkinCSS(document);
+
+            top.loadScript('libs.pack.js', document)
+            top.loadScript('m139.core.pack.js', document);
+            top.loadScript("m2012.ui.common.pack.js", document);
+           
+        })();
+    </script>
+    <script type="text/template" id="tplShareList">
+        <% _.each(obj, function(i){ %>
+         <tr data-shareid="<%=_.escape(i.shareObjId)%>" system="<%=i.isSystem%>">
+             <td class="t-check wh1">
+                 <input type="checkbox" class="<%=i.hideClass%>"/>
+             </td>
+             <td class="t-type wh2" style="vertical-align: middle;">
+                 <a href="javascript:void(0);" sharetype="<%=i.shareObj%>" class="<%=i.fileIcon%>"></a>
+             </td>
+             <td class="t-name" style="vertical-align: middle;">
+                 <a class="attchName" title="<%=_.escape(i.shareObjName)%>" sharetype="<%=i.shareObj%>"><%=_.escape(i.shareObjName)%></a>
+             </td>
+             <td class="t-sName wh4" style="vertical-align: middle;">
+                 <span><%=_.escape(i.sharer)%></span>
+             </td>
+             <td class="t-date wh5" style="vertical-align: middle;"><%=i.shareTime%></td>
+             <td class="t-size wh6" style="vertical-align: middle;"><%=i.size%></td>
+         </tr>
+        <% }) %>
+    </script>
+    <script type="text/template" id="tplNavigation">
+        <a href="javascript:;">全部文件</a>
+        <% _.each(obj, function(i){ %>
+        <span class="f_st">&nbsp;&gt;&nbsp;</span>
+        <a href="javascript:;" data-path="<%=_.escape(i.path)%>" data-system="<%=i.isSystem%>" data-dirid="<%=_.escape(i.dirId)%>"><%=_.escape(i.dirName)%></a>
+        <% }) %>
+    </script>
+</head>
+<body>
+    <div id="sortMenus" class="menuPop  shadow hide" bindautohide="1">
+        <ul>
+            <li sort="name-desc"><a href="javascript:void(0);"><span class="text">按名称</span></a></li>
+            <li sort="date-desc"><a href="javascript:void(0);"><span class="text">按上传时间</span></a></li>
+            <li sort="size-desc"><a href="javascript:void(0);"><span class="text">按大小</span></a></li>
+            <li sort="type-desc"><a href="javascript:void(0);"><span class="text">按类型</span></a></li>
+        </ul>
+    </div>
+    <div class="outArticle">
+        <div>
+            <div id="container">
+
+                <div class="toolBar bgMargin border-btm">
+                    <ul class="toolBarUl">
+                        <li class="mr_0">
+                            <a id="btnDown" bh="diskv2_download_package" href="javascript:void(0)" class="btnTb">
+                                <span class="p_relative">下载</span>
+                            </a>
+                        </li>
+                        <li class="mr_0">
+                            <a id="btnCopy" href="javascript:void(0)" class="btnTb ml_6">
+                                <span class="p_relative">存彩云网盘</span>
+                            </a>
+                        </li>
+                        <li class="mr_0">
+                            <a id="btnDelete" href="javascript:void(0)" class="btnTb ml_6">
+                                <span class="p_relative">删除</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div id="filelist_pager">
+                        <div class="ml_10 fr" id="dv_pager">
+                        </div>
+                    </div>
+                    <a href="javascript:void(0)" class="diskSortTitle pagenum" style="float: right;" id="btnSort"><span class="pagenumtext">排序</span></a>
+                </div>
+
+                <div class="inboxHeader bgMargin">
+                    <span id="navContainer"></span>
+                </div>
+
+                <div class="diskTableList onScollTable" id="tbl_th">
+                    <table cellspacing="0" cellpadding="0" class="listHead newShareTable" id="sort2">
+                        <thead>
+                            <tr>
+                                <th class="t-check wh1" style="text-align: left; padding-left: 8px; vertical-align: middle;">
+                                    <input type="checkbox" id="cbSelectAll" />
+                                </th>
+                                <th class="t-name wh4" title="点击按名称排序" style="cursor:pointer" sort="name-desc">文件名</th>
+                                <th class="t-name " title="">&nbsp;</th>
+                                <th class="t-sName wh4">分享人</th>
+                                <th class="t-date wh5" title="点击按时间排序" style="cursor:pointer" cur="1" sort="date-desc">时间</th>
+                                <th class="t-size wh6" title="点击按大小排序" style="cursor:pointer" sort="size-desc">大小</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+
+                <div class="appendixList p_relative" style="margin-top: 0px; margin-right: 0px;  overflow-y:auto; overflow-x:hidden; " id="tbl_body">
+                    <table cellpadding="0" class="tbl-list listHead newShareTable">
+                        <tbody id="tblist">
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="hide" id="dv_nofile" style="margin-top: 100px;">
+                    <div id="d_page" class="imgInfo addr-imgInfo ta_c">
+                        <dl>
+                            <dt>
+                                <img src="../../images/module/networkDisk/sahreJpg.jpg"></dt>
+                            <dd>
+                                <p class="fz_14">暂无文件</p>
+                            </dd>
+                            <dd>
+                                <p>好友分享给你的文件、文件夹会出现在这里哦！</p>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+        
+    <script type="text/javascript">
+        top.loadScript("disk_share.html.pack.js", document);
+        $(function () {
+            var shareView = new M2012.Disk.View.ShareRecive();
+        });
+    </script>
+</body>
+</html>

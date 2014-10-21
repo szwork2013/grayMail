@@ -1,0 +1,16 @@
+.bill_box{ padding: 0 10px 10px; line-height: 1;}
+.billleft{width: 100%;      float: left;      display: inline;}
+.billright{float:left; background: #fff; width: 214px;margin-left: -239px;border: 6px solid #d4d4d4;margin-top: -28px;}
+.bill-serve-right{margin-top:10px !important;}
+.billleftDiv{margin: 0 240px 0 0;}
+.bill_box h3{ font-size: 12px; padding: 10px 0 5px	; font-weight: bold; zoom:1;}
+#divMain,#divList{height: 100%;}
+.bill_box .ads_bill{width: 173px; height: 80px;  margin-top: 6px; position: relative; display: block; }
+.bill_box .ads_bill1,.bill_box .ads_bill2,.bill_box .ads_bill3{ background: url(../../images/module/bill/ads_bill.gif) no-repeat 0 0;}
+.bill_box .ads_bill2{background-position:  0 -80px;}
+.bill_box .ads_bill3{background-position:  0 -160px;}
+.bill_box .ads_bill a{width: 85px; height: 25px; display: block; position: absolute; left: 14px; top: 50px; }
+.bill_box ul{ padding: 5px 0;}
+.bill_box ul a{ height: 20px; line-height: 20px; padding-left: 4px; _padding-top: 3px; _height: 17px; text-decoration: none; display: block; }
+.bill_box .i_bill{background-image: url(http://image0.139cm.com/rm/richmail/images/min_mail_icons01.gif);width: 8px; height: 10px; margin-right: 5px; background-position: -544px -90px;  }
+

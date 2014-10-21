@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <title>帐号绑定</title>
+    <script type="text/javascript">
+    //设域
+    document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+    //****版本号的控制**********
+    var v = "20120503";
+    //公共初始化
+    function CommonInit(docCur, diskWindowTop, diskResJs,dCssaAble) {
+        var doc = docCur || document;
+        var diskTop = diskWindowTop || window;
+        //获得资源路径
+        var resourcePath = window.top.resourcePath;
+        var diskResourcePath = resourcePath.replace("coremail", "newnetdisk4")+"/";   //资源
+        var htmlCode="";
+        if(dCssaAble == undefined || dCssaAble == true) {
+           htmlCode+=getLinkTag(resourcePath + "/css/global.css");
+        }
+        
+        htmlCode += getLinkTag("");   //保留皮肤的css
+        window.top.loadScript("jquery.js", doc);
+        window.top.loadScript("m2011.utilscontrols.pack.js", doc);
+        
+        if(diskResJs && diskResJs.length > 0){
+            for(var i = 0; i < diskResJs.length; i++){
+               if((/\.js$/i).test(diskResJs[i])) { 
+					htmlCode += getJsTag(diskResourcePath + diskResJs[i])
+				};
+               if((/\.css$/i).test(diskResJs[i])) {
+					htmlCode += getLinkTag(diskResourcePath + diskResJs[i])
+				};
+            }
+        }
+        doc.write(htmlCode);
+    }
+
+    function getJsTag(path,charset){
+        var html="<script charset='utf-8' src='"+ path +"?v="+v+"' type='text/javascript'></" + "script>";
+        if (charset) html = html.replace("utf-8", charset);
+        return html;
+    }
+    
+    function getLinkTag(path){
+        var text = "";
+        if(path)text = "href='"+ path +"?v="+ v +"'";
+        return "<link rel='stylesheet' type='text/css' "+text+" />";
+    }
+    CommonInit(null, null, ["js/m2011.disk.diskcommon.js", "js/m2011.disk.diskconf.js", "js/m2011.disk.sinabind.js"]);
+    </script>
+    <script type="text/javascript">
+    try{
+        //加载皮肤
+        Utils.loadSkinCss();
+        //初始化
+        $(function(){
+            sinaBindPage.init();
+        });
+        
+    } catch(ex) { alert(ex.message) }
+    </script>
+</head>
+<body>
+<div class="offSinaBind">
+	<p class="offSinaBind_path"><a href="javascript:top.Links.show('optionindex')">设置</a>&gt;&gt;帐号绑定</p>
+    <div class="offSinnaBind_mes">
+    	<a href="javascript:void(0)" class="fsb_m_img weibo bd_sina"></a>
+        <dl class="offSinnaInfo">
+        <dt><strong>新浪微博</strong></dt>
+        <dd>建立绑定后，在您的彩云中选择任意数量文件，点击鼠标右键【发布到新浪微博】便能生成一条微博，所有粉丝都能通过链接下载。</dd>
+        </dl>
+    </div>
+    <p><a href="javascript:;" id="aUnBind"  style="display:none"  class="solBindBtn">解除绑定</a><input disabled id="ipDisable" style="display:none" type="button" value="解除绑定" name="" /></p>
+</div>
+<iframe id="iframeserver" width="0" height="0" style="border: none"></iframe>
+</body>
+</html>

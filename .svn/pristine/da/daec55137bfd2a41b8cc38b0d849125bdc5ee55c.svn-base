@@ -1,0 +1,529 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>HTML编辑器</title>
+<style>
+.menu_sh{
+	height: 160px;
+	overflow-x:hidden;
+	overflow-y:auto;
+}
+</style>
+<script type="text/javascript">
+//实例化,传入一个可编辑的frame,和一个纯文本textarea,接着所有操作都是围绕着他们俩
+function EditorBox(frameElement,plainTextElement){
+    var theEditorBox=this;  
+    this.isHtml=true;
+    this.contentFrame=frameElement;
+    this.contentPlainText=plainTextElement;
+    if(!document.all){
+    if($.browser.opera){
+            frameElement.contentWindow.document.body.contentEditable="false";
+            frameElement.contentWindow.document.designMode = "on";
+        }else{
+            frameElement.contentWindow.document.body.contentEditable="true";
+            if(navigator.userAgent.indexOf("WebKit")==-1){
+                frameElement.contentWindow.document.body.contentEditable = "false";
+            }
+        }
+    }
+    $(frameElement.contentWindow.document).click(
+        function(){
+            if(_PopMenu.current)_PopMenu.current.hide();
+        }
+    )
+    //在光标位置插入html   
+    function insertHTML(doc,html){   
+        var sel=doc.selection;   
+        if(sel!=null){   
+            var rng=sel.createRange();   
+            if(rng!=null)   
+            rng.pasteHTML(html);   
+       }   
+    } 
+    //命令族start
+    this.cut=function(){this.execCommand("Cut")}
+    this.copy=function(){this.execCommand("Copy")}
+    this.paste=function(){this.execCommand("Paste")}
+    this.setBold=function(){this.execCommand("Bold")}
+    this.setUnderline=function(){this.execCommand("Underline")}
+    this.setItalic=function(){this.execCommand("Italic")}
+    this.setFontFamily=function(fontName){this.execCommand("fontname",fontName)}
+    this.setFontSize=function(fontSize){this.execCommand("FontSize",fontSize)}
+    this.setForeColor=function(color){this.execCommand("ForeColor",color)}
+    //对齐方式
+    this.setJustifyLeft=function(){this.execCommand("JustifyLeft")}
+    this.setJustifyCenter=function(){this.execCommand("JustifyCenter")}
+    this.setJustifyRight=function(){this.execCommand("JustifyRight")}
+    //增加,减少缩进
+    this.setIndent=function(){this.execCommand("Indent")}
+    this.setOutdent=function(){this.execCommand("Outdent")}
+    //数字列表,符号列表
+    this.insertorderedlist=function(){this.execCommand("Insertorderedlist")}
+    this.insertunorderedlist=function(){this.execCommand("Insertunorderedlist")}
+    //插入图片
+    this.insertImage = function(uri, useRange) {
+        this.contentFrame.contentWindow.focus();
+        try {
+            if (useRange && document.all && window.HtmlRange && HtmlRange.parentElement().ownerDocument == this.contentFrame.contentWindow.document) {
+                HtmlRange.execCommand("InsertImage", false, uri);
+                //收起浮动菜单
+                if (_PopMenu.current) _PopMenu.current.hide();
+            } else {
+                this.execCommand("InsertImage", uri);
+				var T=this;
+				
+				window.setTimeout(function(){T.insertObject("&nbsp;");},100);//让图片失去焦点
+				
+            }
+        } catch (e) {
+            this.execCommand("InsertImage", uri);
+        }
+
+        $("img[src='{0}']".format(uri), this.contentFrame.contentWindow.document).each(function() {
+            $(this).load(function() {
+                if (this.width > 520 && this.parentNode.tagName!="A") {
+                    var a = this.ownerDocument.createElement("a");
+                    var regGetContentId = /[&?]cid=([^&]+)/i;
+                    var match = this.src.match(regGetContentId);
+                    if (this.src.indexOf(location.host) > 0 && match) {
+                        a.href = "cid:" + match[1];
+                    } else {
+                        a.href = this.src;
+                    }
+                    a.target = "_blank";
+                    a.innerHTML = "<img title='点击查看大图' border='0' src='{0}' width='520' />".format(this.src);
+                    $(this).replaceWith(a);
+                }
+            });
+        });
+    }
+    this.insertObject=function(html){
+        var obj=frameElement.contentWindow.document.getElementById("content139");
+        if(!obj)obj=frameElement.contentWindow.document.body;
+        obj.innerHTML=html+obj.innerHTML;
+		obj.focus();
+    }
+    //ie,编辑器失去焦点时保存选中区域
+    this.contentFrame.onblur=function(){
+        if(document.all)HtmlRange=this.contentWindow.document.selection.createRange();
+    }
+    //插入超链接
+    this.setLink=function(){
+        if(getSelectedText(frameElement.contentWindow)==""){
+            FloatingFrame.alert(top.frameworkMessage["EditorWordsError"]);
+            return;
+        }
+        FloatingFrame.prompt("系统提示","请输入网址:", "http://",function(url){
+            if(url&&url!="http://"){
+                if(document.all && window.HtmlRange && HtmlRange.parentElement().ownerDocument==theEditorBox.contentFrame.contentWindow.document){
+                    HtmlRange.execCommand("CreateLink",false,url);
+                }else{
+                    theEditorBox.execCommand("CreateLink",url);
+                }
+            }
+        });
+    }
+    //插入签名
+    this.setSign = function(text) {
+        if (this.isHtml) {
+            var doc = this.contentFrame.contentWindow.document;
+            var signContainer = doc.getElementById("signContainer");
+            if (!signContainer) {
+                var reg = /(?:<br>)?-{10}<br>.*?<br>-{10}(?:<br>)?/i;
+                var match = doc.body.innerHTML.match(reg);
+                if (match) {
+                    doc.body.innerHTML = doc.body.innerHTML.replace(match, "<div id='signContainer'></div>");
+                    signContainer = doc.getElementById("signContainer");
+                } else {
+                    signContainer = doc.createElement("div");
+                    signContainer.id = "signContainer";
+                    (doc.getElementById("content139") || doc.body).appendChild(signContainer);
+                }
+            }
+            signContainer.innerHTML = "----------<br>" + text.replace(/^\s*<p>|<\/p>\s*$/gi, "").replace(/\r?\n/g, "<br>") + "<br>----------";
+        } else {
+            var reg = /\r?\n?-{10}\r?\n[\s\S]*?\r?\n-{10}\r?\n?/;
+            var match = this.contentPlainText.value.match(reg);
+            if (match) {
+                this.contentPlainText.value = this.contentPlainText.value.replace(match, "\r\n----------\r\n" + text + "\r\n----------\r\n");
+            } else {
+                this.contentPlainText.value += "\r\n----------\r\n" + text + "\r\n----------\r\n";
+            }
+        }
+    }
+    this.addReplyContent=function(content){
+        var html=this.getHtmlContent()+"<div></div><br/><div id='signContainer'></div><hr id='replySplit'/>"+content;
+        this.setHtmlContent(html);
+    }
+    this.getHtmlContent=function(){
+        return this.contentFrame.contentWindow.document.body.innerHTML;
+    }
+    this.setHtmlContent=function(htmlCode){
+        this.contentFrame.contentWindow.document.body.innerHTML=htmlCode;
+    }
+    //将html文本转化成普通文本
+    this.getHtmlToTextContent=function(){
+        var body=this.contentFrame.contentWindow.document.body;
+        var content="";
+        if(document.all){
+            content=body.innerText;
+        }else{
+            var tmp=body.innerHTML;
+            tmp=tmp.replace(/<br\s?\/?>/ig,"\n");
+            var div=document.createElement("div");
+            div.innerHTML=tmp;
+            content=div.textContent;
+        }
+        return content;
+    }
+    this.getTextToHtmlContent=function(){
+        var content=this.contentPlainText.value;
+        var div=document.createElement("div");
+        if(document.all){
+            content=content.replace(/\r?\n/g,"<br>");
+            content=content.replace(/ /g,"&nbsp;");
+            div.innerHTML=content;
+            return div.innerHTML;
+        }else{
+            div.appendChild(document.createTextNode(content));
+            return div.innerHTML.replace(/\r?\n/g,"<br>");
+        }
+    }
+    this.getTextContent=function(){
+        return this.contentPlainText.value;
+    }
+    this.setTextContent=function(text){
+        this.contentPlainText.value=text;
+    }
+    //切换模式 html or 纯文本
+    this.switchEditor=function(){
+        if(this.isHtml){
+            this.setTextContent(this.getHtmlToTextContent());
+            this.contentPlainText.style.display="";
+            this.contentFrame.style.display="none";
+            this.isHtml=false;
+        }else{
+            this.setHtmlContent(this.getTextToHtmlContent());
+            this.contentFrame.style.display="";
+            this.contentPlainText.style.display="none";
+            this.isHtml=true;
+        }
+    }
+    //命令族end
+    
+    //最最核心的函数--execCommand
+    this.execCommand=function(command,param){
+        this.contentFrame.contentWindow.focus();
+        this.contentFrame.contentWindow.document.execCommand(command,false,param);
+        //触发"事件"
+        this.callCommandEvent(command,param);
+        //收起浮动菜单
+        if(_PopMenu.current)_PopMenu.current.hide();
+    }
+    //简单地模仿事件...
+    this.commandEventHandlers=[];
+    this.addCommandEventListener=function(handler){
+        this.commandEventHandlers.push(handler);
+    }
+    this.callCommandEvent=function(command,param){
+        for(var i=0;i<this.commandEventHandlers.length;i++){
+            this.commandEventHandlers[i](this,command,param);
+        }
+    }
+}
+
+function showFontSizeMenu(host){
+    var menu=new _PopMenu();
+    menu.addItem("<span style='font-size:xx-small;'>六号</span>",function(){theEditorBox.setFontSize(1)});
+    menu.addItem("<span style='font-size:x-small;'>五号</span>",function(){theEditorBox.setFontSize(2)});
+    menu.addItem("<span style='font-size:small;'>四号</span>",function(){theEditorBox.setFontSize(3)});
+    menu.addItem("<span style='font-size:medium;'>三号</span>",function(){theEditorBox.setFontSize(4)});
+    menu.addItem("<span style='font-size:large;'>二号</span>",function(){theEditorBox.setFontSize(5)});
+    menu.addItem("<span style='font-size:x-large;'>一号</span>",function(){theEditorBox.setFontSize(6)});
+    menu.show(host);
+}
+
+function showFontFamilyMenu(host){
+    var fontFamilies=["宋体","黑体","楷体_GB2313","隶书","幼圆","Arial","Arial Narrow","Arial Black","Comic Sans MS","Courier","System","Times New Roman","Verdana"];
+    var menu=new _PopMenu("menu_sh editorSelect");
+    for(var i=0;i<fontFamilies.length;i++){
+        var a=document.createElement("a");
+        a.value=fontFamilies[i];
+        a.style.lineHeight="120%";
+        a.style.fontFamily=fontFamilies[i];
+        a.innerHTML=fontFamilies[i];
+        menu.addItem(a,function(item){theEditorBox.setFontFamily(item.value)});
+    }
+    menu.show(host);
+}
+
+function showAlignMenu(host){
+    var menu=new _PopMenu();
+    menu.addItem("左对齐",function(){theEditorBox.setJustifyLeft()});
+    menu.addItem("居中对齐",function(){theEditorBox.setJustifyCenter()});
+    menu.addItem("右对齐",function(){theEditorBox.setJustifyRight()});
+    menu.show(host);
+}
+function showIndentMenu(host){
+    var menu=new _PopMenu();
+    menu.addItem("增加缩进",function(){theEditorBox.setIndent()});
+    menu.addItem("减少缩进",function(){theEditorBox.setOutdent()});
+    menu.show(host);
+}
+function showOrderedlistMenu(host){
+    var menu=new _PopMenu();
+    menu.addItem("数字列表",function(){theEditorBox.insertorderedlist()});
+    menu.addItem("符号列表",function(){theEditorBox.insertunorderedlist()});
+    menu.show(host);
+}
+function showColorMenu(host){
+    var menu=new _PopMenu("colorSelect");
+    var colors=["#000000","#993300","#333300","#003300","#003366","#000080","#333399","#333333","#800000","#ff6600","#808000","#008000","#008080","#0000ff","#666699","#808080","#ff0000","#ff9900","#99cc00","#339966","#33cccc","#3366ff","#800080","#999999","#ff00ff","#ffcc00","#ffff00","#00ff00","#00ffff","#00ccff","#993366","#c0c0c0","#ff99cc","#ffcc99","#ffff99","#ccffcc","#ccffff","#99ccff","#cc99ff","#ffffff"];
+    var obj;
+    for(var i=0,len=colors.length;i<len;i++){
+        obj=document.createElement("a");
+        obj.href="javascript:void(0)";
+        obj.style.backgroundColor=colors[i];
+        menu.addItem(obj,function(item){
+            theEditorBox.setForeColor(item.style.backgroundColor);
+        });
+    }
+    menu.show(host);
+}
+//_PopMenu是一个独立的对象
+function _PopMenu(containerClass){
+    Utils.stopEvent();
+    var theMenu=this;
+    var container=document.createElement("div");
+    this.container=container;
+    container.id="editorSelect";
+    container.className=containerClass||"editorSelect";
+    container.style.display="none";
+    var documentClick=null;
+    this.show=function(host){
+        if(_PopMenu.current)_PopMenu.current.hide();
+        _PopMenu.current=theMenu;
+        document.body.appendChild(container);
+        //Utils.offsetHost(host,container);
+        var offset=$(host).offset();
+        with(container.style){
+            left=offset.left+"px";
+            top=offset.top+$(host).height()+"px";
+            display="block";
+            position="absolute";
+        }
+
+        $(document).click(documentClick=function(){
+            $(this).unbind("click",arguments.callee);
+            if(_PopMenu.current)_PopMenu.current.hide();
+        })
+
+    }
+    container.onclick=function(e){
+        Utils.stopEvent();
+    }
+    this.hide=function(){
+        if(!_PopMenu.current)return;
+        if(container.parentNode)container.parentNode.removeChild(container);
+        if(theMenu.onHide)theMenu.onHide();
+        $(document).unbind("click",documentClick);
+        _PopMenu.current=null;
+    }
+    this.addItem=function(title,clickHandler){
+        var item;
+        if(typeof(title)=="string"){
+            item=document.createElement("a");
+            item.innerHTML=title;
+        }else{
+            item=title;
+        }
+        item.href="javascript:void(0)";
+//        item.onmousedown=function(evt){
+//            if(clickHandler)clickHandler(this);
+//            theMenu.hide();
+//        }
+        item.onclick=function(evt){
+            if(clickHandler)clickHandler(this);
+            theMenu.hide();
+        }
+        container.appendChild(item);
+    }
+    this.setContent=function(obj){
+        if(typeof obj == "string"){
+            container.innerHTML=obj;
+        }else{
+            container.innerHTML="";
+            container.appendChild(obj);
+        }
+    }
+}
+
+//表情
+function showFaceWindow(host){
+    if(!theEditorBox.isHtml){
+        return FloatingFrame.alert(top.frameworkMessage["EditorFaceError"]);
+    }
+    var menu=new _PopMenu("expression");
+    menu.setContent("loading....");
+    menu.show(host);
+    var offset=$(menu.container).offset();
+    setPosition();
+    if(window.FaceMenu){
+        FaceMenu.init(menu.container);
+        setPosition()
+    }else{
+        Utils.requestByScript("faceMenuScript",resourcePath+"/js/facemenu.js",function(){
+            if(!window.FaceMenu)return;
+            FaceMenu.init(menu.container);
+            setPosition()
+        });
+    }
+    function setPosition(){
+        $(menu.container).css("left",offset.left-$(menu.container).width()+$(host).width()+"px");
+    }
+}
+
+//签名
+function showSignMenu(host){
+    var menu=new _PopMenu();
+    menu.addItem($("<a style='font-weight:bold' href='javascript:;'>设置签名</a>")[0],function(){
+        window.top.Links.show("signature");
+    });
+    if(signList.length>0)menu.addItem(document.createElement("hr"),null);
+    for(var i=0,j=signList.length;i<j;i++){
+        var link=$("<a href='javascript:;'></a>");
+        link.text(signList[i].name);
+        link.attr("title",signList.getSignByName(signList[i].name));
+        menu.addItem(link[0],function(item){
+            theEditorBox.setSign(item.title);
+        });
+    }
+    menu.addItem(document.createElement("hr"),null);
+    for(var i=0,len=systemSign.length;i<len;i++){
+        var link=$("<a href='javascript:;'></a>");
+        link.text(systemSign[i]);
+        link.attr("title",systemSign[i]);
+        menu.addItem(link[0],function(item){
+            theEditorBox.setSign(item.title);
+        });
+    }
+    $(menu.container).css({width:"150px",height:"250px",overflow:"auto"});
+    menu.show(host);
+}
+
+
+function showImageInput(){
+    if(!theEditorBox.isHtml){
+        return FloatingFrame.alert(top.frameworkMessage["EditorImgError"]);
+    }
+    var mid = escape($("input[name='mid']").val());
+    var url = "/matrix_for_nwf/selectimage/disk_img_1.htm?sid={0}&mid={1}&compose={2}"
+    .format(sid, mid, window.frameElement.name);
+    FloatingFrame.open("插入图片", url, 480, 220, true);
+}
+
+//获取页面上选中的文字
+function getSelectedText(win) {     
+    if (win.getSelection) {         
+        return win.getSelection().toString();     
+    }else if(win.document.getSelection){      
+        return win.document.getSelection();     
+    }else if (win.document.selection){
+        return win.document.selection.createRange().text;
+    }
+    return "";
+}
+</script>
+
+
+<script type="text/javascript">
+//设域
+document.domain=window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+//获得资源路径
+var resourcePath=window.top.resourcePath;
+top.loadScript("libs.pack.js", document);
+top.loadScript("m2011.utilscontrols.pack.js", document);
+var htmlCode="";
+htmlCode+=getLinkTag("");
+htmlCode+=getLinkTag("/rm/coremail/css/global.css");
+document.write(htmlCode);
+function getJsTag(path,charset){
+    return "<script charset='" + (charset || "gb2312") + "' src='" + path + "' type='text/javascript'></" + "script>";
+}
+function getLinkTag(path){
+    var text="";
+    if(path)text="href='"+path+"'";
+    return "<link rel='stylesheet' type='text/css' "+text+" />";
+}
+
+
+
+function frmEditorOnLoad(){
+    window.theEditorBox = new EditorBox(document.getElementById("HtmlEditor"), document.getElementById("plainTextElement"));
+    resizeAll();
+    try{
+        window.parent.EditorManager.onload();
+    }catch(e){}
+}
+function resizeAll(){
+    var span = $("#toolbar").css("display") == "none" ? 4 : 33;
+    $("#HtmlEditor,#plainTextElement").height($(window.frameElement).height() - span);
+}
+</script>
+<style type="text/css">
+html,body
+{
+	width:100%;
+	height:100%;
+	margin:0;
+	padding:0;
+	}
+	body
+	{
+		width:99%;
+		}
+	iframe
+	{
+		width:100%;
+	height:200px;
+		}
+#pageCompose .editor #toolbar
+{
+	width:99%;
+	_width:100%;
+	border-bottom:0;
+	}
+#pageCompose #HtmlEditor
+{
+	width:99%;
+	_width:100%;
+	border-top:1px solid #b1b1b1;
+	}
+</style>
+</head>
+<body>
+<div id="pageCompose">
+<div class="editor">
+    <div class="toolbar" id="toolbar">
+        <a hidefocus="" class="fontFamily" href="javascript:void(0)" title="选择字体" onclick="showFontFamilyMenu(this);return false;"></a>
+	    <a hidefocus="" class="fontSize" href="javascript:void(0)"  title="文字大小" onclick="showFontSizeMenu(this);return false;"></a>
+	    <a hidefocus="" class="color" href="javascript:void(0)"  title="文字颜色" onclick="showColorMenu(this);return false;"></a>
+	    <a hidefocus="" class="fontWeight" href="javascript:void(0)"  title="加粗" onclick="theEditorBox.setBold();return false;"></a>
+	    <a hidefocus="" class="fontStyle" href="javascript:void(0)"  title="斜体" onclick="theEditorBox.setItalic();return false;"></a>
+	    <a hidefocus="" class="textDecoration" href="javascript:void(0)"  title="下划线" onclick="theEditorBox.setUnderline();return false;"></a>
+	    <a hidefocus="" class="textAlign" href="javascript:void(0)"  title="对齐" onclick="showAlignMenu(this);return false;"></a>
+	    <a hidefocus="" class="listStyleType" href="javascript:void(0)"  title="编号" onclick="showOrderedlistMenu(this);return false;"></a>
+	    <a hidefocus="" class="textIndent" href="javascript:void(0)"  title="缩进" onclick="showIndentMenu(this);return false;"></a>
+	    <a hidefocus="" class="hyperLink" href="javascript:void(0)"  title="超链接" onclick="theEditorBox.setLink();return false;"></a>
+    </div>
+    <script type="text/javascript">
+        if (Utils.queryString("hidToolBar")) document.getElementById("toolbar").style.display = "none";
+    </script>
+    <iframe hidefocus="" tabindex="5" onload="frmEditorOnLoad()" id="HtmlEditor" name="HtmlEditor" frameborder="0" src="blank.htm"></iframe>
+    <textarea tabindex="6" id="plainTextElement" style="display:none"></textarea>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="Keywords" content=""/>
+    <meta name="Description" content=""/>
+    <title>自动转发验证</title>
+    <link rel="stylesheet" href="../../css/common/frame.css" type="text/css"/>
+    <link rel="stylesheet" href="../../css/common/global.css" type="text/css"/>
+    <link rel="stylesheet" href="../../css/module/set.css" type="text/css"/>
+</head>
+<body>
+    <div class="headerTopMenu clearfix" style="background-color: #1a75ca;">
+        <a href="javascript:$App.show('welcome');" class="mailLogo_new" bh="top_logo"></a>
+    </div>
+    <div class="norTips" style="margin:0 auto;width:600px;">
+                <span class="norTipsIco">
+                    <i id="i_ok" class="i_ok succeed"></i><!-- 成功状态 -->
+                    <i id="i_fail" class="i_fail failed" style="display:none;"></i><!-- 失败 -->
+                </span>
+                <dl class="norTipsContent">
+                    <dt id="succeed" class="norTipsLine succeed"><h2 style="font-size:20px;">操作成功，您将接收来自对方邮箱的邮件。</h2></dt>
+                    <dt id="timeout" class="norTipsLine" style="display:none;">
+                        <h2 style="font-size:20px;">验证过期了。验证有效期为7天。请联系对方重新发送验证邮件。</h2>
+                    </dt>
+                    <dt id="error" class="norTipsLine" style="display:none;">
+                        <h2 style="font-size:20px;">因验证信息被篡改，验证失败了，请重新验证。</h2>
+                    </dt>
+                    <dt id="failed" class="norTipsLine" style="display:none;">
+                        <h2 style="font-size:20px;">遇到异常了，操作失败。请联系对方重新发送验证邮件</h2>
+                    </dt>
+                    
+                    <dd style="margin-top:10px;">
+                        <a id="close" href="javascript:window.opener=null;window.open('','_self');window.close();" class="btnNormal succeed">
+                            <span>关闭</span>
+                        </a>
+                        <a id="moveto" href="http://mail.10086.cn/" class="btnNormal failed" style="display:none;">
+                            <span>登录139邮箱</span>
+                        </a>
+                    </dd>
+                </dl>
+                
+            </div>
+            <script type="text/javascript" src="/m2012/js/lib/jquery-1.8.3.js"></script>
+            <script type="text/javascript">
+            function queryString(key, url) {
+                url = (url === undefined ? location.search : url);
+                url = url.split(/&|\?/);
+                var result = null;
+                key = String(key).toLowerCase();
+                for (var i = 0; i < url.length; i++) {
+                    var keyValue = url[i];
+                    var part = keyValue.split("=");
+                    if (part[0].toLowerCase() == key) {
+                        result = part[1];
+                        break;
+                    }
+                }
+                return result;
+        }
+
+            var result = queryString("result",window.location.href) ;
+            var succeedbtn = $(".succeed");
+            var failedbtn = $(".failed");
+            if (result && result == 1) {
+                succeedbtn.hide();
+                failedbtn.show();
+                $("#timeout").show()
+            } else if (result && result == 2) {
+                succeedbtn.hide();
+                failedbtn.show();
+                $("#error").show()
+            } else if (result && result == 9) {
+                succeedbtn.hide();
+                failedbtn.show();
+                $("#failed").show()
+            }
+            </script>
+
+</body>
+</html>

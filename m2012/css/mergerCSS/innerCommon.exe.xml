@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <files>
+   <file path="./../common/global.css" />
+    <file path="./../common/ico.css" />
+    <file path="./../common/group.css" />
+  </files>
+  <basePath>./</basePath>
+  <outputPath>../common/innerCommon.css</outputPath>
+  <enableCompression>true</enableCompression>
+  <enableWatch>false</enableWatch>
+  <itemTemplate>
+  <![CDATA[
+
+$Content$
+
+]]>
+  </itemTemplate>
+</root>

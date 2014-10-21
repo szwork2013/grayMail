@@ -1,0 +1,189 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>文件快递首页</title>
+    <link type="text/css" rel="Stylesheet" />
+    <style type="text/css">
+        .fileExpFileRAll
+        {
+            height: 100%;
+        }
+        .rightContentBg
+        {
+            height: 100%;
+            padding: 0;
+        }
+        .fileExpFileLAll
+        {
+            padding: 20px 0 0 30px;
+        }
+        span.upFont
+        {
+            padding-left: 0;
+        }
+        #txtMobileSend, #txtEmailSend
+        {
+            height: 18px;
+            line-height: 17px;
+        }
+    </style>
+
+    <script>
+
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+
+        top.loadScript("/m2012/js/service/largeattach/m2011.largeattach.filesharing.js", document);
+
+    </script>
+
+    <script type="text/javascript">
+        //初始化页面信息
+        fileSharing.initialize();
+        top.loadScript("/m2012/js/matrixvm/page/m2011.page.RichInputBox.js", document);
+        top.loadScript("/m2012/js/service/largeattach/m2011.largeattach.send.js", document);
+    </script>
+
+</head>
+<body id="fileExp">
+    <div class="rightContentBg">
+        <!--右边通讯录-->
+        <div class="fileExpFileRAll">
+            <iframe id='addrwin' name='addrwin' frameborder='0' scroll='no' style='height: 100%;
+                width: 190px'></iframe>
+        </div>
+        <!--End 右边通讯录-->
+        <!--左边框架-->
+        <div class="fileExpFileLAll">
+            <div id="fileExpTab">
+                <div class="fileExpMenubox">
+                </div>
+                <div class="fileExpContent">
+                    <div class="accessoriesUp">
+                        <input type="button" id="btnUpload" value="选择文件" />
+                        &nbsp;&nbsp; <span class="fe" id="fileSend_maxUploadTips"></span>
+                    </div>
+                    <div id="divFileList" class="accessoriesF2" style="display: none">
+                    </div>
+                    <ul class="yt-nav">
+                        <li id="liSwitchEmailSend" class="yt-current"><a href="javascript:;">发送到邮箱</a></li>
+                        <li id="liSwitchMobileSend"><a href="javascript:;">发送到手机</a></li>
+                    </ul>
+                    <div class="hover" id="divEmailSend" style="display: none">
+                        <!--发到邮件start-->
+                        <div class="fileExpWrite">
+                            <p class="tipTool">
+                                <b class="do"></b>&nbsp;&nbsp;&nbsp;&nbsp;文件以链接的方式发送到邮箱，接收方可在139邮箱文件提取中心下载</p>
+                            <table>
+                                <tr>
+                                    <th>
+                                        接收邮箱：
+                                    </th>
+                                    <td>
+                                        <div style="width: 99%; margin-bottom: 12px;" id="richInputEmail">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        主题：
+                                    </th>
+                                    <td>
+                                        <input maxlength="20" type="text" id="txtTitle" tabindex="2" defaultvalue="来自139邮箱的文件"
+                                            value="来自139邮箱的文件" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        附言：
+                                    </th>
+                                    <td>
+                                        <textarea id="txtContent" tabindex="3"></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        &nbsp;
+                                    </th>
+                                    <td class="col">
+                                        <a id="aEmailSend" href="javascript:;" class="but3" tabindex="4">发&nbsp;送</a><br />
+                                        <span class="fe">请遵守国家相关法律，严禁上传包括反动、暴力、色情、违法及侵权内容的文件。</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <!--发到邮件end-->
+                    </div>
+                    <div id="divMobileSend">
+                        <!--发到手机-->
+                        <div class="fileExpWrite">
+                            <p class="tipTool">
+                                <b class="do"></b>&nbsp;&nbsp;&nbsp;&nbsp; 文件以wappush方式发送到手机，接收方可直接下载最大3M的文件，所有文件可到139邮箱文件提取中心下载</p>
+                            <table>
+                                <tr>
+                                    <th>
+                                        接收手机：
+                                    </th>
+                                    <td>
+                                        <div style="width: 99%; margin-bottom: 12px;" id="richInputMobile">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        验证码：
+                                    </th>
+                                    <td>
+                                        <input id="txtVerifycode" type="text" style="width: 90px; color: #666; ime-mode: disabled;"
+                                            fixvalue="点击获取验证码" autocomplete="off" value="点击获取验证码" tabindex="5" />
+                                        <div style="display: none;">
+                                            <div style="border: 1px solid #ccc; float: left; padding: 3px; margin: 4px 10px 0 0;
+                                                background: #fff;">
+                                                <img style="border: none; margin: 0;" id="imgVerifycode" alt="验证码" /></div>
+                                            <p style="color: #666; line-height: 1.8;">
+                                                图中显示的图案是什么?将你认为正确答案前的<font color="#ff6600">字母或数字</font>填入框中(不分大小写)</p>
+                                            <p>
+                                                <a href="javascript:;" id="aRefreshCode">看不清，换一张</a></p>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        &nbsp;
+                                    </th>
+                                    <td class="col">
+                                        <a id="aMobileSend" href="javascript:;" class="but3" tabindex="6">发&nbsp;送</a><br />
+                                        <span class="fe">请遵守国家相关法律，严禁上传包括反动、暴力、色情、违法及侵权内容的文件。</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <!--发到手机-->
+                    </div>
+                </div>
+                <div class="yt-tip" id="tipControl" style="display: none">
+                    <div class="yt-tip-content">
+                        <div class="hd">
+                            <span class="rc3"></span><span class="rc2"></span><span class="rc1"></span>
+                        </div>
+                        <div class="bd">
+                            <h2>
+                                快递文件小窍门：</h2>
+                            <p id="pUploadTip">
+                                你还可以通过鼠标右键，将电脑、网页上的图片、音乐、小说、游戏...快速发送到任意邮箱和中国移动手机。</p>
+                            <a class="yt-preview" href="javascript:;"><i></i>快速预览</a>
+                            <img rel="/fileExp_img/wjkd_pic03.jpg" />
+                        </div>
+                        <div class="ft">
+                            <span class="rc1"></span><span class="rc2"></span><span class="rc3"></span>
+                        </div>
+                        <div class="yt-pointer">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--End 左边框架-->
+    </div>
+</body>
+</html>

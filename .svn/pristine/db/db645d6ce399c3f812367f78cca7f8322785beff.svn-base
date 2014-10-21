@@ -1,0 +1,339 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="Keywords" content="">
+    <meta name="Description" content="">
+    <title>日历-139邮箱</title>
+    <script type="text/javascript">
+        //设置页面的域
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+        window.isCaiyun = window.location.href.toLowerCase().indexOf("iscaiyun") > -1;
+        //top变量的保存,各处不再使用top,而是使用_top
+        window._top = window.isCaiyun ? window : window.top;
+
+        if (window.isCaiyun) {
+            document.write("<script src='/m2012/js/packs/calendar/cal_compatibility.pack.js' charset='utf-8' type='text/javascript'><" + "/script>");
+        }
+    </script>
+    <script type="text/javascript">
+        (function (top) {
+            top.loadCSS(["common/global.css", "packs/calendar.pack.css"], document);
+            top.$App && top.$App.setModuleSkinCSS && top.$App.setModuleSkinCSS(document);
+            top.loadScript("libs.pack.js", document);
+        })(window._top);
+
+        if (!window.isCaiyun) {
+            window._udata = window._udata || [];
+            _udata.push(["setStartTime", new Date()]);
+            _udata.push(['setAccount', top.$User.getDefaultSender()]); //帐号
+            _udata.push(['setAutoCollectClick', true]); //自动收集A标签点击
+        }
+    </script>
+     </head>
+<body>
+    <div>
+        <div class="outArticle">
+            <!-- 模块视图大容器 -->
+            <div id="pnlView" class="outArticleMain">
+                <!-- 三大视图主视图容器 -->
+                <div id="viewpage_main" class="js_viewpage createCon">
+                    <!-- 顶部导航工具栏 -->
+                    <div id="pnlNaviBar" class="createTop pt_10">
+                        <!-- 日历消息 -->
+                        <div class="createSetup createSetupLeft c">
+                            <em>
+                                <a href="javascript:void(0)" nav="mod/message" class="createSetup_btn" role="button">
+                                    <i id="newmsgicon" class="i-setupB"></i>
+                                </a>
+                                <span id="newmsgcount" style="display:none">0</span>
+                            </em>
+                        </div>
+                        <div id="dvdayChoose" class="createTop_date">
+                            <!-- 顶栏的年月日 -->
+                        </div>
+                        <div class="createSetup c">
+                            <ul class="c" id="ulViewItems">
+                                <li class="js_item_day"><a href="javascript:void(0)" nav="mainview/day" role="button">日</a></li>
+                                <li class="createSetup_line"></li>
+                                <li class="js_item_month focus"><a href="javascript:void(0)" nav="mainview/month" role="button">月</a></li>
+                                <li class="createSetup_line"></li>
+                                <li class="js_item_list"><a href="javascript:void(0)" nav="mainview/list" role="button">列表</a></li>
+                                <li class="js_item_timeline hide"><a href="javascript:void(0)" nav="mainview/timeline" role="button">列表</a></li>
+                            </ul>
+                            <em id="menuOption"><a href="javascript:void(0)" class="createSetup_btn" role="button"><i class="i-timing"></i></a></em>
+                        </div>
+                    </div>
+
+                    <!-- 主视图 内容页 容器 -->
+                    <div class="ad-list-div js_subviewpage" id="subview_content_month">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="pnlLeftBar" class="inAside inAsideBug">
+            <div id="pnlSceneMenu" class="createBtn">
+                <span class="createBtn_span clearfix"  id="createBtn">
+                    <a id="btnCreate" href="javascript:void(0)" class="btnG" hidefocus="1" role="button">
+                        <span>创建活动</span>
+                    </a><a id="btnExtend" href="javascript:;" role="button" hidefocus class="btn btnLn btnGreen">
+                        <i class="triangle t_whiteDown"></i>
+                    </a>
+                </span>
+                <span class="createBtn_span clearfix hide" id="createGroupBtn">
+                    <a id="btnGroupCreate" href="javascript:void(0)" style="width:140px;" class="btnG" hidefocus="1" role="button">
+                        <span>创建活动</span>
+                    </a>                   
+                </span>
+                <ul id="pnlMenu" class="createBtn_ul shadow menuPop" role="tabpanel"
+                    style="display: none; top: 28px; right: 0; z-index: 9001; width: 105px; position: absolute;">
+                    <script type="text/template">
+                        <% _.each(obj, function(i) { %>
+                        <li role="option"><a href="javascript:void(0)" data-cmd="<%= i.cmd %>"><i class="<%= i.ico %>"></i><%= _.escape(i.name) %></a></li>
+                        <% }) %>
+                    </script>
+                </ul>
+            </div>
+            <div class="create mt_10 sweb">
+                <div id="pnlToday" class="createBoxBtn">
+                    <div class="createTime" id="pnlDayInfo"></div>
+                    <!--注意该提示框所放的位置-->
+                    <div style="left:183px; top:49px;display:none;" class="createLunar tips" id="lunarTips"></div>
+                    <!--
+                        <div class="createLunar" id="pnlExtInfo"></div>
+                        <p class="createLunar_bottom mt_10"><a id="icoTodayExtend" href="javascript:void(0)" class="i-dd"></a></p>
+                    -->
+                </div>
+
+                <div class="createList">
+                    <div class="sweb" id="pnlLeftMenu" style="">
+                        <script type="text/template" id="tplLeftMenu">
+                            <ul class="createList_ul" role="tabpanel">
+                                <li class="createList_li check">
+                                    <div class="createList_span" id="menu_labels">
+                                        <a data-cmd="filterdefault" href="javascript:void(0)" class="createList_a on js_menu_labels">
+                                            <i data-cmd="filterdefault" class="i-create"></i>日历
+											<b class="i_add" data-cmd="addcalendar" title="创建日历"></b>
+                                        </a>
+                                        <a id="lable_switch_custom" data-cmd="expand" href="javascript:;" class="triangle <%= userLabels.length ? "t_globalDown" : "t_globalRight" %>"></a>
+                                    </div>
+                                    <ul id="lable_list_custom" style="display: block;">
+                                        <% _.each(sysLabels, function(i) { %>
+                                        <li>
+                                            <a data-seqno="<%= i.seqNo %>" data-type="sys" data-share="system">
+                                                <i data-cmd="filterlabel" class="i-green ok" style="background-color:<%= i.color %>;cursor: pointer;"></i>
+                                                <span style="cursor:pointer;height:100%;" data-cmd="choicelabel"><%= _.escape(i.labelName) %></span>
+                                            </a>
+                                        </li>
+                                        <% }) %>
+                                        <% _.each(userLabels, function(i) { %>
+                                        <li>
+                                            <a data-seqno="<%= i.seqNo %>" data-type="user" data-share="<%= i.isShare ? 'share2other' : 'private' %>">
+                                                <i data-cmd="filterlabel" title="<%= i.isShare ? '已共享给其他人' : '' %>" class="i-green ok" style="background-color:<%= i.color %>;cursor: pointer;"></i>
+                                                <i data-cmd="editlabel" class="i-addr-d"></i>
+                                                <span data-cmd="choicelabel" style="height:100%;cursor:pointer;text-overflow: ellipsis;word-wrap:break-word; word-break:break-all;" title="<%= _.escape(i.labelName) %>"><%= _.escape(i.labelName) %></span>
+                                            </a>
+                                        </li>
+                                        <% }) %>
+                                        <% _.each(shareLabels, function(i) { %>
+                                        <li>
+                                            <a data-seqno="<%= i.seqNo %>" data-type="share" data-share="share2me">
+                                                <i data-cmd="filterlabel" title="其他人共享给我的日历" class="i-green ok" style="background-color:<%= i.color %>;cursor: pointer;"></i>
+                                                <i data-cmd="editlabel" class="i-addr-d"></i>
+                                                <span data-cmd="choicelabel" style="height:100%;cursor:pointer;" title="<%= _.escape(i.labelName) %>"><%= _.escape(i.labelName) %></span>
+                                            </a>
+                                        </li>
+                                        <% }) %>
+                                    </ul>
+                                </li>
+                                <li class="createList_li check">
+                                    <div class="createList_span ">
+                                        <a data-cmd="filterbirth" href="javascript:void(0)" class="createList_a js_menu_labels"><i data-cmd="filterbirth" class="i-birthday"></i>生日提醒</a>
+                                    </div>
+                                </li>
+                                <li class="createList_li">
+						            <div class="createList_span">
+							            <a href="javascript:;" class="createList_a js_menu_labels"  data-cmd="filterdefault" data-type="group">
+                                            <i class="i-groupCreate"  data-cmd="filterdefault"></i>群日历
+                                            <b class="i_add" data-cmd="addgrouplabel"></b>
+							            </a>
+							            <a data-cmd="expand" href="javascript:;" class="triangle t_globalDown" id="lable_switch_Group"></a>
+						            </div>
+                                    <ul id="lable_list_group">
+                                        <% _.each(groupLabels, function(i) { %>
+                                        <li class="createList_li">
+                                            <div class="">
+                                                <a data-seqno="<%= i.seqNo %>" data-type="group" href="#<%= i.seqNo %>" class="createList_a">
+                                                    <i class="i-normal" data-cmd="filterlabel" style="background-color:<%= i.color.replace('##', '#')%>"></i>
+                                                    <i data-cmd="editlabel" data-isowner="<%= i.isOwner?1:0 %>" class="i-addr-d"></i>
+                                                    <span data-cmd="choicelabel"><%= _.escape(i.labelName) %></span>
+                                                </a>
+                                            </div>
+                                        </li>
+                                        <% }) %>
+                                    </ul>
+					            </li>
+                                <!-- 订阅日历 -->
+                                <li class="createList_li">
+                                    <div class="createList_span">
+                                        <a class="createList_a js_menu_labels" href="javascript:;" data-cmd="filterdefault" data-type="subscribe">
+                                            <i class="i-subscription" data-cmd="filterdefault"></i>订阅日历
+                                            <b class="i_set" title="日历管理" data-cmd="labelmgr"></b>
+                                        </a>
+                                        <a data-cmd="expand" class="triangle t_globalDown" href="javascript:;" id="lable_switch_subscribed"></a>
+                                    </div>
+                                    <ul id="lable_list_subscribed">
+                                        <% _.each(subscribedLabels, function(i) { %>
+                                        <li class="createList_li">
+                                            <div class="">
+                                                <a data-seqno="<%= i.seqNo %>" data-type="subscribe" href="#<%= i.seqNo %>" class="createList_a">
+                                                    <i class="i-normal" data-cmd="filterlabel" style="background-color:<%= i.color.replace('##', '#')%>"></i>
+                                                    <span style="height:100%;" data-cmd="choicelabel" title="<%= _.escape(i.labelName) %>"><%= _.escape(i.labelName) %></span>
+                                                </a>
+                                            </div>
+                                        </li>
+                                        <% }) %>
+                                    </ul>
+                                </li>
+
+                                <!-- 分割线 -->
+                                <li class="createList_li_line" style="margin-bottom: 0;"></li>
+                                <!-- 没有滚动条时,直接在DIV的后面显示 -->
+                                <li class="createList_li check" id="normal_discovery">
+                                    <div class="createList_span ">
+                                        <a data-cmd="loaddiscovery" href="javascript:void(0)" class="createList_a">
+                                            <i class="i-find"></i>发现广场
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </script>
+                    </div>
+                
+                    <!-- 有滚动条时,固定在底部 -->
+                    <ul class="createList_ul" style="display: none;" id="bottom_discovery">
+                        <!-- 在日历广场栏目上头增加分割线 -->
+                        <li class="createList_li_line" style="margin-top:-1px;"></li>
+                        <li class="createList_li">
+                            <div class="createList_span ">
+                                <a data-cmd="loaddiscovery" href="javascript:void(0)" class="createList_a">
+                                    <i class="i-find"></i>发现广场
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    
+    <script type="text/template" id="tplToday">
+        <p><%=gongli %> <%=weekday %></p>
+        <strong><%=today %></strong>
+    </script>
+
+    <script type="text/template" id="tplShare">
+        <table id="shareCalendarEmail" border="0" cellspacing="0" cellpadding="0" align="center" style="border-collapse:collapse;  border-spacing:0;padding:0; margin:20px auto;font-size:12px; width:464px; font-family:'Microsoft YaHei','Simsun',Arial; color:#444;">
+            <thead>
+                <tr>
+                    <td width="52"><img src="/m2012/images/prod/calendar/header-email-share.png" alt="" title=""></td>
+                    <td width="412"><span style="color:#3e97f3; font-size:18px; border-bottom:1px solid #1c85f1; line-height:20px; padding-bottom:8px; display:block; font-weight:bold;"><%= dateTitle %></span></td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="2">
+                        <table border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse;  border-spacing:0;padding:0; margin:0;font-size:12px; width:464px; font-family:'Microsoft YaHei','Simsun',Arial; color:#444; line-height:20px; word-wrap:break-word; word-break:break-all;">
+                            <thead>
+                                <tr>
+                                    <td colspan="2" height="12"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="font-size:14px; line-height:20px;"><%- title %></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" height="10"></td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td width="40" style="vertical-align:top;"><span style="color:#666;">时间：</span></td>
+                                    <td style="vertical-align:top;"><%= dateDescript %></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" height="12"></td>
+                                </tr>
+                                <tr style="display: <%= !!content?'':'none' %> ;">
+                                    <td style="vertical-align:top;"><span style="color:#666;">备注：</span></td>
+                                    <td style="vertical-align:top;"><%- content %></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" height="12"></td>
+                                </tr>
+                                <tr style="display: <%= !!site?'':'none' %>;">
+                                    <td style="vertical-align:top;"><span style="color:#666;">地点：</span></td>
+                                    <td style="vertical-align:top;"><%- site %></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2" height="22"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align:right; color:#666;">
+                        来自139邮箱日历的分享
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </script>
+
+    <!--黄历详情显示模板 -->
+    <script type="text/template" id="tplTodayInfo">
+        <div class="tipsLeft diamond"></div>
+        <div class="createLunarTac">
+            <p><%=cMonth %> <%=cDay %></p>
+            <p><%=ganzhiYear %>【<%=aYear %>年】</p>
+            <p><%=ganzhiMonth %> <%=ganzhiDay %></p>
+        </div>
+        <ul id="lstLunarExtend">
+            <li class="clearfix"><span class="createLunar_red">宜</span><div class="fl"><%=yi %></div></li>
+            <li class="clearfix"><span class="createLunar_black">忌</span><div class="fl"><%=ji %></div></li>
+            <li class="mt_5 clearfix"><strong>胎神</strong><div class="fl"><%=taishen %></div></li>
+            <li class="clearfix"><strong>冲煞</strong><div class="fl"><%=chongSha %></div></li>
+            <li class="clearfix"><strong>彭祖百忌</strong><div class="fl"><%=pengZu.replace(' ','<br>') %></div></li>
+        </ul>
+    </script>  
+   <script type="text/javascript">
+       (function (top) {
+           if (window.isCaiyun) {
+               top.loadScriptAsync({
+                   src: "/m2012/js/packs/m139.core.out.pack.js",
+                   isResolve: true
+               }, function () {
+                   top.$App = new M2012.Calendar.CaiyunMainApp();
+                   top.$App.initData();
+                   top.loadScriptAsync({ src: "/m2012/js/packs/m2012.ui.common.pack.js" });
+                   top.loadScriptAsync({ src: "/m2012/js/packs/calendar/cal_index.html.pack.js" });
+               });
+           } else {
+               top.loadScript("/m2012/js/packs/m139.core.pack.js", document);
+               top.loadScript("/m2012/js/packs/m2012.ui.common.pack.js", document);
+               top.loadScript("/m2012/js/packs/calendar/cal_index.html.pack.js", document);
+           }
+       })(window._top);
+
+     </script>  
+
+    <script type="text/javascript">
+        if (!window.isCaiyun) {
+            top.loadScript("analyze_sdk.pack.js", document);
+        }
+    </script>
+</body>
+</html>

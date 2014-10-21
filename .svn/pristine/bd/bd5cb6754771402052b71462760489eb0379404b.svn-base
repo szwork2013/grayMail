@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>文件上传页面</title>
+<script type="text/javascript">
+//设域
+document.domain=window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+//获得资源路径
+var resourcePath=window.top.resourcePath;
+var htmlCode="";
+htmlCode+=getLinkTag("");
+htmlCode+=getLinkTag(resourcePath+"/css/global.css");
+
+top.loadScript("libs.pack.js", document);
+top.loadScript("m2011.utilscontrols.pack.js", document);
+top.loadScript("/m2012/js/matrixvm/page/m2011.page.AddressBook.js", document);
+
+document.write(htmlCode);
+function getJsTag(path,charset){
+    return "<script charset='" + (charset || "gb2312") + "' src='" + path + "' type='text/javascript'></" + "script>";
+}
+function getLinkTag(path){
+    var text="";
+    if(path)text="href='"+path+"'";
+    return "<link rel='stylesheet' type='text/css' "+text+" />";
+}
+
+</script>
+
+<script type="text/javascript">
+    Utils.getUserDataFromCookie();
+</script>
+
+<script type="text/javascript">
+var callback = Utils.queryString("callback");
+var filter = Utils.queryString("filter");
+var useAllEmailText = Boolean(Utils.queryString("useAllEmailText"));
+var useNameText = Boolean(Utils.queryString("useNameText"));
+var autoWidth=Boolean(Utils.queryString("autoWidth"));
+var hideTitle=Boolean(Utils.queryString("hideTitle"));
+var hideAddGroup = Boolean(Utils.queryString("hideAddGroup"));
+var type = Utils.queryString("type");
+$(function() {
+
+    if (type == "email") {
+        AddressBook.createMailStyle(
+            document.getElementById("divAddressList"),
+            function(addrInfo) {
+                if (callback && window.parent[callback]) {
+                    window.parent[callback](addrInfo);
+                    if(document.all){
+                        //解决ie下的渲染bug
+                        frameElement.style.display = "none";
+                        frameElement.style.display = "";
+                    }
+                }
+            },
+            filter,
+            useAllEmailText || useNameText,
+            hideAddGroup
+        );
+    } else if (type == "mobile") {
+        AddressBook.createTelStyle(
+            document.getElementById("divAddressList"),
+            function(addrInfo) {
+                if (callback && window.parent[callback]) window.parent[callback](addrInfo);
+            },
+            useNameText,
+            hideAddGroup
+        );
+    }
+    if (hideTitle) {
+        $(".addressList h2:eq(0)").hide();
+    }
+    if (autoWidth) {
+        $("div.addressList").css({
+            width: "100%"
+        });
+        $("dl").css({
+            width: "100%"
+        });
+        $("#divAddressList").css("padding", "0");
+        var txt = $("#txtAddrSearch");
+        txt.width(txt.parent().width() - 22);
+    }
+
+
+    resizeWin();
+});
+$(window).resize(resizeWin);
+function resizeWin(){
+    try{
+        var sizeTo = $(window.frameElement).height();
+        $(".addressList").height(sizeTo); 
+        sizeTo -= 53;
+        if (hideTitle) sizeTo += 20;
+        $("#dlAddress").height(sizeTo);
+        $("#divSearch").height(sizeTo);
+    }catch(e){}
+}
+</script>
+<style type="text/css">
+.addressList
+{
+	padding:0;
+	left:0;
+	}
+html,body
+{
+	padding:0;
+	margin:0;
+	height:100%;
+	overflow:hidden;
+	}
+</style>
+</head>
+<body>
+<div class="addressList">
+<h2>通讯录</h2>
+<div class="addressListContent1" id="divAddressList">
+</div>
+</div>
+</body>
+</html>

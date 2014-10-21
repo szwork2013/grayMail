@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>无标题文档</title>
+</head>
+<body>
+<table width="100%" height="190" border="1" cellpadding="0" cellspacing="0" bordercolor="#E3E3E3" bgcolor="#F188B1">
+  <tr>
+    <td valign="top" background="xinzhi_img/xinzhi19_bg.jpg">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td height="80" background="xinzhi_img/xinzhi19_2.jpg" style="background-position:left top; background-repeat:no-repeat;width:342px;height:55px;"></td>
+        </tr>
+      </table>
+      <table width="92%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td id="content139" valign="top" style="font-size:14px;line-height:28px;color:#000000;">
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+            </td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td background="xinzhi_img/xinzhi19_1.jpg" style="background-repeat:no-repeat; background-position:right bottom;height:160px;"></td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+</body>
+</html>

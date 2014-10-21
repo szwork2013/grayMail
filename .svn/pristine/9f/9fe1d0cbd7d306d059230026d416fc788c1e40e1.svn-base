@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+<script type="text/javascript">
+//document.domain = "10086ts";//top.document.domain;
+document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+
+console.log("preview: " + document.domain);
+</script>
+</body>
+</html>

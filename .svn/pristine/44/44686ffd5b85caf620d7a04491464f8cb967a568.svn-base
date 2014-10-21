@@ -1,0 +1,33 @@
+﻿<project default="minify-js-closure">
+    <target name="minify-js-closure" >
+        <property name="closure.path" location="./build/lib/compiler.jar" />
+
+        <property name="inputDir" location="./target/images.139cm.com/m2012/js/packs" />
+        <property name="outputDir" location="./target/images.139cm.com/m2012/js/packs" />
+
+
+
+        <copy todir="${inputDir}">
+            <fileset dir="${outputDir}" includes="**/*.pack.js" excludes="libs.pack.js,mobile.html.pack.js"/>
+            <mapper type="regexp" from="^(.*)\.pack\.js$" to="\1.pack.source.js"/>
+        </copy>
+
+
+        <apply executable="java" verbose="true" dest="${outputDir}" failonerror="true" parallel="false">
+            <fileset dir="${inputDir}" includes="*.pack.source.js" />
+            <arg line="-jar"/>
+            <arg path="${closure.path}"/>
+            <arg line="--charset utf8"/>
+            <arg value="--warning_level"/>
+            <arg value="QUIET"/>
+            <arg value="--formatting" />
+            <arg value="PRETTY_PRINT"/>
+            <arg value="--js"/>
+            <srcfile/>
+            <arg value="--js_output_file"/>
+            <targetfile/>
+            <mapper type="regexp" from="^(.*)\.source\.js$" to="\1.js"/>
+        </apply>
+
+    </target>
+</project>

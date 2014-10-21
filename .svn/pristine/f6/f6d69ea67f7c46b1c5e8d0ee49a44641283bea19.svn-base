@@ -1,0 +1,255 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="Keywords" content=""/>
+	<meta name="Description" content=""/>
+	<title>添加日程标签-139邮箱</title>
+	<!--
+	<link rel="stylesheet" href="../../css/common/global.css" type="text/css"/>
+	<link href="../../css/module/FileExtract/extract.css" rel="stylesheet" type="text/css">	
+	<link rel="stylesheet" href="../../css/module/networkDisk/networkDisk.css" type="text/css"/>
+	-->
+	<style type="text/css">
+        #floatLoadDiv input{width:65px;font-size:16px;}
+        #floatLoadDiv{cursor:pointer;position:absolute;top:0;left:0;width:65px;height:23px;overflow:hidden;z-index:1;padding:0px;opacity:0;-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";#filter:alpha(opacity=0);}
+		body{ position: relative;}
+    </style>
+	<script type="text/javascript">
+        document.domain = window.location.host.match(/([^.]+\.[^.:]+):?\d*$/)[1];
+        top.$App.dyinfoChanged = true;
+	</script>
+	<script>
+	    top.loadScript('libs.pack.js', document);
+	    top.loadScript('m139.core.pack.js', document);
+	    top.loadScript("m2012.ui.common.pack.js", document);
+	</script>
+	<script>top.loadCSS(["common/global.css", "module/FileExtract/extract.css", "module/networkDisk/networkDisk.css"], document);</script>
+	<style type="text/css">
+	.addr-imgInfo{ margin-top: 100px;}
+	.diskTableList,.appendixList{ margin-right: 0px;}
+	</style>
+</head>
+<body>
+	<div class="outArticle" id="outArticle">
+		<div class="outArticleMain" id="disk-main" style="height: 100%; margin-left: 0px;">
+			<div id="sortMenus" class="menuPop  shadow" style="right:155px; top:37px;display: none;">
+                <ul>
+                    <li name="fileName"><a href="javascript:void(0);"><i class=""></i><span class="text">按名称</span></a></li>
+                    <li name="createTime" class="cur"><a href="javascript:void(0);"><i class=""></i><span class="text">按上传时间<em class="downRinking">↓</em></span></a></li>
+                    <li name="fileSize"><a href="javascript:void(0);"><i class=""></i><span class="text">按大小</span></a></li>
+                </ul>
+			</div>
+			<div class="toolBar bgMargin border-btm">
+    <ul class="toolBarUl" style="display: block;">
+				<li class="mr_0" style="display: none;">
+                        <a href="javascript:void(0)" role="button" class="btn ml_10"><em><i class="upLoad"></i>上 传</em></a>
+						<!--
+                        <div id="floatLoadDiv">
+                            <form style="" enctype="multipart/form-data" id="fromAttach" method="post" action="" target="frmAttachTarget">
+                                <input style="height: 20px;" type="file" name="uploadInput" id="uploadFileInput" multiple/>
+                                <input style="display:none;height: 20px;" type="button" name="uploadInput"/>
+                            </form>
+                            <iframe id="frmAttachTarget" style="display: none" name="frmAttachTarget"></iframe>
+                            <div id="flashContainer"></div>
+                        </div>
+						-->
+                    </li>
+                    <li class="mr_0" id="download"><a hideFocus="1" href="javascript:void(0)" class="btnTb"><span class="p_relative">下载</span></a></li>
+                    <li class="mr_0" id="sendToMail"><a hideFocus="1" href="javascript:void(0)" class="btnTb ml_6"><span class="p_relative">发送</span></a></li>
+                    <li class="mr_0" id="sendToPhone" style="display: none;"><a hideFocus="1" href="javascript:void(0)" class="btnTb ml_6"><span class="p_relative">发送到手机</span></a></li>
+                    <li class="mr_0" id="renew"><a hideFocus="1" href="javascript:void(0)" class="btnTb ml_6"><span class="p_relative">续期</span></a></li>
+                    <li class="mr_0" id="saveToDisk"><a hideFocus="1" href="javascript:void(0)" class="btnTb ml_6"><span class="p_relative">存彩云网盘</span></a></li>
+                    <li class="mr_0" id="rename" ><a hideFocus="1" href="javascript:void(0)" class="btnTb ml_6"><span class="p_relative">重命名</span></a></li>
+                    <li class="mr_0" id="deleteFile" ><a hideFocus="1" href="javascript:void(0)" class="btnTb ml_6"><span class="p_relative">删 除</span></a></li>
+                    <li id="more" class="mr_0" style="display:none;"><a href="javascript:void(0)" role="button" class="btnTb ml_6"><span class="p_relative">更 多</span></a></li>
+    </ul>
+    <div id="maillist_pager">
+        <span id="listModeContainer">
+				<span class="viewTipPic mr_10 fr">
+				<a href="javascript:void(0)" class="ml_10 mr_5">
+					<!--不选中时候添加"i_view_checked"-->
+					<i class="i_view">
+					</i>
+				</a>
+				<a href="javascript:void(0)">
+					<!--选中时候添加"i_list_checked"-->
+					<i class="i_list_checked">
+					</i>
+				</a>
+			</span>
+		</span>
+		<div id="filelist_pager">
+			<div class="toolBarPaging ml_10 fr" id="view_0.8189248512499034">
+				<div>
+				</div>
+				<a rel="selector" href="javascript:;" class="pagenum">
+					<span class="pagenumtext">
+						
+					</span>
+				</a>
+				<a rel="prev" title="上一页" href="javascript:;" class="up up-gray">
+				</a>
+				<a rel="next" title="下一页" href="javascript:;" class="down ">
+				</a>
+			</div>
+		</div>
+        <a href="javascript:void(0)" class="pagenum pageNumTop" id="sortDock" style="float:right;"><span class="pagenumtext">排序</span></a>
+		<div class="toolBarArray fr mr_5 mt_5 p_relative"> <a href="javascript:" class="one on" id="btn_more" style="display: none;"></a><a href="javascript:" id="btn_setting" class="two"></a> </div>		
+    </div>
+</div>
+<div class="inboxHeader bgMargin" style="display : none;">
+	<span id="navContainer">全部文件</span>
+</div>
+
+			<!--
+			<div class="inboxHeader" style="background:#fafafb; border-bottom:1px solid #e8e8e8; display:none;">
+                <div class="inboxHeaderfr clearfix">
+                    <a href="#" class="fr ml_10" style="margin-right:26px; color:#127dc2;">升级</a>
+                    <span class="mr_10">
+                        <span class="diskprogressBarBlue fr">
+                            <em class="growsBlow"></em>
+                            <em class="growFont">2.1G/5.0G</em>
+                        </span>
+                        <span class="fr">容量：</span>
+                    </span>
+                <strong class="fl">暂存柜</strong>
+                </div>
+            </div>
+			-->
+			<div class="diskTableList onScollTable" style="display:; margin-right: 14px;" >
+                <table cellspacing="0" cellpadding="0" class="listHead newShareTable">
+                    <tr>
+                        <th class="wh1 t-check">
+                            <input type="checkbox" id="selectAll"/>
+                        </th>
+                        <th id="fileName" class="bdRightNone"><a field="from" href="javascript:void(0)" hidefocus="true"><span>文件名</span><i></i></a></th>
+                        <th id="selectCount" class="bdRightNone" style="display: none">已选择：<span><b class="c_ff6600"></b>个文件</span>
+							<a id="cleanSelected" href="javascript:void(0)" class="c_ff6600" style="color:#1a75ca; display:inline">取消选择</a>
+						</th>
+                        <th class="wh4 bdRightNone">
+                            <a id="createTime" field="from" href="javascript:void(0)" hidefocus="true">
+                                <span>上传时间</span>
+                                <i class="i_th0"></i>
+                            </a>
+                        </th>
+						<th class="wh4 bdRightNone"><a hidefocus="1" id="expiryDate" field="from" href="javascript:"><span>有效时间</span><i></i></a></th>
+						<th class="wh5 bdRightNone"><a hidefocus="1" id="downloadTimes" field="from" href="javascript:"><span>下载次数</span><i></i></a></th>
+                        <th class="wh6 bdRightNone">
+                            <a id="fileSize" field="from" href="javascript:void(0)" hidefocus="true">
+                                <span>大小</span>
+                                <i class=""></i>
+                            </a>
+                        </th>
+                    </tr>
+                </table>
+			</div>
+    		<div class="appendixList p_relative" id="fileList" style="height:540px;position: relative;">
+        
+        	</div>
+			<div id="popup_maillist_set" style="z-index: 1001; width: 220px; top: 40px; left: 795px; display: none;" class="tips delmailTips" bindautohide="1"> 
+				<a href="javascript:" class="delmailTipsClose" name="popup_close">
+				<i class="i_u_close" id="closeSetTip"></i></a>
+				<div class="tips-text">
+					<div class="norTips" style="padding: 10px 10px 5px 10px;">
+						<div class="norTipsContent">
+							<div class="viewSet" id="layout">
+								<dl class="clearfix mt_15" id="">
+									<dt><a href="#" class="fr">升级</a>暂存柜容量：</dt>
+									<dd class="mt_5">
+										<span>
+											<span class="diskprogressBarBlue fr">
+												<em class="growsBlow"></em>
+												<em class="growFont"></em>
+											</span>
+										</span>
+									</dd>
+								</dl>
+								<dl class="clearfix mt_10 mb_5" id="">
+									<dt>过期提醒：</dt>
+									<dd>
+										<input type="checkbox" id="tipMail"/><label for="tipMail">&nbsp;到期前两天邮件提醒</label>
+										<span style="display:none;"><input type="checkbox" id="tipMobile"> 短信提醒</span>
+									</dd>
+								</dl>
+								<div class="line"></div>
+							</div>
+						</div>
+					</div>
+					<div name="buttons" class="delmailTipsBtn">
+					<a href="javascript:void(0)" class="btnSure" id="setTipSure"><span>确定</span></a><a href="javascript:void(0)" class="btnNormal" id="cancelSetTip"><span>取消</span></a>
+				</div>
+			</div>
+			<div class="diamond tipsTop" name="popup_arrow" style="left: 202px;"></div>
+			</div>
+			<!--
+			<div class="tips delmailTips netpictips" style="top: 43px;left: 752px;width: 180px; position:absolute; display: ;" id="tipContainer">
+				<a hideFocus="1" class="delmailTipsClose" href="javascript:void(0)" id="closeSetTip"><i class="i_u_close"></i></a>
+				<div id="cabinetStatus"></div>
+				<div class="tips-text">
+					<div class="netpictipsdiv">
+						<p>您将在文件到期的前2天收到邮件提醒。</p>
+						<p><input type="checkbox" id="tipMail"> 邮件提醒</p>
+						<p style="color:#ccc;"><input type="checkbox" id="tipMobile"> 短信提醒</p>
+					</div>
+					<div class="delmailTipsBtn mailTipsBtnBg">
+						<a hideFocus="1" href="javascript:void(0)" class="btnNormal vm" id="setTipSure"><span>确 定</span></a>
+						<a hideFocus="1" href="javascript:void(0)" class="btnNormal vm" id="cancelSetTip"><span>取 消</span></a></div>
+					</div>
+				<div class="tipsTop diamond" style="left: 212px;"></div>
+			</div>
+			-->
+            
+        <!---tips--->
+		</div>
+        <div id="search"></div>
+		<iframe id="downloadFrame" src="" style="display: none;"></iframe>
+	</div >
+<div  class="inAside hide">
+			<div class="uploadDiv">
+				<!-- <a href="#" class="greenBtn uploadBtn" role="button"><i class="icon i-upload"></i>上传</a> -->
+				<a href="javascript:;" role="button" hidefocus class="btn btnGreen"><em><i class="icon i-upload"></i>上传</em></a>
+			</div>
+			<ul class="listMenu" role="tree">
+				<li><a href="javascript:void(0);" id="all"><i class="icon all-file"></i>全部文件</a></li>
+				<li><a href="javascript:void(0)" id="document"><i class="icon i-doc"></i>文档</a></li>
+				<li><a href="javascript:void(0)" id="images"><i class="icon i-img"></i>图片</a></li>
+				<li><a href="javascript:void(0)" id="music"><i class="icon i-mic"></i>音乐</a></li>
+				<li><a href="javascript:void(0)" id="vedio" class="borderBtm"><i class="icon i-mov"></i>视频</a></li>
+				<li><a href="javascript:void(0)" id="linksManage" class="borderTop"><i class="icon i-link"></i>链接管理</a></li>
+				<li><a href="javascript:void(0)" id="friendsShare"><i class="icon i-share"></i>好友共享</a></li>
+				<li><a href="javascript:void(0)" id="myShare" class="borderBtm"><i class="icon i-myShare"></i>我的共享</a></li>
+				<li><a href="javascript:void(0)" id="attachment" class="borderTop"><i class="icon i-clamp"></i>附件夹</a></li>
+				<li><a href="javascript:void(0)" id="cabinet"><i class="icon i-tank"></i>暂存柜</a></li>					
+			</ul>
+			<div class="downloadDisk">
+				<a href="javascript:top.$App.show('pcClientSetup');" id="pcClient">
+					<i class="icon i-pc"></i>
+					<span>PC客户端</span>
+				</a>
+				<a href="javascript:top.$App.show('smallTool');" id="smallTools">
+					<i class="icon i-tool"></i>
+					<span>小工具</span>
+				</a>
+			</div>
+		</div >
+
+</body>
+<!-- 
+    <script type="text/javascript" src="../../js/ui/upload/md5.min.js"></script>
+    <script type="text/javascript" src="../../js/ui/upload/upload.facade.js"></script>
+    <script type="text/javascript" src="../../js/ui/upload/upload.html5.js"></script>
+    <script type="text/javascript" src="../../js/ui/upload/upload.flash.js"></script>
+    <script type="text/javascript" src="../../js/ui/upload/swfobject.js"></script>
+    <script type="text/javascript" src="../../js/ui/upload/upload.activex.js"></script>
+    -->
+	<script>top.loadScript("cabinet.html.pack.js", document)</script>
+	<!-- <script src="../../js/plugin/m139.plugin.screencontrol.js"></script>
+    <script src="../../js/service/fileexpress/m2012.fileexpress.cabinet.model.js"></script>
+    <script src="../../js/service/fileexpress/m2012.fileexpress.cabinet.view.statusbar.js"></script>
+    <script src="../../js/service/fileexpress/m2012.fileexpress.cabinet.view.command.js"></script>
+    <script src="../../js/service/fileexpress/m2012.fileexpress.cabinet.view.toolbar.js"></script>
+    <script src="../../js/service/fileexpress/m2012.fileexpress.cabinet.view.filelist.js"></script>
+    <script src="../../js/service/fileexpress/m2012.fileexpress.cabinet.view.main.js"></script>
+    <script src="../../js/service/fileexpress/m2012.fileexpress.cabinet.application.js"></script>-->
+</html>
