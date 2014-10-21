@@ -15519,7 +15519,8 @@ function showPaperFrame(letterPaperUrl) {
             "click #composePreviewLink": "composePreview",
             "click #thLetterPaperFrame" : "showPaperFrame",//信纸
             "click #aMMSSend" : "MMSSend",//彩信发送正文
-            "click #aSMSSend" : "SMSSend" //短信发送正文
+            "click #aSMSSend" : "SMSSend", //短信发送正文
+            "click #activityInvite" : "onActivityClick" //写信页点击会议邀请
         },
         letterTemplate : '<iframe frameborder="0" scrolling="no" style="width:191px;border:0;height:{height}px;" src="letterpaper/letterpaper.htm" id="frmLetterPaper" name="frmLetterPaper"></iframe>',
         initialize: function (options) {
@@ -16025,7 +16026,7 @@ function showPaperFrame(letterPaperUrl) {
         	
         	// 验证收件人
         	if(!addrInputView.checkInputAddr(event)){
-        		console.log('收件人验证未通过！');
+        		console.log('收件人验证未通过a！');
         		return;
         	}
         	// 验证主题
@@ -16358,6 +16359,26 @@ function showPaperFrame(letterPaperUrl) {
             } else {
                 window.top.Links.show("sms", "&composeText=" + indexKey);
             }
+        },
+        //点击会议邀请处理
+        onActivityClick: function(e) {
+            e.preventDefault();
+            BH({key:"activity_invite"});
+            var modules = top.$App.getView("tabpage").model.pages;
+            for (var elem in modules) {
+                if (elem && elem.indexOf("activityInvite") >= 0) {
+                    var win = $(modules[elem].element).find("iframe")[0].contentWindow;
+                    try {
+                        if (win.aiView.model.get("pageType") == "activityInvite" && win.aiView.model.isBlankInvite() == true) {
+                            top.$App.getView("tabpage").activeTab(elem);
+                            return;
+                        }
+                    } catch (ex) { }
+                }
+            }
+            top.$App.show('activityInvite');
+            BH({key:"activity_page_load"});
+            return false;
         },
 		/**
 		 * 组装邮件信息 

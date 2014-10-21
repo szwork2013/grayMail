@@ -8,7 +8,7 @@
                 window.LinkConfig = {	//模块配置，用于工厂模式创建相应的模块
                     welcome: { url: "welcome_v2.html", site: "", title: "首页", tab: "welcome",group:"welcome"},
                     compose: { url: "compose.html", site: "", title: "写信", mutiple: true },
-                    activityInvite: { url: "activityinvite/invite.html", site: "", title: "会议邀请", mutiple: false },
+                    activityInvite: { url: "activityinvite/invite.html", site: "", title: "会议邀请", mutiple: true },
                     account:             {group: "setting", title: "设置", url: "set/account.html", site: "", tab: "account" },
                     account_setname:     {group: "setting", title: "设置", url: "set/account.html?bubble=txtSenderName", site: "", tab: "account" },
                     account_accountSafe: {group: "setting", title: "设置", url: "set/account.html?anchor=accountSafe", site: "", tab: "account" },

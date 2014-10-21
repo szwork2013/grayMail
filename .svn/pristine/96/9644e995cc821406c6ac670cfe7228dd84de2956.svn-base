@@ -1,0 +1,378 @@
+<?xml version="1.0"?>
+<project name="calendar_package_pack" default="calendar_package_pack">
+  <property name="SolutionPath" value="service/calendar_v2"/>
+  <!--新增加-->
+  <property name="SrcPath" value="service/calendar_reminder"/>
+  <target name="calendar_package_pack">
+
+    <antcall target="index_pack"/>
+
+    <antcall target="index_async_pack"/>
+    <antcall target="index_list_async_pack"/>
+    <antcall target="index_search_async_pack"/>
+    <antcall target="index_message_async_pack"/>
+    <antcall target="index_groupactivity_async_pack"/>
+
+    <antcall target="activity_pack"/>
+    <antcall target="index_discovery_async_pack"/>
+    <antcall target="notify_pack"/>
+
+    <antcall target="index_addlabel_async_pack"/>
+
+    <antcall target="day_view_async_pack"/>
+
+    <antcall target="pop_activity_pack"/>
+    <antcall target="cal_eidt_activity_pack"/>
+
+    <antcall target="cal_prod_invite_activity_pack"/>
+    <antcall target="cal_prod_meeting_invite_activity_pack"/>
+    <antcall target="cal_prod_share_activity_pack"/>
+    <antcall target="cal_prod_share_label_pack"/>
+
+    <antcall target="cal_label_edit_pack"/>
+    <antcall target="cal_sharelabel_edit_pack"/>
+
+    <antcall target="cal_prod_share_label_pack"/>
+    <!-- 日历管理 -->
+    <antcall target="label_manage_pack"/>
+    <!-- 订阅后台发布日历详情 -->
+    <antcall target="cal_view_subscribedetail_pack"/>
+    <!-- 特殊活动详情 -->
+    <antcall target="special_activity_async_pack"/>
+    <!-- 彩云日历接入 -->
+    <antcall target="cal_compatibility_pack"/>
+	
+	<antcall target="cal_timeline_pack"/>	
+    <!--群日历编辑接入 -->
+    <antcall target="cal_grouplabel_pack"/>
+    <!--通讯录相关脚本 -->
+    <antcall target="cal_contact_comp_pack"/>
+    
+  </target>
+
+  <target name="notify_pack">
+    <concat destfile="./packs/calendar/cal_notify.html.pack.js" encoding="utf8" outputencoding="utf8"
+            fixlastline="yes">
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.model.notify.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.notify.js"/>
+    </concat>
+  </target>
+
+  <target name="activity_pack">
+    <concat destfile="./packs/calendar/cal_activity.html.pack.js" encoding="utf8" outputencoding="utf8"
+            fixlastline="yes">
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.model.activity.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.activity.js"/>
+    </concat>
+  </target>
+
+  <target name="index_search_async_pack">
+    <concat destfile="./packs/calendar/cal_index_search_async.html.pack.js" encoding="utf8" outputencoding="utf8"
+            fixlastline="yes">
+      <fileset dir="${SolutionPath}/cal_view" includes="**/m2012.calendar.model.search.js"/>
+      <fileset dir="${SolutionPath}/cal_view" includes="**/m2012.calendar.view.search.js"/>
+    </concat>
+  </target>
+
+  <target name="index_message_async_pack">
+    <concat destfile="./packs/calendar/cal_index_message_async.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.model.month.morelist.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.month.morelist.js"/>
+      <fileset dir="${SolutionPath}/component" includes="**/m2012.calendar.view.rejectreason.js"/>
+      <fileset dir="${SolutionPath}/cal_view" includes="**/m2012.calendar.view.messageitem.js"/>
+      <fileset dir="${SolutionPath}/cal_view" includes="**/m2012.calendar.model.message.js"/>
+      <fileset dir="${SolutionPath}/cal_view" includes="**/m2012.calendar.view.message.js"/>
+    </concat>
+  </target>
+
+  <target name="index_groupactivity_async_pack">
+    <concat destfile="./packs/calendar/cal_index_groupactivity_async.html.pack.js" encoding="utf8" outputencoding="utf8"
+            fixlastline="yes">
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.model.groupactivityitem.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.groupactivityitem.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.model.groupactivity.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.groupactivity.js"/>
+    </concat>
+  </target>
+
+  <target name="index_list_async_pack">
+    <concat destfile="./packs/calendar/cal_index_listview_async.html.pack.js" encoding="utf8" outputencoding="utf8"
+            fixlastline="yes">
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.model.list.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.list.js"/>
+    </concat>
+  </target>
+
+  <target name="index_async_pack">
+    <concat destfile="./packs/calendar/cal_index_async.html.pack.js" encoding="utf8" outputencoding="utf8">
+      <!-- 天气与活动泡泡 -->
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.weather.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.activitypopup.js"/>
+    </concat>
+  </target>
+
+  <!-- 创建日历对话框 add by lichao-->
+  <target name="index_addlabel_async_pack">
+    <concat destfile="./packs/calendar/cal_index_addLabel_async.html.pack.js" encoding="utf8" outputencoding="utf8"
+            fixlastline="yes">
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.ui.invite.model.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.ui.invite.view.js"/>
+      <!--模板化创建日历-->
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.calendaraddpopup.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.model.calendaraddpopup.js"/>
+
+      <!--在自己创建的日历下快捷创建活动-->
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.popup.view.activity.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.popup.model.activity.js"/>
+
+      <!-- 会议邀请 -->
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.model.meeting.js" />
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.meeting.js" />
+
+      <!-- 黑白名单,由于后续可能需要联系人联想,先放一起 -->
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.model.blackwhitelist.js" />
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.blackwhitelist.js" />
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.addblackwhite.js" />
+
+    </concat>
+  </target>
+
+  <!-- 发现日历广场 add by lichao-->
+  <target name="index_discovery_async_pack">
+    <concat destfile="./packs/calendar/cal_index_discovery_async.html.pack.js" encoding="utf8" outputencoding="utf8"
+            fixlastline="yes">
+      <!-- 宝宝防疫 -->
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.calendarview.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.ui.captcha.view.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.model.inoculate.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.inoculate.js"/>
+
+      <!--发现广场主界面(原来基础上修改)-->
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.calendarsquare.focus.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.model.square.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.square.js"/>
+    </concat>
+  </target>
+
+  <!-- 查看订阅日历下的活动详情、编辑邀请活动详情-->
+  <target name="special_activity_async_pack">
+    <concat destfile="./packs/calendar/cal_special_activity_async.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.model.subscactivity.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.subscactivity.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.model.inviteactivity.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.inviteactivity.js"/>
+    </concat>
+  </target>
+
+  <target name="index_pack">
+    <concat destfile="./packs/calendar/cal_index.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.constant.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.commonapi.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.viewmanager.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.router.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.model.api.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.analytics.js"/>
+      
+      <!-- 法定节假日 -->
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.holidayinfo.js"/>
+
+      <!--创建活动需要用到一些公共的基本组件,textarea依赖于component,validate-->
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.component.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.validatetip.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.timepicker.js" />
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.reminder.js" />
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.textarea.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.identify.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.timeselector.js" />
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.daypicker.js" />
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.daytimepicker.js" />
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.labelmenu.js"/>
+
+      <!-- 左导航栏 -->
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.abouttoday.js" />
+      <!-- 主控 -->
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.model.master.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.leftmenu.js" />
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.scenemenu.js" />
+
+      <!-- 视图依赖控件 -->
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.calendarinfo.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.monthinfo.js"/>
+
+      <!-- 自动定位方向的弹出框 -->
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.popup.direction.js" />
+
+      <!-- 顶部切换栏 -->
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.calenderchoose.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.model.topnavibar.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.topnavibar.js"/>
+
+      <!-- 月视图 -->
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.model.month.morelist.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.month.morelist.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.model.month.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.month.js"/>
+
+      <!-- 天气预报 -->
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.model.weather.js" />
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.weather.js" />
+
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.mainview.js"/>
+
+      <!-- 倒计时 -->
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.calendarview.js" />
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.datetimepicker2.js" />
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.popup.model.countdown.js" />
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.popup.view.countdown.js" />
+
+      <!--生日提醒 -->
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.popup.model.birthday.js" />
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.popup.view.birthday.js" />
+
+      <!--按年,月,周,日提醒 -->
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.calendarpopmenu.js" />
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.menumgr.js" />
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.popmenu.js" />
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.time.js" />
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.popup.fastschedule.model.js" />
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.popup.fastschedule.view.js" />      
+    </concat>
+  </target>
+
+  <!--日历管理-->
+  <target name="label_manage_pack">
+    <concat destfile="./packs/calendar/cal_labelmanage.html.pack.js" encoding="utf8" outputencoding="utf8"
+            fixlastline="yes">
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.model.labelmanage.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.labelmanage.js"/>
+    </concat>
+  </target>
+
+  <!--视图活动快捷添加、查看-->
+  <target name="pop_activity_pack">
+    <concat destfile="./packs/calendar/cal_pop_activity_async.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+      <!-- 自动定位方向的弹出框 -->
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.model.activityaddpopup.js" />
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.activityaddpopup.js" />
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.model.activitydetailpopup.js" />
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.activitydetailpopup.js" />
+    </concat>
+  </target>
+
+  <!--日视图 -->
+  <target name="day_view_async_pack">
+    <concat destfile="./packs/calendar/cal_index_dayview_async.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.model.day.js" />
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.day.js" />
+    </concat>
+  </target>
+
+  <!--新增、编辑活动 -->
+  <target name="cal_eidt_activity_pack">
+    <concat destfile="./packs/calendar/cal_edit_activity_async.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.daterepeater.js" />
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.dateweekpicker.js" />
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.model.activity.js" />
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.activity.js" />
+    </concat>
+  </target>
+
+  <!-- 查看邀请活动邮件时需要加载的JS -->
+  <target name="cal_prod_invite_activity_pack">
+    <concat destfile="./packs/calendar/m2012.calendar.prod_inviteactivity.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+      <fileset dir="${SolutionPath}/cal_prod" includes="**/m2012.calendar.view.refusepopup.js"/>
+      <fileset dir="${SolutionPath}/cal_prod" includes="**/m2012.calendar.inviteactivity.js"/>
+    </concat>
+  </target>
+
+  <!-- 查看邀请活动邮件时需要加载的JS(针对写信页会议邀请) -->
+  <target name="cal_prod_meeting_invite_activity_pack">
+    <concat destfile="./packs/calendar/m2012.calendar.prod_meeting_inviteactivity.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.meeting.inviteactivity.js"/>
+    </concat>
+  </target>
+
+  <!-- 查看共享活动邮件时需要加载的JS -->
+  <target name="cal_prod_share_activity_pack">
+    <concat destfile="./packs/calendar/m2012.calendar.prod_share.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+      <fileset dir="${SolutionPath}/cal_prod" includes="**/m2012.calendar.view.shareactivity.js"/>
+    </concat>
+  </target>
+
+  <!-- 查看共享日历邮件时需要加载的JS -->
+  <target name="cal_prod_share_label_pack">
+    <concat destfile="./packs/calendar/m2012.calendar.prod_sharelabel.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+      <fileset dir="${SolutionPath}/cal_prod" includes="**/m2012.calendar.view.refusepopup.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.sharelabel.js"/>
+    </concat>
+  </target>
+
+  <!-- 编辑日历标签需要加载的JS -->
+  <target name="cal_label_edit_pack">
+    <concat destfile="./packs/calendar/cal_edit_label.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.color.js"/>    
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.model.label.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.label.js"/>
+    </concat>
+  </target>
+  <!-- 编辑共享日历标签需要加载的JS -->
+  <target name="cal_sharelabel_edit_pack">
+    <concat destfile="./packs/calendar/cal_edit_sharelabel.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.color.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.model.sharelabel.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.sharelabel.js"/>
+    </concat>
+  </target>
+
+  <!-- 查看订阅活动详情 -->
+  <target name="cal_view_subscribedetail_pack">
+    <concat destfile="./packs/calendar/cal_pop_subscribedetail.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.commonapi.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.timeselector.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.calendarpopmenu.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.model.calendardetail.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.calendardetail.js"/>
+    </concat>
+  </target>
+
+  <target name="cal_compatibility_pack">
+    <concat destfile="./packs/calendar/cal_compatibility.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.compatibility.js"/>
+    </concat>
+  </target>
+
+  <target name="cal_grouplabel_pack">
+    <concat destfile="./packs/calendar/cal_grouplabel.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">     
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.colormenu.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.model.groupactivityitem.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.groupactivityitem.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.model.grouplabel.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.grouplabel.js"/>
+    </concat>
+  </target>
+
+  <target name="cal_contact_comp_pack">
+    <concat destfile="./packs/calendar/cal_contactcomp.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+      <fileset dir="./contacts" includes="m2012.contacts.contactsinfo.js" />
+      <fileset dir="./contacts" includes="m2012.contacts.model.js" />
+      <fileset dir="${SolutionPath}" includes="**/m2012.ui.suggest.inputsuggest.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.ui.suggest.addrsuggest.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.ui.richinput.view.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.ui.richinput.textboxview.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.ui.richinput.documentview.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.ui.richinput.itemview.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.ui.richinput.plugin.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.model.contact.js"/>
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.contact.js"/>  
+    </concat>
+  </target>
+  
+  <target name="cal_timeline_pack">
+    <concat destfile="./packs/calendar/cal_view_timeline.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.model.timeline.js"/>
+	  <fileset dir="${SolutionPath}" includes="**/m2012.calendar.view.timeline.js"/>
+    </concat>
+  </target>
+  
+</project>

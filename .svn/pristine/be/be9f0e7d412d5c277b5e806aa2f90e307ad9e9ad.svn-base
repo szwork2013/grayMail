@@ -1,0 +1,211 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="Keywords" content=""/>
+    <meta name="Description" content=""/>
+    <title>收件箱-139邮箱</title>
+    <script type="text/javascript">
+        document.domain = window.location.host.match(/[^.]+\.[^.]+$/)[0];
+        top.loadCSS(["common/global.css", "module/write.css", "common/frame.css"], document);
+    </script>
+
+</head>
+<body style="position:relative; overflow-y:auto;">
+
+<div class="meetingCon bgPadding clearfix" id="writeWrap">
+	<div class="meetingCon_c">
+  <a hidefocus="1" href="javascript:void(0)" title="隐藏右边栏" class="switchOn2" id="switchSider"></a>	
+  <div class="writeMainDiv">
+	<div class="writeTable" id="activityMainDiv">
+		<ul class="writeTable_ul">
+			<li class="writeTable_li clearfix">
+				<div class="divInputBox">
+                    <input type="text" placeholder="会议主题，最多30字" maxlength="63" name="title" class="divInput" id="activityTitle"/>
+                </div>
+			</li>
+
+			<li class="writeTable_li clearfix">
+                <div class="p_relative">
+                <a href="javascript:void(0)" class="i-addPeople" bh="compose_activity_contacts" id="inviteMore" style="position: absolute;z-index: 999;top: 7px;right: 8px;"></a>
+                    <div id="emailAddrInput" class="colorGray">
+                        <!-- start 页面加载时显示，js加载完后会覆盖掉 -->
+                        <div class="p_relative RichInputBox writeTable" style="z-index:3;">
+                            <div class="ItemContainer writeTable-txt clearfix" unselectable="on" style="cursor: text;overflow-x:hidden"></div>
+                        </div>
+                        <!-- end -->
+                    </div>
+                </div>
+
+			</li>
+            <li class="writeTable_li clearfix">
+                <div class="pl_20 clearfix" style="padding-left: 0px;float: left;">
+                    <div class="dropDown dropDown-ydm" id="startTxtCalendar">
+                        <div class="dropDownText fl">2014-09-22</div>
+                        <a hidefocus="1" href="javascript:void(0)" class="i_ymd fl"></a>
+                    </div><div class="dropDown dropDown-month" id="startHourMenu">
+                    <div class="dropDownA" href="javascript:void(0)">
+                        <i class="i_triangle_d"></i>
+                    </div>
+                    <div class="dropDownText" id="startHourText">17</div>
+                </div>
+                    <div class="ydmtext">时</div>
+                    <div class="dropDown dropDown-month" id="startMiniuteMenu">
+                        <div class="dropDownA" href="javascript:void(0)">
+                            <i class="i_triangle_d"></i>
+                        </div><div class="dropDownText" id="startMiniuteText">19</div>
+                    </div><div class="ydmtext">分</div>
+                    <div id="startDateFormat" style="display: none"></div>
+                </div>
+                <div class="pl_20 clearfix endTimeDiv" style="padding-left: 0px;float: left;display: none">—
+                </div>
+                <div class="pl_20 clearfix endTimeDiv" style="padding-left: 5px;float: left;display: none">
+                    <div class="dropDown dropDown-ydm" id="endTxtCalendar">
+                        <div class="dropDownText fl">2014-09-22</div>
+                        <a hidefocus="1" href="javascript:void(0)" class="i_ymd fl"></a>
+                    </div><div class="dropDown dropDown-month" id="endHourMenu">
+                    <div class="dropDownA" href="javascript:void(0)">
+                        <i class="i_triangle_d"></i>
+                    </div>
+                    <div class="dropDownText" id="endHourText">17</div>
+                </div><div class="ydmtext">时</div>
+                    <div class="dropDown dropDown-month" id="endMiniuteMenu">
+                        <div class="dropDownA" href="javascript:void(0)">
+                            <i class="i_triangle_d"></i>
+                        </div><div class="dropDownText" id="endMiniuteText">19</div>
+                    </div><div class="ydmtext">分</div>
+                    <div id="endDateFormat" style="display: none"></div>
+                </div>
+
+                <span class="fl mt_5 ml_10">
+					<input type="checkbox" id="endTimeCheck" class="checkbox" bh="compose_activity_endtime">
+					<label class="checkbox_label" for="endTimeCheck">结束时间</label>
+				</span>
+
+                <span class="fl mt_5 ml_10">
+					<input type="checkbox" name="add_to_calendar" id="addToCalendar" bh="compose_activity_addcalendar" checked="checked" class="checkbox">
+					<label class="checkbox_label" for="addToCalendar">添加到日历</label>
+				</span>
+                <div style="clear: both"></div>
+            </li>
+
+			<li class="writeTable_li clearfix">
+				<div class="divInputBox divInputBoxPor_l">
+                    <input type="text" maxlength="63" name="site" bh="compose_activity_address" class="divInput" placeholder="会议地点（选填），最多30字" id="activityAddr" /><a href="javascript:void(0)" class="i-address"></a></div>
+			</li>
+
+			<li class="writeTable_li clearfix">
+				<div class="divInputBox writeTable_text">
+					<textarea id="activityContent" name="content" bh="compose_activity_content" maxlength="1003" placeholder="会议详情（选填），最多500字" style="outline: none;"></textarea>
+				</div>
+			</li>
+		</ul>
+		<div class="accessoriesBox">
+			<div class="accessoriesBox_btn">
+				<a id="realUploadButton" class="addattra" href="javascript:void(0);" hidefocus="1"><i class="i_attachmentS"></i>添加附件</a>
+			</div>
+			<div class="writeattrlist clearfix">
+				<ul id="attachContainer" class="attrlistUl" style="">
+                    <!--
+				<li class="" style="display: list-item;">
+					<i class="i_attachmentS"></i>
+					<span fileid="263881061015pu072px39vk4" class="ml_5">新建 Microsoft Office Excel ….<span class="gray">xlsx</span></span>						
+					<span class="gray ml_5">(9.65K)</span>
+					<a command="DeleteFile" filetype="common" fileid="263881061015pu072px39vk4" href="javascript:void(0)" class="ml_5" hidefocus="1">添加到正文</a>
+					<span class="ml_5 gray">|</span>
+					<a command="DeleteFile" filetype="common" fileid="263881061015pu072px39vk4" href="javascript:void(0)" class="ml_5" hidefocus="1">删除</a>
+				</li>
+				<li class="" style="display: list-item;">
+					<i class="i_bigAttachmentS"></i>
+					<span fileid="263881061015pu072px39vk4" class="ml_5">新建 Microsoft Office Excel ….<span class="gray">xlsx</span></span>						
+					<span class="gray ml_5">(9.65K)</span>
+					<a command="DeleteFile" filetype="common" fileid="263881061015pu072px39vk4" href="javascript:void(0)" class="ml_5" hidefocus="1">删除</a>
+				</li>
+				<li class="" style="display: list-item;">
+					<i class="i_cloudS"></i>
+					<span fileid="263881061015pu072px39vk4" class="ml_5">新建 Microsoft Office Excel ….<span class="gray">xlsx</span></span>						
+					<span class="gray ml_5">(9.65K)</span>		
+					<span class="gray ml_5">提取码：614248</span>
+					<a command="DeleteFile" filetype="common" fileid="263881061015pu072px39vk4" href="javascript:void(0)" class="ml_5" hidefocus="1">删除</a>
+				</li> -->
+				</ul>	
+			</div>
+		</div>
+		<div class="noticeBox mt_5" style="display:none">
+			<div class="noticeBox_top clearfix">
+                <input type="checkbox" id="isSMSRemind" name="" class="checkbox" />
+                <label for="isSMSRemind">短信通知</label>
+                <input type="text" id="smsRemindInfo" name="" maxlength="70" class="iText" /></div>
+			<p class="noticeBox_bottom gray">本计费周期赠30条，余15条，超出按0.1元/条计费。</p>
+		</div>
+		<div class="allFrameBtn_bottom mt_10" style="position:relative">
+            <div id="maskDiv" style="position:absolute; top:0px; height:43px; z-index:1000;" class="blackbanner hide"></div>
+			<!-- <a href="javascript:;" role="button" hidefocus class="btn btnGreen" role="button"><em>保 存</em></a><a href="javascript:;" role="button" hidefocus class="btn ml_10" role="button"><em>取 消</em></a> -->
+			<a href="javascript:void(0);" class="btnG" id="sendInviteBtn"><span>发 送</span></a>
+			<a href="javascript:void(0);" class="btnTb ml_5" id="cancelInviteBtn" hidefocus="" role="button"><span>取 消</span></a>
+		</div>
+	</div>
+  </div>
+	<div class="contactSide" style="top:10px;">
+        <div class="tab">
+            <div class="tabTitle">
+                <span class="tabTitle_title">通讯录</span>
+            </div>
+            <div class="tabMain">
+                <div class="tabContent show p_relative" id="divAddressList"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+<script>
+    try {
+        top.loadScript('libs.pack.js', document);
+        top.loadScript('m139.core.pack.js', document);
+        top.loadScript("m2012.ui.common.pack.js", document);
+        top.loadScript("activityinvite.html.pack.js", document);
+
+/*
+        //引入RICHINPUT、联系人widget、日历组件
+        top.loadScript("/m2012/js/ui/widget/contacts/m2012.ui.widget.contacts.model.js", document);
+        top.loadScript("/m2012/js/ui/widget/contacts/m2012.ui.widget.contacts.view.js", document);
+
+        top.loadScript("/m2012/js/contacts/m2012.contacts.contactsinfo.js", document);
+        top.loadScript("/m2012/js/contacts/m2012.contacts.model.js", document);
+
+        top.loadScript("/m2012/js/ui/suggest/m2012.ui.suggest.inputsuggest.js", document);
+        top.loadScript("/m2012/js/ui/suggest/m2012.ui.suggest.addrsuggest.js", document);
+        top.loadScript("/m2012/js/ui/suggest/m2012.ui.suggest.inputassociate.js", document);
+        top.loadScript("/m2012/js/ui/suggest/m2012.ui.suggest.inputcorrect.js", document);
+
+        top.loadScript("/m2012/js/ui/richinput/m2012.ui.richinput.documentview.js", document);
+        top.loadScript("/m2012/js/ui/richinput/m2012.ui.richinput.itemview.js", document);
+        top.loadScript("/m2012/js/ui/richinput/m2012.ui.richinput.plugin.js", document);
+        top.loadScript("/m2012/js/ui/richinput/m2012.ui.richinput.textboxview.js", document);
+        top.loadScript("/m2012/js/ui/richinput/m2012.ui.richinput.view.js", document);
+
+        top.loadScript("/m2012/js/ui/menu/m2012.ui.popmenu.js", document);
+
+        top.loadScript("/m2012/js/ui/picker/m2012.ui.picker.calendar.js",document);
+
+        top.loadScript("/m2012/js/service/calendar_v2/component/m2012.calendar.view.validatetip.js", document);
+
+        top.loadScript("/m2012/js/service/activityinvite/m2012.activityinvite.model.js",document);
+        top.loadScript("/m2012/js/service/activityinvite/m2012.activityinvite.view.js",document);
+
+ top.loadScript("/m2012/js/richmail/compose/swfobject.js", document);
+top.loadScript("/m2012/js/service/activityinvite/upload_file.js",document);*/
+
+    } catch (e) { }
+</script>
+    <script>
+        $(function () {
+            //debugger;
+            var ActivityInviteModel = new M2012.activityInvite.Model();
+            aiView = new M2012.activityInvite.View({ model: ActivityInviteModel });
+            top.aiView = aiView;
+        });
+
+    </script>
+</html>

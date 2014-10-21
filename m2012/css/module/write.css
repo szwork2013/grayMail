@@ -12,8 +12,8 @@ html {}
 .writeWrap{position:relative;z-index:2;padding-top:48px !important;}
 .writeMain{position:relative;padding:8px 0px 0px 0px;border-top:1px solid #E8E8E8; }
 .writeMainDiv{margin-right:214px;}
-.contactSide{position:fixed;top:58px;right:14px; *right:28px; _position:absolute;_top:8px;_right:14px;width:200px;}
-.switchOn2{width:10px;height:60px;position:fixed;right:213px; *right:227px; top:220px; _position:absolute;_right:213px;  _top:170px;background:url(../../images/global/global_24.png) no-repeat;_background:url(../../images/global/global.png) no-repeat;background-position:-220px -44px;z-index:999;}
+.contactSide{position:fixed;top:58px;right:14px; *right:28px; _position:absolute;_top:8px;_right:0;width:200px;}
+.switchOn2{width:10px;height:60px;position:fixed;right:213px; *right:227px; top:220px; _position:absolute;_right:199px;  _top:170px;background:url(../../images/global/global_24.png) no-repeat;_background:url(../../images/global/global.png) no-repeat;background-position:-220px -44px;z-index:999;}
 .writeMainOff .writeMainDiv{margin-right:0px;}
 .writeMainOff .contactSide{display:none;}
 .writeMainOff .switchOn2{right:-1px;background-position:-240px -44px;top:170px;}
@@ -417,6 +417,9 @@ border:1px solid #999;background-color:#FFF;padding:0 0 9px 0 ;
 
 
 /*写信页新input模板框*/
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color:#999;
+}
 .colorGray{color:#c5c5c5;}
 .writeTable_li{margin-bottom:10px; vertical-align:top;}
 .divInputBox{border:1px solid #c5c5c5; height:26px; padding:0 8px; position:relative; zoom:1;}
@@ -435,7 +438,7 @@ border:1px solid #999;background-color:#FFF;padding:0 0 9px 0 ;
 .noticeBox_top .iText{float:left; width:465px; margin-left:8px;}
 .noticeBox_bottom{margin-left:76px; *margin-left:81px; line-height:22px; margin-top:2px;}
 .writeTable_text{height:auto;}
-.writeTable_text textarea{width:100%; border:1px solid #fff; resize:none; overflow:auto; padding:5px 0; height:270px;}
+.writeTable_text textarea{width:100%; border:1px solid #fff; resize:none; overflow:auto; padding:5px 0; height:240px;}
 
 /*全局底部按钮*/
 .allFrameBtn_bottom{border-top:1px solid #e8e8e8; padding:10px 0 9px;}

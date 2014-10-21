@@ -765,6 +765,7 @@
             <behavior action="103834" thingId="0" key="compose_send_toptiming"  module="25" pageId="24" actionType="20" desc="定时发送"/>
             <behavior action="103835" thingId="0" key="compose_save"  module="25" pageId="24" actionType="20" desc="存草稿"/>
             <behavior action="103836" thingId="0" key="compose_cancel"  module="25" pageId="24" actionType="20" desc="取消"/>
+            <behavior action="105887" thingId="0" key="activity_invite" module="25" pageId="24" actionType="20" desc="会议邀请" />
             <behavior action="103837" thingId="0" key="compose_to"  module="25" pageId="24" actionType="20" desc="收件人"/>
             <behavior action="103839" thingId="0" key="compose_cc"  module="25" pageId="24" actionType="20" desc="添加抄送"/>
             <behavior action="103840" thingId="0" key="compose_bcc"  module="25" pageId="24" actionType="20" desc="添加密送"/>
@@ -1060,6 +1061,23 @@
             <behavior action="104617" thingId="0" key="compose_alltoonetips"  module="25" pageId="24" actionType="20" desc="写信页群发单显tips出现"/>
 			<behavior action="104618" thingId="1" key="compose_settruenamesuccess"  module="25" pageId="24" actionType="20" desc="成功设置发件人姓名"/>
             <behavior action="18011" thingId="0" key="compose_loadsuc"  module="25" pageId="24" actionType="10" desc="写信页加载"/>
+        </part>
+        <part desc="写信页点击到会议邀请">
+            <!--从写信页点过来的会议邀请-->
+            <behavior action="105888" thingId="0" key="activity_page_load"  module="25" pageId="24" actionType="10" desc="会议邀请页面加载次数"/>
+            <behavior action="105889" thingId="0" key="compose_activity_contacts"  module="25" pageId="24" actionType="20" desc="会议邀请页点击添加联系人"/>
+            <behavior action="105890" thingId="0" key="compose_activity_send"  module="25" pageId="24" actionType="20" desc="会议邀请页点击发送"/>
+            <behavior action="105891" thingId="0" key="compose_activity_cancel"  module="25" pageId="24" actionType="20" desc="点击取消或关闭标签页"/>
+            <behavior action="105892" thingId="0" key="compose_activity_addcalendar"  module="25" pageId="24" actionType="20" desc="点击添加到日历复选框"/>
+            <behavior action="105893" thingId="0" key="compose_activity_endtime"  module="25" pageId="24" actionType="20" desc="点击结束时间复选框"/>
+            <behavior action="105894" thingId="0" key="compose_activity_datetime"  module="25" pageId="24" actionType="20" desc="点击日期和时间选项"/>
+            <behavior action="105895" thingId="0" key="compose_activity_address"  module="25" pageId="24" actionType="20" desc="地点填写统计"/>
+            <behavior action="105896" thingId="0" key="compose_activity_content"  module="25" pageId="24" actionType="20" desc="内容填写统计"/>
+            <behavior action="105897" thingId="0" key="compose_activity_addattachment"  module="25" pageId="24" actionType="20" desc="点击添加附件"/>
+            <behavior action="105902" thingId="0" key="readmail_add_calendar"  module="25" pageId="24" actionType="20" desc="读信页点击添加到日历"/>
+            <behavior action="105903" thingId="0" key="send_invite_mail_suc"  module="25" pageId="24" actionType="10" desc="成功发送会议邀请人数"/>
+            <behavior action="105904" thingId="0" key="create_invite_suc"  module="25" pageId="24" actionType="10" desc="成功创建会议日历活动"/>
+
         </part>
         <part desc="写信成功页">
             操作栏

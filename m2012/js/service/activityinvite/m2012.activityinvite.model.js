@@ -2,7 +2,7 @@
 * @Author: anchen
 * @Date:   2014-09-18 15:30:43
 * @Last Modified by:   anchen
-* @Last Modified time: 2014-09-19 11:54:29
+* @Last Modified time: 2014-10-21 16:31:47
 */
 ;(function(jQuery,Backbone,_,M139) {
     var $ = jQuery;
@@ -19,8 +19,8 @@
             //日程是否启用提醒
             //0：否  1：是
             enable: 1,
-            //提醒提前时间,默认到点提醒
-            beforeTime: 0,
+            //提醒提前时间,默认提前15分钟
+            beforeTime: 15,
             //提醒提前类别
             //0分, 1时, 2天, 3周,4月
             beforeType: 0,
@@ -33,6 +33,8 @@
             title: "",
             //会议地点
             site: "",
+            //收件人
+            to: '',
             //邀请信息
             inviteInfo: '',
             //会议详情
@@ -59,10 +61,17 @@
             //是否有结束时间信息
             useEndTime: false,
 
+            isAddToCalendar: true,
+
             week: "",
             //全天事件
             //0：否 1：是
-            allDay: 0
+            allDay: 0,
+
+            tabName : '', // 当前邀请页签名称，用于激活标签页
+            pageType : 'activityInvite',
+            isFromSendBtn: false,//判断是否来自点击发送按钮,
+            hasEmailItems: false
         },
 
         EVENTS: {
@@ -72,53 +81,81 @@
         TIPS: {
             OPERATE_ERROR: "操作失败，请稍后再试",
             OPERATE_SUCCESS: "操作成功",
+            STARTTIME_INVALID: "开始时间不能早于当前时间",
+            ENDTIME_INVALID: "结束时间不能早于开始时间",
             DATA_LOADING: "正在加载中...",
-            MAX_LENGTH: "不能超过{0}个字符",
             TITLE_ERROR: "请输入主题",
             RECIVER_NOT: "请选择联系人",
-            RECEIVER_ERROR: "联系人输入错误"
+            RECEIVER_ERROR: "联系人输入错误",
+            CANCEL_INVITE: "关闭会议邀请页，未保存的内容将会丢失，是否关闭？"
         },
 
         initialize: function() {
             var self = this;
             self.initEvents();
+
         },
 
         initEvents: function() {
             var self = this;
+
             self.on("invalid", function (model, error) {
                 if (error && _.isObject(error)) {
                     for (var key in error) {
-                        var targetEl = '';
-                        switch(key){
-                            case 'title':targetEl = "activityTitle";
-                                break;
-                            //验证地点
-                            case "site": targetEl = "activityAddr";
-                                break;
-                            //验证会议详情
-                            case "content":targetEl = "activityContent";
-                                break;
-                        }
+
                         self.trigger(self.EVENTS.VALIDATE_FAILED, {
-                            target: targetEl,
+                            target: key,
                             message: error[key]
                         });
                         break;
                     }
                 }
             });
+
+            self.tabName = top.$App.getCurrentTab().name;
+
         },
-        //获取处理后的数据
-        getData: function() {
+        //比较是否有编辑
+        compare: function() {
+           var self = this;
+           if (self.get("isFromSendBtn")) {
+               return false;
+           }
+
+           if ($("#activityTitle").val() || self.get("hasEmailItems") || $("#activityAddr").val() || $("#activityContent").val()) {
+               return true; //有编辑过
+           } else {
+               return false; //没有编辑过
+           }
+        },
+        // 切换到当前邀请页标签
+        active : function(){
             var self = this;
-            //计算开始、结束时间
-            var title = self.get("title");
-            var startTime = self.get("dtStart");
-            var endTime = self.get("dtEnd");
-            if ($Date.parse(startTime) - $Date.parse(endTime) > 0) {//结束时间大于开始时间
-                endTime = startTime;
+            var tabName = self.tabName;
+            
+            if(tabName && tabName.indexOf('activityInvite') != -1){
+                top.$App.activeTab(tabName);
             }
+        },
+        // 判断当前会议邀请页是否为空白页
+        isBlankInvite : function(){
+            var self = this;
+            if($("#activityTitle").val() || $("#activityAddr").val() || $("#activityContent").val() || self.get("hasEmailItems")){
+                return false;
+            }else{
+                return true;
+            }
+        },
+
+        //获取处理后的数据（走addCalendar接口）
+        getData: function() {
+            var self = this, endTime='';
+            if (!self.get("useEndTime")){
+                endTime = self.get("dtStart");
+            } else {
+                endTime =self.get("dtEnd");
+            }
+            //计算开始、结束时间
             return {
                 labelId: self.get("labelId"),
                 calendarType: self.get("calendarType"),
@@ -130,7 +167,7 @@
                 title: self.get("title"),
                 site: self.get("site"),
                 content: self.get("content"),
-                dtStart: startTime,
+                dtStart: self.get("dtStart"),
                 dtEnd: endTime,
                 allDay: self.get("allDay"),
                 recMobile: self.get("recMobile"),
@@ -176,75 +213,80 @@
                 }
                 var value = {};
                 value[target] = message;
-                console.log(value);
+                //console.log(value);
                 return value;
-                }
+                };
 
             //验证主题内容有效性
-            var key = "activityTitle";
+            var key = "title";
             if (_.has(data, key)) {
-                if (data[key].length == 0) {
+                if (data.title.length == 0) {
                     return getResult(key, self.TIPS.TITLE_ERROR);
                 }
-                if (data[key].length > 30) {
-                    return getResult(key, $T.format(self.TIPS.MAX_LENGTH, [30]));
+            }
+
+            //验证开始时间
+            key = "dtStart";
+            if (_.has(data, key)) {
+                var startTime = data.dtStart;
+
+                startTime = $Date.parse(startTime);
+
+                if ( (startTime.getTime()) -(new Date()).getTime() < 0)
+                return getResult(key, self.TIPS.STARTTIME_INVALID);
+            }
+
+            //验证结束时间
+            key = "dtEnd";
+            if (_.has(data, key) && attrs.useEndTime) {
+
+                var startTime = $Date.parse(attrs.dtStart);
+                var endTime = $Date.parse(data.dtEnd);
+
+                if ((endTime.getTime()) - (startTime.getTime()) < 0) {
+                    return getResult(key, self.TIPS.ENDTIME_INVALID);
                 }
-            }
-            //验证地点内容有效性
-            key = "site";
-            if (_.has(data, key) && data.site.length > 30) {
-                return getResult(key, $T.format(self.TIPS.MAX_LENGTH, [30]));
-            }
-            //验证会议详情有效性
-            key = "content";
-            if (_.has(data, key) && data.content.length > 500) {
-                return getResult(key, $T.format(self.TIPS.MAX_LENGTH, [500]));
             }
         },
         //提交到服务器保存
         saveToServer: function (fnSuccess, fnError, fnFail, validate) {
             var self = this;
-            //检查数据的有效性
-            if (validate) {
-                if (!self.isValid()) {
-                    console.log('不通过');
-                    fnFail && fnFail();
-                    return;
-                }
-            }
-            console.dir(self.getData());
-            console.log('最后组装时候啦！');
-            M139.RichMail.API.call('calendar:addCalendar', self.getData(), function (response) {
-                if (response.responseData && response.responseData["code"] == "S_OK") {
-                    fnSuccess && fnSuccess(response);
-                } else {
-                    top.$Msg.alert("发送失败，请重试");
-                }
-            })
+            if (self.get("isAddToCalendar")) {
+                console.dir(self.getData());
+                //api 测试
+                M139.RichMail.API.call('calendar:addCalendar', self.getData(), function (result) {
+                    
+                    if (result.responseData.code == "S_OK") {
 
-            /*
-            return;
-            var options = {
-                data: self.getData(),
-                success: function (result) {
-                    if (result.code == "S_OK") {
-                        fnSuccess && fnSuccess(result["var"]);
+                        BH({key:"create_invite_suc"});
+                        fnSuccess && fnSuccess(result.responseData["var"]);
                         return;
                     }
                     var msg = self.TIPS.OPERATE_ERROR;
                     fnError && fnError(msg, result);
-                },
-                error: function (e) {
+                },function (e) {
                     fnError && fnError(self.TIPS.OPERATE_ERROR);
-                }
-            };
-
-            //提交数据
-            self.master.trigger(self.master.EVENTS.REQUIRE_API, {
-                success: function (api) {
-                    api.addCalendar(options);
-                }
-            });*/
+                });
+            } else {
+                var inviteTime = self.get("useEndTime")?'到'+self.get("dtEnd"):'';
+                var attach = self.get("fileLink")?self.get("fileLink"):'';
+                var mailInfo = {
+                    title: '【会议邀请】'+self.get("title"),
+                    to:self.get("to"),
+                    content: '会议主题：'+self.get("title")+'<br>会议时间：'+self.get("dtStart") +inviteTime+"<br>会议内容："
+                        +self.get("content")+"<br>"+attach
+                };
+                
+                top.$PUtils.sendMail({email:mailInfo.to,content:mailInfo.content,subject:mailInfo.title,callback:function (result) {
+                    if (result.responseData.code == "S_OK") {
+                        BH({key:"send_invite_mail_suc"});
+                        fnSuccess && fnSuccess(result.responseData["var"]);
+                        return;
+                    }
+                    var msg = self.TIPS.OPERATE_ERROR;
+                    fnError && fnError(msg, result);
+                }});
+            }
         }
 
 

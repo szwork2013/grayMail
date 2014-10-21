@@ -7152,7 +7152,7 @@ onTabClose: function (name) {
                 window.LinkConfig = {	//模块配置，用于工厂模式创建相应的模块
                     welcome: { url: "welcome_v2.html", site: "", title: "首页", tab: "welcome",group:"welcome"},
                     compose: { url: "compose.html", site: "", title: "写信", mutiple: true },
-                    activityInvite: { url: "activityinvite/invite.html", site: "", title: "会议邀请", mutiple: false },
+                    activityInvite: { url: "activityinvite/invite.html", site: "", title: "会议邀请", mutiple: true },
                     account:             {group: "setting", title: "设置", url: "set/account.html", site: "", tab: "account" },
                     account_setname:     {group: "setting", title: "设置", url: "set/account.html?bubble=txtSenderName", site: "", tab: "account" },
                     account_accountSafe: {group: "setting", title: "设置", url: "set/account.html?anchor=accountSafe", site: "", tab: "account" },
@@ -27711,6 +27711,7 @@ function _letterInlineScript(win) {
                 "operationlinkId_0",
                 "139Command_CustomLinks",
                 "calendarInviteOp",
+                "meetingInviteOp",
                 "shareCalendarEmail",
                 "shareLabel",
 				"groupMailInviteOp"
@@ -27729,8 +27730,13 @@ function _letterInlineScript(win) {
                 top.ipadLetterMid = dataSource.omid;
             }
             letterScriptLoad = true;
-            var scriptPath = "/m2012/js/richmail/readmail/m2012.readmail.letterscript.js";
-            writeScript('letterscript', scriptPath);
+
+             setTimeout(function(){
+                var scriptPath = "/m2012/js/richmail/readmail/m2012.readmail.letterscript.js";
+                writeScript('letterscript', scriptPath);
+            }, 2000);
+
+            
         }
 
 
@@ -27846,6 +27852,7 @@ function _letterInlineScript(win) {
 
     //页面初始化
     letterInit(win.letterInfo);
+    
 	$("#attachAndDisk").hide();
 	(function(M139){
 			var idMatch = ["attachAndDisk"];

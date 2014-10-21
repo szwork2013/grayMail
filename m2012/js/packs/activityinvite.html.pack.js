@@ -6731,11 +6731,157 @@ jQuery.extend(M2012.UI.PopMenu,
 
 
 })(jQuery, _, M139, window._top || window.top)
+; (function ($, _, M139, top) {
+
+    var superClass = M139.View.ViewBase;
+    var _class = "M2012.Calendar.View.ValidateTip.Bottom";
+
+    M139.namespace(_class, superClass.extend({
+
+        defaults: {
+
+            //目标元素
+            //需要在其上显示提示信息的$(dom)
+            target: null,
+
+            //提示内容
+            content: "",
+
+            //提示框的默认宽度
+            width: 80
+        },
+
+        //当前控件
+        curentEl: null,
+
+
+        /**
+         *  消息弹出提醒控件
+         *  @param {Object} args.target 消息框弹出是参考的元素(DOM对象)
+         *  @param {Sting} args.content  消息内容
+         *  @param {Int} args.width 弹出框宽度
+        **/
+        initialize: function (args) {
+            var self = this;
+
+            if (!args)
+                args = {};
+
+            if (args.target)
+                self.target = args.target;
+
+            if (args.content)
+                self.content = args.content;
+
+            if (args.width && $.isNumeric(args.width))
+                self.width = args.width;
+
+            self.render();
+
+            self.initEvents();
+        },
+
+        initEvents: function () {
+
+            this.curentEl.bind('blur', function () {
+                M2012.Calendar.View.ValidateTip.Bottom.hide();
+            });
+        },
+
+        render: function () {
+
+            var self = this;
+
+            var html = $T.format(self.template, {
+                cid: self.cid,
+                content: self.content,
+                width: self.width
+            });
+
+            self.curentEl = $(html).appendTo($(document.body));
+        },
+
+        /**
+         * 更新提示内容
+         */
+        updateContent: function (content) {
+
+            $('#' + this.cid + '_content').html(content);
+        },
+
+        setPositon: function (el) {
+
+            var self = this;
+
+            if (!el) return;
+
+            var offset = $(el).offset();
+            var left = offset.left - 10;
+
+            var height = $(el).height(); //这里取当前控件高度而不是弹框高度
+            
+            var top = offset.top + height + 14;
+            console.log('top:'+top+'left:'+left);
+            self.curentEl.css({ left: left, top: top });
+            
+            self.curentEl.focus();
+        },
+
+        template: [
+            "<div id=\"{cid}_wrap\" class=\"tips\" tabindex=\"0\" hidefocus=\"true\" style=\"position:absolute;outline:none;left:20px;top:-1000px;width:{width}px;display:'';z-index:9999;\">",
+                "<div class=\"tips-text\"  id=\"{cid}_content\">{content}</div>",
+                "<div class=\"tipsTop diamond\" style=\"left:10px\"></div>",
+           "</div>"
+        ].join("")
+    }, {
+
+        /**
+         * 显示控件外观
+         * 此方法供外部调用
+         */
+        /**
+         *  消息弹出提醒控件 此方法供外部调用
+         *  @param {Object} target 消息框弹出是参考的元素(DOM对象)
+         *  @param {Sting} text  消息内容
+         *  @param {Boolean} isAutoHide 是否自动消失
+        **/
+        show: function (text, target, isAutoHide) {
+            var self = this;
+            if (!window.$Cal_Validate_Tip) {
+                window.$Cal_Validate_Tip = new M2012.Calendar.View.ValidateTip.Bottom({});
+            }
+
+            var control = $Cal_Validate_Tip;
+            //更新界面内容
+            control.updateContent(text);
+            //设置位置
+            control.setPositon(target);
+            if (isAutoHide) {
+                setTimeout(function () {
+                    M2012.Calendar.View.ValidateTip.Bottom.hide();
+                }, 5000);//5s消失
+            }
+        },
+
+        /**
+         * 显示控件外观
+         * 此方法供外部调用
+         */
+        hide: function () {
+            if (!window.$Cal_Validate_Tip) {
+                window.$Cal_Validate_Tip = new M2012.Calendar.View.ValidateTip.Bottom({});
+            }
+            window.$Cal_Validate_Tip.curentEl.css({ left: '-1000px' });
+        }
+    }));
+
+
+})(jQuery, _, M139, window._top || window.top)
 /**
 * @Author: anchen
 * @Date:   2014-09-18 15:30:43
 * @Last Modified by:   anchen
-* @Last Modified time: 2014-09-19 11:54:29
+* @Last Modified time: 2014-10-21 16:31:47
 */
 ;(function(jQuery,Backbone,_,M139) {
     var $ = jQuery;
@@ -6752,8 +6898,8 @@ jQuery.extend(M2012.UI.PopMenu,
             //日程是否启用提醒
             //0：否  1：是
             enable: 1,
-            //提醒提前时间,默认到点提醒
-            beforeTime: 0,
+            //提醒提前时间,默认提前15分钟
+            beforeTime: 15,
             //提醒提前类别
             //0分, 1时, 2天, 3周,4月
             beforeType: 0,
@@ -6766,6 +6912,8 @@ jQuery.extend(M2012.UI.PopMenu,
             title: "",
             //会议地点
             site: "",
+            //收件人
+            to: '',
             //邀请信息
             inviteInfo: '',
             //会议详情
@@ -6792,10 +6940,17 @@ jQuery.extend(M2012.UI.PopMenu,
             //是否有结束时间信息
             useEndTime: false,
 
+            isAddToCalendar: true,
+
             week: "",
             //全天事件
             //0：否 1：是
-            allDay: 0
+            allDay: 0,
+
+            tabName : '', // 当前邀请页签名称，用于激活标签页
+            pageType : 'activityInvite',
+            isFromSendBtn: false,//判断是否来自点击发送按钮,
+            hasEmailItems: false
         },
 
         EVENTS: {
@@ -6805,53 +6960,81 @@ jQuery.extend(M2012.UI.PopMenu,
         TIPS: {
             OPERATE_ERROR: "操作失败，请稍后再试",
             OPERATE_SUCCESS: "操作成功",
+            STARTTIME_INVALID: "开始时间不能早于当前时间",
+            ENDTIME_INVALID: "结束时间不能早于开始时间",
             DATA_LOADING: "正在加载中...",
-            MAX_LENGTH: "不能超过{0}个字符",
             TITLE_ERROR: "请输入主题",
             RECIVER_NOT: "请选择联系人",
-            RECEIVER_ERROR: "联系人输入错误"
+            RECEIVER_ERROR: "联系人输入错误",
+            CANCEL_INVITE: "关闭会议邀请页，未保存的内容将会丢失，是否关闭？"
         },
 
         initialize: function() {
             var self = this;
             self.initEvents();
+
         },
 
         initEvents: function() {
             var self = this;
+
             self.on("invalid", function (model, error) {
                 if (error && _.isObject(error)) {
                     for (var key in error) {
-                        var targetEl = '';
-                        switch(key){
-                            case 'title':targetEl = "activityTitle";
-                                break;
-                            //验证地点
-                            case "site": targetEl = "activityAddr";
-                                break;
-                            //验证会议详情
-                            case "content":targetEl = "activityContent";
-                                break;
-                        }
+
                         self.trigger(self.EVENTS.VALIDATE_FAILED, {
-                            target: targetEl,
+                            target: key,
                             message: error[key]
                         });
                         break;
                     }
                 }
             });
+
+            self.tabName = top.$App.getCurrentTab().name;
+
         },
-        //获取处理后的数据
-        getData: function() {
+        //比较是否有编辑
+        compare: function() {
+           var self = this;
+           if (self.get("isFromSendBtn")) {
+               return false;
+           }
+
+           if ($("#activityTitle").val() || self.get("hasEmailItems") || $("#activityAddr").val() || $("#activityContent").val()) {
+               return true; //有编辑过
+           } else {
+               return false; //没有编辑过
+           }
+        },
+        // 切换到当前邀请页标签
+        active : function(){
             var self = this;
-            //计算开始、结束时间
-            var title = self.get("title");
-            var startTime = self.get("dtStart");
-            var endTime = self.get("dtEnd");
-            if ($Date.parse(startTime) - $Date.parse(endTime) > 0) {//结束时间大于开始时间
-                endTime = startTime;
+            var tabName = self.tabName;
+            
+            if(tabName && tabName.indexOf('activityInvite') != -1){
+                top.$App.activeTab(tabName);
             }
+        },
+        // 判断当前会议邀请页是否为空白页
+        isBlankInvite : function(){
+            var self = this;
+            if($("#activityTitle").val() || $("#activityAddr").val() || $("#activityContent").val() || self.get("hasEmailItems")){
+                return false;
+            }else{
+                return true;
+            }
+        },
+
+        //获取处理后的数据（走addCalendar接口）
+        getData: function() {
+            var self = this, endTime='';
+            if (!self.get("useEndTime")){
+                endTime = self.get("dtStart");
+            } else {
+                endTime =self.get("dtEnd");
+            }
+            //计算开始、结束时间
             return {
                 labelId: self.get("labelId"),
                 calendarType: self.get("calendarType"),
@@ -6863,7 +7046,7 @@ jQuery.extend(M2012.UI.PopMenu,
                 title: self.get("title"),
                 site: self.get("site"),
                 content: self.get("content"),
-                dtStart: startTime,
+                dtStart: self.get("dtStart"),
                 dtEnd: endTime,
                 allDay: self.get("allDay"),
                 recMobile: self.get("recMobile"),
@@ -6909,75 +7092,80 @@ jQuery.extend(M2012.UI.PopMenu,
                 }
                 var value = {};
                 value[target] = message;
-                console.log(value);
+                //console.log(value);
                 return value;
-                }
+                };
 
             //验证主题内容有效性
-            var key = "activityTitle";
+            var key = "title";
             if (_.has(data, key)) {
-                if (data[key].length == 0) {
+                if (data.title.length == 0) {
                     return getResult(key, self.TIPS.TITLE_ERROR);
                 }
-                if (data[key].length > 30) {
-                    return getResult(key, $T.format(self.TIPS.MAX_LENGTH, [30]));
+            }
+
+            //验证开始时间
+            key = "dtStart";
+            if (_.has(data, key)) {
+                var startTime = data.dtStart;
+
+                startTime = $Date.parse(startTime);
+
+                if ( (startTime.getTime()) -(new Date()).getTime() < 0)
+                return getResult(key, self.TIPS.STARTTIME_INVALID);
+            }
+
+            //验证结束时间
+            key = "dtEnd";
+            if (_.has(data, key) && attrs.useEndTime) {
+
+                var startTime = $Date.parse(attrs.dtStart);
+                var endTime = $Date.parse(data.dtEnd);
+
+                if ((endTime.getTime()) - (startTime.getTime()) < 0) {
+                    return getResult(key, self.TIPS.ENDTIME_INVALID);
                 }
-            }
-            //验证地点内容有效性
-            key = "site";
-            if (_.has(data, key) && data.site.length > 30) {
-                return getResult(key, $T.format(self.TIPS.MAX_LENGTH, [30]));
-            }
-            //验证会议详情有效性
-            key = "content";
-            if (_.has(data, key) && data.content.length > 500) {
-                return getResult(key, $T.format(self.TIPS.MAX_LENGTH, [500]));
             }
         },
         //提交到服务器保存
         saveToServer: function (fnSuccess, fnError, fnFail, validate) {
             var self = this;
-            //检查数据的有效性
-            if (validate) {
-                if (!self.isValid()) {
-                    console.log('不通过');
-                    fnFail && fnFail();
-                    return;
-                }
-            }
-            console.dir(self.getData());
-            console.log('最后组装时候啦！');
-            M139.RichMail.API.call('calendar:addCalendar', self.getData(), function (response) {
-                if (response.responseData && response.responseData["code"] == "S_OK") {
-                    fnSuccess && fnSuccess(response);
-                } else {
-                    top.$Msg.alert("发送失败，请重试");
-                }
-            })
+            if (self.get("isAddToCalendar")) {
+                console.dir(self.getData());
+                //api 测试
+                M139.RichMail.API.call('calendar:addCalendar', self.getData(), function (result) {
+                    
+                    if (result.responseData.code == "S_OK") {
 
-            /*
-            return;
-            var options = {
-                data: self.getData(),
-                success: function (result) {
-                    if (result.code == "S_OK") {
-                        fnSuccess && fnSuccess(result["var"]);
+                        BH({key:"create_invite_suc"});
+                        fnSuccess && fnSuccess(result.responseData["var"]);
                         return;
                     }
                     var msg = self.TIPS.OPERATE_ERROR;
                     fnError && fnError(msg, result);
-                },
-                error: function (e) {
+                },function (e) {
                     fnError && fnError(self.TIPS.OPERATE_ERROR);
-                }
-            };
-
-            //提交数据
-            self.master.trigger(self.master.EVENTS.REQUIRE_API, {
-                success: function (api) {
-                    api.addCalendar(options);
-                }
-            });*/
+                });
+            } else {
+                var inviteTime = self.get("useEndTime")?'到'+self.get("dtEnd"):'';
+                var attach = self.get("fileLink")?self.get("fileLink"):'';
+                var mailInfo = {
+                    title: '【会议邀请】'+self.get("title"),
+                    to:self.get("to"),
+                    content: '会议主题：'+self.get("title")+'<br>会议时间：'+self.get("dtStart") +inviteTime+"<br>会议内容："
+                        +self.get("content")+"<br>"+attach
+                };
+                
+                top.$PUtils.sendMail({email:mailInfo.to,content:mailInfo.content,subject:mailInfo.title,callback:function (result) {
+                    if (result.responseData.code == "S_OK") {
+                        BH({key:"send_invite_mail_suc"});
+                        fnSuccess && fnSuccess(result.responseData["var"]);
+                        return;
+                    }
+                    var msg = self.TIPS.OPERATE_ERROR;
+                    fnError && fnError(msg, result);
+                }});
+            }
         }
 
 
@@ -6992,8 +7180,8 @@ jQuery.extend(M2012.UI.PopMenu,
 /**
  * @Author: zhangjia
  * @Date:   2014-09-18 17:22
- * @Last Modified by:   zhangjia
- * @Last Modified time: 2014-09-18 10:44:17
+ * @Last Modified by:   anchen
+ * @Last Modified time: 2014-10-21 16:30:40
  */
 ;(function(jQuery, _, M139){
     var $ = jQuery;
@@ -7009,7 +7197,8 @@ jQuery.extend(M2012.UI.PopMenu,
             name: 'M2012.activityInvite.View',
             el:"body",
             events: {
-                "click #inviteMore" : 'showAddressBookDialog'
+                "click #inviteMore" : 'showAddressBookDialog',
+                "click #cancelInviteBtn": "cancelInvite"//底部取消会议邀请
             },
             initialize: function(options) {
                 this.model = options.model;
@@ -7025,38 +7214,39 @@ jQuery.extend(M2012.UI.PopMenu,
             initEvents: function() {
                 var self = this;
                 self.registerMouseEvent();
+                self.regCloseTabEvent();
                 self.createCalander();
                 self.createTimer();
                 self.isEndTimeChecked();
+                self.isAddToCalendarChecked();
                 self.isChinaMobileUserCheck();
                 self.isSMSRemindChecked();
+                self.handleMSPlaceholder();
 
                 // 监控数据校验结果并实时呈现错误信息
                 self.model.on(self.model.EVENTS.VALIDATE_FAILED, function (args) {
                     if (!args || !args.target || !args.message)
                         return;
                     var targetEl = null;
+
                     switch (args.target) {
                         //验证主题
-                        /*case "activityTitle": targetEl = $("#activityTitle");
-                            break;*/
-                        //验证地点
-                        case "activityAddr": targetEl = $("#activityAddr");
+                        case "title": targetEl = $("#activityTitle");
                             break;
-                        //验证会议详情
-                        case "activityContent":
-                            targetEl = $("#activityContent");
+                        //验证备注
+                        case "dtStart": targetEl = $("#startTxtCalendar");
                             break;
+                        case "dtEnd": targetEl = $("#endTxtCalendar");
+                            break;
+
                     }
+
                     if (targetEl && targetEl.length > 0) {
-                        //将滚动条滚动到顶部
-                        if (targetEl.offset().top < 0) {
-                            $("#activityMainDiv")[0].scrollTop = 0;
-                        }
-                        //console.log(args);
-                        window.setTimeout(function () {
-                            M2012.Calendar.View.ValidateTip.show(args.message, targetEl);
-                        }, 100);
+
+                        targetEl.focus();
+                        window.setTimeout(function(){
+                            M2012.Calendar.View.ValidateTip.Bottom.show(args.message, targetEl);
+                        },100);
                     }
 
                 });
@@ -7064,12 +7254,10 @@ jQuery.extend(M2012.UI.PopMenu,
             // 注册隐藏右侧通讯录面板鼠标事件
             registerMouseEvent : function(){
                 $("#switchSider").toggle(function(event){
-                    top.BH('activity_addressbook_toggle');
+
                     $(this).attr('title', '显示右边栏');
-                    // 隐藏右侧的样式
                     $("#writeWrap").addClass("writeMainOff");
                 },function(event){
-                    top.BH('activity_addressbook_toggle');
                     $(this).attr('title', '隐藏右边栏');
                     $("#writeWrap").removeClass("writeMainOff");
                 });
@@ -7094,6 +7282,7 @@ jQuery.extend(M2012.UI.PopMenu,
             },
             getDefaultDate: function (){
                 var now = new Date();
+                var now = new Date();
                 return new Date(now.getTime() + 30 * 60 * 1000);
             },
 
@@ -7110,6 +7299,7 @@ jQuery.extend(M2012.UI.PopMenu,
                 });
                 var startText = $("#startTxtCalendar > div:eq(0)");
                 startCalendarPicker.on("select", function (e) {
+                    BH({key:"compose_activity_datetime"});
                     var calendar = e.value.format("yyyy年MM月dd日 周w");
                     startText.html(calendar);
                     $("#startDateFormat").html(e.value.format("yyyy-MM-dd"));
@@ -7123,6 +7313,7 @@ jQuery.extend(M2012.UI.PopMenu,
                 });
                 var endText = $("#endTxtCalendar > div:eq(0)");
                 endCalendarPicker.on("select", function (e) {
+                    BH({key:"compose_activity_datetime"});
                     var calendar = e.value.format("yyyy年MM月dd日 周w");
                     endText.html(calendar);
                     $("#endDateFormat").html(e.value.format("yyyy-MM-dd"));
@@ -7143,6 +7334,7 @@ jQuery.extend(M2012.UI.PopMenu,
                     top : "200px",
                     left : "200px",
                     onItemClick : function(item){
+                        BH({key:"compose_activity_datetime"});
                         self.model.set({dtStart:self.getStartDateTime()});
 
                     }
@@ -7156,6 +7348,7 @@ jQuery.extend(M2012.UI.PopMenu,
                     top : "200px",
                     left : "200px",
                     onItemClick : function(item){
+                        BH({key:"compose_activity_datetime"});
                         self.model.set({dtStart:self.getStartDateTime()});
 
                     }
@@ -7170,6 +7363,7 @@ jQuery.extend(M2012.UI.PopMenu,
                     top : "200px",
                     left : "200px",
                     onItemClick : function(item){
+                        BH({key:"compose_activity_datetime"});
                         self.model.set({dtEnd:self.getEndDateTime()});
                         //console.log('change_hour:'+self.model.get("dtEnd"));
 
@@ -7184,8 +7378,9 @@ jQuery.extend(M2012.UI.PopMenu,
                     top : "200px",
                     left : "200px",
                     onItemClick : function(item){
+                        BH({key:"compose_activity_datetime"});
                         self.model.set({dtEnd:self.getEndDateTime()});
-                        console.log('change_minutes:'+self.model.get("dtEnd"));
+                        
                     }
                 });
             },
@@ -7205,10 +7400,23 @@ jQuery.extend(M2012.UI.PopMenu,
 
                     } else {
                         $(".endTimeDiv").hide();
-                        self.model.set({useEndTime:false})
+                        self.model.set({useEndTime:false});
                         self.model.set({
                             dtEnd:''
                         });
+                    }
+                });
+            },
+            //是否选择添加到自己的日历
+            isAddToCalendarChecked: function() {
+                var el = $("#addToCalendar"),self = this;
+                el.change(function(){
+                    if ( el.is(':checked') ){
+                        self.model.set({
+                            isAddToCalendar:true
+                        });
+                    } else {
+                        self.model.set({isAddToCalendar:false});
                     }
                 });
             },
@@ -7258,7 +7466,7 @@ jQuery.extend(M2012.UI.PopMenu,
                         var key = this.name;
 
                         data[key] = $.trim(this.value);
-                        console.log(data);
+                        //console.log(data);
                         self.model.set(data, {
                             validate: false,
                             target: key
@@ -7275,12 +7483,10 @@ jQuery.extend(M2012.UI.PopMenu,
                 self.model.set({dtStart:date+' '+time+":00"});
                 self.model.set({dtEnd:date+' '+time+":00"});
                 //保存
-                $("#sendInviteBtn").click(function (e) {
+                $("#sendInviteBtn").click(function () {
+                    BH({key:"compose_activity_send"});
+                    self.model.set({isFromSendBtn:true});
                     self.save(true);
-                });
-                
-                $("#cancelInviteBtn").click(function (e) {
-                    top.$App.close();
                 });
             },
             //渲染视图
@@ -7301,33 +7507,11 @@ jQuery.extend(M2012.UI.PopMenu,
                         self.model.set({ inviteInfo: data }, {
                             silent: true
                         });
-                        console.log('inviteInfo(r):'+self.model.get("inviteInfo"));
                     });
 
                 self.initPageEvents();
-
-                M139.Dom.setTextAreaAdaptive($("#activityTitle"), {
-                    placeholder: '会议主题，最多30字',
-                    defaultcolor: "#333"
-                });
-
-                M139.Dom.setTextAreaAdaptive($("#activityAddr"), {
-                    placeholder: '会议地点（选填），最多30字',
-                    defaultcolor: "#333"
-                });
-
-                M139.Dom.setTextAreaAdaptive($("#activityContent"), {
-                    placeholder: '会议详情（选填），最多500字',
-                    defaultheight: "200px",
-                    defaultcolor: "#333"
-                });
-
-                M139.Dom.setTextAreaAdaptive($("#smsRemindInfo"), {
-                    placeholder: '短信提醒内容，最多70字',
-                    defaultcolor: "#333"
-                });
-
             },
+
 
             /**
              * 获得时/分菜单项
@@ -7368,6 +7552,13 @@ jQuery.extend(M2012.UI.PopMenu,
                 self.toRichInput.setTipText('联系人');
                 self.toRichInput.on("focus",function(){
                     self.currentRichInput = this;
+                });
+                self.toRichInput.on("itemchange",function(){
+                    if(self.toRichInput.hasItem()) {
+                        self.model.set({hasEmailItems:true});
+                    } else {
+                        self.model.set({hasEmailItems:false});
+                    }
                 });
             },
 
@@ -7422,6 +7613,18 @@ jQuery.extend(M2012.UI.PopMenu,
                 });
             },
 
+            //截取value字符串前len个字节，一个汉字为2字节
+            getCutCode: function(value, len) {
+                var count = 0;
+                for (var i = 0; i<value.length; i++) {
+                    var codeByte = (value.charAt(i).charCodeAt(0)>255)?2:1;
+                    count = count + codeByte;
+                    if (count >= len) {
+                        return value.slice(0, i+1) ;
+                        break;
+                    }
+                }
+            },
             /** 实时监控输入框数据
              * @param {jQuery Object}  inputEl     //输入框元素
              * @param {Number}         maxLength   //允许输入字符的最大长度
@@ -7430,8 +7633,10 @@ jQuery.extend(M2012.UI.PopMenu,
                 var self = this;
                 inputEl.unbind("keyup parse").bind("keyup parse", function (e) {
                     var value = $.trim(inputEl.val());
-                    if (value.length > maxLength) {
-                        inputEl.val(value.slice(0, maxLength));
+                    if ($TextUtils.getBytes(value) > maxLength) {
+
+                        inputEl.val(self.getCutCode(value,maxLength));
+
                         var key = inputEl.attr("id");
 
                         //更新数据到model
@@ -7441,15 +7646,10 @@ jQuery.extend(M2012.UI.PopMenu,
                             silent: true,
                             validate: false
                         });
-                        //界面展示tips提示
-                        self.model.trigger(self.model.EVENTS.VALIDATE_FAILED, {
-                            target: key,
-                            message: $T.format(self.model.TIPS.MAX_LENGTH, [maxLength])
-                        });
                     }
                 });
             },
-            //对成员信息过滤
+            //对邀请的成员信息过滤
             getValidateReiciver: function(inviteArr){
                 var self = this;
                 var arr = [];
@@ -7466,24 +7666,107 @@ jQuery.extend(M2012.UI.PopMenu,
 
                 return arr;
             },
+
+            //修复IE下的placeholder问题
+            handleMSPlaceholder: function(){
+                var self = this;
+                if(!self.placeholderSupport()){   // 判断浏览器是否支持 placeholder
+                    $('[placeholder]').focus(function() {
+                        var input = $(this);
+                        if (input.val() == input.attr('placeholder')) {
+                            input.val('');
+                            input.css('color','#000');
+                        }
+                    }).blur(function() {
+                        var input = $(this);
+                        if (input.val() == '' || input.val() == input.attr('placeholder')) {
+                            input.css('color','#999');
+                            input.val(input.attr('placeholder'));
+                        }
+                    }).blur();
+                }
+            },
+
+            placeholderSupport:function () {
+                return 'placeholder' in document.createElement('input');
+            },
+            //取消会议邀请
+            cancelInvite : function(){
+                var self = this;
+                var isEdited = self.model.compare();
+                if (!isEdited || window.confirm(self.model.TIPS['CANCEL_INVITE'])) {
+                    BH({key:"compose_activity_cancel"});
+                    top.$App.close();
+                }
+
+            },
+
+            // 注册关闭会议邀请标签页事件
+            regCloseTabEvent : function(){
+                var self = this;
+                top.$App.on("closeTab", self.closeActivityTabCallback);
+            },
+
+            // 关闭会议邀请标签页回调
+            closeActivityTabCallback : function(args){
+                var self = this;
+                if(!top || !top.$App){
+                    return;
+                }
+
+                if (top.$App.getCurrentTab().name.indexOf('activityInvite') != -1) {
+                    aiView.model.active();
+                }
+
+                if(args.name && args.name === aiView.model.tabName){
+                    var isEdited = aiView.model.compare();
+                    if(isEdited){
+                        if(window.confirm(aiView.model.TIPS['CANCEL_INVITE'])){
+                            BH({key:"compose_activity_cancel"});
+                            top.M139.UI.TipMessage.hide();
+                            args.cancel = false;
+                            top.$App.off("closeTab", aiView.closeTabCallback);
+                        }else{
+                            args.cancel = true;
+                        }
+                    }else{
+                        top.M139.UI.TipMessage.hide();
+                        args.cancel = false;
+                        top.$App.off("closeTab", aiView.closeTabCallback);
+                    }
+                }
+            },
             /**
              *  提交数据
              **/
             save: function (validate) {
                 var self = this;
-                if(!self.checkInputAddr(event)){
-                    console.log('收件人验证未通过！');
+
+                if(window.isAttachUploading()) {
+                    top.$Msg.alert("附件上传尚未完成，请稍后发送！");
+                    return;
+                }
+
+                if (!self.model.isValid()) {
+                    return;
+                }
+
+                if(!self.checkInputAddr()){
+                    //console.log('收件人验证未通过！');
                     return;
                 } else {
+                    self.model.set({to:self.currentRichInput.getValidationItems().join(',')})
                     self.model.set({inviteInfo:self.getValidateReiciver(self.currentRichInput.getItems())})
                 }
+
+
                 if (window.filesToSend.length == 0) {
                     //新增会议邀请
                     self.saveData(validate);
                 } else {
                     getSendLink(function (fileLink) {   //获取超大附件链接后再发送
                         self.model.set("fileLink", fileLink);
-                        console.log(fileLink);
+                        //console.log(fileLink);
                         self.saveData(validate);
                     });
                 }
@@ -7600,7 +7883,7 @@ SWFObject.prototype.write = function(elementId){
 	    $(n).append(this.getHTML());
 	}
 }
-﻿  
+﻿
 /*
 上传组件，IE浏览器默认flash上传，其它浏览器html5
 
@@ -7665,7 +7948,6 @@ SWFObject.prototype.write = function(elementId){
             window["UploadFacade"] = new FlashUpload(options);
             uploader = window["UploadFacade"];
 
-          
         } else {
 
             $(div).html(['<form style="" enctype="multipart/form-data" id="fromAttach" method="post" action="" target="frmAttachTarget">',
@@ -7688,7 +7970,8 @@ SWFObject.prototype.write = function(elementId){
         uploader.cancel(taskId);
     }
     this.getUploadFiles = function () {//获取上传队列
-        uploader.getUploadFiles();
+        return uploader.getUploadFiles();
+
     }
     
     $.extend(options, this);//继承FileUpload的能力
@@ -7724,15 +8007,17 @@ var FlashUpload = function(options){
         },
         onloadcomplete: function (args) {
             var self = this;
-            console.log("onloadcomplete", args);
+            //console.log("onloadcomplete", args);
 
             
             var file = this.getFileById(args.taskId);
              
             file.md5 = args.md5;
             UploadLargeAttach.prepareUpload(file, function (postParams) {
-                self.activexObj.setUploadUrl(file.uploadUrl);
-                self.activexObj.uploadRequest();
+
+                    self.activexObj.setUploadUrl(file.uploadUrl);
+                    self.activexObj.uploadRequest();
+
             });
              
         },
@@ -7759,6 +8044,7 @@ var FlashUpload = function(options){
             this.agent.onselect && this.agent.onselect(files);
 
             this.uploadFiles = files;
+
             return true;
         },
         onprogress: function (args) {
@@ -7767,7 +8053,7 @@ var FlashUpload = function(options){
             fileInfo.state = "uploading";
             fileInfo.percent = args.percent;
             //fileInfo.fileName = decodeURIComponent(fileInfo.fileName);//防止乱码，flash里面做了encode
-            //alert(fileInfo.percent);
+            
             this.agent.onprogress && this.agent.onprogress(fileInfo);
         },
         oncomplete: function (data) {
@@ -7830,6 +8116,7 @@ var UploadLargeAttach = {
             file.comeFrom = "cabinet";
             file.fileType = "keepFolder";
             M139.RichMail.API.call("file:fastUpload", data, function (result) {
+
                 if (file.isCancel) { //md5过程中取消上传
                     //uploadManager.removeFile(file);
                     //uploadManager.autoUpload();
@@ -7850,7 +8137,7 @@ var UploadLargeAttach = {
                         callback(params);
                     } else if (status == "1") { //单副本，直接插入
 
-                        console.log("单副本");
+
                         file.fileId = result.responseData["var"].fileId;
                         file.state = "complete";
                         //var fileCabinet = [self.transformFile(file)];
@@ -7879,13 +8166,28 @@ function completeFile(fileInfo) {
     updateUI(fileInfo);
 }
 function deleteFile(taskId) {
-  
+    var files = fileUpload.getUploadFiles();
+
+    for(var k = 0;k < files.length; k++) {
+        if (taskId == files[k].taskId) {
+
+            if (files[k].state == "uploading"){
+                //files.splice(k,1);
+                fileUpload.cancel(taskId);
+            } else {
+                files.splice(k,1);
+                return;
+            }
+
+        }
+    }
+    /*
     for (var i = 0; i < window.filesToSend.length; i++) {
         if (taskId == window.filesToSend[i].taskId) {
             window.filesToSend.splice(i, 1);
             i--;
         }
-    }
+    }*/
 }
 
 function getFileTypeObj() {
@@ -7951,10 +8253,10 @@ function getLinkHtml(fileList,downloadUrl) {
         $(window.filesToSend).each(function (i2,n2) {
             if (n2.fileName == n.fileName) {
                 $.extend(n2, n);
-                console.log(n2);
+                //console.log(n2);
             }
         })
-    }); 
+    });
     var resourcePath = top.m2012ResourceDomain + '/m2012/images/module/readmail/';
     var fileTypeObj = getFileTypeObj();
     var outsideTableHtml=['<table id="attachAndDisk" style="margin-top:25px; border-collapse:collapse; table-layout:fixed; width:95%; font-size: 12px; line-height:18px; font-family:\'Microsoft YaHei\',Verdana,\'Simsun\';">',
@@ -7971,20 +8273,19 @@ function getLinkHtml(fileList,downloadUrl) {
 					'</tr>',
 				'</tbody>',
 			 '</table>'].join("");
-
     var tableHtml = ['<table style="border-collapse:collapse; table-layout:fixed; width:100%;" id="attachItem" class="newAttachItem">',
-                                 '<thead>',
-                                     '<tr>',
-                                         '<td style="height:10px;"></td>',
-                                     '</tr>',
-                                     '<tr>',
-                                         '<th style=" text-align:left; padding-left:30px; height:35px;"><strong style="margin-right:12px;">139邮箱-超大附件</strong><a href="{downloadUrl}" style="font-weight:normal;">进入下载页面</a></th>',
-                                     '</tr>',
-                                 '</thead>',
-                                 '<tbody>',
-                                 '{trs}',
-                                 '</tbody>',
-                         '</table>'].join("");
+								'<thead>',
+									'<tr>',
+										'<td style="height:10px;"></td>',
+									'</tr>',
+									'<tr>',
+										'<th style=" text-align:left; padding-left:30px; height:35px;"><strong style="margin-right:12px;">139邮箱-超大附件</strong><a href="{downloadUrl}" style="font-weight:normal;">进入下载页面</a></th>',
+									'</tr>',
+								'</thead>',
+								'<tbody>',
+								'{trs}',
+								'</tbody>',
+						'</table>'].join("");
     var itemHtmlNew = ['<tr>',
                         '<td style="padding-left:30px; height:40px;">',
                             '<table style="border-collapse:collapse; table-layout:fixed; width:100%;">',
@@ -8003,6 +8304,7 @@ function getLinkHtml(fileList,downloadUrl) {
                     '</tr>'].join("");
 
     var midHtml = [];
+    //debugger;
     for (var i = 0; i < filesToSend.length; i++) {
         var f = filesToSend[i];
         var fileType = '', extName = f.fileName.match(/.\w+$/);
@@ -8053,7 +8355,21 @@ function getSendLink(callback) {
     });
 }
 
+//判断附件是否在上传中
+function isAttachUploading(){
 
+    var files=fileUpload.getUploadFiles();
+    if (!files) {
+        return false;
+    }
+    for (var i = 0; i < files.length; i++) {
+        var file = files[i];
+        if (file.state == "uploading") {
+            return true;
+        }
+    }
+    return false;
+}
 
 function updateUI(fileInfo) {
   
@@ -8064,10 +8380,10 @@ function updateUI(fileInfo) {
         case "waiting":
             li = ['<li taskId=', taskId, ' class="" style="display: list-item;">',
  					'<i class="i_attachmentS"></i>',
- 					'<span class="ml_5" name="fileName">', fileInfo.fileName, '(正在扫描文件...)<span class="gray" name="status"></span></span>						',
+ 					'<span class="ml_5" name="fileName">', fileInfo.fileName, '(正在扫描文件...)<span class="gray" name="status"></span></span>',
  					'<span class="gray ml_5">', $T.Utils.getFileSizeText(fileInfo.fileSize), '</span>',
  					'<span class="ml_5 gray" name="line" style="display:none">|</span>',
- 					'<a command="DeleteFile" filetype="common"  href="javascript:void(0)" name="btn_delete" class="ml_5" style="display:none" hidefocus="1">删除</a>',
+ 					'<a command="DeleteFile" filetype="common"  href="javascript:void(0)" name="btn_delete" class="ml_5" hidefocus="1">删除</a>',
  				'</li>'].join("");
             ul.append(li);
             break;
@@ -8082,9 +8398,9 @@ function updateUI(fileInfo) {
     }
 }
 $(function () {
-    function isSupportFlash() {
 
-        if (navigator.userAgent.indexOf("MSIE") > 0) {
+    function isSupportFlash() {
+        if (navigator.userAgent.indexOf("MSIE") > 0 || $B.is.ie11) {
             try {
                 var swf = new ActiveXObject("ShockwaveFlash.ShockwaveFlash");
                 return true;
@@ -8105,6 +8421,7 @@ $(function () {
         });
         return;
     }
+    
     window.fileUpload = new FileUpload({
         swfPath: "/m2012/flash/muti_upload.swf",
         container: document.getElementById("realUploadButton"),
@@ -8115,7 +8432,7 @@ $(function () {
         },
         onselect: function (files) {
             var self = this;
-            
+            BH({ key: "compose_activity_addattachment" }); 
             var sizeToLarge=false;
             $(files).each(function (i, n) {
                 if (n.fileSize > 100 * 1024 * 1024) {
@@ -8129,6 +8446,7 @@ $(function () {
             }
 
             $(files).each(function (i, n) {
+
                 updateUI(n);
             });
 
@@ -8140,7 +8458,7 @@ $(function () {
             alert("error");
         },
         onprogress: function (fileInfo) {
-            console.log(fileInfo);
+
             updateUI(fileInfo);
         },
         oncomplete: function (fileInfo, responseText) {
@@ -8155,9 +8473,7 @@ $(function () {
         }
     });
 
-    setInterval(function () {
-        fileUpload.dock();
-    }, 1000);
+    setInterval(function () { fileUpload.dock();}, 1000);
     $("#attachContainer").click(function (e) {
         if ($(e.target).attr("name") == "btn_delete") {
             var taskId = $(e.target).parents("li[taskId]").attr("taskId");
@@ -8166,4 +8482,5 @@ $(function () {
             deleteFile(taskId);
         }
     });
+    
 });

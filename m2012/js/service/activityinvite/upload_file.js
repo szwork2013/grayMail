@@ -1,4 +1,4 @@
-﻿  
+﻿
 /*
 上传组件，IE浏览器默认flash上传，其它浏览器html5
 
@@ -63,7 +63,6 @@
             window["UploadFacade"] = new FlashUpload(options);
             uploader = window["UploadFacade"];
 
-          
         } else {
 
             $(div).html(['<form style="" enctype="multipart/form-data" id="fromAttach" method="post" action="" target="frmAttachTarget">',
@@ -86,7 +85,8 @@
         uploader.cancel(taskId);
     }
     this.getUploadFiles = function () {//获取上传队列
-        uploader.getUploadFiles();
+        return uploader.getUploadFiles();
+
     }
     
     $.extend(options, this);//继承FileUpload的能力
@@ -122,15 +122,17 @@ var FlashUpload = function(options){
         },
         onloadcomplete: function (args) {
             var self = this;
-            console.log("onloadcomplete", args);
+            //console.log("onloadcomplete", args);
 
             
             var file = this.getFileById(args.taskId);
              
             file.md5 = args.md5;
             UploadLargeAttach.prepareUpload(file, function (postParams) {
-                self.activexObj.setUploadUrl(file.uploadUrl);
-                self.activexObj.uploadRequest();
+
+                    self.activexObj.setUploadUrl(file.uploadUrl);
+                    self.activexObj.uploadRequest();
+
             });
              
         },
@@ -157,6 +159,7 @@ var FlashUpload = function(options){
             this.agent.onselect && this.agent.onselect(files);
 
             this.uploadFiles = files;
+
             return true;
         },
         onprogress: function (args) {
@@ -165,7 +168,7 @@ var FlashUpload = function(options){
             fileInfo.state = "uploading";
             fileInfo.percent = args.percent;
             //fileInfo.fileName = decodeURIComponent(fileInfo.fileName);//防止乱码，flash里面做了encode
-            //alert(fileInfo.percent);
+            
             this.agent.onprogress && this.agent.onprogress(fileInfo);
         },
         oncomplete: function (data) {
@@ -228,6 +231,7 @@ var UploadLargeAttach = {
             file.comeFrom = "cabinet";
             file.fileType = "keepFolder";
             M139.RichMail.API.call("file:fastUpload", data, function (result) {
+
                 if (file.isCancel) { //md5过程中取消上传
                     //uploadManager.removeFile(file);
                     //uploadManager.autoUpload();
@@ -248,7 +252,7 @@ var UploadLargeAttach = {
                         callback(params);
                     } else if (status == "1") { //单副本，直接插入
 
-                        console.log("单副本");
+
                         file.fileId = result.responseData["var"].fileId;
                         file.state = "complete";
                         //var fileCabinet = [self.transformFile(file)];
@@ -277,13 +281,28 @@ function completeFile(fileInfo) {
     updateUI(fileInfo);
 }
 function deleteFile(taskId) {
-  
+    var files = fileUpload.getUploadFiles();
+
+    for(var k = 0;k < files.length; k++) {
+        if (taskId == files[k].taskId) {
+
+            if (files[k].state == "uploading"){
+                //files.splice(k,1);
+                fileUpload.cancel(taskId);
+            } else {
+                files.splice(k,1);
+                return;
+            }
+
+        }
+    }
+    /*
     for (var i = 0; i < window.filesToSend.length; i++) {
         if (taskId == window.filesToSend[i].taskId) {
             window.filesToSend.splice(i, 1);
             i--;
         }
-    }
+    }*/
 }
 
 function getFileTypeObj() {
@@ -349,10 +368,10 @@ function getLinkHtml(fileList,downloadUrl) {
         $(window.filesToSend).each(function (i2,n2) {
             if (n2.fileName == n.fileName) {
                 $.extend(n2, n);
-                console.log(n2);
+                //console.log(n2);
             }
         })
-    }); 
+    });
     var resourcePath = top.m2012ResourceDomain + '/m2012/images/module/readmail/';
     var fileTypeObj = getFileTypeObj();
     var outsideTableHtml=['<table id="attachAndDisk" style="margin-top:25px; border-collapse:collapse; table-layout:fixed; width:95%; font-size: 12px; line-height:18px; font-family:\'Microsoft YaHei\',Verdana,\'Simsun\';">',
@@ -369,20 +388,19 @@ function getLinkHtml(fileList,downloadUrl) {
 					'</tr>',
 				'</tbody>',
 			 '</table>'].join("");
-
     var tableHtml = ['<table style="border-collapse:collapse; table-layout:fixed; width:100%;" id="attachItem" class="newAttachItem">',
-                                 '<thead>',
-                                     '<tr>',
-                                         '<td style="height:10px;"></td>',
-                                     '</tr>',
-                                     '<tr>',
-                                         '<th style=" text-align:left; padding-left:30px; height:35px;"><strong style="margin-right:12px;">139邮箱-超大附件</strong><a href="{downloadUrl}" style="font-weight:normal;">进入下载页面</a></th>',
-                                     '</tr>',
-                                 '</thead>',
-                                 '<tbody>',
-                                 '{trs}',
-                                 '</tbody>',
-                         '</table>'].join("");
+								'<thead>',
+									'<tr>',
+										'<td style="height:10px;"></td>',
+									'</tr>',
+									'<tr>',
+										'<th style=" text-align:left; padding-left:30px; height:35px;"><strong style="margin-right:12px;">139邮箱-超大附件</strong><a href="{downloadUrl}" style="font-weight:normal;">进入下载页面</a></th>',
+									'</tr>',
+								'</thead>',
+								'<tbody>',
+								'{trs}',
+								'</tbody>',
+						'</table>'].join("");
     var itemHtmlNew = ['<tr>',
                         '<td style="padding-left:30px; height:40px;">',
                             '<table style="border-collapse:collapse; table-layout:fixed; width:100%;">',
@@ -401,6 +419,7 @@ function getLinkHtml(fileList,downloadUrl) {
                     '</tr>'].join("");
 
     var midHtml = [];
+    //debugger;
     for (var i = 0; i < filesToSend.length; i++) {
         var f = filesToSend[i];
         var fileType = '', extName = f.fileName.match(/.\w+$/);
@@ -451,7 +470,21 @@ function getSendLink(callback) {
     });
 }
 
+//判断附件是否在上传中
+function isAttachUploading(){
 
+    var files=fileUpload.getUploadFiles();
+    if (!files) {
+        return false;
+    }
+    for (var i = 0; i < files.length; i++) {
+        var file = files[i];
+        if (file.state == "uploading") {
+            return true;
+        }
+    }
+    return false;
+}
 
 function updateUI(fileInfo) {
   
@@ -462,10 +495,10 @@ function updateUI(fileInfo) {
         case "waiting":
             li = ['<li taskId=', taskId, ' class="" style="display: list-item;">',
  					'<i class="i_attachmentS"></i>',
- 					'<span class="ml_5" name="fileName">', fileInfo.fileName, '(正在扫描文件...)<span class="gray" name="status"></span></span>						',
+ 					'<span class="ml_5" name="fileName">', fileInfo.fileName, '(正在扫描文件...)<span class="gray" name="status"></span></span>',
  					'<span class="gray ml_5">', $T.Utils.getFileSizeText(fileInfo.fileSize), '</span>',
  					'<span class="ml_5 gray" name="line" style="display:none">|</span>',
- 					'<a command="DeleteFile" filetype="common"  href="javascript:void(0)" name="btn_delete" class="ml_5" style="display:none" hidefocus="1">删除</a>',
+ 					'<a command="DeleteFile" filetype="common"  href="javascript:void(0)" name="btn_delete" class="ml_5" hidefocus="1">删除</a>',
  				'</li>'].join("");
             ul.append(li);
             break;
@@ -480,9 +513,9 @@ function updateUI(fileInfo) {
     }
 }
 $(function () {
-    function isSupportFlash() {
 
-        if (navigator.userAgent.indexOf("MSIE") > 0) {
+    function isSupportFlash() {
+        if (navigator.userAgent.indexOf("MSIE") > 0 || $B.is.ie11) {
             try {
                 var swf = new ActiveXObject("ShockwaveFlash.ShockwaveFlash");
                 return true;
@@ -503,6 +536,7 @@ $(function () {
         });
         return;
     }
+    
     window.fileUpload = new FileUpload({
         swfPath: "/m2012/flash/muti_upload.swf",
         container: document.getElementById("realUploadButton"),
@@ -513,7 +547,7 @@ $(function () {
         },
         onselect: function (files) {
             var self = this;
-            
+            BH({ key: "compose_activity_addattachment" }); 
             var sizeToLarge=false;
             $(files).each(function (i, n) {
                 if (n.fileSize > 100 * 1024 * 1024) {
@@ -527,6 +561,7 @@ $(function () {
             }
 
             $(files).each(function (i, n) {
+
                 updateUI(n);
             });
 
@@ -538,7 +573,7 @@ $(function () {
             alert("error");
         },
         onprogress: function (fileInfo) {
-            console.log(fileInfo);
+
             updateUI(fileInfo);
         },
         oncomplete: function (fileInfo, responseText) {
@@ -553,9 +588,7 @@ $(function () {
         }
     });
 
-    setInterval(function () {
-        fileUpload.dock();
-    }, 1000);
+    setInterval(function () { fileUpload.dock();}, 1000);
     $("#attachContainer").click(function (e) {
         if ($(e.target).attr("name") == "btn_delete") {
             var taskId = $(e.target).parents("li[taskId]").attr("taskId");
@@ -564,4 +597,5 @@ $(function () {
             deleteFile(taskId);
         }
     });
+    
 });

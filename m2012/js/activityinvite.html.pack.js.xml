@@ -21,6 +21,7 @@
 <fileset dir="./" includes="ui/menu/m2012.ui.popmenu.js"/>
 <fileset dir="./" includes="ui/picker/m2012.ui.picker.calendar.js"/>
 <fileset dir="./" includes="service/calendar_v2/component/m2012.calendar.view.validatetip.js"/>
+<fileset dir="./" includes="service/calendar_v2/component/m2012.calendar.view.validatetip.bottom.js"/>
 <fileset dir="./" includes="service/activityinvite/m2012.activityinvite.model.js"/>
 <fileset dir="./" includes="service/activityinvite/m2012.activityinvite.view.js"/>
 <fileset dir="./" includes="richmail/compose/swfobject.js"/>

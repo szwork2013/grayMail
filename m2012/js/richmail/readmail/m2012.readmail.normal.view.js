@@ -1834,6 +1834,7 @@ function _letterInlineScript(win) {
                 "operationlinkId_0",
                 "139Command_CustomLinks",
                 "calendarInviteOp",
+                "meetingInviteOp",
                 "shareCalendarEmail",
                 "shareLabel",
 				"groupMailInviteOp"
@@ -1852,8 +1853,13 @@ function _letterInlineScript(win) {
                 top.ipadLetterMid = dataSource.omid;
             }
             letterScriptLoad = true;
-            var scriptPath = "/m2012/js/richmail/readmail/m2012.readmail.letterscript.js";
-            writeScript('letterscript', scriptPath);
+
+             setTimeout(function(){
+                var scriptPath = "/m2012/js/richmail/readmail/m2012.readmail.letterscript.js";
+                writeScript('letterscript', scriptPath);
+            }, 2000);
+
+            
         }
 
 
@@ -1969,6 +1975,7 @@ function _letterInlineScript(win) {
 
     //页面初始化
     letterInit(win.letterInfo);
+    
 	$("#attachAndDisk").hide();
 	(function(M139){
 			var idMatch = ["attachAndDisk"];

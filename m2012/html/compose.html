@@ -59,7 +59,11 @@
     <li class="mr_6"><a hideFocus="1" class="btnTb" href="javascript:void(0)" id="topTiming"><span>定时发送</span></a></li>
     <li class="mr_6"><a hideFocus="1" class="btnTb" href="javascript:void(0)" id="topSave"><span>存草稿</span></a></li>
     <li class="mr_6"><a hideFocus="1" class="btnTb" href="javascript:void(0)" id="topCancelSend"><span>取 消</span></a></li>
-    <li class="mr_6"><a hideFocus="1" class="btnTb" href="javascript:top.$App.show('activityInvite')" id="btn_invite"><span>会议邀请</span></a></li>
+
+    <!-- <li><a href="javascript:top.$App.show('activityInvite')" class="btnMeeting"><i class="i-meeting mr_5"></i>发起会议</a></li> -->
+
+    <li class="mr_6"><a hideFocus="1" class="btnTb" href="javascript:void(0)" id="activityInvite"><span>会议邀请</span></a></li>
+
   </ul>
 	<p class="writeRpa fr">
 		<a bh="compose_preview" id="composePreviewLink" href="javascript:;"><i class="i-wView"></i>预览</a>
@@ -176,11 +180,8 @@
 				<li style="padding-left:10px"><a href="###">查看其他附件</a></li>
 			</ul>	
 		</td>
-	  </tr>
-	  <tr>
-		<th class="ta_r" colspan="2"></th>
-	  </tr>
-	  <tr>
+		</tr>
+		<tr>
 		<td style="padding-top:0;" colspan="2">
 			<div id="htmlEdiorContainer">
 				<div style="height:400px;width:100%;"><!-- start 页面加载时显示，js加载完后会覆盖掉！ --></div>

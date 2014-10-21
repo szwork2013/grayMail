@@ -1,0 +1,602 @@
+﻿
+/*
+上传组件，IE浏览器默认flash上传，其它浏览器html5
+
+示例:
+    var fileUpload = new FileUpload({
+        container: document.getElementById("uploadBtn"),
+        onselect: function (files) {
+            var self = this;
+            $(files).each(function (i, n) {
+                updateUI(n);
+            });
+            setTimeout(function () { //异步，等待onselect函数return后才能调用upload
+                self.upload();
+            }, 10);
+        },
+        onprogress: function (fileInfo) {
+            updateUI(fileInfo);
+        },
+        oncomplete: function (fileInfo, responseText) {
+            updateUI(fileInfo);
+           
+        }
+    });
+*/
+
+;function FileUpload(options) {
+    var uploader = null;
+    var elementIndex = Math.random().toString().substr(2);//用于创建多个实例
+    //console.log(elementIndex);
+    if (options) {
+        //为什么要多创建一级div容器？flash 的activex创建后，再改变位置会引起activex对象失效，所以要在创建前就定好位
+        var div = document.createElement("div");
+        div.id = "UploadDiv" + elementIndex;
+        div.style.zIndex = 9999;
+        document.body.appendChild(div);
+        var c = $(options.container);
+
+        function dock(dockContainer) {
+            if (dockContainer) {
+                c = $(dockContainer);
+            }
+            //绝对定位到上传按钮的坐标，flash本身为透明遮罩
+            $(div).css({
+                position: "absolute",
+                left: (c.offset().left || 250) + "px",
+                opacity: 0,
+                top: (c.offset().top || 87) + "px"
+            });
+        }
+        dock();
+
+        if ($.browser.msie || options.uploadType == "flash") {
+            var objName = "JSForFlashUpload_" + elementIndex;
+            //flash上传方式
+            var url = (options.swfPath || "/m2012/flash/muti_upload.swf");//+ "?name=" + objName;
+            var so = new SWFObject(url, "flashupload" + elementIndex, c.width(), c.height());
+            so.addParam("wmode", "transparent");
+            so.write(div.id);
+
+            options.activexObj = document.getElementById("flashupload" + elementIndex);
+
+            window["UploadFacade"] = new FlashUpload(options);
+            uploader = window["UploadFacade"];
+
+        } else {
+
+            $(div).html(['<form style="" enctype="multipart/form-data" id="fromAttach" method="post" action="" target="frmAttachTarget">',
+                 '<input style="height: ', c.height(), 'px;width:', c.width(), 'px" type="file" name="uploadInput" id="uploadInput' + elementIndex + '" multiple="true">',
+                 '</form>',
+                 '<iframe id="frmAttachTarget" style="display: none" name="frmAttachTarget"></iframe>'].join(""));
+            options.uploadInput = document.getElementById("uploadInput" + elementIndex);
+            uploader = new Html5Upload(options);
+           
+        }
+
+    }
+    
+    this.dock = dock;
+    this.upload = function () {//触发上传请求
+        //alert("uploader.load");
+        uploader.upload();
+    },
+    this.cancel = function (taskId) {//取消上传
+        uploader.cancel(taskId);
+    }
+    this.getUploadFiles = function () {//获取上传队列
+        return uploader.getUploadFiles();
+
+    }
+    
+    $.extend(options, this);//继承FileUpload的能力
+}
+
+
+var FlashUpload = function(options){
+    
+    var resultObject = {
+        activexObj: options.activexObj,
+        upload:function(){
+            this.activexObj.upload(true);
+        },
+        cancel: function (taskId) {
+            this.activexObj.cancel(taskId);
+        },
+        getUploadUrl: function () {
+            return this.agent.getUploadUrl();
+        },
+        getUploadFiles: function () {
+            return this.uploadFiles;
+        },
+        onload: function (param) {
+
+        },
+        getFileById: function (taskId) {
+            for (var i = 0; i < this.uploadFiles.length; i++) {
+                if (this.uploadFiles[i].taskId == taskId) {
+                    return this.uploadFiles[i];
+                }
+            }
+            return null;
+        },
+        onloadcomplete: function (args) {
+            var self = this;
+            console.log("onloadcomplete", args);
+
+            
+            var file = this.getFileById(args.taskId);
+             
+            file.md5 = args.md5;
+            UploadLargeAttach.prepareUpload(file, function (postParams) {
+
+                    self.activexObj.setUploadUrl(file.uploadUrl);
+                    self.activexObj.uploadRequest();
+
+            });
+             
+        },
+        onrequest: function (args) {
+            var result;
+           
+                result = UploadLargeAttach.postParams;
+                //result["Filename"] = result["filename"];
+                result["range"] = args.offset + "-" + (Number(args.offset) + (Number(args.length) - 1)).toString();
+
+          
+
+
+            return result;
+        },
+        onselect: function (files) {
+            for (var i = 0; i < files.length; i++) {
+                files[i].fileName = decodeURIComponent(files[i].fileName);
+                files[i].state = "waiting";
+
+            }
+            
+            //uploadView.onselect(jsonFileList);
+            this.agent.onselect && this.agent.onselect(files);
+
+            this.uploadFiles = files;
+
+            return true;
+        },
+        onprogress: function (args) {
+            var taskId = args.taskId;
+            var fileInfo=this.getFileById(taskId);
+            fileInfo.state = "uploading";
+            fileInfo.percent = args.percent;
+            //fileInfo.fileName = decodeURIComponent(fileInfo.fileName);//防止乱码，flash里面做了encode
+            console.log(fileInfo.percent);
+            this.agent.onprogress && this.agent.onprogress(fileInfo);
+        },
+        oncomplete: function (data) {
+            if (data) {
+                var fileInfo = this.getFileById(data.taskId);
+                fileInfo.state = "complete";
+                //fileInfo.fileName = decodeURIComponent(fileInfo.fileName);//防止乱码，flash里面做了encode
+                this.agent.oncomplete && this.agent.oncomplete(fileInfo, data.data);
+            }
+        },
+        onerror: function (taskId, errorCode, errorMsg) {
+            alert("文件上传失败：" + errorMsg);
+            this.agent.onerror && this.agent.onerror(errorMsg);
+        },
+        onmouseover: function () {
+
+        },
+        onmouseout: function () {
+
+        },
+        onclick: function () {
+            return true;//返回false不会弹出文件选择框
+            //alert("onclick");
+        }
+
+    }
+    if (options) {
+        resultObject.agent = options;
+    }
+    return resultObject;
+}
+
+var Html5Upload = function (options) {
+   
+}
+
+
+var UploadLargeAttach = {
+    prepareUpload: function (file, callback) {
+
+        /*
+        POST http://rm.mail.10086ts.cn/mw2/file/disk?func=file:fastUpload&sid=xxx
+    
+        <object>
+    <string name="fileName">测试环境hosts.txt</string>
+    <int name="fileSize">908</int>
+    <string name="fileMd5">2bfda476d9e76462a9a8f1ca4aff1c16</string>
+    </object>
+        */
+        var self = this;
+        this.currentFile = file;
+        file.isLargeAttach = true;
+
+        function preUpload(md5Value) {
+            var data = {
+                fileName: file.fileName,
+                fileSize: file.fileSize,
+                fileMd5: md5Value
+            }
+            file.comeFrom = "cabinet";
+            file.fileType = "keepFolder";
+            M139.RichMail.API.call("file:fastUpload", data, function (result) {
+
+                if (file.isCancel) { //md5过程中取消上传
+                    //uploadManager.removeFile(file);
+                    //uploadManager.autoUpload();
+                    return;
+                }
+                if (result.responseData["code"] && result.responseData["code"] == "S_OK") {
+                    var status = result.responseData["var"]["status"];
+                    file.fileName = result.responseData["var"]["fileName"];//取预上传接口返回的文件名称，文件可能重名被自动改名，或单副本取文件原始名称，否则发送时无法匹配到文件
+                    if (status == "0") {
+                        var params = result.responseData["var"]["postParam"];
+                        file.fileId = result.responseData["var"]["fileId"];
+                        file.fileIdForSend = result.responseData["var"]["fileId"];
+                        file.uploadUrl = result.responseData["var"]["url"];
+                        self.
+                            uploadUrl = file.uploadUrl;
+                        //params.fileObj = file.fileObj;
+                        self.postParams = params;
+                        callback(params);
+                    } else if (status == "1") { //单副本，直接插入
+
+
+                        file.fileId = result.responseData["var"].fileId;
+                        file.state = "complete";
+                        //var fileCabinet = [self.transformFile(file)];
+                        //top.$App.trigger('obtainCabinetFiles', fileCabinet);
+                        completeFile(file);
+                        //继续下一个文件上传
+                        //fileUpload.cancel(file.taskId);
+                        fileUpload.upload();
+                    }
+                }
+
+            });
+        }
+        if (file.md5) {    //flash上传已计算好md5
+            preUpload(file.md5);
+        } else {
+            this.getFileMd5(preUpload);
+        }
+
+    }
+}
+
+window.filesToSend = [];
+function completeFile(fileInfo) {
+    filesToSend.push(fileInfo);
+    updateUI(fileInfo);
+}
+function deleteFile(taskId) {
+    var files = fileUpload.getUploadFiles();
+
+    for(var k = 0;k < files.length; k++) {
+        if (taskId == files[k].taskId) {
+
+            if (files[k].state == "uploading"){
+                //files.splice(k,1);
+                fileUpload.cancel(taskId);
+            } else {
+                files.splice(k,1);
+                return;
+            }
+
+        }
+    }
+    /*
+    for (var i = 0; i < window.filesToSend.length; i++) {
+        if (taskId == window.filesToSend[i].taskId) {
+            window.filesToSend.splice(i, 1);
+            i--;
+        }
+    }*/
+}
+
+function getFileTypeObj() {
+    return {
+        'xls': 'xls.png',
+        'xlsx': 'xls.png',
+        'doc': 'word.png',
+        'docx': 'word.png',
+        'jpeg': 'jpg.png',
+        'jpg': 'jpg.png',
+        'rar': 'zip.png',
+        'zip': 'zip.png',
+        '7z': 'zip.png',
+        'txt': 'txt.png',
+        'rtf': 'txt.png',
+        'ppt': 'ppt.png',
+        'pptx': 'ppt.png',
+        'xml': 'xml.png',
+        'wmv': 'wmv.png',
+        'wma': 'wma.png',
+        'wav': 'wav.png',
+        'vsd': 'vsd.png',
+        'vob': 'vob.png',
+        'fla': 'swf.png',
+        'swf': 'swf.png',
+        'flv': 'swf.png',
+        'sis': 'sis.png',
+        'rm': 'rm.png',
+        'rmvb': 'rm.png',
+        'psd': 'psd.png',
+        'ppt': 'ppt.png',
+        'png': 'png.png',
+        'pdf': 'pdf.png',
+        'mpg': 'mpg.png',
+        'mp4': 'mp3.png',
+        'mpeg': 'mp3.png',
+        'mpg': 'mp3.png',
+        'mp3': 'mp3.png',
+        'java': 'java.png',
+        'iso': 'iso.png',
+        'htm': 'html.png',
+        'html': 'html.png',
+        'asp': 'html.png',
+        'jsp': 'html.png',
+        'aspx': 'html.png',
+        'gif': 'gif.png',
+        'exe': 'exe.png',
+        'css': 'css.png',
+        'chm': 'chm.png',
+        'cab': 'cab.png',
+        'bmp': 'bmp.png',
+        'avi': 'ai.png',
+        'asf': 'asf.png',
+        'mov': 'rm.png',
+        'JPG': 'jpg.png'
+    };
+}
+function getLinkHtml(fileList,downloadUrl) {
+    $(fileList).each(function (i, n) {
+        /*var fileName = n.fileName
+        var exp = n.exp;
+        var url = n.url;*/
+        $(window.filesToSend).each(function (i2,n2) {
+            if (n2.fileName == n.fileName) {
+                $.extend(n2, n);
+                console.log(n2);
+            }
+        })
+    });
+    var resourcePath = top.m2012ResourceDomain + '/m2012/images/module/readmail/';
+    var fileTypeObj = getFileTypeObj();
+    var outsideTableHtml=['<table id="attachAndDisk" style="margin-top:25px; border-collapse:collapse; table-layout:fixed; width:95%; font-size: 12px; line-height:18px; font-family:\'Microsoft YaHei\',Verdana,\'Simsun\';">',
+				'<thead>',
+					'<tr>',
+						'<th style="background-color:#e8e8e8; height:30px; padding:0 11px; text-align:left;"><img src="{resourcePath}attachmentIcon.png" alt="" title="" style="vertical-align:middle; margin-right:6px; border:0;" />来自139邮箱的文件</th>',
+					'</tr>',
+				'</thead>',
+				'<tbody>',
+					'<tr>',
+						'<td style="border:1px solid #e8e8e8;">',
+							'{itemHtml}',
+						'</td>',
+					'</tr>',
+				'</tbody>',
+			 '</table>'].join("");
+    var tableHtml = ['<table style="border-collapse:collapse; table-layout:fixed; width:100%;" id="attachItem" class="newAttachItem">',
+								'<thead>',
+									'<tr>',
+										'<td style="height:10px;"></td>',
+									'</tr>',
+									'<tr>',
+										'<th style=" text-align:left; padding-left:30px; height:35px;"><strong style="margin-right:12px;">139邮箱-超大附件</strong><a href="{downloadUrl}" style="font-weight:normal;">进入下载页面</a></th>',
+									'</tr>',
+								'</thead>',
+								'<tbody>',
+								'{trs}',
+								'</tbody>',
+						'</table>'].join("");
+    var itemHtmlNew = ['<tr>',
+                        '<td style="padding-left:30px; height:40px;">',
+                            '<table style="border-collapse:collapse; table-layout:fixed; width:100%;">',
+                                '<tr class="cts">',
+                                    '<td width="42"><img src="{fileIconSrc}" alt="" title="" style="vertical-align:middle; border:0;" /></td>',
+                                    '<td style="line-height:18px;">',
+                                        '<span>{fileName}<span class="gray"></span></span>',
+                                        '<span style="color:#999; margin-left:5px;">({fileSize})</span><span style="color:#999; margin-left:5px;">({exp}天后过期)</span>',
+                                    '</td>',
+                                '</tr>',
+                            '</table>',
+                        '</td>',
+                    '</tr>',
+                    '<tr>',
+                        '<td style="height:10px;"></td>',
+                    '</tr>'].join("");
+
+    var midHtml = [];
+    //debugger;
+    for (var i = 0; i < filesToSend.length; i++) {
+        var f = filesToSend[i];
+        var fileType = '', extName = f.fileName.match(/.\w+$/);
+        if (extName) {
+            fileType = extName[0].replace('.', '');
+        }
+        var fileIconSrc = resourcePath + (fileTypeObj[fileType] || 'none.png');
+
+        midHtml.push(top.M139.Text.Utils.format(itemHtmlNew, {
+            fileIconSrc: fileIconSrc,
+            fileName: f.fileName,
+            fileSize: f.fileSize,
+            exp: $Date.getDaysPass(new Date(), $Date.parse(f.exp))
+        }));
+
+    }
+    var result= top.M139.Text.Utils.format(tableHtml, {
+        trs: midHtml.join(''),
+        downloadUrl: downloadUrl
+    });
+    result = top.M139.Text.Utils.format(outsideTableHtml, {itemHtml:result});
+    return result;
+
+  
+}
+
+function getSendLink(callback) {
+    var requestXml = ['<![CDATA[<Request>'];
+    requestXml.push("<Fileid>");
+    for (var i = 0; i < window.filesToSend.length; i++) {
+        var file = window.filesToSend[i];
+        requestXml.push(file.fileId);
+        if (i != window.filesToSend.length - 1) {
+            requestXml.push(",");
+        }
+    }
+    requestXml.push("</Fileid></Request>]]> ");
+    var data= {
+        xmlStr: requestXml.join("")
+    }
+
+    M139.RichMail.API.call("file:mailFileSend", data, function (res) {
+        if (callback) {
+            var fileList = res.responseData["var"].fileList;
+            var html = getLinkHtml(fileList, res.responseData["var"].downloadUrl);
+            callback(html);
+        }
+    });
+}
+
+//判断附件是否在上传中
+function isAttachUploading(){
+
+    var files=fileUpload.getUploadFiles();
+    if (!files) {
+        return false;
+    }
+    console.log(files);
+    for (var i = 0; i < files.length; i++) {
+        var file = files[i];
+        if (file.state == "uploading") {
+            return true;
+        }
+    }
+    return false;
+}
+
+function updateUI(fileInfo) {
+  
+    var ul = $("#attachContainer");
+    var li = "";
+    var taskId = fileInfo.taskId.substr(2);//taskId有点号会使选择器失效
+    switch (fileInfo.state) {
+        case "waiting":
+            li = ['<li taskId=', taskId, ' class="" style="display: list-item;">',
+ 					'<i class="i_attachmentS"></i>',
+ 					'<span class="ml_5" name="fileName">', fileInfo.fileName, '(正在扫描文件...)<span class="gray" name="status"></span></span>',
+ 					'<span class="gray ml_5">', $T.Utils.getFileSizeText(fileInfo.fileSize), '</span>',
+ 					'<span class="ml_5 gray" name="line" style="display:none">|</span>',
+ 					'<a command="DeleteFile" filetype="common"  href="javascript:void(0)" name="btn_delete" class="ml_5" hidefocus="1">删除</a>',
+ 				'</li>'].join("");
+            ul.append(li);
+            break;
+        case "uploading":
+            ul.find("li[taskId=" + taskId + "]").find("[name=fileName]").html(fileInfo.fileName + "(" + fileInfo.percent + "%)");
+            break;
+        case "complete":
+
+            ul.find("li[taskId=" + taskId + "]").find("[name=fileName]").html(fileInfo.fileName + "(已完成)");
+            ul.find("[name=btn_delete],[name=line]").show();
+            break;
+    }
+}
+$(function () {
+
+    function isSupportFlash() {
+        if (navigator.userAgent.indexOf("MSIE") > 0 || $B.is.ie11) {
+            try {
+                var swf = new ActiveXObject("ShockwaveFlash.ShockwaveFlash");
+                return true;
+            }
+            catch (e) {
+                return false;
+            }
+        }
+        if (navigator.userAgent.indexOf("Firefox") > 0 || navigator.userAgent.indexOf("Chrome") > 0 || navigator.userAgent.indexOf("WebKit") > 0) {
+            swf = navigator.plugins["Shockwave Flash"];
+            if (swf) { return true;}
+        }
+        return false;
+    }
+    if (!isSupportFlash()) {
+        $("#realUploadButton").click(function () {
+            top.$Msg.alert("您尚未安装Flash插件，无法使用上传附件功能");
+        });
+        return;
+    }
+    
+    window.fileUpload = new FileUpload({
+        swfPath: "/m2012/flash/muti_upload.swf",
+        container: document.getElementById("realUploadButton"),
+        uploadType: "flash",
+        getUploadUrl: function () {
+            return UploadLargeAttach.uploadUrl;
+            //return "http://192.168.9.64/test/upload.ashx?sid=xxxxx";
+        },
+        onselect: function (files) {
+            var self = this;
+            BH({ key: "compose_activity_addattachment" }); 
+            var sizeToLarge=false;
+            $(files).each(function (i, n) {
+                if (n.fileSize > 100 * 1024 * 1024) {
+                    sizeToLarge = true;
+                    return;
+                }
+            });
+            if (sizeToLarge) {
+                top.$Msg.alert("每个附件不能超出100M，请重新选择");
+                return;
+            }
+
+            $(files).each(function (i, n) {
+
+                updateUI(n);
+            });
+
+            setTimeout(function () { //异步，等待onselect函数return后才能调用upload
+                self.upload();
+            }, 10);
+        },
+        onerror: function (e) {
+            alert("error");
+        },
+        onprogress: function (fileInfo) {
+
+            updateUI(fileInfo);
+        },
+        oncomplete: function (fileInfo, responseText) {
+            
+            /*var m = responseText.match(/\<fileid\>(.+?)\<\/fileid\>/);
+            fileInfo.fileId = m[1];*/
+            completeFile(fileInfo);
+            this.upload();
+            //console.log(this.getUploadFiles());
+            //console.log("responseText", responseText);
+
+        }
+    });
+
+    setInterval(function () { fileUpload.dock();}, 1000);
+    $("#attachContainer").click(function (e) {
+        if ($(e.target).attr("name") == "btn_delete") {
+            var taskId = $(e.target).parents("li[taskId]").attr("taskId");
+            taskId = "0." + taskId;
+            $(e.target).parents("li[taskId]").remove();
+            deleteFile(taskId);
+        }
+    });
+    
+});

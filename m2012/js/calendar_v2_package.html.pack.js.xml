@@ -25,6 +25,7 @@
     <antcall target="cal_eidt_activity_pack"/>
 
     <antcall target="cal_prod_invite_activity_pack"/>
+    <antcall target="cal_prod_meeting_invite_activity_pack"/>
     <antcall target="cal_prod_share_activity_pack"/>
     <antcall target="cal_prod_share_label_pack"/>
 
@@ -282,6 +283,13 @@
     <concat destfile="./packs/calendar/m2012.calendar.prod_inviteactivity.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
       <fileset dir="${SolutionPath}/cal_prod" includes="**/m2012.calendar.view.refusepopup.js"/>
       <fileset dir="${SolutionPath}/cal_prod" includes="**/m2012.calendar.inviteactivity.js"/>
+    </concat>
+  </target>
+
+  <!-- 查看邀请活动邮件时需要加载的JS(针对写信页会议邀请) -->
+  <target name="cal_prod_meeting_invite_activity_pack">
+    <concat destfile="./packs/calendar/m2012.calendar.prod_meeting_inviteactivity.html.pack.js" encoding="utf8" outputencoding="utf8" fixlastline="yes">
+      <fileset dir="${SolutionPath}" includes="**/m2012.calendar.meeting.inviteactivity.js"/>
     </concat>
   </target>
 

@@ -11818,12 +11818,17 @@ M139.namespace("M2012.UI.PopMenu",superClass.extend(
             if ($.browser.msie && $.browser.version <= 7) { // update by tkh IE67 阻止浏览器的默认行为，解决bug：回复转发打开空白写信页
                 e.preventDefault();
             }
-
         });
 
-        this.on("itemclick", function () {
-            this.remove();
-        });
+		if(options.hideInsteadOfRemove) {
+	        this.on("itemclick", function () {
+	            this.hide();
+	        });
+		} else {
+	        this.on("itemclick", function () {
+	            this.remove();
+	        });
+        }
 
         return superClass.prototype.render.apply(this, arguments);
     },
@@ -11834,28 +11839,14 @@ M139.namespace("M2012.UI.PopMenu",superClass.extend(
     /**@inner*/
     onMenuItemClick:function(node){
         var index = node.getAttribute("index");
-        if(!index)return;
-        index = index * 1;
+        if(!index) return;
+        index = index | 0;
         var item = this.getItemByNode(node);
         if (jQuery.isFunction(item.onClick)) {
-            try{
-                item.onClick(item);
-            } catch (e) {
-                //防止报错没关掉菜单
-                this.trigger("itemclick", item, index);
-                throw e;
-                return;
-            }
+            item.onClick(item);
         }
-        try{
-            if (jQuery.isFunction(this.options.onItemClick)) {
-                this.options.onItemClick(item,index);
-            }
-        } catch (e) {
-            //防止报错没关掉菜单
-            this.trigger("itemclick", item, index);
-            throw e;
-            return;
+        if (jQuery.isFunction(this.options.onItemClick)) {
+            this.options.onItemClick(item, index);
         }
         this.trigger("itemclick", item, index);
     },
@@ -11867,10 +11858,8 @@ M139.namespace("M2012.UI.PopMenu",superClass.extend(
     },
 
     selectItem:function(index){
-        this.$(this.options.itemsPath).eq(index).addClass(this.options.selectedClass);
-    },
-    unSelectItem: function (index) {
-        this.$(this.options.itemsPath).eq(index).removeClass(this.options.selectedClass);
+	    var options = this.options;
+        this.$(options.itemsPath).removeClass(options.selectedClass).eq(index).addClass(options.selectedClass);
     },
 
     /**
@@ -11930,6 +11919,17 @@ M139.namespace("M2012.UI.PopMenu",superClass.extend(
         }
     },
 
+    show: function(){
+	    var This = this;
+        $D.bindAutoHide({
+            stopEvent:true,
+            action:"click",
+            element:this.el,
+            callback: function(){This.hide()}
+        });
+	    superClass.prototype.show.apply(this, arguments);
+    },
+
     hide: function(){
 	    $D.unBindAutoHide({element: this.el});
 	    superClass.prototype.hide.apply(this, arguments);
@@ -11951,7 +11951,7 @@ M139.namespace("M2012.UI.PopMenu",superClass.extend(
 ));
 
 var DefaultMenuStyle = {
-    template: ['<div class="menuPop shadow {customClass} show" style="top:0;left:0;z-index:9001;{customStyle}">',
+    template: ['<div class="menuPop shadow {customClass}" style="top:0;left:0;z-index:9001;{customStyle}">',
        '<ul>',
        '</ul>',
     '</div>'].join(""),
@@ -12044,7 +12044,7 @@ jQuery.extend(M2012.UI.PopMenu,
         }
 
         //点击页面其它地方自动隐藏
-        this.bindAutoHide({
+        $D.bindAutoHide({
             stopEvent:true,
             action:"click",
             element:menu.el,
@@ -12088,435 +12088,404 @@ jQuery.extend(M2012.UI.PopMenu,
  * @fileOverview 定义弹出菜单按钮组件
  */
 
- (function (jQuery,_,M139){
- var $ = jQuery;
- var superClass = M139.View.ViewBase;
-M139.namespace("M2012.UI.MenuButton",superClass.extend(
- /**
-  *@lends M2012.UI.MenuButton.prototype
-  */
-{
-    /** 菜单按钮组件
-    *@constructs M2012.UI.MenuButton
-    *@extends M139.View.ViewBase
-    *@param {Object} options 初始化参数集
-    *@param {String} options.template 组件的html代码
-    *@param {Array} options.menuItems 定义子项内容
-    *@param {Boolean} options.leftSibling 是否左侧是否还有按钮，显示竖线不显示圆角
-    *@param {Boolean} options.rightSibling 是否右侧是否还有按钮，显示竖线不显示圆角
-    *@example
-    */
-    initialize: function (options) {
-        var div = document.createElement('div');
-        div.innerHTML = options.template;
-        var $el = $(div.firstChild);//$(options.template);
-        this.setElement($el);
-        return superClass.prototype.initialize.apply(this, arguments);
-    },
-    name: "M2012.UI.MenuButton",
+(function(jQuery, _, M139) {
+	var $ = jQuery;
+	var superClass = M139.View.ViewBase;
 
-    /**构建dom函数*/
-    render:function(){
-        var This = this;
-        var options = this.options;
-        
-        var html = options.text ? M139.Text.Html.encode(options.text) : options.html;
-        this.el.firstChild.innerHTML = html;
+	/**
+	*@lends M2012.UI.MenuButton.prototype
+	*/
+	M139.namespace("M2012.UI.MenuButton", superClass.extend({
+		/** 菜单按钮组件
+	    *@constructs M2012.UI.MenuButton
+	    *@extends M139.View.ViewBase
+	    *@param {Object} options 初始化参数集
+	    *@param {String} options.text 按钮的文本
+	    *@param {String} options.template 组件的html代码
+	    *@param {HTMLElement} options.container 按钮的容器
+	    *@param {Function} options.onClick 按钮的点击回调
+	    *@param {Function} options.onItemClick 菜单的点击回调
+	    *@param {Array} options.menuItems 菜单项列表
+	    *@param {Boolean} options.leftSibling 左侧是否还有按钮，显示竖线不显示圆角
+	    *@param {Boolean} options.rightSibling 右侧是否还有按钮，显示竖线不显示圆角
+	    *@example
+		    M2012.UI.MenuButton.create({
+		        text:"按 钮",
+		        container:$("#btnContainer"),
+		        leftSibling:true, //左边还有按钮，影响样式
+		        rightSibling:true, //右边还有按钮，影响样式
+		        menuItems:[
+		            {
+		                text:"xxx",
+		                onClick:function(){}
+		            }
+		        ],
+		        onItemClick:function(){
+		            alert("itemclick");
+		        },
+		        onClick:function(){
+		            alert("onclick");
+		        }
+		    });
+	    */
+		initialize: function(options) {
+			var div = document.createElement('div');
+			div.innerHTML = options.template;
+			this.setElement(div.firstChild);
+			return superClass.prototype.initialize.apply(this, arguments);
+		},
 
+		name: "M2012.UI.MenuButton",
 
-        if (options.leftSibling) {
-            $D.appendHTML(this.el.firstChild, options.leftSiblingTemplate);
-        }
+		render: function() {
+			var This = this;
+			var options = this.options;
+			var html = options.text ? M139.Text.Html.encode(options.text) : options.html;
 
-        if(options.menuItems){
-            if(options.menuIconTemplate){
-                var temp = options.onClick ? options.menuIconTemplate : options.menuIconNoSpliterTemplate;
-                $D.appendHTML(this.el.firstChild, temp);
-            }
-        }
-        
-        if (options.rightSibling) {
-            var span = this.el.firstChild;
-            span = (span.firstChild && span.firstChild.tagName == "SPAN") ? span.firstChild : span;
-            $D.appendHTML(span, options.rightSiblingTemplate);
-        }
+			this.el.firstChild.innerHTML = html;
 
-        if(options.menuItems){
-            if(!options.onClick){
-                this.$el.click(function(e){
-                    if(options.onClickShow){
-                        options.onClickShow(e);                        
-                    }
-                    This.showMenu();
+			if (options.leftSibling) {
+				$D.appendHTML(this.el.firstChild, options.leftSiblingTemplate);
+			}
 
-                    // 在应用中创建按钮时onclick事件和样式耦合
-                    // 因此在不需要onclick样式的按钮上记录onclick事件只能放到这里
-                    var text = $.trim(options.text);
-                    if (text == "移动到") {
-                        $App.isReadSessionMail() && BH('cMail_toolbar_move');
-                    } else if (text == "标记为") {
-                        $App.isReadSessionMail() && BH('cMail_toolbar_mark');
-                    }
-                });
-            }else if(options.menuIconButtonPath){
-                this.$el.find(options.menuIconButtonPath).click(function(){
-                    This.showMenu();
-                });
-            }
-        }
+			if (options.menuItems) {
+				if (options.menuIconTemplate) {
+					var temp = options.onClick ? options.menuIconTemplate : options.menuIconNoSpliterTemplate;
+					$D.appendHTML(this.el.firstChild, temp);
+				}
+			} else {
+				options.noMenu(this.$el);
+			}
 
-
-        if(!options.menuItems){
-            options.noMenu(this.$el);
-        }
-
-        if(!options.rightSibling && !options.onClick && options.rightNoSibling){
-            options.rightNoSibling(this.$el);
-        }
-
-        if(options.onClick){
-            if(options.menuItems){
-                //要判断点的不是下拉箭头
-                this.$el.click(function (e) {                    
-                    var menuIcon = This.$el.find(options.menuIconButtonPath)[0];
-                    var isClickIcon = menuIcon == e.target || M139.Dom.containElement(menuIcon,e.target);
-                    if(!isClickIcon){
-                        options.onClick();                        
-                    }else if(options.onClickBefore){
-                        options.onClickBefore(e);//点击下拉箭头触发回调事件, change by Aerojin 2014.04.15
-                    }
-
-                    if ($.browser.msie && $.browser.version <= 8) { // update by tkh IE67 阻止浏览器的默认行为，解决bug：回复转发打开空白写信页
-                        e.preventDefault();
-                    }
-                    return false;
-                });
-            }else{
-                //如果没有下拉菜单，全面积可点
-                this.$el.click(function (e) {
-                    options.onClick();
-                    if ($.browser.msie && $.browser.version <= 8) { // update by tkh IE67 阻止浏览器的默认行为，解决bug：回复转发打开空白写信页
-                        e.preventDefault();
-                        
-                    }
-                    return false;
-                });
-            }
-        }
-
-        return superClass.prototype.render.apply(this, arguments);
-    },
-    /**@inner*/
-
-    showMenu:function(){
-        var options = this.options;
-        var menuOptions = {
-	        selectMode: options.selectMode,
-            onItemClick: options.onItemClick,
-            items: options.menuItems,
-            customClass: options.customClass,
-            customStyle: options.customStyle,
-            dockElement: this.$el
-        };
-        this.menu = M2012.UI.PopMenu.create(menuOptions);
-    }
-}
-));
-
-var DefaultMenuButtonStyle = {
-    template :[
-    '<a class="btnTb ml_6" href="javascript:">',
-        '<span class="r pr_25 two"></span>',
-    '</a>'].join(""),
-    //contentPath:"span:eq(0)", 改成firstChild
-    //下拉图标
-    menuIconTemplate:'<span><i class="i_triangle_d"></i></span>',
-    //按钮没有自己的onClick的时候，不出现中间那条线，也就不需要多一个span
-    menuIconNoSpliterTemplate:'<i class="i_triangle_d"></i>',
-    //menuIconInsertPath:"span", 改成firstChild
-    leftSiblingTemplate:'<i class="l-line"></i>',
-    //leftSiblingPath:'span:last',改成firstChild
-    rightSiblingTemplate:'<i class="r-line"></i>',
-    //rightSiblingPath:'span:last', 改成firstChild.firstChild
-    //当右边没有按钮的时候
-    rightNoSibling:function($el){
-        $el.find("span.pr_25")[0].className = "pr_20 p_relative";
-    },
-    //当没有子菜单的时候
-    noMenu:function($el){
-        $el.find("span.pr_25")[0].className = "p_relative";
-    },
-    menuIconButtonPath:"span > span"
-};
+			if (options.rightSibling) {
+				var span = this.el.firstChild;
+				span = (span.firstChild && span.firstChild.tagName == "SPAN") ? span.firstChild : span;
+				$D.appendHTML(span, options.rightSiblingTemplate);
+			} else if (!options.onClick && options.rightNoSibling) {
+				options.rightNoSibling(this.$el);
+			}
 
 
-jQuery.extend(M2012.UI.MenuButton,
- /**
-  *@lends M2012.UI.MenuButton
-  */
-{
-    /**
-    *使用常规的样式创建一个菜单实例
-    *@param {Object} options 参数集合
-    *@param {String} options.text 按钮的文本
-    *@param {Function} options.onClick 按钮的点击回调
-    *@param {Function} options.onItemClick 菜单的点击回调
-    *@param {Array} options.menuItems 菜单项列表
-    *@param {HTMLElement} options.container 按钮的容器
-    *@param {Boolean} options.leftSibling 左侧是否还有按钮，显示竖线不显示圆角
-    *@param {Boolean} options.rightSibling 右侧是否还有按钮，显示竖线不显示圆角
-    *@example
-    M2012.UI.MenuButton.create({
-        text:"按 钮",
-        container:$("#btnContainer"),
-        leftSibling:true, //左边还有按钮，影响样式
-        rightSibling:true, //右边还有按钮，影响样式
-        menuItems:[
-            {
-                text:"xxx",
-                onClick:function(){}
-            }
-        ],
-        onItemClick:function(){
-            alert("itemclick");
-        },
-        onClick:function(){
-            alert("onclick");
-        }
-    });
-    */
-    create:function(options){
-        if(!options || !(options.text || options.html) || !options.container){
-            throw "M2012.UI.MenuButton.create:参数非法";
-        }
-        options = _.defaults(options,DefaultMenuButtonStyle);
-        var button = new M2012.UI.MenuButton(options);
-        var el = button.render().el;
-        var container = options.container || document.body;
-        if (M139.Dom.isJQueryObj(container)) {
-            container.append(el);
-        } else if (typeof container == "string") {
-            $(container).append(el);
-        }else {
-            container.appendChild(el);
-        }
-        return button;
-    }
-});
+			if (options.onClick) {
+				this.$el.click(function(e) {
+					var menuIcon = This.$el.find(options.menuIconButtonPath)[0];
+					var isClickIcon = menuIcon == e.target || (menuIcon && M139.Dom.containElement(menuIcon, e.target));
 
-})(jQuery,_,M139);
+					if (!isClickIcon) { // 点的不是下拉箭头
+						options.onClick();
+					} else if (options.onClickBefore) {
+						options.onClickBefore(e); //点击下拉箭头触发回调事件, change by Aerojin 2014.04.15
+					}
+
+					if ($.browser.msie && $.browser.version <= 8) { // update by tkh IE67 阻止浏览器的默认行为，解决bug：回复转发打开空白写信页
+						e.preventDefault();
+					}
+					//return false;
+				});
+			} else if (options.menuItems) {
+				this.$el.click(function(e) {
+					if (options.onClickShow) {
+						options.onClickShow(e);
+					}
+					This.showMenu();
+
+					// 在应用中创建按钮时onclick事件和样式耦合
+					// 因此在不需要onclick样式的按钮上记录onclick事件只能放到这里
+					var text = $.trim(options.text);
+					if (text == "移动到") {
+						$App.isReadSessionMail() && BH('cMail_toolbar_move');
+					} else if (text == "标记为") {
+						$App.isReadSessionMail() && BH('cMail_toolbar_mark');
+					}
+				});
+			}
+
+			if (options.menuItems && options.onClick && options.menuIconButtonPath) {
+				this.$el.find(options.menuIconButtonPath).click(function() {
+					This.showMenu();
+				});
+			}
+
+			return superClass.prototype.render.apply(this, arguments);
+		},
+
+		/**@inner*/
+		showMenu: function() {
+			var menu = this.menu;
+			var options = this.options;
+
+			if (menu === undefined) {
+				this.menu = M2012.UI.PopMenu.create(_.chain(options).pick(["selectMode", "onItemClick", "customClass", "customStyle"]).extend({
+					dockElement: this.$el,
+					items: options.menuItems,
+					hideInsteadOfRemove: true
+				}).value());
+			} else {
+				menu.isHide() ? menu.show() : menu.hide();
+			}
+		}
+	}));
+
+	var DefaultMenuButtonStyle = {
+		template: ['<a class="btnTb ml_6" href="javascript:">', '<span class="r pr_25 two"></span>', '</a>'].join(""),
+		//下拉图标
+		menuIconTemplate: '<span><i class="i_triangle_d"></i></span>',
+		//按钮没有自己的onClick的时候，不出现中间那条线，也就不需要多一个span
+		menuIconNoSpliterTemplate: '<i class="i_triangle_d"></i>',
+		leftSiblingTemplate: '<i class="l-line"></i>',
+		rightSiblingTemplate: '<i class="r-line"></i>',
+		//当右边没有按钮的时候
+		rightNoSibling: function($el) {
+			$el.find("span.pr_25")[0].className = "pr_20 p_relative";
+		},
+		//当没有子菜单的时候
+		noMenu: function($el) {
+			$el.find("span.pr_25")[0].className = "p_relative";
+		},
+		menuIconButtonPath: "span > span"
+	};
+
+
+	jQuery.extend(M2012.UI.MenuButton, {
+		/**
+		*使用常规的样式创建一个菜单实例
+		*@lends M2012.UI.MenuButton
+		*@see #M2012.UI.MenuButton.prototype.initialize
+		*/
+		create: function(options) {
+			if (!options || !(options.text || options.html) || !options.container) {
+				throw "M2012.UI.MenuButton.create:参数非法";
+			}
+			options = _.defaults(options, DefaultMenuButtonStyle);
+			var button = new M2012.UI.MenuButton(options);
+			var el = button.render().el;
+			var container = options.container || document.body;
+			$(container).append(el);
+			return button;
+		}
+	});
+
+})(jQuery, _, M139);
 ﻿/**
  * @fileOverview 定义下拉框组件，仿原生的select控件
  */
 
- (function (jQuery,_,M139){
- var $ = jQuery;
- var superClass = M139.View.ViewBase;
-M139.namespace("M2012.UI.DropMenu",superClass.extend(
- /**
-  *@lends M2012.UI.DropMenu.prototype
-  */
-{
-    /** 下拉框组件
-    *@constructs M2012.UI.DropMenu
-    *@extends M139.View.ViewBase
-    *@param {Object} options 初始化参数集
-    *@param {String} options.template 组件的html代码
-    *@param {String} options.contentPath 定义子项的容器路径
-    *@param {Number} options.selectedIndex 初始化下标（选中的项）
-    *@example
-    */
-    initialize: function (options) {
-        var $el = jQuery(options.template);
-        this.setElement($el);
-        return superClass.prototype.initialize.apply(this, arguments);
-    },
-    name: "M2012.UI.DropMenu",
+(function(jQuery, _, M139) {
+	var $ = jQuery;
+	var superClass = M139.View.ViewBase;
+	M139.namespace("M2012.UI.DropMenu", superClass.extend(
+		/**
+		 *@lends M2012.UI.DropMenu.prototype
+		 */
+		{
+			/** 下拉框组件
+			 *@constructs M2012.UI.DropMenu
+			 *@extends M139.View.ViewBase
+			 *@param {Object} options 初始化参数集
+			 *@param {String} options.template 组件的html代码
+			 *@param {String} options.contentPath 定义子项的容器路径
+			 *@param {Number} options.selectedIndex 初始化下标（选中的项）
+			 *@example
+			 */
+			initialize: function(options) {
+				var $el = $(options.template);
+				this.setElement($el);
+				return superClass.prototype.initialize.apply(this, arguments);
+			},
+			name: "M2012.UI.DropMenu",
 
-    /**构建dom函数*/
-    render:function(){
-        var This = this;
-        var options = this.options;
+			/**构建dom函数*/
+			render: function() {
+				var This = this;
+				var options = this.options;
 
-        if (options.contentPath) {
-            var initText = options.defaultText || "";
-            if(typeof options.selectedIndex == "number"){
-                initText = options.menuItems[options.selectedIndex].text || options.menuItems[options.selectedIndex].html;
-                this.selectedIndex = options.selectedIndex;
-            }
-            this.setText(initText);
-        }
+				if (options.contentPath) {
+					var initText = options.defaultText || "";
+					if (typeof options.selectedIndex == "number") {
+						initText = options.menuItems[options.selectedIndex].text || options.menuItems[options.selectedIndex].html;
+						this.selectedIndex = options.selectedIndex;
+					}
+					this.setText(initText);
+				}
 
-        /*防止事件重复绑定*/ 
-        this.$el.unbind('click');
-        this.$el.click(function(){
-            if (This.quiet) { return; }
-            This.showMenu();
-        });
+				/*防止事件重复绑定*/
+				this.$el.off('click').on("click", function() {
+					if (This.quiet) {
+						return;
+					}
+					This.showMenu();
+				});
 
-        return superClass.prototype.render.apply(this, arguments);
-    },
+				return superClass.prototype.render.apply(this, arguments);
+			},
 
-    defaults:{
-        selectedIndex:-1
-    },
+			defaults: {
+				selectedIndex: -1
+			},
 
-    /**@inner*/
-    setText:function(text){
-        this.$el.find(this.options.contentPath).html(text);
-    },
+			/**@inner*/
+			setText: function(text) {
+				this.$el.find(this.options.contentPath).html(text);
+			},
 
-    disable: function(){
-        this.quiet = true;
-    },
+			disable: function() {
+				this.quiet = true;
+			},
 
-    enable: function(){
-        this.quiet = false;
-    },
+			enable: function() {
+				this.quiet = false;
+			},
 
-    /**@inner*/
-    showMenu:function(){
-        var This = this;
-        var options = this.options;
-        var menuOptions = {
-            onItemClick: function (item, index) {
-                This.onMenuItemClick(item, index);
-            },
-            container: document.body,
-            items: options.menuItems,
-            dockElement: this.$el,
-            width: this.getWidth(),
-            maxHeight: options.maxHeight,
-            customClass: options.customClass
-        };
-        var menu = M2012.UI.PopMenu.create(menuOptions);
+			/**@inner*/
+			showMenu: function() {
+				var This = this;
+				var menu = this.menu;
+				var options = this.options;
 
-        This.menu = menu;
-        This.menu.on("subItemCreate", function(item) {
-            This.trigger("subItemCreate",item);
-        });
-    },
-    /**inner*/
-    onMenuItemClick:function(item,index){
-        this.setText(item.text || item.html);
-        this.selectedIndex = index;
-        /**
-        *选中值发生变化
-        *@event 
-        *@name M2012.UI.DropMenu#change
-        *@param {Object} item 原来的menuItem数据
-        *@param {Number} index 选中的下标
-        */
-        this.trigger("change",item,index);
-    },
-    /**
-     *得到选中的值
-     *@returns {Object}
-     */
-    getSelectedItem:function(){
-        return this.options.menuItems[this.selectedIndex] || null;
-    },
-    /***
-    设置当前选中项
-    */
-    setSelectedIndex:function(idx){
-        this.selectedIndex = idx;
-        this.options.selectedIndex = idx;
-        var item = this.getSelectedItem();
-        this.setText(item.text || item.html);
-        
-    },
-    setSelectedText:function(text){
-        this.setSelectedValue(text,"text");
-    },
-    setSelectedValue:function(val,type){
-        for (var i = 0; i < this.options.menuItems.length; i++) {
-            if (this.options.menuItems[i].value == val
-                || (type == "text" && this.options.menuItems[i].text == val)) {
-                this.setSelectedIndex(i);
-                return; 
-            }
-        }
-    },
-    /**获取数量
-    */
-    getCount: function () {
-        return this.options.menuItems.length;
-    },
-    /**在指定的位置添加一项，默认在尾部追加
-    */
-    addItem: function (item, position) {
-        if (position == undefined) {
-            this.options.menuItems.push(item);
-        } else {
-            this.options.menuItems.splice(position, 0, item); //splice(start, deleteCount, [item1])
-        }
-        this.render();
-    }
-}
-));
+				if (menu === undefined) {
+					var menuOptions = {
+						onItemClick: function(item, index) {
+							This.onMenuItemClick(item, index);
+						},
+						container: document.body,	// todo 很搓
+						items: options.menuItems,
+						dockElement: this.$el,
+						width: this.getWidth(),
+						maxHeight: options.maxHeight,
+						customClass: options.customClass,
+						selectMode: options.selectMode,
+						hideInsteadOfRemove: true
+					};
+					this.menu = M2012.UI.PopMenu.create(menuOptions);
+					this.menu.on("subItemCreate", function(item) {
+						This.trigger("subItemCreate", item);
+					});
+					This.trigger("menuCreate", this.menu);
+				} else {
+					menu.isHide() ? menu.show() : menu.hide();
+				}
+			},
 
-var DefaultStyle = {
-    template :[
-    '<div class="dropDown">',
-      '<div class="dropDownA" href="javascript:void(0)"><i class="i_triangle_d"></i></div>',
-      '<div class="dropDownText"></div>',
-    '</div>'].join(""),
-    contentPath:".dropDownText",
-    dropButtonPath:".dropDownA"
-    
-};
+			/**inner*/
+			onMenuItemClick: function(item, index) {
+				this.setText(item.text || item.html);
+				this.selectedIndex = index;
+				/**
+				 *选中值发生变化
+				 *@event
+				 *@name M2012.UI.DropMenu#change
+				 *@param {Object} item 原来的menuItem数据
+				 *@param {Number} index 选中的下标
+				 */
+				this.trigger("change", item, index);
+			},
+			/**
+			 *得到选中的值
+			 *@returns {Object}
+			 */
+			getSelectedItem: function() {
+				return this.options.menuItems[this.selectedIndex] || null;
+			},
+			/***
+			设置当前选中项
+			*/
+			setSelectedIndex: function(idx) {
+				this.selectedIndex = idx;
+				this.options.selectedIndex = idx;
+				var item = this.getSelectedItem();
+				this.setText(item.text || item.html);
+			},
+			setSelectedText: function(text) {
+				this.setSelectedValue(text, "text");
+			},
+			setSelectedValue: function(val, type) {
+				for (var i = 0; i < this.options.menuItems.length; i++) {
+					if (this.options.menuItems[i].value == val || (type == "text" && this.options.menuItems[i].text == val)) {
+						this.setSelectedIndex(i);
+						return;
+					}
+				}
+			},
+			/**
+			* 获取数量
+			*/
+			getCount: function() {
+				return this.options.menuItems.length;
+			},
+			/**
+			* 在指定的位置添加一项，默认在尾部追加
+			*/
+			addItem: function(item, position) {
+				if (position == undefined) {
+					this.options.menuItems.push(item);
+				} else {
+					this.options.menuItems.splice(position, 0, item);
+				}
+				this.render();
+			}
+		}
+	));
+
+	var DefaultStyle = {
+		template: [
+			'<div class="dropDown">',
+			'<div class="dropDownA" href="javascript:void(0)"><i class="i_triangle_d"></i></div>',
+			'<div class="dropDownText"></div>',
+			'</div>'
+		].join(""),
+		contentPath: ".dropDownText",
+		dropButtonPath: ".dropDownA"
+	};
 
 
-jQuery.extend(M2012.UI.DropMenu,
- /**
-  *@lends M2012.UI.DropMenu
-  */
-{
-    /**
-    *使用常规的样式创建一个菜单实例
-    *@param {Object} options 参数集合
-    *@param {String} options.defaultText 初始化时按钮的默认文本（如果有selectedIndex属性，则此属性无效）
-    *@param {Array} options.menuItems 菜单项列表
-    *@param {Number} options.selectedIndex 初始化下标
-    *@param {HTMLElement} options.container 按钮的容器
-    *@example
-    var dropMenu = M2012.UI.DropMenu.create({
-        defaultText:"默认文本",
-        //selectedIndex:1,
-        menuItems:[
-            {
-                text:"选项一",
-                myData:1
-            },
-            {
-                text:"选项二",
-                myData:2
-            }
-        ],
-        container:$("div")
-    });
-    dropMenu.on("change",function(item){
-        alert(item.myData);
-    });
+	jQuery.extend(M2012.UI.DropMenu,
+		/**
+		 *@lends M2012.UI.DropMenu
+		 */
+		{
+			/**
+			*使用常规的样式创建一个菜单实例
+			*@param {Object} options 参数集合
+			*@param {String} options.defaultText 初始化时按钮的默认文本（如果有selectedIndex属性，则此属性无效）
+			*@param {Array} options.menuItems 菜单项列表
+			*@param {Number} options.selectedIndex 初始化下标
+			*@param {HTMLElement} options.container 按钮的容器
+			*@example
+			var dropMenu = M2012.UI.DropMenu.create({
+			    defaultText:"默认文本",
+			    //selectedIndex:1,
+			    menuItems:[
+			        {
+			            text:"选项一",
+			            myData:1
+			        },
+			        {
+			            text:"选项二",
+			            myData:2
+			        }
+			    ],
+			    container:$("div")
+			});
+			dropMenu.on("change",function(item){
+			    alert(item.myData);
+			});
 
-    alert(dropMenu.getSelectedItem());//如果默认没有选中值，则返回null
+			alert(dropMenu.getSelectedItem());//如果默认没有选中值，则返回null
+			*/
+			create: function(options) {
+				if (!options || !options.container) {
+					throw "M2012.UI.DropMenu.create:参数非法";
+				}
+				options = _.defaults(options, DefaultStyle);
+				var button = new M2012.UI.DropMenu(options);
+				options.container.html(button.render().$el);
 
-    */
-    create:function(options){
-        if(!options || !options.container){
-            throw "M2012.UI.DropMenu.create:参数非法";
-        }
-        options = _.defaults(options,DefaultStyle);
-        var button = new M2012.UI.DropMenu(options);
-        //button.render().get$El().appendTo(options.container);
-        options.container.html(button.render().get$El())
+				return button;
+			}
+		});
 
-        return button;
-    }
-});
+})(jQuery, _, M139);
 
-})(jQuery,_,M139);
 ﻿/**创建浮动的popup容器
  * icon支持的样式 i_ok对号，i_warn叹号 
  * @example
@@ -12955,12 +12924,6 @@ M139.namespace("M139.UI.TabNav", Backbone.View.extend({
 	},
 
 	render: function(){
-		var element = this.$el;
-		// 坑。。解决与其它对象监听showTab事件的处理冲突
-		setTimeout(function(){
-			$("#sub").hide();
-			element.show();
-		}, 20);
 		return this;
 	},
 
@@ -12971,8 +12934,6 @@ M139.namespace("M139.UI.TabNav", Backbone.View.extend({
 	//切换tab栏
 	changeTab: function(e){
 		var index = $(e.currentTarget).attr("nav-index") | 0;
-		e.stopPropagation();	// todo bug ?
-		e.preventDefault();
 		if((typeof index == "number") && index < 0 || index >= this.items.length) {
 			return ;
 		}

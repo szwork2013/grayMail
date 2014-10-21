@@ -16,18 +16,18 @@
 <div class="meetingCon bgPadding clearfix" id="writeWrap">
 	<div class="meetingCon_c">
   <a hidefocus="1" href="javascript:void(0)" title="隐藏右边栏" class="switchOn2" id="switchSider"></a>	
-  <div class="writeMainDiv" id="activityMainDiv">
-	<div class="writeTable">
+  <div class="writeMainDiv">
+	<div class="writeTable" id="activityMainDiv">
 		<ul class="writeTable_ul">
 			<li class="writeTable_li clearfix">
 				<div class="divInputBox">
-                    <input type="text" maxlength="33" name="title" class="divInput colorGray" id="activityTitle"/>
+                    <input type="text" placeholder="会议主题，最多30字" maxlength="63" name="title" class="divInput" id="activityTitle"/>
                 </div>
 			</li>
 
 			<li class="writeTable_li clearfix">
                 <div class="p_relative">
-                <a href="javascript:void(0)" class="i-addPeople" id="inviteMore" style="position: absolute;z-index: 999;top: 7px;right: 8px;"></a>
+                <a href="javascript:void(0)" class="i-addPeople" bh="compose_activity_contacts" id="inviteMore" style="position: absolute;z-index: 999;top: 7px;right: 8px;"></a>
                     <div id="emailAddrInput" class="colorGray">
                         <!-- start 页面加载时显示，js加载完后会覆盖掉 -->
                         <div class="p_relative RichInputBox writeTable" style="z-index:3;">
@@ -78,19 +78,25 @@
                 </div>
 
                 <span class="fl mt_5 ml_10">
-					<input type="checkbox" id="endTimeCheck" class="checkbox">
+					<input type="checkbox" id="endTimeCheck" class="checkbox" bh="compose_activity_endtime">
 					<label class="checkbox_label" for="endTimeCheck">结束时间</label>
 				</span>
+
+                <span class="fl mt_5 ml_10">
+					<input type="checkbox" name="add_to_calendar" id="addToCalendar" bh="compose_activity_addcalendar" checked="checked" class="checkbox">
+					<label class="checkbox_label" for="addToCalendar">添加到日历</label>
+				</span>
+                <div style="clear: both"></div>
             </li>
 
 			<li class="writeTable_li clearfix">
 				<div class="divInputBox divInputBoxPor_l">
-                    <input type="text" maxlength="33" name="site" class="divInput colorGray" id="activityAddr" /><a href="#" class="i-address"></a></div>
+                    <input type="text" maxlength="63" name="site" bh="compose_activity_address" class="divInput" placeholder="会议地点（选填），最多30字" id="activityAddr" /><a href="javascript:void(0)" class="i-address"></a></div>
 			</li>
 
 			<li class="writeTable_li clearfix">
 				<div class="divInputBox writeTable_text">
-					<textarea id="activityContent" name="content" maxlength="503" class="colorGray"></textarea>
+					<textarea id="activityContent" name="content" bh="compose_activity_content" maxlength="1003" placeholder="会议详情（选填），最多500字" style="outline: none;"></textarea>
 				</div>
 			</li>
 		</ul>
@@ -135,8 +141,8 @@
 		<div class="allFrameBtn_bottom mt_10" style="position:relative">
             <div id="maskDiv" style="position:absolute; top:0px; height:43px; z-index:1000;" class="blackbanner hide"></div>
 			<!-- <a href="javascript:;" role="button" hidefocus class="btn btnGreen" role="button"><em>保 存</em></a><a href="javascript:;" role="button" hidefocus class="btn ml_10" role="button"><em>取 消</em></a> -->
-			<a href="javascript:;" class="btnG" id="sendInviteBtn" hidefocus="" role="button"><span>发 送</span></a>
-			<a href="javascript:;" class="btnTb ml_5" id="cancelInviteBtn" hidefocus="" role="button"><span>取 消</span></a>
+			<a href="javascript:void(0);" class="btnG" id="sendInviteBtn"><span>发 送</span></a>
+			<a href="javascript:void(0);" class="btnTb ml_5" id="cancelInviteBtn" hidefocus="" role="button"><span>取 消</span></a>
 		</div>
 	</div>
   </div>
@@ -197,7 +203,8 @@ top.loadScript("/m2012/js/service/activityinvite/upload_file.js",document);*/
         $(function () {
             //debugger;
             var ActivityInviteModel = new M2012.activityInvite.Model();
-            var ActivityInvite = new M2012.activityInvite.View({ model: ActivityInviteModel });
+            aiView = new M2012.activityInvite.View({ model: ActivityInviteModel });
+            top.aiView = aiView;
         });
 
     </script>

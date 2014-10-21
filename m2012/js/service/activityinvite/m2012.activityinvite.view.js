@@ -1,8 +1,8 @@
 /**
  * @Author: zhangjia
  * @Date:   2014-09-18 17:22
- * @Last Modified by:   zhangjia
- * @Last Modified time: 2014-09-18 10:44:17
+ * @Last Modified by:   anchen
+ * @Last Modified time: 2014-10-21 16:30:40
  */
 ;(function(jQuery, _, M139){
     var $ = jQuery;
@@ -18,7 +18,8 @@
             name: 'M2012.activityInvite.View',
             el:"body",
             events: {
-                "click #inviteMore" : 'showAddressBookDialog'
+                "click #inviteMore" : 'showAddressBookDialog',
+                "click #cancelInviteBtn": "cancelInvite"//底部取消会议邀请
             },
             initialize: function(options) {
                 this.model = options.model;
@@ -34,38 +35,39 @@
             initEvents: function() {
                 var self = this;
                 self.registerMouseEvent();
+                self.regCloseTabEvent();
                 self.createCalander();
                 self.createTimer();
                 self.isEndTimeChecked();
+                self.isAddToCalendarChecked();
                 self.isChinaMobileUserCheck();
                 self.isSMSRemindChecked();
+                self.handleMSPlaceholder();
 
                 // 监控数据校验结果并实时呈现错误信息
                 self.model.on(self.model.EVENTS.VALIDATE_FAILED, function (args) {
                     if (!args || !args.target || !args.message)
                         return;
                     var targetEl = null;
+
                     switch (args.target) {
                         //验证主题
-                        /*case "activityTitle": targetEl = $("#activityTitle");
-                            break;*/
-                        //验证地点
-                        case "activityAddr": targetEl = $("#activityAddr");
+                        case "title": targetEl = $("#activityTitle");
                             break;
-                        //验证会议详情
-                        case "activityContent":
-                            targetEl = $("#activityContent");
+                        //验证备注
+                        case "dtStart": targetEl = $("#startTxtCalendar");
                             break;
+                        case "dtEnd": targetEl = $("#endTxtCalendar");
+                            break;
+
                     }
+
                     if (targetEl && targetEl.length > 0) {
-                        //将滚动条滚动到顶部
-                        if (targetEl.offset().top < 0) {
-                            $("#activityMainDiv")[0].scrollTop = 0;
-                        }
-                        //console.log(args);
-                        window.setTimeout(function () {
-                            M2012.Calendar.View.ValidateTip.show(args.message, targetEl);
-                        }, 100);
+
+                        targetEl.focus();
+                        window.setTimeout(function(){
+                            M2012.Calendar.View.ValidateTip.Bottom.show(args.message, targetEl);
+                        },100);
                     }
 
                 });
@@ -73,12 +75,10 @@
             // 注册隐藏右侧通讯录面板鼠标事件
             registerMouseEvent : function(){
                 $("#switchSider").toggle(function(event){
-                    top.BH('activity_addressbook_toggle');
+
                     $(this).attr('title', '显示右边栏');
-                    // 隐藏右侧的样式
                     $("#writeWrap").addClass("writeMainOff");
                 },function(event){
-                    top.BH('activity_addressbook_toggle');
                     $(this).attr('title', '隐藏右边栏');
                     $("#writeWrap").removeClass("writeMainOff");
                 });
@@ -103,6 +103,7 @@
             },
             getDefaultDate: function (){
                 var now = new Date();
+                var now = new Date();
                 return new Date(now.getTime() + 30 * 60 * 1000);
             },
 
@@ -119,6 +120,7 @@
                 });
                 var startText = $("#startTxtCalendar > div:eq(0)");
                 startCalendarPicker.on("select", function (e) {
+                    BH({key:"compose_activity_datetime"});
                     var calendar = e.value.format("yyyy年MM月dd日 周w");
                     startText.html(calendar);
                     $("#startDateFormat").html(e.value.format("yyyy-MM-dd"));
@@ -132,6 +134,7 @@
                 });
                 var endText = $("#endTxtCalendar > div:eq(0)");
                 endCalendarPicker.on("select", function (e) {
+                    BH({key:"compose_activity_datetime"});
                     var calendar = e.value.format("yyyy年MM月dd日 周w");
                     endText.html(calendar);
                     $("#endDateFormat").html(e.value.format("yyyy-MM-dd"));
@@ -152,6 +155,7 @@
                     top : "200px",
                     left : "200px",
                     onItemClick : function(item){
+                        BH({key:"compose_activity_datetime"});
                         self.model.set({dtStart:self.getStartDateTime()});
 
                     }
@@ -165,6 +169,7 @@
                     top : "200px",
                     left : "200px",
                     onItemClick : function(item){
+                        BH({key:"compose_activity_datetime"});
                         self.model.set({dtStart:self.getStartDateTime()});
 
                     }
@@ -179,6 +184,7 @@
                     top : "200px",
                     left : "200px",
                     onItemClick : function(item){
+                        BH({key:"compose_activity_datetime"});
                         self.model.set({dtEnd:self.getEndDateTime()});
                         //console.log('change_hour:'+self.model.get("dtEnd"));
 
@@ -193,8 +199,9 @@
                     top : "200px",
                     left : "200px",
                     onItemClick : function(item){
+                        BH({key:"compose_activity_datetime"});
                         self.model.set({dtEnd:self.getEndDateTime()});
-                        console.log('change_minutes:'+self.model.get("dtEnd"));
+                        
                     }
                 });
             },
@@ -214,10 +221,23 @@
 
                     } else {
                         $(".endTimeDiv").hide();
-                        self.model.set({useEndTime:false})
+                        self.model.set({useEndTime:false});
                         self.model.set({
                             dtEnd:''
                         });
+                    }
+                });
+            },
+            //是否选择添加到自己的日历
+            isAddToCalendarChecked: function() {
+                var el = $("#addToCalendar"),self = this;
+                el.change(function(){
+                    if ( el.is(':checked') ){
+                        self.model.set({
+                            isAddToCalendar:true
+                        });
+                    } else {
+                        self.model.set({isAddToCalendar:false});
                     }
                 });
             },
@@ -267,7 +287,7 @@
                         var key = this.name;
 
                         data[key] = $.trim(this.value);
-                        console.log(data);
+                        //console.log(data);
                         self.model.set(data, {
                             validate: false,
                             target: key
@@ -284,12 +304,10 @@
                 self.model.set({dtStart:date+' '+time+":00"});
                 self.model.set({dtEnd:date+' '+time+":00"});
                 //保存
-                $("#sendInviteBtn").click(function (e) {
+                $("#sendInviteBtn").click(function () {
+                    BH({key:"compose_activity_send"});
+                    self.model.set({isFromSendBtn:true});
                     self.save(true);
-                });
-                
-                $("#cancelInviteBtn").click(function (e) {
-                    top.$App.close();
                 });
             },
             //渲染视图
@@ -310,33 +328,11 @@
                         self.model.set({ inviteInfo: data }, {
                             silent: true
                         });
-                        console.log('inviteInfo(r):'+self.model.get("inviteInfo"));
                     });
 
                 self.initPageEvents();
-
-                M139.Dom.setTextAreaAdaptive($("#activityTitle"), {
-                    placeholder: '会议主题，最多30字',
-                    defaultcolor: "#333"
-                });
-
-                M139.Dom.setTextAreaAdaptive($("#activityAddr"), {
-                    placeholder: '会议地点（选填），最多30字',
-                    defaultcolor: "#333"
-                });
-
-                M139.Dom.setTextAreaAdaptive($("#activityContent"), {
-                    placeholder: '会议详情（选填），最多500字',
-                    defaultheight: "200px",
-                    defaultcolor: "#333"
-                });
-
-                M139.Dom.setTextAreaAdaptive($("#smsRemindInfo"), {
-                    placeholder: '短信提醒内容，最多70字',
-                    defaultcolor: "#333"
-                });
-
             },
+
 
             /**
              * 获得时/分菜单项
@@ -377,6 +373,13 @@
                 self.toRichInput.setTipText('联系人');
                 self.toRichInput.on("focus",function(){
                     self.currentRichInput = this;
+                });
+                self.toRichInput.on("itemchange",function(){
+                    if(self.toRichInput.hasItem()) {
+                        self.model.set({hasEmailItems:true});
+                    } else {
+                        self.model.set({hasEmailItems:false});
+                    }
                 });
             },
 
@@ -431,6 +434,18 @@
                 });
             },
 
+            //截取value字符串前len个字节，一个汉字为2字节
+            getCutCode: function(value, len) {
+                var count = 0;
+                for (var i = 0; i<value.length; i++) {
+                    var codeByte = (value.charAt(i).charCodeAt(0)>255)?2:1;
+                    count = count + codeByte;
+                    if (count >= len) {
+                        return value.slice(0, i+1) ;
+                        break;
+                    }
+                }
+            },
             /** 实时监控输入框数据
              * @param {jQuery Object}  inputEl     //输入框元素
              * @param {Number}         maxLength   //允许输入字符的最大长度
@@ -439,8 +454,10 @@
                 var self = this;
                 inputEl.unbind("keyup parse").bind("keyup parse", function (e) {
                     var value = $.trim(inputEl.val());
-                    if (value.length > maxLength) {
-                        inputEl.val(value.slice(0, maxLength));
+                    if ($TextUtils.getBytes(value) > maxLength) {
+
+                        inputEl.val(self.getCutCode(value,maxLength));
+
                         var key = inputEl.attr("id");
 
                         //更新数据到model
@@ -450,15 +467,10 @@
                             silent: true,
                             validate: false
                         });
-                        //界面展示tips提示
-                        self.model.trigger(self.model.EVENTS.VALIDATE_FAILED, {
-                            target: key,
-                            message: $T.format(self.model.TIPS.MAX_LENGTH, [maxLength])
-                        });
                     }
                 });
             },
-            //对成员信息过滤
+            //对邀请的成员信息过滤
             getValidateReiciver: function(inviteArr){
                 var self = this;
                 var arr = [];
@@ -475,24 +487,107 @@
 
                 return arr;
             },
+
+            //修复IE下的placeholder问题
+            handleMSPlaceholder: function(){
+                var self = this;
+                if(!self.placeholderSupport()){   // 判断浏览器是否支持 placeholder
+                    $('[placeholder]').focus(function() {
+                        var input = $(this);
+                        if (input.val() == input.attr('placeholder')) {
+                            input.val('');
+                            input.css('color','#000');
+                        }
+                    }).blur(function() {
+                        var input = $(this);
+                        if (input.val() == '' || input.val() == input.attr('placeholder')) {
+                            input.css('color','#999');
+                            input.val(input.attr('placeholder'));
+                        }
+                    }).blur();
+                }
+            },
+
+            placeholderSupport:function () {
+                return 'placeholder' in document.createElement('input');
+            },
+            //取消会议邀请
+            cancelInvite : function(){
+                var self = this;
+                var isEdited = self.model.compare();
+                if (!isEdited || window.confirm(self.model.TIPS['CANCEL_INVITE'])) {
+                    BH({key:"compose_activity_cancel"});
+                    top.$App.close();
+                }
+
+            },
+
+            // 注册关闭会议邀请标签页事件
+            regCloseTabEvent : function(){
+                var self = this;
+                top.$App.on("closeTab", self.closeActivityTabCallback);
+            },
+
+            // 关闭会议邀请标签页回调
+            closeActivityTabCallback : function(args){
+                var self = this;
+                if(!top || !top.$App){
+                    return;
+                }
+
+                if (top.$App.getCurrentTab().name.indexOf('activityInvite') != -1) {
+                    aiView.model.active();
+                }
+
+                if(args.name && args.name === aiView.model.tabName){
+                    var isEdited = aiView.model.compare();
+                    if(isEdited){
+                        if(window.confirm(aiView.model.TIPS['CANCEL_INVITE'])){
+                            BH({key:"compose_activity_cancel"});
+                            top.M139.UI.TipMessage.hide();
+                            args.cancel = false;
+                            top.$App.off("closeTab", aiView.closeTabCallback);
+                        }else{
+                            args.cancel = true;
+                        }
+                    }else{
+                        top.M139.UI.TipMessage.hide();
+                        args.cancel = false;
+                        top.$App.off("closeTab", aiView.closeTabCallback);
+                    }
+                }
+            },
             /**
              *  提交数据
              **/
             save: function (validate) {
                 var self = this;
-                if(!self.checkInputAddr(event)){
-                    console.log('收件人验证未通过！');
+
+                if(window.isAttachUploading()) {
+                    top.$Msg.alert("附件上传尚未完成，请稍后发送！");
+                    return;
+                }
+
+                if (!self.model.isValid()) {
+                    return;
+                }
+
+                if(!self.checkInputAddr()){
+                    //console.log('收件人验证未通过！');
                     return;
                 } else {
+                    self.model.set({to:self.currentRichInput.getValidationItems().join(',')})
                     self.model.set({inviteInfo:self.getValidateReiciver(self.currentRichInput.getItems())})
                 }
+
+
                 if (window.filesToSend.length == 0) {
                     //新增会议邀请
                     self.saveData(validate);
                 } else {
                     getSendLink(function (fileLink) {   //获取超大附件链接后再发送
                         self.model.set("fileLink", fileLink);
-                        console.log(fileLink);
+                        //console.log(fileLink);
                         self.saveData(validate);
                     });
                 }

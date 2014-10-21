@@ -613,6 +613,14 @@ function letterContentBottomLoad() { //todo 通讯录
         },"utf-8");
     }
 
+    // 接受会议邀请日历活动添加
+    if (document.getElementById("meetingInviteOp")) {
+        requestByScript("m2012.calendar.meeting.inviteactivity", "/m2012/js/packs/calendar/m2012.calendar.prod_meeting_inviteactivity.html.pack.js?sid=" + top.$App.getSid(), function () {
+            meetingInviteObj.work();
+        },"utf-8");
+        
+    }
+
     //日历分享
     if ($$("shareCalendarEmail")) {
         requestByScript("m2012_calendar_shareactivity",
