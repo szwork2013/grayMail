@@ -41,8 +41,17 @@ var meetingInviteObj = (function () {
     try {
         if (!calendarInfo.calendarId) {
             var hrefEl = calendarInfo.calendarInitialMsg.find("a");
+
             if (hrefEl && hrefEl.length > 0) {
-                var calendarId = Number(top.$Url.queryString("calendarId", hrefEl.get(1).href));
+
+                var hrefVal = hrefEl.get(1);
+                //处理没有添加附件的情况
+                if (!hrefVal){
+                    hrefVal = hrefEl.get(0);
+                }
+
+                var calendarId = Number(top.$Url.queryString("calendarId", hrefVal.href));
+
                 if (calendarId) {
                     calendarInfo.calendarId = calendarId;
                 }

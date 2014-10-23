@@ -7927,7 +7927,7 @@ SWFObject.prototype.write = function(elementId){
             }
             //绝对定位到上传按钮的坐标，flash本身为透明遮罩
             $(div).css({
-                position: "absolute",
+                position: "fixed",
                 left: (c.offset().left || 250) + "px",
                 opacity: 0,
                 top: (c.offset().top || 87) + "px"

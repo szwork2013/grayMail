@@ -4978,7 +4978,7 @@ M139.namespace("M2012.UI.Picker.PickerBase",superClass.extend(
          *@inner
          */
         onShowMoreClick: function () {
-	        if(this.flashLoaded === undefined) {
+	        if(this.flashLoaded === undefined && typeof supportUploadType !== "undefined") {
 		        var node = document.getElementById("flashplayer");
 		        var isFlashUpload = !!(supportUploadType.isSupportFlashUpload && node);
 		        if(isFlashUpload && this.$("#avflashupload").length == 0){
@@ -5481,14 +5481,6 @@ M139.namespace("M2012.UI.Picker.PickerBase",superClass.extend(
                         }
                     }
                 },
-                //插入图片
-                {
-                    name: "InsertImage_Menu",
-                    view: function () { return new M2012.UI.HTMLEditor.View.ImageMenu() },
-                    callback: function (editor, e) {
-                        editor.insertImage(e.url);
-                    }
-                },
                 //插入表情
                 {
                     name: "Face_Menu",
@@ -5560,16 +5552,26 @@ M139.namespace("M2012.UI.Picker.PickerBase",superClass.extend(
 
         */
         create: function (options) {
+	        var commonButtons = DefaultStyle.buttons_Common;
+	        var moreButtons = DefaultStyle.buttons_More;
             if ($(options.contaier)[0].ownerDocument != document) {
                 this.setWindow(window.parent);//解决在top窗口创建编辑器的问题
             }
             //要隐藏的按钮
             if (options.hideButton) {
-                $(options.hideButton).each(function (index,menuName) {
-                    for (var i = 0; i < DefaultStyle.buttons_Common.length; i++) {
-                        var name = DefaultStyle.buttons_Common[i].name;
+                $(options.hideButton).each(function (index, menuName) {
+	                var i, name;
+                    for (i = 0; i < commonButtons.length; i++) {
+                        name = commonButtons[i].name;
                         if (name == menuName || name == menuName + "_Menu") {
-                            DefaultStyle.buttons_Common.splice(i, 1);
+                            commonButtons.splice(i, 1);
+                            i--;
+                        }
+                    }
+                    for (i = 0; i < moreButtons.length; i++) {
+                        name = moreButtons[i].name;
+                        if (name == menuName || name == menuName + "_Menu") {
+                            moreButtons.splice(i, 1);
                             i--;
                         }
                     }
@@ -5577,20 +5579,20 @@ M139.namespace("M2012.UI.Picker.PickerBase",superClass.extend(
             } else if (options.showButton) {
                 var showButtons = [];
                 $(options.showButton).each(function (index, menuName) {
-                    for (var i = 0; i < DefaultStyle.buttons_Common.length; i++) {
-                        var name = DefaultStyle.buttons_Common[i].name;
+                    for (var i = 0; i < commonButtons.length; i++) {
+                        var name = commonButtons[i].name;
                         if (name == menuName || name == menuName + "_Menu") {
-                            showButtons.push(DefaultStyle.buttons_Common[i]);
+                            showButtons.push(commonButtons[i]);
                         }
                     }
                 });
-                DefaultStyle.buttons_Common = showButtons;
+                commonButtons = showButtons;
                 if(!options.showMoreButton){
                     DefaultStyle.buttons_More = null;
                 }
             } else if (options.combineButton) {
                 var showButtons = [];
-                var combineButtons = DefaultStyle.buttons_Common.concat( DefaultStyle.buttons_More );
+                var combineButtons = commonButtons.concat( DefaultStyle.buttons_More );
                 $(options.combineButton).each(function (index, menuName) {
                     for (var i = 0; i < combineButtons.length; i++) {
                         var name = combineButtons[i].name;
@@ -5599,7 +5601,7 @@ M139.namespace("M2012.UI.Picker.PickerBase",superClass.extend(
                         }
                     }
                 });
-                DefaultStyle.buttons_Common = showButtons;
+                commonButtons = showButtons;
                 DefaultStyle.toolBarPath_Common = DefaultStyle.toolBarPath_Session;
                 DefaultStyle.buttons_More = null;
             }
@@ -5610,7 +5612,7 @@ M139.namespace("M2012.UI.Picker.PickerBase",superClass.extend(
 
             var view = new M2012.UI.HTMLEditor.View.Editor({
                 template: DefaultStyle.template,
-                buttons_Common: DefaultStyle.buttons_Common,
+                buttons_Common: commonButtons,
                 toolBarPath_Common: DefaultStyle.toolBarPath_Common,
                 buttons_More: DefaultStyle.buttons_More,
                 toolBarPath_More: DefaultStyle.toolBarPath_More,

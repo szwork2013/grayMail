@@ -13545,7 +13545,7 @@ M139.namespace("M2012.Folder.Model", {
                             max = Math.max(max, o.sortId);
                         });
                         self.callApi("user:setFilter_139", { items: [
-                { opType: "add", ignoreCase: 1, forwardBakup: 1, name: "cx", fromType: 1, forwardBakup: 1, dealHistoryMail: 0, conditionsRelation: 1, dealType: 2, moveToFolder: forderId, from: from, filterId: -1, sortId: max + 1 ,onOff:0}
+                { opType: "add", ignoreCase: 1, forwardBakup: 1, name: "cx", fromType: 1, forwardBakup: 1, dealHistoryMail: 2, conditionsRelation: 1, dealType: 2, moveToFolder: forderId, from: from, filterId: -1, sortId: max + 1 ,onOff:0}
                     ]
                         }, function (e) {
                         });
@@ -13942,7 +13942,8 @@ M139.namespace("M2012.Folder.Model", {
                                 max = Math.max(max, o.sortId);
                             });
                             self.callApi("user:setFilter_139", { items: [
-		                { opType: "add", ignoreCase: 1, forwardBakup: 1, name: "cx", fromType: 1, dealType: 5, conditionsRelation: 1, attachLabel: labelId, from: from, filterId: -1, sortId: max + 1,onOff:0 }
+
+		                { opType: "add", ignoreCase: 1, forwardBakup: 1, name: "cx", fromType: 1, dealType: 5, attachLabel: labelId, conditionsRelation: 1, dealHistoryMail: 2, from: from, filterId: -1, sortId: max + 1,onOff:0 }
                         ]
                             }, function (res) {
                             });
@@ -14433,9 +14434,8 @@ resizeSideBar: function () {
         //console.log(sidebar[0].scrollHeight , height);
         if (sidebar[0].scrollHeight > height) {
             sidebar.height(height);
-        } else if (sidebar[0].scrollHeight == height) {
+        } else if (sidebar[0].scrollHeight <= height) {
             sidebar.css("height", "");//清除高度
-        }else {
             $(".subListScrollTop").hide();
         }
        
@@ -19873,19 +19873,19 @@ M139.namespace("M2012.Mailbox.View", {
         showClassifyTips: function() {
             var self = this;
             $("body").append(self.tipTemplate);
-             M2012.UI.PopMenu.bindAutoHide({
+             $D.bindAutoHide({
                 action:"click",
                 element:$(".filterTip"),
                 callback:function(){
-                    $(".filterTip").hide();
+                    $(".filterTip").remove();
                 }
             });
             $(".toclassify_mail").click(function() {
                 self.onClassifyMailClick();
-                $(".filterTip").hide();
+                $(".filterTip").remove();
             })
             $(".closetip").click(function() {
-                $(".filterTip").hide();
+                $(".filterTip").remove();
             })
             /*var template = [
                     '<div direction="bottom" top="10px">',
@@ -19939,7 +19939,7 @@ M139.namespace("M2012.Mailbox.View", {
             */
             var mcount1 = 199, mcount2 = 999 ,mcount3 = 9999 ,fcount = 96; //真实设置
             var folderInfoName = { inputData: { userAccount: folderInfo.email } }
-            //var mcount1 = 10, mcount2 = 100, mcount3 = 200, fcount = 96; //测试数据
+            //var mcount1 = 10, mcount2 = 199, mcount3 = 299, fcount = 96; //测试数据
             var conditions = '';
 
             var condition0 = '，<a href="javascript:;"  id="btn_markUnread" bh="mailbox_markUnread">全部标为已读</a>|<a href="javascript:;" id="btn_deleteUnread" bh="mailbox_deleteUnread">彻底删除未读</a>';
@@ -19974,60 +19974,24 @@ M139.namespace("M2012.Mailbox.View", {
             if (fid == 1 && mesCount > mcount1 && filesCount < fcount) {
                 conditions = condition1;
             }
-            function setCustominfo(key,value) {
-                var text = top.$App.getUserConfigInfo("usercustominfo");
-                var reg = new RegExp("(?:^|&)"+key+"=(\\d+)");
-                        var match = text.match(reg);
-                        if (match) {
-                            text=text.replace(reg,"&"+key+"="+value);
-                            $App.getConfig("UserData").mainUserConfig.usercustominfo[1] = text;
-                        } else {
-                            text = text + "&"+key+"="+value;
-                            $App.getConfig("UserData").mainUserConfig.usercustominfo[1] = text;
-                        }
-                
-            };
-            /*
-            if (fid == 1 && mesCount > mcount2) {
-                if (!$App.getUserCustomInfo("above999") || $App.getUserCustomInfo("above999") == 0) {
-                    $App.setUserCustomInfoNew({above999:1},function() {
-                        setCustominfo("above999",1);
-                        if ($App.getUserCustomInfo("above999") == 1 && (!$App.getUserCustomInfo("above999tips")||$App.getUserCustomInfo("above999tips") == 0)) {
-                            self.showClassifyTips(); 
-                            $App.setUserCustomInfoNew({above999tips:1},function() {
-                            setCustominfo("above999tips",1);
-                    })
-                        }
-                    });
-                };    
-            } else if(fid == 1 && mesCount < mcount2) {
-                $App.setUserCustomInfoNew({above999:0},function() {
-                    setCustominfo("above999",0);
-                });
-                $App.setUserCustomInfoNew({above999tips:0},function() {
-                    setCustominfo("above999tips",0);
-                }); 
+            
+            if (fid == 1 && mesCount > mcount2 && (!$App.getCustomAttrs("filterTip")||$App.getCustomAttrs("filterTip") && $App.getCustomAttrs("filterTip").substr(0,1) == "0")) {
+                self.showClassifyTips();
+                var above9999 = $App.getCustomAttrs("filterTip").substr(1,1)||"0";
+                $App.setCustomAttrs("filterTip","1"+above9999);          
+            } else if(fid == 1 && mesCount < mcount2 && $App.getCustomAttrs("filterTip") && $App.getCustomAttrs("filterTip").substr(0,1) == "1") {
+                var above9999 = $App.getCustomAttrs("filterTip").substr(1,1)||"0";
+                $App.setCustomAttrs("filterTip","0"+above9999);          
             }
-            if (fid == 1 && mesCount > mcount3) {
-                if (!$App.getUserCustomInfo("above9999") || $App.getUserCustomInfo("above9999") == 0) {
-                    $App.setUserCustomInfoNew({above9999:1},function() {
-                        setCustominfo("above9999",1);
-                        if ($App.getUserCustomInfo("above9999") == 1 && (!$App.getUserCustomInfo("above9999tips")||$App.getUserCustomInfo("above9999tips") == 0)) {
-                            self.showClassifyTips();
-                            $App.setUserCustomInfoNew({above9999tips:1},function() {
-                            setCustominfo("above9999tips",1);
-                            })
-                        }
-                    });
-                };    
-            } else if(fid == 1 && mesCount < mcount3) {
-                $App.setUserCustomInfoNew({above9999:0},function() {
-                    setCustominfo("above9999",0);
-                });
-                $App.setUserCustomInfoNew({above9999tips:0},function() {
-                    setCustominfo("above9999tips",0);
-                }); 
-            }   */         
+            if (fid == 1 && mesCount > mcount3 && (!$App.getCustomAttrs("filterTip")||$App.getCustomAttrs("filterTip") && $App.getCustomAttrs("filterTip").substr(1,1) == "0")) {
+                self.showClassifyTips();
+                var above999 = $App.getCustomAttrs("filterTip").substr(0,1)||"0";
+                $App.setCustomAttrs("filterTip",above999+"1");          
+            } else if(fid == 1 && mesCount < mcount3 && $App.getCustomAttrs("filterTip") && $App.getCustomAttrs("filterTip").substr(1,1) == "1") {
+                var above999 = $App.getCustomAttrs("filterTip").substr(0,1)||"0";
+                $App.setCustomAttrs("filterTip",above999+"0");          
+            }
+                  
          
             if (fid == 4) { //已删除
                 conditions = $T.Utils.format(condiction_autoDel, [folderInfo.keepPeriod, "彻底删除"]);
@@ -27734,7 +27698,7 @@ function _letterInlineScript(win) {
              setTimeout(function(){
                 var scriptPath = "/m2012/js/richmail/readmail/m2012.readmail.letterscript.js";
                 writeScript('letterscript', scriptPath);
-            }, 2000);
+            }, 1000);
 
             
         }
@@ -43167,7 +43131,7 @@ var EnforceUpdateTips = "检测到“139邮箱小工具”有新版本，需要�
                 M139.UI.TipMessage.hide();
                 if (response.responseData && response.responseData.code == "S_OK") {
                     BH({ key: 'diskv2_other_savesuc' });
-                    //        This.onSaveRequestLoad(response.responseData);
+                    This.onSaveRequestLoad(response.responseData);
                     This.dialog.close();
                     var tipMsg = "存彩云网盘成功";
                     if (This.options.comeFrom !== 'fileCenter' && top.Links != undefined ) {// 文件提取中心是独立的页面，没办法打开彩云
@@ -46104,11 +46068,12 @@ var ProductFuns = {
 	            top.M139.UI.TipOnlineView.show();
 	        }, 1000 * 60 * 60); //1个小时显示
 	    }
+        /*
 	    if (top.SiteConfig.plugOnlineTip) {
 	        window.setTimeout(function () {
 	            top.M139.UI.TipActiveView.show();
 	        }, 1000 * 60); //1分钟显示
-	    }
+	    }*/
 
 
 	},

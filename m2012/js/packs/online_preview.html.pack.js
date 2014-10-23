@@ -4544,7 +4544,7 @@ var EnforceUpdateTips = "检测到“139邮箱小工具”有新版本，需要�
                 M139.UI.TipMessage.hide();
                 if (response.responseData && response.responseData.code == "S_OK") {
                     BH({ key: 'diskv2_other_savesuc' });
-                    //        This.onSaveRequestLoad(response.responseData);
+                    This.onSaveRequestLoad(response.responseData);
                     This.dialog.close();
                     var tipMsg = "存彩云网盘成功";
                     if (This.options.comeFrom !== 'fileCenter' && top.Links != undefined ) {// 文件提取中心是独立的页面，没办法打开彩云

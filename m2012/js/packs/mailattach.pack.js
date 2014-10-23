@@ -930,7 +930,7 @@
 				downloadUrl: url,
 				saveToMcloud: null
 			});
-			saveToDiskview.render().on("success", function () {
+			saveToDiskview.render().off("success").on("success", function () {
 				//存彩云成功记日志
 				top.addBehavior("attach_savedisk");
 			});
@@ -972,7 +972,7 @@
 				Attachinfos: attaches
 			});
 
-			saveToDiskview.render().on("success", function () {
+			saveToDiskview.render().off("success").on("success", function () {
 				//存彩云成功记日志
 				top.addBehavior("attach_savedisk");
 			});
@@ -1140,7 +1140,7 @@
 					console.log("fail");
 				}
 				
-				top.addBehavior("attach_forward_batch");
+				top.addBehavior("attach_forward");
 			});
 		},
 
@@ -1165,7 +1165,7 @@
 
 			this.renameConflict(dataList);
 
-			top.addBehavior("attach_download_batch");
+			top.addBehavior("attach_download");
 			var router = M139.HttpRouter, api = "attach:autoPack";
 			router.addRouter("webapp", [api]);
 			//console.log(router.getUrl(api));

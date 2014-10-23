@@ -734,10 +734,15 @@ M139.namespace("M2012.UI.Picker.PickerBase",superClass.extend(
                 callback(result);
             });
         },
-        savaData: function (arr, callback) {//appsvr序列化接口user:setAttrs mbox:updateFolders mbox:setUserFlag mbox:getAllFolders
+        savaData: function (arr, callback) {//appsvr序列化接口 mbox:updateFolders mbox:setUserFlag mbox:getAllFolders
             this.callApi("global:sequential", {
                 items: arr
             }, function (res) {
+                callback(res.responseData)
+            });
+        },
+        savaDataWebapp: function (arr, callback) {//webapp调用user:setAttrs
+            this.callApi("user:setAttrs", arr, function (res) {
                 callback(res.responseData)
             });
         },
@@ -1358,18 +1363,21 @@ M139.namespace("M2012.UI.Picker.PickerBase",superClass.extend(
         savaData: function () {
             var self = this;
             var arr = self.getAppsvrSequentialObj();
+            var arrWebapp = arr.shift();
             var PopRequest = self.getPopRequest();
             self.updateFolders(PopRequest.allowPop); //允许代收的文件夹
             self.updateFolders(PopRequest.unallowPop); //不允许代收的文件夹
-            this.model.savaData(arr, function (data) {
+            self.model.savaData(arr, function (data) {
                 if (data["code"] == "S_OK") {
+                   self.model.savaDataWebapp(arrWebapp["var"],function(dataWebapp) {
+                    if (dataWebapp["code"] == "S_OK"){
                     var text = $("#getMailForDate .dropDownText").text();
                     self.setOnlineTips();
-					
-					//通知邮件列表样式改变
-					top.$App.trigger('pageStyleChange',{pageStyle:self.model.get('_custom_pageStyle')});
-					
-					
+                    
+                    //通知邮件列表样式改变
+                    top.$App.trigger('pageStyleChange',{pageStyle:self.model.get('_custom_pageStyle')});
+                    
+                    
                     top.M139.UI.TipMessage.show(self.model.messages.saved, { delay: 2000 });
 
                     //重新加载两个接口的userattrs数据，并通知邮件列表刷新
@@ -1385,6 +1393,11 @@ M139.namespace("M2012.UI.Picker.PickerBase",superClass.extend(
                         self.model.set({ popStatusChange: false }); //还原成初始值
                     }
                     $("#popFolderList input").attr("status", "false"); //将值设成默认的false，用于文件夹选中状态再次改变后比较
+                   } else {
+                    self.saveError();
+                }
+               }) 
+                    
                 } else {
                     self.saveError();
                 }
@@ -1428,8 +1441,11 @@ M139.namespace("M2012.UI.Picker.PickerBase",superClass.extend(
                     text = self.model.messages.forwardMailNull;
                     self.windowAlert(text);
                     return;
-                }
-                else {//邮箱地址正确时新增auto_forwar_addrr的信息
+                } else if (!$Email.isEmail(val)) {
+                    text = "请输入正确的邮箱地址";
+                    self.windowAlert(text);
+                    return;
+                } else {//邮箱地址正确时新增auto_forwar_addrr的信息
                     data["auto_forward_addr"] = val;
                     if (bakup.checked) {
                         data['auto_forward_bakup'] = 0
@@ -1478,9 +1494,9 @@ M139.namespace("M2012.UI.Picker.PickerBase",superClass.extend(
                 data = self.getValue();
                 data = self.checkForwardAddr(data);
                 if (!data) { return }
-                if (data.auto_forward_addr != self.model.get('auto_forward_addr')) {
+                /*if (data.auto_forward_addr != self.model.get('auto_forward_addr')) {
                     self.model.forwardVerify(data.auto_forward_addr)
-                };
+                };*/
                 if ($(".formError").length > 0) {
                     var top = $(".formError").offset().top;
                     $("body").scrollTop(top - 200)
@@ -5004,7 +5020,7 @@ M139.namespace("M2012.UI.Picker.PickerBase",superClass.extend(
          *@inner
          */
         onShowMoreClick: function () {
-	        if(this.flashLoaded === undefined) {
+	        if(this.flashLoaded === undefined && typeof supportUploadType !== "undefined") {
 		        var node = document.getElementById("flashplayer");
 		        var isFlashUpload = !!(supportUploadType.isSupportFlashUpload && node);
 		        if(isFlashUpload && this.$("#avflashupload").length == 0){
@@ -5507,14 +5523,6 @@ M139.namespace("M2012.UI.Picker.PickerBase",superClass.extend(
                         }
                     }
                 },
-                //插入图片
-                {
-                    name: "InsertImage_Menu",
-                    view: function () { return new M2012.UI.HTMLEditor.View.ImageMenu() },
-                    callback: function (editor, e) {
-                        editor.insertImage(e.url);
-                    }
-                },
                 //插入表情
                 {
                     name: "Face_Menu",
@@ -5586,16 +5594,26 @@ M139.namespace("M2012.UI.Picker.PickerBase",superClass.extend(
 
         */
         create: function (options) {
+	        var commonButtons = DefaultStyle.buttons_Common;
+	        var moreButtons = DefaultStyle.buttons_More;
             if ($(options.contaier)[0].ownerDocument != document) {
                 this.setWindow(window.parent);//解决在top窗口创建编辑器的问题
             }
             //要隐藏的按钮
             if (options.hideButton) {
-                $(options.hideButton).each(function (index,menuName) {
-                    for (var i = 0; i < DefaultStyle.buttons_Common.length; i++) {
-                        var name = DefaultStyle.buttons_Common[i].name;
+                $(options.hideButton).each(function (index, menuName) {
+	                var i, name;
+                    for (i = 0; i < commonButtons.length; i++) {
+                        name = commonButtons[i].name;
                         if (name == menuName || name == menuName + "_Menu") {
-                            DefaultStyle.buttons_Common.splice(i, 1);
+                            commonButtons.splice(i, 1);
+                            i--;
+                        }
+                    }
+                    for (i = 0; i < moreButtons.length; i++) {
+                        name = moreButtons[i].name;
+                        if (name == menuName || name == menuName + "_Menu") {
+                            moreButtons.splice(i, 1);
                             i--;
                         }
                     }
@@ -5603,20 +5621,20 @@ M139.namespace("M2012.UI.Picker.PickerBase",superClass.extend(
             } else if (options.showButton) {
                 var showButtons = [];
                 $(options.showButton).each(function (index, menuName) {
-                    for (var i = 0; i < DefaultStyle.buttons_Common.length; i++) {
-                        var name = DefaultStyle.buttons_Common[i].name;
+                    for (var i = 0; i < commonButtons.length; i++) {
+                        var name = commonButtons[i].name;
                         if (name == menuName || name == menuName + "_Menu") {
-                            showButtons.push(DefaultStyle.buttons_Common[i]);
+                            showButtons.push(commonButtons[i]);
                         }
                     }
                 });
-                DefaultStyle.buttons_Common = showButtons;
+                commonButtons = showButtons;
                 if(!options.showMoreButton){
                     DefaultStyle.buttons_More = null;
                 }
             } else if (options.combineButton) {
                 var showButtons = [];
-                var combineButtons = DefaultStyle.buttons_Common.concat( DefaultStyle.buttons_More );
+                var combineButtons = commonButtons.concat( DefaultStyle.buttons_More );
                 $(options.combineButton).each(function (index, menuName) {
                     for (var i = 0; i < combineButtons.length; i++) {
                         var name = combineButtons[i].name;
@@ -5625,7 +5643,7 @@ M139.namespace("M2012.UI.Picker.PickerBase",superClass.extend(
                         }
                     }
                 });
-                DefaultStyle.buttons_Common = showButtons;
+                commonButtons = showButtons;
                 DefaultStyle.toolBarPath_Common = DefaultStyle.toolBarPath_Session;
                 DefaultStyle.buttons_More = null;
             }
@@ -5636,7 +5654,7 @@ M139.namespace("M2012.UI.Picker.PickerBase",superClass.extend(
 
             var view = new M2012.UI.HTMLEditor.View.Editor({
                 template: DefaultStyle.template,
-                buttons_Common: DefaultStyle.buttons_Common,
+                buttons_Common: commonButtons,
                 toolBarPath_Common: DefaultStyle.toolBarPath_Common,
                 buttons_More: DefaultStyle.buttons_More,
                 toolBarPath_More: DefaultStyle.toolBarPath_More,

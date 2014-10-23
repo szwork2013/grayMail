@@ -2366,8 +2366,12 @@ M139.namespace("M139.UI.TabNav", Backbone.View.extend({
 		if((typeof index == "number") && index < 0 || index >= this.items.length) {
 			return ;
 		}
-		//this.switchItem(index);
-		$App.show(this.items[index].key);
+		//$App.show(this.items[index].key);
+		var key = this.items[index].key;
+		setTimeout(function(){	// IE6, 7下页面加载空白
+			$App.show(key);
+		}, 0);
+		
 		this.onTabChange(this.items[index]);
 	},
 

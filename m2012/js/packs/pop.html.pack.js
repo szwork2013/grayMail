@@ -660,7 +660,7 @@ M139.namespace("M2012.Folder.Model", {
                             max = Math.max(max, o.sortId);
                         });
                         self.callApi("user:setFilter_139", { items: [
-                { opType: "add", ignoreCase: 1, forwardBakup: 1, name: "cx", fromType: 1, forwardBakup: 1, dealHistoryMail: 0, conditionsRelation: 1, dealType: 2, moveToFolder: forderId, from: from, filterId: -1, sortId: max + 1 ,onOff:0}
+                { opType: "add", ignoreCase: 1, forwardBakup: 1, name: "cx", fromType: 1, forwardBakup: 1, dealHistoryMail: 2, conditionsRelation: 1, dealType: 2, moveToFolder: forderId, from: from, filterId: -1, sortId: max + 1 ,onOff:0}
                     ]
                         }, function (e) {
                         });
@@ -1057,7 +1057,8 @@ M139.namespace("M2012.Folder.Model", {
                                 max = Math.max(max, o.sortId);
                             });
                             self.callApi("user:setFilter_139", { items: [
-		                { opType: "add", ignoreCase: 1, forwardBakup: 1, name: "cx", fromType: 1, dealType: 5, conditionsRelation: 1, attachLabel: labelId, from: from, filterId: -1, sortId: max + 1,onOff:0 }
+
+		                { opType: "add", ignoreCase: 1, forwardBakup: 1, name: "cx", fromType: 1, dealType: 5, attachLabel: labelId, conditionsRelation: 1, dealHistoryMail: 2, from: from, filterId: -1, sortId: max + 1,onOff:0 }
                         ]
                             }, function (res) {
                             });

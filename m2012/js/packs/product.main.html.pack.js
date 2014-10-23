@@ -175,11 +175,12 @@ var ProductFuns = {
 	            top.M139.UI.TipOnlineView.show();
 	        }, 1000 * 60 * 60); //1个小时显示
 	    }
+        /*
 	    if (top.SiteConfig.plugOnlineTip) {
 	        window.setTimeout(function () {
 	            top.M139.UI.TipActiveView.show();
 	        }, 1000 * 60); //1分钟显示
-	    }
+	    }*/
 
 
 	},

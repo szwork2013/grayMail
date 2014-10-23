@@ -3218,13 +3218,13 @@ M139.namespace("M2012.Folder.View", {
                 if (arr[i] == "") {//处理数组元素为空的情况
                     break
                 }
-                var mail = $Email.isEmail(arr[i]);
+                //var mail = $Email.isEmail(arr[i]);
 
 
-                if (!mail) {
+                /*if (!mail) {
                     this.model.alertWindow(this.model.messages.mailAddrError, objPrev);
                     return;
-                }
+                }*/
 
             }
             return arr;
@@ -3247,11 +3247,11 @@ M139.namespace("M2012.Folder.View", {
                 }
                 var text = mailArr.join(";");
                 var val = obj.prev().val();
-            //    if (val != "") {
-            //        obj.prev().val(text + ";" + val);
-            //    } else {
+                if (val != "") {
+                    obj.prev().val(text + ";" + val);
+               } else {
                     obj.prev().val(text);
-            //    }
+                }
             });
             view.on("cancel", function () {
             });
@@ -3639,22 +3639,6 @@ M139.namespace("M2012.Folder.View", {
             if (!this.getTop().$App.checkFolderName(nameVal, obj)) {
                 return;
             }
-            if (len == 0) {
-                if (!isAllEmail(addrVal)) {
-                    top.$Msg.alert(
-                    self.parentView.model.messages.mailAddrError2,
-                    {
-                        dialogTitle: "系统提示",
-                        icon: "warn",
-                        isHtml: true,
-                        onClose: function (e) {
-                            tbAddr.select().focus();
-                        }
-                    }
-                );
-                    return;
-                }
-            }
             this.parentView.model.addFolder(nameVal, addrVal);
             this.getTop().appView.trigger('reloadFolder', { reload: true });
             this.cancel();
@@ -3899,15 +3883,15 @@ M139.namespace("M2012.Folder.View", {
                     var getType = self.parentView.model.get(t);
                     var arr = self.getInputText(objRule.eq(m));
                     args[0][t] = getType;
-                    if (getType == 1 && arr.length > 1) {
+                    /*if (getType == 1 && arr.length > 1) {
                         args[0][t] = 7;
-                    }
+                    } 
                     for (var i = 0; i < arr.length; i++) {
                         if (!$Email.isEmail(arr[i]) && t != "subjectType") {
                             self.parentView.model.alertWindow(self.parentView.model.messages.mailAddrError);
                             return
                         }
-                    }
+                    }*/
                 }
             }
             if (this.type == 5) {
@@ -4129,7 +4113,7 @@ M139.namespace("M2012.Folder.View", {
                 );
                 return false;
             }
-            if (len == 0) {
+            /*if (len == 0) {
                 if (!$Email.getEmail(addrVal)) {
                     top.$Msg.alert(
                     self.parentView.model.messages.mailAddrError,
@@ -4144,7 +4128,7 @@ M139.namespace("M2012.Folder.View", {
                 );
                     return;
                 }
-            }
+            }*/
             this.parentView.model.addTag(tagName, Number(color), addrVal);
             this.cancel();
         }

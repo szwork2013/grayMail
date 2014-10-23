@@ -109,7 +109,11 @@ M139.namespace("M2012.ClassifyMail.Model",Backbone.Model.extend({
 
         template:{
             simpleContainer:[
-            '<fieldset class="boxIframeText  create-rule">',
+
+
+             
+            '<div class="boxIframeMain">',
+            '<fieldset class="boxIframeText create-rule" >',
            ' <ul class="form " style="padding-bottom:0px;">',
                ' <li class="formLine" style="padding-left:16px;">联系人后续邮件，将放入对应文件夹，方便快速查找！<a href="#" title="收信时，对邮件进行自动分类，轻松管理联系人的邮件。"><i class="i_wenhao"></i></a></li>',
                  '<li class="formLine pl_15 pr_15 pt_5">',
@@ -118,11 +122,16 @@ M139.namespace("M2012.ClassifyMail.Model",Backbone.Model.extend({
                        '<span class="check-input" ><strong>文件夹：</strong></span>',
                     '</div>',
                 '</li>',
+                '</ul>',
+                '<ul class="form " style="padding:0px; overflow-y:auto; position:relative; max-height:199px;">',
                 '{0}',
+                '</ul>',
+                '<ul class="form " style="padding-bottom:0px;">',
                 '<li class="formLine pl_20 pr_20 pt_5"><label class="pt_10 pb_10" style="display:block; border-top:1px #cccccc dotted;text-align:right;"><input type="checkbox" class="mr_5" id="historyfilter" value="">对历史邮件也执行此规则</label></li>',
             '</ul>',
         '</fieldset>',
-        '<div class="boxIframeBtn"><span class="bibText"><a href="#" id="btn_showfilter">进入收信规则详细设置</a> </span><span class="bibBtn"> <a href="javascript:void(0)" class="btnSure" bh="top10classify_onclick"><span>确 定</span></a>&nbsp;<a href="javascript:void(0)" class="btnNormal"><span>取 消</span></a> </span></div>'
+        '<div class="boxIframeBtn"><span class="bibText"><a href="#" id="btn_showfilter">进入收信规则详细设置</a> </span><span class="bibBtn"> <a href="javascript:void(0)" class="btnSure" bh="top10classify_onclick"><span>确 定</span></a>&nbsp;<a href="javascript:void(0)" class="btnNormal"><span>取 消</span></a> </span></div>',
+        '</div>'
             
            ].join(''),
            noneItem:[
@@ -440,7 +449,8 @@ M139.namespace("M2012.ClassifyMail.Model",Backbone.Model.extend({
         cleanMail:function(from) {
             var sysMail="10086@139.com"
             var cmpostReg=/cmpost/
-            if (from.match(cmpostReg)||from == sysMail||from == "") {
+
+            if (from.match(cmpostReg) || from == sysMail || from == "") {
                 return false;
             } else {
                 return true;
@@ -470,6 +480,7 @@ M139.namespace("M2012.ClassifyMail.Model",Backbone.Model.extend({
                         if (self.cleanMail(result[i].from)) {
                             if ((itemvalue.length + result[i].from.length)>25) {
                                 formatObj.from = result[i].from.substr(0,22-itemvalue.length)+"...";
+
                             };
                                 result[i].total > 10 && self.itemListData.length < 10 && self.itemListData.push(formatObj);
                                 result[i].total > 10 && itemData.length < 10 && itemData.push($T.Utils.format(itemtemp,formatObj)); 

@@ -4754,7 +4754,7 @@
          *@inner
          */
         onShowMoreClick: function () {
-	        if(this.flashLoaded === undefined) {
+	        if(this.flashLoaded === undefined && typeof supportUploadType !== "undefined") {
 		        var node = document.getElementById("flashplayer");
 		        var isFlashUpload = !!(supportUploadType.isSupportFlashUpload && node);
 		        if(isFlashUpload && this.$("#avflashupload").length == 0){
@@ -5257,14 +5257,6 @@
                         }
                     }
                 },
-                //插入图片
-                {
-                    name: "InsertImage_Menu",
-                    view: function () { return new M2012.UI.HTMLEditor.View.ImageMenu() },
-                    callback: function (editor, e) {
-                        editor.insertImage(e.url);
-                    }
-                },
                 //插入表情
                 {
                     name: "Face_Menu",
@@ -5336,16 +5328,26 @@
 
         */
         create: function (options) {
+	        var commonButtons = DefaultStyle.buttons_Common;
+	        var moreButtons = DefaultStyle.buttons_More;
             if ($(options.contaier)[0].ownerDocument != document) {
                 this.setWindow(window.parent);//解决在top窗口创建编辑器的问题
             }
             //要隐藏的按钮
             if (options.hideButton) {
-                $(options.hideButton).each(function (index,menuName) {
-                    for (var i = 0; i < DefaultStyle.buttons_Common.length; i++) {
-                        var name = DefaultStyle.buttons_Common[i].name;
+                $(options.hideButton).each(function (index, menuName) {
+	                var i, name;
+                    for (i = 0; i < commonButtons.length; i++) {
+                        name = commonButtons[i].name;
                         if (name == menuName || name == menuName + "_Menu") {
-                            DefaultStyle.buttons_Common.splice(i, 1);
+                            commonButtons.splice(i, 1);
+                            i--;
+                        }
+                    }
+                    for (i = 0; i < moreButtons.length; i++) {
+                        name = moreButtons[i].name;
+                        if (name == menuName || name == menuName + "_Menu") {
+                            moreButtons.splice(i, 1);
                             i--;
                         }
                     }
@@ -5353,20 +5355,20 @@
             } else if (options.showButton) {
                 var showButtons = [];
                 $(options.showButton).each(function (index, menuName) {
-                    for (var i = 0; i < DefaultStyle.buttons_Common.length; i++) {
-                        var name = DefaultStyle.buttons_Common[i].name;
+                    for (var i = 0; i < commonButtons.length; i++) {
+                        var name = commonButtons[i].name;
                         if (name == menuName || name == menuName + "_Menu") {
-                            showButtons.push(DefaultStyle.buttons_Common[i]);
+                            showButtons.push(commonButtons[i]);
                         }
                     }
                 });
-                DefaultStyle.buttons_Common = showButtons;
+                commonButtons = showButtons;
                 if(!options.showMoreButton){
                     DefaultStyle.buttons_More = null;
                 }
             } else if (options.combineButton) {
                 var showButtons = [];
-                var combineButtons = DefaultStyle.buttons_Common.concat( DefaultStyle.buttons_More );
+                var combineButtons = commonButtons.concat( DefaultStyle.buttons_More );
                 $(options.combineButton).each(function (index, menuName) {
                     for (var i = 0; i < combineButtons.length; i++) {
                         var name = combineButtons[i].name;
@@ -5375,7 +5377,7 @@
                         }
                     }
                 });
-                DefaultStyle.buttons_Common = showButtons;
+                commonButtons = showButtons;
                 DefaultStyle.toolBarPath_Common = DefaultStyle.toolBarPath_Session;
                 DefaultStyle.buttons_More = null;
             }
@@ -5386,7 +5388,7 @@
 
             var view = new M2012.UI.HTMLEditor.View.Editor({
                 template: DefaultStyle.template,
-                buttons_Common: DefaultStyle.buttons_Common,
+                buttons_Common: commonButtons,
                 toolBarPath_Common: DefaultStyle.toolBarPath_Common,
                 buttons_More: DefaultStyle.buttons_More,
                 toolBarPath_More: DefaultStyle.toolBarPath_More,
@@ -5749,10 +5751,16 @@
     *根据不同的入口，在创建规则页面打开时，自动填充某些规则的内容
     */
     getInitData: function () {
+        var self = this;
         var menuArrs = ["conditionsRelation","from","to","subject","attach","mailSize","mailRectimeStart","mailRectimeEnd","toRelation","subjectRelation","attachRelation"];
         for (var i in menuArrs) {
             this.getSelectMenu(menuArrs[i]); //为下拉菜单添加内容  
         };
+        this.editorView = M2012.UI.HTMLEditor.create({//引入编辑器组建
+            contaier:$('#text_reply'),
+            blankUrl:"../editor_blank.htm"
+        })
+         self.editorView.editor.setHtmlContent("");
         var type = $T.Url.queryString("type");
         switch (type) {
             case "workMail":
@@ -5775,10 +5783,7 @@
                 this.showNormalMail();
                 break
         }
-       /* this.editorView = M2012.UI.HTMLEditor.create({//引入编辑器组建
-            contaier:$('#text_reply'),
-            blankUrl:"../editor_blank.htm"
-        })*/
+       
     },
     showWorkMail: function (name) {
         this.getMenuMoveToFolder(name);
@@ -5832,7 +5837,8 @@
                     onOff[2].checked = true;
                 };
                 if (key.replayContent && key.replayContent != "您的来信已收到，我会尽快回信。") {
-                    $("#text_reply").val(M139.Text.Html.decode(key.replayContent));
+                    var reg= new RegExp('&nbsp;','g')
+                    self.editorView.editor.setHtmlContent( $Xml.decode(key.replayContent).replace(reg," "));
                 };
                 if (key.ruleType == 0 || key.ruleType == 3) {
                     $("#139mail").attr("checked",true);
@@ -6044,8 +6050,8 @@
                     options.items[0].forwardAddrVerify = self.forwardAddrVerify ? self.forwardAddrVerify:1;
                 }
                 if (type == "4") {//自动回复
-                    var editorValue = $("#text_reply").val();
-                    if (editorValue == "" ) {
+                    var editorValue = self.editorView.editor.getHtmlContent();
+                    if (editorValue == "") {
                         top.M139.UI.TipMessage.show(self.model.messages.autoReplyNull,{className:"msgOrange", delay: 1000 });
                         return;
                     }
@@ -6053,7 +6059,7 @@
                         top.M139.UI.TipMessage.show(self.model.messages.autoReplyContentMax,{className:"msgOrange", delay: 1000 });
                         return;
                     }
-                    options.items[0].replayContent = M139.Text.Html.encode(editorValue); //要加HTML转码 add by zsx
+                    options.items[0].replayContent = "<![CDATA[ "+editorValue+" ]]>";
                 }
                 attType.push(type);
             }
@@ -6084,8 +6090,7 @@
         } else {
             BH("byclassifynormal_onclick");
         }
-        $("#btn_save").attr("disabled","disabled");
-        $("#btn_save").unbind("click");
+        
         var self = this;
         var onOff = $("input[key=onoff]");
         var attRule = [];
@@ -6225,6 +6230,8 @@
             options.items[0].sortId = $T.Url.queryString("sortId");
         }
         options.items[0].dealType = attType.toString();
+        $("#btn_save").attr("disabled","disabled");
+        $("#btn_save").unbind("click");
         this.model.setFilter_139(options, function (datasource) {
                 if (datasource["code"] == "S_OK") {
                     top.BH("set_add_sort_save_success");
